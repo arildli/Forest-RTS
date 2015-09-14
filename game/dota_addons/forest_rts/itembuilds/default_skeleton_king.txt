@@ -1,0 +1,11 @@
+"itembuilds/test_axe.txt"
+{
+	"author"		"Arild"
+	"hero"			"npc_dota_hero_skeleton_king"
+	"Title"			"Recommended items for King of the Dead"
+
+	"Items"
+	{
+
+	}
+}

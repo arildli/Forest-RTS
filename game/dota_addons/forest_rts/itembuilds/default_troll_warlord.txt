@@ -1,0 +1,11 @@
+"itembuilds/test_axe.txt"
+{
+	"author"		"Arild"
+	"hero"			"npc_dota_hero_troll_warlord"
+	"Title"			"Recommended items for Warlord"
+
+	"Items"
+	{
+
+	}
+}

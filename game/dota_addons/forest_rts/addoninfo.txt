@@ -1,0 +1,10 @@
+"AddonInfo"
+{
+	"TeamCount"		"2"
+	"maps"			"forest"
+	"IsPlayable"		"1"
+	"forest"
+	{
+		"MaxPlayers"	"10"
+	}
+}

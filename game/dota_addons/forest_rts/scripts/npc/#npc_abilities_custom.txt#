@@ -1,0 +1,6341 @@
+// Dota Heroes File
+"DOTAAbilities"
+{
+	"Version"       "1"
+
+
+
+//-- // Kill // --// Spell1
+
+
+     	
+	// Spell1.1
+	// Kills the unit
+	//================================================================================
+	// Kill
+	//================================================================================
+	"srts_destroy_unit"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Kill"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET"	
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"necrolyte_death_pulse"
+
+		// Numbers
+		"AbilityCastPoint"		"0.1"
+		"AbilityCooldown"		"5"
+		"AbilityManacost"		"0"
+		"Maxlevel"			"1"
+
+		"precache"
+		{
+			// Not working
+			//"soundfile"		"soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"
+			//"particle"		"particles/units/heroes/hero_vengeful/vengeful_magic_missle.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+			"Damage"
+			{
+				"Target"	"CASTER"
+				"Type"		"DAMAGE_TYPE_PURE"
+				"Damage"	"10000"
+			}
+
+			"FireEffect"
+			{
+				// Not working
+				//"EffectName"	"particles/units/heroes/hero_techies/techies_suicide_fire.vpcf"
+				"EffectName"	"particles/units/heroes/hero_vengeful/vengeful_magic_missle.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Target"	"CASTER"
+			}
+
+			"FireSound"
+			{
+				// Not working
+				//"EffectName"	"Hero_Techies.Suicide"
+				"EffectName"	"DOTA_Item.Dagon.Activate"
+				"Target"	"CASTER"
+			}	
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"value"		"-9000"
+			}
+		}
+	}
+
+
+
+
+
+//-- // Melee Mercenaries // --// Spell2
+
+
+
+
+
+     	// Spell2.1
+	// Buys a Human Mercenary
+	//================================================================================
+	// Buy Human Mercenary
+	//================================================================================
+	"srts_buy_mercenary_human"
+	{
+		// General
+		"AbilityName"			"Mercenary_Human"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"kunkka_tidebringer"
+		//		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"120"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"370"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"2"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"18"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"135"
+			}
+		}		
+
+
+		"precache"
+		{
+			"particle"		"particles/items2_fx/hand_of_midas_b.vpcf"
+			//"model"			"models/heroes/dragon_knight/dragon_knight.vmdl"
+		}
+
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/items2_fx/hand_of_midas_b.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"		"CASTER"	
+			}	
+			
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_human_guard_1"
+				"UnitCount"	"1"
+				"SpawnRadius"	"1"
+				"Duration"	"600"
+				"Target"	"POINT"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+
+				"OnSpawn"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}	
+				}	
+			}	
+		}
+	}
+
+
+
+
+	// Spell2.2
+	// Buys a Forest Mercenary
+	//================================================================================
+	// Buy Forest Mercenary
+	//================================================================================
+	"srts_buy_mercenary_forest"
+	{
+		// General
+		"AbilityName"			"Mercenary_Forest"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"kunkka_tidebringer"
+		//		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"120"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"370"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"2"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"18"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"135"
+			}
+		}	
+
+		"precache"
+		{
+			"particle"		"particles/items2_fx/hand_of_midas_b.vpcf"
+			"model"			"models/heroes/furion/treant.vmdl"
+		}
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/items2_fx/hand_of_midas_b.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"		"CASTER"	
+			}	
+			
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_treant_warrior_1"
+				"UnitCount"	"1"
+				"SpawnRadius"	"1"
+				"Duration"	"600"
+				"Target"	"POINT"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+
+				"OnSpawn"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}	
+				}	
+			}
+ 		}
+	}
+
+
+
+
+	
+	// Spell2.3
+	// Buys a Kobold Mercenary
+	//================================================================================
+	// Buy Kobold Mercenary
+	//================================================================================
+	"srts_buy_mercenary_kobold"
+	{
+		// General
+		"AbilityName"			"Mercenary_Kobold"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"kunkka_tidebringer"
+		//		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"120"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"370"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"2"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"18"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"135"
+			}
+		}			
+
+		"precache"
+		{
+			"particle"		"particles/items2_fx/hand_of_midas_b.vpcf"
+			"model"			"models/creeps/neutral_creeps/n_creep_kobold/n_creep_kobold_b.vmdl"
+		}
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/items2_fx/hand_of_midas_b.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"		"CASTER"	
+			}	
+			
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_kobold_guard_1"
+				"UnitCount"	"1"
+				"SpawnRadius"	"1"
+				"Duration"	"600"
+				"Target"	"POINT"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+
+				"OnSpawn"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}	
+				}	
+			}	
+		}
+	}
+
+
+
+
+
+	// Spell2.4
+	// Buys a Skeleton Mercenary
+	//================================================================================
+	// Buy Skeleton Mercenary
+	//================================================================================
+	"srts_buy_mercenary_skeleton"
+	{
+		// General
+		"AbilityName"			"Mercenary_Skeleton"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"kunkka_tidebringer"
+		//		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"120"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"4"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"370"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"2"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"18"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"135"
+			}
+		}		
+
+		"precache"
+		{
+			"particle"		"particles/items2_fx/hand_of_midas_b.vpcf"
+			"model"			"models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl"
+		}
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/items2_fx/hand_of_midas_b.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"		"CASTER"	
+			}	
+			
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_skeleton_warrior_1"
+				"UnitCount"	"1"
+				"SpawnRadius"	"1"
+				"Duration"	"600"
+				"Target"	"POINT"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+
+				"OnSpawn"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}	
+				}	
+			}	
+		}
+	}
+
+
+
+
+
+	// Spell2.5
+	// Buys a Troll Mercenary
+	//================================================================================
+	// Buy Troll Mercenary
+	//================================================================================
+	"srts_buy_mercenary_troll"
+	{
+		// General
+		"AbilityName"			"Mercenary_Troll"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"kunkka_tidebringer"
+		//		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"120"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"370"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"2"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"18"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"135"
+			}
+		}		
+
+		"precache"
+		{
+			"particle"		"particles/items2_fx/hand_of_midas_b.vpcf"
+			"model"			"models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_berserker.vmdl"
+		}
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/items2_fx/hand_of_midas_b.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"		"CASTER"	
+			}	
+			
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_troll_guard_1"
+				"UnitCount"	"1"
+				"SpawnRadius"	"1"
+				"Duration"	"600"
+				"Target"	"POINT"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+
+				"OnSpawn"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}	
+				}	
+			}	
+		}
+	}
+
+
+
+
+
+	// Spell2.6
+	//================================================================================
+	// Generic Melee Training
+	//================================================================================
+	
+	"srts_train_basic_melee_unit"
+	{
+		// General
+		"AbilityName"			"Generic Train Basic Melee Unit"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"kunkka_tidebringer"
+		"Maxlevel"			"1"
+	}
+
+
+
+
+
+//-- // Ranged Mercenaries // --// Spell3
+
+
+
+
+
+     	// Spell3.1
+	// Buys a Ranged Human Mercenary
+	//================================================================================
+	// Buy Ranged Human Mercenary
+	//================================================================================
+	"srts_buy_mercenary_human_ranged"
+	{
+		// General
+		"AbilityName"			"Mercenary_Human_Ranged"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"drow_ranger_marksmanship"
+		//		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"135"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"16"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"135"
+			}
+		}		
+
+
+		"precache"
+		{
+			"particle"		"particles/items2_fx/hand_of_midas_b.vpcf"
+			"model"			"models/heroes/sniper/sniper.vmdl"
+			"particle"		"particles/units/heroes/hero_sniper/sniper_base_attack.vpcf"
+		}
+
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/items2_fx/hand_of_midas_b.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"		"CASTER"	
+			}	
+			
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_human_ranged_1"
+				"UnitCount"	"1"
+				"SpawnRadius"	"1"
+				"Duration"	"600"
+				"Target"	"POINT"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+
+				"OnSpawn"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}	
+				}	
+			}	
+		}
+	}
+
+
+
+	// Spell3.2
+	// Buys a Ranged Forest Mercenary
+	//================================================================================
+	// Buy Ranged Forest Mercenary
+	//================================================================================
+	"srts_buy_mercenary_forest_ranged"
+	{
+		// General
+		"AbilityName"			"Mercenary_Forest_Ranged"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"drow_ranger_marksmanship"
+		//		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"135"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"4"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"16"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"135"
+			}
+		}		
+
+		"precache"
+		{
+			"particle"		"particles/items2_fx/hand_of_midas_b.vpcf"
+			"model"			"models/heroes/enchantress/enchantress.vmdl"
+			"particle"		"particles/units/heroes/hero_enchantress/enchantress_base_attack.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/items2_fx/hand_of_midas_b.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"		"CASTER"	
+			}	
+			
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_forest_ranged_1"
+				"UnitCount"	"1"
+				"SpawnRadius"	"1"
+				"Duration"	"600"
+				"Target"	"POINT"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+
+				"OnSpawn"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}	
+				}	
+			}	
+		}
+	}
+
+
+
+	// Spell3.3
+	// Buys a Ranged Kobold Mercenary
+	//================================================================================
+	// Buy Ranged Kobold Mercenary
+	//================================================================================
+	"srts_buy_mercenary_kobold_ranged"
+	{
+		// General
+		"AbilityName"			"Mercenary_Kobold_Ranged"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"drow_ranger_marksmanship"
+		//		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"135"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"16"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"135"
+			}
+		}		
+
+		"precache"
+		{
+			"particle"		"particles/items2_fx/hand_of_midas_b.vpcf"
+			"model"			"models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_frost.vmdl"
+			"particle"		"particles/units/heroes/hero_lina/lina_base_attack.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/items2_fx/hand_of_midas_b.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"		"CASTER"	
+			}	
+			
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_kobold_ranged_1"
+				"UnitCount"	"1"
+				"SpawnRadius"	"1"
+				"Duration"	"600"
+				"Target"	"POINT"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+
+				"OnSpawn"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}	
+				}	
+			}	
+		}
+	}
+
+
+
+	// Spell3.4
+	// Buys a Ranged Skeleton Mercenary
+	//================================================================================
+	// Buy Ranged Skeleton Mercenary
+	//================================================================================
+	"srts_buy_mercenary_skeleton_ranged"
+	{
+		// General
+		"AbilityName"			"Mercenary_Skeleton_Ranged"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"drow_ranger_marksmanship"
+		//		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"135"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"16"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"135"
+			}
+		}		
+
+		"precache"
+		{
+			"particle"		"particles/items2_fx/hand_of_midas_b.vpcf"
+			"model"			"models/heroes/clinkz/clinkz.vmdl"
+			"particle"		"particles/units/heroes/hero_clinkz/clinkz_base_attack.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/items2_fx/hand_of_midas_b.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"		"CASTER"	
+			}	
+			
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_skeleton_ranged_1"
+				"UnitCount"	"1"
+				"SpawnRadius"	"1"
+				"Duration"	"600"
+				"Target"	"POINT"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+
+				"OnSpawn"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}	
+				}	
+			}	
+		}
+	}
+
+
+
+
+	// Spell3.5
+	// Buys a Ranged Troll Mercenary
+	//================================================================================
+	// Buy Ranged Troll Mercenary
+	//================================================================================
+	"srts_buy_mercenary_troll_ranged"
+	{
+		// General
+		"AbilityName"			"Mercenary_Troll_Ranged"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"drow_ranger_marksmanship"
+		//		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"135"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"16"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"135"
+			}
+		}		
+
+		"precache"
+		{
+			"particle"		"particles/items2_fx/hand_of_midas_b.vpcf"
+			"model"			"models/creeps/neutral_creeps/n_creep_troll_dark_a/n_creep_troll_dark_a.vmdl"
+			"particle"		"particles/units/heroes/hero_troll_warlord/troll_warlord_base_attack.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+			"FireEffect"
+			{
+				"EffectName"	"particles/items2_fx/hand_of_midas_b.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"Target"		"CASTER"	
+			}	
+			
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_troll_ranged_1"
+				"UnitCount"	"1"
+				"SpawnRadius"	"1"
+				"Duration"	"600"
+				"Target"	"POINT"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+
+				"OnSpawn"
+				{
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}	
+				}	
+			}	
+		}
+	}
+
+
+
+
+
+	// Spell3.6
+	//================================================================================
+	// Generic Ranged Training
+	//================================================================================
+	
+	"srts_train_basic_ranged_unit"
+	{
+		// General
+		"AbilityName"			"Generic Train Basic Ranged Unit"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_POINT"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"drow_ranger_marksmanship"
+		"Maxlevel"			"1"
+	}
+
+
+
+
+
+	// Spell3.7
+	//================================================================================
+	// Testing Unit Train
+	//================================================================================
+	"srts_train_unit_test"
+	{
+		// General
+		"AbilityName"			"Mercenary_Troll_Ranged"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		//"AbilityUnitTargetType"		"DOTA_ABILITY_TARGET_ALL"
+		"BaseClass"			"ability_datadriven"
+		//				"AbilityTextureName"		"drow_ranger_marksmanship"
+		"AbilityTextureName"		"alchemist_goblins_greed"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_1"
+		"AbilityCastRange"		"200"
+		"AbilityCooldown"		"5"
+		"AbilityGoldCost"		"135"
+		"AbilityUpgradeGoldCost"	"0"
+		"Maxlevel"			"1"
+
+		"OnSpellStart"
+		{
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_troll_ranged_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+					}
+				}
+			}
+		}		
+	}		
+
+
+
+
+
+//-- // Harvest Lumber // --// Spell4
+
+     
+
+	// Spell4.1
+	//================================================================================
+     	// Harvest Lumber
+	//================================================================================
+
+	"srts_harvest_lumber"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Harvest"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"	
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_TREE"
+		"AbilityTextureName"		"beastmaster_wild_axes"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"128"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"AbilityCastAnimation"		"ACT_DOTA_ATTACK"
+		"AbilityChannelTime"		"10"
+
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_furion/furion_wrath_of_nature.vpcf"
+			"particle"		"particles/units/heroes/hero_spirit_breaker/spirit_breaker_charge_tree.vpcf"
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"channel_time"	"10"
+			}
+			
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber"	"5"
+			}
+		}
+
+		"OnSpellStart"
+		{
+		
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_harvesting_lumber"
+				"Target"	"CASTER"
+			}		
+		}
+
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_harvesting_lumber"
+				"Target"	"CASTER"
+			}						
+		}
+
+		"OnChannelSucceeded"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/resources.lua"
+				"Function"	"GiveHarvestedLumber"
+				"Target"	"CASTER"
+				"channelTime"	"%channel_time"
+				"lumber"	"%lumber"
+			}
+	
+			"FireSound"
+			{
+				"EffectName"	"DOTA_Item.Hand_Of_Midas"
+				"Target"	"CASTER"
+			}
+		}	
+
+		"Modifiers"
+		{
+			"modifier_harvesting_lumber"
+			{
+				"IsDebuff"	"0"
+				"ThinkInterval"	"1.0"
+
+				"OnIntervalThink"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"		"channeling_animation"
+						"Target"		"CASTER"
+					}	
+	
+					"FireEffect"
+					{
+						//"EffectName"		"particles/units/heroes/hero_furion/furion_wrath_of_nature.vpcf"
+						"EffectName"		"particles/units/heroes/hero_spirit_breaker/spirit_breaker_charge_tree.vpcf"
+						"EffectAttachType"	"follow_origin"
+						//	"EffectAttachType"	"attach_hitloc"
+						"Target"		"CASTER"
+					}	
+				}
+			}	
+
+			"channeling_animation"
+			{
+				"IsHidden"		"1"
+				"Duration"		"0.9"
+				"OverrideAnimation"	"ACT_DOTA_ATTACK"
+			}	
+		}			
+	}
+
+
+
+
+
+	// Spell4.2
+	//================================================================================
+     	// Harvest Lumber Worker
+	//================================================================================
+
+	"srts_harvest_lumber_worker"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Harvest Worker"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"	
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_TREE"
+		"AbilityTextureName"		"beastmaster_wild_axes"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"128"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"AbilityCastAnimation"		"ACT_DOTA_ATTACK"
+		"AbilityChannelTime"		"50"
+
+		"precache"
+		{
+			"particle"		"particles/units/heroes/hero_furion/furion_wrath_of_nature.vpcf"
+			"particle"		"particles/units/heroes/hero_spirit_breaker/spirit_breaker_charge_tree.vpcf"
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"channel_time"	"50"
+			}
+			
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber"	"5"
+			}
+		}
+
+		"OnSpellStart"
+		{
+		
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_harvesting_lumber"
+				"Target"	"CASTER"
+			}		
+		}
+
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_harvesting_lumber"
+				"Target"	"CASTER"
+			}						
+		}
+
+		"OnChannelSucceeded"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/resources.lua"
+				"Function"	"GiveHarvestedLumber"
+				"Target"	"CASTER"
+				"channelTime"	"%channel_time"
+				"lumber"	"%lumber"
+			}
+	
+			"FireSound"
+			{
+				"EffectName"	"DOTA_Item.Hand_Of_Midas"
+				"Target"	"CASTER"
+			}
+		}	
+
+		"Modifiers"
+		{
+			"modifier_harvesting_lumber"
+			{
+				"IsDebuff"	"0"
+				"ThinkInterval"	"1.0"
+
+				"OnIntervalThink"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"		"channeling_animation"
+						"Target"		"CASTER"
+					}	
+	
+					"FireEffect"
+					{
+						//"EffectName"		"particles/units/heroes/hero_furion/furion_wrath_of_nature.vpcf"
+						"EffectName"		"particles/units/heroes/hero_spirit_breaker/spirit_breaker_charge_tree.vpcf"
+						"EffectAttachType"	"follow_origin"
+						//	"EffectAttachType"	"attach_hitloc"
+						"Target"		"CASTER"
+					}	
+				}
+			}	
+
+			"channeling_animation"
+			{
+				"IsHidden"		"1"
+				"Duration"		"0.9"
+				"OverrideAnimation"	"ACT_DOTA_ATTACK"
+			}	
+		}			
+	}	
+
+
+
+
+
+//-- // Construct Building // --// Spell5
+
+
+
+
+     
+	// Spell5.1
+	//================================================================================
+	// Build Watch Tower
+	//================================================================================
+
+	"srts_construct_watch_tower"
+	{
+	
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Watch Tower"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_watch_tower"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"3"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_watch_tower"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"25"
+		"AbilityLumberCost"				"30"
+		"BuildTime"					"15"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"25"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"30"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"15"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.85"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell5.2.1
+	//================================================================================
+	// Build Moonwell
+	//================================================================================
+
+	"srts_construct_crystal_radiant"
+	{
+	
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Moonwell"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_moonwell"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"2"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_crystal_radiant"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"75"
+		"AbilityLumberCost"				"60"
+		"BuildTime"					"15"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"75"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"60"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"15"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.8"
+			}
+			
+			"05"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"health_regen"	"2"
+			}		
+
+			"06"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"radius"	"900"
+			}		
+		}
+
+		"precache"
+		{
+
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell5.2.2
+	//================================================================================
+	// Build Unholy Spire
+	//================================================================================
+
+	"srts_construct_crystal_dire"
+	{
+	
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Unholy Spire"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_unholy_spire"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"2"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_crystal_dire"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"75"
+		"AbilityLumberCost"				"60"
+		"BuildTime"					"15"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"75"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"60"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"15"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.6"
+			}
+			
+			"05"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"health_regen"	"2"
+			}		
+
+			"06"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"radius"	"900"
+			}		
+		}
+
+		"precache"
+		{
+
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell5.3
+	//================================================================================
+	// Build Main Tent
+	//================================================================================
+
+	"srts_construct_main_building"
+	{
+	
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Main Tent"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_main_tent"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"3"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_main_tent_small"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"0"
+		"BuildTime"					"10"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"0"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"10"
+			}
+			
+			//"04"
+			//{
+			//	"var_type"	"FIELD_FLOAT"
+			//	"scale"		"1.05"
+			//}	
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}
+
+			//"RunScript"
+			//{
+			//	"Target"	"POINT"	
+			//	"ScriptFile"	"scripts/vscripts/buildings.lua"
+			//	"Function"	"attemptConstruction"
+			//	"buildingName"	"npc_dota_building_main_tent_small"
+			//	"lumberCost"	"%lumber_cost"
+			//	"goldCost"	"%gold_cost"
+			//	"buildTime"	"%build_time"
+			//	"scale"		"%scale"
+			//	"spellName"	"srts_construct_main_building"
+			//}	
+		}	
+	}
+
+
+
+
+
+	// Spell5.4.1
+	//================================================================================
+	// Build Barracks Radiant
+	//================================================================================
+
+	"srts_construct_barracks_radiant"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Barracks"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_barracks_radiant"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"4"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_barracks_radiant"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"100"
+		"AbilityLumberCost"				"40"
+		"BuildTime"					"20"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"100"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"40"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"20"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.8"
+			}	
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}
+	}
+
+
+
+
+
+	// Spell5.4.2
+	//================================================================================
+	// Build Barracks Dire
+	//================================================================================
+
+	"srts_construct_barracks_dire"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Barracks"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_barracks_dire"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"4"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_barracks_dire"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"100"
+		"AbilityLumberCost"				"40"
+		"BuildTime"					"20"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"100"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"40"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"20"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.8"
+			}		
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}
+	}
+
+
+
+
+
+	// Spell5.5
+	//================================================================================
+	// Build Market
+	//================================================================================
+
+	"srts_construct_market"
+	{	
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Market"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_market"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"4"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_market"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"50"
+		"AbilityLumberCost"				"40"
+		"BuildTime"					"20"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"50"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"40"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"20"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.8"
+			}		
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_x"	"0"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_y"	"-1"
+			}
+			
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_z"	"0"
+			}		
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell5.6.1
+	//================================================================================
+	// Build Armory Radiant
+	//================================================================================
+
+	"srts_construct_armory_radiant"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Armory"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_armory"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"4"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_armory"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"150"
+		"AbilityLumberCost"				"75"
+		"BuildTime"					"25"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"150"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"75"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"25"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"1.1"
+			}		
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_x"	"0"
+			}
+			
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_y"	"-1"
+			}
+			
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_z"	"0"
+			}		
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell5.6.2
+	//================================================================================
+	// Build Armory Dire
+	//================================================================================
+
+	"srts_construct_armory_dire"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Armory"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_armory"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"4"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_armory"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"150"
+		"AbilityLumberCost"				"75"
+		"BuildTime"					"25"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"150"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"75"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"25"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"1.1"
+			}		
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_x"	"0"
+			}
+			
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_y"	"-1"
+			}
+			
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_z"	"0"
+			}		
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell5.7
+	//================================================================================
+	// Build Gold Mine
+	//================================================================================
+
+	"srts_construct_gold_mine"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Gold Mine"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_gold_mine"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"5"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_gold_mine"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"0"
+		"AbilityLumberCost"				"15"
+		"BuildTime"					"15"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"0"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"15"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"15"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.65"
+			}		
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_x"	"0"
+			}
+			
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_y"	"-1"
+			}
+			
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"rotation_z"	"0"
+			}
+
+			"08"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"amount"	"15"
+			}		
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+
+
+// --// Menus //-- // Spell6
+
+
+
+
+	
+	// Spell6.1
+	//================================================================================
+	// Empty Spell
+	//================================================================================
+	"srts_empty_spell"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Empty Spell"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityTextureName"		"rattletrap_power_cogs"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+	}
+
+
+
+	// Spell6.2
+	//================================================================================
+	// Main Menu
+	//================================================================================
+	"srts_menu_main"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Main Menu"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"omniknight_purification"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		"AbilityCastPoint"		"0"
+		"AbilityCastRange"		"0"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"pageNumber"	"1"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"POINT"
+				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
+				"Function"	"GoToPageFunction"
+				"pageNumber"	"%pageNumber"
+			}
+
+//			"RunScript"
+//			{
+//				"Target"	"POINT"	
+//				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
+//				"Function"	"SwitchPage"
+//				"pageName"	"%pageNumber"
+//				"ability1"	"srts_harvest_lumber"
+//				"ability2"	"srts_transfer_lumber"
+//				"ability3"	""
+//				"ability4"	""
+//				"ability5"	"srts_menu_construction_1"
+//				"ability6"	"srts_menu_construction_2"
+//			}	
+		}
+	}
+
+
+
+	// Spell6.3
+	//================================================================================
+	// Construction Menu
+	//================================================================================
+	"srts_menu_construction_1"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construction Menu"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"chen_holy_persuasion"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		"AbilityCastPoint"		"0"
+		"AbilityCastRange"		"0"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"pageNumber"	"21"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"POINT"
+				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
+				"Function"	"GoToPageFunction"
+				"pageNumber"	"%pageNumber"
+			}
+
+//			"RunScript"
+//			{
+//				"Target"	"POINT"	
+//				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
+//				"Function"	"SwitchPage"
+//				"pageName"	"%pageNumber"
+//				"ability1"	"srts_construct_main_building"
+//				"ability2"	"srts_construct_barracks_basic"
+//				"ability3"	"srts_construct_crystal"
+//				"ability4"	"srts_construct_watch_tower"
+//				"ability5"	"srts_construct_market"
+//				"ability6"	"srts_menu_main"
+//			}	
+		}
+	}
+
+
+
+	// Spell6.4
+	//================================================================================
+	// Advanced Construction Menu
+	//================================================================================
+	"srts_menu_construction_2"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Advanced Construction Menu"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"chen_test_of_faith"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		"AbilityCastPoint"		"0"
+		"AbilityCastRange"		"0"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"pageNumber"	"22"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"POINT"
+				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
+				"Function"	"GoToPageFunction"
+				"pageNumber"	"%pageNumber"
+			}
+
+//			"RunScript"
+//			{
+//				"Target"	"POINT"	
+//				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
+//				"Function"	"SwitchPage"
+//				"pageName"	"%pageNumber"
+//				"ability1"	"srts_construct_armory"
+//				"ability2"	""
+//				"ability3"	""
+//				"ability4"	""
+//				"ability5"	""
+//				"ability6"	"srts_menu_main"
+//			}	
+		}
+	}
+
+
+
+
+
+//-- // Other spells // --// Spell7
+
+
+
+
+     
+	// Spell7.1
+	//================================================================================
+	// Repair Building
+	//================================================================================
+     	"srts_repair_building"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Repair"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"	
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam" 	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityTextureName"		"omniknight_degen_aura"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"128"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"AbilityCastAnimation"		"ACT_DOTA_ATTACK"
+		"AbilityChannelTime"		"60"
+
+		"precache"
+		{
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"channel_time"	"60"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"regen"		"20"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfBuilding"
+				"Target"	"TARGET"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_repairing_building_animation"
+				"Target"	"CASTER"
+			}		
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_repairing_building"
+				"Target"	"TARGET"
+			}		
+		}
+
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_repairing_building_animation"
+				"Target"	"CASTER"
+			}						
+
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_repairing_building"
+				"Target"	"TARGET"
+			}						
+		}
+
+		"OnChannelSucceeded"
+		{
+			//"RunScript"
+			//{
+			//	"ScriptFile"	"scripts/vscripts/resources.lua"
+			//	"Function"	"GiveHarvestedLumber"
+			//	"Target"	"CASTER"
+			//	"channelTime"	"%channel_time"
+			//	"lumber"	"%lumber"
+			//}
+	
+			//"FireSound"
+			//{
+			//	"EffectName"	"DOTA_Item.Hand_Of_Midas"
+			//	"Target"	"CASTER"
+			//}
+		}	
+
+		"Modifiers"
+		{
+			"modifier_repairing_building"
+			{
+				"IsDebuff"	"0"
+				"Attributes"	"MODIFIER_ATTRIBUTE_MULTIPLE"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%regen"
+				}
+			}	
+
+			"modifier_repairing_building_animation"
+			{
+				"IsDebuff"	"0"
+				"IsHidden"	"1"
+				"ThinkInterval"	"1.0"
+
+				"OnIntervalThink"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"		"channeling_animation"
+						"Target"		"CASTER"
+					}		
+				}
+			}	
+
+			"channeling_animation"
+			{
+				"IsHidden"		"1"
+				"Duration"		"0.9"
+				"OverrideAnimation"	"ACT_DOTA_ATTACK"
+			}	
+		}			
+	}
+
+
+
+
+
+	// Spell7.2
+	//================================================================================
+	// Sell Lumber
+	//================================================================================
+
+	"srts_sell_lumber_small"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Sell Lumber Small"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityTextureName"		"alchemist_goblins_greed"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		"AbilityCastPoint"		"0.1"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"25"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_gained"	"175"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"POINT"	
+				"ScriptFile"	"scripts/vscripts/utils.lua"
+				"Function"	"BuyGoldFromSpell"
+				"wood"		"%lumber_cost"
+				"gold"		"%gold_gained"
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell7.3
+	//================================================================================
+	// Transfer Lumber
+	//================================================================================
+
+	"srts_transfer_lumber"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Transfer Lumber"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"	
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam" 	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityTextureName"		"shredder_timber_chain"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"128"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"AbilitySpecial"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"POINT"	
+				"ScriptFile"	"scripts/vscripts/utils.lua"
+				"Function"	"TransferLumber"
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell7.5
+	//================================================================================
+	// Rotate Right
+	//================================================================================
+	"srts_rotate_right"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Rotate Right"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"		"abaddon_aphotic_shield"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		
+		// Casting
+		"AbilityCastPoint"		"0"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"CASTER"
+				"ScriptFile"	"scripts/vscripts/utils.lua"
+				"Function"	"RotateRight"
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell7.6
+	//================================================================================
+	// Rotate Left
+	//================================================================================
+	"srts_rotate_left"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Rotate Left"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"		"abaddon_aphotic_shield"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		
+		// Casting
+		"AbilityCastPoint"		"0"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"CASTER"
+				"ScriptFile"	"scripts/vscripts/utils.lua"
+				"Function"	"RotateLeft"
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell7.7
+	//================================================================================
+	// Periodic Mine Gold
+	//================================================================================
+
+	"srts_periodic_mine_gold"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Periodic Mine Gold"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"	
+		"AbilityTextureName"		"alchemist_goblins_greed"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		//"AbilityCooldown"		"0"
+		//"AbilityManacost"		"0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"period"	"5.0"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"amount"	"20"
+			}
+		}
+		
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_periodic_mine_gold"
+				"Target"	"CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_periodic_mine_gold"
+			{
+				"Passive"	"1"
+				"IsDebuff"	"0"
+			//	"ThinkInterval"	"%period"
+				"ThinkInterval"	"5.0"
+
+				"OnIntervalThink"
+				{	
+					//"FireEffect"
+					//{
+					//}
+
+					"RunScript"
+					{
+						"Target"	"CASTER"
+						"ScriptFile"	"scripts/vscripts/utils.lua"
+						"Function"	"GiveGold"
+						"amount"	"%amount"
+					}
+				}
+
+				"OnCreated"
+				{
+	
+				}	 
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell7.8
+	//================================================================================
+	// Soldier Give Vision
+	//================================================================================
+	"srts_soldier_vision"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Soldier Give Vision"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		"Modifiers"
+		{
+			"modifier_soldier_give_vision"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"ThinkInterval"	"0.5"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/utils.lua"
+						"Function"	"GiveVisionOfUnit"
+					}
+				}
+			}
+		}	
+	}
+
+
+
+
+
+	// Spell7.9
+	//================================================================================
+	// Ability Building
+	//================================================================================
+	"srts_ability_building"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Ability Building"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		"Modifiers"
+		{
+			"modifier_building"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT"	
+
+				"States"
+				{
+					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"		// Makes most abilities don't affect this. Use custom damage
+					"MODIFIER_STATE_ROOTED"		"MODIFIER_STATE_VALUE_ENABLED"		// Prevents movement.
+					"MODIFIER_STATE_SPECIALLY_DENIABLE" "MODIFIER_STATE_VALUE_ENABLED" 	// Allows attacking own buildings
+					"MODIFIER_STATE_LOW_ATTACK_PRIORITY"	"MODIFIER_STATE_VALUE_ENABLED"	// Makes it a less attractive target if there are units around.
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED" 	// GridNav is blocked
+				}
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DISABLE_TURNING"	"1"
+					"MODIFIER_PROPERTY_IGNORE_CAST_ANGLE"	"1"
+					"MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE"	"0.1"
+				}
+			}
+		}	
+	}
+
+
+
+
+
+	// Spell7.10
+	//================================================================================
+	// Empty Filler
+	//================================================================================
+	"srts_empty_filler"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Empty Filler"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"	
+	}
+
+
+
+
+
+	// Spell7.11
+	//================================================================================
+	// Ability Units
+	//================================================================================
+	"srts_ability_units"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Ability Unit"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		"Modifiers"
+		{
+			"modifier_unit"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DISABLE_AUTOATTACK"	"0"
+				}
+			}
+		}	
+	}
+
+
+
+
+
+	// Spell7.12
+	//================================================================================
+	// Cancel Construction
+	//================================================================================
+	"srts_cancel_construction"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Cancel Construction"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"		"omniknight_degen_aura"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"CancelBuilding"
+			}
+		}
+	}
+
+
+
+
+
+// --// Unit Spells //-- // Spell8
+
+
+
+
+
+   	// Spell8.1
+	//================================================================================
+	// Weak Afterburn
+	//================================================================================
+	"srts_weak_afterburn"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior" 		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityUnitDamageType"		"DAMAGE_TYPE_PHYSICAL"
+		"AbilityTextureName"		"clinkz_searing_arrows"
+
+
+
+		// Special
+		//------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"1"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"duration"	"4.0"
+			}
+		}
+		
+		// Modifiers
+		//------------------------------------------------------------------------
+		"OnAttackLanded"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_weak_afterburn"
+				"Target"	"TARGET"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_weak_afterburn"
+			{
+				"Passive"	"1"
+				"IsHidden"	"0"
+				"IsDebuff"	"1"
+				"Duration"	"%duration"
+				"ThinkInterval"	"1.0"
+				
+				"OnIntervalThink"
+				{
+					"Damage"
+					{
+						"Target"	"TARGET"
+						"Type"		"DAMAGE_TYPE_PHYSICAL"
+						"Damage"	"%damage"
+					}
+				}
+			}
+		}
+	}
+
+
+
+
+
+//-- // Train Troops // --// Train1
+
+
+
+
+
+     	// Train1.1.1
+	// Train Human Footman
+	//================================================================================
+	// Train Human Footman
+	//================================================================================
+	"srts_train_human_footman"
+	{
+		// General
+		"AbilityName"			"Human_Footman"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_footman"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"115"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"9"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"120"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"450"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"4"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"13"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"128"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"9"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_human_guard_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+	// Train1.1.2
+	// Train Forest Warrior
+	//================================================================================
+	// Train Forest Warrior
+	//================================================================================
+	"srts_train_forest_warrior"
+	{
+		// General
+		"AbilityName"			"Forest_Warrior"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_treant"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"105"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"105"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"370"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"2"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"18"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"128"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_treant_warrior_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+	// Train1.1.3
+	// Train Kobold Spearman
+	//================================================================================
+	// Train Kobold Spearman
+	//================================================================================
+	"srts_train_kobold_spearman"
+	{
+		// General
+		"AbilityName"			"Kobold_Spearman"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_spearman"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"85"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"7"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"85"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"280"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"2"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"14"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"150"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"7"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_kobold_guard_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+	// Train1.1.4
+	// Train Skeleton Warrior
+	//================================================================================
+	// Train Skeleton Warrior
+	//================================================================================
+	"srts_train_skeleton_warrior"
+	{
+		// General
+		"AbilityName"			"Skeleton_Warrior"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_skeleton_warrior"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"65"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"5"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"65"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"210"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"11"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"128"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"5"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_skeleton_warrior_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+	// Train1.1.5
+	// Train Troll Fighter
+	//================================================================================
+	// Train Troll Fighter
+	//================================================================================
+	"srts_train_troll_fighter"
+	{
+		// General
+		"AbilityName"			"Troll_Fighter"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_fighter"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"100"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"100"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"360"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"1"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"17"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"128"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_troll_guard_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+//-- // Ranged Units // --//
+
+
+
+
+
+     	// Train1.2.1
+	// Train Human Gunner
+	//================================================================================
+	// Train Human Gunner
+	//================================================================================
+	"srts_train_human_gunner"
+	{
+		// General
+		"AbilityName"			"Human_Gunner"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_gunner"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		//"AbilityGoldCost"		"120"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"120"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"16"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"600"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_human_ranged_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+     	// Train1.2.2
+	// Train Forest Dryad
+	//================================================================================
+	// Train Forest Dryad
+	//================================================================================
+	"srts_train_forest_dryad"
+	{
+		// General
+		"AbilityName"			"Forest_Dryad"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_dryad"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		//"AbilityGoldCost"		"120"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"120"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"16"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"600"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_forest_ranged_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+
+
+     	// Train1.2.3
+	// Train Kobold Flame Thrower
+	//================================================================================
+	// Train Kobold Flame Thrower
+	//================================================================================
+	"srts_train_kobold_flame_thrower"
+	{
+		// General
+		"AbilityName"			"Kobold_Flame_Thrower"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_flame_thrower"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		//"AbilityGoldCost"		"120"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"120"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"16"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"600"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_kobold_ranged_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+     	// Train1.2.4
+	// Train Skeleton Archer
+	//================================================================================
+	// Train Skeleton Archer
+	//================================================================================
+	"srts_train_skeleton_archer"
+	{
+		// General
+		"AbilityName"			"Skeleton_Archer"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_skeleton_archer"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		//"AbilityGoldCost"		"120"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"120"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"16"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"600"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_skeleton_ranged_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+     	// Train1.2.5
+	// Train Troll Axe Thrower
+	//================================================================================
+	// Train Troll Axe Thrower
+	//================================================================================
+	"srts_train_troll_axe_thrower"
+	{
+		// General
+		"AbilityName"			"Troll_Axe_Thrower"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_axe_thrower"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		//"AbilityGoldCost"		"120"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"120"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"16"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"600"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_troll_ranged_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+//-- // Worker // --// Train3
+
+
+
+
+
+     	// Train1.3.1
+	// Train Common Worker
+	//================================================================================
+	// Train Common Worker
+	//================================================================================
+	"srts_train_worker"
+	{
+		// General
+		"AbilityName"			"Worker"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_worker_ogre"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"75"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"75"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"200"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"1"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"8"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"128"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_worker"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+
+
+     	// Train1.3.2
+	//================================================================================
+	// Train Human Worker
+	//================================================================================
+	"srts_train_human_worker"
+	{
+		// General
+		"AbilityName"			"Worker"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_worker_human"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"75"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"75"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"200"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"1"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"8"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"128"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_human_worker"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+
+
+     	// Train1.3.3
+	//================================================================================
+	// Train Forest Worker
+	//================================================================================
+	"srts_train_forest_worker"
+	{
+		// General
+		"AbilityName"			"Worker"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_worker_forest"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"75"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"75"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"200"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"1"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"8"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"128"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_forest_worker"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+
+
+     	// Train1.3.4
+	//================================================================================
+	// Train Kobold Worker
+	//================================================================================
+	"srts_train_kobold_worker"
+	{
+		// General
+		"AbilityName"			"Worker"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_worker_kobold"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"75"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"75"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"200"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"1"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"8"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"128"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_kobold_worker"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+
+
+     	// Train1.3.5
+	//================================================================================
+	// Train Skeleton Worker
+	//================================================================================
+	"srts_train_skeleton_worker"
+	{
+		// General
+		"AbilityName"			"Worker"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_worker_skeleton"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"75"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"75"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"200"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"1"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"8"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"128"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_skeleton_worker"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+
+
+     	// Train1.3.6
+	//================================================================================
+	// Train Troll Worker
+	//================================================================================
+	"srts_train_troll_worker"
+	{
+		// General
+		"AbilityName"			"Worker"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_worker_troll"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//"AbilityGoldCost"		"75"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"75"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"200"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"1"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"8"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"128"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_troll_worker"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+//-- // Siege Units // --// Train4
+
+
+
+
+
+     	// Train1.4.1
+	// Train Catapult Radiant
+	//================================================================================
+	// Train Catapult Radiant
+	//================================================================================
+	"srts_train_catapult_radiant"
+	{
+		// General
+		"AbilityName"			"Catapult_Radiant"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_catapult_radiant"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		////"AbilityGoldCost"		"210"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"10"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"210"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"10"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"340"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"1"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"30"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"900"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"10"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_catapult_radiant"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+
+
+     	// Train1.4.2
+	// Train Catapult Dire
+	//================================================================================
+	// Train Catapult Dire
+	//================================================================================
+	"srts_train_catapult_dire"
+	{
+		// General
+		"AbilityName"			"Catapult_Dire"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_catapult_dire"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		////"AbilityGoldCost"		"210"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"10"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"210"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"10"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"340"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"1"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"30"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"900"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"10"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAfford"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_catapult_dire"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+
+
+//-- // Auras // --// Aura1
+
+
+
+
+
+     	//================================================================================
+	// Global Speed Aura
+	//================================================================================
+	"srts_global_speed_aura"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityTextureName"		"spirit_breaker_empowering_haste"
+
+		// Special
+		//------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"speed_bonus"	"20"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"global_radius"	"50000"
+			}
+		}
+
+		// Data driven
+		//------------------------------------------------------------------------
+		"Modifiers"
+		{
+			"modifier_global_speed_aura"
+			{
+				"Passive"	"1"
+				"IsBuff"	"1"
+				"IsHidden"	"1"
+				"TextureName"	"spirit_breaker_empowering_haste"
+
+				"Aura"		"global_speed_aura"
+				"Aura_Teams"	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Radius"	"%global_radius"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+			}
+
+			"global_speed_aura"
+			{
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"	"%speed_bonus"
+				}
+			}
+		}
+	}
+
+
+
+     	//================================================================================
+	// Crystal Aura
+	//================================================================================
+	"srts_crystal_aura"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior" 		"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
+		"AbilityUnitTargetTeam" 	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityTextureName" 		"enchantress_natures_attendants"
+		
+		// Special
+		//------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"health_regen" 	"2.0"
+			}
+
+			// Extra variables
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"radius"	"900"
+			}
+		}
+
+		"precache"
+		{
+			"particle"	"particles/units/heroes/hero_enchantress/enchantress_natures_attendants_heal_aura.vpcf"	
+		}
+
+		// Data driven
+		//------------------------------------------------------------------------
+		"Modifiers"
+		{
+			"modifier_crystal_aura"
+			{
+				"Passive"	"1"
+				"IsBuff"	"1"
+				"IsHidden" 	"1"
+				"TextureName"	"enchantress_natures_attendants"
+				
+				"Aura"		"crystal_aura"
+				"Aura_Teams" 	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+				"Aura_Radius" 	"%radius"
+				"Aura_Types"	"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+				
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"	"particles/units/heroes/hero_enchantress/enchantress_natures_attendants_heal_aura.vpcf" 
+						"EffectAttachType"	"follow_origin"
+						"Target"	"CASTER"
+					}
+				}
+			}
+
+			"crystal_aura"
+			{
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT" "%health_regen"
+				}
+			}
+		}
+	}
+
+
+
+
+
+
+//-- // Buildinghelper Library Spells // --// Lib1
+
+     	
+
+
+
+	//================================================================================
+	// Buildinghelper Library Spells
+	//================================================================================
+
+	"bh_dummy_unit"
+	{
+		"AbilityBehavior" 		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass" 			"ability_datadriven"
+		"AbilityTextureName"            "rubick_empty1"
+		"MaxLevel"                      "1"
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target" 	"CASTER"
+				"ModifierName"	"bh_dummy"
+			}
+		}
+		
+		"Modifiers"
+		{
+			"bh_dummy"
+			{
+				"Passive"         "1"
+				"IsHidden"        "1"    
+				"States"
+				{
+					"MODIFIER_STATE_UNSELECTABLE"	        "MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_INVULNERABLE"         	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NOT_ON_MINIMAP"       	"MODIFIER_STATE_VALUE_ENABLED"
+				}
+			}
+		}
+	}
+	 
+	 // this ability is optional.
+	"building"
+	{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"invoker_ghost_walk"
+		"MaxLevel"						"1"
+
+		// Stats
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCastRange"				"120"
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"0"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityManaCost"				"0"
+		
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"				"POINT"
+				"ScriptFile"			"scripts/vscripts/examples.lua"
+				"Function"				"getBuildingPoint"
+			}
+		}
+
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+		}
+	}
+
+	"ability_building"
+	{
+		"BaseClass"             		"ability_datadriven"
+		"MaxLevel" 						"1"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		
+		"Modifiers"
+		{
+			"modifier_building"
+			{
+				"Passive"			"1"
+				"IsHidden"			"1"
+				"Attributes"		"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT"	
+				"States"
+				{
+					"MODIFIER_STATE_MAGIC_IMMUNE" "MODIFIER_STATE_VALUE_ENABLED" // Makes most abilities don't affect this. Use custom damage
+					"MODIFIER_STATE_ROOTED"		"MODIFIER_STATE_VALUE_ENABLED" // Prevents moving
+					"MODIFIER_STATE_SPECIALLY_DENIABLE" "MODIFIER_STATE_VALUE_ENABLED" // Allows attacking own buildings
+					"MODIFIER_STATE_LOW_ATTACK_PRIORITY" "MODIFIER_STATE_VALUE_ENABLED" // Makes it a secondary target when A-clicking ground
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED" // GridNav is blocked
+				}
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DISABLE_TURNING" "1"
+					"MODIFIER_PROPERTY_IGNORE_CAST_ANGLE" "1"
+					"MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE"	"0.1"
+				}
+			}
+		}		
+	}
+
+	"ability_building_queue"
+	{
+		"BaseClass"             		"ability_datadriven"
+		"MaxLevel" 						"1"
+	
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+	
+		"Modifiers"
+		{
+			"modifier_building_queue"
+			{
+				"Passive"			"1"
+				"IsHidden"			"1"
+		
+				"ThinkInterval"  "0.03"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"buildings/queue.lua"
+						"Function"		"AdvanceQueue"
+					}
+				}
+			}
+		}
+	}
+	"move_to_point_100"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"BaseClass"						"ability_datadriven"
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityCastRange"				"100"
+		"MaxLevel"						"1"
+	
+		"AbilityManaCost"				"0"
+	
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"		"POINT"
+				"ScriptFile"	"builder.lua"
+				"Function"		"StartBuilding"
+			}
+		}
+	}
+	
+	"move_to_point_150"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"BaseClass"						"ability_datadriven"
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityCastRange"				"150"
+		"MaxLevel"						"1"
+	
+		"AbilityManaCost"				"0"
+	
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"		"POINT"
+				"ScriptFile"	"builder.lua"
+				"Function"		"StartBuilding"
+			}
+		}
+	}
+	
+	"move_to_point_200"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"BaseClass"						"ability_datadriven"
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityCastRange"				"200"
+		"MaxLevel"						"1"
+	
+		"AbilityManaCost"				"0"
+	
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"		"POINT"
+				"ScriptFile"	"builder.lua"
+				"Function"		"StartBuilding"
+			}
+		}
+	}
+	
+	"move_to_point_250"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"BaseClass"						"ability_datadriven"
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityCastRange"				"250"
+		"MaxLevel"						"1"
+	
+		"AbilityManaCost"				"0"
+	
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"		"POINT"
+				"ScriptFile"	"builder.lua"
+				"Function"		"StartBuilding"
+			}
+		}
+	}
+	
+	"move_to_point_300"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT"
+		"BaseClass"						"ability_datadriven"
+		"AbilityCastPoint"				"0"
+		"AbilityCooldown"				"0"
+		"AbilityCastRange"				"300"
+		"MaxLevel"						"1"
+	
+		"AbilityManaCost"				"0"
+	
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"		"POINT"
+				"ScriptFile"	"builder.lua"
+				"Function"		"StartBuildingEntity"
+			}
+		}
+	}
+
+
+
+
+
+	// TESTING
+
+	// Simple tower placement, normal behavior
+	"srts_construct_test_tower"
+	{
+		"BaseClass"             		"ability_datadriven"
+		"AbilityTextureName"			"spellicon_watch_tower"
+		"MaxLevel" 						"1"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"						"1" //bool
+		"BuildingSize"					"2"
+		"BuildTime"						"5.0"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"							"0" //bool
+		"PlayerCanControl"				"1" //bool
+
+		"UnitName"						"npc_dota_building_watch_tower"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"50"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"build_time"			"5.0"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"gold_cost"				"50"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"lumber_cost"			"0"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}
+		}
+	}
+}

@@ -1,0 +1,87 @@
+.ResourcePanel
+{
+    width: 100%;
+    height: 100%;
+}
+
+.Hidden 
+{ 
+    visibility: collapse;
+    opacity: 0;
+}
+
+.LumberPanel
+{
+    width: 100px;
+    height: 40px;
+
+    //border: 1px solid #000000;
+    //border-radius: 2px / 4px;
+    
+    horizontal-align: right;
+    vertical-align: top;
+
+    margin-top: 10px;
+    margin-right: 25px;
+}
+
+.GoldPanel
+{
+    width: 100px;
+    height: 40px;
+
+    //border: 1px solid #000000;
+    //border-radius: 2px / 4px;
+
+    horizontal-align: right;
+    vertical-align: top;
+
+    margin-top: 10px;
+    margin-right: 150px;
+}
+
+
+#LumberText
+{
+    color: green;
+    font-size: 20px;
+    font-family: Radiance;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0px 0px 3px 3.0 #000000;
+    
+    font-family: Radiance;
+    margin-left: 38px;
+    margin-top: 3px;
+}
+
+#GoldText
+{
+    color: gold;
+    font-size: 20px;
+    font-family: Radiance;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0px 0px 3px 3.0 #000000;
+    
+    font-family: Radiance;
+    margin-left: 38px;
+    margin-top: 3px;
+}
+
+
+#LumberIcon 
+{	
+    width: 30px; 
+    height: 22px; 
+    background-image: url("s2r://panorama/images/custom_game/lumber_icon.png"); 
+    background-size: 100% 100%;
+}
+
+#GoldIcon
+{
+    width: 30px;
+    height: 22px;
+    background-image: url("s2r://panorama/images/custom_game/gold_icon.png");
+    background-size: 100% 100%;
+}
