@@ -318,7 +318,7 @@ COMMANDER_FOOTMAN["category"] = "unit"
 COMMANDER_GUNNER = {}
 COMMANDER_GUNNER["name"] = "npc_dota_creature_human_ranged_1"
 COMMANDER_GUNNER["spell"] = "srts_train_human_gunner"
-COMMANDER_GUNNER["req"] = {}
+COMMANDER_GUNNER["req"] = {MARKET}
 COMMANDER_GUNNER["category"] = "unit"
 
 COMMANDER_CATAPULT = {}
@@ -364,7 +364,7 @@ FURION_WARRIOR["category"] = "unit"
 FURION_DRYAD = {}
 FURION_DRYAD["name"] = "npc_dota_creature_forest_ranged_1"
 FURION_DRYAD["spell"] = "srts_train_forest_dryad"
-FURION_DRYAD["req"] = {}
+FURION_DRYAD["req"] = {MARKET}
 FURION_DRYAD["category"] = "unit"
 
 FURION_CATAPULT = {}
@@ -414,7 +414,7 @@ GEOMANCER_SPEARMAN["category"] = "unit"
 GEOMANCER_FLAME_THROWER = {}
 GEOMANCER_FLAME_THROWER["name"] = "npc_dota_creature_kobold_ranged_1"
 GEOMANCER_FLAME_THROWER["spell"] = "srts_train_kobold_flame_thrower"
-GEOMANCER_FLAME_THROWER["req"] = {}
+GEOMANCER_FLAME_THROWER["req"] = {MARKET}
 GEOMANCER_FLAME_THROWER["category"] = "unit"
 
 GEOMANCER_CATAPULT = {}
@@ -460,7 +460,7 @@ KING_OF_THE_DEAD_WARRIOR["category"] = "unit"
 KING_OF_THE_DEAD_ARCHER = {}
 KING_OF_THE_DEAD_ARCHER["name"] = "npc_dota_creature_skeleton_ranged_1"
 KING_OF_THE_DEAD_ARCHER["spell"] = "srts_train_skeleton_archer"
-KING_OF_THE_DEAD_ARCHER["req"] = {}
+KING_OF_THE_DEAD_ARCHER["req"] = {MARKET}
 KING_OF_THE_DEAD_ARCHER["category"] = "unit"
 
 KING_OF_THE_DEAD_CATAPULT = {}
@@ -506,7 +506,7 @@ WARLORD_FIGHTER["category"] = "unit"
 WARLORD_AXE_THROWER = {}
 WARLORD_AXE_THROWER["name"] = "npc_dota_creature_troll_ranged_1"
 WARLORD_AXE_THROWER["spell"] = "srts_train_troll_axe_thrower"
-WARLORD_AXE_THROWER["req"] = {}
+WARLORD_AXE_THROWER["req"] = {MARKET}
 WARLORD_AXE_THROWER["category"] = "unit"
 
 WARLORD_CATAPULT = {}
@@ -737,10 +737,10 @@ COMMANDER_PAGE_CONSTRUCTION_1 =
 COMMANDER_PAGE_CONSTRUCTION_2 =
    {MARKET,
     ARMORY_RADIANT,
-    PAGE_MAIN,
     EMPTY_FILLER,
     EMPTY_FILLER,
-    EMPTY_FILLER}
+    EMPTY_FILLER,
+    PAGE_MAIN}
 
     -- Furion
 FURION_BUILDING_SPELLS =
@@ -763,10 +763,10 @@ FURION_PAGE_CONSTRUCTION_1 =
 FURION_PAGE_CONSTRUCTION_2 =
    {MARKET,
     ARMORY_RADIANT,
-    PAGE_MAIN,
     EMPTY_FILLER,
     EMPTY_FILLER,
-    EMPTY_FILLER}
+    EMPTY_FILLER,
+    PAGE_MAIN}
 
   -- Dire
 
@@ -791,10 +791,10 @@ GEOMANCER_PAGE_CONSTRUCTION_1 =
 GEOMANCER_PAGE_CONSTRUCTION_2 =
    {MARKET,
     ARMORY_DIRE,
-    PAGE_MAIN,
     EMPTY_FILLER,
     EMPTY_FILLER,
-    EMPTY_FILLER}
+    EMPTY_FILLER,
+    PAGE_MAIN}
 
 	-- King of the Dead
 KING_OF_THE_DEAD_BUILDING_SPELLS =
@@ -817,10 +817,10 @@ KING_OF_THE_DEAD_PAGE_CONSTRUCTION_1 =
 KING_OF_THE_DEAD_PAGE_CONSTRUCTION_2 =
    {MARKET,
     ARMORY_DIRE,
-    PAGE_MAIN,
     EMPTY_FILLER,
     EMPTY_FILLER,
-    EMPTY_FILLER}
+    EMPTY_FILLER,
+    PAGE_MAIN}
 
     -- Warlord
 WARLORD_BUILDING_SPELLS =
@@ -843,10 +843,10 @@ WARLORD_PAGE_CONSTRUCTION_1 =
 WARLORD_PAGE_CONSTRUCTION_2 =
    {MARKET,
     ARMORY_DIRE,
-    PAGE_MAIN,
     EMPTY_FILLER,
     EMPTY_FILLER,
-    EMPTY_FILLER}
+    EMPTY_FILLER,
+    PAGE_MAIN}
 
 
 

@@ -207,7 +207,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"370"
+		"StatusHealth"			"385"
 		"StatusHealthRegen"		"1.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -983,8 +983,8 @@
 		"ArmorPhysical"			"1"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"		"27"
-		"AttackDamageMax"		"33"
+		"AttackDamageMin"		"35"
+		"AttackDamageMax"		"45"
 		"AttackRate"			"2.5"
 		"AttackAnimationPoint"		"0.60"
 		"AttackAcquisitionRange"	"900"
@@ -1045,8 +1045,8 @@
 		"ArmorPhysical"			"1"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"		"27"
-		"AttackDamageMax"		"33"
+		"AttackDamageMin"		"35"
+		"AttackDamageMax"		"45"
 		"AttackRate"			"2.5"
 		"AttackAnimationPoint"		"0.60"
 		"AttackAcquisitionRange"	"900"
