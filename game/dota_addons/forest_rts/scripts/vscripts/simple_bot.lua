@@ -701,66 +701,87 @@ end
 --
 ---------------------------------------------------------------------------
 function SimpleBot:Patrol(group)
+   
+   if not group or not group.SB or group:GetRemaining() <= 0 then
+      printError("RegisterPatrol", "Invalid group!")
+      return
+   end
+   
+   local path = group:GetPath()
+   if not path then
+      PrintError("RegisterPatrol", "path was nil!")
+      return
+   end
+   
+   -- Timer needed as the move command didn't seem to work without it.
+   Timers:CreateTimer({
+			 endTime = 0.05,
+			 callback = function()
+			    for _,unit in ipairs(group) do
+			       unit:MoveToPositionAggressive(unit:GetDestination())
+			    end
+			 end
+		      })
+   
+   group._movementCountdown = 0
+   
+   -- The waypoint check.
+   Timers:CreateTimer(0, function()
+			 
+			 local patrolGroup = group
+			 local previousUnit
+			 local reissueOrder = false
+			 
 
-	if not group or not group.SB or group:GetRemaining() <= 0 then
-		printError("RegisterPatrol", "Invalid group!")
-		return
-	end
-
-	local path = group:GetPath()
-	if not path then
-		PrintError("RegisterPatrol", "path was nil!")
-		return
-	end
-
-	-- Timer needed as the move command didn't seem to work without it.
-	Timers:CreateTimer({
-		endTime = 0.05,
-		callback = function()
-			for _,unit in ipairs(group) do
-				unit:MoveToPositionAggressive(unit:GetDestination())
-			end
-		end
-	})
-
-	-- The waypoint check.
-	Timers:CreateTimer(0, function()
-
-		local patrolGroup = group
-		local previousUnit
-
-		for index,unit in ipairs(group) do
-
-			if not unit:IsNull() and unit:IsAlive() then
-
-				local currentDestination = unit:GetDestination()
-				local currentLocation = unit:GetCenter()
-
-				local slack = 200
-				local vectorDestMaxX = currentDestination.x + slack
-				local vectorDestMinX = currentDestination.x - slack
-				local vectorDestMaxY = currentDestination.y + slack
-				local vectorDestMinY = currentDestination.y - slack
-
-				-- Check if unit has reached waypoint
-				if currentLocation.x > vectorDestMinX and currentLocation.x < vectorDestMaxX and
-					currentLocation.y > vectorDestMinY and currentLocation.y < vectorDestMaxY then
-
-					unit:IncPatrolIndex()
-
-					-- Again, the timer seems to be required for the movement to work.
-					Timers:CreateTimer({
-						endTime = 0.05,
-						callback = function()
-							unit:MoveToPositionAggressive(unit:GetDestination())
-						end
-					})
-				end
-			end
-		end
-
-	  return PATROL_CHECK_INTERVAL
-    end)
+			 --[[
+			 if group._movementCountdown == 1 / PATROL_CHECK_INTERVAL then
+			    group._movementCountdown = 0
+			    reissueOrder = true
+			    print("ReissueOrder = true")
+			 else
+			    group._movementCountdown = group._movementCountdown + 1
+			    end
+			    print(group._movementCountdown)]]
+			 
+			 for index,unit in ipairs(group) do	   
+			    if not unit:IsNull() and unit:IsAlive() then
+			       
+			       --[[
+				  if group._movementCountdown == 0 then
+				  
+				  end]]
+			       
+			       local currentDestination = unit:GetDestination()
+			       local currentLocation = unit:GetCenter()
+			       
+			       local slack = 200
+			       local vectorDestMaxX = currentDestination.x + slack
+			       local vectorDestMinX = currentDestination.x - slack
+			       local vectorDestMaxY = currentDestination.y + slack
+			       local vectorDestMinY = currentDestination.y - slack
+			       
+			       -- Check if unit has reached waypoint
+			       if currentLocation.x > vectorDestMinX and currentLocation.x < vectorDestMaxX and
+			       currentLocation.y > vectorDestMinY and currentLocation.y < vectorDestMaxY then
+				  
+				  unit:IncPatrolIndex()
+				  if DEBUG then
+				     DebugDrawCircle(unit:GetAbsOrigin(), Vector(255,255,0), 5, 50, false, 60)			 
+				  end
+				  
+				  -- Again, the timer seems to be required for the movement to work.
+				  Timers:CreateTimer({
+							endTime = 0.05,
+							callback = function()
+							   unit:MoveToPositionAggressive(unit:GetDestination())
+							end
+						     })
+			       end
+			    end
+			 end
+			 
+			 return PATROL_CHECK_INTERVAL
+			 end)
 end
 
 

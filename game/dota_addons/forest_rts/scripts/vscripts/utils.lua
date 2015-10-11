@@ -145,7 +145,7 @@ function SpendResources(unit, goldAmount, lumberAmount)
     print("SpendResources: Couldn't get owner of 'hero'!")
     return false
   end
-  local hero = PLAYER_HEROES[playerID]
+  local hero = GetPlayerHero(playerID)
   if not hero then
     print("SpendResources: hero was nil!")
     return false
@@ -156,12 +156,11 @@ function SpendResources(unit, goldAmount, lumberAmount)
     print("Gold required: "..goldAmount..", Current gold: "..currentGold)
     return false
   end
-  
+
   if SpendLumber(hero, lumberAmount) == true then
-    PlayerResource:SpendGold(playerID, goldAmount, 0)
-    
-    ReportStat(owner, goldAmount, "goldSpent")
-    ReportStat(owner, lumberAmount, "lumberSpent")
+     PlayerResource:SpendGold(playerID, goldAmount, 0)
+    --ReportStat(owner, goldAmount, "goldSpent")
+    --ReportStat(owner, lumberAmount, "lumberSpent")
     return true
   else
     print("Lumber required: "..lumberAmount)
@@ -226,6 +225,14 @@ end
 
 
 
+-- Give gold to the player.
+function GiveGoldToPlayer(playerID, amount)
+   local currentGold = PlayerResource:GetReliableGold(playerID)
+   PlayerResource:SetGold(playerID, currentGold + amount, true)
+end
+
+
+
 -- Buy gold for lumber.
 function BuyGold(unit, wood, gold)
   if not unit or not wood or not gold then
@@ -282,15 +289,177 @@ function TransferLumber(keys)
     if lumberCount > 0 then
        local lumberItem = GetItemFromInventory(caster, "item_stack_of_lumber")
        if lumberItem then
+	  PopupLumber(caster, lumberCount)
 	  caster:RemoveItem(lumberItem)
        end
        hero:IncLumber(lumberCount)
+       caster:ReturnToHarvest()
     else
       print("TransferLumber: caster did not have any lumber!")
     end
   else
     print("TransferLumber: Target was not a Market or Main Tent!")
   end
+end
+
+
+
+-- Mark the tree occupied.
+function RegisterHarvesterAtTree(keys)
+   local caster = keys.caster
+   local target = keys.target
+   target._harvester = caster
+end
+
+-- Mark the tree free for harvest.
+function UnregisterHarvesterAtTree(keys)
+   local caster = keys.caster
+   local target = keys.target
+   target._harvester = nil
+end
+
+-- Checks if the tree has a worker harvesting it.
+function TreeIsEmpty(tree)
+   if tree._harvester then
+      return false
+   end
+   return true
+end
+
+-- Try to find a nearby unoccupied tree near the unit.
+function FindEmptyTree(unit, location, radius)
+   local nearbyTrees = GridNav:GetAllTreesAroundPoint(location, radius, true)
+   local pathableTrees = GetAllPathableTreesFromList(nearbyTrees)
+   if #pathableTrees == 0 then
+      print("FindEmptyTree: No nearby empty trees found!")
+      return nil
+   end
+   
+   local sortedList = SortListByClosest(pathableTrees, location)
+   for _,tree in pairs(sortedList) do
+      if TreeIsEmpty(tree) and IsTreePathable(tree) then
+	 return tree
+      end
+   end
+end
+
+-- Checks if the tree is pathable.
+function IsTreePathable( tree )
+   return tree.pathable
+end
+
+function GetAllPathableTreesFromList( list )
+   local pathable_trees = {}
+   for _,tree in pairs(list) do
+      if IsTreePathable(tree) then
+	 table.insert(pathable_trees, tree)
+      end
+   end
+   return pathable_trees
+end
+
+function GetClosestEntityToPosition(list, position)
+   local distance = 20000
+   local closest = nil
+   
+   for k,ent in pairs(list) do
+      local this_distance = (position - ent:GetAbsOrigin()):Length()
+      if this_distance < distance then
+	 distance = this_distance
+	 closest = k
+      end
+   end
+   
+   return closest	
+end
+
+function SortListByClosest( list, position )
+    local trees = {}
+    for _,v in pairs(list) do
+        trees[#trees+1] = v
+    end
+
+    local sorted_list = {}
+    for _,tree in pairs(list) do
+        local closest_tree = GetClosestEntityToPosition(trees, position)
+        sorted_list[#sorted_list+1] = trees[closest_tree]
+        trees[closest_tree] = nil -- Remove it
+    end
+    return sorted_list
+end
+
+--https://en.wikipedia.org/wiki/Flood_fill
+function DeterminePathableTrees()
+   
+   --------------------------
+	--      Flood Fill      --
+   --------------------------
+   
+   print("DeterminePathableTrees")
+   
+   local world_positions = {}
+   local valid_trees = {}
+   local seen = {}
+   
+   --Set Q to the empty queue.
+   local Q = {}
+   
+   --Add node to the end of Q.
+   table.insert(Q, Vector(0,0,0))
+   
+   local vecs = {
+      Vector(0,64,0),-- N
+      Vector(64,64,0), -- NE
+      Vector(64,0,0), -- E
+      Vector(64,-64,0), -- SE
+      Vector(0,-64,0), -- S
+      Vector(-64,-64,0), -- SW
+      Vector(-64,0,0), -- W
+      Vector(-64,64,0) -- NW
+   }
+
+   while #Q > 0 do
+      --Set n equal to the first element of Q and Remove first element from Q.
+      local position = table.remove(Q)
+      
+      --If the color of n is equal to target-color:
+      local blocked = not GridNav:IsTraversable(position) or GridNav:IsBlocked(position)
+      if not blocked then
+	 --table.insert(world_positions, position)
+	 
+	 -- Mark position processed.
+	 seen[GridNav:WorldToGridPosX(position.x)..","..GridNav:WorldToGridPosX(position.y)] = 1
+	 
+	 for k=1,#vecs do
+	    local vec = vecs[k]
+	    local xoff = vec.x
+	    local yoff = vec.y
+	    local pos = Vector(position.x + xoff, position.y + yoff, position.z)
+	    
+	    -- Add unprocessed nodes
+	    if not seen[GridNav:WorldToGridPosX(pos.x)..","..GridNav:WorldToGridPosX(pos.y)] then
+	       --table.insert(world_positions, position)
+	       table.insert(Q, pos)
+	    end
+	 end
+	 
+      else
+	 local nearbyTree = GridNav:IsNearbyTree(position, 64, true)
+	 if nearbyTree then
+	    local trees = GridNav:GetAllTreesAroundPoint(position, 1, true)
+	    if #trees > 0 then
+	       local t = trees[1]
+	       t.pathable = true
+	       --table.insert(valid_trees,t)
+	    end
+	 end
+      end
+   end
+   
+   --DEBUG
+   --for k,tree in pairs(valid_trees) do
+   --DebugDrawCircle(tree:GetAbsOrigin(), Vector(0,255,0), 0, 32, true, 60)
+   --end
 end
 
 
@@ -328,6 +497,7 @@ function GiveGold(keys)
   local owner = caster:GetOwner()
   local ownerID = owner:GetPlayerID()
   local currentGold = PlayerResource:GetReliableGold(ownerID)
+  PopupGoldGain(caster, gold)
   PlayerResource:SetGold(ownerID, currentGold + gold, true)
   return true
 end
@@ -397,7 +567,11 @@ end
 function AbilityTestPrint(keys)
   local ability = keys.ability
   if not ability then print("Ability Was nil, but function was still called!") end
-  print("Calling from ability: "..ability:GetAbilityName())
+  if keys.text then
+     print("(ability:GetAbilityName()): "..keys.text)
+  else
+     print("Calling from ability: "..ability:GetAbilityName())
+  end
 end
 
 

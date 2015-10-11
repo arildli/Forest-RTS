@@ -1140,7 +1140,7 @@
 		"AbilityManacost"		"0"
 
 		"AbilityCastAnimation"		"ACT_DOTA_ATTACK"
-		"AbilityChannelTime"		"10"
+		"AbilityChannelTime"		"15"
 
 		"precache"
 		{
@@ -1153,7 +1153,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"channel_time"	"10"
+				"channel_time"	"15"
 			}
 			
 			"02"
@@ -1170,7 +1170,14 @@
 			{
 				"ModifierName"	"modifier_harvesting_lumber"
 				"Target"	"CASTER"
-			}		
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/resources.lus"
+				"Function"	"RegisterHarvesterAtTree"
+				"Target"	"TARGET"
+			}					
 		}
 
 		"OnChannelFinish"
@@ -1179,6 +1186,13 @@
 			{
 				"ModifierName"	"modifier_harvesting_lumber"
 				"Target"	"CASTER"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/resources.lua"
+				"Function"	"UnregisterHarvesterAtTree"
+				"Target"	"TARGET"
 			}						
 		}
 
@@ -1187,7 +1201,8 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/resources.lua"
-				"Function"	"GiveHarvestedLumber"
+				//		"Function"	"GiveHarvestedLumber"
+				"Function"	"HarvestChop"
 				"Target"	"CASTER"
 				"channelTime"	"%channel_time"
 				"lumber"	"%lumber"
@@ -1262,7 +1277,7 @@
 		"AbilityManacost"		"0"
 
 		"AbilityCastAnimation"		"ACT_DOTA_ATTACK"
-		"AbilityChannelTime"		"50"
+		"AbilityChannelTime"		"45"
 
 		"precache"
 		{
@@ -1275,7 +1290,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"channel_time"	"50"
+				"channel_time"	"45"
 			}
 			
 			"02"
@@ -1292,6 +1307,13 @@
 			{
 				"ModifierName"	"modifier_harvesting_lumber"
 				"Target"	"CASTER"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/resources.lus"
+				"Function"	"RegisterHarvesterAtTree"
+				"Target"	"TARGET"
 			}		
 		}
 
@@ -1301,6 +1323,13 @@
 			{
 				"ModifierName"	"modifier_harvesting_lumber"
 				"Target"	"CASTER"
+			}
+
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/resources.lua"
+				"Function"	"UnregisterHarvesterAtTree"
+				"Target"	"TARGET"
 			}						
 		}
 
@@ -1309,7 +1338,8 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/resources.lua"
-				"Function"	"GiveHarvestedLumber"
+				//		"Function"	"GiveHarvestedLumber"
+				"Function"	"HarvestChop"
 				"Target"	"CASTER"
 				"channelTime"	"%channel_time"
 				"lumber"	"%lumber"
@@ -2862,7 +2892,7 @@
 				{
 					"MODIFIER_STATE_MAGIC_IMMUNE"	"MODIFIER_STATE_VALUE_ENABLED"		// Makes most abilities don't affect this. Use custom damage
 					"MODIFIER_STATE_ROOTED"		"MODIFIER_STATE_VALUE_ENABLED"		// Prevents movement.
-					"MODIFIER_STATE_SPECIALLY_DENIABLE" "MODIFIER_STATE_VALUE_ENABLED" 	// Allows attacking own buildings
+					//					"MODIFIER_STATE_SPECIALLY_DENIABLE" "MODIFIER_STATE_VALUE_ENABLED" 	// Allows attacking own buildings
 					"MODIFIER_STATE_LOW_ATTACK_PRIORITY"	"MODIFIER_STATE_VALUE_ENABLED"	// Makes it a less attractive target if there are units around.
 					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED" 	// GridNav is blocked
 				}
@@ -2959,77 +2989,681 @@
 
 
 
+	// Spell7.13
+	//================================================================================
+	// Ability Delivery Point
+	//================================================================================
+	"srts_ability_delivery_point"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Ability Delivery Point"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		"Modifiers"
+		{
+			"modifier_delivery_point"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+			}
+		}	
+	}
+
+
+
+
+
 // --// Unit Spells //-- // Spell8
 
 
 
 
 
-   	// Spell8.1
+   	// Spell8.1   	
 	//================================================================================
-	// Weak Afterburn
+	// Regenerative Bark - Treant Warrior Passive
 	//================================================================================
-	"srts_weak_afterburn"
+   	"srts_regenerative_bark"
 	{
 		// General
-		//-------------------------------------------------------------------------------------------------------------
+		//--------------------
 		"BaseClass"			"ability_datadriven"
-		"AbilityBehavior" 		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
-		"AbilityUnitDamageType"		"DAMAGE_TYPE_PHYSICAL"
-		"AbilityTextureName"		"clinkz_searing_arrows"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"treant_living_armor"
+		"MaxLevel"			"1"
 
-
-
-		// Special
-		//------------------------------------------------------------------------
 		"AbilitySpecial"
 		{
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"1"
+				"health_regen"	"1"
 			}
+		}	
 
-			"02"
+		"Modifiers"
+		{
+			"modifier_regenerative_bark"
 			{
-				"var_type"	"FIELD_FLOAT"
-				"duration"	"4.0"
+				"Passive"		"1"
+				"IsBuff"		"1"
+				"IsHidden"		"1"
+				"TextureName"		"treant_living_armor"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT" "%health_regen"
+				}
+			}
+		}
+	}
+
+
+
+
+
+	// Spell8.2
+	//================================================================================
+	// Long Weapon - Kobold Spearman Passive
+	//================================================================================
+	"srts_long_weapon"
+	{
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"mirana_arrow"
+		"MaxLevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"bonus_range"	"25"
 			}
 		}
 		
-		// Modifiers
-		//------------------------------------------------------------------------
-		"OnAttackLanded"
+		"Modifiers"
 		{
-			"ApplyModifier"
+			"modifier_long_weapon"
 			{
-				"ModifierName"	"modifier_weak_afterburn"
-				"Target"	"TARGET"
+				"Passive"		"1"
+				"IsBuff"		"1"
+				"IsHidden"		"1"
+				"TextureName"		"mirana_arrow"
+				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACK_RANGE_BONUS"	"%bonus_range"
+				}
+			}
+		}
+	}
+
+
+
+
+
+	// Spell8.3
+	//================================================================================
+	// Hatred - Troll Fighter Passive
+	//================================================================================
+	"srts_hatred"
+	{
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"troll_warlord_whirling_axes_ranged"
+		"MaxLevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"bonus_attack_speed"	"10"
+			}
+		}
+		
+		"Modifiers"
+		{
+			"modifier_hatred"
+			{
+				"Passive"		"1"
+				"IsBuff"		"1"
+				"IsHidden"		"1"
+				"TextureName"		"troll_warlord_whirling_axes_ranged"
+				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+				}
+			}
+		}
+	}
+
+
+
+
+
+	// Spell8.4
+	//================================================================================
+	// Undead Strength - Skeleton Warrior Passive
+	//================================================================================
+	"srts_undead_strength"
+	{
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"skeleton_king_mortal_strike"
+		"MaxLevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"crit_bonus"	"200"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"crit_chance"	"10"
+			}
+		}
+		
+		"Modifiers"
+		{
+			"modifier_critical_strike"
+			{
+				"Passive"		"1"
+				"IsHidden"		"1"
+
+				"OnAttackStart"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_critical_strike_hit"
+						"Target"	"CASTER"
+					}
+
+					"Random"
+					{
+						"Chance"	"%crit_chance"
+						"OnSuccess"
+						{
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_critical_strike_hit"
+								"Target"	"CASTER"
+							}
+						}
+					}
+				}
+			}
+			
+			"modifier_critical_strike_hit"
+			{
+				"IsHidden"		"1"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE"	"%crit_bonus"
+				}
+
+				"OnAttackLanded"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_critical_strike_hit"
+						"Target"	"CASTER"
+					}
+				}
+			}
+		}
+	}
+
+
+
+
+
+   	// Spell8.5
+	//================================================================================
+	// Headshot - Human Gunner Passive
+	//================================================================================
+	"srts_headshot"
+	{
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"sniper_headshot"
+		"MaxLevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"proc_bonus"	"150"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"proc_chance"	"20"
 			}
 		}
 
 		"Modifiers"
 		{
-			"modifier_weak_afterburn"
+			"modifier_headshot"
 			{
+				"Passive"		"1"
+				"IsHidden"		"1"
+
+				"OnAttackStart"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_headshot_proc"
+						"Target"	"CASTER"
+					}
+
+					"Random"
+					{
+						"Chance"	"%proc_chance"
+						"OnSuccess"
+						{
+							"ApplyModifier"
+							{
+								"ModifierName"	"modifier_headshot_proc"
+								"Target"	"CASTER"
+							}
+						}
+					}
+				}
+			}
+			
+			"modifier_headshot_proc"
+			{
+				"IsHidden"		"1"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE"	"%proc_bonus"
+				}
+
+				"OnAttackLanded"
+				{
+					"RemoveModifier"
+					{
+						"ModifierName"	"modifier_headshot_proc"
+						"Target"	"CASTER"
+					}
+				}
+			}
+		}
+	}
+
+
+
+
+
+   	// Spell8.6
+	//================================================================================
+	// Envenomed Spears - Forest Dryad Passive
+	//================================================================================
+	"srts_envenomed_spears"
+	{
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"gnoll_assassin_envenomed_weapon"
+		"AbilityUnitDamageType" 	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"slow_percent"	"-10"
+			}
+		
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"duration_creep"	"4"
+			}
+			
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"duration_hero"		"2"
+			}
+
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage_per_second"	"1"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_envenomed_spears"
+			{	
 				"Passive"	"1"
-				"IsHidden"	"0"
+				"IsHidden"	"1"
+
+				"OnAttackLanded"
+				{	
+					"ApplyModifier"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Type"		"DOTA_UNIT_TARGET_BASIC"
+						}
+						"ModifierName"	"modifier_envenomed"
+						"Duration"	"%duration_creep"
+					}
+
+					"ApplyModifier"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Type"		"DOTA_UNIT_TARGET_HERO"
+						}
+						"ModifierName"	"modifier_envenomed"
+						"Duration"	"%duration_hero"
+					}
+				}
+			}
+
+			"modifier_envenomed"
+			{
+				"Passive"	"0"
 				"IsDebuff"	"1"
-				"Duration"	"%duration"
+				"IsHidden"	"0"
+				"TextureName"	"gnoll_assassin_envenomed_weapon"
+//				"Duration"	"%duration"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_percent"
+				}
+
 				"ThinkInterval"	"1.0"
-				
 				"OnIntervalThink"
 				{
 					"Damage"
 					{
 						"Target"	"TARGET"
-						"Type"		"DAMAGE_TYPE_PHYSICAL"
+						"Type"		"DAMAGE_TYPE_MAGICAL"
+						"Damage"	"%damage_per_second"
+					}
+				}
+			}
+		}
+	}
+
+
+
+
+
+   	// Spell8.7
+	//================================================================================
+	// Burning Arrows - Skeleton Archer Passive
+	//================================================================================
+	"srts_burning_arrows"
+	{
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"clinkz_searing_arrows"
+		"AbilityUnitDamageType" 	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"5"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_flaming_arrows"
+			{	
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"OnAttackLanded"
+				{
+					"Damage"
+					{
+						"Target"	"TARGET"
+						"Type"		"DAMAGE_TYPE_MAGICAL"
 						"Damage"	"%damage"
 					}
 				}
 			}
 		}
 	}
+
+
+
+
+
+   	// Spell8.8
+	//================================================================================
+	// Ignite - Kobold Flame Thrower
+	//================================================================================
+	"srts_ignite"
+	{
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"warlock_golem_flaming_fists"
+		"AbilityUnitDamageType" 	"DAMAGE_TYPE_MAGICAL"
+		"MaxLevel"			"1"	
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"duration_creep"	"3"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"duration_hero"	"2"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage_per_second"	"2"
+			}
+		}
+		
+		"Modifiers"
+		{			
+			"modifier_ignite"
+			{	
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"OnAttackLanded"
+				{	
+					"ApplyModifier"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Type"		"DOTA_UNIT_TARGET_BASIC"
+						}
+						"ModifierName"	"modifier_ignited"
+						"Duration"	"%duration_creep"
+					}
+
+					"ApplyModifier"
+					{
+						"Target"
+						{
+							"Center"	"TARGET"
+							"Type"		"DOTA_UNIT_TARGET_HERO"
+						}
+						"ModifierName"	"modifier_ignited"
+						"Duration"	"%duration_hero"
+					}
+				}
+			}
+
+			"modifier_ignited"
+			{
+				"Passive"	"0"
+				"IsDebuff"	"1"
+				"IsHidden"	"0"
+				"TextureName"	"warlock_golem_flaming_fists"
+
+				"ThinkInterval"	"1.0"
+				"OnIntervalThink"
+				{
+					"Damage"
+					{
+						"Target"	"TARGET"
+						"Type"		"DAMAGE_TYPE_MAGICAL"
+						"Damage"	"%damage_per_second"
+					}
+				}
+			}
+		}
+	}
+
+
+
+
+
+// --// Hero Description Spells //-- // Spell9
+
+
+
+   	// Spell9.1.1
+	// Commander Footman
+   	"srts_hero_desc_commander_melee"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_footman"
+	}  
+
+   	// Spell9.1.2
+	// Commander Gunner
+   	"srts_hero_desc_commander_ranged"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_gunner"
+	}  
+
+
+
+   	// Spell9.2.1
+	// Furion Treant
+   	"srts_hero_desc_furion_melee"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_treant"
+	}  
+
+   	// Spell9.2.2
+	// Furion Dryad
+   	"srts_hero_desc_furion_ranged"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_dryad"
+	}  
+
+
+
+   	// Spell9.3.1
+	// Geomancer Spearman
+   	"srts_hero_desc_meepo_melee"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_spearman"
+	}  
+
+   	// Spell9.3.2
+	// Geomancer Flame Thrower
+   	"srts_hero_desc_meepo_ranged"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_flame_thrower"
+	}  
+
+
+
+   	// Spell9.4.1
+	// King of the Dead Skeleton Warrior
+   	"srts_hero_desc_skeleton_king_melee"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_skeleton_warrior"
+	}  
+
+   	// Spell9.4.2
+	// King of the Dead Skeleton Archer
+   	"srts_hero_desc_skeleton_king_ranged"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_skeleton_archer"
+	}  
+
+
+
+   	// Spell9.5.1
+	// Troll Fighter
+   	"srts_hero_desc_troll_warlord_melee"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_fighter"
+	}  
+
+   	// Spell9.5.2
+	// Troll Axe Thrower
+   	"srts_hero_desc_troll_warlord_ranged"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_axe_thrower"
+	}  
 
 
 
@@ -3061,7 +3695,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"120"
+		"AbilityGoldCost"		"120"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"9"
@@ -3101,7 +3735,7 @@
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"range"		"128"
+				"range"		"125"
 			}
 
 			"07"
@@ -3120,7 +3754,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -3218,7 +3852,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"105"
+		"AbilityGoldCost"		"105"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -3258,7 +3892,7 @@
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"range"		"128"
+				"range"		"125"
 			}
 
 			"07"
@@ -3277,7 +3911,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -3375,7 +4009,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"85"
+		"AbilityGoldCost"		"85"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"7"
@@ -3397,7 +4031,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"280"
+				"health"	"290"
 			}
 		
 			"04"
@@ -3434,7 +4068,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -3532,7 +4166,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"65"
+		"AbilityGoldCost"		"65"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"5"
@@ -3572,7 +4206,7 @@
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"range"		"128"
+				"range"		"125"
 			}
 
 			"07"
@@ -3591,7 +4225,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -3689,7 +4323,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"95"
+		"AbilityGoldCost"		"95"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -3723,13 +4357,13 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"17"
+				"damage"	"16"
 			}
 
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"range"		"128"
+				"range"		"125"
 			}
 
 			"07"
@@ -3748,7 +4382,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -3852,7 +4486,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		//"AbilityGoldCost"		"120"
+		"AbilityGoldCost"		"120"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -3862,7 +4496,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"120"
+				"gold_cost"	"125"
 			}
 
 			"02"
@@ -3874,7 +4508,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"240"
+				"health"	"270"
 			}
 		
 			"04"
@@ -3886,7 +4520,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"16"
+				"damage"	"15"
 			}
 
 			"06"
@@ -3912,7 +4546,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -4010,7 +4644,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		//"AbilityGoldCost"		"120"
+		"AbilityGoldCost"		"130"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -4020,7 +4654,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"120"
+				"gold_cost"	"130"
 			}
 
 			"02"
@@ -4032,7 +4666,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"240"
+				"health"	"250"
 			}
 		
 			"04"
@@ -4070,7 +4704,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -4170,7 +4804,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		//"AbilityGoldCost"		"120"
+		"AbilityGoldCost"		"105"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -4180,7 +4814,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"120"
+				"gold_cost"	"105"
 			}
 
 			"02"
@@ -4192,7 +4826,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"240"
+				"health"	"210"
 			}
 		
 			"04"
@@ -4204,7 +4838,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"16"
+				"damage"	"11"
 			}
 
 			"06"
@@ -4216,7 +4850,7 @@
 			"07"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"training_time"	"8"
+				"training_time"	"7"
 			}	
 		}		
 
@@ -4230,7 +4864,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -4327,17 +4961,17 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		//"AbilityGoldCost"		"120"
+		"AbilityGoldCost"		"100"
 		//	"AbilityUpgradeGoldCost"	"0"
 
-		"AbilityChannelTime"		"8"
+		"AbilityChannelTime"		"7"
 
 		"AbilitySpecial"
 		{
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"120"
+				"gold_cost"	"100"
 			}
 
 			"02"
@@ -4349,7 +4983,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"240"
+				"health"	"205"
 			}
 		
 			"04"
@@ -4361,7 +4995,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"16"
+				"damage"	"9"
 			}
 
 			"06"
@@ -4373,7 +5007,7 @@
 			"07"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"training_time"	"8"
+				"training_time"	"7"
 			}	
 		}		
 
@@ -4387,7 +5021,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -4484,7 +5118,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		//"AbilityGoldCost"		"120"
+		"AbilityGoldCost"		"110"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -4494,7 +5128,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"120"
+				"gold_cost"	"110"
 			}
 
 			"02"
@@ -4506,7 +5140,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"240"
+				"health"	"220"
 			}
 		
 			"04"
@@ -4544,7 +5178,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -4647,7 +5281,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"75"
+		"AbilityGoldCost"		"75"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -4687,7 +5321,7 @@
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"range"		"128"
+				"range"		"125"
 			}
 
 			"07"
@@ -4706,7 +5340,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -4804,7 +5438,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"75"
+		"AbilityGoldCost"		"75"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -4844,7 +5478,7 @@
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"range"		"128"
+				"range"		"125"
 			}
 
 			"07"
@@ -4863,7 +5497,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -4961,7 +5595,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"75"
+		"AbilityGoldCost"		"75"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -5001,7 +5635,7 @@
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"range"		"128"
+				"range"		"125"
 			}
 
 			"07"
@@ -5020,7 +5654,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -5118,7 +5752,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"75"
+		"AbilityGoldCost"		"75"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -5158,7 +5792,7 @@
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"range"		"128"
+				"range"		"125"
 			}
 
 			"07"
@@ -5177,7 +5811,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -5275,7 +5909,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"75"
+		"AbilityGoldCost"		"75"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -5315,7 +5949,7 @@
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"range"		"128"
+				"range"		"125"
 			}
 
 			"07"
@@ -5334,7 +5968,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -5432,7 +6066,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		//"AbilityGoldCost"		"75"
+		"AbilityGoldCost"		"75"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -5472,7 +6106,7 @@
 			"06"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"range"		"128"
+				"range"		"125"
 			}
 
 			"07"
@@ -5491,7 +6125,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -5594,7 +6228,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		//"AbilityGoldCost"		"210"
+	"	AbilityGoldCost"		"210"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"10"
@@ -5654,7 +6288,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -5753,7 +6387,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		//"AbilityGoldCost"		"210"
+		"AbilityGoldCost"		"210"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"10"
@@ -5813,7 +6447,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"scripts/vscripts/buildings.lua"
-				"Function"	"CheckIfCanAfford"
+				"Function"	"CheckIfCanAffordUnit"
 				"Target"	"CASTER"
 				"goldCost"	"%gold_cost"
 				"lumberCost"	"%lumber_cost"
@@ -5946,6 +6580,8 @@
 
 			"global_speed_aura"
 			{
+				"IsHidden"	"1"
+
 				"Properties"
 				{
 					"MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"	"%speed_bonus"

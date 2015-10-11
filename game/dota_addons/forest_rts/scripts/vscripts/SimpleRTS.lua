@@ -9,6 +9,9 @@ PLAYER_HEROES = {}
 PLAYER_COUNT = 0
 VICTORY_SCORE = 0
 
+COLOR_DIRE = "#b0171b"
+COLOR_RADIANT = "#4789ab"
+
 
 
 if SimpleRTSGameMode == nil then
@@ -72,6 +75,9 @@ function SimpleRTSGameMode:InitGameMode()
    GameMode:SetTopBarTeamValuesOverride(true)
    GameMode:SetTopBarTeamValuesVisible(true)
    
+   -- Find pathable trees.
+   DeterminePathableTrees()
+
    --BuildingHelper:SetForceUnitsAway(true)
    
    print("[SimpleRTS] Gamemode rules are set.")
@@ -91,6 +97,7 @@ function SimpleRTSGameMode:InitGameMode()
    ListenToGameEvent('npc_spawned', Dynamic_Wrap(SimpleRTSGameMode, 'onNPCSpawned'), self)
    ListenToGameEvent('entity_killed', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityKilled'), self)
    ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityLevel'), self)
+   ListenToGameEvent('tree_cut', Dynamic_Wrap(SimpleRTSGameMode, 'OnTreeCut'), self)
    
    -- Register Listener
    CustomGameEventManager:RegisterListener( "update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
@@ -475,14 +482,6 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       if player.buildings[building_name] then
 	 player.buildings[building_name] = player.buildings[building_name] - 1
       end
-      -- possible unit downgrades
-      --for k,units in pairs(player.units) do
-      --CheckAbilityRequirements( units, player )
-      --end	
-      -- possible structure downgrades
-      --for k,structure in pairs(player.structures) do
-      -- CheckAbilityRequirements( structure, player )
-      --end
    end
 
    -- Cancel queue of a builder when killed
@@ -514,6 +513,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    --     BH stuff end     --
 
 
+
    local owner = killedUnit:GetOwner()
    local playerID = owner:GetPlayerID()
    local playerHero = GetPlayerHero(playerID)
@@ -523,20 +523,25 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    --   killedUnit:RemoveBuilding(true)
    --end
    
-   if (killedUnit:IsRealHero() == true or unitName == MAIN_BUILDING.name) and not killedUnit._wasCancelled then
-      if unitName == MAIN_BUILDING.name then
-	 Say(nil, "Main Tent destroyed (counts as a kill)!", false)
-      end
-      
-      local message
+   if (killedUnit:IsRealHero() == true or unitName == MAIN_BUILDING.name) and not killedUnit._wasCancelled then      
+      local killedTeamString
+      local scoreMessage
       if killedTeam == DOTA_TEAM_GOODGUYS then
+	 killedTeamString = "<font color='"..COLOR_RADIANT.."'>Radiant</font>"
 	 self.scoreDire = self.scoreDire + 1
-	 message = "Dire has "..self.scoreDire.."/"..VICTORY_SCORE.." kills needed to win!"
+	 scoreMessage = "<font color='"..COLOR_DIRE.."'>Dire</font> has "..self.scoreDire.."/"..VICTORY_SCORE.." points needed to win!"
+	 if unitName == MAIN_BUILDING.name then
+	    GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
+	 end
       elseif killedTeam == DOTA_TEAM_BADGUYS then
+	 killedTeamString = "<font color='"..COLOR_DIRE.."'>Dire</font>"
 	 self.scoreRadiant = self.scoreRadiant + 1
-	 message = "Radiant has "..self.scoreRadiant.."/"..VICTORY_SCORE.." kills needed to win!"
+	 scoreMessage = "<font color='"..COLOR_RADIANT.."'>Radiant</font> has "..self.scoreRadiant.."/"..VICTORY_SCORE.." points needed to win!"
+	 if unitName == MAIN_BUILDING.name then
+	    GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
+	 end
       end
-      Say(nil, message, false)
+      Say(nil, scoreMessage, false)
       
       -- Update the score
       GameMode:SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.scoreRadiant)
@@ -617,6 +622,49 @@ end
 function SimpleRTSGameMode:spawnSimpleBot(botTeam, multiplier)
    print("[SimpleRTS] Spawning bot at team: "..botTeam.." with multiplier "..multiplier.."!")
    SimpleBot:Init(botTeam, multiplier)
+end
+
+
+
+
+
+
+-- A tree was cut down
+function SimpleRTSGameMode:OnTreeCut(keys)
+   --DeepPrintTable(keys)
+   
+   local treeX = keys.tree_x
+   local treeY = keys.tree_y
+   
+   -- Update the pathable trees nearby
+   local vecs = {
+      Vector(0,64,0),-- N
+      Vector(64,64,0), -- NE
+      Vector(64,0,0), -- E
+      Vector(64,-64,0), -- SE
+      Vector(0,-64,0), -- S
+      Vector(-64,-64,0), -- SW
+      Vector(-64,0,0), -- W
+      Vector(-64,64,0) -- NW
+   }
+   
+   for k=1,#vecs do
+      local vec = vecs[k]
+      local xoff = vec.x
+      local yoff = vec.y
+      local pos = Vector(treeX + xoff, treeY + yoff, 0)
+      
+      local nearbyTree = GridNav:IsNearbyTree(pos, 96, true)
+      --local nearbyTree = GridNav:IsNearbyTree(pos, 64, true)
+      if nearbyTree then
+	 local trees = GridNav:GetAllTreesAroundPoint(pos, 48, true)
+	 --local trees = GridNav:GetAllTreesAroundPoint(pos, 32, true)
+	 for _,t in pairs(trees) do
+	    --DebugDrawCircle(t:GetAbsOrigin(), Vector(0,255,0), 255, 32, true, 60)
+	    t.pathable = true
+	 end
+      end
+   end
 end
 
 

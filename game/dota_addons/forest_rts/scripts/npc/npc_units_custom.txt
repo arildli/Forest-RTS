@@ -44,7 +44,7 @@
 		"AttackRate"			"1.2"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -119,12 +119,12 @@
 		"BountyGoldMin"			"21"
 		"BountyGoldMax"			"21"
 
-		"Ability1"			""
+		"Ability1"			"srts_long_weapon"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			"srts_ability_units"
 
-		"SelectionGroup"		"Kobold_Guard"
+		"SelectionGroup"		"Kobold_Spearman"
 
 		"ArmorPhysical"			"2"
 
@@ -134,7 +134,7 @@
 		"AttackRate"			"1.2"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
-		"AttackRange"			"150"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -145,7 +145,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"280"
+		"StatusHealth"			"290"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -181,7 +181,7 @@
 		"BountyGoldMin"			"26"
 		"BountyGoldMax"			"26"
 
-		"Ability1"			""
+		"Ability1"			"srts_regenerative_bark"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			"srts_ability_units"
@@ -196,7 +196,7 @@
 		"AttackRate"			"1.2"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -208,7 +208,7 @@
 		"MovementTurnRate"		"0.7"
 
 		"StatusHealth"			"385"
-		"StatusHealthRegen"		"1.5"
+		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
 
@@ -251,7 +251,7 @@
 		"BountyGoldMin"			"25"
 		"BountyGoldMax"			"25"
 
-		"Ability1"			""
+		"Ability1"			"srts_hatred"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			"srts_ability_units"
@@ -261,12 +261,12 @@
 		"ArmorPhysical"			"1"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
-		"AttackDamageMin"		"15"
-		"AttackDamageMax"		"19"
+		"AttackDamageMin"		"14"
+		"AttackDamageMax"		"18"
 		"AttackRate"			"1.1"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -313,12 +313,12 @@
 		"BountyGoldMin"			"16"
 		"BountyGoldMax"			"16"
 
-		"Ability1"			""
+		"Ability1"			"srts_undead_strength"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			"srts_ability_units"
 
-		"SelectionGroup"		"Undead_Skeleton"
+		"SelectionGroup"		"Undead_Skeleton_Warrior"
 
 		"ArmorPhysical"			"0"
 
@@ -328,7 +328,7 @@
 		"AttackRate"			"1.2"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -378,10 +378,10 @@
 		"ModelScale"			"0.9"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"30"
-		"BountyGoldMax"			"30"
+		"BountyGoldMin"			"31"
+		"BountyGoldMax"			"31"
 
-		"Ability1"			""
+		"Ability1"			"srts_headshot"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			"srts_ability_units"
@@ -391,9 +391,9 @@
 		"ArmorPhysical"			"0"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"		"14"
-		"AttackDamageMax"		"18"
-		"AttackRate"			"1.6"
+		"AttackDamageMin"		"13"
+		"AttackDamageMax"		"17"
+		"AttackRate"			"1.75"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
 		"AttackRange"			"600"
@@ -407,7 +407,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"240"
+		"StatusHealth"			"270"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -464,10 +464,10 @@
 		"ModelScale"			"0.9"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"30"
-		"BountyGoldMax"			"30"
+		"BountyGoldMin"			"32"
+		"BountyGoldMax"			"32"
 
-		"Ability1"			""
+		"Ability1"			"srts_envenomed_spears"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			"srts_ability_units"
@@ -493,7 +493,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"240"
+		"StatusHealth"			"250"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -550,10 +550,10 @@
 		"ModelScale"			"1.0"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"30"
-		"BountyGoldMax"			"30"
+		"BountyGoldMin"			"26"
+		"BountyGoldMax"			"26"
 
-		"Ability1"			""
+		"Ability1"			"srts_ignite"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			"srts_ability_units"
@@ -563,8 +563,8 @@
 		"ArmorPhysical"			"0"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"		"14"
-		"AttackDamageMax"		"18"
+		"AttackDamageMin"		"9"
+		"AttackDamageMax"		"13"
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
@@ -579,7 +579,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"240"
+		"StatusHealth"			"210"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -612,22 +612,21 @@
 		"ModelScale"			"0.8"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"30"
-		"BountyGoldMax"			"30"
+		"BountyGoldMin"			"25"
+		"BountyGoldMax"			"25"
 
-		//"Ability1"			"srts_weak_afterburn"
-		"Ability1"			""
+		"Ability1"			"srts_burning_arrows"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			"srts_ability_units"
 
-		"SelectionGroup"		"Undead_Archer"
+		"SelectionGroup"		"Undead_Skeleton_Archer"
 
 		"ArmorPhysical"			"0"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"		"14"
-		"AttackDamageMax"		"18"
+		"AttackDamageMin"		"7"
+		"AttackDamageMax"		"11"
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
@@ -643,7 +642,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"240"
+		"StatusHealth"			"205"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -704,10 +703,10 @@
 		"ModelScale"			"0.8"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"30"
-		"BountyGoldMax"			"30"
+		"BountyGoldMin"			"27"
+		"BountyGoldMax"			"27"
 
-		"Ability1"			""
+		"Ability1"			"srts_hatred"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability4"			"srts_ability_units"
@@ -733,7 +732,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"240"
+		"StatusHealth"			"220"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -793,7 +792,7 @@
 		"AttackRate"			"1.2"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -928,7 +927,7 @@
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"400"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -1121,7 +1120,7 @@
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"400"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -1192,7 +1191,7 @@
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"400"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -1255,7 +1254,7 @@
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"400"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -1318,7 +1317,7 @@
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"400"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 
@@ -1381,7 +1380,7 @@
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"400"
-		"AttackRange"			"128"
+		"AttackRange"			"125"
 		"ProjectileModel"		""
 		"ProjectileSpeed"		"0"
 

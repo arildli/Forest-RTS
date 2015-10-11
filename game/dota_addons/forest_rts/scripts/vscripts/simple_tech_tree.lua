@@ -230,61 +230,68 @@ SPELLS[ARMORY_DIRE["spell"]] = ARMORY_DIRE
   -- Common
 
 COMMON_BUILDING = {
-	name = "none",
-	spell = "srts_ability_building",
-	req = {},
-	category = "spell"
+   name = "none",
+   spell = "srts_ability_building",
+   req = {},
+   category = "spell"
+}
+
+COMMON_DELIVERY_POINT = {
+   name = "none",
+   spell = "srts_ability_delivery_point",
+   req = {},
+   category = "spell"
 }
 
 COMMON_UNIT = {
-	name = "none",
-	spell = "srts_ability_unit",
-	req = {},
-	category = "spell"
+   name = "none",
+   spell = "srts_ability_unit",
+   req = {},
+   category = "spell"
 }
 
 COMMON_TRAIN_WORKER = {
-	name = "npc_dota_creature_worker",
-	spell = "srts_train_worker",
-	req = {},
-	maximum = 5,
-	category = "unit"
+   name = "npc_dota_creature_worker",
+   spell = "srts_train_worker",
+   req = {},
+   maximum = 5,
+   category = "unit"
 }
 MAX_COUNT[COMMON_TRAIN_WORKER["name"]] = COMMON_TRAIN_WORKER["maximum"]
 
 COMMON_GLOBAL_SPEED_AURA = {
-	name = "none",
-	spell = "srts_global_speed_aura",
-	req = {},
-	category = "spell"
+   name = "none",
+   spell = "srts_global_speed_aura",
+   req = {},
+   category = "spell"
 }
 
 COMMON_CRYSTAL_AURA = {
-	name = "none",
-	spell = "srts_crystal_aura",
-	req = {},
-	category = "spell"
+   name = "none",
+   spell = "srts_crystal_aura",
+   req = {},
+   category = "spell"
 }
 
 COMMON_SELL_LUMBER_SMALL = {
-	name = "none",
-	spell = "srts_sell_lumber_small",
-	req = {},
-	category = "spell"
+   name = "none",
+   spell = "srts_sell_lumber_small",
+   req = {},
+   category = "spell"
 }
 
 COMMON_REPAIR_BUILDING = {
-	name = "none",
-	spell = "srts_repair_building",
-	req = {},
-	category = "spell"
+   name = "none",
+   spell = "srts_repair_building",
+   req = {},
+   category = "spell"
 }
 
 COMMON_PERIODIC_MINE_GOLD = {
-	name = "none",
-	spell = "srts_periodic_mine_gold",
-	req = {},
-	category = "spell"
+   name = "none",
+   spell = "srts_periodic_mine_gold",
+   req = {},
+   category = "spell"
 }
 
 
@@ -372,6 +379,13 @@ FURION_CATAPULT["name"] = "npc_dota_creature_catapult_radiant"
 FURION_CATAPULT["spell"] = "srts_train_catapult_radiant"
 FURION_CATAPULT["req"] = {ARMORY_RADIANT}
 FURION_CATAPULT["category"] = "unit"
+
+FURION_REGENERATIVE_BARK = {
+   name = "none",
+   spell = "srts_regenerative_bark",
+   req = {},
+   category = "spell"
+}
 
 FURION_TRAINING_SPELLS =
 						   {COMMON_BUILDING,
@@ -545,7 +559,8 @@ SPELLS[WARLORD_CATAPULT["spell"]] = WARLORD_CATAPULT
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][MAIN_BUILDING["name"]] =
 						   {COMMANDER_WORKER,
 						    COMMON_GLOBAL_SPEED_AURA,
-							COMMON_BUILDING}
+						    COMMON_DELIVERY_POINT,
+						    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][BARRACKS_RADIANT["name"]] =
 						   {COMMANDER_FOOTMAN,
@@ -562,6 +577,7 @@ HERO_SPELLS_FOR_BUILDINGS[COMMANDER][HEALING_CRYSTAL_RADIANT["name"]] =
 
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][MARKET["name"]] =
 						   {COMMON_SELL_LUMBER_SMALL,
+						    COMMON_DELIVERY_POINT,
 						    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][ARMORY_RADIANT["name"]] =
@@ -577,7 +593,8 @@ HERO_SPELLS_FOR_BUILDINGS[COMMANDER][GOLD_MINE["name"]] =
 HERO_SPELLS_FOR_BUILDINGS[FURION][MAIN_BUILDING["name"]] =
 						   {FURION_WORKER,
 						    COMMON_GLOBAL_SPEED_AURA,
-							COMMON_BUILDING}
+						    COMMON_DELIVERY_POINT,
+						    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][BARRACKS_RADIANT["name"]] =
 						   {FURION_WARRIOR,
@@ -594,6 +611,7 @@ HERO_SPELLS_FOR_BUILDINGS[FURION][HEALING_CRYSTAL_RADIANT["name"]] =
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][MARKET["name"]] =
 						   {COMMON_SELL_LUMBER_SMALL,
+						    COMMON_DELIVERY_POINT,
 						    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][ARMORY_RADIANT["name"]] =
@@ -611,7 +629,8 @@ HERO_SPELLS_FOR_BUILDINGS[FURION][GOLD_MINE["name"]] =
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][MAIN_BUILDING["name"]] =
 						   {GEOMANCER_WORKER,
 						    COMMON_GLOBAL_SPEED_AURA,
-							COMMON_BUILDING}
+						    COMMON_DELIVERY_POINT,
+						    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][BARRACKS_DIRE["name"]] =
 						   {GEOMANCER_SPEARMAN,
@@ -628,6 +647,7 @@ HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][HEALING_CRYSTAL_DIRE["name"]] =
 
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][MARKET["name"]] =
 						   {COMMON_SELL_LUMBER_SMALL,
+						    COMMON_DELIVERY_POINT,
 						    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][ARMORY_DIRE["name"]] =
@@ -643,7 +663,8 @@ HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][GOLD_MINE["name"]] =
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][MAIN_BUILDING["name"]] =
 						   {KING_OF_THE_DEAD_WORKER,
 						    COMMON_GLOBAL_SPEED_AURA,
-							COMMON_BUILDING}
+						    COMMON_DELIVERY_POINT,
+						    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][BARRACKS_DIRE["name"]] =
 						   {KING_OF_THE_DEAD_WARRIOR,
@@ -660,6 +681,7 @@ HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][HEALING_CRYSTAL_DIRE["name"]] =
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][MARKET["name"]] =
 						   {COMMON_SELL_LUMBER_SMALL,
+						    COMMON_DELIVERY_POINT,
 						    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][ARMORY_DIRE["name"]] =
@@ -676,7 +698,8 @@ HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][GOLD_MINE["name"]] =
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][MAIN_BUILDING["name"]] =
 						   {WARLORD_WORKER,
 						    COMMON_GLOBAL_SPEED_AURA,
-							COMMON_BUILDING}
+						    COMMON_DELIVERY_POINT,
+						    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][BARRACKS_DIRE["name"]] =
 						   {WARLORD_FIGHTER,
@@ -693,6 +716,7 @@ HERO_SPELLS_FOR_BUILDINGS[WARLORD][HEALING_CRYSTAL_DIRE["name"]] =
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][MARKET["name"]] =
 						   {COMMON_SELL_LUMBER_SMALL,
+						    COMMON_DELIVERY_POINT,
 						    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][ARMORY_DIRE["name"]] =
@@ -1124,6 +1148,8 @@ function SimpleTechTree:InitTechTree(hero)
 
 	local heroName = hero:GetUnitName()
 
+	SimpleTechTree:RemoveDescriptionSpells(hero)
+
 	-- Set ability pages for the unit.
 	InitAbilityPage(hero, ABILITY_PAGE_MAIN, ABILITY_PAGES[heroName][ABILITY_PAGE_MAIN])
 	InitAbilityPage(hero, ABILITY_PAGE_CONSTRUCTION_1, ABILITY_PAGES[heroName][ABILITY_PAGE_CONSTRUCTION_1])
@@ -1141,6 +1167,24 @@ function SimpleTechTree:InitTechTree(hero)
 
 	-- Set current page to the main one.
 	GoToPage(hero, ABILITY_PAGE_MAIN)
+end
+
+
+
+---------------------------------------------------------------------------
+-- Removes all the description spells of the hero.
+--
+--	* hero: The hero to work with.
+--
+---------------------------------------------------------------------------
+function SimpleTechTree:RemoveDescriptionSpells(hero)
+   for i=0,6 do
+      local curAbility = hero:GetAbilityByIndex(i)
+      if curAbility then
+	 local curAbilityName = curAbility:GetAbilityName()
+	 hero:RemoveAbility(curAbilityName)
+      end
+   end
 end
 
 

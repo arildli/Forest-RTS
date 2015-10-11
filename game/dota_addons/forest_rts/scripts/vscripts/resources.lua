@@ -66,9 +66,7 @@ function Resources:InitHero(hero)
   --
   ---------------------------------------------------------------------------
   function hero:SetGold(amount)
-    local isNil = IsNil("SetGold", {amount}, 1)
     hero.SRES.gold = amount
-    return isNil
   end
   
   ---------------------------------------------------------------------------
@@ -123,6 +121,117 @@ end
 
 
 
+
+
+---------------------------------------------------------------------------
+-- Inits the unit or hero with the necessary properties to work with the
+-- harvesting system.
+--
+--   * unit: The unit to initialize.
+--
+---------------------------------------------------------------------------
+function Resources:InitHarvester(unit)
+   if not unit then
+      print("Resources:InitHarvester: unit was nil!")
+   end
+
+   unit.HARVESTER = {}
+   unit.HARVESTER.treeSearchRadius = 1000
+   unit.HARVESTER.deliverSearchRadius = 2000
+   unit.HARVESTER.prevTree = nil
+
+   ---------------------------------------------------------------------------
+   -- Updates the last tree location so that the worker can return to it
+   -- after delivering the lumber to search for other trees to cut.
+   --
+   --   * tree: The tree that was just cut down.
+   --
+   ---------------------------------------------------------------------------
+   function unit:SetLastTree(tree)
+      unit.HARVESTER.prevTree = tree:GetAbsOrigin()
+   end
+
+   ---------------------------------------------------------------------------
+   -- Returns the worker to the previous tree being cut to search for more
+   -- trees.
+   ---------------------------------------------------------------------------
+   function unit:ReturnToHarvest()
+      local newHarvestLocation
+      if unit.HARVESTER.prevTree then
+	 newHarvestLocation = unit.HARVESTER.prevTree
+	 unit.HARVESTER.prevTree = nil
+      else
+	 newHarvestLocation = unit:GetAbsOrigin()
+      end
+      local ownerID = unit:GetOwner():GetPlayerID()
+      unit.HARVESTER.newTree = FindEmptyTree(unit, newHarvestLocation, unit.HARVESTER.treeSearchRadius)
+      if unit.HARVESTER.newTree then
+	 local harvestAbility
+	 if unit:IsRealHero() then
+	    harvestAbility = unit:FindAbilityByName("srts_harvest_lumber")
+	 else
+	    harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker")
+	 end
+	 if harvestAbility then
+	    unit:CastAbilityOnTarget(unit.HARVESTER.newTree, harvestAbility, ownerID)
+	 end
+      else
+	 print("unit:ReturnToHarvest: (Note) couldn't find new tree to harvest!")
+      end
+   end
+
+   ---------------------------------------------------------------------------
+   -- Returns the carried lumber to the nearest Tent or Market if possible.
+   ---------------------------------------------------------------------------
+   function unit:DeliverLumber()
+      local owner = GetPlayerHero(unit:GetOwner():GetPlayerID()):GetOwner()
+      local ownerID = owner:GetPlayerID()
+      local unitPosition = unit:GetAbsOrigin()
+      local closestDeliveryPoint = nil
+      local shortestDeliveryDistance = 100000
+      local returnAbility = unit:FindAbilityByName("srts_transfer_lumber")
+      if not returnAbility then
+	 print("unit:DeliverLumber: unit did not have transfer ability!")
+      end
+
+      for _,building in pairs(owner.structures) do
+	 if building and building:IsAlive() and Resources:IsValidDeliveryPoint(building) then
+	    local distanceToBuilding = (unitPosition - building:GetAbsOrigin()):Length()
+	    if distanceToBuilding < shortestDeliveryDistance then
+	       shortestDeliveryDistance = distanceToBuilding
+	       closestDeliveryPoint = building
+	    end
+	 end
+      end
+      if not closestDeliveryPoint then
+	 print("unit:DeliverLumber: (Warning) No nearby delivery points found!")
+      else
+	 unit:CastAbilityOnTarget(closestDeliveryPoint, returnAbility, ownerID)
+      end
+   end
+end
+
+
+
+---------------------------------------------------------------------------
+-- Returns true if unit can accept lumber deliveries.
+--
+-- * building: The unit or building to check.
+--
+---------------------------------------------------------------------------
+function Resources:IsValidDeliveryPoint(building)
+   local buildingName = building:GetUnitName()
+
+   if IsBuilding(building) and UnitHasAbility(building, "srts_ability_delivery_point") then
+      return true
+   else
+      return false
+   end
+end
+
+
+
+
 ---------------------------------------------------------------------------
 -- Returns whether or not this unit has been inited.
 ---------------------------------------------------------------------------
@@ -163,9 +272,16 @@ function HarvestChop(keys)
   local amount = keys.lumber
   local teamNumber = caster:GetTeamNumber()
 
+  if not caster.HARVESTER then
+     Resources:InitHarvester(caster)
+  end
+
   if target then
     target:CutDown(teamNumber)
+    caster:SetLastTree(target)
+    caster:DeliverLumber()
   end
+
   GiveCharges(caster, amount, "item_stack_of_lumber")
 end
 
@@ -202,7 +318,7 @@ end
 
 -- Gives lumber to the owner of the harvesting unit.
 function GiveHarvestedLumber(keys)
-  
+
   local caster = keys.caster
   local target = keys.target
   local ability = keys.ability

@@ -205,30 +205,41 @@ end
 
 
 
+---------------------------------------------------------------------------
+-- Refunds the gold cost before charging it again.
+---------------------------------------------------------------------------
+function CheckIfCanAffordUnit(keys)
+   local goldCost = keys.goldCost
+   local caster = keys.caster
+   local playerID = caster:GetOwner():GetPlayerID()
+   GiveGoldToPlayer(playerID, goldCost)
+   CheckIfCanAfford(keys)
+end
+
+
+
+---------------------------------------------------------------------------
 -- Check if the player can afford the purchase.
+-- Refunds the initial gold cost.
+---------------------------------------------------------------------------
 function CheckIfCanAfford(keys)
-	local ability = keys.ability
-	local caster = keys.caster
-	local goldCost = keys.goldCost
-	local lumberCost = keys.lumberCost
+   local ability = keys.ability
+   local caster = keys.caster
+   local goldCost = keys.goldCost
+   local lumberCost = keys.lumberCost
 
-	if not ability then
-		print("'ability' is nil!")
-		return
-	end
-
-	if SpendResources(caster, goldCost, lumberCost) == false then
-		caster._canAfford = false
-		if DEBUG_CONSTRUCT_BUILDING == true then
-			print("caster._canAfford set to 'false'")
-		end
-		caster:Stop()
-	else
-		caster._canAfford = true
-		if DEBUG_CONSTRUCT_BUILDING == true then
-			print("caster._canAfford set to 'true'")
-		end
-	end
+   if SpendResources(caster, goldCost, lumberCost) == false then
+      caster._canAfford = false
+      if DEBUG_CONSTRUCT_BUILDING == true then
+	 print("caster._canAfford set to 'false'")
+      end
+      caster:Stop()
+   else
+      caster._canAfford = true
+      if DEBUG_CONSTRUCT_BUILDING == true then
+	 print("caster._canAfford set to 'true'")
+      end
+   end
 end
 
 
@@ -344,7 +355,7 @@ function OnUnitTrained(keys)
    
    local player = caster:GetOwner()
    local playerID = player:GetPlayerID()
-   local playerHero = PLAYER_HEROES[playerID]
+   local playerHero = GetPlayerHero(playerID)
    target:SetOwner(playerHero)
    target:SetHasInventory(true)
    
