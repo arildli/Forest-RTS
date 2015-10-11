@@ -219,6 +219,150 @@ end
 
 
 --[[
+
+God måte å organisere denne filen på:
+
+RequireFiles = 
+{
+    "internal/util",
+    "gamemode",
+    "libraries/timers",
+    "libraries/physics",
+    "libraries/projectiles",
+    "libraries/notifications",
+    "libraries/animations",
+    "libraries/attachments",
+
+    "internal/gamemode",
+    "internal/events",
+
+    "settings",
+    "events",
+
+    -- FlappyDota
+    "util",
+    "FlappyHero",
+    "orders",
+    "pillars",
+    "abilities",
+    "popups",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+}
+
+Resources = 
+{
+    -- ****** particle_folder ******
+    ["particle_folder"] = "",
+    ["particle_folder"] = "",
+    ["particle_folder"] = "",
+    ["particle_folder"] = "",
+    -- ****** particle ******
+    ["particle"] = "particles/items2_fx/phase_boots.vpcf",
+    ["particle"] = "particles/items_fx/immunity_sphere_buff.vpcf",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    ["particle"] = "",
+    -- ****** model ******
+    ["model"] = "",
+    ["model"] = "",
+    ["model"] = "",
+    ["model"] = "",
+    ["model"] = "",
+    ["model"] = "",
+    -- ****** unit ******
+    ["unit"] = "",
+    ["unit"] = "",
+    ["unit"] = "",
+    ["unit"] = "",
+    ["unit"] = "",
+    ["unit"] = "",
+    -- ****** item ******
+    ["item"] = "",
+    ["item"] = "",
+    ["item"] = "",
+    -- ****** soundfile ******
+    ["soundfile"] = "soundevents/game_sounds_custom.vsndevts",
+    ["soundfile"] = "soundevents/game_sounds_ui.vsndevts",
+    ["soundfile"] = "",
+    ["soundfile"] = "",
+    ["soundfile"] = "",
+    ["soundfile"] = "",
+}
+
+for _, requireFile in pairs(RequireFiles) do
+    if requireFile ~= "" then
+        require(requireFile)
+    end
+end
+
+function Precache( context )
+    for resourceType, resource in pairs(Resources) do
+        if resource ~= "" then
+            if resourceType == "model" then
+                PrecacheModel(resource, context)
+            elseif resourceType == "unit" then
+                PrecacheUnitByNameSync(resource, context)
+            elseif resourceType == "item" then
+                PrecacheItemByNameSync(resource, context)
+            else
+                PrecacheResource(resourceType, resource, context)
+            end
+        end
+    end
+end
+
+-- Create the game mode when we activate
+function Activate()
+    GameRules.GameMode = GameMode()
+    GameRules.GameMode:InitGameMode()
+end
+
+]]--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--[[
 -- Load Stat collection (statcollection should be available from any script scope)
 require('lib.statcollection')
 statcollection.addStats({
