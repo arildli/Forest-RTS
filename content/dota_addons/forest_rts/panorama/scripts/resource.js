@@ -28,7 +28,10 @@ function UpdatePlayerGold() {
     GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PROTECT, false );
     GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_GOLD, false );
     GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_SHOP_SUGGESTEDITEMS, false );
-    $('#LumberText').text = 0
+    $('#LumberText').text = 0;
+    $('#GoldText').text = 0;
+//    $('#VictoryPoints').text = 0;
+    //$('#VictoryPoints').AddClass("Hidden");
 
     $.Schedule(0.03, UpdatePlayerGold);
 })();
