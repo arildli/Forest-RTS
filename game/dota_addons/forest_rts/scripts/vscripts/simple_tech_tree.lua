@@ -1642,6 +1642,11 @@ function SimpleTechTree:MergeSpells(unit)
 	print_simple_tech_tree("MergeSpells", "\nMerging spells...")
 	--print("---------------------------------------------------------------------------")
 
+
+	-- READ
+	-- Remember to init ability level of all the ability page spells.
+
+
 	local spells = {}
 	for pageNumber,page in pairs(unit._abilityPages) do
 		if page then
