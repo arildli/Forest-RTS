@@ -2,7 +2,7 @@
   <script>
     GameUI.CustomUIConfig().multiteam_top_scoreboard =
     {
-    reorder_team_scores: true, // sort the teams by score
+    reorder_team_scores: false, // sort the teams by score
     <!--
     LeftInjectXMLFile: "file://{resources}/layout/custom_game/overthrow_scoreboard_left.xml",
 -->
@@ -33,8 +33,9 @@
 Panel>
     <CustomUIElement type="HeroSelection" layoutfile="file://{resources}/layout/custom_game/multiteam_hero_select_overlay.xml" />
   
-    <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/scripts.xml" />
+    <CustomUIElement type="Hud"                                 layoutfile="file://{resources}/layout/custom_game/scoreboard.xml" />
     <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/resource.xml" />
     <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/notifications.xml" />
+    <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/scripts.xml" />
   </Panel>
 </root>

@@ -1725,6 +1725,7 @@
 		"Model"						"models/props_structures/tent_dk_small.vmdl"
 		"ModelScale"					"1.05"
 		"AbilityLayout"					"6"
+		"ConsideredHero"				"1"
 
 		"SoundSet"					"Creep_Good_Melee"
 		"MinimapIcon"					"minimap_tower90"

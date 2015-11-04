@@ -547,6 +547,9 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       GameMode:SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.scoreRadiant)
       GameMode:SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.scoreDire)
       
+      print("Radiant: "..self.scoreRadiant.."\tDire: "..self.scoreDire)
+      CustomGameEventManager:Send_ServerToAllClients("updated_team_scores", {radiant=self.scoreRadiant, dire=self.scoreDire})
+      
       -- Check if enough kills have been made
       if self.scoreRadiant >= VICTORY_SCORE then
 	 print("#simplerts_radiant_victory")
