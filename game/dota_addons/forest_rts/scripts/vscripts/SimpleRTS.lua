@@ -9,8 +9,8 @@ PLAYER_HEROES = {}
 PLAYER_COUNT = 0
 VICTORY_SCORE = 0
 
-COLOR_DIRE = "#b0171b"
 COLOR_RADIANT = "#4789ab"
+COLOR_DIRE = "#b0171b"
 
 
 
@@ -87,6 +87,17 @@ function SimpleRTSGameMode:InitGameMode()
    self.scoreDire = 0
    self.scoreRadiant = 0
    self.playerCount = 0
+
+   self.teamColors = {}
+   self.teamColors[DOTA_TEAM_GOODGUYS] = {71, 137, 171};
+   self.teamColors[DOTA_TEAM_BADGUYS] = {176, 23, 27};
+
+   for team=0,10 do
+      local color = self.teamColors[team]
+      if color then
+	 SetTeamCustomHealthbarColor(team, color[1], color[2], color[3])
+      end
+   end
    
    -- Filters
    --GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( SimpleRTSGameMode, "FilterExecuteOrder" ), self )
@@ -533,6 +544,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
 	 if unitName == MAIN_BUILDING.name then
 	    GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
 	 end
+	 CustomGameEventManager:Send_ServerToAllClients("new_team_score", {teamId=DOTA_TEAM_BADGUYS, self.scoreDire})
       elseif killedTeam == DOTA_TEAM_BADGUYS then
 	 killedTeamString = "<font color='"..COLOR_DIRE.."'>Dire</font>"
 	 self.scoreRadiant = self.scoreRadiant + 1
@@ -540,6 +552,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
 	 if unitName == MAIN_BUILDING.name then
 	    GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
 	 end
+	 CustomGameEventManager:Send_ServerToAllClients("new_team_score", {teamId=DOTA_TEAM_GOODGUYS, self.scoreRadiant})
       end
       Say(nil, scoreMessage, false)
       
@@ -548,7 +561,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       GameMode:SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.scoreDire)
       
       print("Radiant: "..self.scoreRadiant.."\tDire: "..self.scoreDire)
-      CustomGameEventManager:Send_ServerToAllClients("updated_team_scores", {radiant=self.scoreRadiant, dire=self.scoreDire})
+      --CustomGameEventManager:Send_ServerToAllClients("updated_team_scores", {radiant=self.scoreRadiant, dire=self.scoreDire})
       
       -- Check if enough kills have been made
       if self.scoreRadiant >= VICTORY_SCORE then

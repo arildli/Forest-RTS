@@ -2,11 +2,10 @@
   <script>
     GameUI.CustomUIConfig().multiteam_top_scoreboard =
     {
-    reorder_team_scores: false, // sort the teams by score
-    <!--
-    LeftInjectXMLFile: "file://{resources}/layout/custom_game/overthrow_scoreboard_left.xml",
--->
-    TeamOverlayXMLFile: "file://{resources}/layout/custom_game/overthrow_scoreboard_team_overlay.xml"
+        reorder_team_scores: false, // sort the teams by score
+	//LeftInjectXMLFile: "file://{resources}/layout/custom_game/overthrow_scoreboard_left.xml",
+	//TeamOverlayXMLFile: "file://{resources}/layout/custom_game/overthrow_scoreboard_team_overlay.xml"
+	TeamOverlayXMLFile: "file://{resources}/layout/custom_game/multiteam_top_scoreboard.xml"
     };
 
     GameUI.CustomUIConfig().team_logo_xml = "file://{resources}/layout/custom_game/overthrow_team_icon.xml";
@@ -30,10 +29,8 @@
 	
   <Panel>
     <CustomUIElement type="HudTopBar" layoutfile="file://{resources}/layout/custom_game/multiteam_top_scoreboard.xml" />
-Panel>
     <CustomUIElement type="HeroSelection" layoutfile="file://{resources}/layout/custom_game/multiteam_hero_select_overlay.xml" />
   
-    <CustomUIElement type="Hud"                                 layoutfile="file://{resources}/layout/custom_game/scoreboard.xml" />
     <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/resource.xml" />
     <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/notifications.xml" />
     <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/scripts.xml" />

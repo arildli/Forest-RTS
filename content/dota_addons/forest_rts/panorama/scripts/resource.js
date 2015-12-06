@@ -33,3 +33,4 @@ function UpdatePlayerGold() {
 
     $.Schedule(0.03, UpdatePlayerGold);
 })();
+
