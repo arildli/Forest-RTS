@@ -1,0 +1,16 @@
+<root>
+  <styles>
+    <include src="file://{resources}/styles/custom_game/victory_score.css" />
+  </styles>
+  <scripts>
+    <include src="file://{resources}/scripts/custom_game/victory_score.js" />
+  </scripts>
+  <script>
+    $.Msg( "Compiled victory_score.xml!" );
+  </script>
+  <Panel hittest="false" class="VictoryScoreRoot">
+    <Panel hittest="false" id="VictoryScorePanel">
+      <Label hittest="false" id="VictoryScore" text="" html="true" class="TitleFont" />
+    </Panel>
+  </Panel>
+</root>

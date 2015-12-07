@@ -9,7 +9,11 @@ PLAYER_HEROES = {}
 PLAYER_COUNT = 0
 VICTORY_SCORE = 0
 
-COLOR_RADIANT = "#4789ab"
+COLOR_RADIANT = "#3455ff"
+--"#3dd296"
+--"#1bc0d8"
+--"#3455ff"
+--"#4789ab"
 COLOR_DIRE = "#b0171b"
 
 
@@ -89,7 +93,7 @@ function SimpleRTSGameMode:InitGameMode()
    self.playerCount = 0
 
    self.teamColors = {}
-   self.teamColors[DOTA_TEAM_GOODGUYS] = {71, 137, 171};
+   self.teamColors[DOTA_TEAM_GOODGUYS] = {52, 85, 255};
    self.teamColors[DOTA_TEAM_BADGUYS] = {176, 23, 27};
 
    for team=0,10 do
@@ -335,7 +339,11 @@ function SimpleRTSGameMode:onGameStateChange(keys)
       PLAYER_COUNT = PlayerResource:GetTeamPlayerCount()
       VICTORY_SCORE = math.ceil(KILLS_TO_WIN * PLAYER_COUNT / 2)
       print("PLAYER_COUNT: "..PLAYER_COUNT.."\tVICTORY_SCORE: "..VICTORY_SCORE)
-      
+           
+   elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
+      CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})
+      print("Sent victory score: "..VICTORY_SCORE)
+
    -- Game start
    elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
       print("[SimpleRTS] The game has started.")
@@ -533,32 +541,34 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    --if killedUnit._building and killedUnit._building == true then
    --   killedUnit:RemoveBuilding(true)
    --end
-   
-   if (killedUnit:IsRealHero() == true or unitName == MAIN_BUILDING.name) and not killedUnit._wasCancelled then      
+
+   if (killedUnit:IsRealHero() == true or unitName == MAIN_BUILDING.name) then 
+      --if not killedUnit._wasCancelled then 
       local killedTeamString
       local scoreMessage
       if killedTeam == DOTA_TEAM_GOODGUYS then
 	 killedTeamString = "<font color='"..COLOR_RADIANT.."'>Radiant</font>"
 	 self.scoreDire = self.scoreDire + 1
-	 scoreMessage = "<font color='"..COLOR_DIRE.."'>Dire</font> has "..self.scoreDire.."/"..VICTORY_SCORE.." points needed to win!"
+	 --scoreMessage = "<font color='"..COLOR_DIRE.."'>Dire</font> has "..self.scoreDire.."/"..VICTORY_SCORE.." points needed to win!"
 	 if unitName == MAIN_BUILDING.name then
 	    GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
 	 end
-	 CustomGameEventManager:Send_ServerToAllClients("new_team_score", {teamId=DOTA_TEAM_BADGUYS, self.scoreDire})
+	 --CustomGameEventManager:Send_ServerToAllClients("new_team_score", {teamId=DOTA_TEAM_BADGUYS, score=self.scoreDire})
       elseif killedTeam == DOTA_TEAM_BADGUYS then
 	 killedTeamString = "<font color='"..COLOR_DIRE.."'>Dire</font>"
 	 self.scoreRadiant = self.scoreRadiant + 1
-	 scoreMessage = "<font color='"..COLOR_RADIANT.."'>Radiant</font> has "..self.scoreRadiant.."/"..VICTORY_SCORE.." points needed to win!"
+	 --scoreMessage = "<font color='"..COLOR_RADIANT.."'>Radiant</font> has "..self.scoreRadiant.."/"..VICTORY_SCORE.." points needed to win!"
 	 if unitName == MAIN_BUILDING.name then
 	    GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
 	 end
-	 CustomGameEventManager:Send_ServerToAllClients("new_team_score", {teamId=DOTA_TEAM_GOODGUYS, self.scoreRadiant})
+	 --CustomGameEventManager:Send_ServerToAllClients("new_team_score", {teamId=DOTA_TEAM_GOODGUYS, score=self.scoreRadiant})
       end
-      Say(nil, scoreMessage, false)
+      CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
+      --Say(nil, scoreMessage, false)
       
       -- Update the score
-      GameMode:SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.scoreRadiant)
-      GameMode:SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.scoreDire)
+      --GameMode:SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.scoreRadiant)
+      --GameMode:SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.scoreDire)
       
       print("Radiant: "..self.scoreRadiant.."\tDire: "..self.scoreDire)
       --CustomGameEventManager:Send_ServerToAllClients("updated_team_scores", {radiant=self.scoreRadiant, dire=self.scoreDire})

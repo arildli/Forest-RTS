@@ -8,7 +8,8 @@
 */
 
 
-
+var radiantScore = 0;
+var direScore = 0;
 var scoreboard = {};
 
 // Get panel for team.
@@ -24,8 +25,12 @@ function Scoreboard_SetTeamScore(teamId, newScore) {
 	print("ERROR (Scoreboard_UpdateTeamScore): Couldn't get details for team!");
 	return false;
     }
-    teamDetails.team_score = newScore;
-    print("team: " + teamId + "\tnew score: " + teamDetails.team_score);
+    //teamDetails.team_score = newScore;
+    if (teamId === 2) {
+	radiantScore = newScore;
+    } else if (teamId === 3) {
+	direScore = newScore;
+    }
 }
 
 // Update the text of a panel.
@@ -46,23 +51,24 @@ function Scoreboard_SetTextSafe(panel, childName, textValue) {
 function Scoreboard_UpdatePlayerPanel(scoreboardConfig, scoreboardPanel, playerId, localPlayerTeamId) {
     var playerPanelName = "_dynamic_player_" + playerId;
     var playerPanel = scoreboardPanel.FindChild(playerPanelName);
-    
     // Create new panel if it doesn't exist.
     if (playerPanel === null) {
 	playerPanel = $.CreatePanel("Panel", scoreboardPanel, playerPanelName);
 	playerPanel.SetAttributeInt("player_id", playerId);
 	playerPanel.BLoadLayout(scoreboardConfig.playerXmlName, false, false);
     }
+
+    playerPanel.SetHasClass("is_local_player", (playerId == Game.GetLocalPlayerID()));
     
     var isTeammate = false;
     var playerInfo = Game.GetPlayerInfo(playerId);
     if (playerInfo) {
 	isTeammate = (playerInfo.player_team_id == localPlayerTeamId);
 
-	playerPanel.SetHasClass("is_local_player", (playerId == Game.GetLocalPlayerID()));
 	playerPanel.SetHasClass("player_dead", (playerInfo.player_respawn_seconds >= 0));
 	playerPanel.SetHasClass("local_player_teammate", isTeammate && (playerId != Game.GetLocalPlayerID()));
 	
+	Scoreboard_SetTextSafe(playerPanel, "RespawnTimer", playerInfo.player_respawn_seconds);
 	/*
 	Scoreboard_SetTextSafe(playerPanel, "PlayerName", playerInfo.player_name);
 	Scoreboard_SetTextSafe(playerPanel, "Level", playerInfo.player_level);
@@ -161,7 +167,14 @@ function Scoreboard_UpdateTeamPanel(scoreboardConfig, scoreboardPanel, teamDetai
     }
 
     // Update score and name of the team.
-    Scoreboard_SetTextSafe(teamPanel, "TeamScore", teamDetails.team_score);
+    var score = 0
+    if (teamId == 2) {
+	score = radiantScore;
+    } else if (teamId == 3) {
+	score = direScore;
+    }
+    //Scoreboard_SetTextSafe(teamPanel, "TeamScore", teamDetails.team_score);
+    Scoreboard_SetTextSafe(teamPanel, "TeamScore", score);
     Scoreboard_SetTextSafe(teamPanel, "TeamName", $.Localize(teamDetails.team_name));
 
     // Set team color.
@@ -199,8 +212,8 @@ function Scoreboard_UpdateScoreboard() {
 	    teamsPanels[teamsDetails[i].team_id] = curTeamPanel;
 	}
     }
-    print("Updated scoreboard!");
 
+    $.Schedule(0.2, Scoreboard_UpdateScoreboard);
     // Add code here for sorting if it's needed.
 }
 
@@ -240,8 +253,9 @@ function Scoreboard_InitializeScoreboard() {
 
 // Update the score for the specified team.
 function Scoreboard_NewTeamScore(keys) {
-    print("Updated score!");
-    Scoreboard_SetTeamScore(keys.teamId, keys.score);
+    Scoreboard_SetTeamScore(2, keys.radiantScore);
+    Scoreboard_SetTeamScore(3, keys.direScore);
+    Scoreboard_UpdateScoreboard();
 }
 
 
@@ -250,133 +264,4 @@ function Scoreboard_NewTeamScore(keys) {
     Scoreboard_InitializeScoreboard();
 
     GameEvents.Subscribe("new_team_score", Scoreboard_NewTeamScore);
-    GameEvents.Subscribe("updated_team_scores", Scoreboard_UpdateScoreboard);
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function Test() {
-    // Set Score to a certain amount for team 2:
-    // Remember to copy SetTextSafe and use it to find the exact panel
-    var teamID = 2;
-    var team2PanelName = "#_dynamic_team_" + teamID
-    var teamPanel = $.Localize(team2PanelName);
-    //printObject(GameUI.CustomUIConfig().multiteam_top_scoreboard, "GameUI");
-    /*
-    var contextPanel = $.GetContextPanel();
-    //var objectData = printObject(contextPanel, "ContextPanel");
-    var teamPanel = contextPanel.FindChild(team2PanelName);
-    if(teamPanel)
-	print("TeamPanel found!!!");
-    else
-	print("TeamPanel was NOT found...");
-    
-    print("ChildCount of contextPanel: " + contextPanel.GetChildCount());
-    var children = contextPanel.Children();
-    printObject(children, "Children of ContextPanel");
-    print("Length: " + children.length);
-    printObject(GameUI.CustomUIConfig(), "GameUI", true);
-    var scoreLabel = teamPanel.findChildInLayoutFile("TeamScore"); // id
-    if(scoreLabel) {
-	$.Msg("scoreLabel is undefined!");
-    }else{
-	$.Msg("scoreLabel was NOT undefined!");
-    }*/
-}
-
-
-/*
-//=============================================================================
-//=============================================================================
-function _Scoreboard_SetText( panel, childName, textValue ) {
-    if ( panel === null ) {
-	return;
-    }
-    var childPanel = panel.findChildInLayoutFile( childName );
-    if ( childPanel === null ) {
-	return;
-    }
-}
-
-//=============================================================================
-//=============================================================================
-function _Scoreboard_UpdateTeamPanel( ) {
-    
-}
-
-//=============================================================================
-//=============================================================================
-function UpdateScore( args ) {
-    $('#GoldText').text = args.radiant;
-    $('#LumberText').text = args.dire;
-}
-
-(function() {
-    GameEvents.Subscribe("updated_team_scores", UpdateScore);
-    scoreboardInfo.scoreboardConfig = {
-	"teamXmlName" : "file://{resources}/layout/custom_game/multiteam_top_scoreboard_team.xml" 
-    };
-    scoreboardInfo.teamIDs = []
-    for ( var teamId of Game.GetAllTeamIDs() ) {
-	scoreboardInfo.teamsList.push( teamId );
-    }
- //   $('#GoldText').text = 99999;
-//    $('#LumberText').text = 99999;
-})();
-*/
-
-
-
-
-
-
-/*
-(function()
-{
-	if ( GameUI.CustomUIConfig().multiteam_top_scoreboard )
-	{
-		var cfg = GameUI.CustomUIConfig().multiteam_top_scoreboard;
-		if ( cfg.LeftInjectXMLFile )
-		{
-			$( "#LeftInjectXMLFile" ).BLoadLayout( cfg.LeftInjectXMLFile, false, false );
-		}
-		if ( cfg.RightInjectXMLFile )
-		{
-			$( "#RightInjectXMLFile" ).BLoadLayout( cfg.RightInjectXMLFile, false, false );
-		}
-	}
-	
-	if ( ScoreboardUpdater_InitializeScoreboard === null ) { $.Msg( "WARNING: This file requires shared_scoreboard_updater.js to be included." ); }
-
-	var scoreboardConfig =
-	{
-		"teamXmlName" : "file://{resources}/layout/custom_game/multiteam_top_scoreboard_team.xml",
-		"playerXmlName" : "file://{resources}/layout/custom_game/multiteam_top_scoreboard_player.xml",
-	};
-	g_ScoreboardHandle = ScoreboardUpdater_InitializeScoreboard( scoreboardConfig, $( "#MultiteamScoreboard" ) );
-
-	UpdateScoreboard();
-})();*/
