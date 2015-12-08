@@ -104,7 +104,7 @@ function SimpleRTSGameMode:InitGameMode()
    end
    
    -- Filters
-   --GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( SimpleRTSGameMode, "FilterExecuteOrder" ), self )
+   GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( SimpleRTSGameMode, "FilterExecuteOrder" ), self )
 
    -- Event Hooks 
    ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(SimpleRTSGameMode, 'onHeroPick'), self)
@@ -202,7 +202,7 @@ function SimpleRTSGameMode:InitGameMode()
    Convars:RegisterCommand('test_endgame', function()
 			      
 			      GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-			      GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+			      --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
 			      GameRules:Defeated()
 					   end, 'Ends the game.', FCVAR_CHEAT)
 end
@@ -577,12 +577,12 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       if self.scoreRadiant >= VICTORY_SCORE then
 	 print("#simplerts_radiant_victory")
 	 GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
-	 GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
+	 --GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
 	 GameRules:Defeated()
       elseif self.scoreDire >= VICTORY_SCORE then
 	 print("#simplerts_dire_victory")
 	 GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-	 GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+	 --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
 	 GameRules:Defeated()
       end
    end

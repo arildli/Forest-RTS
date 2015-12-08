@@ -18,9 +18,11 @@
 		"Ability4"		""
 		"Ability5"		""
 		"Ability6"		""
+		"Ability10"		"srts_ability_units"
 
 		"UnitLabel"		"builder"
 		"MovementSpeed"		"360"
+		"FormationRank" 	"0"
 
 		// Attributes - Strength
 		//------------------------------------------------------------------------
@@ -68,9 +70,11 @@
 		"Ability4"		""
 		"Ability5"		""
 		"Ability6"		""
+		"Ability10"		"srts_ability_units"
 
 		"UnitLabel"		"builder"
 		"MovementSpeed"		"360"
+		"FormationRank" 	"0"
 
 		// Attributes - Intelligence
 		//------------------------------------------------------------------------
@@ -118,9 +122,11 @@
 		"Ability4"		""
 		"Ability5"		""
 		"Ability6"		""
+		"Ability10"		"srts_ability_units"
 
 		"UnitLabel"		"builder"
 		"MovementSpeed"		"360"
+		"FormationRank" 	"0"
 
 		// Attributes - Strength
 		//------------------------------------------------------------------------
@@ -168,9 +174,11 @@
 		"Ability4"		""
 		"Ability5"		""
 		"Ability6"		""
+		"Ability10"		"srts_ability_units"
 
 		"UnitLabel"		"builder"
 		"MovementSpeed"		"360"
+		"FormationRank" 	"0"
 
 		// Attributes - Strength
 		//------------------------------------------------------------------------
@@ -218,9 +226,11 @@
 		"Ability4"		""
 		"Ability5"		""
 		"Ability6"		""
+		"Ability10"		"srts_ability_units"
 
 		"UnitLabel"		"builder"
 		"MovementSpeed"		"360"
+		"FormationRank" 	"0"
 
 		// Attributes - Agility
 		//------------------------------------------------------------------------

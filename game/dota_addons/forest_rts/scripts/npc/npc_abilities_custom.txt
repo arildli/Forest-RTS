@@ -1140,7 +1140,7 @@
 		"AbilityManacost"		"0"
 
 		"AbilityCastAnimation"		"ACT_DOTA_ATTACK"
-		"AbilityChannelTime"		"15"
+		"AbilityChannelTime"		"20"
 
 		"precache"
 		{
@@ -1153,13 +1153,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"channel_time"	"15"
+				"channel_time"	"20"
 			}
 			
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber"	"5"
+				"lumber"	"10"
 			}
 		}
 
@@ -1277,7 +1277,7 @@
 		"AbilityManacost"		"0"
 
 		"AbilityCastAnimation"		"ACT_DOTA_ATTACK"
-		"AbilityChannelTime"		"45"
+		"AbilityChannelTime"		"40"
 
 		"precache"
 		{
@@ -1290,13 +1290,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"channel_time"	"45"
+				"channel_time"	"40"
 			}
 			
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber"	"5"
+				"lumber"	"10"
 			}
 		}
 
@@ -1425,7 +1425,7 @@
 		"UnitName"					"npc_dota_building_watch_tower"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"25"
-		"AbilityLumberCost"				"25"
+		"AbilityLumberCost"				"40"
 		"BuildTime"					"15"
 		// End of BuildingHelper info
 
@@ -1440,7 +1440,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"25"
+				"lumber_cost"	"40"
 			}	
 
 			"03"
@@ -1498,7 +1498,7 @@
 		"UnitName"					"npc_dota_building_crystal_radiant"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"75"
-		"AbilityLumberCost"				"60"
+		"AbilityLumberCost"				"120"
 		"BuildTime"					"15"
 		// End of BuildingHelper info
 
@@ -1513,7 +1513,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"60"
+				"lumber_cost"	"120"
 			}	
 
 			"03"
@@ -1588,7 +1588,7 @@
 		"UnitName"					"npc_dota_building_crystal_dire"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"75"
-		"AbilityLumberCost"				"60"
+		"AbilityLumberCost"				"120"
 		"BuildTime"					"15"
 		// End of BuildingHelper info
 
@@ -1603,7 +1603,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"60"
+				"lumber_cost"	"120"
 			}	
 
 			"03"
@@ -1762,7 +1762,7 @@
 		"UnitName"					"npc_dota_building_barracks_radiant"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"100"
-		"AbilityLumberCost"				"40"
+		"AbilityLumberCost"				"75"
 		"BuildTime"					"20"
 		// End of BuildingHelper info
 
@@ -1777,7 +1777,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"40"
+				"lumber_cost"	"75"
 			}	
 
 			"03"
@@ -1834,7 +1834,7 @@
 		"UnitName"					"npc_dota_building_barracks_dire"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"100"
-		"AbilityLumberCost"				"40"
+		"AbilityLumberCost"				"75"
 		"BuildTime"					"20"
 		// End of BuildingHelper info
 
@@ -1849,7 +1849,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"40"
+				"lumber_cost"	"75"
 			}
 
 			"03"
@@ -1906,7 +1906,7 @@
 		"UnitName"					"npc_dota_building_market"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"50"
-		"AbilityLumberCost"				"25"
+		"AbilityLumberCost"				"40"
 		"BuildTime"					"20"
 		// End of BuildingHelper info
 
@@ -1921,7 +1921,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"25"
+				"lumber_cost"	"40"
 			}
 
 			"03"
@@ -1996,7 +1996,7 @@
 		"UnitName"					"npc_dota_building_armory"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"150"
-		"AbilityLumberCost"				"75"
+		"AbilityLumberCost"				"150"
 		"BuildTime"					"25"
 		// End of BuildingHelper info
 
@@ -2011,7 +2011,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"75"
+				"lumber_cost"	"150"
 			}
 
 			"03"
@@ -2086,7 +2086,7 @@
 		"UnitName"					"npc_dota_building_armory"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"150"
-		"AbilityLumberCost"				"75"
+		"AbilityLumberCost"				"150"
 		"BuildTime"					"25"
 		// End of BuildingHelper info
 
@@ -2101,7 +2101,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"75"
+				"lumber_cost"	"150"
 			}
 
 			"03"
@@ -2176,7 +2176,7 @@
 		"UnitName"					"npc_dota_building_gold_mine"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"0"
-		"AbilityLumberCost"				"15"
+		"AbilityLumberCost"				"30"
 		"BuildTime"					"15"
 		// End of BuildingHelper info
 
@@ -2191,7 +2191,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"15"
+				"lumber_cost"	"30"
 			}
 
 			"03"
@@ -2613,13 +2613,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"25"
+				"lumber_cost"	"50"
 			}
 
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_gained"	"175"
+				"gold_gained"	"150"
 			}
 		}
 
@@ -6244,7 +6244,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"10"
+				"lumber_cost"	"15"
 			}
 
 			"03"
@@ -6403,7 +6403,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"10"
+				"lumber_cost"	"15"
 			}
 
 			"03"

@@ -32,7 +32,7 @@
 		"Ability1"			""
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Human_Footman"
 
@@ -50,6 +50,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"0"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -122,7 +123,7 @@
 		"Ability1"			"srts_long_weapon"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Kobold_Spearman"
 
@@ -140,6 +141,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"0"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -184,7 +186,7 @@
 		"Ability1"			"srts_regenerative_bark"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Forest_Treant"
 
@@ -202,6 +204,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"0"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -254,7 +257,7 @@
 		"Ability1"			"srts_hatred"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Troll_Fighter"
 
@@ -272,6 +275,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"0"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -316,7 +320,7 @@
 		"Ability1"			"srts_undead_strength"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Undead_Skeleton_Warrior"
 
@@ -334,6 +338,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"0"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -384,7 +389,7 @@
 		"Ability1"			"srts_headshot"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Human_Gunner"
 
@@ -402,6 +407,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"2"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -470,7 +476,7 @@
 		"Ability1"			"srts_envenomed_spears"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Forest_Dryad"
 
@@ -488,6 +494,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"2"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -556,7 +563,7 @@
 		"Ability1"			"srts_ignite"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Kobold_Flamethrower"
 
@@ -574,6 +581,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"2"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -618,7 +626,7 @@
 		"Ability1"			"srts_burning_arrows"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Undead_Skeleton_Archer"
 
@@ -637,6 +645,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"2"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -709,7 +718,7 @@
 		"Ability1"			"srts_hatred"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Troll_Axethrower"
 
@@ -727,6 +736,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"2"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -778,7 +788,7 @@
 		"Ability1"			"srts_soldier_vision"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Soldier_Melee"
 
@@ -798,6 +808,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"0"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -843,7 +854,7 @@
 		"Ability1"			"srts_soldier_vision"
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Soldier_Ranged"
 
@@ -863,6 +874,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"2"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
@@ -915,6 +927,7 @@
 		"Ability4"			""
 		"Ability5"			""
 		"Ability6"			""
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Common_Worker"
 		"UnitLabel"			"builder"
@@ -933,6 +946,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"1"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
@@ -975,7 +989,7 @@
 		"Ability1"			""
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Radiant_Catapult"
 
@@ -995,6 +1009,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"3"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"320"
@@ -1037,7 +1052,7 @@
 		"Ability1"			""
 		"Ability2"			""
 		"Ability3"			""
-		"Ability4"			"srts_ability_units"
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Dire_Catapult"
 
@@ -1057,6 +1072,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"3"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"320"
@@ -1108,6 +1124,7 @@
 		"Ability4"			""
 		"Ability5"			""
 		"Ability6"			""
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Human_Worker"
 		"UnitLabel"			"builder"
@@ -1126,6 +1143,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"1"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
@@ -1179,6 +1197,7 @@
 		"Ability4"			""
 		"Ability5"			""
 		"Ability6"			""
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Forest_Worker"
 		"UnitLabel"			"builder"
@@ -1197,6 +1216,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"1"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
@@ -1242,6 +1262,7 @@
 		"Ability4"			""
 		"Ability5"			""
 		"Ability6"			""
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Kobold_Worker"
 		"UnitLabel"			"builder"
@@ -1260,6 +1281,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"1"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
@@ -1305,6 +1327,7 @@
 		"Ability4"			""
 		"Ability5"			""
 		"Ability6"			""
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Skeleton_Worker"
 		"UnitLabel"			"builder"
@@ -1323,6 +1346,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"1"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
@@ -1368,6 +1392,7 @@
 		"Ability4"			""
 		"Ability5"			""
 		"Ability6"			""
+		"Ability10"			"srts_ability_units"
 
 		"SelectionGroup"		"Troll_Worker"
 		"UnitLabel"			"builder"
@@ -1386,6 +1411,7 @@
 
 		"RingRadius"			"40"
 		"HealthBarOffset"		"150"
+		"FormationRank" 		"1"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
