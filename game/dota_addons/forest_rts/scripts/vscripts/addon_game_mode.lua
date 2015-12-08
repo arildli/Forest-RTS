@@ -4,6 +4,7 @@ if CustomGameMode == nil then
 	_G.CustomGameMode = class({})
 end
 
+require('statcollection/init')
 require('utilities')
 --require('upgrades')
 require('mechanics')
