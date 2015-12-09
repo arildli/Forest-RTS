@@ -65,6 +65,9 @@ HERO_SPELLS_FOR_BUILDINGS[WARLORD] = {}
 
 
 
+MAX_WORKER_COUNT = 10
+
+
 --[[ SPELLS ]]--
 
 -- Common
@@ -144,20 +147,19 @@ MAIN_BUILDING["category"] = "building"
 MAX_COUNT[MAIN_BUILDING["name"]] = MAIN_BUILDING["maximum"]
 SPELLS[MAIN_BUILDING["spell"]] = MAIN_BUILDING
 
---[[
-WATCH_TOWER = {}
-WATCH_TOWER["name"] = "npc_dota_building_watch_tower"
-WATCH_TOWER["spell"] = "srts_construct_test_tower"
-WATCH_TOWER["req"] = {}
-WATCH_TOWER["category"] = "building"
-]]
-
 WATCH_TOWER = {}
 WATCH_TOWER["name"] = "npc_dota_building_watch_tower"
 WATCH_TOWER["spell"] = "srts_construct_watch_tower"
 WATCH_TOWER["req"] = {MAIN_BUILDING}
 WATCH_TOWER["category"] = "building"
 SPELLS[WATCH_TOWER["spell"]] = WATCH_TOWER
+
+WOODEN_WALL = {}
+WOODEN_WALL["name"] = "npc_dota_building_wooden_wall"
+WOODEN_WALL["spell"] = "srts_construct_wooden_wall"
+WOODEN_WALL["req"] = {MAIN_BUILDING}
+WOODEN_WALL["category"] = "building"
+SPELLS[WOODEN_WALL["spell"]] = WOODEN_WALL
 
 MARKET = {}
 MARKET["name"] = "npc_dota_building_market"
@@ -254,7 +256,7 @@ COMMON_TRAIN_WORKER = {
    name = "npc_dota_creature_worker",
    spell = "srts_train_worker",
    req = {},
-   maximum = 5,
+   maximum = MAX_WORKER_COUNT,
    category = "unit"
 }
 MAX_COUNT[COMMON_TRAIN_WORKER["name"]] = COMMON_TRAIN_WORKER["maximum"]
@@ -311,7 +313,7 @@ COMMANDER_WORKER = {
 	name = "npc_dota_creature_human_worker",
 	spell = "srts_train_human_worker",
 	req = {},
-	maximum = 5,
+	maximum = MAX_WORKER_COUNT,
 	category = "unit"
 }
 MAX_COUNT[COMMANDER_WORKER["name"]] = COMMANDER_WORKER["maximum"]
@@ -357,7 +359,7 @@ FURION_WORKER = {
 	name = "npc_dota_creature_forest_worker",
 	spell = "srts_train_forest_worker",
 	req = {},
-	maximum = 5,
+	maximum = MAX_WORKER_COUNT,
 	category = "unit"
 }
 MAX_COUNT[FURION_WORKER["name"]] = FURION_WORKER["maximum"]
@@ -414,7 +416,7 @@ GEOMANCER_WORKER = {
 	name = "npc_dota_creature_kobold_worker",
 	spell = "srts_train_kobold_worker",
 	req = {},
-	maximum = 5,
+	maximum = MAX_WORKER_COUNT,
 	category = "unit"
 }
 MAX_COUNT[GEOMANCER_WORKER["name"]] = GEOMANCER_WORKER["maximum"]
@@ -460,7 +462,7 @@ KING_OF_THE_DEAD_WORKER = {
 	name = "npc_dota_creature_skeleton_worker",
 	spell = "srts_train_skeleton_worker",
 	req = {},
-	maximum = 5,
+	maximum = MAX_WORKER_COUNT,
 	category = "unit"
 }
 MAX_COUNT[KING_OF_THE_DEAD_WORKER["name"]] = KING_OF_THE_DEAD_WORKER["maximum"]
@@ -506,7 +508,7 @@ WARLORD_WORKER = {
 	name = "npc_dota_creature_troll_worker",
 	spell = "srts_train_troll_worker",
 	req = {},
-	maximum = 5,
+	maximum = MAX_WORKER_COUNT,
 	category = "unit"
 }
 MAX_COUNT[WARLORD_WORKER["name"]] = WARLORD_WORKER["maximum"]
@@ -571,6 +573,9 @@ HERO_SPELLS_FOR_BUILDINGS[COMMANDER][BARRACKS_RADIANT["name"]] =
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][WATCH_TOWER["name"]] =
 						   {COMMON_BUILDING}
 
+HERO_SPELLS_FOR_BUILDINGS[COMMANDER][WOODEN_WALL["name"]] =
+						   {COMMON_BUILDING}
+
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][HEALING_CRYSTAL_RADIANT["name"]] =
 						   {COMMON_CRYSTAL_AURA,
 						    COMMON_BUILDING}
@@ -603,6 +608,9 @@ HERO_SPELLS_FOR_BUILDINGS[FURION][BARRACKS_RADIANT["name"]] =
 							COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][WATCH_TOWER["name"]] =
+						   {COMMON_BUILDING}
+
+HERO_SPELLS_FOR_BUILDINGS[FURION][WOODEN_WALL["name"]] =
 						   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][HEALING_CRYSTAL_RADIANT["name"]] =
@@ -641,6 +649,9 @@ HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][BARRACKS_DIRE["name"]] =
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][WATCH_TOWER["name"]] =
 						   {COMMON_BUILDING}
 
+HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][WOODEN_WALL["name"]] =
+						   {COMMON_BUILDING}
+
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][HEALING_CRYSTAL_DIRE["name"]] =
 						   {COMMON_CRYSTAL_AURA,
 						    COMMON_BUILDING}
@@ -673,6 +684,9 @@ HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][BARRACKS_DIRE["name"]] =
 							COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][WATCH_TOWER["name"]] =
+						   {COMMON_BUILDING}
+
+HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][WOODEN_WALL["name"]] =
 						   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][HEALING_CRYSTAL_DIRE["name"]] =
@@ -708,6 +722,9 @@ HERO_SPELLS_FOR_BUILDINGS[WARLORD][BARRACKS_DIRE["name"]] =
 							COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][WATCH_TOWER["name"]] =
+						   {COMMON_BUILDING}
+
+HERO_SPELLS_FOR_BUILDINGS[WARLORD][WOODEN_WALL["name"]] =
 						   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][HEALING_CRYSTAL_DIRE["name"]] =
@@ -746,6 +763,7 @@ COMMANDER_BUILDING_SPELLS =
     GOLD_MINE,
     BARRACKS_RADIANT,
     WATCH_TOWER,
+    WOODEN_WALL,
     HEALING_CRYSTAL_RADIANT,
     MARKET,
     ARMORY_RADIANT}
@@ -755,13 +773,13 @@ COMMANDER_PAGE_CONSTRUCTION_1 =
     GOLD_MINE,
     BARRACKS_RADIANT,
     WATCH_TOWER,
-    HEALING_CRYSTAL_RADIANT,
+    WOODEN_WALL,
     PAGE_MAIN}
 
 COMMANDER_PAGE_CONSTRUCTION_2 =
    {MARKET,
+    HEALING_CRYSTAL_RADIANT,
     ARMORY_RADIANT,
-    EMPTY_FILLER,
     EMPTY_FILLER,
     EMPTY_FILLER,
     PAGE_MAIN}
@@ -772,6 +790,7 @@ FURION_BUILDING_SPELLS =
     GOLD_MINE,
     BARRACKS_RADIANT,
     WATCH_TOWER,
+    WOODEN_WALL,
     HEALING_CRYSTAL_RADIANT,
     MARKET,
     ARMORY_RADIANT}
@@ -781,13 +800,13 @@ FURION_PAGE_CONSTRUCTION_1 =
     GOLD_MINE,
     BARRACKS_RADIANT,
     WATCH_TOWER,
-    HEALING_CRYSTAL_RADIANT,
+    WOODEN_WALL,
     PAGE_MAIN}
 
 FURION_PAGE_CONSTRUCTION_2 =
    {MARKET,
+    HEALING_CRYSTAL_RADIANT,
     ARMORY_RADIANT,
-    EMPTY_FILLER,
     EMPTY_FILLER,
     EMPTY_FILLER,
     PAGE_MAIN}
@@ -800,6 +819,7 @@ GEOMANCER_BUILDING_SPELLS =
     GOLD_MINE,
     BARRACKS_DIRE,
     WATCH_TOWER,
+    WOODEN_WALL,
     HEALING_CRYSTAL_DIRE,
     MARKET,
     ARMORY_DIRE}
@@ -809,13 +829,13 @@ GEOMANCER_PAGE_CONSTRUCTION_1 =
     GOLD_MINE,
     BARRACKS_DIRE,
     WATCH_TOWER,
-    HEALING_CRYSTAL_DIRE,
+    WOODEN_WALL,
     PAGE_MAIN}
 
 GEOMANCER_PAGE_CONSTRUCTION_2 =
    {MARKET,
+    HEALING_CRYSTAL_DIRE,
     ARMORY_DIRE,
-    EMPTY_FILLER,
     EMPTY_FILLER,
     EMPTY_FILLER,
     PAGE_MAIN}
@@ -826,6 +846,7 @@ KING_OF_THE_DEAD_BUILDING_SPELLS =
     GOLD_MINE,
     BARRACKS_DIRE,
     WATCH_TOWER,
+    WOODEN_WALL,
     HEALING_CRYSTAL_DIRE,
     MARKET,
     ARMORY_DIRE}
@@ -835,13 +856,13 @@ KING_OF_THE_DEAD_PAGE_CONSTRUCTION_1 =
     GOLD_MINE,
     BARRACKS_DIRE,
     WATCH_TOWER,
-    HEALING_CRYSTAL_DIRE,
+    WOODEN_WALL,
     PAGE_MAIN}
 
 KING_OF_THE_DEAD_PAGE_CONSTRUCTION_2 =
    {MARKET,
+    HEALING_CRYSTAL_DIRE,
     ARMORY_DIRE,
-    EMPTY_FILLER,
     EMPTY_FILLER,
     EMPTY_FILLER,
     PAGE_MAIN}
@@ -852,6 +873,7 @@ WARLORD_BUILDING_SPELLS =
     GOLD_MINE,
     BARRACKS_DIRE,
     WATCH_TOWER,
+    WOODEN_WALL,
     HEALING_CRYSTAL_DIRE,
     MARKET,
     ARMORY_DIRE}
@@ -861,13 +883,13 @@ WARLORD_PAGE_CONSTRUCTION_1 =
     GOLD_MINE,
     BARRACKS_DIRE,
     WATCH_TOWER,
-    HEALING_CRYSTAL_DIRE,
+    WOODEN_WALL,
     PAGE_MAIN}
 
 WARLORD_PAGE_CONSTRUCTION_2 =
    {MARKET,
+    HEALING_CRYSTAL_DIRE,
     ARMORY_DIRE,
-    EMPTY_FILLER,
     EMPTY_FILLER,
     EMPTY_FILLER,
     PAGE_MAIN}

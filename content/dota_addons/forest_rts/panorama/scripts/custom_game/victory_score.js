@@ -1,9 +1,15 @@
 "use strict";
 
+var victoryScore = "";
+
 // Sets the victory score field.
 function SetVictoryScore(keys) {
-    $.Msg("Victory score: "+keys.victoryScore);
-    $("#VictoryScore").text = "Win: "+keys.victoryScore;
+    victoryScore = keys.victoryScore;
+
+    $("#VictoryScore").text = "Win: "+keys.victoryScore;    
+    /*if ($("#VictoryScore").text === "") {
+	$.Schedule(0.1, SetVictoryScore);
+    }*/
 }
 
 (function() {

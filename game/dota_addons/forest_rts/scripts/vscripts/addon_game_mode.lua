@@ -57,6 +57,8 @@ function Precache( context )
 	-- Buildings
 	   -- Tower
 	PrecacheResource("model", "models/props_structures/wooden_sentry_tower001.vmdl", context)
+	   -- Wooden Wall
+	PrecacheResource("model", "models/props_debris/spike_fence_fx_b.vmdl", context)
 	   -- Temporary Mining Crystal
 	PrecacheResource("model", "models/props_structures/good_base_wall006.vmdl", context)
 	   -- Main Tent
