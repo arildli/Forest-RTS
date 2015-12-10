@@ -19,6 +19,7 @@
 		"Ability5"		""
 		"Ability6"		""
 		"Ability10"		"srts_ability_units"
+		"Ability11"		"srts_hero_attack_speed_aura"
 
 		"UnitLabel"		"builder"
 		"MovementSpeed"		"360"
@@ -71,6 +72,7 @@
 		"Ability5"		""
 		"Ability6"		""
 		"Ability10"		"srts_ability_units"
+		"Ability11"		"srts_hero_attack_speed_aura"
 
 		"UnitLabel"		"builder"
 		"MovementSpeed"		"360"
@@ -123,6 +125,7 @@
 		"Ability5"		""
 		"Ability6"		""
 		"Ability10"		"srts_ability_units"
+		"Ability11"		"srts_hero_attack_speed_aura"
 
 		"UnitLabel"		"builder"
 		"MovementSpeed"		"360"
@@ -175,6 +178,7 @@
 		"Ability5"		""
 		"Ability6"		""
 		"Ability10"		"srts_ability_units"
+		"Ability11"		"srts_hero_attack_speed_aura"
 
 		"UnitLabel"		"builder"
 		"MovementSpeed"		"360"
@@ -227,6 +231,7 @@
 		"Ability5"		""
 		"Ability6"		""
 		"Ability10"		"srts_ability_units"
+		"Ability11"		"srts_hero_attack_speed_aura"
 
 		"UnitLabel"		"builder"
 		"MovementSpeed"		"360"

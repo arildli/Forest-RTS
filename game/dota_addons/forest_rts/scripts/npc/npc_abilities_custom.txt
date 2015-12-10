@@ -1404,7 +1404,6 @@
 
 	"srts_construct_watch_tower"
 	{
-	
 		// General
 		//------------------------------------------------------------------------
 		"AbilityName"			"Construct Watch Tower"
@@ -1421,7 +1420,7 @@
 		"UpdateHealth"					"1" //bool
 		"Scale"						"1" //bool
 		"PlayerCanControl"				"1" //bool
-	
+
 		"UnitName"					"npc_dota_building_watch_tower"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"25"
@@ -6733,6 +6732,189 @@
 				{
 					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT" "%health_regen"
 				}
+			}
+		}
+	}
+
+
+
+
+
+     	//================================================================================
+	// Hero Attack Speed Aura
+	//================================================================================
+	"srts_hero_attack_speed_aura"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"BaseClass"			"ability_datadriven"
+		//		"AbilityBehavior" 		"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityBehavior" 		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName" 		"enchantress_natures_attendants"
+		"MaxLevel"			"10"
+		
+		// Special
+		//------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				//"bonus_attack_speed"	"1 2 3 4 5 6 7 8 9 10"
+				"bonus_attack_speed"	"1 2 3 4"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"radius"	"900"				
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"think_interval"	"0.5"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_hero_attack_speed_aura_datadriven"
+			{
+				"Passive"	"1"
+				"IsBuff"	"1"
+				//				"IsHidden" 	"1"
+				"TextureName"	"invoker_ghost_walk"
+			
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/utils.lua"
+						"Function"	"AbilityTestPrint"
+						"text"		"OnAttackLandedHero"
+					}
+				}	
+	
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/utils.lua"
+						"Function"	"AbilityTestPrint"
+						"text"		"OnCreated"
+					}
+
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_BASIC"
+						}
+
+						"Action"
+						{
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/spells.lua"
+								"Function"	"HeroAttackSpeedAura"
+								"modifier"	"modifier_hero_attack_speed_aura_unit_datadriven"
+							}
+						}	
+					}	
+				}
+
+				"ThinkInterval"	"%think_interval"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/utils.lua"
+						"Function"	"AbilityTestPrint"
+						"text"		"OnThink"
+					}
+
+					"ActOnTargets"
+					{
+						"Target"
+						{
+							"Center"	"CASTER"
+							"Radius"	"%radius"
+							"Teams"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+							"Types"		"DOTA_UNIT_TARGET_BASIC"
+						}
+
+						"Action"
+						{
+							"RunScript"
+							{
+								"ScriptFile"	"scripts/vscripts/spells.lua"
+								"Function"	"HeroAttackSpeedAura"
+								"modifier"	"modifier_hero_attack_speed_aura_unit_datadriven"
+							}
+						}	
+					}
+				}
+			
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+				}	
+			}	
+
+			"modifier_hero_attack_speed_aura_unit_datadriven"
+			{
+				"IsBuff"	"1"
+				"AbilityTextureName"	"spirit_breaker_empowering_haste"
+
+				"OnAttackLanded"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"scripts/vscripts/utils.lua"
+						"Function"	"AbilityTestPrint"
+						"text"		"OnAttackLandedUnit"
+					}
+				}	
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%bonus_attack_speed"
+				}
+			}
+		}
+	}
+
+
+
+     	//================================================================================
+	// Hero Attack Speed Aura
+	//================================================================================
+	"srts_hero_attack_speed_aura_placeholder"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior" 		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName" 		"enchantress_natures_attendants"
+		
+		// Special
+		//------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"bonus_attack_speed"	"1 2 3 4 5 6 7 8 9 10"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"radius"	"900"				
 			}
 		}
 	}

@@ -2,17 +2,17 @@
 
 
 if SimpleTechTree == nil then
-	SimpleTechTree = {}
-	SimpleTechTree.__index = SimpleTechTree
+   SimpleTechTree = {}
+   SimpleTechTree.__index = SimpleTechTree
 end
 
 
 
 function SimpleTechTree:new(o)
-	o = o or {}
-	setmetatable(o, self)
-	SIMPLETECHTREE_REFERENCE = o
-	return o
+   o = o or {}
+   setmetatable(o, self)
+   SIMPLETECHTREE_REFERENCE = o
+   return o
 end
 
 
@@ -136,7 +136,7 @@ SPELLS[PAGE_MENU_CONSTRUCTION_2["spell"]] = PAGE_MENU_CONSTRUCTION_2
 
 
 
-	-- Common
+-- Common
 
 MAIN_BUILDING = {}
 MAIN_BUILDING["name"] = "npc_dota_building_main_tent_small"
@@ -177,7 +177,7 @@ GOLD_MINE["category"] = "building"
 MAX_COUNT[GOLD_MINE["name"]] = GOLD_MINE["maximum"]
 SPELLS[GOLD_MINE["spell"]] = GOLD_MINE
 
-	-- Radiant
+-- Radiant
 BARRACKS_RADIANT = {}
 BARRACKS_RADIANT["name"] = "npc_dota_building_barracks_radiant"
 BARRACKS_RADIANT["spell"] = "srts_construct_barracks_radiant"
@@ -199,7 +199,7 @@ ARMORY_RADIANT["req"] = {MAIN_BUILDING, BARRACKS_RADIANT}
 ARMORY_RADIANT["category"] = "building"
 SPELLS[ARMORY_RADIANT["spell"]] = ARMORY_RADIANT
 
-	-- Dire
+-- Dire
 BARRACKS_DIRE = {}
 BARRACKS_DIRE["name"] = "npc_dota_building_barracks_dire"
 BARRACKS_DIRE["spell"] = "srts_construct_barracks_dire"
@@ -229,7 +229,7 @@ SPELLS[ARMORY_DIRE["spell"]] = ARMORY_DIRE
 
 
 
-  -- Common
+-- Common
 
 COMMON_BUILDING = {
    name = "none",
@@ -306,15 +306,15 @@ SPELLS[COMMON_SELL_LUMBER_SMALL["spell"]] = COMMON_SELL_LUMBER_SMALL
 SPELLS[COMMON_REPAIR_BUILDING["spell"]] = COMMON_REPAIR_BUILDING
 SPELLS[COMMON_PERIODIC_MINE_GOLD["spell"]] = COMMON_PERIODIC_MINE_GOLD
 
-  -- Radiant
+-- Radiant
 
-    -- Commander
+-- Commander
 COMMANDER_WORKER = {
-	name = "npc_dota_creature_human_worker",
-	spell = "srts_train_human_worker",
-	req = {},
-	maximum = MAX_WORKER_COUNT,
-	category = "unit"
+   name = "npc_dota_creature_human_worker",
+   spell = "srts_train_human_worker",
+   req = {},
+   maximum = MAX_WORKER_COUNT,
+   category = "unit"
 }
 MAX_COUNT[COMMANDER_WORKER["name"]] = COMMANDER_WORKER["maximum"]
 
@@ -337,30 +337,30 @@ COMMANDER_CATAPULT["req"] = {ARMORY_RADIANT}
 COMMANDER_CATAPULT["category"] = "unit"
 
 COMMANDER_TRAINING_SPELLS =
-						   {COMMON_BUILDING,
-							COMMON_UNIT,
-							COMMON_GLOBAL_SPEED_AURA,
-							COMMON_CRYSTAL_AURA,
-							COMMON_SELL_LUMBER_SMALL,
-							COMMON_REPAIR_BUILDING,
-							COMMON_PERIODIC_MINE_GOLD,
-							COMMANDER_WORKER,
-							COMMANDER_FOOTMAN,
-							COMMANDER_GUNNER,
-							COMMANDER_CATAPULT}
+   {COMMON_BUILDING,
+    COMMON_UNIT,
+    COMMON_GLOBAL_SPEED_AURA,
+    COMMON_CRYSTAL_AURA,
+    COMMON_SELL_LUMBER_SMALL,
+    COMMON_REPAIR_BUILDING,
+    COMMON_PERIODIC_MINE_GOLD,
+    COMMANDER_WORKER,
+    COMMANDER_FOOTMAN,
+    COMMANDER_GUNNER,
+    COMMANDER_CATAPULT}
 
 SPELLS[COMMANDER_WORKER["spell"]] = COMMANDER_WORKER
 SPELLS[COMMANDER_FOOTMAN["spell"]] = COMMANDER_FOOTMAN
 SPELLS[COMMANDER_GUNNER["spell"]] = COMMANDER_GUNNER
 SPELLS[COMMANDER_CATAPULT["spell"]] = COMMANDER_CATAPULT
 
-	-- Furion
+-- Furion
 FURION_WORKER = {
-	name = "npc_dota_creature_forest_worker",
-	spell = "srts_train_forest_worker",
-	req = {},
-	maximum = MAX_WORKER_COUNT,
-	category = "unit"
+   name = "npc_dota_creature_forest_worker",
+   spell = "srts_train_forest_worker",
+   req = {},
+   maximum = MAX_WORKER_COUNT,
+   category = "unit"
 }
 MAX_COUNT[FURION_WORKER["name"]] = FURION_WORKER["maximum"]
 
@@ -390,17 +390,17 @@ FURION_REGENERATIVE_BARK = {
 }
 
 FURION_TRAINING_SPELLS =
-						   {COMMON_BUILDING,
-							COMMON_UNIT,
-							COMMON_GLOBAL_SPEED_AURA,
-							COMMON_CRYSTAL_AURA,
-							COMMON_SELL_LUMBER_SMALL,
-							COMMON_REPAIR_BUILDING,
-							COMMON_PERIODIC_MINE_GOLD,
-							FURION_WORKER,
-							FURION_WARRIOR,
-							FURION_DRYAD,
-							FURION_CATAPULT}
+   {COMMON_BUILDING,
+    COMMON_UNIT,
+    COMMON_GLOBAL_SPEED_AURA,
+    COMMON_CRYSTAL_AURA,
+    COMMON_SELL_LUMBER_SMALL,
+    COMMON_REPAIR_BUILDING,
+    COMMON_PERIODIC_MINE_GOLD,
+    FURION_WORKER,
+    FURION_WARRIOR,
+    FURION_DRYAD,
+    FURION_CATAPULT}
 
 SPELLS[FURION_WORKER["spell"]] = FURION_WORKER
 SPELLS[FURION_WARRIOR["spell"]] = FURION_WARRIOR
@@ -409,15 +409,15 @@ SPELLS[FURION_CATAPULT["spell"]] = FURION_CATAPULT
 
 
 
-  -- Dire
+-- Dire
 
-    -- Geomancer
+-- Geomancer
 GEOMANCER_WORKER = {
-	name = "npc_dota_creature_kobold_worker",
-	spell = "srts_train_kobold_worker",
-	req = {},
-	maximum = MAX_WORKER_COUNT,
-	category = "unit"
+   name = "npc_dota_creature_kobold_worker",
+   spell = "srts_train_kobold_worker",
+   req = {},
+   maximum = MAX_WORKER_COUNT,
+   category = "unit"
 }
 MAX_COUNT[GEOMANCER_WORKER["name"]] = GEOMANCER_WORKER["maximum"]
 
@@ -440,30 +440,30 @@ GEOMANCER_CATAPULT["req"] = {ARMORY_DIRE}
 GEOMANCER_CATAPULT["category"] = "unit"
 
 GEOMANCER_TRAINING_SPELLS =
-						   {COMMON_BUILDING,
-							COMMON_UNIT,
-							COMMON_GLOBAL_SPEED_AURA,
-							COMMON_CRYSTAL_AURA,
-							COMMON_SELL_LUMBER_SMALL,
-							COMMON_REPAIR_BUILDING,
-							COMMON_PERIODIC_MINE_GOLD,
-							GEOMANCER_WORKER,
-							GEOMANCER_SPEARMAN,
-							GEOMANCER_FLAME_THROWER,
-							GEOMANCER_CATAPULT}
+   {COMMON_BUILDING,
+    COMMON_UNIT,
+    COMMON_GLOBAL_SPEED_AURA,
+    COMMON_CRYSTAL_AURA,
+    COMMON_SELL_LUMBER_SMALL,
+    COMMON_REPAIR_BUILDING,
+    COMMON_PERIODIC_MINE_GOLD,
+    GEOMANCER_WORKER,
+    GEOMANCER_SPEARMAN,
+    GEOMANCER_FLAME_THROWER,
+    GEOMANCER_CATAPULT}
 
 SPELLS[GEOMANCER_WORKER["spell"]] = GEOMANCER_WORKER
 SPELLS[GEOMANCER_SPEARMAN["spell"]] = GEOMANCER_SPEARMAN
 SPELLS[GEOMANCER_FLAME_THROWER["spell"]] = GEOMANCER_FLAME_THROWER
 SPELLS[GEOMANCER_CATAPULT["spell"]] = GEOMANCER_CATAPULT
 
-	-- King of the Dead
+-- King of the Dead
 KING_OF_THE_DEAD_WORKER = {
-	name = "npc_dota_creature_skeleton_worker",
-	spell = "srts_train_skeleton_worker",
-	req = {},
-	maximum = MAX_WORKER_COUNT,
-	category = "unit"
+   name = "npc_dota_creature_skeleton_worker",
+   spell = "srts_train_skeleton_worker",
+   req = {},
+   maximum = MAX_WORKER_COUNT,
+   category = "unit"
 }
 MAX_COUNT[KING_OF_THE_DEAD_WORKER["name"]] = KING_OF_THE_DEAD_WORKER["maximum"]
 
@@ -486,30 +486,30 @@ KING_OF_THE_DEAD_CATAPULT["req"] = {ARMORY_DIRE}
 KING_OF_THE_DEAD_CATAPULT["category"] = "unit"
 
 KING_OF_THE_DEAD_TRAINING_SPELLS =
-						   {COMMON_BUILDING,
-							COMMON_UNIT,
-							COMMON_GLOBAL_SPEED_AURA,
-							COMMON_CRYSTAL_AURA,
-							COMMON_SELL_LUMBER_SMALL,
-							COMMON_REPAIR_BUILDING,
-							COMMON_PERIODIC_MINE_GOLD,
-							KING_OF_THE_DEAD_WORKER,
-							KING_OF_THE_DEAD_WARRIOR,
-							KING_OF_THE_DEAD_ARCHER,
-							KING_OF_THE_DEAD_CATAPULT}
+   {COMMON_BUILDING,
+    COMMON_UNIT,
+    COMMON_GLOBAL_SPEED_AURA,
+    COMMON_CRYSTAL_AURA,
+    COMMON_SELL_LUMBER_SMALL,
+    COMMON_REPAIR_BUILDING,
+    COMMON_PERIODIC_MINE_GOLD,
+    KING_OF_THE_DEAD_WORKER,
+    KING_OF_THE_DEAD_WARRIOR,
+    KING_OF_THE_DEAD_ARCHER,
+    KING_OF_THE_DEAD_CATAPULT}
 
 SPELLS[KING_OF_THE_DEAD_WORKER["spell"]] = KING_OF_THE_DEAD_WORKER
 SPELLS[KING_OF_THE_DEAD_WARRIOR["spell"]] = KING_OF_THE_DEAD_WARRIOR
 SPELLS[KING_OF_THE_DEAD_ARCHER["spell"]] = KING_OF_THE_DEAD_ARCHER
 SPELLS[KING_OF_THE_DEAD_CATAPULT["spell"]] = KING_OF_THE_DEAD_CATAPULT
 
-	-- Warlord
+-- Warlord
 WARLORD_WORKER = {
-	name = "npc_dota_creature_troll_worker",
-	spell = "srts_train_troll_worker",
-	req = {},
-	maximum = MAX_WORKER_COUNT,
-	category = "unit"
+   name = "npc_dota_creature_troll_worker",
+   spell = "srts_train_troll_worker",
+   req = {},
+   maximum = MAX_WORKER_COUNT,
+   category = "unit"
 }
 MAX_COUNT[WARLORD_WORKER["name"]] = WARLORD_WORKER["maximum"]
 
@@ -532,17 +532,17 @@ WARLORD_CATAPULT["req"] = {ARMORY_DIRE}
 WARLORD_CATAPULT["category"] = "unit"
 
 WARLORD_TRAINING_SPELLS =
-						   {COMMON_BUILDING,
-							COMMON_UNIT,
-							COMMON_GLOBAL_SPEED_AURA,
-							COMMON_CRYSTAL_AURA,
-							COMMON_SELL_LUMBER_SMALL,
-							COMMON_REPAIR_BUILDING,
-							COMMON_PERIODIC_MINE_GOLD,
-							WARLORD_WORKER,
-							WARLORD_FIGHTER,
-							WARLORD_AXE_THROWER,
-							WARLORD_CATAPULT}
+   {COMMON_BUILDING,
+    COMMON_UNIT,
+    COMMON_GLOBAL_SPEED_AURA,
+    COMMON_CRYSTAL_AURA,
+    COMMON_SELL_LUMBER_SMALL,
+    COMMON_REPAIR_BUILDING,
+    COMMON_PERIODIC_MINE_GOLD,
+    WARLORD_WORKER,
+    WARLORD_FIGHTER,
+    WARLORD_AXE_THROWER,
+    WARLORD_CATAPULT}
 
 SPELLS[WARLORD_WORKER["spell"]] = WARLORD_WORKER
 SPELLS[WARLORD_FIGHTER["spell"]] = WARLORD_FIGHTER
@@ -555,193 +555,193 @@ SPELLS[WARLORD_CATAPULT["spell"]] = WARLORD_CATAPULT
 
 --[[ BUILDING SPELLS ]]--
 
-  -- Radiant
+-- Radiant
 
-    -- Commander
+-- Commander
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][MAIN_BUILDING["name"]] =
-						   {COMMANDER_WORKER,
-						    COMMON_GLOBAL_SPEED_AURA,
-						    COMMON_DELIVERY_POINT,
-						    COMMON_BUILDING}
+   {COMMANDER_WORKER,
+    COMMON_GLOBAL_SPEED_AURA,
+    COMMON_DELIVERY_POINT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][BARRACKS_RADIANT["name"]] =
-						   {COMMANDER_FOOTMAN,
-						    COMMANDER_GUNNER,
-						    COMMANDER_CATAPULT,
-							COMMON_BUILDING}
+   {COMMANDER_FOOTMAN,
+    COMMANDER_GUNNER,
+    COMMANDER_CATAPULT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][WATCH_TOWER["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][WOODEN_WALL["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][HEALING_CRYSTAL_RADIANT["name"]] =
-						   {COMMON_CRYSTAL_AURA,
-						    COMMON_BUILDING}
+   {COMMON_CRYSTAL_AURA,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][MARKET["name"]] =
-						   {COMMON_SELL_LUMBER_SMALL,
-						    COMMON_DELIVERY_POINT,
-						    COMMON_BUILDING}
+   {COMMON_SELL_LUMBER_SMALL,
+    COMMON_DELIVERY_POINT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][ARMORY_RADIANT["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[COMMANDER][GOLD_MINE["name"]] =
-						   {COMMON_PERIODIC_MINE_GOLD,
-						    COMMON_BUILDING}
+   {COMMON_PERIODIC_MINE_GOLD,
+    COMMON_BUILDING}
 
 
 
-    -- Furion
+-- Furion
 HERO_SPELLS_FOR_BUILDINGS[FURION][MAIN_BUILDING["name"]] =
-						   {FURION_WORKER,
-						    COMMON_GLOBAL_SPEED_AURA,
-						    COMMON_DELIVERY_POINT,
-						    COMMON_BUILDING}
+   {FURION_WORKER,
+    COMMON_GLOBAL_SPEED_AURA,
+    COMMON_DELIVERY_POINT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][BARRACKS_RADIANT["name"]] =
-						   {FURION_WARRIOR,
-						    FURION_DRYAD,
-						    FURION_CATAPULT,
-							COMMON_BUILDING}
+   {FURION_WARRIOR,
+    FURION_DRYAD,
+    FURION_CATAPULT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][WATCH_TOWER["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][WOODEN_WALL["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][HEALING_CRYSTAL_RADIANT["name"]] =
-						   {COMMON_CRYSTAL_AURA,
-						    COMMON_BUILDING}
+   {COMMON_CRYSTAL_AURA,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][MARKET["name"]] =
-						   {COMMON_SELL_LUMBER_SMALL,
-						    COMMON_DELIVERY_POINT,
-						    COMMON_BUILDING}
+   {COMMON_SELL_LUMBER_SMALL,
+    COMMON_DELIVERY_POINT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][ARMORY_RADIANT["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[FURION][GOLD_MINE["name"]] =
-						   {COMMON_PERIODIC_MINE_GOLD,
-						    COMMON_BUILDING}
+   {COMMON_PERIODIC_MINE_GOLD,
+    COMMON_BUILDING}
 
 
 
-  -- Dire
+-- Dire
 
-    -- Geomancer
+-- Geomancer
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][MAIN_BUILDING["name"]] =
-						   {GEOMANCER_WORKER,
-						    COMMON_GLOBAL_SPEED_AURA,
-						    COMMON_DELIVERY_POINT,
-						    COMMON_BUILDING}
+   {GEOMANCER_WORKER,
+    COMMON_GLOBAL_SPEED_AURA,
+    COMMON_DELIVERY_POINT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][BARRACKS_DIRE["name"]] =
-						   {GEOMANCER_SPEARMAN,
-						    GEOMANCER_FLAME_THROWER,
-						    GEOMANCER_CATAPULT,
-							COMMON_BUILDING}
+   {GEOMANCER_SPEARMAN,
+    GEOMANCER_FLAME_THROWER,
+    GEOMANCER_CATAPULT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][WATCH_TOWER["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][WOODEN_WALL["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][HEALING_CRYSTAL_DIRE["name"]] =
-						   {COMMON_CRYSTAL_AURA,
-						    COMMON_BUILDING}
+   {COMMON_CRYSTAL_AURA,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][MARKET["name"]] =
-						   {COMMON_SELL_LUMBER_SMALL,
-						    COMMON_DELIVERY_POINT,
-						    COMMON_BUILDING}
+   {COMMON_SELL_LUMBER_SMALL,
+    COMMON_DELIVERY_POINT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][ARMORY_DIRE["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[GEOMANCER][GOLD_MINE["name"]] =
-						   {COMMON_PERIODIC_MINE_GOLD,
-						    COMMON_BUILDING}
+   {COMMON_PERIODIC_MINE_GOLD,
+    COMMON_BUILDING}
 
 
 
-	-- King of the Dead
+-- King of the Dead
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][MAIN_BUILDING["name"]] =
-						   {KING_OF_THE_DEAD_WORKER,
-						    COMMON_GLOBAL_SPEED_AURA,
-						    COMMON_DELIVERY_POINT,
-						    COMMON_BUILDING}
+   {KING_OF_THE_DEAD_WORKER,
+    COMMON_GLOBAL_SPEED_AURA,
+    COMMON_DELIVERY_POINT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][BARRACKS_DIRE["name"]] =
-						   {KING_OF_THE_DEAD_WARRIOR,
-						    KING_OF_THE_DEAD_ARCHER,
-						    KING_OF_THE_DEAD_CATAPULT,
-							COMMON_BUILDING}
+   {KING_OF_THE_DEAD_WARRIOR,
+    KING_OF_THE_DEAD_ARCHER,
+    KING_OF_THE_DEAD_CATAPULT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][WATCH_TOWER["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][WOODEN_WALL["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][HEALING_CRYSTAL_DIRE["name"]] =
-						   {COMMON_CRYSTAL_AURA,
-						    COMMON_BUILDING}
+   {COMMON_CRYSTAL_AURA,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][MARKET["name"]] =
-						   {COMMON_SELL_LUMBER_SMALL,
-						    COMMON_DELIVERY_POINT,
-						    COMMON_BUILDING}
+   {COMMON_SELL_LUMBER_SMALL,
+    COMMON_DELIVERY_POINT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][ARMORY_DIRE["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD][GOLD_MINE["name"]] =
-						   {COMMON_PERIODIC_MINE_GOLD,
-						    COMMON_BUILDING}
+   {COMMON_PERIODIC_MINE_GOLD,
+    COMMON_BUILDING}
 
 
 
 
-	-- Warlord
+-- Warlord
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][MAIN_BUILDING["name"]] =
-						   {WARLORD_WORKER,
-						    COMMON_GLOBAL_SPEED_AURA,
-						    COMMON_DELIVERY_POINT,
-						    COMMON_BUILDING}
+   {WARLORD_WORKER,
+    COMMON_GLOBAL_SPEED_AURA,
+    COMMON_DELIVERY_POINT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][BARRACKS_DIRE["name"]] =
-						   {WARLORD_FIGHTER,
-						    WARLORD_AXE_THROWER,
-						    WARLORD_CATAPULT,
-							COMMON_BUILDING}
+   {WARLORD_FIGHTER,
+    WARLORD_AXE_THROWER,
+    WARLORD_CATAPULT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][WATCH_TOWER["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][WOODEN_WALL["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][HEALING_CRYSTAL_DIRE["name"]] =
-						   {COMMON_CRYSTAL_AURA,
-						    COMMON_BUILDING}
+   {COMMON_CRYSTAL_AURA,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][MARKET["name"]] =
-						   {COMMON_SELL_LUMBER_SMALL,
-						    COMMON_DELIVERY_POINT,
-						    COMMON_BUILDING}
+   {COMMON_SELL_LUMBER_SMALL,
+    COMMON_DELIVERY_POINT,
+    COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][ARMORY_DIRE["name"]] =
-						   {COMMON_BUILDING}
+   {COMMON_BUILDING}
 
 HERO_SPELLS_FOR_BUILDINGS[WARLORD][GOLD_MINE["name"]] =
-						   {COMMON_PERIODIC_MINE_GOLD,
-						    COMMON_BUILDING}
+   {COMMON_PERIODIC_MINE_GOLD,
+    COMMON_BUILDING}
 
 
 
@@ -757,7 +757,7 @@ COMMON_PAGE_MAIN =
 
 -- Radiant
 
-    -- Commander
+-- Commander
 COMMANDER_BUILDING_SPELLS =
    {MAIN_BUILDING,
     GOLD_MINE,
@@ -784,7 +784,7 @@ COMMANDER_PAGE_CONSTRUCTION_2 =
     EMPTY_FILLER,
     PAGE_MAIN}
 
-    -- Furion
+-- Furion
 FURION_BUILDING_SPELLS =
    {MAIN_BUILDING,
     GOLD_MINE,
@@ -811,9 +811,9 @@ FURION_PAGE_CONSTRUCTION_2 =
     EMPTY_FILLER,
     PAGE_MAIN}
 
-  -- Dire
+-- Dire
 
-    -- Geomancer
+-- Geomancer
 GEOMANCER_BUILDING_SPELLS =
    {MAIN_BUILDING,
     GOLD_MINE,
@@ -840,7 +840,7 @@ GEOMANCER_PAGE_CONSTRUCTION_2 =
     EMPTY_FILLER,
     PAGE_MAIN}
 
-	-- King of the Dead
+-- King of the Dead
 KING_OF_THE_DEAD_BUILDING_SPELLS =
    {MAIN_BUILDING,
     GOLD_MINE,
@@ -867,7 +867,7 @@ KING_OF_THE_DEAD_PAGE_CONSTRUCTION_2 =
     EMPTY_FILLER,
     PAGE_MAIN}
 
-    -- Warlord
+-- Warlord
 WARLORD_BUILDING_SPELLS =
    {MAIN_BUILDING,
     GOLD_MINE,
@@ -942,253 +942,254 @@ print("[SimpleTechTree] Done!")
 ---------------------------------------------------------------------------
 function SimpleTechTree:InitTechTree(hero)
 
-	if not hero then
-		print_simple_tech_tree("SimpleTechTree:InitTechTree", "hero was nil!")
-		return
-	end
-	if SimpleTechTree:IsHero(hero) == false then
-		print_simple_tech_tree("SimpleTechTree:InitTechTree", "hero was not a hero! ("..hero:GetUnitName()..")!")
-		return false
-	end
+   if not hero then
+      print_simple_tech_tree("SimpleTechTree:InitTechTree", "hero was nil!")
+      return
+   end
+   if SimpleTechTree:IsHero(hero) == false then
+      print_simple_tech_tree("SimpleTechTree:InitTechTree", "hero was not a hero! ("..hero:GetUnitName()..")!")
+      return false
+   end
 
-	-- Init tables for unit.
-	hero.STT = {}
-	hero.STT.unitCount = {}
-	hero.STT.buildings = {}
-	hero.STT.units = {}
-
-
-
-	--					-----| UnitCount table |-----
+   -- Init tables for unit.
+   hero.STT = {}
+   hero.STT.unitCount = {}
+   hero.STT.buildings = {}
+   hero.STT.units = {}
 
 
 
-	---------------------------------------------------------------------------
-	-- Returns hero.STT.unitCount.
-	---------------------------------------------------------------------------
-	function hero:GetUnitCount()
-
-		return hero.STT.unitCount or 0
-	end
-
-	---------------------------------------------------------------------------
-	-- Returns hero.STT.unitCount[name].
-	---------------------------------------------------------------------------
-	function hero:GetUnitCountFor(name)
-
-		if name then
-			return hero.STT.unitCount[name] or 0
-		else
-			print("hero:GetUnitCountFor: name was nil!")
-		end
-	end
-
-	---------------------------------------------------------------------------
-	-- Sets hero.STT.unitCount[name] = value.
-	---------------------------------------------------------------------------
-	function hero:SetUnitCountFor(name, value)
-
-		if name and value then
-			hero.STT.unitCount[name] = value
-		else
-			print("hero:SetUnitCountFor: name and/or value was nil!")
-		end
-	end
-
-	---------------------------------------------------------------------------
-	-- Sets hero.STT.unitCount[name] += 1.
-	---------------------------------------------------------------------------
-	function hero:IncUnitCountFor(name)
-
-		if name then
-			if not hero.STT.unitCount[name] then
-				hero.STT.unitCount[name] = 0
-			end
-			hero.STT.unitCount[name] = hero.STT.unitCount[name] + 1
-			return hero.STT.unitCount[name]
-		else
-			print("hero:IncUnitCountFor: name was nil!")
-		end
-	end
-
-	---------------------------------------------------------------------------
-	-- Sets hero.STT.unitCount[name] -= 1.
-	---------------------------------------------------------------------------
-	function hero:DecUnitCountFor(name)
-
-		if name then
-			if not hero.STT.unitCount[name] then
-				hero.STT.unitCount[name] = 0
-			end
-			hero.STT.unitCount[name] = hero.STT.unitCount[name] - 1
-			return hero.STT.unitCount[name]
-		else
-			print("hero:DecUnitCountFor: name was nil!")
-		end
-	end
+   --					-----| UnitCount table |-----
 
 
 
-	--					-----| Buildings and Units tables |-----
+   ---------------------------------------------------------------------------
+   -- Returns hero.STT.unitCount.
+   ---------------------------------------------------------------------------
+   function hero:GetUnitCount()
+
+      return hero.STT.unitCount or 0
+   end
+
+   ---------------------------------------------------------------------------
+   -- Returns hero.STT.unitCount[name].
+   ---------------------------------------------------------------------------
+   function hero:GetUnitCountFor(name)
+
+      if name then
+	 return hero.STT.unitCount[name] or 0
+      else
+	 print("hero:GetUnitCountFor: name was nil!")
+      end
+   end
+
+   ---------------------------------------------------------------------------
+   -- Sets hero.STT.unitCount[name] = value.
+   ---------------------------------------------------------------------------
+   function hero:SetUnitCountFor(name, value)
+
+      print("\t\tname: "..name)
+      if name and value then
+	 hero.STT.unitCount[name] = value
+      else
+	 print("hero:SetUnitCountFor: name and/or value was nil!")
+      end
+   end
+
+   ---------------------------------------------------------------------------
+   -- Sets hero.STT.unitCount[name] += 1.
+   ---------------------------------------------------------------------------
+   function hero:IncUnitCountFor(name)
+
+      if name then
+	 if not hero.STT.unitCount[name] then
+	    hero.STT.unitCount[name] = 0
+	 end
+	 hero.STT.unitCount[name] = hero.STT.unitCount[name] + 1
+	 return hero.STT.unitCount[name]
+      else
+	 print("hero:IncUnitCountFor: name was nil!")
+      end
+   end
+
+   ---------------------------------------------------------------------------
+   -- Sets hero.STT.unitCount[name] -= 1.
+   ---------------------------------------------------------------------------
+   function hero:DecUnitCountFor(name)
+
+      if name then
+	 if not hero.STT.unitCount[name] then
+	    hero.STT.unitCount[name] = 0
+	 end
+	 hero.STT.unitCount[name] = hero.STT.unitCount[name] - 1
+	 return hero.STT.unitCount[name]
+      else
+	 print("hero:DecUnitCountFor: name was nil!")
+      end
+   end
 
 
 
-	---------------------------------------------------------------------------
-	-- Returns hero.STT.buildings.
-	---------------------------------------------------------------------------
-	function hero:GetBuildings()
+   --					-----| Buildings and Units tables |-----
 
-		return hero.STT.buildings
-	end
 
-	---------------------------------------------------------------------------
-	-- Returns hero.STT.units.
-	---------------------------------------------------------------------------
-	function hero:GetUnits()
 
-		return hero.STT.units
-	end
+   ---------------------------------------------------------------------------
+   -- Returns hero.STT.buildings.
+   ---------------------------------------------------------------------------
+   function hero:GetBuildings()
 
-	---------------------------------------------------------------------------
-	-- Adds the building to hero.STT.buildings.
-	---------------------------------------------------------------------------
-	function hero:AddBuilding(building)
+      return hero.STT.buildings
+   end
 
-		if building then
-			table.insert(hero.STT.buildings, building)
-		else
-			print("hero:AddBuilding: building was nil!")
-		end
-	end
+   ---------------------------------------------------------------------------
+   -- Returns hero.STT.units.
+   ---------------------------------------------------------------------------
+   function hero:GetUnits()
 
-	---------------------------------------------------------------------------
-	-- Adds the unit to hero.STT.units.
-	---------------------------------------------------------------------------
-	function hero:AddUnit(unit)
+      return hero.STT.units
+   end
 
-		if unit then
-			table.insert(hero.STT.units, unit)
-		else
-			print("hero:AddUnit: unit was nil!")
-		end
-	end
+   ---------------------------------------------------------------------------
+   -- Adds the building to hero.STT.buildings.
+   ---------------------------------------------------------------------------
+   function hero:AddBuilding(building)
 
-	---------------------------------------------------------------------------
-	-- Removes hero.STT.buildings[index].
-	---------------------------------------------------------------------------
-	function hero:RemoveBuildingByIndex(index)
+      if building then
+	 table.insert(hero.STT.buildings, building)
+      else
+	 print("hero:AddBuilding: building was nil!")
+      end
+   end
 
-		if index then
-			table.remove(hero.STT.buildings, index)
-		else
-			print("hero:RemoveBuildingByIndex: index was nil!")
-		end
-	end
+   ---------------------------------------------------------------------------
+   -- Adds the unit to hero.STT.units.
+   ---------------------------------------------------------------------------
+   function hero:AddUnit(unit)
 
-	---------------------------------------------------------------------------
-	-- Removes hero.STT.units[index].
-	---------------------------------------------------------------------------
-	function hero:RemoveUnitByIndex(index)
+      if unit then
+	 table.insert(hero.STT.units, unit)
+      else
+	 print("hero:AddUnit: unit was nil!")
+      end
+   end
 
-		if index then
-			table.remove(hero.STT.units, index)
-		else
-			print("Hero:RemoveUnitByIndex: index was nil!")
-		end
-	end
+   ---------------------------------------------------------------------------
+   -- Removes hero.STT.buildings[index].
+   ---------------------------------------------------------------------------
+   function hero:RemoveBuildingByIndex(index)
 
-	---------------------------------------------------------------------------
-	-- Removes the reference to the specified building from .buildings.
-	---------------------------------------------------------------------------
-	function hero:RemoveBuilding(building)
+      if index then
+	 table.remove(hero.STT.buildings, index)
+      else
+	 print("hero:RemoveBuildingByIndex: index was nil!")
+      end
+   end
 
-		if not building then
-			print("Hero:RemoveBuilding: building was nil!")
-			return false
-		end
+   ---------------------------------------------------------------------------
+   -- Removes hero.STT.units[index].
+   ---------------------------------------------------------------------------
+   function hero:RemoveUnitByIndex(index)
 
-		local index = -1
-		for k,v in pairs(hero:GetBuildings()) do
-			if v == building then
-				index = k
-				break
-			end
-		end
-		if index ~= -1 then
-			hero:RemoveBuildingByIndex(index)
-			return true
-		end
-		return false
-	end
+      if index then
+	 table.remove(hero.STT.units, index)
+      else
+	 print("Hero:RemoveUnitByIndex: index was nil!")
+      end
+   end
 
-	---------------------------------------------------------------------------
-	-- Removes the reference to the specified unit from .units.
-	---------------------------------------------------------------------------
-	function hero:RemoveUnit(unit)
+   ---------------------------------------------------------------------------
+   -- Removes the reference to the specified building from .buildings.
+   ---------------------------------------------------------------------------
+   function hero:RemoveBuilding(building)
 
-		if not unit then
-			print("Hero:RemoveUnit: unit was nil!")
-			return false
-		end
+      if not building then
+	 print("Hero:RemoveBuilding: building was nil!")
+	 return false
+      end
 
-		local index = -1
-		for k,v in pairs(hero:GetUnits()) do
-			if v == unit then
-				index = k
-				break
-			end
-		end
-		if index ~= -1 then
-			hero:RemoveUnitByIndex(index)
-			return true
-		end
-		return false
-	end
+      local index = -1
+      for k,v in pairs(hero:GetBuildings()) do
+	 if v == building then
+	    index = k
+	    break
+	 end
+      end
+      if index ~= -1 then
+	 hero:RemoveBuildingByIndex(index)
+	 return true
+      end
+      return false
+   end
 
-	---------------------------------------------------------------------------
-	-- Prints the count of units and buildings for the owner of that unit.
-	---------------------------------------------------------------------------
-	function hero:PrintUnitCount()
+   ---------------------------------------------------------------------------
+   -- Removes the reference to the specified unit from .units.
+   ---------------------------------------------------------------------------
+   function hero:RemoveUnit(unit)
 
-		local player = unit:GetOwner()
-		local playerID = player:GetPlayerID()
-		local playerHero = GetPlayerHero(playerID)
+      if not unit then
+	 print("Hero:RemoveUnit: unit was nil!")
+	 return false
+      end
 
-		if DEBUG_SIMPLE_TECH_TREE then
+      local index = -1
+      for k,v in pairs(hero:GetUnits()) do
+	 if v == unit then
+	    index = k
+	    break
+	 end
+      end
+      if index ~= -1 then
+	 hero:RemoveUnitByIndex(index)
+	 return true
+      end
+      return false
+   end
 
-			print("\n------------------")
-			print("Printing unit count for "..playerID..":")
-			print("------------------")
-			for index,count in pairs(playerHero.STT._unitCount) do
-				if index ~= "none" then
-					print(index..": "..count)
-				end
-			end
-			print("------------------")
-		end
-	end
+   ---------------------------------------------------------------------------
+   -- Prints the count of units and buildings for the owner of that unit.
+   ---------------------------------------------------------------------------
+   function hero:PrintUnitCount()
 
-	local heroName = hero:GetUnitName()
+      local player = unit:GetOwner()
+      local playerID = player:GetPlayerID()
+      local playerHero = GetPlayerHero(playerID)
 
-	SimpleTechTree:RemoveDescriptionSpells(hero)
+      if DEBUG_SIMPLE_TECH_TREE then
 
-	-- Set ability pages for the unit.
-	InitAbilityPage(hero, ABILITY_PAGE_MAIN, ABILITY_PAGES[heroName][ABILITY_PAGE_MAIN])
-	InitAbilityPage(hero, ABILITY_PAGE_CONSTRUCTION_1, ABILITY_PAGES[heroName][ABILITY_PAGE_CONSTRUCTION_1])
-	InitAbilityPage(hero, ABILITY_PAGE_CONSTRUCTION_2, ABILITY_PAGES[heroName][ABILITY_PAGE_CONSTRUCTION_2])
+	 print("\n------------------")
+	 print("Printing unit count for "..playerID..":")
+	 print("------------------")
+	 for index,count in pairs(playerHero.STT._unitCount) do
+	    if index ~= "none" then
+	       print(index..": "..count)
+	    end
+	 end
+	 print("------------------")
+      end
+   end
 
-	-- Set training spells for the unit.
-	hero._trainingSpells = HERO_TRAINING_SPELLS[heroName]
+   local heroName = hero:GetUnitName()
 
-	-- Copy all spells into unit._spells.
-	SimpleTechTree:MergeSpells(hero)
-	SimpleTechTree:PrintAbilityLevels(hero:GetOwner())
+   SimpleTechTree:RemoveDescriptionSpells(hero)
 
-	-- Update tech tree.
-	SimpleTechTree:UpdateTechTree(hero, nil, "init")
+   -- Set ability pages for the unit.
+   InitAbilityPage(hero, ABILITY_PAGE_MAIN, ABILITY_PAGES[heroName][ABILITY_PAGE_MAIN])
+   InitAbilityPage(hero, ABILITY_PAGE_CONSTRUCTION_1, ABILITY_PAGES[heroName][ABILITY_PAGE_CONSTRUCTION_1])
+   InitAbilityPage(hero, ABILITY_PAGE_CONSTRUCTION_2, ABILITY_PAGES[heroName][ABILITY_PAGE_CONSTRUCTION_2])
 
-	-- Set current page to the main one.
-	GoToPage(hero, ABILITY_PAGE_MAIN)
+   -- Set training spells for the unit.
+   hero._trainingSpells = HERO_TRAINING_SPELLS[heroName]
+
+   -- Copy all spells into unit._spells.
+   SimpleTechTree:MergeSpells(hero)
+   SimpleTechTree:PrintAbilityLevels(hero:GetOwner())
+
+   -- Update tech tree.
+   SimpleTechTree:UpdateTechTree(hero, nil, "init")
+
+   -- Set current page to the main one.
+   GoToPage(hero, ABILITY_PAGE_MAIN)
 end
 
 
@@ -1219,38 +1220,38 @@ end
 ---------------------------------------------------------------------------
 function SimpleTechTree:AddAbilitiesToBuilding(building)
 
-	if not building then
-		print("SimpleTechTree:AddAbilitiesToBuilding\tbuilding was nil!")
-		return
-	end
+   if not building then
+      print("SimpleTechTree:AddAbilitiesToBuilding\tbuilding was nil!")
+      return
+   end
 
-	local owner = building:GetOwner()
-	local playerID = owner:GetPlayerID()
-	local playerHero = GetPlayerHero(playerID)
-	local heroName = playerHero:GetUnitName()
-	local buildingName = building:GetUnitName()
-	local abilities = HERO_SPELLS_FOR_BUILDINGS[heroName][buildingName]
-	if not abilities then
-		print("SimpleTechTree:AddAbilitiesToBuilding\tabilities was nil!")
-		return
-	end
+   local owner = building:GetOwner()
+   local playerID = owner:GetPlayerID()
+   local playerHero = GetPlayerHero(playerID)
+   local heroName = playerHero:GetUnitName()
+   local buildingName = building:GetUnitName()
+   local abilities = HERO_SPELLS_FOR_BUILDINGS[heroName][buildingName]
+   if not abilities then
+      print("SimpleTechTree:AddAbilitiesToBuilding\tabilities was nil!")
+      return
+   end
 
-	-- Adds all the abilities for the building with level 0.
-	for i=1, 6 do
+   -- Adds all the abilities for the building with level 0.
+   for i=1, 6 do
 
-		local curNewAbility = abilities[i]
-		if curNewAbility then
+      local curNewAbility = abilities[i]
+      if curNewAbility then
 
-			local curNewAbilityName = curNewAbility["spell"]
-			building:AddAbility(curNewAbilityName)
-			if building:HasAbility(curNewAbilityName) then
-				local curAbilityToLevel = building:FindAbilityByName(curNewAbilityName)
-				curAbilityToLevel:SetLevel(0)
-			else
-				print("AddAbilitiesToBuilding: Building did not keep "..curNewAbilityName.."!")
-			end
-		end
-	end
+	 local curNewAbilityName = curNewAbility["spell"]
+	 building:AddAbility(curNewAbilityName)
+	 if building:HasAbility(curNewAbilityName) then
+	    local curAbilityToLevel = building:FindAbilityByName(curNewAbilityName)
+	    curAbilityToLevel:SetLevel(0)
+	 else
+	    print("AddAbilitiesToBuilding: Building did not keep "..curNewAbilityName.."!")
+	 end
+      end
+   end
 end
 
 
@@ -1267,126 +1268,141 @@ end
 ---------------------------------------------------------------------------
 function SimpleTechTree:UpdateTechTree(hero, building, action)
 
-	if hero and SimpleTechTree:IsHero(hero) == false then
-		print("SimpleTechTree:UpdateTechTree: unit was not a hero!")
-		return false
-	end
-	if not building and action == "init" then
-		print("\nSimpleTechTree:UpdateTechTree: Initing tech tree...")
-	elseif not building then
-		print("\nSimpleTechTree:UpdateTechTree: building was nil!")
-		return false
-	elseif action == nil then
-		print("\nSimpleTechTree:UpdateTechTree: action was nil!")
-		return false
-	end
+   if hero and SimpleTechTree:IsHero(hero) == false then
+      print("SimpleTechTree:UpdateTechTree: unit was not a hero!")
+      return false
+   end
+   if not building and action == "init" then
+      print("\nSimpleTechTree:UpdateTechTree: Initing tech tree...")
+   elseif not building then
+      print("\nSimpleTechTree:UpdateTechTree: building was nil!")
+      return false
+   elseif action == nil then
+      print("\nSimpleTechTree:UpdateTechTree: action was nil!")
+      return false
+   end
 
-	local player = hero:GetOwner()
-	if not player then
-		print("SimpleTechTree:UpdateTechTree: Couldn't get owner of building!")
-		return false
-	end
-	local playerID = player:GetPlayerID()
+   local player = hero:GetOwner()
+   if not player then
+      print("SimpleTechTree:UpdateTechTree: Couldn't get owner of building!")
+      return false
+   end
+   local playerID = player:GetPlayerID()
 
-	-- Try to get hero if that parameter was nil.
-	if not hero then
-		print("SimpleTechTree:UpdateTechTree: hero was nil!")
-		hero = GetPlayerHero(ownerID)
-		if not hero then
-			print("SimpleTechTree:UpdateTechTree: Couldn't get hero for building!")
-			return false
-		end
-	end
+   -- Try to get hero if that parameter was nil.
+   if not hero then
+      print("SimpleTechTree:UpdateTechTree: hero was nil!")
+      hero = GetPlayerHero(ownerID)
+      if not hero then
+	 print("SimpleTechTree:UpdateTechTree: Couldn't get hero for building!")
+	 return false
+      end
+   end
 
-	print("[SimpleTechTree] Updating tech tree for player with ID "..playerID.."!")
+   print("[SimpleTechTree] Updating tech tree for player with ID "..playerID.."!")
 
-	local heroName = hero:GetUnitName()
-	local buildingName
-	if building then
-		building = building:GetUnitName()
-	end
-	if not hero.STT then
-		print("ERROR: hero did have have hero.STT! This most likely means SimpleTechTree:InitTechTree(hero) hasn't been called yet!")
-		return false
-	end
-	local needsUpdate = true
+   local heroName = hero:GetUnitName()
+   local buildingName
+   if building then
+      building = building:GetUnitName()
+   end
+   if not hero.STT then
+      print("ERROR: hero did have have hero.STT! This most likely means SimpleTechTree:InitTechTree(hero) hasn't been called yet!")
+      return false
+   end
+   local needsUpdate = true
 
-	-- Check through all the spells.
-	for i,curSpell in pairs(hero._spells) do
-		local curSpellName = curSpell["spell"]					-- Name of the current spell.
-		local curUnitName = curSpell["name"] or "none"			-- Name of the unit or building produced.
-		local curUnitCount = "-"								-- Count of the unit or building produced.
-		local curUnitMax = curSpell["maximum"]						-- Max count of the unit or building produced.
+   -- Check through all the spells.
+   for i,curSpell in pairs(hero._spells) do
+      local curSpellName = curSpell["spell"]					-- Name of the current spell.
+      local curUnitName = curSpell["name"] or "none"			-- Name of the unit or building produced.
+      local curUnitCount = "-"								-- Count of the unit or building produced.
+      local curUnitMax = curSpell["maximum"]						-- Max count of the unit or building produced.
 
-		-- Count the number of units or buildings of this type if training or construction spell.
-		if curUnitName and curUnitName ~= "none" then
-			curUnitCount = hero:GetUnitCountFor(curUnitName)
-			if not curUnitCount then
-				hero:SetUnitCountFor(curUnitName, 0)
-				curUnitCount = 0
-			end
-		end
+      -- Count the number of units or buildings of this type if training or construction spell.
+      if curUnitName and curUnitName ~= "none" then
+	 curUnitCount = hero:GetUnitCountFor(curUnitName)
+	 if not curUnitCount then
+	    hero:SetUnitCountFor(curUnitName, 0)
+	    curUnitCount = 0
+	 end
+      end
 
-		-- Check if all reqs for the spell are met.
-		local unlock = true
-		if curUnitMax and curUnitCount >= curUnitMax then
-			unlock = false
-		else
-			for _,curReq in ipairs(curSpell["req"]) do
-				unlock = true
-				local curReqName = curReq["name"]
-				local curReqCount = hero:GetUnitCountFor(curReqName)
-				if not curReqCount or curReqCount <= 0 then
-					unlock = false
-					break
-				end
-			end
-		end
+      -- Check if all reqs for the spell are met.
+      local unlock = true
+      if curUnitMax and curUnitCount >= curUnitMax then
+	 unlock = false
+      else
+	 for _,curReq in ipairs(curSpell["req"]) do
+	    unlock = true
+	    -- Old way of checking current requirement.
+	    if type(curReq) == "table" and curReq["category"] then
+	       local curReqName = curReq["name"]
+	       local curReqCount = hero:GetUnitCountFor(curReqName)
+	       if not curReqCount or curReqCount <= 0 then
+		  unlock = false
+		  break
+	       end
+	    else   -- New way! Looking at ..., curReq, ... or ..., {curOption1, curOption2}, ...
+	       -- Insert the current req or table with choosable reqs into a new one.
+	       local curReqTable = {}
+	       if type(curReq) == "table" then   -- One among several options must be met.
+		  for _,curReqName in ipairs(curReq) do
+		     table.insert(curReqTable, curReqName)
+		  end
+	       else
+		  table.insert(curReqTable, curReqName)
+	       end
 
-		-- Set spell level.
-		if not buildingName or not buildingName ~= MAIN_BUILDING["name"] then
+	       -- Check if one of the options for the current req has not been met.
+	       local oneOptionMet = false
+	       for _,curReqName in ipairs(curReqTable) do
+		  local curReqCount = hero:GetUnitCountFor(curReqName)
+		  if curReqCount and curReqCount > 0 then
+		     oneOptionMet = true
+		     break
+		  end
+	       end
 
-			if unlock == true then
-				hero._abilityLevels[curSpellName] = 1
-			elseif unlock == false then
-				hero._abilityLevels[curSpellName] = 0
-			else
-				print("SimpleTechTree:UpdateTechTree: unlock was neither true nor false!-----------------")
-			end
-		end
+	       -- Stop if neither of the options for the current req has been met.
+	       if not oneOptionMet then
+		  unlock = false
+		  break
+	       end
+	    end
+	 end
+      end
 
+      -- Set spell level.
+      if not buildingName or not buildingName ~= MAIN_BUILDING["name"] then
 
-		local curSpellLevel = hero._abilityLevels[curSpellName]
-		if not curSpellLevel then
-			print("ERROR: curSpellLevel nil!")
-		end
-		if not curUnitCount then
-			print("ERROR: curCount nil!")
-		end
-		if not curSpellName then
-			print("ERROR: curSpellName nil!")
-		end
-		if not curUnitName then
-			print("ERROR: curName nil!")
-		end
+	 if unlock == true then
+	    hero._abilityLevels[curSpellName] = 1
+	 elseif unlock == false then
+	    hero._abilityLevels[curSpellName] = 0
+	 else
+	    print("SimpleTechTree:UpdateTechTree: unlock was neither true nor false!-----------------")
+	 end
+      end
 
-		--print_simple_tech_tree("UpdateTechTree", "Count: "..curUnitCount.." \tLevel: "..curSpellLevel.."\tSpell: "..curSpellName.."\t\tName: "..curUnitName)
-	end
+      --local curSpellLevel = hero._abilityLevels[curSpellName]
+      --print_simple_tech_tree("UpdateTechTree", "Count: "..curUnitCount.." \tLevel: "..curSpellLevel.."\tSpell: "..curSpellName.."\t\tName: "..curUnitName)
+   end
 
-	SimpleTechTree:UpdateSpells(hero)
+   SimpleTechTree:UpdateSpells(hero)
 
-	-- Print building count.
-	local player = hero:GetOwner()
-	SimpleTechTree:PrintAbilityLevels(player)
+   -- Print building count.
+   local player = hero:GetOwner()
+   SimpleTechTree:PrintAbilityLevels(player)
 
-	print_simple_tech_tree("UpdateTechTree", "\n\tTech tree update done!")
+   print_simple_tech_tree("UpdateTechTree", "\n\tTech tree update done!")
 end
 
 
 
 
 
-	--					-----| On Creation and Death |-----
+--					-----| On Creation and Death |-----
 
 
 
@@ -1402,27 +1418,27 @@ end
 ---------------------------------------------------------------------------
 function SimpleTechTree:RegisterConstruction(unit, spellname)
 
-	if not unit then
-		print("SimpleTechTree:RegisterConstruction: unit was nil!")
-		return
-	end
-	if IsBuilding(unit) == false then
-		print("SimpleTechTree:RegisterConstruction: unit was not a building!")
-		return
-	end
+   if not unit then
+      print("SimpleTechTree:RegisterConstruction: unit was nil!")
+      return
+   end
+   if IsBuilding(unit) == false then
+      print("SimpleTechTree:RegisterConstruction: unit was not a building!")
+      return
+   end
 
-	unit._finished = false
-	local owner = unit:GetOwner()
-	local unitName = unit:GetUnitName()
-	local newUnitCount = owner:GetUnitCountFor(unitName) + 1
-	local maxUnitCount = SimpleTechTree:GetMaxCountFor(unitName)
-	if maxUnitCount and newUnitCount >= maxUnitCount then
+   unit._finished = false
+   local owner = unit:GetOwner()
+   local unitName = unit:GetUnitName()
+   local newUnitCount = owner:GetUnitCountFor(unitName) + 1
+   local maxUnitCount = SimpleTechTree:GetMaxCountFor(unitName)
+   if maxUnitCount and newUnitCount >= maxUnitCount then
 
-		local ability = UnitHasAbility(owner, spellname)
-		if ability then
-			ability:SetLevel(0)
-		end
-	end
+      local ability = UnitHasAbility(owner, spellname)
+      if ability then
+	 ability:SetLevel(0)
+      end
+   end
 end
 
 
@@ -1437,92 +1453,92 @@ end
 ---------------------------------------------------------------------------
 function SimpleTechTree:RegisterIncident(unit, state)
 
-	if not unit then
-		print("SimpleTechTree:RegisterIncident: unit was nil!")
-		return
-	end
-	if state == nil then		-- Don't want this to trigger if state is false
-		print("SimpleTechTree:RegisterIncident: state was nil!")
-		return
-	end
+   if not unit then
+      print("SimpleTechTree:RegisterIncident: unit was nil!")
+      return
+   end
+   if state == nil then		-- Don't want this to trigger if state is false
+      print("SimpleTechTree:RegisterIncident: state was nil!")
+      return
+   end
 
-	local isBuilding = IsBuilding(unit)
-	local unitName = unit:GetUnitName()
-	local owner = unit:GetOwner() or unit._owner
-	if not owner then
-		print("SimpleTechTree:RegisterIncident: Couldn't get owner of unit!")
-		return
-	end
-	local ownerID = owner:GetPlayerID()
-	local hero = GetPlayerHero(ownerID)
-	if not hero then
-		print("SimpleTechTree:RegisterIncident: Couldn't get player hero!")
-		return
-	end
-	local oldUnitCount = hero:GetUnitCountFor(unitName) or 0
-	local wasUnfinished = false
+   local isBuilding = IsBuilding(unit)
+   local unitName = unit:GetUnitName()
+   local owner = unit:GetOwner() or unit._owner
+   if not owner then
+      print("SimpleTechTree:RegisterIncident: Couldn't get owner of unit!")
+      return
+   end
+   local ownerID = owner:GetPlayerID()
+   local hero = GetPlayerHero(ownerID)
+   if not hero then
+      print("SimpleTechTree:RegisterIncident: Couldn't get player hero!")
+      return
+   end
+   local oldUnitCount = hero:GetUnitCountFor(unitName) or 0
+   local wasUnfinished = false
 
-	-- On creation.
-	if state == true then
-		if isBuilding == true then
-			hero:AddBuilding(unit)
-			if unit._finished == false then
-				unit._finished = true
-				hero:IncUnitCountFor(unitName)
-			else
-				print("\n\tWARNING: UNIT._FINISHED WAS TRUE!\n")
-			end
-		else
-			hero:AddUnit(unit)
-			hero:IncUnitCountFor(unitName)
-		end
+   -- On creation.
+   if state == true then
+      if isBuilding == true then
+	 hero:AddBuilding(unit)
+	 if unit._finished == false then
+	    unit._finished = true
+	    hero:IncUnitCountFor(unitName)
+	 else
+	    print("\n\tWARNING: UNIT._FINISHED WAS TRUE!\n")
+	 end
+      else
+	 hero:AddUnit(unit)
+	 hero:IncUnitCountFor(unitName)
+      end
 
-	-- On death.
-	elseif state == false then
-		if isBuilding == true then
-			hero:RemoveBuilding(unit)
-			if unit._finished == true then
-				hero:DecUnitCountFor(unitName)
-			else
-				--print("Note: building was destroyed before finished...")
-				wasUnfinished = true
-				unit._interrupted = true
-			end
-		else
-			hero:RemoveUnit(unit)
-			hero:DecUnitCountFor(unitName)
-		end
-	end
+      -- On death.
+   elseif state == false then
+      if isBuilding == true then
+	 hero:RemoveBuilding(unit)
+	 if unit._finished == true then
+	    hero:DecUnitCountFor(unitName)
+	 else
+	    --print("Note: building was destroyed before finished...")
+	    wasUnfinished = true
+	    unit._interrupted = true
+	 end
+      else
+	 hero:RemoveUnit(unit)
+	 hero:DecUnitCountFor(unitName)
+      end
+   end
 
-	local needsUpdate = false
-	local maxUnitCount = SimpleTechTree:GetMaxCountFor(unitName)
-	local newUnitCount = hero:GetUnitCountFor(unitName)
+   local needsUpdate = false
+   local maxUnitCount = SimpleTechTree:GetMaxCountFor(unitName)
+   local newUnitCount = hero:GetUnitCountFor(unitName)
 
-	if maxUnitCount then
-		if (oldUnitCount >= maxUnitCount and newUnitCount < maxUnitCount) or
-			(oldUnitCount < maxUnitCount and newUnitCount >= maxUnitCount) or
-			wasUnfinished == true then
+   if maxUnitCount then
+      if (oldUnitCount >= maxUnitCount and newUnitCount < maxUnitCount) or
+	 (oldUnitCount < maxUnitCount and newUnitCount >= maxUnitCount) or
+      wasUnfinished == true then
 
-			--print("\tUpdate triggered by maxUnitCount or wasUnfinished!")
-			needsUpdate = true
-		end
-	elseif (oldUnitCount == 0 and newUnitCount > 0) or
-		(oldUnitCount > 0 and newUnitCount == 0) then
+	 --print("\tUpdate triggered by maxUnitCount or wasUnfinished!")
+	 needsUpdate = true
+      end
+   elseif (oldUnitCount == 0 and newUnitCount > 0) or
+   (oldUnitCount > 0 and newUnitCount == 0) then
 
-		--print("\t\tUpdate triggered by unitCount entering or leaving 0!")
-		needsUpdate = true
-	end
+      --print("\t\tUpdate triggered by unitCount entering or leaving 0!")
+      needsUpdate = true
+   end
 
-	if needsUpdate == true then
-		SimpleTechTree:UpdateTechTree(hero, unit, state)
-	end
+   if needsUpdate == true then
+      SimpleTechTree:UpdateTechTree(hero, unit, state)
+   end
 end
 
 
 
 
 
-	--					-----| Update Spells |-----
+--					-----| Update Spells |-----
 
 
 
@@ -1530,87 +1546,87 @@ end
 
 -- Update the level on all spells owned by all units and buildings of the hero.
 function SimpleTechTree:UpdateSpells(hero)
-	if not hero then
-		print("SimpleTechTree:UpdateSpells\tunit was nil!")
-		return
-	end
+   if not hero then
+      print("SimpleTechTree:UpdateSpells\tunit was nil!")
+      return
+   end
 
-	if DEBUG_SIMPLE_TECH_TREE == true then
-		print_simple_tech_tree("UpdateSpells", "\n\tUpdating the spells!")
-	end
+   if DEBUG_SIMPLE_TECH_TREE == true then
+      print_simple_tech_tree("UpdateSpells", "\n\tUpdating the spells!")
+   end
 
-	-- Update buildings.
-	for _,building in pairs(hero:GetBuildings()) do
-		for i=0,6 do
-			local curAbility = building:GetAbilityByIndex(i)
-			if curAbility ~= nil and not curAbility:IsNull() then
-				local curAbilityName = curAbility:GetAbilityName()
-				if not curAbilityName then
-					print("SimpleTechTree:UpdateSpells\t(buildings) curAbilityName was nil!")
-				else
-					--print("(buildings) "..curAbilityName)
-				end
-				local level = hero._abilityLevels[curAbilityName]
-				if not level then
-					if DEBUG_SIMPLE_TECH_TREE == true then
-						print("SimpleTechTree:UpdateSpells\t(buildings) level was nil!")
-					end
-				else
-					curAbility:SetLevel(level)
-					--print_simple_tech_tree("UpdateSpells", "Set level to "..level.."!")
-				end
-			end
-		end
-	end
+   -- Update buildings.
+   for _,building in pairs(hero:GetBuildings()) do
+      for i=0,6 do
+	 local curAbility = building:GetAbilityByIndex(i)
+	 if curAbility ~= nil and not curAbility:IsNull() then
+	    local curAbilityName = curAbility:GetAbilityName()
+	    if not curAbilityName then
+	       print("SimpleTechTree:UpdateSpells\t(buildings) curAbilityName was nil!")
+	    else
+	       --print("(buildings) "..curAbilityName)
+	    end
+	    local level = hero._abilityLevels[curAbilityName]
+	    if not level then
+	       if DEBUG_SIMPLE_TECH_TREE == true then
+		  print("SimpleTechTree:UpdateSpells\t(buildings) level was nil!")
+	       end
+	    else
+	       curAbility:SetLevel(level)
+	       --print_simple_tech_tree("UpdateSpells", "Set level to "..level.."!")
+	    end
+	 end
+      end
+   end
 
-	-- Update units.
-	for _,unit in pairs(hero:GetUnits()) do
-		for i=0,6 do
-			local curAbility = unit:GetAbilityByIndex(i)
-			if curAbility ~= nil and not curAbility:IsNull() then
-				local curAbilityName = curAbility:GetAbilityName()
-				if not curAbilityName then
-					print("SimpleTechTree:UpdateSpells\t(units) curAbilityName was nil!")
-				else
-					--print("(units) "..curAbilityName)
-				end
-				local level = hero._abilityLevels[curAbilityName]
-				if not level then
-					--print("SimpleTechTree:UpdateSpells\t(units) level was nil! curAbilityName: "..curAbilityName)
-				else
-					curAbility:SetLevel(level)
-					--print_simple_tech_tree("UpdateSpells", "Set level to "..level.."!")
-				end
-			end
-		end
-	end
+   -- Update units.
+   for _,unit in pairs(hero:GetUnits()) do
+      for i=0,6 do
+	 local curAbility = unit:GetAbilityByIndex(i)
+	 if curAbility ~= nil and not curAbility:IsNull() then
+	    local curAbilityName = curAbility:GetAbilityName()
+	    if not curAbilityName then
+	       print("SimpleTechTree:UpdateSpells\t(units) curAbilityName was nil!")
+	    else
+	       --print("(units) "..curAbilityName)
+	    end
+	    local level = hero._abilityLevels[curAbilityName]
+	    if not level then
+	       --print("SimpleTechTree:UpdateSpells\t(units) level was nil! curAbilityName: "..curAbilityName)
+	    else
+	       curAbility:SetLevel(level)
+	       --print_simple_tech_tree("UpdateSpells", "Set level to "..level.."!")
+	    end
+	 end
+      end
+   end
 
-	SimpleTechTree:UpdateSpellsHeroOnly(hero)
+   SimpleTechTree:UpdateSpellsHeroOnly(hero)
 end
 
 
 
 -- Update the level on all the current spells on the hero.
 function SimpleTechTree:UpdateSpellsHeroOnly(unit)
-	-- Update hero.
-	for i=0,6 do
-		local curAbility = unit:GetAbilityByIndex(i)
-		if curAbility ~= nil and not curAbility:IsNull() then
-			local curAbilityName = curAbility:GetAbilityName()
-			if not curAbilityName then
-				print("SimpleTechTree:UpdateSpells\t(hero) curAbilityName was nil!")
-			else
-				--print("(hero) "..curAbilityName)
-			end
-			local level = unit._abilityLevels[curAbilityName]
-			if not level then
-				--print("SimpleTechTree:UpdateSpells\t(hero) level was nil for hero!")
-			else
-				curAbility:SetLevel(level)
-				--print_simple_tech_tree("UpdateSpells", "Set level to "..level.."!")
-			end
-		end
-	end
+   -- Update hero.
+   for i=0,6 do
+      local curAbility = unit:GetAbilityByIndex(i)
+      if curAbility ~= nil and not curAbility:IsNull() then
+	 local curAbilityName = curAbility:GetAbilityName()
+	 if not curAbilityName then
+	    print("SimpleTechTree:UpdateSpells\t(hero) curAbilityName was nil!")
+	 else
+	    --print("(hero) "..curAbilityName)
+	 end
+	 local level = unit._abilityLevels[curAbilityName]
+	 if not level then
+	    --print("SimpleTechTree:UpdateSpells\t(hero) level was nil for hero!")
+	 else
+	    curAbility:SetLevel(level)
+	    --print_simple_tech_tree("UpdateSpells", "Set level to "..level.."!")
+	 end
+      end
+   end
 end
 
 
@@ -1655,56 +1671,56 @@ end
 
 -- Put all spells of the unit into unit._spells.
 function SimpleTechTree:MergeSpells(unit)
-	if not unit then
-		print("SimpleTechTree:MergeSpells\tunit was nil!")
-		return
-	end
+   if not unit then
+      print("SimpleTechTree:MergeSpells\tunit was nil!")
+      return
+   end
 
-	--print("\n---------------------------------------------------------------------------")
-	print_simple_tech_tree("MergeSpells", "\nMerging spells...")
-	--print("---------------------------------------------------------------------------")
-
-
-	-- READ
-	-- Remember to init ability level of all the ability page spells.
+   --print("\n---------------------------------------------------------------------------")
+   print_simple_tech_tree("MergeSpells", "\nMerging spells...")
+   --print("---------------------------------------------------------------------------")
 
 
-	local spells = {}
-	for pageNumber,page in pairs(unit._abilityPages) do
-		if page then
-			for key,spell in pairs(page) do
-				local curSpellName = spell["spell"]
-				local curName = spell["name"]
-				spells[curSpellName] = spell
-				unit._abilityLevels[curSpellName] = 0
-				local curBuildingName = curName
-				unit:SetUnitCountFor(curBuildingName, 0)
+   -- READ
+   -- Remember to init ability level of all the ability page spells.
 
-				print_simple_tech_tree("MergeSpells", "PageNumber: "..pageNumber.."\tKey: "..key.."\tSpell: "..spell["spell"])
-			end
-		end
-	end
-	for key,spell in pairs(unit._trainingSpells) do
-		if spell then
-			local curSpellName = spell["spell"]
-			local curName = spell["name"]
-			spells[curSpellName] = spell
-			unit._abilityLevels[curSpellName] = 0
-			local curUnitName = curName
-			unit:SetUnitCountFor(curUnitName, 0)
 
-			print_simple_tech_tree("MergeSpells", "Key: "..key.."\tSpell: "..spell["spell"])
-		end
-	end
-	unit._spells = spells
-	--print("---------------------------------------------------------------------------\n")
+   local spells = {}
+   for pageNumber,page in pairs(unit._abilityPages) do
+      if page then
+	 for key,spell in pairs(page) do
+	    local curSpellName = spell["spell"]
+	    local curName = spell["name"]
+	    spells[curSpellName] = spell
+	    unit._abilityLevels[curSpellName] = 0
+	    local curBuildingName = curName
+	    unit:SetUnitCountFor(curBuildingName, 0)
+
+	    print_simple_tech_tree("MergeSpells", "PageNumber: "..pageNumber.."\tKey: "..key.."\tSpell: "..spell["spell"])
+	 end
+      end
+   end
+   for key,spell in pairs(unit._trainingSpells) do
+      if spell then
+	 local curSpellName = spell["spell"]
+	 local curName = spell["name"]
+	 spells[curSpellName] = spell
+	 unit._abilityLevels[curSpellName] = 0
+	 local curUnitName = curName
+	 unit:SetUnitCountFor(curUnitName, 0)
+
+	 print_simple_tech_tree("MergeSpells", "Key: "..key.."\tSpell: "..spell["spell"])
+      end
+   end
+   unit._spells = spells
+   --print("---------------------------------------------------------------------------\n")
 end
 
 
 
 
 
-	--					-----| Utility |-----
+--					-----| Utility |-----
 
 
 
@@ -1718,75 +1734,75 @@ end
 ---------------------------------------------------------------------------
 function SimpleTechTree:PrintAbilityLevels(player)
 
-	if not player then
-		print("SimpleTechTree:PrintAbilityLevels\tplayer was nil!")
-		return
-	end
-	if DEBUG_SIMPLE_TECH_TREE ~= true then
-		return
-	end
+   if not player then
+      print("SimpleTechTree:PrintAbilityLevels\tplayer was nil!")
+      return
+   end
+   if DEBUG_SIMPLE_TECH_TREE ~= true then
+      return
+   end
 
-	local playerID = player:GetPlayerID()
-	local hero = GetPlayerHero(playerID)
+   local playerID = player:GetPlayerID()
+   local hero = GetPlayerHero(playerID)
 
-	local spells = {
-		building = {},
-		unit = {},
-		spell = {}
-	}
+   local spells = {
+      building = {},
+      unit = {},
+      spell = {}
+   }
 
-	for spellName,level in pairs(hero._abilityLevels) do
-		local curSpell = SPELLS[spellName]
-		local category = curSpell.category
-		if category and spells[category] then
-			table.insert(spells[category], curSpell)
-		else
-			print("SimpleTechTree:PrintAbilityLevels: invalid category found ("..category..")!")
-		end
-	end
+   for spellName,level in pairs(hero._abilityLevels) do
+      local curSpell = SPELLS[spellName]
+      local category = curSpell.category
+      if category and spells[category] then
+	 table.insert(spells[category], curSpell)
+      else
+	 print("SimpleTechTree:PrintAbilityLevels: invalid category found ("..category..")!")
+      end
+   end
 
-	print("---------------------------------------------------------------------------")
-	print("PrintAbilityLevels for player with ID "..playerID..":")
-	print("---------------------------------------------------------------------------")
-	print("")
-	print("							-----| Buildings |-----							  ")
-	print("")
-	print("            Spell Name             | Level | Count | Name")
-	print("---------------------------------------------------------------------------")
-	for _,spell in pairs(spells.building) do
-		local spellLevel = hero._abilityLevels[spell.spell] or 0
-		local unitName = spell.name
-		if not unitName or unitName == "none" then unitName = "-" end
-		local unitCount = hero:GetUnitCountFor(spell.name) or "-"
-		print(string.format("%35s    %d      %3s     %s", spell.spell, spellLevel, unitCount, unitName))
-	end
-	print("---------------------------------------------------------------------------")
-	print("")
-	print("							-----| Units |-----							  ")
-	print("")
-	print("            Spell Name             | Level | Count | Name")
-	print("---------------------------------------------------------------------------")
-	for _,spell in pairs(spells.unit) do
-		local spellLevel = hero._abilityLevels[spell.spell] or 0
-		local unitName = spell.name
-		if not unitName or unitName == "none" then unitName = "-" end
-		local unitCount = hero:GetUnitCountFor(spell.name) or "-"
-		print(string.format("%35s    %d      %3s     %s", spell.spell, spellLevel, unitCount, unitName))
-	end
-	print("---------------------------------------------------------------------------")
-	print("")
-	print("							-----| Spells |-----							  ")
-	print("")
-	print("            Spell Name             | Level | Count | Name")
-	print("---------------------------------------------------------------------------")
-	for _,spell in pairs(spells.spell) do
-		local spellLevel = hero._abilityLevels[spell.spell] or 0
-		local unitName = spell.name
-		if not unitName or unitName == "none" then unitName = "-" end
-		local unitCount = hero:GetUnitCountFor(spell.name) or "-"
-		print(string.format("%35s    %d      %3s     %s", spell.spell, spellLevel, unitCount, unitName))
-	end
-	print("---------------------------------------------------------------------------")
+   print("---------------------------------------------------------------------------")
+   print("PrintAbilityLevels for player with ID "..playerID..":")
+   print("---------------------------------------------------------------------------")
+   print("")
+   print("							-----| Buildings |-----							  ")
+   print("")
+   print("            Spell Name             | Level | Count | Name")
+   print("---------------------------------------------------------------------------")
+   for _,spell in pairs(spells.building) do
+      local spellLevel = hero._abilityLevels[spell.spell] or 0
+      local unitName = spell.name
+      if not unitName or unitName == "none" then unitName = "-" end
+      local unitCount = hero:GetUnitCountFor(spell.name) or "-"
+      print(string.format("%35s    %d      %3s     %s", spell.spell, spellLevel, unitCount, unitName))
+   end
+   print("---------------------------------------------------------------------------")
+   print("")
+   print("							-----| Units |-----							  ")
+   print("")
+   print("            Spell Name             | Level | Count | Name")
+   print("---------------------------------------------------------------------------")
+   for _,spell in pairs(spells.unit) do
+      local spellLevel = hero._abilityLevels[spell.spell] or 0
+      local unitName = spell.name
+      if not unitName or unitName == "none" then unitName = "-" end
+      local unitCount = hero:GetUnitCountFor(spell.name) or "-"
+      print(string.format("%35s    %d      %3s     %s", spell.spell, spellLevel, unitCount, unitName))
+   end
+   print("---------------------------------------------------------------------------")
+   print("")
+   print("							-----| Spells |-----							  ")
+   print("")
+   print("            Spell Name             | Level | Count | Name")
+   print("---------------------------------------------------------------------------")
+   for _,spell in pairs(spells.spell) do
+      local spellLevel = hero._abilityLevels[spell.spell] or 0
+      local unitName = spell.name
+      if not unitName or unitName == "none" then unitName = "-" end
+      local unitCount = hero:GetUnitCountFor(spell.name) or "-"
+      print(string.format("%35s    %d      %3s     %s", spell.spell, spellLevel, unitCount, unitName))
+   end
+   print("---------------------------------------------------------------------------")
 end
 
 
@@ -1800,14 +1816,14 @@ end
 ---------------------------------------------------------------------------
 function SimpleTechTree:GetMaxCountFor(name)
 
-	if not name then
-		print("SimpleTechTree:GetMaxCountFor: name was nil!")
-		return
-	end
-	local maxCount = MAX_COUNT[name]
-	if maxCount then
-		return maxCount
-	end
+   if not name then
+      print("SimpleTechTree:GetMaxCountFor: name was nil!")
+      return
+   end
+   local maxCount = MAX_COUNT[name]
+   if maxCount then
+      return maxCount
+   end
 end
 
 
@@ -1820,12 +1836,12 @@ end
 ---------------------------------------------------------------------------
 function SimpleTechTree:IsHero(unit)
 
-	local heroName = unit:GetUnitName()
-	if heroName == COMMANDER or heroName == FURION or heroName == GEOMANCER or heroName == KING_OF_THE_DEAD or heroName == WARLORD then
-		return true
-	else
-		return false
-	end
+   local heroName = unit:GetUnitName()
+   if heroName == COMMANDER or heroName == FURION or heroName == GEOMANCER or heroName == KING_OF_THE_DEAD or heroName == WARLORD then
+      return true
+   else
+      return false
+   end
 end
 
 
@@ -1839,7 +1855,7 @@ end
 ---------------------------------------------------------------------------
 function print_simple_tech_tree(funcName, text)
 
-	if DEBUG_SIMPLE_TECH_TREE == true then
-		print("AbilityPages:"..funcName.."\t"..text)
-	end
+   if DEBUG_SIMPLE_TECH_TREE == true then
+      print("AbilityPages:"..funcName.."\t"..text)
+   end
 end
