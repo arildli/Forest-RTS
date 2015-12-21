@@ -69,15 +69,12 @@ function finishConstruction(building)
    elseif building._interrupted == false then
       interrupted = "false"
    end
+   building._building = true
 
    -- Remove rotation spells.
    building:RemoveAbility(rotateRight)
    building:RemoveAbility(rotateLeft)
    building:RemoveAbility(cancelConstruction)
-   
-   if not building then
-      print("attemptConstruction:\tbuilding was nil upon construction finish!")
-   end
    
    local playerHero = GetPlayerHero(building:GetOwner():GetPlayerID())
 
@@ -333,7 +330,7 @@ end
 --
 ---------------------------------------------------------------------------
 function IsBuilding(building)
-   return IsCustomBuilding(building)
+   return building._building or IsCustomBuilding(building)
 end
 
 

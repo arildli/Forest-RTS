@@ -1135,7 +1135,7 @@
 
 		// Casting
 		"AbilityCastPoint"		"0.1"
-		"AbilityCastRange"		"128"
+		"AbilityCastRange"		"150"
 		"AbilityCooldown"		"0"
 		"AbilityManacost"		"0"
 
@@ -1174,7 +1174,7 @@
 
 			"RunScript"
 			{
-				"ScriptFile"	"scripts/vscripts/resources.lus"
+				"ScriptFile"	"scripts/vscripts/utils.lus"
 				"Function"	"RegisterHarvesterAtTree"
 				"Target"	"TARGET"
 			}					
@@ -1190,7 +1190,7 @@
 
 			"RunScript"
 			{
-				"ScriptFile"	"scripts/vscripts/resources.lua"
+				"ScriptFile"	"scripts/vscripts/utils.lua"
 				"Function"	"UnregisterHarvesterAtTree"
 				"Target"	"TARGET"
 			}						
@@ -1272,7 +1272,7 @@
 
 		// Casting
 		"AbilityCastPoint"		"0.1"
-		"AbilityCastRange"		"128"
+		"AbilityCastRange"		"150"
 		"AbilityCooldown"		"0"
 		"AbilityManacost"		"0"
 
@@ -1311,7 +1311,7 @@
 
 			"RunScript"
 			{
-				"ScriptFile"	"scripts/vscripts/resources.lus"
+				"ScriptFile"	"scripts/vscripts/utils.lus"
 				"Function"	"RegisterHarvesterAtTree"
 				"Target"	"TARGET"
 			}		
@@ -1327,7 +1327,7 @@
 
 			"RunScript"
 			{
-				"ScriptFile"	"scripts/vscripts/resources.lua"
+				"ScriptFile"	"scripts/vscripts/utils.lua"
 				"Function"	"UnregisterHarvesterAtTree"
 				"Target"	"TARGET"
 			}						
@@ -2846,7 +2846,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"period"	"5.0"
+				"period"	"4.0"
 			}
 
 			"02"
@@ -2873,7 +2873,7 @@
 				"IsDebuff"	"0"
 				"IsHidden"	"1"
 			//	"ThinkInterval"	"%period"
-				"ThinkInterval"	"5.0"
+				"ThinkInterval"	"4.0"
 
 				"OnIntervalThink"
 				{	
@@ -3082,6 +3082,127 @@
 				"IsHidden"	"1"
 			}
 		}	
+	}	
+
+
+
+
+
+	// Spell7.14
+	//================================================================================
+	// Ability Enter Tower
+	//================================================================================
+	"srts_enter_tower"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Ability Enter Tower"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
+		"AbilityUnitTargetTeam" 	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityTextureName"		"spellicon_enter_tower"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"300"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"bonus_evasion"	"50"
+			}	
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"bonus_vision"	"300"
+			}	
+		}
+
+		"OnSpellStart"
+		{	
+			"RunScript"
+			{
+				"Target"	"POINT"	
+				"ScriptFile"	"scripts/vscripts/spells.lua"
+				"Function"	"EnterTower"
+				"modifier"	"modifier_inside_tower_buff"
+			}	
+
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_test"
+				"Target"	"CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_inside_tower_buff"
+			{
+				"Passive"		"1"
+				"Attributes"		"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT"	
+				"TextureName"		"spellicon_enter_tower"
+				"States"
+				{
+					"MODIFIER_STATE_ROOTED"		"MODIFIER_STATE_VALUE_ENABLED" // Prevents moving
+				}
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"Target"	"POINT"
+						"ScriptFile"	"scripts/vscripts/spells.lua"
+						"Function"	"RemoveIfBuilding"
+						"modifier"	"modifier_inside_tower_buff"
+					}	
+				}	
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE"	"0.0"
+					"MODIFIER_PROPERTY_EVASION_CONSTANT"	"%bonus_evasion"
+					"MODIFIER_PROPERTY_BONUS_DAY_VISION"	"%bonus_vision"
+					"MODIFIER_PROPERTY_BONUS_NIGHT_VISION"	"%bonus_vision"
+				}
+			}	
+		}	
+	}
+
+
+
+
+
+	// Spell7.15
+	//================================================================================
+	// Ability Leave Tower
+	//================================================================================
+	"srts_leave_tower"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Ability Enter Tower"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityTextureName"		"spellicon_leave_tower"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+
+		"OnSpellStart"
+		{	
+			"RunScript"
+			{
+				"Target"	"POINT"	
+				"ScriptFile"	"scripts/vscripts/spells.lua"
+				"Function"	"LeaveTower"
+				"modifier"	"modifier_inside_tower_buff"
+			}
+		}
 	}
 
 
@@ -3789,7 +3910,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"450"
+				"health"	"410"
 			}
 		
 			"04"
@@ -3946,7 +4067,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"385"
+				"health"	"375"
 			}
 		
 			"04"
@@ -4260,7 +4381,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"210"
+				"health"	"225"
 			}
 		
 			"04"
@@ -4272,7 +4393,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"11"
+				"damage"	"12"
 			}
 
 			"06"
@@ -4417,7 +4538,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"360"
+				"health"	"350"
 			}
 		
 			"04"
@@ -4558,7 +4679,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		"AbilityGoldCost"		"120"
+		"AbilityGoldCost"		"125"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -4574,7 +4695,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"0"
+				"lumber_cost"	"5"
 			}
 
 			"03"
@@ -4732,7 +4853,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"0"
+				"lumber_cost"	"5"
 			}
 
 			"03"
@@ -4892,7 +5013,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"0"
+				"lumber_cost"	"5"
 			}
 
 			"03"
@@ -5049,7 +5170,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"0"
+				"lumber_cost"	"5"
 			}
 
 			"03"
@@ -5190,7 +5311,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		"AbilityGoldCost"		"110"
+		"AbilityGoldCost"		"115"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -5200,13 +5321,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"110"
+				"gold_cost"	"115"
 			}
 
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"0"
+				"lumber_cost"	"5"
 			}
 
 			"03"
@@ -5224,7 +5345,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"16"
+				"damage"	"15"
 			}
 
 			"06"
@@ -6739,6 +6860,35 @@
 
 
 
+
+	"srts_hero_test_aura"
+	{
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"enchantress_natures_attendants"
+		
+		"Modifiers"
+		{
+			"modifier_ignited"
+			{
+				"Passive"	"0"
+				"IsDebuff"	"1"
+				"IsHidden"	"0"
+				"TextureName"	"warlock_golem_flaming_fists"
+
+				"ThinkInterval"	"1.0"
+				"OnIntervalThink"
+				{
+					"Damage"
+					{
+						"Target"	"CASTER"
+						"Type"		"DAMAGE_TYPE_MAGICAL"
+						"Damage"	"4"
+					}
+				}
+			}
+		}
+	}
 
      	//================================================================================
 	// Hero Attack Speed Aura

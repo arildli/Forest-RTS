@@ -278,7 +278,7 @@ function HarvestChop(keys)
 
   if target then
     target:CutDown(teamNumber)
-    caster:SetLastTree(target)
+    --caster:SetLastTree(target)
     caster:DeliverLumber()
   end
 
@@ -324,10 +324,10 @@ function GiveHarvestedLumber(keys)
   local ability = keys.ability
   
   local owner = caster:GetPlayerOwner()
-  local playerID = owner:GetPlayerID()
   local teamNumber = caster:GetTeamNumber()
   local lumberAmount = keys.lumber
-  local hero = GetPlayerHero(playerID)
+  --local playerID = owner:GetPlayerID()
+  --local hero = GetPlayerHero(playerID)
   
   if target then
     target:CutDown(teamNumber)

@@ -56,6 +56,7 @@ function SimpleRTSGameMode:InitGameMode()
    loadModule('ability_pages')
    loadModule('simple_bot')
    loadModule('timers')
+   loadModule('spells')
    -- Must be turned off due to crash with the new buildingHelper!
    --loadModule('buildinghelper_old')
    
@@ -144,8 +145,8 @@ function SimpleRTSGameMode:InitGameMode()
    -- Register console commands
 
    -- DebugPrint
-   Convars:RegisterConvar('debug_spew', tostring(DEBUG_SPEW), 'Set to 1 to start spewing debug info. Set to 0 to disable.', 0)
-
+   --Convars:RegisterConvar('debug_spew', tostring(DEBUG_SPEW), 'Set to 1 to start spewing debug info. Set to 0 to disable.', 0)
+   
    Convars:RegisterCommand('boss', function()
 			      
 			      local cmdPlayer = Convars:GetCommandClient()
@@ -157,7 +158,7 @@ function SimpleRTSGameMode:InitGameMode()
 				 end
 			      end
 			      
-			      SimpleBot:MultiplyInitialPatrol(5)
+			      --SimpleBot:MultiplyInitialPatrol(5)
 			      PlayerResource:SetGold(cmdPlayer:GetPlayerID(), 99999, true)
 			      
 			      local newItem = CreateItem("item_blink", playerHero, playerHero)
@@ -541,6 +542,16 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    --if killedUnit._building and killedUnit._building == true then
    --   killedUnit:RemoveBuilding(true)
    --end
+
+   -- Killed unit was inside a tower.
+   if killedUnit._tower then
+      RemoveUnitFromTower(killedUnit._tower)
+   end
+
+   -- Killed unit was a tower with a unit inside. Make sure he dies too!
+   if killedUnit._inside then
+      killedUnit._inside:ForceKill(false)
+   end
 
    if (killedUnit:IsRealHero() == true or unitName == MAIN_BUILDING.name) then 
       --if not killedUnit._wasCancelled then 

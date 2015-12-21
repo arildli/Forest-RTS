@@ -12,6 +12,8 @@
 		"error_full_health"				"Already on full health"
 		"error_queue_full"				"Queue is full"	
 
+		"error_target_must_be_unit"			"Target must be a regular unit"
+
 		"addonname"					"Forest RTS"
 
 		"PointsToWin"					"+{d:points_to_win} more"
