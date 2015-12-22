@@ -1648,13 +1648,97 @@
 
 
 
-
-	// Spell5.3
+	// Spell5.3.1
 	//================================================================================
 	// Build Main Tent
 	//================================================================================
 
 	"srts_construct_main_building"
+	{
+	
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Main Tent"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_main_tent"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"3"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_main_tent_small"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"0"
+		"BuildTime"					"10"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"0"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"10"
+			}
+			
+			//"04"
+			//{
+			//	"var_type"	"FIELD_FLOAT"
+			//	"scale"		"1.05"
+			//}	
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}
+
+			//"RunScript"
+			//{
+			//	"Target"	"POINT"	
+			//	"ScriptFile"	"scripts/vscripts/buildings.lua"
+			//	"Function"	"attemptConstruction"
+			//	"buildingName"	"npc_dota_building_main_tent_small"
+			//	"lumberCost"	"%lumber_cost"
+			//	"goldCost"	"%gold_cost"
+			//	"buildTime"	"%build_time"
+			//	"scale"		"%scale"
+			//	"spellName"	"srts_construct_main_building"
+			//}	
+		}	
+	}
+
+
+
+
+
+	// Spell5.3.2
+	//================================================================================
+	// Build Main Tent Large
+	//================================================================================
+
+	"srts_upgrade_main_building"
 	{
 	
 		// General
