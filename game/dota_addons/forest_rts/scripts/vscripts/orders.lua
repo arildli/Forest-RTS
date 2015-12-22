@@ -93,8 +93,8 @@ function SimpleRTSGameMode:FilterExecuteOrder( filterTable )
       local curX = start
       local curY = 0
 
-      local offsetX = 100
-      local offsetY = 100
+      local offsetX = 125
+      local offsetY = 125
       local forward = (point-origin):Normalized()
       local right = RotatePosition(Vector(0,0,0), QAngle(0,90,0), forward)
 

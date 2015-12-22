@@ -6421,7 +6421,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		"AbilityGoldCost"		"210"
+		"AbilityGoldCost"		"225"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"10"
@@ -6431,13 +6431,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"210"
+				"gold_cost"	"225"
 			}
 
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"15"
+				"lumber_cost"	"25"
 			}
 
 			"03"
@@ -6455,7 +6455,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"40"
+				"damage"	"35"
 			}
 
 			"06"
@@ -6580,7 +6580,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		"AbilityGoldCost"		"210"
+		"AbilityGoldCost"		"225"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"10"
@@ -6590,13 +6590,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"210"
+				"gold_cost"	"225"
 			}
 
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"15"
+				"lumber_cost"	"25"
 			}
 
 			"03"
@@ -6614,7 +6614,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"40"
+				"damage"	"35"
 			}
 
 			"06"
