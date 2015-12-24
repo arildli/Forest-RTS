@@ -143,8 +143,12 @@ function Build( event )
 				  -- Check the abilities of this building, disabling those that don't meet the requirements
 				  --CheckAbilityRequirements( unit, player )
 				  
+				  -- EDITED
+				  local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
+				  -- END
+
 				  -- Add the building handle to the list of structures
-				  table.insert(player.structures, unit)
+				  table.insert(playerHero.structures, unit)
 			       end)
    
    -- A building finished construction
@@ -172,6 +176,9 @@ function Build( event )
 				       end
 				    end
 
+				    -- EDITED
+				    local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
+				    -- END
 				    local building_name = unit:GetUnitName()
 				    local builders = {}
 				    if unit.builder then
@@ -181,10 +188,10 @@ function Build( event )
 				    end
 				    
 				    -- Add 1 to the player building tracking table for that name
-				    if not player.buildings[building_name] then
-				       player.buildings[building_name] = 1
+				    if not playerHero.buildings[building_name] then
+				       playerHero.buildings[building_name] = 1
 				    else
-				       player.buildings[building_name] = player.buildings[building_name] + 1
+				       playerHero.buildings[building_name] = playerHero.buildings[building_name] + 1
 				    end
 				    
 				    -- Update the abilities of the builders and buildings
