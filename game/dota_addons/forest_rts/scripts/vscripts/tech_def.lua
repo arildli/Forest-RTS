@@ -12,6 +12,9 @@ WARLORD = "npc_dota_hero_troll_warlord"
 
 
 defs = {}
+tech = {}
+
+
 
 -- Spell definitions --
 defs = {
@@ -101,10 +104,44 @@ defs = {
   },
 
   -- Unit spells
-  FURION_REGENERATIVE_BARK = {
+  REGENERATIVE_BARK = {
     spell = "srts_regenerative_bark",
-    category = "spell",
-    req = {}
+    category = "spell"
+  },
+
+  LONG_WEAPON = {
+    spell = "srts_long_weapon",
+    category = "spell"
+  },
+
+  HATRED = {
+    spell = "srts_hatred",
+    category = "spell"
+  },
+
+  UNDEAD_STRENGTH = {
+    spell = "srts_undead_strength",
+    category = "spell"
+  },
+
+  HEADSHOT = {
+    spell = "srts_headshot",
+    category = "spell"
+  },
+
+  ENVENOMED_SPEARS = {
+    spell = "srts_envenomed_spears",
+    category = "spell"
+  },
+
+  BURNING_ARROWS = {
+    spell = "srts_burning_arrows",
+    category = "spell"
+  },
+
+  IGNITE = {
+    spell = "srts_ignite",
+    category = "spell"
   },
 
 
@@ -443,14 +480,6 @@ defs = {
   }
 }
 
-
-
---[[ -----| Tables |----- ]]--
---ABILITY_PAGES = {}							-- All the ability pages for the heroes will be stored here.
---HERO_TRAINING_SPELLS = {}					-- All the spells for the heroes that is not construction spells.
---HERO_SPELLS_FOR_BUILDINGS = {}				-- All the spells for the buildings of the heroes.
---MAX_COUNT = {}								-- All the spells with a max unit or building count.
-
 for k,v in pairs(defs) do
   local spellName = v.spell
   defs[spellName] = v
@@ -460,30 +489,47 @@ for k,v in pairs(defs) do
   print(k..": "..v.spell)
 end
 
-TECH_TREE = {}
 
 
---[=[
--- Setup the ability pages tables for the heroes.
-ABILITY_PAGES[COMMANDER] = {}
-ABILITY_PAGES[FURION] = {}
-ABILITY_PAGES[GEOMANCER] = {}
-ABILITY_PAGES[KING_OF_THE_DEAD] = {}
-ABILITY_PAGES[WARLORD] = {}
+-- Tech tree definitions --
+tech = {
+  COMMANDER = {
+    heroname = COMMANDER,
 
--- Setup the training spells for the heroes.
-HERO_TRAINING_SPELLS[COMMANDER] = {}
-HERO_TRAINING_SPELLS[FURION] = {}
-HERO_TRAINING_SPELLS[GEOMANCER] = {}
-HERO_TRAINING_SPELLS[KING_OF_THE_DEAD] = {}
-HERO_TRAINING_SPELLS[WARLORD] = {}
+    -- Hero techtree
+  },
+  
+  FURION = {
+    heroname = FURION,
+    
+    -- Hero techtree
+  },
 
--- Setup the spells of the buildings for the heroes.
-HERO_SPELLS_FOR_BUILDINGS[COMMANDER] = {}
-HERO_SPELLS_FOR_BUILDINGS[FURION] = {}
-HERO_SPELLS_FOR_BUILDINGS[GEOMANCER] = {}
-HERO_SPELLS_FOR_BUILDINGS[KING_OF_THE_DEAD] = {}
-HERO_SPELLS_FOR_BUILDINGS[WARLORD] = {}
+  GEOMANCER = {
+    heroname = GEOMANCER,
 
-MAX_WORKER_COUNT = 10
-]=]
+    -- Hero techtree    
+  },
+  
+  KING_OF_THE_DEAD = {
+    heroname = KING_OF_THE_DEAD,
+    
+    -- Hero techtree    
+  },
+  
+  WARLORD = {
+    heroname = WARLORD,
+
+    -- Hero techtree    
+  }
+}
+
+for k,v in pairs(tech) do
+  local heroName = v.heroname
+  tech[heroName] = v
+end
+
+print ("\n\n")
+for k,v in pairs(tech) do
+  print(k)
+end
