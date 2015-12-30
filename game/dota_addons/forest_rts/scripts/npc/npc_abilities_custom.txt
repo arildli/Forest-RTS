@@ -3994,7 +3994,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"410"
+				"health"	"495"
 			}
 		
 			"04"
@@ -4151,7 +4151,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"375"
+				"health"	"450"
 			}
 		
 			"04"
@@ -4308,7 +4308,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"290"
+				"health"	"345"
 			}
 		
 			"04"
@@ -4465,7 +4465,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"225"
+				"health"	"270"
 			}
 		
 			"04"
@@ -4622,7 +4622,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"health"	"350"
+				"health"	"415"
 			}
 		
 			"04"

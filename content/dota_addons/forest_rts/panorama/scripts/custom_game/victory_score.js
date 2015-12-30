@@ -5,11 +5,11 @@ var victoryScore = "";
 // Sets the victory score field.
 function SetVictoryScore(keys) {
     victoryScore = keys.victoryScore;
-
-    $("#VictoryScore").text = "Win: "+keys.victoryScore;    
-    /*if ($("#VictoryScore").text === "") {
+    $("#VictoryScore").text = "Win: "+victoryScore;
+    
+    if ($("#VictoryScore").text === "Win: 0") {
 	$.Schedule(0.1, SetVictoryScore);
-    }*/
+    }
 }
 
 (function() {
