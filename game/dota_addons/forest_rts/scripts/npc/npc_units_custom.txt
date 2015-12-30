@@ -56,7 +56,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"410"
+		"StatusHealth"			"495"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -104,69 +104,6 @@
 
 	// Unit1.2
 	//================================================================================
-	// Unit: Kobold Spearman
-	//================================================================================
-	
-	// Level 1	
-	//========================================
-	"npc_dota_creature_kobold_guard_1"
-	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_kobold/kobold_b/n_creep_kobold_b.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
-		"ModelScale"			"1.0"
-
-		"BountyXP"			"21"
-		"BountyGoldMin"			"21"
-		"BountyGoldMax"			"21"
-
-		"Ability1"			"srts_long_weapon"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
-
-		"SelectionGroup"		"Kobold_Spearman"
-
-		"ArmorPhysical"			"2"
-
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
-		"AttackDamageMin"		"12"
-		"AttackDamageMax"		"16"
-		"AttackRate"			"1.2"
-		"AttackAnimationPoint"		"0.38"
-		"AttackAcquisitionRange"	"600"
-		"AttackRange"			"125"
-		"ProjectileModel"		""
-		"ProjectileSpeed"		"0"
-
-		"RingRadius"			"40"
-		"HealthBarOffset"		"150"
-		"FormationRank" 		"0"
-
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"			"350"
-		"MovementTurnRate"		"0.7"
-
-		"StatusHealth"			"290"
-		"StatusHealthRegen"		"0.5"
-		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
-
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"				
-
-		"Creature"
-		{
-			//"DisableClumpingBehavior"	"1"
-		}
-	}
-
-
-
-
-	
-	// Unit1.3
-	//================================================================================
 	// Unit: Treant Warrior
 	//================================================================================
 	
@@ -210,7 +147,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"375"
+		"StatusHealth"			"450"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -236,36 +173,36 @@
 
 
 
-	// Unit1.4
+	// Unit1.3
 	//================================================================================
-	// Unit: Troll Fighter
+	// Unit: Kobold Spearman
 	//================================================================================
 	
 	// Level 1	
 	//========================================
-	"npc_dota_creature_troll_guard_1"
+	"npc_dota_creature_kobold_guard_1"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_berserker.vmdl"
+		"Model"				"models/creeps/neutral_creeps/n_creep_kobold/kobold_b/n_creep_kobold_b.vmdl"
 		"BaseClass"			"npc_dota_creature"
 		"SoundSet"			"n_creep_Melee"
 		"ModelScale"			"1.0"
 
-		"BountyXP"			"25"
-		"BountyGoldMin"			"25"
-		"BountyGoldMax"			"25"
+		"BountyXP"			"21"
+		"BountyGoldMin"			"21"
+		"BountyGoldMax"			"21"
 
-		"Ability1"			"srts_hatred"
+		"Ability1"			"srts_long_weapon"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability10"			"srts_ability_units"
 
-		"SelectionGroup"		"Troll_Fighter"
+		"SelectionGroup"		"Kobold_Spearman"
 
-		"ArmorPhysical"			"1"
+		"ArmorPhysical"			"2"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
-		"AttackDamageMin"		"14"
-		"AttackDamageMax"		"18"
+		"AttackDamageMin"		"12"
+		"AttackDamageMax"		"16"
 		"AttackRate"			"1.2"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
@@ -281,7 +218,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"350"
+		"StatusHealth"			"345"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -299,7 +236,7 @@
 
 
 
-	// Unit1.5
+	// Unit1.4
 	//================================================================================
 	// Unit: Skeleton Warrior
 	//================================================================================
@@ -344,7 +281,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"225"
+		"StatusHealth"			"270"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -356,6 +293,69 @@
 		{
 			//"DisableClumpingBehavior"	"1"
 		}			
+	}
+
+
+
+
+
+	// Unit1.5
+	//================================================================================
+	// Unit: Troll Fighter
+	//================================================================================
+	
+	// Level 1	
+	//========================================
+	"npc_dota_creature_troll_guard_1"
+	{
+		"Model"				"models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_berserker.vmdl"
+		"BaseClass"			"npc_dota_creature"
+		"SoundSet"			"n_creep_Melee"
+		"ModelScale"			"1.0"
+
+		"BountyXP"			"25"
+		"BountyGoldMin"			"25"
+		"BountyGoldMax"			"25"
+
+		"Ability1"			"srts_hatred"
+		"Ability2"			""
+		"Ability3"			""
+		"Ability10"			"srts_ability_units"
+
+		"SelectionGroup"		"Troll_Fighter"
+
+		"ArmorPhysical"			"1"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"		"14"
+		"AttackDamageMax"		"18"
+		"AttackRate"			"1.2"
+		"AttackAnimationPoint"		"0.38"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"			"125"
+		"ProjectileModel"		""
+		"ProjectileSpeed"		"0"
+
+		"RingRadius"			"40"
+		"HealthBarOffset"		"150"
+		"FormationRank" 		"0"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"350"
+		"MovementTurnRate"		"0.7"
+
+		"StatusHealth"			"415"
+		"StatusHealthRegen"		"0.5"
+		"StatusMana"			"0"
+		"StatusManaRegen"		"0.0"	
+
+		"VisionDaytimeRange"		"800"
+		"VisionNighttimeRange"		"800"				
+
+		"Creature"
+		{
+			//"DisableClumpingBehavior"	"1"
+		}
 	}
 
 
@@ -814,7 +814,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"290"
+		"StatusHealth"			"350"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
