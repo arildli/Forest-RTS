@@ -807,19 +807,19 @@ function BuildingHelper:CancelBuilding(keys)
             end
         end
     end
-
-    -- Refund items (In the item-queue system, units can be queued before the building is finished)
+    
+    -- Refund items (In the item-queue system, units can be queued before the building is finished).
     for i=0,5 do
-        local item = building:GetItemInSlot(i)
-        if item then
-            if item:GetAbilityName() == "item_building_cancel" then
-                item:RemoveSelf()
-            else
-                Timers:CreateTimer(i*1/30, function() 
+       local item = building:GetItemInSlot(i)
+       if item then
+	  if item:GetAbilityName() == "item_building_cancel" then
+	     item:RemoveSelf()
+	  else
+	     Timers:CreateTimer(i*1/30, function() 
                     building:CastAbilityImmediately(item, building:GetPlayerOwnerID())
-                end)
-            end
-        end
+					end)
+	  end
+       end
     end
 
     -- Special for RequiresRepair
