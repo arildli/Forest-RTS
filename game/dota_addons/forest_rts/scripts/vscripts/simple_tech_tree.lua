@@ -1511,6 +1511,25 @@ function SimpleTechTree:RegisterIncident(unit, state)
 	 hero:AddUnit(unit)
 	 hero:IncUnitCountFor(unitName)
       end
+      
+      unit._ownerPlayer = owner
+      unit._ownerPlayerID = ownerID
+      unit._ownerHero = hero
+      
+      -- Get the player object of the owner.
+      function unit:GetOwnerPlayer()
+	 return unit._ownerPlayer or unit:GetOwner()
+      end
+
+      -- Get the player id of the owner.
+      function unit:GetOwnerID()
+	 return unit._ownerPlayerID or unit:GetOwner():GetPlayerID()
+      end
+
+      -- Get the hero of the owner.
+      function unit:GetOwnerHero()
+	 return unit._ownerHero or GetPlayerHero(unit:GetOwner():GetPlayerID())
+      end
 
       -- On death.
    elseif state == false then

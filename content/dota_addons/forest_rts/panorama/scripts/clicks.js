@@ -3,45 +3,52 @@
 // Handle Right Button events
 function OnRightButtonPressed()
 {
-	$.Msg("OnRightButtonPressed")
+    $.Msg("OnRightButtonPressed")
 
-	var iPlayerID = Players.GetLocalPlayer();
-	var mainSelected = Players.GetLocalPlayerPortraitUnit();
-	var cursor = GameUI.GetCursorPosition();
-	var mouseEntities = GameUI.FindScreenEntities( cursor );
-	mouseEntities = mouseEntities.filter( function(e) { return e.entityIndex != mainSelected; } )
-	
-	var pressedShift = GameUI.IsShiftDown();
+    var iPlayerID = Players.GetLocalPlayer();
+    var mainSelected = Players.GetLocalPlayerPortraitUnit();
+    var cursor = GameUI.GetCursorPosition();
+    var mouseEntities = GameUI.FindScreenEntities( cursor );
+    mouseEntities = mouseEntities.filter( function(e) { return e.entityIndex != mainSelected; } )
+    
+    var pressedShift = GameUI.IsShiftDown();
 
-	// Builder Right Click
-	if ( IsBuilder( mainSelected ) )
+    // Builder Right Click
+    if ( IsBuilder( mainSelected ) )
+    {
+	// Cancel BH
+	SendCancelCommand();
+
+	// If it's mousing over entities
+	if (mouseEntities.length > 0)
 	{
-		// Cancel BH
-		SendCancelCommand();
-
-		// If it's mousing over entities
-		if (mouseEntities.length > 0)
-		{
-			for ( var e of mouseEntities )
-			{
-				// Repair rightclick
-				if ( IsCustomBuilding(e.entityIndex) && Entities.GetHealthPercent(e.entityIndex) < 100 && Entities.IsControllableByPlayer( e.entityIndex, iPlayerID ) ){
-					$.Msg("Player "+iPlayerID+" Clicked on a building unit with health missing")
-					GameEvents.SendCustomGameEventToServer( "repair_order", { pID: iPlayerID, mainSelected: mainSelected, targetIndex: e.entityIndex, queue: pressedShift })
-					return true;
-				}
-				return false;
-			}
+	    for ( var e of mouseEntities )
+	    {
+		// Repair rightclick
+		if ( IsCustomBuilding(e.entityIndex) && Entities.GetHealthPercent(e.entityIndex) < 100 && Entities.IsControllableByPlayer( e.entityIndex, iPlayerID ) ){
+		    $.Msg("Player "+iPlayerID+" Clicked on a building unit with health missing")
+		    GameEvents.SendCustomGameEventToServer( "repair_order", { pID: iPlayerID, mainSelected: mainSelected, targetIndex: e.entityIndex, queue: pressedShift })
+		    return true;
 		}
-			
+		return false;
+	    }
 	}
+	
+    }
 
-	return false;
+    // Send message about rally point. From PMP by Noya.
+    if (IsCustomBuilding(mainSelected) && Entities.IsControllableByPlayer(mainSelected, iPlayerID)) {
+	var clickPos = Game.ScreenXYToWorld(cursor[0], cursor[1]);
+	GameEvents.SendCustomGameEventToServer("set_rally_point", {pID: iPlayerID, mainSelected: mainSelected, clickPos: clickPos});
+	return true;
+    }
+
+    return false;
 }
 
 // Builders require the "builder" label in its unit definition
 function IsBuilder( entIndex ) {
-	return (Entities.GetUnitLabel( entIndex ) == "builder")
+    return (Entities.GetUnitLabel( entIndex ) == "builder")
 }
 
 // Main mouse event callback
