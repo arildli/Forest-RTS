@@ -144,7 +144,7 @@ function Build( event )
 				  --CheckAbilityRequirements( unit, player )
 				  
 				  -- EDITED
-				  local playerHero = unit:GetOwnerHero() --GetPlayerHero(unit:GetOwner():GetPlayerID())
+				  local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
 				  -- END
 
 				  -- Add the building handle to the list of structures
@@ -177,8 +177,8 @@ function Build( event )
 				    end
 
 				    -- EDITED
-				    --local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
-				    local playerHero = unit:GetOwnerHero()
+				    local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
+				    --local playerHero = unit:GetOwnerHero()
 				    -- END
 				    local building_name = unit:GetUnitName()
 				    local builders = {}
