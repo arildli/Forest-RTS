@@ -2,7 +2,7 @@
 
 
 
-
+--[=[
 WORKER = COMMON_TRAIN_WORKER["name"]
 
 
@@ -24,7 +24,7 @@ function ConstructionUtils:new(o)
 	setmetatable(o, ConstructionUtils)
 	return o
 end
-
+--]=]
 
 
 
@@ -87,7 +87,7 @@ end
 
 
 
-
+--[=[
 function attemptConstruction(keys)
 
 	local owner = keys.caster
@@ -199,11 +199,21 @@ function attemptConstruction(keys)
 		print("attemptConstruction: Not enough resources!")
 	end
 end
+--]=]
+
+
+
+
+
+--					-----| Economy Units and Buildings |-----
+
+
 
 
 
 ---------------------------------------------------------------------------
 -- Refunds the gold cost before charging it again.
+-- Unit edition of CheckIfCanAfford().
 ---------------------------------------------------------------------------
 function CheckIfCanAffordUnit(keys)
    local goldCost = keys.goldCost
@@ -217,7 +227,8 @@ end
 
 ---------------------------------------------------------------------------
 -- Check if the player can afford the purchase.
--- Refunds the initial gold cost.
+-- Refunds the initial gold cost and stops channeling
+-- if not.
 ---------------------------------------------------------------------------
 function CheckIfCanAfford(keys)
    local ability = keys.ability
@@ -241,33 +252,35 @@ end
 
 
 
+---------------------------------------------------------------------------
 -- Refunds the resources spent on cancel of training spell.
+---------------------------------------------------------------------------
 function RefundResources(keys)
-	local caster = keys.caster
-	if not caster then
-		print("Caster is nil!")
-	end
+   local caster = keys.caster
+   if not caster then
+      print("Caster is nil!")
+   end
 
-	if caster._canAfford == false then
-		if DEBUG_CONSTRUCT_BUILDING == true then
-			print("Caster can afford: false")
-		end
-		return
-	end
-	if DEBUG_CONSTRUCT_BUILDING == true then
-		print("Caster can afford: true")
-	end
+   if caster._canAfford == false then
+      if DEBUG_CONSTRUCT_BUILDING == true then
+	 print("Caster can afford: false")
+      end
+      return
+   end
+   if DEBUG_CONSTRUCT_BUILDING == true then
+      print("Caster can afford: true")
+   end
 
-	local player = caster:GetOwner()
-	local playerID = player:GetPlayerID()
-	local playerHero = GetPlayerHero(playerID)
+   local player = caster:GetOwner()
+   local playerID = player:GetPlayerID()
+   local playerHero = GetPlayerHero(playerID)
 
-	local gold = keys.goldCost
-	local currentGold = PlayerResource:GetReliableGold(playerID)
-	PlayerResource:SetGold(playerID, currentGold + gold, true)
-	local lumber = keys.lumberCost
-	playerHero:IncLumber(keys.lumberCost)
-	--GiveCharges(playerHero, lumber, "item_stack_of_lumber")
+   local gold = keys.goldCost
+   local currentGold = PlayerResource:GetReliableGold(playerID)
+   PlayerResource:SetGold(playerID, currentGold + gold, true)
+   local lumber = keys.lumberCost
+   playerHero:IncLumber(keys.lumberCost)
+   --GiveCharges(playerHero, lumber, "item_stack_of_lumber")
 end
 
 
@@ -279,6 +292,8 @@ function RefundResourcesConstruction(keys)
 		print("Caster is nil!")
 		return
 	end
+
+	print("\n\t\tRefundResourcesConstruction called!!!\n")
 
 	if DEBUG_CONSTRUCT_BUILDING == true then
 		print("Construction cancelled!")
@@ -325,9 +340,7 @@ end
 
 ---------------------------------------------------------------------------
 -- Returns true if building, false otherwise.
---
---	* building: The unit to check.
---
+--- * building: The unit to check.
 ---------------------------------------------------------------------------
 function IsBuilding(building)
    return building._building or IsCustomBuilding(building)
@@ -335,30 +348,35 @@ end
 
 
 
+---------------------------------------------------------------------------
 -- Run when a unit is trained to make sure the unit works properly.
+---------------------------------------------------------------------------
 function OnUnitTrained(keys)
    local caster = keys.caster
    local target = keys.target
    
+   --[=[
    if not caster then
       print("Caster is nil!")
    end
    if not target then
       print("Target is nil!")
-   end
+      end]=]
    if target:GetUnitName() == "bh_dummy_unit" then
       return
    end
    
-   local player = caster:GetOwner()
-   local playerID = player:GetPlayerID()
-   local playerHero = GetPlayerHero(playerID)
+   --local player = caster:GetOwner()
+   --local playerID = player:GetPlayerID()
+   --local playerHero = GetPlayerHero(playerID)
+   local playerHero = caster:GetOwnerHero()
    target:SetOwner(playerHero)
    target:SetHasInventory(true)
    
+   --[[
    if not target:GetOwner() then
       print("OnUnitTrained: Couldn't set owner to target!")
-   end
+   end]]
    
    -- Register Trained
    SimpleTechTree:RegisterIncident(target, true)

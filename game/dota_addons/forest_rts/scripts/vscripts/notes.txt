@@ -1,0 +1,6 @@
+- Sjekk om alle funksjoner/metoder med -- CHECK IF USED er i bruk.
+  Hvis ikke bør disse fjernes.
+  *
+
+- Rydd bort utkommentert kode etter testing:
+  * buildings.lua
