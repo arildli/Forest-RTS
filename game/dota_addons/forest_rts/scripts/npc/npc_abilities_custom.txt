@@ -3293,6 +3293,16 @@
 
 
 
+	// Spell7.16
+	//================================================================================
+	// 
+	//================================================================================
+	
+
+
+
+
+
 // --// Unit Spells //-- // Spell8
 
 
@@ -3833,6 +3843,29 @@
 					}
 				}
 			}
+		}
+	}
+
+
+
+
+
+   	// Spell8.9
+	//================================================================================
+	// Siege Damage - Catapult Passive
+	//================================================================================
+	"srts_siege_damage"
+	{
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"lone_druid_spirit_bear_demolish"
+		"AbilityUnitDamageType" 	"DAMAGE_TYPE_PHYSICAL"
+		"MaxLevel"			"1"
+
+		"AbilitySpecial"
+		{
 		}
 	}
 

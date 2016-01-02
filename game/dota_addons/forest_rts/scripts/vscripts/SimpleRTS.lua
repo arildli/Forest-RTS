@@ -289,8 +289,9 @@ function SimpleRTSGameMode:onGameStateChange(keys)
       print("PLAYER_COUNT: "..PLAYER_COUNT.."\tVICTORY_SCORE: "..VICTORY_SCORE)
            
    elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
-      CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})
-      print("Sent victory score: "..VICTORY_SCORE)
+      -- CLEANUP
+      --CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})
+      --print("Sent victory score: "..VICTORY_SCORE)
 
    -- Game start
    elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
@@ -396,6 +397,9 @@ function SimpleRTSGameMode:onNPCSpawned(keys)
       PLAYER_HEROES[playerID] = spawnedUnit
       SimpleTechTree:InitTechTree(spawnedUnit)
       
+      CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})
+      print("Sent victory score: "..VICTORY_SCORE)
+
       --elseif not spawnedUnit:IsIllusion() and not spawnedUnit:IsHero() and not spawnedUnit:IsNeutralUnitType() then
    else
       local unitName = spawnedUnit:GetUnitName()
@@ -437,8 +441,9 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    --     BH stuff     --
    
    -- Player owner of the unit
-   local player = killedUnit:GetPlayerOwner()
-   local playerHero = GetPlayerHero(player:GetPlayerID())  -- player NIL VED DC!
+   --local player = killedUnit:GetPlayerOwner()
+   --local playerHero = GetPlayerHero(player:GetPlayerID())  -- player NIL VED DC!
+   local playerHero = killedUnit:GetOwnerHero()
 
    -- Building Killed
    if IsCustomBuilding(killedUnit) then   
@@ -458,7 +463,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    end
 
    -- Table cleanup
-   if player then
+   if playerHero then
       -- Remake the tables
       local table_structures = {}
       for _,building in pairs(playerHero.structures) do
@@ -481,10 +486,10 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    --     BH stuff end     --
 
 
-
-   local owner = killedUnit:GetOwner()
-   local playerID = owner:GetPlayerID()
-   local playerHero = GetPlayerHero(playerID)
+   -- CLEANUP
+   --local owner = killedUnit:GetOwner()
+   --local playerID = owner:GetPlayerID()
+   --local playerHero = GetPlayerHero(playerID)
    
    -- Needed for buildingHelper to function properly
    --if killedUnit._building and killedUnit._building == true then

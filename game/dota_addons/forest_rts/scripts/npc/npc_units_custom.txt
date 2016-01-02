@@ -986,7 +986,7 @@
 		"BountyGoldMin"			"42"
 		"BountyGoldMax"			"42"
 
-		"Ability1"			""
+		"Ability1"			"srts_siege_damage"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability10"			"srts_ability_units"
@@ -1049,7 +1049,7 @@
 		"BountyGoldMin"			"42"
 		"BountyGoldMax"			"42"
 
-		"Ability1"			""
+		"Ability1"			"srts_siege_damage"
 		"Ability2"			""
 		"Ability3"			""
 		"Ability10"			"srts_ability_units"

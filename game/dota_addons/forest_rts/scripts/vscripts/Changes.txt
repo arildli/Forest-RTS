@@ -1,0 +1,3 @@
+Units:
+
+- Added a passive spell description to catapults.

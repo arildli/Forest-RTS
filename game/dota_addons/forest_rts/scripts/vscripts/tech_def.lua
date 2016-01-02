@@ -175,6 +175,11 @@ defs = {
     category = "spell"
   },
 
+  SIEGE_DAMAGE = {
+     spell = "srts_siege_damage",
+     category = "spell"
+  }
+
 
 
   -- Buildings 
@@ -438,9 +443,11 @@ defs = {
     category = "unit",
     req = {defs.ARMORY_RADIANT},
     pages = {
-      PAGE_MAIN = {},
+       PAGE_MAIN = {
+	  defs.SIEGE_DAMAGE
+      },
       HIDDEN = {
-	defs.UNIT
+	 defs.UNIT
       }
     }
   },
@@ -515,7 +522,9 @@ defs = {
     category = "unit",
     req = {defs.ARMORY_RADIANT},
     pages = {
-      PAGE_MAIN = {},
+      PAGE_MAIN = {
+	 defs.SIEGE_DAMAGE
+      },
       HIDDEN = {
 	defs.UNIT
       }
@@ -592,7 +601,9 @@ defs = {
     category = "unit",
     req = {defs.ARMORY_DIRE},
     pages = {
-      PAGE_MAIN = {},
+      PAGE_MAIN = {
+	 defs.SIEGE_DAMAGE
+      },
       HIDDEN = {
 	defs.UNIT
       }
@@ -669,7 +680,9 @@ defs = {
     category = "unit",
     req = {defs.ARMORY_DIRE},
     pages = {
-      PAGE_MAIN = {},
+      PAGE_MAIN = {
+	 defs.SIEGE_DAMAGE	 
+      },
       HIDDEN = {
 	defs.UNIT
       }
@@ -746,7 +759,9 @@ defs = {
     category = "unit",
     req = {defs.ARMORY_DIRE},
     pages = {
-      PAGE_MAIN = {},
+      PAGE_MAIN = {
+	 defs.SIEGE_DAMAGE
+      },
       HIDDEN = {
 	defs.UNIT
       }
