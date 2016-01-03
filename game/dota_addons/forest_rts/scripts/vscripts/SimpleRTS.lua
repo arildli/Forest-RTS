@@ -398,7 +398,7 @@ function SimpleRTSGameMode:onNPCSpawned(keys)
       local owner = spawnedUnit:GetOwner()
       local playerID = owner:GetPlayerID()
       PLAYER_HEROES[playerID] = spawnedUnit
-      SimpleTechTree:InitTechTree(spawnedUnit)
+      TechTree:InitTechTree(spawnedUnit)
       
       CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})
       print("Sent victory score: "..VICTORY_SCORE)
@@ -559,7 +559,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       end
    end
    
-   SimpleTechTree:RegisterIncident(killedUnit, false)
+   TechTree:RegisterIncident(killedUnit, false)
 end
 
 

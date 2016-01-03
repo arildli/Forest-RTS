@@ -130,7 +130,7 @@ function GoToPage(unit, pageNumber)
       end
    end
 
-   SimpleTechTree:UpdateSpellsHeroOnly(unit)
+   TechTree:UpdateSpellsHeroOnly(unit)
 end
 
 

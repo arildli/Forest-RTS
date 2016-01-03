@@ -180,7 +180,7 @@ defs = {
   SIEGE_DAMAGE = {
      spell = "srts_siege_damage",
      category = "spell"
-  }
+  },
 
 
 

@@ -39,7 +39,7 @@ function prepareConstruction(building, abilityName)
    building._interrupted = false
 
    local owner = building:GetOwner()
-   SimpleTechTree:AddPlayerMethods(building, owner)
+   TechTree:AddPlayerMethods(building, owner)
 
    -- Temporarily learn the rotation spells.
    rotateLeft = "srts_rotate_left"
@@ -54,7 +54,7 @@ function prepareConstruction(building, abilityName)
    building:FindAbilityByName(cancelConstruction):SetLevel(1)
    
    -- Register construction in Tech Tree.
-   SimpleTechTree:RegisterConstruction(building, abilityName)
+   TechTree:RegisterConstruction(building, abilityName)
 end
 
 
@@ -82,9 +82,9 @@ function finishConstruction(building)
    local playerHero = GetPlayerHero(building:GetOwner():GetPlayerID())
 
    -- Register Trained
-   SimpleTechTree:RegisterIncident(building, true)
-   SimpleTechTree:AddAbilitiesToBuilding(building)
-   SimpleTechTree:UpdateSpellsOneUnit(playerHero, building)
+   TechTree:RegisterIncident(building, true)
+   TechTree:AddAbilitiesToBuilding(building)
+   TechTree:UpdateSpellsOneUnit(playerHero, building)
 end
 
 
@@ -154,7 +154,7 @@ function attemptConstruction(keys)
 			building:FindAbilityByName(cancelConstruction):SetLevel(1)
 
 			building:SetModelScale(initialScale)
-			SimpleTechTree:RegisterConstruction(building, abilityName)
+			TechTree:RegisterConstruction(building, abilityName)
 
 			-- On construction finish
 			building:OnCompleted(function()
@@ -181,9 +181,9 @@ function attemptConstruction(keys)
 				end
 
 				-- Register Trained
-				SimpleTechTree:RegisterIncident(building, true)
-				SimpleTechTree:AddAbilitiesToBuilding(building)
-				SimpleTechTree:UpdateSpellsOneUnit(playerHero, building)
+				TechTree:RegisterIncident(building, true)
+				TechTree:AddAbilitiesToBuilding(building)
+				TechTree:UpdateSpellsOneUnit(playerHero, building)
 
 				print("[ConstructionUtils]: Construction finished!")
 			end)
@@ -370,7 +370,7 @@ function OnUnitTrained(keys)
    end
    
    local owner = caster:GetOwnerPlayer() or caster:GetOwner()
-   SimpleTechTree:AddPlayerMethods(target, owner)
+   TechTree:AddPlayerMethods(target, owner)
 
    --local player = caster:GetOwner()
    --local playerID = player:GetPlayerID()
@@ -385,7 +385,7 @@ function OnUnitTrained(keys)
    end]]
    
    -- Register Trained
-   SimpleTechTree:RegisterIncident(target, true)
+   TechTree:RegisterIncident(target, true)
    
 
 	--[[
