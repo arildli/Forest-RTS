@@ -1,7 +1,6 @@
 
 
 
-
 -- Constants
 
 LOWEST_PLAYER_INDEX = 0
@@ -502,76 +501,46 @@ function SimpleBot:CreatePatrolUnit(team, count, unitName, location, pathNumber,
       -- Returns the group of the unit.
       ---------------------------------------------------------------------------
       function newUnit:GetGroup()
-
-	 if newUnit.SB then
-	    return newUnit.SB.group
-	 else
-	    PrintError("GetGroup", "unit.SB was nil!")
-	 end
+	 return newUnit.SB.group
       end
 
       ---------------------------------------------------------------------------
       -- Returns the index of the unit in the group.
       ---------------------------------------------------------------------------
       function newUnit:GetIndex()
-
-	 if newUnit.SB then
-	    return newUnit.SB.index
-	 else
-	    PrintError("GetIndex", "unit.SB was nil!")
-	 end
+	 return newUnit.SB.index
       end
 
       ---------------------------------------------------------------------------
       -- Returns the path the unit is following.
       ---------------------------------------------------------------------------
       function newUnit:GetPath()
-
-	 if newUnit.SB then
-	    return newUnit.SB.path
-	 else
-	    PrintError("GetPath", "unit.SB was nil!")
-	 end
+	 return newUnit.SB.path
       end
 
       ---------------------------------------------------------------------------
       -- Returns the waypoint the unit is travelling towards.
       ---------------------------------------------------------------------------
       function newUnit:GetDestination()
-
-	 if newUnit.SB then
-	    return newUnit.SB.path[newUnit.SB.patrolIndex]
-	 else
-	    PrintError("GetDestination", "unit.SB was nil!")
-	 end
+	 return newUnit.SB.path[newUnit.SB.patrolIndex]
       end
 
       ---------------------------------------------------------------------------
       -- Returns the index of the next waypoint on the patrol path.
       ---------------------------------------------------------------------------
       function newUnit:GetPatrolIndex()
-
-	 if newUnit.SB then
-	    return newUnit.SB.patrolIndex
-	 else
-	    PrintError("GetPatrolIndex", "unit.SB was nil!")
-	 end
+	 return newUnit.SB.patrolIndex
       end
 
       ---------------------------------------------------------------------------
       -- Increases the patrol index of the unit.
       ---------------------------------------------------------------------------
       function newUnit:IncPatrolIndex()
-
-	 if newUnit.SB and newUnit.SB.patrolIndex then
-	    local pathLength = #newUnit.SB.path
-	    if newUnit.SB.patrolIndex >= pathLength then
-	       newUnit.SB.patrolIndex = 1
-	    else
-	       newUnit.SB.patrolIndex = newUnit.SB.patrolIndex + 1
-	    end
+	 local pathLength = #newUnit.SB.path
+	 if newUnit.SB.patrolIndex >= pathLength then
+	    newUnit.SB.patrolIndex = 1
 	 else
-	    PrintError("IncPatrolIndex", "unit.SB or unit.SB.patrolIndex was nil!")
+	    newUnit.SB.patrolIndex = newUnit.SB.patrolIndex + 1
 	 end
       end
    end
@@ -595,97 +564,57 @@ function SimpleBot:CreatePatrolUnit(team, count, unitName, location, pathNumber,
    -- Returns the team of the group.
    ---------------------------------------------------------------------------
    function group:GetTeam()
-
-      if group.SB then
-	 return group.SB.team
-      else
-	 PrintError("GetTeam", "group.SB was nil!")
-      end
+      return group.SB.team
    end
 
    ---------------------------------------------------------------------------
    -- Returns the initial number of troops in the group.
    ---------------------------------------------------------------------------
    function group:GetInitialCount()
-
-      if group.SB then
-	 return group.SB.initialCount
-      else
-	 PrintError("GetInitialCount", "group.SB was nil!")
-      end
+      return group.SB.initialCount
    end
 
    ---------------------------------------------------------------------------
    -- Returns the remaining number of troops in the group.
    ---------------------------------------------------------------------------
    function group:GetRemaining()
-
-      if group.SB then
-	 return group.SB.remaining
-      else
-	 PrintError("GetRemaining", "group.SB was nil!")
-      end
+      return group.SB.remaining
    end
 
    ---------------------------------------------------------------------------
    -- Decrements the remaining counter.
    ---------------------------------------------------------------------------
    function group:DecRemaining()
-
-      if group.SB then
-	 group.SB.remaining = group.SB.remaining - 1
-	 return group.SB.remaining
-      else
-	 PrintError("DecRemaining", "group.SB was nil!")
-      end
+      group.SB.remaining = group.SB.remaining - 1
+      return group.SB.remaining
    end
 
    ---------------------------------------------------------------------------
    -- Returns the path of the group.
    ---------------------------------------------------------------------------
    function group:GetPath()
-
-      if group.SB then
-	 return group.SB.path
-      else
-	 PrintError("GetPath", "group.SB was nil!")
-      end
+      return group.SB.path
    end
 
    ---------------------------------------------------------------------------
    -- Returns the pathNumber of the group.
    ---------------------------------------------------------------------------
    function group:GetPathNumber()
-
-      if group.SB then
-	 return group.SB.pathNumber
-      else
-	 PrintError("GetPathNumber", "group.SB was nil!")
-      end
+      return group.SB.pathNumber
    end
 
    ---------------------------------------------------------------------------
    -- Returns the groupNumber of the group.
    ---------------------------------------------------------------------------
    function group:GetGroupNumber()
-
-      if group.SB then
-	 return group.SB.groupNumber
-      else
-	 PrintError("GetGroupNumber", "group.SB was nil!")
-      end
+      return group.SB.groupNumber
    end
 
    ---------------------------------------------------------------------------
    -- Returns the troop multiplier for the group
    ---------------------------------------------------------------------------
    function group:GetMultiplier()
-
-      if group.SB then
-	 return group.SB.multiplier
-      else
-	 PrintError("GetMultiplier", "group.SB was nil!")
-      end
+      return group.SB.multiplier
    end
 
    return newGroup
@@ -725,159 +654,168 @@ function SimpleBot:Patrol(group)
    group._movementCountdown = 0
    
    -- The waypoint check.
-   Timers:CreateTimer(0, function()
-			 
-			 local patrolGroup = group
-			 local previousUnit
-			 local reissueOrder = false
-			 
+   Timers:CreateTimer(0, 
+      function()
+	 
+	 local patrolGroup = group
+	 local previousUnit
+	 local reissueOrder = false
+	 	 
+	 --[=[
+	    if group._movementCountdown == 1 / PATROL_CHECK_INTERVAL then
+	    group._movementCountdown = 0
+	    reissueOrder = true
+	    print("ReissueOrder = true")
+	    else
+	    group._movementCountdown = group._movementCountdown + 1
+	    end
+	    print(group._movementCountdown)]=]
+	 
+	 --[=[print("\n\n")
+	 print("Group count: "..patrolGroup:GetRemaining())
+	    print("Group number: "..patrolGroup:GetGroupNumber())]=]
 
-			 --[[
-			    if group._movementCountdown == 1 / PATROL_CHECK_INTERVAL then
-			    group._movementCountdown = 0
-			    reissueOrder = true
-			    print("ReissueOrder = true")
-			    else
-			    group._movementCountdown = group._movementCountdown + 1
-			    end
-			    print(group._movementCountdown)]]
-			    
-			    for index,unit in ipairs(group) do	   
-			    if not unit:IsNull() and unit:IsAlive() then
-			    
-			    --[[
-			    if group._movementCountdown == 0 then
-			    
-			    end]]
-			    
-			    local currentDestination = unit:GetDestination()
-			    local currentLocation = unit:GetCenter()
-			    
-			    local slack = 200
-			    local vectorDestMaxX = currentDestination.x + slack
-			    local vectorDestMinX = currentDestination.x - slack
-			    local vectorDestMaxY = currentDestination.y + slack
-			    local vectorDestMinY = currentDestination.y - slack
-			    
-			    -- Check if unit has reached waypoint
-			    if currentLocation.x > vectorDestMinX and currentLocation.x < vectorDestMaxX and
-			    currentLocation.y > vectorDestMinY and currentLocation.y < vectorDestMaxY then
-			    
-			    unit:IncPatrolIndex()
-			    if DEBUG then
-			    DebugDrawCircle(unit:GetAbsOrigin(), Vector(255,255,0), 5, 50, false, 60)			 
-			    end
-			    
-			    -- Again, the timer seems to be required for the movement to work.
-			    Timers:CreateTimer({
-			    endTime = 0.05,
-			    callback = function()
-			    unit:MoveToPositionAggressive(unit:GetDestination())
-			    end
-			    })
-			    end
-			    end
-			    end
-			    
-			    return PATROL_CHECK_INTERVAL
-			    end)
-			    end
+	 for index,unit in ipairs(group) do	   
+	    if type(unit) ~= "string" and not unit:IsNull() and unit:IsAlive() then
+	       
+	       --[=[
+		  if group._movementCountdown == 0 then
+		  
+		  end]=]
+	       
+	       local currentDestination = unit:GetDestination()
+	       local currentLocation = unit:GetCenter()
+	       
+	       --[=[
+	       print("Unit "..unit:GetIndex().." ("..unit:GetUnitName()..") \tcurLoc (x, y, z): "..currentLocation.x..", "..currentLocation.y..", "..currentLocation.z)
+	       print("\tcurDest (x, y, z): "..currentDestination.x..", "..currentDestination.y..", "..currentDestination.z)
+		  print("\tGroup: "..unit:GetGroup():GetGroupNumber())]=]
 
-
-
-			    ---------------------------------------------------------------------------
-			    -- Checks if everyone in the group is dead.
-			    ---------------------------------------------------------------------------
-			    function SimpleBot:onPatrolUnitKilled(keys)
-
-			    local victim = EntIndexToHScript(keys.entindex_killed)
-			    if not victim.SB then
-			    return
-			    end
-			    local group = victim:GetGroup()
-			    if not group then
-			    PrintError("CheckPatrolDeath", "group was nil!")
-			    return
-			    end
-			    local unitIndex = victim:GetIndex()
-			    table.remove(group, unitIndex)
-			    local remaining = group:DecRemaining()
-
-			    if remaining > 0 then
-			    return
-			    end
-
-			    local team = group:GetTeam()
-			    local initialCount = group:GetInitialCount()
-			    local groupNumber = group:GetGroupNumber() + 1
-			    local multiplier = group:GetMultiplier()
-			    local pathNumber = group:GetPathNumber() + 1
-			    if pathNumber > SimpleBot:GetPathCount(team) then
-			    pathNumber = STANDARD_PATH
-			    end
-
-			    local countToSpawn = (initialCount/2+1)*multiplier
-
-			    SimpleBot:SpawnSoldiers(team, math.floor(initialCount/2+1), math.floor(initialCount/2+1), nil, pathNumber, groupNumber, multiplier)
-
-			    group = nil
-
-			    print("Spawning new patrol group...")
-			    printDebug("CheckPatrolGroup", "Patrol group killed! Spawning another one for team "..team.."!")
-
-			    end
+	       local slack = 200
+	       local vectorDestMaxX = currentDestination.x + slack
+	       local vectorDestMinX = currentDestination.x - slack
+	       local vectorDestMaxY = currentDestination.y + slack
+	       local vectorDestMinY = currentDestination.y - slack
+	       
+	       -- Check if unit has reached waypoint
+	       if currentLocation.x > vectorDestMinX and currentLocation.x < vectorDestMaxX and
+	       currentLocation.y > vectorDestMinY and currentLocation.y < vectorDestMaxY then
+		  
+		  unit:IncPatrolIndex()
+		  if DEBUG then
+		     DebugDrawCircle(unit:GetAbsOrigin(), Vector(255,255,0), 5, 50, false, 60)			 
+		  end
+		  
+		  -- Again, the timer seems to be required for the movement to work.
+		  Timers:CreateTimer({
+					endTime = 0.05,
+					callback = function()
+					   unit:MoveToPositionAggressive(unit:GetDestination())
+					end
+				     })
+	       end
+	    end
+	 end
+	 
+	 return PATROL_CHECK_INTERVAL
+      end)
+end
 
 
 
-			    ---------------------------------------------------------------------------
-			    -- Calculates the number of extra troops that will be spawned on the next patrol summoned,
-			    -- based on the groupNumber. The formula is currently too easy to justify this function,
-			    -- but the formula might change in the future.
-			    ---------------------------------------------------------------------------
-			    function SimpleBot:GroupNumberToTroopCount(groupNumber, difficulty)
+---------------------------------------------------------------------------
+-- Checks if everyone in the group is dead.
+---------------------------------------------------------------------------
+function SimpleBot:onPatrolUnitKilled(keys)
 
-			    if not groupNumber then
-			    printError("GroupNumberToTroopCount", "groupNumber was nil!")
-			    return
-			    end
+   local victim = EntIndexToHScript(keys.entindex_killed)
+   if not victim.SB then
+      return
+   end
+   local group = victim:GetGroup()
+   if not group then
+      PrintError("CheckPatrolDeath", "group was nil!")
+   end
+   local unitIndex = victim:GetIndex()
+   --table.remove(group, unitIndex)
+   group[unitIndex] = "dead"
+   local remaining = group:DecRemaining()
 
-			    difficulty = difficulty or 1.0
-			    local troopCount = math.floor(groupNumber * difficulty)
-			    if troopCount > MAX_SPAWNING_COUNT then
-			    troopCount = MAX_SPAWNING_COUNT
-			    end
+   if remaining > 0 then
+      return
+   end
 
-			    printDebug("GroupNumberToTroopCount", "TroopCount for new group: "..troopCount)
+   local team = group:GetTeam()
+   local initialCount = group:GetInitialCount()
+   local groupNumber = group:GetGroupNumber() + 1
+   local multiplier = group:GetMultiplier()
+   local pathNumber = group:GetPathNumber() + 1
+   if pathNumber > SimpleBot:GetPathCount(team) then
+      pathNumber = STANDARD_PATH
+   end
 
-			    return troopCount
-			    end
+   local countToSpawn = (initialCount/2+1)*multiplier
 
+   SimpleBot:SpawnSoldiers(team, math.floor(initialCount/2+1), math.floor(initialCount/2+1), nil, pathNumber, groupNumber, multiplier)
 
+   group = nil
 
+   print("Spawning new patrol group...")
+   printDebug("CheckPatrolGroup", "Patrol group killed! Spawning another one for team "..team.."!")
 
-
-			    --					-----| Utility functions |-----
-
-
-
-
-
-			    ---------------------------------------------------------------------------
-			    -- Used for printing debug info.
-			    ---------------------------------------------------------------------------
-			    function printDebug(functionName, message)
-			    if DEBUG_SIMPLE_BOT == true then
-			    print("SimpleBot:"..functionName.."   DEBUG: "..message)
-			    end
-			    end
+end
 
 
 
-			    ---------------------------------------------------------------------------
-			    -- Used for printing error messages.
-			    ---------------------------------------------------------------------------
-			    function printError(functionName, message)
-			    print("SimpleBot:"..functionName.."   DEBUG: "..message)
-			    end
+---------------------------------------------------------------------------
+-- Calculates the number of extra troops that will be spawned on the next patrol summoned,
+-- based on the groupNumber. The formula is currently too easy to justify this function,
+-- but the formula might change in the future.
+---------------------------------------------------------------------------
+function SimpleBot:GroupNumberToTroopCount(groupNumber, difficulty)
+
+   if not groupNumber then
+      printError("GroupNumberToTroopCount", "groupNumber was nil!")
+      return
+   end
+
+   difficulty = difficulty or 1.0
+   local troopCount = math.floor(groupNumber * difficulty)
+   if troopCount > MAX_SPAWNING_COUNT then
+      troopCount = MAX_SPAWNING_COUNT
+   end
+
+   printDebug("GroupNumberToTroopCount", "TroopCount for new group: "..troopCount)
+
+   return troopCount
+end
+
+
+
+
+
+--					-----| Utility functions |-----
+
+
+
+
+
+---------------------------------------------------------------------------
+-- Used for printing debug info.
+---------------------------------------------------------------------------
+function printDebug(functionName, message)
+   if DEBUG_SIMPLE_BOT == true then
+      print("SimpleBot:"..functionName.."   DEBUG: "..message)
+   end
+end
+
+
+
+---------------------------------------------------------------------------
+-- Used for printing error messages.
+---------------------------------------------------------------------------
+function printError(functionName, message)
+   print("SimpleBot:"..functionName.."   DEBUG: "..message)
+end
 
 

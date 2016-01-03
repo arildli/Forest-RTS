@@ -9,7 +9,7 @@ require('utilities')
 --require('upgrades')
 require('mechanics')
 require('orders')
-require('builder')
+--require('builder') --Check SimpleRTS.lua
 require('buildinghelper')
 
 require('libraries/timers')

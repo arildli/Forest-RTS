@@ -1,3 +1,9 @@
+General:
+
+- Redid several parts of the map, making room for more possible base locations.
+- Added more trees to the redone parts of the map.
+- Increased the regrow time for tree from 10 to 15 minutes.
+
 Units:
 
-- Added a passive spell description to catapults.
+

@@ -38,6 +38,9 @@ end
 function prepareConstruction(building, abilityName)
    building._interrupted = false
 
+   local owner = building:GetOwner()
+   SimpleTechTree:AddPlayerMethods(building, owner)
+
    -- Temporarily learn the rotation spells.
    rotateLeft = "srts_rotate_left"
    rotateRight = "srts_rotate_right"
@@ -366,6 +369,9 @@ function OnUnitTrained(keys)
       return
    end
    
+   local owner = caster:GetOwnerPlayer() or caster:GetOwner()
+   SimpleTechTree:AddPlayerMethods(target, owner)
+
    --local player = caster:GetOwner()
    --local playerID = player:GetPlayerID()
    --local playerHero = GetPlayerHero(playerID)

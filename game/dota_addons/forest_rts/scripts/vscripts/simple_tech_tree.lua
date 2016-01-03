@@ -1428,6 +1428,37 @@ end
 
 
 ---------------------------------------------------------------------------
+-- Adds useful methods to the newly training unit or 
+-- constructed building.
+--- * entity: The entity to add methods to.
+---------------------------------------------------------------------------
+function SimpleTechTree:AddPlayerMethods(entity, owner)
+   local ownerID = owner:GetPlayerID()
+   local ownerHero = GetPlayerHero(ownerID)
+
+   entity._ownerPlayer = owner
+   entity._ownerPlayerID = ownerID
+   entity._ownerHero = ownerHero
+      
+   -- Get the player object of the owner.
+   function entity:GetOwnerPlayer()
+      return entity._ownerPlayer or entity:GetOwner()
+   end
+   
+   -- Get the player id of the owner.
+   function entity:GetOwnerID()
+      return entity._ownerPlayerID or entity:GetOwner():GetPlayerID()
+   end
+   
+   -- Get the hero of the owner.
+   function entity:GetOwnerHero()
+      return entity._ownerHero or GetPlayerHero(entity:GetOwner():GetPlayerID())
+   end
+end
+
+
+
+---------------------------------------------------------------------------
 -- Makes sure to unlearn the construction spell of a building if the max
 -- has been met at construction start.
 --
@@ -1511,31 +1542,6 @@ function SimpleTechTree:RegisterIncident(unit, state)
 	 hero:AddUnit(unit)
 	 hero:IncUnitCountFor(unitName)
       end
-      
-      ---------------------------------------------------------------------------
-      -- Add owner info to unit or building.
-      ---------------------------------------------------------------------------
-
-      unit._ownerPlayer = owner
-      unit._ownerPlayerID = ownerID
-      unit._ownerHero = hero
-      
-      -- Get the player object of the owner.
-      function unit:GetOwnerPlayer()
-	 return unit._ownerPlayer or unit:GetOwner()
-      end
-
-      -- Get the player id of the owner.
-      function unit:GetOwnerID()
-	 return unit._ownerPlayerID or unit:GetOwner():GetPlayerID()
-      end
-
-      -- Get the hero of the owner.
-      function unit:GetOwnerHero()
-	 return unit._ownerHero or GetPlayerHero(unit:GetOwner():GetPlayerID())
-      end
-
-      ---------------------------------------------------------------------------
 
       -- On death.
    elseif state == false then

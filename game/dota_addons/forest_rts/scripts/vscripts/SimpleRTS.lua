@@ -57,6 +57,8 @@ function SimpleRTSGameMode:InitGameMode()
    loadModule('simple_bot')
    loadModule('timers')
    loadModule('spells')
+
+   loadModule('builder')
    -- Must be turned off due to crash with the new buildingHelper!
    --loadModule('buildinghelper_old')
    
@@ -443,7 +445,12 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    -- Player owner of the unit
    --local player = killedUnit:GetPlayerOwner()
    --local playerHero = GetPlayerHero(player:GetPlayerID())  -- player NIL VED DC!
-   local playerHero = killedUnit:GetOwnerHero()
+   local playerHero = nil
+   if killedUnit:IsRealHero() then
+      playerHero = killedUnit
+   elseif killedUnit._ownerPlayer then
+      playerHero = killedUnit:GetOwnerHero()
+   end
 
    -- Building Killed
    if IsCustomBuilding(killedUnit) then   
