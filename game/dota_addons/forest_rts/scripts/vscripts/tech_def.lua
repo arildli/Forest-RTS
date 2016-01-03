@@ -14,6 +14,8 @@ tech = {}
 
 ---------------------------------------------------------------------------
 -- Returns a copied version of the table.
+-- 
+-- Taken from http://lua-users.org/wiki/CopyTable
 ---------------------------------------------------------------------------
 function deepcopy(orig)
   local orig_type = type(orig)
