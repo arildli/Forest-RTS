@@ -361,7 +361,7 @@ function SimpleBot:SetupStandard(team, multiplier)
 			Vector(7150, -3650, 420),
 			Vector(6600, -2500, 420),
 			Vector(6400, -1800, 300),
-			Vector(5150, -650, 164),
+			Vector(5000, -500, 164),
 			Vector(3900, -1800, 164),
 			Vector(3400, -1900, 164),
 			Vector(1550, -1900, 300),
@@ -369,9 +369,9 @@ function SimpleBot:SetupStandard(team, multiplier)
 			Vector(-500, -2100, 420),
 			Vector(-750, -2050, 420),
 			Vector(-1450, -1500, 420),
-			Vector(-1800, -200, 548),
+			Vector(-1700, -150, 548),
 			Vector(-2800, -50, 548),
-			Vector(-3450, 500, 548),
+			Vector(-3500, 500, 548),
 			Vector(-3300, 1200, 548),
 			Vector(-3100, 1650, 548),
 			Vector(-2350, 2300, 675),
@@ -383,7 +383,9 @@ function SimpleBot:SetupStandard(team, multiplier)
 			Vector(1000, 1400, 675),
 			Vector(900, 1900, 548),
 			Vector(250, 2300, 420),
-			Vector(-250, 3100, 300),
+			Vector(-400, 3100, 300),
+			Vector(-100, 4000, 300),
+			Vector(-200, 5250, 420),
 			Vector(-1500, 5350, 420),
 			Vector(-3000, 5250, 420),
 			Vector(-3000, 5900, 548),
@@ -395,14 +397,11 @@ function SimpleBot:SetupStandard(team, multiplier)
 			Vector(-7050, 5100, 925),
 			Vector(-7400, 4800, 925),
 			Vector(-7400, 3750, 925),
-			Vector(-7300, 1600, 675),
+			Vector(-7200, 1600, 675),
 			Vector(-7050, -575, 675),
-			Vector(-5700, -2050, 420),
-			Vector(-5700, -2800, 420),
-			Vector(-6500, -3150, 420),
-			Vector(-7350, -3600, 420),
-			Vector(-7100, -4500, 420),
-			Vector(-6800, -5150, 420)
+			Vector(-6850, -3150, 420),
+			Vector(-7300, -3700, 420),
+			Vector(-7000, -5200, 420)
 					 })
 
    --   Dire path
@@ -447,12 +446,15 @@ function SimpleBot:SetupStandard(team, multiplier)
 			Vector(7000, -6600, 548),
 			Vector(7400, -5450, 548),
 			Vector(7100, -3100, 420),
-			Vector(7750, -2150, 675),
-			Vector(7800, -800, 675),
-			Vector(7450, 200, 675),
-			Vector(7350, 1450, 420),
-			Vector(6850, 2300, 420),
-			Vector(6850, 5000, 420)
+			Vector(7200, -2100, 420),
+			Vector(7100, -950, 420),
+			Vector(6700, -450, 420),
+			Vector(6800, 450, 420),
+			Vector(7200, 1200, 420),
+			Vector(7150, 1750, 420),
+			Vector(6850, 2050, 420),
+			Vector(6900, 5500, 420),
+			Vector(5900, 6350, 420)
 					})
 
    print("[SimpleBot] Dire and Radiant paths successfully added!")
@@ -700,7 +702,7 @@ function SimpleBot:Patrol(group)
 	       -- Check if unit has reached waypoint
 	       if currentLocation.x > vectorDestMinX and currentLocation.x < vectorDestMaxX and
 	       currentLocation.y > vectorDestMinY and currentLocation.y < vectorDestMaxY then
-		  
+
 		  unit:IncPatrolIndex()
 		  if DEBUG then
 		     DebugDrawCircle(unit:GetAbsOrigin(), Vector(255,255,0), 5, 50, false, 60)			 
