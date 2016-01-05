@@ -31,7 +31,7 @@ function InitAbilityPage(unit, pageNumber, abilities)
    end
    unit._abilityPages[pageNumber] = {}
    local currentPage = unit._abilityPages[pageNumber]
-   local nextAbilityIndex = 0
+   --local nextAbilityIndex = 0
 
    if DEBUG_ABILITY_PAGES == true then
       print_ability_pages("\n", "Setting up new ability page with number: "..pageNumber)
@@ -42,13 +42,14 @@ function InitAbilityPage(unit, pageNumber, abilities)
    for i=1, 6 do
       local textToPrint = "Empty"
       if abilities[i] then
-	 local curAbilityName = abilities[i]["spell"]
-	 currentPage[nextAbilityIndex] = abilities[i]
-	 textToPrint = curAbilityName
-	 nextAbilityIndex = nextAbilityIndex + 1
+	 --currentPage[nextAbilityIndex] = abilities[i]
+	 currentPage[i-1] = abilities[i]
+	 --nextAbilityIndex = nextAbilityIndex + 1
       end
 
       if DEBUG_ABILITY_PAGES == true then
+	 local curAbilityName = abilities[i]["spell"]
+	 textToPrint = curAbilityName
 	 print_ability_pages("InitAbilityPages", "abilities["..i.."]: "..textToPrint)
       end
    end

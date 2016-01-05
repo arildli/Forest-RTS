@@ -1171,6 +1171,11 @@ function TechTree:InitTechTree(hero)
    end
 
    -- Set ability pages for the unit.
+   for key,page in pairs(tech[heroName].heropages) do
+      InitAbilityPage(hero, key, page)
+   end
+
+   -- Set ability pages for the unit.
    InitAbilityPage(hero, ABILITY_PAGE_MAIN, ABILITY_PAGES[heroName][ABILITY_PAGE_MAIN])
    InitAbilityPage(hero, ABILITY_PAGE_CONSTRUCTION_1, ABILITY_PAGES[heroName][ABILITY_PAGE_CONSTRUCTION_1])
    InitAbilityPage(hero, ABILITY_PAGE_CONSTRUCTION_2, ABILITY_PAGES[heroName][ABILITY_PAGE_CONSTRUCTION_2])
