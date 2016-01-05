@@ -3233,6 +3233,7 @@
 				"States"
 				{
 					"MODIFIER_STATE_ROOTED"		"MODIFIER_STATE_VALUE_ENABLED" // Prevents moving
+					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
 				}
 
 				"OnCreated"
@@ -3249,7 +3250,7 @@
 				"Properties"
 				{
 					"MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE"	"0.0"
-					"MODIFIER_PROPERTY_EVASION_CONSTANT"	"%bonus_evasion"
+					//	"MODIFIER_PROPERTY_EVASION_CONSTANT"	"%bonus_evasion"
 					"MODIFIER_PROPERTY_BONUS_DAY_VISION"	"%bonus_vision"
 					"MODIFIER_PROPERTY_BONUS_NIGHT_VISION"	"%bonus_vision"
 				}

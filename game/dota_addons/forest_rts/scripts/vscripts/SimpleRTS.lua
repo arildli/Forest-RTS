@@ -451,6 +451,9 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       playerHero = killedUnit
    elseif killedUnit._ownerPlayer then
       playerHero = killedUnit:GetOwnerHero()
+   else
+      print("Killed unit was neutral...")
+      return
    end
 
    -- Building Killed
