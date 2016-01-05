@@ -1,9 +1,9 @@
 General:
 
+- Added several neutral creep camps that can be cleared for gold and xp. Each camp only spawn once.
 - Redid several parts of the map, making room for more possible base locations.
 - Added more trees to the redone parts of the map.
-- Increased the regrow time for tree from 10 to 15 minutes.
-
-Units:
+- Increased the regrow time for trees from 10 to 15 minutes.
+- Made units inside towers invulnerable. They still die when the tower is destroyed.
 
 
