@@ -868,7 +868,7 @@
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
-		"AttackRange"			"600"
+		"AttackRange"			"500"
 		"ProjectileModel"		"particles/units/heroes/hero_lina/lina_base_attack.vpcf"
 		"ProjectileSpeed"		"1200"
 

@@ -4,3 +4,5 @@
 
 - Rydd bort utkommentert kode etter testing:
   * buildings.lua
+
+- Fiks Flood Fill eller bytt ut med annen algoritme!

@@ -15,22 +15,28 @@ end
 
 
 
--- Create the ability pages for the new unit.
-function InitAbilityPage(unit, pageNumber, abilities)
-   if not unit or not pageNumber or not abilities then
-      print("InitAbilityPages: unit, pageNumber or abilities was nil!")
+function GetAbilityPage(entity, pageName)
+   return entity._abilityPages[pageName]
+end
+
+function SetAbilityPage(entity, pageName, value)
+   entity._abilityPages[pageName] = value
+end
+
+
+
+-- Create the ability pages for the new entity.
+function InitAbilityPage(entity, pageNumber, abilities)
+   if not entity or not pageNumber or not abilities then
+      print("InitAbilityPages: entity, pageNumber or abilities was nil!")
       return
    end
 
    -- Create the ability page.
-   if not unit._abilityPages then
-      unit._abilityPages = {}
-   end
-   if not unit._abilityLevels then
-      unit._abilityLevels = {}
-   end
-   unit._abilityPages[pageNumber] = {}
-   local currentPage = unit._abilityPages[pageNumber]
+   entity._abilityPages = entity._abilityPages or {}
+   entity._abilityLevels = entity._abilityLevels or {}
+   entity._abilityPages[pageNumber] = {}
+   local currentPage = entity._abilityPages[pageNumber]
    --local nextAbilityIndex = 0
 
    if DEBUG_ABILITY_PAGES == true then
@@ -39,7 +45,7 @@ function InitAbilityPage(unit, pageNumber, abilities)
    end
 
    -- Setup the ability page and set ability level to 0.
-   for i=1, 6 do
+   for i=1, 16 do
       local textToPrint = "Empty"
       if abilities[i] then
 	 --currentPage[nextAbilityIndex] = abilities[i]
@@ -69,42 +75,30 @@ end
 
 
 
--- Sets the current page of the unit to 'pageNumber'.
-function GoToPage(unit, pageNumber)
-   -- Error checking.
-   if not unit or not pageNumber then
-      print("GoToPage: unit or pageNumber was nil!")
-      return
-   end
-   if not unit._abilityPages then
-      print("GoToPage: unit did not have ._abilityPages!")
-      return
-   end
-   if not unit._abilityLevels then
-      print("GoToPage: unit did not have ._abilityLevels!")
-      return
-   end
-
+-- Sets the current page of the entity to 'pageNumber'.
+function GoToPage(entity, pageNumber)
    -- Get current ability page to read from.
-   local curAbilityPage = unit._abilityPages[pageNumber]
+   --local curAbilityPage = entity._abilityPages[pageNumber]
+   local curAbilityPage = GetAbilityPage(entity, pageNumber)
    if not curAbilityPage then
-      print("GoToPage: invalid pageNumber ("..pageNumber..")!")
-      return
+      -- Crash
+      print(curAbilityPage)
    end
-
-   --print_ability_pages("GoToPage", "Going to page "..pageNumber)
-   --print("------------------")
+   local ownerHero
+   if entity:IsRealHero() then
+      ownerHero = entity
+   else
+      ownerHero = entity:GetOwnerHero()
+   end
 
    -- Remove all current spells.
    for i=0, 6 do
-      local curAbility = unit:GetAbilityByIndex(i)
+      local curAbility = entity:GetAbilityByIndex(i)
       if curAbility then
 	 local curAbilityName = curAbility:GetAbilityName()
 	 local curAbilityLevel = curAbility:GetLevel()
-	 unit._abilityLevels[curAbilityName] = curAbilityLevel
-	 unit:RemoveAbility(curAbilityName)
-
-	 --print_ability_pages("GoToPage", "Removed "..curAbilityName.." at index "..i.."!")
+	 --entity._abilityLevels[curAbilityName] = curAbilityLevel
+	 entity:RemoveAbility(curAbilityName)
       end
    end
 
@@ -114,24 +108,27 @@ function GoToPage(unit, pageNumber)
       if curNewAbility then
 	 -- Add new ability.
 	 local curNewAbilityName = curNewAbility["spell"]
-	 unit:AddAbility(curNewAbilityName)
+	 entity:AddAbility(curNewAbilityName)
 
 	 -- Set level of ability.
-	 if unit:HasAbility(curNewAbilityName) then
-	    local curAbilityToLevel = unit:FindAbilityByName(curNewAbilityName)
-	    if unit._abilityLevels[curNewAbilityName] then
-	       curAbilityToLevel:SetLevel(unit._abilityLevels[curNewAbilityName])
+	 if entity:HasAbility(curNewAbilityName) then
+	    local curAbilityToLevel = entity:FindAbilityByName(curNewAbilityName)
+	    local curAbilityLevel = ownerHero:GetAbilityLevelFor(curNewAbilityName)
+	    if curAbilityLevel then
+	       --	    if entity._abilityLevels[curNewAbilityName] then
+	       --curAbilityToLevel:SetLevel(entity._abilityLevels[curNewAbilityName])
+	       curAbilityToLevel:SetLevel(curAbilityLevel)
 	    else
 	       print("GoToPage: ._abilityLevels for that ability was not set!")
-	       curAbilityToLevel:SetLevel(0)
+	       -- Crash
+	       print(nil)
 	    end
 	 end
-
-	 --print_ability_pages("GoToPage", "Added "..curNewAbilityName.." at index "..i.."!")
       end
    end
 
-   TechTree:UpdateSpellsHeroOnly(unit)
+   TechTree:UpdateSpellsForEntity(entity)
+   --TechTree:UpdateSpellsHeroOnly(entity)
 end
 
 

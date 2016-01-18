@@ -1140,6 +1140,7 @@
 		"AbilityManacost"		"0"
 
 		"AbilityCastAnimation"		"ACT_DOTA_ATTACK"
+
 		"AbilityChannelTime"		"30"
 
 		"precache"
@@ -2444,15 +2445,6 @@
 		"AbilityCooldown"		"0"
 		"AbilityManacost"		"0"
 
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"	"FIELD_INTEGER"
-				"pageNumber"	"1"
-			}
-		}
-
 		"OnSpellStart"
 		{
 			"RunScript"
@@ -2460,22 +2452,8 @@
 				"Target"	"POINT"
 				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
 				"Function"	"GoToPageFunction"
-				"pageNumber"	"%pageNumber"
-			}
-
-//			"RunScript"
-//			{
-//				"Target"	"POINT"	
-//				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
-//				"Function"	"SwitchPage"
-//				"pageName"	"%pageNumber"
-//				"ability1"	"srts_harvest_lumber"
-//				"ability2"	"srts_transfer_lumber"
-//				"ability3"	""
-//				"ability4"	""
-//				"ability5"	"srts_menu_construction_1"
-//				"ability6"	"srts_menu_construction_2"
-//			}	
+				"pageNumber"	"PAGE_MAIN"
+			}	
 		}
 	}
 
@@ -2501,15 +2479,6 @@
 		"AbilityCooldown"		"0"
 		"AbilityManacost"		"0"
 
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"	"FIELD_INTEGER"
-				"pageNumber"	"21"
-			}
-		}
-
 		"OnSpellStart"
 		{
 			"RunScript"
@@ -2517,22 +2486,8 @@
 				"Target"	"POINT"
 				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
 				"Function"	"GoToPageFunction"
-				"pageNumber"	"%pageNumber"
-			}
-
-//			"RunScript"
-//			{
-//				"Target"	"POINT"	
-//				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
-//				"Function"	"SwitchPage"
-//				"pageName"	"%pageNumber"
-//				"ability1"	"srts_construct_main_building"
-//				"ability2"	"srts_construct_barracks_basic"
-//				"ability3"	"srts_construct_crystal"
-//				"ability4"	"srts_construct_watch_tower"
-//				"ability5"	"srts_construct_market"
-//				"ability6"	"srts_menu_main"
-//			}	
+				"pageNumber"	"PAGE_MENU_CONSTRUCTION_BASIC"
+			}	
 		}
 	}
 
@@ -2558,15 +2513,6 @@
 		"AbilityCooldown"		"0"
 		"AbilityManacost"		"0"
 
-		"AbilitySpecial"
-		{
-			"01"
-			{
-				"var_type"	"FIELD_INTEGER"
-				"pageNumber"	"22"
-			}
-		}
-
 		"OnSpellStart"
 		{
 			"RunScript"
@@ -2574,22 +2520,8 @@
 				"Target"	"POINT"
 				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
 				"Function"	"GoToPageFunction"
-				"pageNumber"	"%pageNumber"
-			}
-
-//			"RunScript"
-//			{
-//				"Target"	"POINT"	
-//				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
-//				"Function"	"SwitchPage"
-//				"pageName"	"%pageNumber"
-//				"ability1"	"srts_construct_armory"
-//				"ability2"	""
-//				"ability3"	""
-//				"ability4"	""
-//				"ability5"	""
-//				"ability6"	"srts_menu_main"
-//			}	
+				"pageNumber"	"PAGE_MENU_CONSTRUCTION_ADVANCED"
+			}	
 		}
 	}
 

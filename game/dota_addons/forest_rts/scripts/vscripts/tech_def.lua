@@ -53,7 +53,7 @@ defs = {
   },
 
   BUILDING = {
-    spell = "srts_ability_building",
+    spell = "ability_building",
     category = "spell"
   },
 
@@ -1182,16 +1182,23 @@ for herokey,hero in pairs(tech) do
   tech[hero.heroname] = hero
   local curHeroTable = hero
   
-  for key,curtech in pairs(hero) do
-    if key ~= "heroname" and key ~= "heropages" then
-      hero[curtech.spell] = hero[curtech]
-    end
-  end
+  --for key,curtech in pairs(hero) do
+    --if key ~= "heroname" and key ~= "heropages" then
+    --  hero[curtech.spell] = curtech
+    --end
+
+    -- Create new keys for the buildings and heroes of
+    -- the hero.
+    --local cat = curtech.category
+    --if cat == "unit" or cat == "building" then
+    --   hero[curtech.name] = hero[curtech]
+    --end
+  --end
 end
 
-print ("\n")
-for k,v in pairs(tech) do
-  print(k)
-end
+--print ("\n")
+--for k,v in pairs(tech) do
+--  print(k)
+--end
 
-print("Tech COMMANDER: "..tech[COMMANDER].heroname)
+--print("Tech COMMANDER: "..tech[COMMANDER].heroname)

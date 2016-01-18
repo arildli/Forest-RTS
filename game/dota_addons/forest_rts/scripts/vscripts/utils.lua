@@ -309,6 +309,12 @@ function RegisterHarvesterAtTree(keys)
    local caster = keys.caster
    local target = keys.target
    target._harvester = caster
+
+   if not caster.HARVESTER then
+      Resources:InitHarvester(caster)
+   end
+
+   caster.HARVESTER.prevTree = target
 end
 
 -- Mark the tree free for harvest.
@@ -329,7 +335,26 @@ end
 -- Try to find a nearby unoccupied tree near the unit.
 function FindEmptyTree(unit, location, radius)
    local nearbyTrees = GridNav:GetAllTreesAroundPoint(location, radius, true)
-   local pathableTrees = GetAllPathableTreesFromList(nearbyTrees)
+
+   -- EDITED
+   --[=[for _,tree in pairs(nearbyTrees) do
+      -- IsTreePathable(tree)
+      local color
+      if IsTreePathable(tree) then
+	 color = Vector(35, 231, 38)
+      else
+	 color = Vector(238, 2, 2)
+      end
+      DebugDrawCircle(tree:GetCenter(), color, 5, 100, false, 3)
+   end
+   DebugDrawCircle(location, Vector(200, 200, 200), 5, radius, false, 3)
+   ]=]
+   -- DONE
+
+   -- EDITED
+   local pathableTrees = GetAllPathableTreesFromList(location.z, nearbyTrees)
+   -- DONE
+   --local pathableTrees = GetAllPathableTreesFromList(nearbyTrees)
    if #pathableTrees == 0 then
       print("FindEmptyTree: No nearby empty trees found!")
       return nil
@@ -348,12 +373,15 @@ function IsTreePathable( tree )
    return tree.pathable
 end
 
-function GetAllPathableTreesFromList( list )
+function GetAllPathableTreesFromList( height, list )
    local pathable_trees = {}
    for _,tree in pairs(list) do
-      if IsTreePathable(tree) then
+      -- EDITED
+      local treeHeight = tree:GetCenter().z
+      if IsTreePathable(tree) and treeHeight == height then
 	 table.insert(pathable_trees, tree)
       end
+      -- DONE
    end
    return pathable_trees
 end
@@ -425,6 +453,10 @@ function DeterminePathableTrees()
       --If the color of n is equal to target-color:
       local blocked = not GridNav:IsTraversable(position) or GridNav:IsBlocked(position)
       if not blocked then
+	 -- EDITED
+	 DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 0, 255, 0, 255, 600)
+	 -- DONE
+	 
 	 --table.insert(world_positions, position)
 	 
 	 -- Mark position processed.
@@ -444,6 +476,10 @@ function DeterminePathableTrees()
 	 end
 	 
       else
+	 -- EDITED
+	 DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 255, 0, 0, 255, 600)
+	 -- DONE
+
 	 local nearbyTree = GridNav:IsNearbyTree(position, 64, true)
 	 if nearbyTree then
 	    local trees = GridNav:GetAllTreesAroundPoint(position, 1, true)
@@ -456,10 +492,11 @@ function DeterminePathableTrees()
       end
    end
    
+   print("Number of valid trees: "..#valid_trees)
    --DEBUG
-   --for k,tree in pairs(valid_trees) do
-   --DebugDrawCircle(tree:GetAbsOrigin(), Vector(0,255,0), 0, 32, true, 60)
-   --end
+   for k,tree in pairs(valid_trees) do
+     DebugDrawCircle(tree:GetAbsOrigin(), Vector(0,255,0), 0, 32, true, 60)
+   end
 end
 
 

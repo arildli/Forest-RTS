@@ -158,7 +158,7 @@ function Resources:InitHarvester(unit)
    function unit:ReturnToHarvest()
       local newHarvestLocation
       if unit.HARVESTER.prevTree then
-	 newHarvestLocation = unit.HARVESTER.prevTree
+	 newHarvestLocation = unit.HARVESTER.prevTree:GetCenter()
 	 unit.HARVESTER.prevTree = nil
       else
 	 newHarvestLocation = unit:GetAbsOrigin()
@@ -274,6 +274,7 @@ function HarvestChop(keys)
   local teamNumber = caster:GetTeamNumber()
 
   if not caster.HARVESTER then
+     print("caster.HARVESTER was not set!")
      Resources:InitHarvester(caster)
   end
 

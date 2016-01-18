@@ -517,7 +517,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       killedUnit._inside:ForceKill(false)
    end
 
-   if (killedUnit:IsRealHero() == true or unitName == MAIN_BUILDING.name) then 
+   if (killedUnit:IsRealHero() == true or StringStartsWith(unitName, "npc_dota_building_main_tent")) then 
       --if not killedUnit._wasCancelled then 
       local killedTeamString
       local scoreMessage
@@ -525,7 +525,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
 	 killedTeamString = "<font color='"..COLOR_RADIANT.."'>Radiant</font>"
 	 self.scoreDire = self.scoreDire + 1
 	 --scoreMessage = "<font color='"..COLOR_DIRE.."'>Dire</font> has "..self.scoreDire.."/"..VICTORY_SCORE.." points needed to win!"
-	 if unitName == MAIN_BUILDING.name then
+	 if StringStartsWith(unitName, "npc_dota_building_main_tent") then
 	    GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
 	 end
 	 --CustomGameEventManager:Send_ServerToAllClients("new_team_score", {teamId=DOTA_TEAM_BADGUYS, score=self.scoreDire})

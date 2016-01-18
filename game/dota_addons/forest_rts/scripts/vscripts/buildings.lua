@@ -1,30 +1,17 @@
 
 
 
-
---[=[
-WORKER = COMMON_TRAIN_WORKER["name"]
-
-
-if not CONSTRUCT_BUILDINGS_INIT then
-	CONSTRUCT_BUILDINGS_INIT = true
-
-	BUILDING_NAMES = {MAIN_BUILDING, WATCH_TOWER, HEALING_CRYSTAL, BARRACKS_BASIC, MARKET, ARMORY}
-	BUILDING_SPELLS = {MAIN_BUILDING_SPELL, WATCH_TOWER_SPELL, HEALING_CRYSTAL_SPELL, BARRACKS_BASIC_SPELL, MARKET_SPELL, ARMORY_SPELL}
-end
-
 if ConstructionUtils == nil then
-	print("[ConstructionUtils] ConstructionUtils is starting!")
-	ConstructionUtils = {}
-	ConstructionUtils.__index = ConstructionUtils
+   print("[ConstructionUtils] ConstructionUtils is starting!")
+   ConstructionUtils = {}
+   ConstructionUtils.__index = ConstructionUtils
 end
 
 function ConstructionUtils:new(o)
-	o = o or {}
-	setmetatable(o, ConstructionUtils)
-	return o
+   o = o or {}
+   setmetatable(o, ConstructionUtils)
+   return o
 end
---]=]
 
 
 
@@ -83,8 +70,8 @@ function finishConstruction(building)
 
    -- Register Trained
    TechTree:RegisterIncident(building, true)
-   TechTree:AddAbilitiesToBuilding(building)
-   TechTree:UpdateSpellsOneUnit(playerHero, building)
+   TechTree:AddAbilitiesToEntity(building)
+   --TechTree:UpdateSpellsForEntity(building, playerHero)
 end
 
 
@@ -290,33 +277,33 @@ end
 
 -- Refunds the resources spent on the construction of the building.
 function RefundResourcesConstruction(keys)
-	local caster = keys.caster
-	if not caster then
-		print("Caster is nil!")
-		return
-	end
+   local caster = keys.caster
+   if not caster then
+      print("Caster is nil!")
+      return
+   end
 
-	print("\n\t\tRefundResourcesConstruction called!!!\n")
+   print("\n\t\tRefundResourcesConstruction called!!!\n")
 
-	if DEBUG_CONSTRUCT_BUILDING == true then
-		print("Construction cancelled!")
-	end
+   if DEBUG_CONSTRUCT_BUILDING == true then
+      print("Construction cancelled!")
+   end
 
-	local player = caster:GetOwner()
-	local playerID = player:GetPlayerID()
-	local playerHero = GetPlayerHero(playerID)
+   local player = caster:GetOwner()
+   local playerID = player:GetPlayerID()
+   local playerHero = GetPlayerHero(playerID)
 
-	local goldCost = caster._goldCost
-	local lumberCost = caster._lumberCost
-	if not goldCost or not lumberCost then
-		print("RefundResourcesConstruction: caster was missing either goldCost or lumberCost!")
-		return
-	end
-	GiveGold({caster = keys.caster, amount = goldCost})
-	GiveCharges(playerHero, lumberCost, "item_stack_of_lumber")
+   local goldCost = caster._goldCost
+   local lumberCost = caster._lumberCost
+   if not goldCost or not lumberCost then
+      print("RefundResourcesConstruction: caster was missing either goldCost or lumberCost!")
+      return
+   end
+   GiveGold({caster = keys.caster, amount = goldCost})
+   GiveCharges(playerHero, lumberCost, "item_stack_of_lumber")
 
-	caster._wasCancelled = true
-	caster:ForceKill(false)
+   caster._wasCancelled = true
+   caster:ForceKill(false)
 end
 
 

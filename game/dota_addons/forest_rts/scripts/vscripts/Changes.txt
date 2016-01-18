@@ -1,3 +1,5 @@
+General:
 
+- Reduced the attack range of ranged soldiers by 100 (600 -> 500).
 
 
