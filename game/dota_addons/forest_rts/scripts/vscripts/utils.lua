@@ -295,7 +295,7 @@ function TransferLumber(keys)
        hero:IncLumber(lumberCount)
        caster:ReturnToHarvest()
     else
-      print("TransferLumber: caster did not have any lumber!")
+      --print("TransferLumber: caster did not have any lumber!")
     end
   else
     print("TransferLumber: Target was not a Market or Main Tent!")
