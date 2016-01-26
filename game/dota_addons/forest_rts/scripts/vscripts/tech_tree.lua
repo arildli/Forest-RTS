@@ -1050,6 +1050,7 @@ function TechTree:InitTechTree(hero)
 	 return level
       else
 	 print("Note: hero did not have ability level for "..name.."!")
+	 return 1
       end
    end
 
@@ -1588,10 +1589,11 @@ function TechTree:UpdateTechTree(hero, building, action)
       local curSpellName = curSpell.spell					-- Name of the current spell.
 
       local printThis = false
-      --if curSpell.category ~= "spell" then
---	 printThis = true
---	 print("Looking at spell "..curSpellName) -- Note
-  --    end
+      --local printThis = true
+      if curSpell.category ~= "spell" then
+	 printThis = true
+	 print("Looking at spell "..curSpellName) -- Note
+      end
 
       local curUnitName = curSpell.name or "none"			-- Name of the unit or building produced.
       local curUnitCount = "-"								-- Count of the unit or building produced.
@@ -1625,23 +1627,27 @@ function TechTree:UpdateTechTree(hero, building, action)
 	    if printThis then
 	       print("\tLooking at reqs:")  -- Note
 	    end
-	    for _,curReq in ipairs(curSpell["req"] or {}) do
+
+	    -- Check requirements table for current spells if it
+	    -- has one.
+	    for _,curReq in ipairs(curSpell["req"]) do
 	       unlock = true
 	       
-	       if printThis and curReq.name then
-		  if not curReq.name then
-		     print("\t\tNote: curReq did NOT have .name.")
+	       if printThis then
+		  if curReq.name then
+		     print("\t\tcurReq.name: "..curReq.name)  -- Note
+		  else
+		     print("\t\tNote: curReq did NOT have .name.")		     
 		  end
-		  print("\t\tcurReq.name: "..curReq.name)  -- Note
 	       end
 
 	       -- Old way of checking current requirement.
 	       if type(curReq) == "table" and curReq["category"] then
-		  local curReqName = curReq["name"]
-		  local curReqCount = hero:GetUnitCountFor(curReqName)
+		  local curReqName = curReq["name"] or "none"
+		  local curReqCount = hero:GetUnitCountFor(curReqName) or 0
 
 		  if printThis then
-		     print("\t\t"..curReqName.." with count "..curReqCount)  -- Note
+		     print("\t\t"..curReqName.." with count "..curReqCount.." and cat "..curReq["category"])  -- Note
 		  end
 
 		  if not curReqCount or curReqCount <= 0 then
@@ -1658,6 +1664,11 @@ function TechTree:UpdateTechTree(hero, building, action)
 	       else   -- New way! Looking at ..., curReq, ... or ..., {curOption1, curOption2}, ...
 		  -- Insert the current req or table with choosable reqs into a new one.
 		  local curReqTable = {}
+
+		  if printThis then
+		     print("\t\tNote: Req new way!")  -- Note
+		  end
+
 		  if type(curReq) == "table" then   -- One among several options must be met.
 
 		     if printThis then
@@ -1754,13 +1765,6 @@ function TechTree:UpdateTechTree(hero, building, action)
    TechTree:PrintAbilityLevels(hero:GetOwnerPlayer())
    DEBUG_SIMPLE_TECH_TREE = true
    TechTree:UpdateSpellsAllEntities(hero)
-
-   -- Print building count.
-   local player = hero:GetOwner()
-   if not player then
-      print("PLAYER NIL!!!")
-   end
-   TechTree:PrintAbilityLevels(player)
 
    print_simple_tech_tree("UpdateTechTree", "\n\tTech tree update done!")
 end
