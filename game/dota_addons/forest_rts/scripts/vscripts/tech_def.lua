@@ -53,6 +53,7 @@ end
 function AddCommonAbilities()
    for herokey,herotable in pairs(tech) do
       if herokey ~= "COMMON" then
+	 tech[herotable.heroname] = herotable
 	 for k,v in pairs(tech["COMMON"]) do
 	    herotable[k] = v
 	 end
@@ -70,7 +71,7 @@ tech = {
     EMPTY_FILLER = defs.EMPTY_FILLER,
     BUILDING = defs.BUILDING,
     UNIT = defs.UNIT,
-    ENTER_BUILDING = defs.ENTER_BUILDING,
+    ENTER_TOWER = defs.ENTER_TOWER,
     LEAVE_BUILDING = defs.LEAVE_BUILDING,
     REPAIR_BUILDING = defs.REPAIR_BUILDING,
     GLOBAL_SPEED_AURA = defs.GLOBAL_SPEED_AURA,
@@ -84,7 +85,7 @@ tech = {
     PAGE_MAIN = defs.PAGE_MAIN,
     PAGE_MENU_CONSTRUCTION_BASIC = defs.PAGE_MENU_CONSTRUCTION_BASIC,
     PAGE_MENU_CONSTRUCTION_ADVANCED = defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
-  }
+  },
 
 
   -- Radiant

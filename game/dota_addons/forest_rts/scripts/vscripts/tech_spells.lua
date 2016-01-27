@@ -176,7 +176,7 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}},
     pages = {
       PAGE_MAIN = {
-	"ENTER_BUILDING"
+	"ENTER_TOWER"
       },
       HIDDEN = {
 	"BUILDING"
@@ -425,16 +425,16 @@ defs = {
 	"TENT_SMALL",
 	"GOLD_MINE",
 	"BARRACKS_RADIANT",
-	"WATCH_TOWER"
-	"WOODEN_WALL"
+	"WATCH_TOWER",
+	"WOODEN_WALL",
 	"PAGE_MAIN"
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	"MARKET"
-	"HEALING_CRYSTAL_RADIANT"
-	"ARMORY_RADIANT"
-	"EMPTY_FILLER"
-	"EMPTY_FILLER"
+	"MARKET",
+	"HEALING_CRYSTAL_RADIANT",
+	"ARMORY_RADIANT",
+	"EMPTY_FILLER",
+	"EMPTY_FILLER",
 	"PAGE_MAIN"
       },
       HIDDEN = {
@@ -461,7 +461,7 @@ defs = {
     name = "npc_dota_creature_forest_ranged_1",
     spell = "srts_train_forest_dryad",
     category = "unit",
-    req = {"MARKET",
+    req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
 	"ENVENOMED_SPEARS"
@@ -476,7 +476,7 @@ defs = {
     name = "npc_dota_creature_catapult_radiant",
     spell = "srts_train_catapult_radiant",
     category = "unit",
-    req = {"ARMORY_RADIANT",
+    req = {"ARMORY_RADIANT"},
     pages = {
       PAGE_MAIN = {
 	 "SIEGE_DAMAGE"
@@ -495,25 +495,25 @@ defs = {
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
-	"HARVEST_LUMBER_WORKER"
-	"TRANSFER_LUMBER"
-	"PAGE_MENU_CONSTRUCTION_BASIC"
+	"HARVEST_LUMBER_WORKER",
+	"TRANSFER_LUMBER",
+	"PAGE_MENU_CONSTRUCTION_BASIC",
 	"PAGE_MENU_CONSTRUCTION_ADVANCED"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
 	"TENT_SMALL",
-	"GOLD_MINE"
-	"BARRACKS_DIRE"
-	"WATCH_TOWER"
-	"WOODEN_WALL"
+	"GOLD_MINE",
+	"BARRACKS_DIRE",
+	"WATCH_TOWER",
+	"WOODEN_WALL",
 	"PAGE_MAIN"
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	"MARKET"
-	"HEALING_CRYSTAL_DIRE"
-	"ARMORY_DIRE"
-	"EMPTY_FILLER"
-	"EMPTY_FILLER"
+	"MARKET",
+	"HEALING_CRYSTAL_DIRE",
+	"ARMORY_DIRE",
+	"EMPTY_FILLER",
+	"EMPTY_FILLER",
 	"PAGE_MAIN"
       },
       HIDDEN = {
@@ -540,7 +540,7 @@ defs = {
     name = "npc_dota_creature_kobold_ranged_1",
     spell = "srts_train_kobold_flame_thrower",
     category = "unit",
-    req = {"MARKET",
+    req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
 	"IGNITE"
@@ -555,7 +555,7 @@ defs = {
     name = "npc_dota_creature_catapult_dire",
     spell = "srts_train_catapult_dire",
     category = "unit",
-    req = {"ARMORY_DIRE",
+    req = {"ARMORY_DIRE"},
     pages = {
       PAGE_MAIN = {
 	 "SIEGE_DAMAGE"
@@ -574,25 +574,25 @@ defs = {
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
-	"HARVEST_LUMBER_WORKER"
+	"HARVEST_LUMBER_WORKER",
 	"TRANSFER_LUMBE",
-	"PAGE_MENU_CONSTRUCTION_BASIC"
+	"PAGE_MENU_CONSTRUCTION_BASIC",
 	"PAGE_MENU_CONSTRUCTION_ADVANCED"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
 	"TENT_SMALL",
-	"GOLD_MINE"
-	"BARRACKS_DIRE"
-	"WATCH_TOWER"
-	"WOODEN_WALL"
+	"GOLD_MINE",
+	"BARRACKS_DIRE",
+	"WATCH_TOWER",
+	"WOODEN_WALL",
 	"PAGE_MAIN"
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	"MARKET"
-	"HEALING_CRYSTAL_DIRE"
-	"ARMORY_DIRE"
-	"EMPTY_FILLER"
-	"EMPTY_FILLER"
+	"MARKET",
+	"HEALING_CRYSTAL_DIRE",
+	"ARMORY_DIRE",
+	"EMPTY_FILLER",
+	"EMPTY_FILLER",
 	"PAGE_MAIN"
       },
       HIDDEN = {
@@ -619,7 +619,7 @@ defs = {
     name = "npc_dota_creature_skeleton_ranged_1",
     spell = "srts_train_skeleton_archer",
     category = "unit",
-    req = {"MARKET",
+    req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
 	"BURNING_ARROWS"
@@ -634,7 +634,7 @@ defs = {
     name = "npc_dota_creature_catapult_dire",
     spell = "srts_train_catapult_dire",
     category = "unit",
-    req = {"ARMORY_DIRE",
+    req = {"ARMORY_DIRE"},
     pages = {
       PAGE_MAIN = {
 	 "SIEGE_DAMAGE"
@@ -653,25 +653,25 @@ defs = {
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
-	"HARVEST_LUMBER_WORKER"
-	"TRANSFER_LUMBER"
-	"PAGE_MENU_CONSTRUCTION_BASIC"
+	"HARVEST_LUMBER_WORKER",
+	"TRANSFER_LUMBER",
+	"PAGE_MENU_CONSTRUCTION_BASIC",
 	"PAGE_MENU_CONSTRUCTION_ADVANCED"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	"TENT_SMALL"
-	"GOLD_MINE"
-	"BARRACKS_DIRE"
-	"WATCH_TOWER"
-	"WOODEN_WALL"
+	"TENT_SMALL",
+	"GOLD_MINE",
+	"BARRACKS_DIRE",
+	"WATCH_TOWER",
+	"WOODEN_WALL",
 	"PAGE_MAIN"
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	"MARKET"
-	"HEALING_CRYSTAL_DIRE"
-	"ARMORY_DIRE"
-	"EMPTY_FILLER"
-	"EMPTY_FILLER"
+	"MARKET",
+	"HEALING_CRYSTAL_DIRE",
+	"ARMORY_DIRE",
+	"EMPTY_FILLER",
+	"EMPTY_FILLER",
 	"PAGE_MAIN"
       },
       HIDDEN = {
@@ -698,7 +698,7 @@ defs = {
     name = "npc_dota_creature_troll_ranged_1",
     spell = "srts_train_troll_axe_thrower",
     category = "unit",
-    req = {"MARKET",
+    req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
 	"HATRED"
@@ -713,7 +713,7 @@ defs = {
     name = "npc_dota_creature_catapult_dire",
     spell = "srts_train_catapult_dire",
     category = "unit",
-    req = {"ARMORY_DIRE",
+    req = {"ARMORY_DIRE"},
     pages = {
       PAGE_MAIN = {
 	 "SIEGE_DAMAGE"

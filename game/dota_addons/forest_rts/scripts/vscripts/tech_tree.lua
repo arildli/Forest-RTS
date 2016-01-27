@@ -11,7 +11,7 @@ function TechTree:new(o)
    return o
 end
 
-print["[TechTree] Loading Tech Tree Definitions...")
+print("[TechTree] Loading Tech Tree Definitions...")
 
 require('tech_def')
 
@@ -267,7 +267,9 @@ end
 
 
 ---------------------------------------------------------------------------
--- 
+-- Read the tech definition for the hero and initialize
+-- ability levels, unit count and the spell table.
+--- * ownerhero: The hero of a player.
 ---------------------------------------------------------------------------
 function TechTree:ReadTechDef(ownerHero)
    -- Crash
@@ -395,7 +397,16 @@ function TechTree:GetAbilityPagesForUnit(unit, ownerHero)
       return unit.TT.techDef.heropages 
    end
    local unitName = unit:GetUnitName()
-   return ownerHero.TT.techDef[unitName].pages
+   local unitPages = ownerHero.TT.techDef[unitName].pages
+   for pageName,page in pairs(unitPages) do
+      for i,curSpell in pairs(page) do
+	 if type(curSpell) == "string" then
+	    -- Replace string with ref to actual spell.
+	    page[i] = ownerHero.TT.techDef[curSpell]
+	 end
+      end
+   end
+   return unitPages
 end
 
 ---------------------------------------------------------------------------
@@ -417,7 +428,7 @@ function TechTree:RegisterConstruction(unit, spellname)
    local newUnitCount = ownerHero:GetUnitCountFor(unitName) + 1
    local maxUnitCount = TechTree:GetMaxCountFor(unitName, ownerHero)
    ownerHero:IncUnitCountFor(unitName)
-   if newUnitCount >= maxUnitCount then
+   if maxUnitCount and newUnitCount >= maxUnitCount then
       ownerHero:SetAbilityLevelFor(spellname, 0)
       TechTree:UpdateSpellsAllEntities(ownerHero)
    end
@@ -432,7 +443,16 @@ function TechTree:AddAbilitiesToEntity(entity)
    local heroName = ownerHero:GetUnitName()
    local entityName = entity:GetUnitName()
    local abilities = TechTree:GetAbilityPagesForUnit(entity, ownerHero)
+   print("Adding abilities to new "..entityName)
    for pageName,page in pairs(abilities) do
+      print("CurPage: "..pageName)
+      for k,v in pairs(page) do
+	 local val = "(table)"
+	 if type(v) == "string" then
+	    val = v
+	 end
+	 print("\t"..k..": type(v): "..type(v).." "..val)
+      end
       InitAbilityPage(entity, pageName, page)
    end
    GoToPage(entity, "PAGE_MAIN")
@@ -524,10 +544,10 @@ end
 --- * ownerHero: The hero of the player.
 ---------------------------------------------------------------------------
 function TechTree:UpdateSpellsAllEntities(ownerHero)
-   ownerHero = ownerHero or entity:GetOwnerHero()
-   
-   -- Update entities.
+   -- Update hero.
    TechTree:UpdateSpellsForHero(ownerHero)
+
+   -- Update entities of hero.
    for _,building in pairs(ownerHero:GetBuildings()) do
       TechTree:UpdateSpellsForEntity(building, ownerHero)
    end
@@ -593,24 +613,25 @@ function TechTree:UpdateTechTree(hero, building, action)
       print("\nTechTree:UpdateTechTree: action was nil!")
       return false
    end
-
-   local playerID = hero:GetOwnerID()
-   print("[TechTree] Updating tech tree for player with ID "..playerID.."!")
-
-   local heroName = hero:GetUnitName()
-   local buildingName
-   if building then
-      building = building:GetUnitName()
-   end
    if not hero.TT then
       print("ERROR: hero did have have hero.TT! This most likely means TechTree:InitTechTree(hero) hasn't been called yet!")
       return false
    end
+
+   -- Print info.
+   local playerID = hero:GetOwnerID()
+   print("[TechTree] Updating tech tree for player with ID "..playerID.."!")
+
+   --local heroName = hero:GetUnitName()
+   --local buildingName
+   --if building then
+   --   building = building:GetUnitName()
+   --end
    local needsUpdate = true
 
    -- Check through all the spells.
    for i,curSpell in pairs(hero._spells) do
-      local curSpellName = curSpell.spell					-- Name of the current spell.
+      local curSpellName = curSpell.spell
 
       local printThis = false
       --local printThis = true
@@ -619,12 +640,12 @@ function TechTree:UpdateTechTree(hero, building, action)
 	 print("Looking at spell "..curSpellName) -- Note
       end
 
-      local curUnitName = curSpell.name or "none"			-- Name of the unit or building produced.
-      local curUnitCount = "-"								-- Count of the unit or building produced.
-      local curUnitMax = curSpell.max						-- Max count of the unit or building produced.
+      local curUnitName = curSpell.name or "none"
+      local curUnitCount = "-"
+      local curUnitMax = curSpell.max
 
       -- Count the number of units or buildings of this type if training or construction spell.
-      if curUnitName ~= "none" then
+      if curUnitName then
 	 curUnitCount = hero:GetUnitCountFor(curUnitName)
 	 if not curUnitCount then
 	    hero:SetUnitCountFor(curUnitName, 0)
@@ -652,21 +673,14 @@ function TechTree:UpdateTechTree(hero, building, action)
 	       print("\tLooking at reqs:")  -- Note
 	    end
 
-	    -- Check requirements table for current spells if it
-	    -- has one.
-	    for _,curReq in ipairs(curSpell["req"]) do
+	    -- Check requirements table for current spells if it has one.
+	    for _,curReqConst in ipairs(curSpell["req"]) do
 	       unlock = true
-	       
-	       if printThis then
-		  if curReq.name then
-		     print("\t\tcurReq.name: "..curReq.name)  -- Note
-		  else
-		     print("\t\tNote: curReq did NOT have .name.")		     
-		  end
-	       end
 
 	       -- Old way of checking current requirement.
-	       if type(curReq) == "table" and curReq["category"] then
+	       --if type(curReq) == "table" and curReq["category"] then
+	       if type(curReqConst) == "string" then
+		  local curReq = hero.TT.techDef[curReqConst]
 		  local curReqName = curReq["name"] or "none"
 		  local curReqCount = hero:GetUnitCountFor(curReqName) or 0
 
@@ -674,6 +688,7 @@ function TechTree:UpdateTechTree(hero, building, action)
 		     print("\t\t"..curReqName.." with count "..curReqCount.." and cat "..curReq["category"])  -- Note
 		  end
 
+		  -- If req count not met.
 		  if not curReqCount or curReqCount <= 0 then
 		     unlock = false
 		     if printThis then
@@ -685,46 +700,58 @@ function TechTree:UpdateTechTree(hero, building, action)
 			print("\t\t\t"..curReqName.." was met.")  -- Note
 		     end
 		  end
-	       else   -- New way! Looking at ..., curReq, ... or ..., {curOption1, curOption2}, ...
+	       elseif type(curReqConst) == "table" then   
+		  -- New way! Looking at ..., curReq, ... or ..., {curOption1, curOption2}, ...
 		  -- Insert the current req or table with choosable reqs into a new one.
 		  local curReqTable = {}
-
+		  --local oneOptionMet = false
+		  
 		  if printThis then
 		     print("\t\tNote: Req new way!")  -- Note
 		  end
 
-		  if type(curReq) == "table" then   -- One among several options must be met.
-
+		  print("#\t\tcurReqConst: "..#curReqConst)
+		  local realLen = 0
+		  for _,_ in pairs(curReqConst) do realLen = realLen + 1 end
+		  print("\t\tReal len: "..realLen)
+		  -- Check the reqs in the cur req options table.
+		  for _,curOptReqName in ipairs(curReqConst) do
+		     
 		     if printThis then
-			print("\t\treq table WITHOUT category (Length = "..#curReq.."):")
-			for k,v in pairs(curReq) do
-			   print("\t\t\t\tKey: "..k.."\tValue.spell: "..v.spell)  -- Note
-			end
+			print("\t\tOr-req "..curOptReqName)  -- Note
 		     end
+		     
+		     local curReq = hero.TT.techDef[curOptReqName]
+		     local curReqName = curReq.name
+		     local curOptReqCount = hero:GetUnitCountFor(curReqName)
+		     print("\t\t\tCount for "..curReqName..": "..tostring(curOptReqCount))
+		     if curOptReqCount and curOptReqCount > 0 then
+			unlock = true
+			break
+		     else
+			unlock = false
+		     end
+			--table.insert(curReqTable, curOptReqName)
+		  end
 
-		     for _,curReqName in ipairs(curReq) do
-			
-			if printThis then
-			   print("\t\tOr-req "..curReqName)  -- Note
-			end
-		  
-			table.insert(curReqTable, curReqName)
-		     end
-		  else
+		  -- Stop if neither of the options for the current req has been met.
+		  --if not oneOptionMet then
+		  if not unlock then
 		     if printThis then
-			print("\t\tSINGLE Or-req "..curReqName)  -- Note
+			print("\t\t\tNeither reqs met! Locked...")  -- Note
 		     end
-
-		     table.insert(curReqTable, curReqName)
+		     --unlock = false
+		     break
 		  end
 
 		  -- Check if one of the options for the current req has not been met.
-		  local oneOptionMet = false
+		  --local oneOptionMet = false
 
-		  if printThis then
-		     print("\t\t# Length of curReqTable: "..#curReqTable)  -- Note
-		  end
+		  --if printThis then
+		  --   print("\t\t# Length of curReqTable: "..#curReqTable)  -- Note
+		  --end
 
+		  --[=[
 		  for _,curReqName in ipairs(curReqTable) do
 		     local curReqCount = hero:GetUnitCountFor(curReqName)
 		     if curReqCount and curReqCount > 0 then
@@ -741,15 +768,7 @@ function TechTree:UpdateTechTree(hero, building, action)
 			end
 		     end
 		  end
-		  
-		  -- Stop if neither of the options for the current req has been met.
-		  if not oneOptionMet then
-		     if printThis then
-			print("\t\t\tNeither reqs met! Locked...")  -- Note
-		     end
-		     unlock = false
-		     break
-		  end
+		  ]=]
 	       end
 	    end
 	 end
