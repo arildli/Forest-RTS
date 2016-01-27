@@ -1,5 +1,7 @@
 General:
 
+- Rewrote the tech tree system.
+- Made non-ranged unit unable to enter towers.
 - Reduced the attack range of ranged soldiers by 100 (600 -> 500).
 
 

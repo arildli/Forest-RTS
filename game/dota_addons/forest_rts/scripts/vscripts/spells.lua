@@ -24,8 +24,8 @@ function EnterTower(keys)
    local ability = keys.ability
    local modifier = keys.modifier
 
-   if IsBuilding(target) then
-      SendErrorMessage(caster:GetPlayerOwnerID(), "#error_target_must_be_unit")
+   if IsBuilding(target) or not IsRanged(target) then
+      SendErrorMessage(caster:GetPlayerOwnerID(), "#error_target_must_be_ranged_unit")
       return
    end
    local towerOrigin = caster:GetOrigin()

@@ -655,6 +655,16 @@ end
 
 
 ---------------------------------------------------------------------------
+-- 
+---------------------------------------------------------------------------
+function IsRanged(unit)
+   return unit:GetAttackRange() > 150 and 
+      unit:GetUnitName() ~= "npc_dota_creature_kobold_guard_1"
+end
+
+
+
+---------------------------------------------------------------------------
 -- Checks if any of the variables are nil.
 --   * funcName: Name of the function calling this.
 --   * vars: The table containing the variables to be checked.
