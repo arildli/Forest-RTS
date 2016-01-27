@@ -13,6 +13,7 @@
 		"error_queue_full"				"Queue is full"	
 
 		"error_target_must_be_unit"			"Target must be a regular unit"
+		"error_target_must_be_ranged_unit"		"Target must be a ranged unit"
 
 		"addonname"					"Forest RTS"
 
