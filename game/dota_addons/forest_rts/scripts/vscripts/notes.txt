@@ -6,3 +6,8 @@
   * buildings.lua
 
 - Fiks Flood Fill eller bytt ut med annen algoritme!
+
+- Fiks building bug der man kan flytte bygninger ved å lage en
+  ny rett ved siden av.
+
+- Legg til firkanter ved ghost!

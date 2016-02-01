@@ -77,123 +77,6 @@ end
 
 
 
---[=[
-function attemptConstruction(keys)
-
-	local owner = keys.caster
-	if SpendResources(owner, keys.goldCost, keys.lumberCost) == true then
-
-		local point = BuildingHelper:AddBuildingToGrid(keys.target_points[1], 2, keys.caster)
-		if point ~= -1 then
-			local building = CreateUnitByName(keys.buildingName, point, false, owner, owner, owner:GetTeam())
-			if not building then
-				print("BUILDING WAS NIL!")
-				return
-			end
-
-			-- In case the building is supposed to have a non-default rotation at start of construction.
-			if keys.rotation_x or keys.rotation_y or keys.rotation_z then
-				local currentFW = building:GetForwardVector()
-				building:SetForwardVector(Vector(keys.rotation_x, keys.rotation_y, keys.rotation_z))
-			end
-
-			local buildingName = building:GetUnitName()
-			local player = owner:GetOwner()
-			local playerID = player:GetPlayerID()
-			local playerHero = GetPlayerHero(playerID)
-			local abilityName = keys.ability:GetAbilityName()
-			local buildTime
-			local initialScale = .2 * keys.scale
-			if DEBUG then
-				buildTime = 1
-			else
-				--buildTime = keys.buildTime
-				buildTime = building:GetMaxHealth() * BUILDINGHELPER_THINK
-			end
-
-			if buildingName == MARKET.name then
-				building:SetHasInventory(true)
-			end
-
-			building._goldCost = keys.goldCost
-			building._lumberCost = keys.lumberCost
-			building._building = true
-			building._interrupted = false
-
-			-- BuildingHelper stuff
-			BuildingHelper:AddBuilding(building)
-			building:Pack()
-			building:UpdateHealth(buildTime, true, keys.scale)
-			building:SetControllableByPlayer( keys.caster:GetPlayerID(), true )
-			building:SetOwner(playerHero)
-			building._owner = player
-
-			-- Temporarily learn the rotation spells.
-			local rotateLeft = "srts_rotate_left"
-			local rotateRight = "srts_rotate_right"
-			local cancelConstruction = "srts_cancel_construction"
-
-			building:AddAbility(rotateLeft)
-			building:AddAbility(rotateRight)
-			building:AddAbility(cancelConstruction)
-			building:FindAbilityByName(rotateLeft):SetLevel(1)
-			building:FindAbilityByName(rotateRight):SetLevel(1)
-			building:FindAbilityByName(cancelConstruction):SetLevel(1)
-
-			building:SetModelScale(initialScale)
-			TechTree:RegisterConstruction(building, abilityName)
-
-			-- On construction finish
-			building:OnCompleted(function()
-
-				if not building:IsAlive() or building._interrupted == true then
-					--print("attemptConstruction: Note: building was destroyed before finish.")
-					return
-				end
-
-				local interrupted = "nil"
-				if building._interrupted == true then
-					interrupted = "true"
-				elseif building._interrupted == false then
-					interrupted = "false"
-				end
-
-				-- Remove rotation spells.
-				building:RemoveAbility(rotateRight)
-				building:RemoveAbility(rotateLeft)
-				building:RemoveAbility(cancelConstruction)
-
-				if not building then
-					print("attemptConstruction:\tbuilding was nil upon construction finish!")
-				end
-
-				-- Register Trained
-				TechTree:RegisterIncident(building, true)
-				TechTree:AddAbilitiesToBuilding(building)
-				TechTree:UpdateSpellsOneUnit(playerHero, building)
-
-				print("[ConstructionUtils]: Construction finished!")
-			end)
-		else
-			--Fire a game event here and use Actionscript to let the player know he can't place a building at this spot.
-			--GiveCharges(owner, keys.lumberCost, "item_stack_of_lumber")
-			local args = {}
-			args["caster"] = owner
-			args["goldCost"] = keys.goldCost
-			args["lumberCost"] = keys.lumberCost
-			RefundResources(args)
-			print("attemptConstruction: Cannot build there!")
-		end
-	else
-		--FireGameEvent("custom_error_show", {player_ID = owner, _error = "Not enough Lumber!"})
-		print("attemptConstruction: Not enough resources!")
-	end
-end
---]=]
-
-
-
-
 
 --					-----| Economy Units and Buildings |-----
 
@@ -344,14 +227,7 @@ end
 function OnUnitTrained(keys)
    local caster = keys.caster
    local target = keys.target
-   
-   --[=[
-   if not caster then
-      print("Caster is nil!")
-   end
-   if not target then
-      print("Target is nil!")
-      end]=]
+
    if target:GetUnitName() == "bh_dummy_unit" then
       return
    end
@@ -365,11 +241,6 @@ function OnUnitTrained(keys)
    local playerHero = caster:GetOwnerHero()
    target:SetOwner(playerHero)
    target:SetHasInventory(true)
-   
-   --[[
-   if not target:GetOwner() then
-      print("OnUnitTrained: Couldn't set owner to target!")
-   end]]
    
    -- Register Trained
    TechTree:RegisterIncident(target, true)

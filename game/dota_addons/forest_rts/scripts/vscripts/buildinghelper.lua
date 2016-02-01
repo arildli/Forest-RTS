@@ -5,10 +5,11 @@
 ]]--
 
 -- Building Particle Settings
-GRID_ALPHA = 30 -- Defines the transparency of the ghost squares (Panorama)
+GRID_ALPHA = 0 -- Defines the transparency of the ghost squares (Panorama)
 MODEL_ALPHA = 100 -- Defines the transparency of both the ghost model (Panorama) and Building Placed (Lua)
 RECOLOR_GHOST_MODEL = false -- Whether to recolor the ghost model green/red or not
 RECOLOR_BUILDING_PLACED = true -- Whether to recolor the queue of buildings placed (Lua)
+
 
 if not BuildingHelper then
     BuildingHelper = class({})
@@ -173,6 +174,10 @@ function BuildingHelper:AddBuilding(keys)
                           entindex = player.activeBuildingTable.mgd:GetEntityIndex(), builderIndex = builder:GetEntityIndex()
                         }
     CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", paramsTable)
+
+    --for k,v in pairs(paramsTable) do
+    --   print(k..":\t"..tostring(v))
+    --end
 end
 
 --[[
@@ -676,7 +681,7 @@ function BuildingHelper:StartBuilding( keys )
         end
 
         --[[ExecuteOrderFromTable({ UnitIndex = builder:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_CAST_TARGET, 
-                        TargetIndex = building:GetEntityIndex(), AbilityIndex = repair_ability:GetEntityIndex(), Queue = false }) ]]
+                        TargetIndex = building:GetEntityIndex(), AbilityIndex = repair_ability:GetEntityIndex(), Queue = false }) ]]--
         builder:CastAbilityOnTarget(building, repair_ability, pID)
 
         building.updateHealthTimer = Timers:CreateTimer(function()

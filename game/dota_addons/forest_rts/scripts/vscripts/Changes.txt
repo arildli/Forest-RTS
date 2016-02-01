@@ -3,5 +3,6 @@ General:
 - Rewrote the tech tree system.
 - Made non-ranged unit unable to enter towers.
 - Reduced the attack range of ranged soldiers by 100 (600 -> 500).
+- Removed the colored tile under the building ghost as it was wrong.
 
 

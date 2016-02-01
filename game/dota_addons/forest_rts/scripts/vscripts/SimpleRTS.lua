@@ -457,10 +457,9 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    end
 
    -- Building Killed
-   if IsCustomBuilding(killedUnit) then   
+   if IsBuilding(killedUnit) then   
       -- Building Helper grid cleanup
       BuildingHelper:RemoveBuilding(killedUnit, true)
-      -- Check units for downgrades
       local building_name = killedUnit:GetUnitName()
       -- Substract 1 to the player building tracking table for that name
       if playerHero.buildings[building_name] then
@@ -541,10 +540,6 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
       --Say(nil, scoreMessage, false)
       
-      -- Update the score
-      --GameMode:SetTopBarTeamValue(DOTA_TEAM_GOODGUYS, self.scoreRadiant)
-      --GameMode:SetTopBarTeamValue(DOTA_TEAM_BADGUYS, self.scoreDire)
-      
       print("Radiant: "..self.scoreRadiant.."\tDire: "..self.scoreDire)
       --CustomGameEventManager:Send_ServerToAllClients("updated_team_scores", {radiant=self.scoreRadiant, dire=self.scoreDire})
       
@@ -579,10 +574,10 @@ end
 -- Single Player Mode
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:SinglePlayerMode(localPlayer, botTeam)
-	SimpleRTSGameMode:ShowCenterMessage("#simplerts_single_player_mode_text", 5)
+   SimpleRTSGameMode:ShowCenterMessage("#simplerts_single_player_mode_text", 5)
 
-	print("[SimpleRTS] Single Player Mode:\tPlayer ID: "..localPlayer:GetPlayerID().."\tBot Team: "..botTeam)
-	SimpleRTSGameMode:spawnSimpleBot(botTeam, 1.1)
+   print("[SimpleRTS] Single Player Mode:\tPlayer ID: "..localPlayer:GetPlayerID().."\tBot Team: "..botTeam)
+   SimpleRTSGameMode:spawnSimpleBot(botTeam, 1.1)
 end
 
 

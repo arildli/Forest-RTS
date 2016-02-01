@@ -454,7 +454,7 @@ function DeterminePathableTrees()
       local blocked = not GridNav:IsTraversable(position) or GridNav:IsBlocked(position)
       if not blocked then
 	 -- EDITED
-	 DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 0, 255, 0, 255, 600)
+	 --DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 0, 255, 0, 255, 600)
 	 -- DONE
 	 
 	 --table.insert(world_positions, position)
@@ -477,7 +477,7 @@ function DeterminePathableTrees()
 	 
       else
 	 -- EDITED
-	 DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 255, 0, 0, 255, 600)
+	 --DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 255, 0, 0, 255, 600)
 	 -- DONE
 
 	 local nearbyTree = GridNav:IsNearbyTree(position, 64, true)

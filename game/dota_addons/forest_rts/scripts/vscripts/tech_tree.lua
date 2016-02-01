@@ -304,6 +304,7 @@ function TechTree:ReadTechDef(ownerHero)
 	 ownerHero:SetAbilityLevelFor(value.spell, 0)
 	 
 	 -- Debug print
+	 --[=[
 	 if value.req then
 	    print("\nLooking at reqs for "..value.spell.." (#req: "..#value.req.."):")
 	    for k,v in pairs(value.req) do
@@ -318,7 +319,7 @@ function TechTree:ReadTechDef(ownerHero)
 		  end
 	       end
 	    end
-	 end
+	 end]=]
 
 	 local curSpellName = value.spell
 	 ownerHero._spells[curSpellName] = value
@@ -531,7 +532,6 @@ function TechTree:RegisterIncident(unit, state)
    end
 
    if needsUpdate == true then
-      print("Note: Needed update!")
       TechTree:UpdateTechTree(ownerHero, unit, state)
    end
 end
