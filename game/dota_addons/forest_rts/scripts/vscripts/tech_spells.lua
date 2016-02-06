@@ -1,3 +1,6 @@
+-- Constants
+MAX_WORKER_COUNT = 10
+
 -- Spell definitions --
 defs = {
   -- Other

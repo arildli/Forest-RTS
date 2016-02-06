@@ -655,11 +655,38 @@ end
 
 
 ---------------------------------------------------------------------------
--- 
+-- Checks if the specified unit is ranged.
+--- * unit: The unit to check.
 ---------------------------------------------------------------------------
 function IsRanged(unit)
    return unit:GetAttackRange() > 150 and 
       unit:GetUnitName() ~= "npc_dota_creature_kobold_guard_1"
+end
+
+
+
+---------------------------------------------------------------------------
+-- Checks if the specified unit is a worker.
+--- * unit: The unit to check.
+---------------------------------------------------------------------------
+function IsWorker(unit)
+   return unit:GetUnitName():find("worker")
+end
+
+
+
+---------------------------------------------------------------------------
+-- Updates the worker count panel of the player.
+---------------------------------------------------------------------------
+function UpdateWorkerPanel(playerHero)
+   local ownerPlayer = playerHero:GetOwnerPlayer()
+   if not ownerPlayer then
+      print("Error: Couldn't get owner of hero!")
+      return
+   end
+   local curWorkerCount = playerHero:GetWorkerCount()
+   print("CurWorkerCount for player: "..curWorkerCount)
+   CustomGameEventManager:Send_ServerToPlayer(ownerPlayer, "new_worker_count", {maxWorkerCount=MAX_WORKER_COUNT, newWorkerCount=curWorkerCount})
 end
 
 

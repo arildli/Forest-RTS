@@ -243,16 +243,8 @@ function SimpleRTSGameMode:onHeroPick(keys)
    hero.buildings = {} -- This keeps the name and quantity of each building
    hero.upgrades = {} -- This kees the name of all the upgrades researched
    hero.lumber = 0 -- Secondary resource of the player
-
-   --[[
-   player.units = {} -- This keeps the handle of all the units of the player, to iterate for unlocking upgrades
-   player.structures = {} -- This keeps the handle of the constructed units, to iterate for unlocking upgrades
-   player.buildings = {} -- This keeps the name and quantity of each building
-   player.upgrades = {} -- This kees the name of all the upgrades researched
-   player.lumber = 0]]
    
    -- Add the hero to the player units list
-   --table.insert(player.units, hero)
    table.insert(hero.units, hero)
    hero.state = "idle" --Builder state
 end
@@ -292,9 +284,7 @@ function SimpleRTSGameMode:onGameStateChange(keys)
       print("PLAYER_COUNT: "..PLAYER_COUNT.."\tVICTORY_SCORE: "..VICTORY_SCORE)
            
    elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
-      -- CLEANUP
-      --CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})
-      --print("Sent victory score: "..VICTORY_SCORE)
+      CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})
 
    -- Game start
    elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
@@ -444,8 +434,6 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    --     BH stuff     --
    
    -- Player owner of the unit
-   --local player = killedUnit:GetPlayerOwner()
-   --local playerHero = GetPlayerHero(player:GetPlayerID())  -- player NIL VED DC!
    local playerHero = nil
    if killedUnit:IsRealHero() then
       playerHero = killedUnit
@@ -558,6 +546,12 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    end
    
    TechTree:RegisterIncident(killedUnit, false)
+
+   -- Update worker panel of killed player.
+   local killedHero = killedUnit:GetOwnerHero()
+   if killedHero then
+      UpdateWorkerPanel(killedHero)
+   end
 end
 
 

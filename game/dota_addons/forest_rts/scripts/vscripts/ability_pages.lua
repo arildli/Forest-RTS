@@ -23,8 +23,6 @@ function SetAbilityPage(entity, pageName, value)
    entity._abilityPages[pageName] = value
 end
 
-
-
 -- Create the ability pages for the new entity.
 function InitAbilityPage(entity, pageNumber, abilities)
    if not entity or not pageNumber or not abilities then
@@ -45,7 +43,7 @@ function InitAbilityPage(entity, pageNumber, abilities)
    end
 
    -- Setup the ability page and set ability level to 0.
-   for i=1, 16 do
+   for i=1, 6 do
       local textToPrint = "Empty"
       if abilities[i] then
 	 --currentPage[nextAbilityIndex] = abilities[i]
@@ -124,6 +122,23 @@ function GoToPage(entity, pageNumber)
 	       print(nil)
 	    end
 	 end
+      end
+   end
+
+   -- Add ability_building to buildings if they don't already have it.
+   local abilityBuilding = entity:FindAbilityByName("ability_building")
+   local abilityBuildingQueue = entity:FindAbilityByName("ability_building_queue")
+   local entityName = entity:GetUnitName()
+   if entityName:find("building") then
+      if not entity:HasAbility("ability_building") then
+	 entity:AddAbility("ability_building")
+	 local abilityBuilding = entity:FindAbilityByName("ability_building")
+	 abilityBuilding:SetLevel(1)
+      end
+      if not entity:HasAbility("ability_building_queue") then
+	 entity:AddAbility("ability_building_queue")
+	 local abilityBuildingQueue = entity:FindAbilityByName("ability_building_queue")
+	 abilityBuildingQueue:SetLevel(1)
       end
    end
 

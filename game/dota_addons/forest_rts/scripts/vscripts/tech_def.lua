@@ -6,9 +6,6 @@ if not defs then
    return
 end
 
--- Constants
-MAX_WORKER_COUNT = 10
-
 -- Hero names --
 COMMANDER = "npc_dota_hero_legion_commander"
 FURION = "npc_dota_hero_furion"
@@ -397,8 +394,6 @@ tech = {
     GOLD_MINE = defs.GOLD_MINE
   }
 }
-
-
 
 -- Improve the tech table for easier usage.
 AddCommonAbilities()

@@ -57,6 +57,21 @@ function TechTree:InitTechTree(hero)
    end
 
    ---------------------------------------------------------------------------
+   -- Returns the worker count for the player.
+   ---------------------------------------------------------------------------
+   function hero:GetWorkerCount()
+      local heroName = hero:GetUnitName()
+      local workerTable = 
+	 tech[heroName]["COMMANDER_WORKER"] or
+	 tech[heroName]["FURION_WORKER"] or
+	 tech[heroName]["GEOMANCER_WORKER"] or
+	 tech[heroName]["KING_OF_THE_DEAD_WORKER"] or
+	 tech[heroName]["WARLORD_WORKER"]
+      local workerName = workerTable["name"]
+      return hero:GetUnitCountFor(workerName)
+   end
+
+   ---------------------------------------------------------------------------
    -- Sets the count of units with 'name' as unitName.
    ---------------------------------------------------------------------------
    function hero:SetUnitCountFor(name, value)
@@ -319,7 +334,7 @@ function TechTree:ReadTechDef(ownerHero)
 		  end
 	       end
 	    end
-	 end]=]
+	    end]=]
 
 	 local curSpellName = value.spell
 	 ownerHero._spells[curSpellName] = value
@@ -444,19 +459,10 @@ function TechTree:AddAbilitiesToEntity(entity)
    local heroName = ownerHero:GetUnitName()
    local entityName = entity:GetUnitName()
    local abilities = TechTree:GetAbilityPagesForUnit(entity, ownerHero)
-   --print("Adding abilities to new "..entityName)
    for pageName,page in pairs(abilities) do
-      --[=[
-      print("CurPage: "..pageName)
-      for k,v in pairs(page) do
-	 local val = "(table)"
-	 if type(v) == "string" then
-	    val = v
-	 end
-	 print("\t"..k..": type(v): "..type(v).." "..val)
+      if pageName ~= "HIDDEN" then
+	 InitAbilityPage(entity, pageName, page)
       end
-      ]=]
-      InitAbilityPage(entity, pageName, page)
    end
    GoToPage(entity, "PAGE_MAIN")
 end

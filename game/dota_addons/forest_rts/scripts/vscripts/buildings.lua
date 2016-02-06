@@ -191,26 +191,6 @@ end
 
 
 
--- Check if the target is a building
---[[
-function CheckIfBuilding(keys)
-	local ability = keys.ability
-	local target = keys.target
-
-	if not ability then
-		print("'ability' is nil!")
-		return
-	end
-
-	if not target._building then
-		local caster = ability:GetCaster()
-		caster:Stop()
-	end
-end
-]]
-
-
-
 ---------------------------------------------------------------------------
 -- Returns true if building, false otherwise.
 --- * building: The unit to check.
@@ -244,6 +224,12 @@ function OnUnitTrained(keys)
    
    -- Register Trained
    TechTree:RegisterIncident(target, true)
+   TechTree:AddAbilitiesToEntity(target)
+
+   -- Update worker panel of owner hero.
+   if IsWorker(target) then
+      UpdateWorkerPanel(playerHero)
+   end
    
 
 	--[[
