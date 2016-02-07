@@ -128,7 +128,6 @@ function TechTree:InitTechTree(hero)
       if level then
 	 return level
       else
-	 print("Note: hero did not have ability level for "..name.."!")
 	 return 1
       end
    end

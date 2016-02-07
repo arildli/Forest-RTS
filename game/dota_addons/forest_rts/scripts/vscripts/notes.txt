@@ -8,3 +8,5 @@
 - Fiks Flood Fill eller bytt ut med annen algoritme!
 
 - Legg til firkanter ved ghost!
+
+- Fiks ferdig rally point i SimpleRTSGameMode:onRallyPointSet!

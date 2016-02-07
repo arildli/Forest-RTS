@@ -123,6 +123,7 @@ function SimpleRTSGameMode:InitGameMode()
    CustomGameEventManager:RegisterListener( "repair_order", Dynamic_Wrap(SimpleRTSGameMode, "RepairOrder"))  	
    CustomGameEventManager:RegisterListener( "building_helper_build_command", Dynamic_Wrap(BuildingHelper, "BuildCommand"))
    CustomGameEventManager:RegisterListener( "building_helper_cancel_command", Dynamic_Wrap(BuildingHelper, "CancelCommand"))
+   CustomGameEventManager:RegisterListener( "set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
 
    -- Custom Events
    --   ListenToGameEvent('resource_gold_found', Dynamic_Wrap(SimpleRTSGameMode, 'onGoldFound'), self)
@@ -183,7 +184,9 @@ function SimpleRTSGameMode:InitGameMode()
 			      
 			      DEBUG = true
 			      SimpleBot:MultiplyInitialPatrol(5)
+			      VICTORY_SCORE = 25
 				    end, 'Enables standard debug mode for lower construction time', FCVAR_CHEAT)
+   
    
    Convars:RegisterCommand('unitCount', function()
 			      
@@ -377,6 +380,24 @@ end
 
 
 ---------------------------------------------------------------------------
+-- On Rally Point Set.
+---------------------------------------------------------------------------
+function SimpleRTSGameMode:onRallyPointSet(keys)
+   local player = PlayerResource:GetPlayer(keys.pID)
+   local rallyPos = keys.clickPos
+   local building = EntIndexToHScript(keys.mainSelected)
+   local buildingName = building:GetUnitName()
+   if buildingName:find("tent") or buildingName:find("barracks") then
+      building:SetRallyPoint(rallyPos)
+      print("Rally point set!")
+      Notifications:ClearTop(player)
+      Notifications:Top(player, {text="Rally point set!", duration=3})
+   end
+end
+
+
+
+---------------------------------------------------------------------------
 -- On NPC Spawn
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onNPCSpawned(keys)
@@ -545,7 +566,9 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       end
    end
    
-   TechTree:RegisterIncident(killedUnit, false)
+   if not killedUnit:IsRealHero() then
+      TechTree:RegisterIncident(killedUnit, false)
+   end
 
    -- Update worker panel of killed player.
    local killedHero = killedUnit:GetOwnerHero()

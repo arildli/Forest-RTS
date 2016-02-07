@@ -1,12 +1,3 @@
 General:
-- Rewrote the tech tree system.
-- Made non-ranged unit unable to enter towers.
-- Added a worker count panel to show the current worker count.
-- Removed the colored tile under the building ghost as it often 
-  showed the colors wrong.
-
-Workers:
-- Added construction spells to workers.
-- Reduced the attack range of ranged soldiers by 100 (600 -> 500).
-
-
+- Readded repair spell on workers.
+- Added rally point to Main Tent and Barracks.

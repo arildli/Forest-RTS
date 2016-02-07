@@ -40,6 +40,14 @@ function prepareConstruction(building, abilityName)
    building:FindAbilityByName(rotateRight):SetLevel(1)
    building:FindAbilityByName(cancelConstruction):SetLevel(1)
    
+   function building:SetRallyPoint(pos)
+      building._rallyPoint = Vector(pos["0"], pos["1"], pos["2"])
+   end
+
+   function building:GetRallyPoint()
+      return building._rallyPoint
+   end
+
    -- Register construction in Tech Tree.
    TechTree:RegisterConstruction(building, abilityName)
 end
@@ -231,6 +239,18 @@ function OnUnitTrained(keys)
       UpdateWorkerPanel(playerHero)
    end
    
+   print("Caster: "..caster:GetUnitName())
+   local rallyPoint = caster:GetRallyPoint()
+   if rallyPoint then
+      Timers:CreateTimer({
+			    endTime = 0.1,
+			    callback = function()
+			       target:MoveToPosition(rallyPoint)
+			    end})
+   else
+      print("Bloody hell, ain't got no rally point here!")
+   end
+end
 
 	--[[
 	local position = target:GetAbsOrigin()
@@ -242,9 +262,6 @@ function OnUnitTrained(keys)
 
 
 --	print("Ownership set to hero!")
-end
-
-
 
 
 
