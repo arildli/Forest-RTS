@@ -6,14 +6,14 @@
 		<include src="file://{resources}/scripts/resource.js" />
 	</scripts>
 	<script>
-		$.Msg( "Compiled Panorama Resource!" );
+		$.Msg( "Compiled resource.xml!" );
 	</script>
 	<Panel hittest="false" class='ResourcePanel'>
-		<Panel class="LumberPanel">
+		<Panel id="LumberPanel">
 			<Label id="LumberText" text="" html="true" class="TitleFont" />
 			<Image hittest="false" id="LumberIcon" src="file://{images}/custom_game/lumber_icon.png" />
 		</Panel>
-		<Panel class="GoldPanel">
+		<Panel id="GoldPanel">
 		        <Label id="GoldText" text="" html="true" class="TitleFont" />
 			<Image hittest="false" id="GoldIcon" src="file://{images}/custom_game/gold_icon.png" />
 		</Panel>

@@ -6,7 +6,8 @@ var victoryScore = "";
 function SetVictoryScore(keys) {
     victoryScore = keys.victoryScore;
     $("#VictoryScore").text = "Win: "+victoryScore;
-    
+    $.Msg("Heyaa!");
+
     if ($("#VictoryScore").text === "Win: 0") {
 	$.Schedule(0.1, SetVictoryScore);
     }

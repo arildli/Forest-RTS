@@ -239,7 +239,10 @@ function OnUnitTrained(keys)
       UpdateWorkerPanel(playerHero)
    end
    
-   print("Caster: "..caster:GetUnitName())
+   -- Apply current upgrades.
+   ApplyUpgradesOnTraining(target)
+
+   -- Move to rally point if it exists.
    local rallyPoint = caster:GetRallyPoint()
    if rallyPoint then
       Timers:CreateTimer({
@@ -247,8 +250,6 @@ function OnUnitTrained(keys)
 			    callback = function()
 			       target:MoveToPosition(rallyPoint)
 			    end})
-   else
-      print("Bloody hell, ain't got no rally point here!")
    end
 end
 

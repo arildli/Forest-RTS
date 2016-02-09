@@ -93,6 +93,21 @@ defs = {
     category = "spell"
   },
 
+  -- Upgrades
+  UPGRADE_LIGHT_ARMOR = {
+     spell = "srts_upgrade_light_armor",
+     category = "upgrade",
+     item = "item_upgrade_light_armor",
+     max = 1
+  },
+
+  UPGRADE_LIGHT_DAMAGE = {
+     spell = "srts_upgrade_light_damage",
+     category = "upgrade",
+     item = "item_upgrade_light_damage",
+     max = 1
+  },
+
   -- Unit spells
   REGENERATIVE_BARK = {
     spell = "srts_regenerative_bark",
@@ -253,9 +268,11 @@ defs = {
     spell = "srts_construct_armory_radiant",
     category = "building",
     req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_RADIANT"},
+    max = 1,
     pages = {
       PAGE_MAIN = {
-	-- Defined later.
+	 "UPGRADE_LIGHT_DAMAGE",
+	 "UPGRADE_LIGHT_ARMOR"
       },
       HIDDEN = {
 	"BUILDING"
@@ -299,9 +316,11 @@ defs = {
     spell = "srts_construct_armory_dire",
     category = "building",
     req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_DIRE"},
+    max = 1,
     pages = {
       PAGE_MAIN = {
-	-- Defined later.
+	 "UPGRADE_LIGHT_DAMAGE",
+	 "UPGRADE_LIGHT_ARMOR"
       },
       HIDDEN = {
 	"BUILDING"

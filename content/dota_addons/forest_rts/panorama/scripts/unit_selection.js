@@ -96,7 +96,7 @@ function IsMixedBuildingSelectionGroup ( entityList ) {
 	    nonBuildings++
 	}
     }
-    //$.Msg( "Buildings: ",buildings, " NonBuildings: ", nonBuildings)
+    $.Msg( "Buildings: ",buildings, " NonBuildings: ", nonBuildings)
     return (buildings>0 && nonBuildings>0)
 }
 

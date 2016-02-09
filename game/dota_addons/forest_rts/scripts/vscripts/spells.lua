@@ -81,3 +81,55 @@ function HeroAttackSpeedAura(keys)
       ability:ApplyDataDrivenModifier(caster, target, modifier, {Duration = duration})
    end
 end
+
+
+
+function ApplyUpgradeUnits(keys)
+   local caster = keys.caster
+   local ability = keys.ability
+   local abilityName = ability:GetAbilityName()
+   local ownerHero = caster:GetOwnerHero()
+   local itemName = ownerHero.TT.techDef[abilityName].item
+   ownerHero:SetAbilityLevelFor(abilityName, 0)
+   ownerHero:SetUnitCountFor(abilityName, 1)
+   for _,unit in pairs(ownerHero:GetUnits()) do
+      if not IsWorker(unit) then
+	 local newItem = CreateItem(itemName, unit, unit)
+	 unit:AddItem(newItem)
+      end
+   end
+
+   TechTree:UpdateTechTree(ownerHero, ownerHero, true)
+end
+
+function ApplyUpgradesOnTraining(unit)
+   local ownerHero = unit:GetOwnerHero()
+
+   -- Get upgrade item if upgrade is unlocked.
+   local function UpgradeItem(upgradeSpellName)
+      local upgradeLevel = ownerHero:GetUnitCountFor(upgradeSpellName)
+      if upgradeLevel > 0 then
+	 return ownerHero.TT.techDef[upgradeSpellName].item
+      else
+	 return nil
+      end
+   end
+   
+   -- Add upgrade item to newly trained unit if unlocked.
+   local function AddUpgradeItem(upgradeItemName)
+      local newItem = CreateItem(upgradeItemName, unit, unit)
+      unit:AddItem(newItem)
+   end
+   
+   -- Combine
+   if not IsWorker(unit) then
+      local armorUpgradeItem = UpgradeItem("srts_upgrade_light_armor")
+      if armorUpgradeItem then
+	 AddUpgradeItem(armorUpgradeItem)
+      end
+      local damageUpgradeItem = UpgradeItem("srts_upgrade_light_damage")
+      if damageUpgradeItem then
+	 AddUpgradeItem(damageUpgradeItem)
+      end
+   end
+end

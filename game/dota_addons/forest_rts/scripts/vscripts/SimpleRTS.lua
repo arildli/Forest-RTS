@@ -349,7 +349,7 @@ function SimpleRTSGameMode:onGameStart(keys)
    local playerCount = 0
    local radiantCount = 0
    local direCount = 0
-   
+
    for i=0, HIGHEST_PLAYER_INDEX do
       
       local currentPlayer = PlayerResource:GetPlayer(i)
@@ -591,9 +591,9 @@ end
 -- Single Player Mode
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:SinglePlayerMode(localPlayer, botTeam)
-   SimpleRTSGameMode:ShowCenterMessage("#simplerts_single_player_mode_text", 5)
-
    print("[SimpleRTS] Single Player Mode:\tPlayer ID: "..localPlayer:GetPlayerID().."\tBot Team: "..botTeam)
+   Notifications:ClearTop(localPlayer)
+   Notifications:Top(localPlayer, {text="#simplerts_single_player_mode", duration=5})
    SimpleRTSGameMode:spawnSimpleBot(botTeam, 1.1)
 end
 

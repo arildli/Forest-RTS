@@ -10,3 +10,7 @@
 - Legg til firkanter ved ghost!
 
 - Fiks ferdig rally point i SimpleRTSGameMode:onRallyPointSet!
+
+- WATCH TOWER VIL IKKE FULLFØRE FOR COMMANDER!
+
+

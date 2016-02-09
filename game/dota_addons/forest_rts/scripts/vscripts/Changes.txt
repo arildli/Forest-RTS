@@ -1,3 +1,0 @@
-General:
-- Readded repair spell on workers.
-- Added rally point to Main Tent and Barracks.

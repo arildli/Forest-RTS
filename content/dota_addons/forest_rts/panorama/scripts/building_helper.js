@@ -160,10 +160,12 @@ function StartBuildingHelper( params )
                     var screenY2 = Game.WorldToScreenY( pos2[0], pos2[1], pos2[2] );
                     var mouseEntities2 = GameUI.FindScreenEntities( [screenX2,screenY2] );
      
+		    // ADD SQUARES HERE!
+
                     if (mouseEntities2.length > 0)
                         color = [255,0,0]
                     else
-                        color = [255,255,255] //White on empty positions
+                        color = [255,255,255] //White on empty positions		    
 
                     Particles.SetParticleControl(overlayParticle, 2, color)        
                     Particles.SetParticleControl(overlayParticle, 3, [overlay_alpha,0,0])

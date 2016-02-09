@@ -17,6 +17,8 @@
 
 		"addonname"					"Forest RTS"
 
+		"simplerts_single_player_mode"			"Enemy patrol spawned!"
+
 		"PointsToWin"					"+{d:points_to_win} more"
 		"PointsToWin_Victory"				"Victory!"
 

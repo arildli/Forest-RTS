@@ -858,7 +858,131 @@
     		}
 	}
 
+
+
+
+
+	// -----| Upgrade items |----- //
+
 	
+
+
+
+	// Upgrade1.1
+	//================================================================================
+	// Upgrade Light Armor
+	//================================================================================	
+
+	// Item1.1
+	"item_upgrade_light_armor" 
+	{
+		"ID"				"1401"
+		"BaseClass"			"item_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemBaseLevel"			"1"
+
+		"AbilityTextureName" 		"item_light_armor"
+    		"ItemQuality"  			"common"
+
+		"ItemShopTags"			"common"
+    		"ItemCost"     			"0"
+    		"ItemKillable" 			"0" 
+    		"ItemSellable" 			"0"
+    		"ItemPurchasable" 		"0"
+    		"ItemDroppable" 		"0"
+    		"ItemShareability" 		"ITEM_NOT_SHAREABLE"
+    		"ItemStackable" 		"0"
+    		"ItemPermanent" 		"1"
+		"ItemDisplayCharges"		"0"
+    		"ItemDisassembleRule" 		"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+    		"SideShop"     			"0" 
+    		"SecretShop"   			"0"
+			
+    		"AbilitySpecial"
+    		{
+			"01"
+			{
+
+				"var_type"	"FIELD_INTEGER"
+            			"armor_bonus"	"2"
+        		}
+    		}
+		
+    		"Modifiers"
+    		{
+			"modifier_light_armor"
+			{
+				"Passive"	"1"
+				"IsHidden"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS_UNIQUE"	"%armor_bonus"
+				}
+			}
+		}
+	}
+
+
+
+	// Upgrade2.1
+	//================================================================================
+	// Upgrade Light Damage
+	//================================================================================	
+
+	// Item2.1
+	"item_upgrade_light_damage" 
+	{
+		"ID"				"1411"
+		"BaseClass"			"item_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemBaseLevel"			"1"
+
+		"AbilityTextureName" 		"item_light_damage"
+    		"ItemQuality"  			"common"
+
+		"ItemShopTags"			"common"
+    		"ItemCost"     			"0"
+    		"ItemKillable" 			"0" 
+    		"ItemSellable" 			"0"
+    		"ItemPurchasable" 		"0"
+    		"ItemDroppable" 		"0"
+    		"ItemShareability" 		"ITEM_NOT_SHAREABLE"
+    		"ItemStackable" 		"0"
+    		"ItemPermanent" 		"1"
+		"ItemDisplayCharges"		"0"
+    		"ItemDisassembleRule" 		"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+    		"SideShop"     			"0" 
+    		"SecretShop"   			"0"
+			
+    		"AbilitySpecial"
+    		{
+			"01"
+			{
+
+				"var_type"	"FIELD_INTEGER"
+            			"damage_bonus"	"15"
+        		}
+    		}
+		
+    		"Modifiers"
+    		{
+			"modifier_light_damage"
+			{
+				"Passive"	"1"
+				"IsHidden"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE"	"%damage_bonus"
+				}
+			}
+		}
+	}
+
+
 
 
 

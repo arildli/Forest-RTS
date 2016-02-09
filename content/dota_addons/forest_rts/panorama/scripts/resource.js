@@ -3,25 +3,48 @@
 
 
 function OnPlayerLumberChanged ( args ) {
-	var iPlayerID = Players.GetLocalPlayer()
-	var lumber = args.lumber
-	$.Msg("Player "+iPlayerID+" Lumber: "+lumber)
-	$('#LumberText').text = lumber
-}
+    var iPlayerID = Players.GetLocalPlayer()
+    var lumber = args.lumber
 
-(function () {
-	GameEvents.Subscribe( "player_lumber_changed", OnPlayerLumberChanged );
-})();
+    CheckHudFlipped();
+    $('#LumberText').text = lumber
+}
 
 function UpdatePlayerGold() {
     var iPlayerID = Players.GetLocalPlayer()
     var gold = Players.GetGold(iPlayerID)
-    $('#GoldText').text = gold
 
+    CheckHudFlipped();
+    $('#GoldText').text = gold
     $.Schedule(0.03, UpdatePlayerGold);
 }
 
 (function () {
+    CheckHudFlipped();
+    GameEvents.Subscribe( "player_lumber_changed", OnPlayerLumberChanged );
+})();
+
+// Moves the clock panel to the correct side of the screen
+// if the HUD is flipped.
+function CheckHudFlipped() {
+    var lumberPanel = $.FindChildInContext("#LumberPanel");
+    var goldPanel = $.FindChildInContext("#GoldPanel");
+    
+    if (Game.IsHUDFlipped()) {
+	lumberPanel.RemoveClass("Right");
+	goldPanel.RemoveClass("Right");
+	lumberPanel.AddClass("Flipped");
+	goldPanel.AddClass("Flipped");
+    } else {
+	lumberPanel.AddClass("Right");
+	goldPanel.AddClass("Right");
+	lumberPanel.RemoveClass("Flipped");
+	goldPanel.RemoveClass("Flipped");
+    }
+}
+
+(function () {
+    GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_SHOP, false );
     GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_QUICKBUY, false );
     GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_COURIER, false );
     GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_INVENTORY_PROTECT, false );
@@ -31,6 +54,7 @@ function UpdatePlayerGold() {
     $('#LumberText').text = 0;
     $('#GoldText').text = 0;
 
+    CheckHudFlipped();
     $.Schedule(0.03, UpdatePlayerGold);
 })();
 

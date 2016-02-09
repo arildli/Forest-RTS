@@ -312,7 +312,7 @@ function TechTree:ReadTechDef(ownerHero)
 	 local cat = value.category
 	 if cat == "unit" or cat == "building" then
 	    ownerHero:SetUnitCountFor(value.name, 0)
-	 elseif value.category == "spell" then
+	 elseif cat == "spell" or cat == "upgrade" then
 	    ownerHero:SetUnitCountFor(value.spell, 0)
 	 end
 	 ownerHero:SetAbilityLevelFor(value.spell, 0)
@@ -440,9 +440,9 @@ function TechTree:RegisterConstruction(unit, spellname)
    unit._finished = false
    local ownerHero = unit:GetOwnerPlayer()
    local unitName = unit:GetUnitName()
-   local newUnitCount = ownerHero:GetUnitCountFor(unitName) + 1
-   local maxUnitCount = TechTree:GetMaxCountFor(unitName, ownerHero)
    ownerHero:IncUnitCountFor(unitName)
+   local newUnitCount = ownerHero:GetUnitCountFor(unitName)
+   local maxUnitCount = TechTree:GetMaxCountFor(unitName, ownerHero)
    if maxUnitCount and newUnitCount >= maxUnitCount then
       ownerHero:SetAbilityLevelFor(spellname, 0)
       TechTree:UpdateSpellsAllEntities(ownerHero)
@@ -480,13 +480,22 @@ function TechTree:RegisterIncident(unit, state)
    local isBuilding = IsBuilding(unit)
    local unitName = unit:GetUnitName()
    local ownerHero = unit:GetOwnerHero()
-   local oldUnitCount = ownerHero:GetUnitCountFor(unitName) or 0
    local wasUnfinished = false
+   local oldUnitCount = ownerHero:GetUnitCountFor(unitName) or 0
 
    -- On creation.
    if state == true then
       if isBuilding == true then
-	 oldUnitCount = oldUnitCount - 1
+	 -- Calculate number of existing, finished buildings.
+	 oldUnitCount = 0
+	 for k,unit in pairs(ownerHero:GetBuildings()) do
+	    local curUnitName = unit:GetUnitName()
+	    if curUnitName == unitName and unit._finished then
+	       oldUnitCount = oldUnitCount + 1
+	    end
+	 end
+
+	 --oldUnitCount = oldUnitCount - 1
 	 ownerHero:AddBuilding(unit)
 	 if unit._finished == false then
 	    unit._finished = true
@@ -495,8 +504,8 @@ function TechTree:RegisterIncident(unit, state)
 	    print("\n\tWARNING: UNIT._FINISHED WAS TRUE!\n")
 	 end
       else
-	 ownerHero:AddUnit(unit)
 	 ownerHero:IncUnitCountFor(unitName)
+	 ownerHero:AddUnit(unit)
       end
 
       -- On death.
@@ -630,6 +639,29 @@ function TechTree:UpdateTechTree(hero, building, action)
    print("[TechTree] Updating tech tree for player with ID "..playerID.."!")
    local needsUpdate = true
 
+   ---------------------------------------------------------------------------
+   -- Checks if enough of the current req exists and if they're all finished
+   -- if a building.
+   ---------------------------------------------------------------------------
+   local function curReqMet(hero, curReqName)
+      local curReqCount = hero:GetUnitCountFor(curReqName) or 0
+      -- None made so far.
+      if curReqCount <= 0 then
+	 return false
+      end
+
+      -- Check if at least one of them is finished if building.
+      for k,unit in pairs(hero:GetBuildings()) do
+	 local curUnitName = unit:GetUnitName()
+	 if curUnitName == curReqName and unit._finished then
+	    return true
+	 end
+      end
+      -- Return false is no finished unit of that type was found.
+      return false
+   end
+
+
    -- Check through all the spells.
    for i,curSpell in pairs(hero._spells) do
       local curSpellName = curSpell.spell
@@ -647,9 +679,20 @@ function TechTree:UpdateTechTree(hero, building, action)
 	 end
       end
 
+      -- Special case max for upgrades.
+      local upgradeAndIsResearched = false
+      local cat = curSpell.category
+      if cat == "upgrade" then
+	 local count = hero:GetUnitCountFor(curSpellName)
+	 if count >= 1 then
+	    hero:SetAbilityLevelFor(curSpellName, 0)
+	    upgradeAndIsResearched = true
+	 end
+      end
+
       -- Check if all reqs for the spell are met.
       local unlock = true
-      if curUnitMax and curUnitCount >= curUnitMax then
+      if (curUnitMax and curUnitCount >= curUnitMax) or upgradeAndIsResearched then
 	 unlock = false
       else
 	 if not curSpell["req"] then
@@ -663,13 +706,17 @@ function TechTree:UpdateTechTree(hero, building, action)
 	       if type(curReqConst) == "string" then
 		  local curReq = hero.TT.techDef[curReqConst]
 		  local curReqName = curReq["name"] or "none"
-		  local curReqCount = hero:GetUnitCountFor(curReqName) or 0
-
-		  -- If req count not met.
-		  if not curReqCount or curReqCount <= 0 then
-		     unlock = false
+		  unlock = curReqMet(hero, curReqName)
+		  if not unlock then
 		     break
 		  end
+		  --local curReqCount = hero:GetUnitCountFor(curReqName) or 0
+
+		  -- If req count not met.
+		  --if not curReqCount or curReqCount <= 0 then
+		  --   unlock = false
+		  --   break
+		  --end
 	       elseif type(curReqConst) == "table" then   
 		  -- New way! Looking at ..., curReq, ... or ..., {curOption1, curOption2}, ...
 		  -- Insert the current req or table with choosable reqs into a new one.
@@ -679,6 +726,11 @@ function TechTree:UpdateTechTree(hero, building, action)
 		  for _,curOptReqName in ipairs(curReqConst) do
 		     local curReq = hero.TT.techDef[curOptReqName]
 		     local curReqName = curReq.name
+		     unlock = curReqMet(hero, curReqName)
+		     if unlock then
+			break
+		     end
+		     --[=[
 		     local curOptReqCount = hero:GetUnitCountFor(curReqName)
 		     if curOptReqCount and curOptReqCount > 0 then
 			unlock = true
@@ -686,6 +738,7 @@ function TechTree:UpdateTechTree(hero, building, action)
 		     else
 			unlock = false
 		     end
+		     ]=]
 		  end
 
 		  -- Stop if neither of the options for the current req has been met.
@@ -821,6 +874,7 @@ end
 function TechTree:GetMaxCountFor(name, ownerHero)
    if not ownerHero.TT.techDef[name] then
       print("ownerHero.TT.techDef["..name.."] was nil!")
+      return nil
    end
    return ownerHero.TT.techDef[name].max
 end
