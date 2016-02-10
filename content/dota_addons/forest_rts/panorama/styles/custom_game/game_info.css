@@ -61,6 +61,11 @@ Label
     margin-top: 10px;
 }
 
+#HowToHarvestATreeAsHero
+{
+    height: 500px;
+}
+
 .bold
 {
     font-weight: bold;

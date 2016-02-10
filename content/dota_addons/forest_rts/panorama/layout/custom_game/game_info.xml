@@ -29,9 +29,20 @@
     <Label id="HTP6" class="Text" html="true" text="#game_info_htp_6"/>
     <Label id="HTP7" class="Text" html="true" text="#game_info_htp_7"/>
     <Image id="HowToHarvestATree"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_harvest_a_tree.png" />
-    <!-- <Panel id="ModeDescriptionHeader" class="Header" text="#game_info_mode_desc_header" /> -->
-    <!-- <Panel id="ModeDescription" text="#game_info_mode_desc" /> -->
-    <!-- <Panel id="Objective" class="Header" text="#game_info_objective" /> -->
-
+    <Label id="HTP8" class="Text" html="true" text="#game_info_htp_8"/>
+    <Image id="HowToReturnToMainMenu"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_return_to_main_menu.png" />
+    <Label id="HTP9" class="Text" html="true" text="#game_info_htp_9"/>
+    <Image id="HowToHarvestATreeAsHero"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_harvest_a_tree_as_hero.png" />
+    <Label id="HTP10" class="Text" html="true" text="#game_info_htp_10"/>
+    <Image id="HowToConstructGoldMine"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_gold_mine.png" />
+    <Label id="HTP11" class="Text" html="true" text="#game_info_htp_11"/>
+    <Image id="HowToConstructBarracks"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_barracks.png" />
+    <Label id="HTP12" class="Text" html="true" text="#game_info_htp_12"/>
+    <Image id="HowToConstructMarket"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_market.png" />
+    <Label id="HTP13" class="Text" html="true" text="#game_info_htp_13"/>
+    <Image id="MediumSizedArmy"  class="Image ImageBig" src="file://{images}/custom_game/game_info/medium_sized_army.png" />
+    <Label id="HTP14" class="Text" html="true" text="#game_info_htp_14"/>
+    <Image id="ClearingNeutralCamps"  class="Image ImageBig" src="file://{images}/custom_game/game_info/clearing_neutral_camps.png" />
+    <Label id="HTP15" class="Text" html="true" text="#game_info_htp_15"/>
   </Panel>
 </root>
