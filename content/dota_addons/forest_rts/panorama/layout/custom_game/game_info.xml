@@ -1,0 +1,37 @@
+<root>
+  <styles>
+    <include src="file://{resources}/styles/dotastyles.css" />
+    <include src="file://{resources}/styles/custom_game/game_info.css" />
+  </styles>
+  <Panel class="GameInfo">
+    <Panel id="Title">
+      <Label id="TitleName" text="#addon_game_name" />
+    </Panel>
+    <!-- Description of the game modes -->
+    <Label id="ModeDescHeader" class="Header" html="true" text="#game_info_mode_desc_header" />
+    <Label id="ModeDesc" class="Text" text="game_info_mode_desc" />
+    <Label id="SinglePlayer" class="GameMode Text" html="true" text="#game_info_mode_single_player" />
+    <Label id="Co-Op" class="GameMode Text" html="true" text="#game_info_mode_co-op" />
+    <Label id="PvP" class="GameMode Text" html="true" text="#game_info_mode_pvp" />
+    
+    <!-- Description of how to play -->
+    <Label id="HowToPlay" class="Header" html="true" text="#game_info_htp_header" />
+    <Label id="HTP1" class="Text" html="true" text="#game_info_htp_1"/>
+    <Image id="HowToOpenConstructionMenu" class="Image" src="file://{images}/custom_game/game_info/how_open_construction_menu.png" />
+    <Label id="HTP2" class="Text" html="true" text="#game_info_htp_2"/>
+    <Image id="HowToConstructMainTent" class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_main_tent.png" />
+    <Label id="HTP3" class="Text" html="true" text="#game_info_htp_3"/>
+    <Image id="MainTentUnderConstruction"  class="Image ImageBig" src="file://{images}/custom_game/game_info/main_tent_under_construction.png" />
+    <Label id="HTP4" class="Text" html="true" text="#game_info_htp_4"/>
+    <Image id="MainTentFinished"  class="Image ImageBig" src="file://{images}/custom_game/game_info/main_tent_finished.png" />
+    <Label id="HTP5" class="Text" html="true" text="#game_info_htp_5"/>
+    <Image id="ConstructingWorkers"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_train_workers.png" />
+    <Label id="HTP6" class="Text" html="true" text="#game_info_htp_6"/>
+    <Label id="HTP7" class="Text" html="true" text="#game_info_htp_7"/>
+    <Image id="HowToHarvestATree"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_harvest_a_tree.png" />
+    <!-- <Panel id="ModeDescriptionHeader" class="Header" text="#game_info_mode_desc_header" /> -->
+    <!-- <Panel id="ModeDescription" text="#game_info_mode_desc" /> -->
+    <!-- <Panel id="Objective" class="Header" text="#game_info_objective" /> -->
+
+  </Panel>
+</root>

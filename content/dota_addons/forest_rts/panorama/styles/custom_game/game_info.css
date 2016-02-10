@@ -1,0 +1,67 @@
+.GameInfo
+{
+    width: 100%;
+    flow-children: down;
+}
+
+Label 
+{
+    font-size: 18px;
+    color: #999999;
+    vertical-align: top;
+}
+
+#Title
+{
+    flow-children: right;
+}
+
+#TitleName
+{
+    color: #cccccc;
+    font-size: 64px;
+    margin-left: 16px;
+    margin-top: 16px;
+    vertical-align: center;
+}
+
+.Header
+{
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 36px;
+}
+
+.Text
+{
+    width: 85%;
+}
+
+.GameMode
+{
+    margin-top: 5px;
+    margin-left: 16px;
+}
+
+.Image
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 85%;
+}
+
+.ImageBig
+{
+    height: 400px;
+}
+
+#HTP7
+{
+    margin-top: 10px;
+}
+
+.bold
+{
+    font-weight: bold;
+}

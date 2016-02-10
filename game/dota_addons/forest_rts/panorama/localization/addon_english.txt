@@ -3,7 +3,25 @@
 	"Language"		"English"
 	"Tokens"
 	{	
-		"addon_game_name"	"Forest RTS"
+		"addon_game_name"				"Forest RTS"
+
+		// Game info tab
+		//   Modes tab
+		"game_info_mode_desc_header"			"Modes:"
+		"game_info_mode_desc"				"The game mode will be picked automatically depending on the number of players on each team:"
+		"game_info_mode_single_player"			"* <span class='bold'>Single Player:</span> This mode will be chosen if there's only one player in the game. You will have to construct a base and kill as many patrols as possible."
+		"game_info_mode_co-op"				"* <span class='bold'>Co-Op:</span> This mode will be chosen if there are more than one player and all players are on the same team. More players on the team means equally stronger patrols. Mostly the same as single player mode."
+		"game_info_mode_pvp"				"* <span class='bold'>PvP:</span> This mode will be chosen if there are players present on both teams. The goal here is to be the first team to get a certain amount of points from killing enemy players or their main buildings."
+		
+		//   How to play tab
+		"game_info_htp_header"				"How to play:"
+		"game_info_htp_1"				"Find a suitable location for a base and construct a Main Tent from the first construction menu. The construction menu can be opened by using the spell with the blue icon."
+		"game_info_htp_2"				"From here you will see different buildings that you can choose to construct. You can currently only construct the Main Tent, but doing so with unlock other structures. Press the first spell and click on the location you where you want it to be constructed."
+		"game_info_htp_3"				"Now your main building is being constructed."
+		"game_info_htp_4"				"As the construction finished, several other buildings were unlocked. These costs gold and/or lumber, so they cannot be built right away. We can no longer construct more Main Tents because you can only have one at a time. This is also true for a few other buildings as well, such as the Gold Mine which have no gold cost."
+		"game_info_htp_5"				"Now it's time to get that income going, so now we will use the rest of our gold to train workers. You can have a maximum of 10 workers at a time, but currently we can only afford 5. Do this by pressing the first spell 5 times while holding shift. This tells the game that we want to cast the spell 5 times. If you press S or use the spell again without holding shift, the training will be interrupted and the resources spent will be returned."
+		"game_info_htp_6"				"If you click somewhere while a Main Tent or Barracks is selected, a new rally point will be set. Every time that building trains a new unit, it will walk towards the current rally point if you have one set."
+		"game_info_htp_7"				"Once a worker has finished training, you can select it and use its first spell on a tree to cut it down. This will take a while, but once finished it will return the lumber to the nearest Main Tent or Market, and the resource will then be ready to use. Most times the worker will then try to find a new tree to cut, but this doesn't always work. In those cases you will have to order it to cut down another tree manually to get it started again."
 	
 		// Error Messages
 		"error_invalid_build_position"			"You can't build there"
