@@ -140,6 +140,14 @@ function GoToPage(entity, pageNumber)
 	 local abilityBuildingQueue = entity:FindAbilityByName("ability_building_queue")
 	 abilityBuildingQueue:SetLevel(1)
       end
+   --[=[else
+      local abilityUnitName = "srts_ability_unit"
+      --local abilityUnit = entity:FindAbilityByName(abilityUnitName)
+      if not entity:HasAbility(abilityUnitName) then
+	 entity:AddAbility(abilityUnitName)
+	 local abilityUnit = entity:FindAbilityByName(abilityUnitName)
+	 abilityUnit:SetLevel(1)
+      end]=]
    end
 
    TechTree:UpdateSpellsForEntity(entity)

@@ -1,19 +1,23 @@
 "use strict";
 
-var victoryScore = "";
+var score = "";
+var prefix = "";
+
+function SetInitialScore(keys) {
+    prefix = keys.scorePrefix;
+    UpdateScore({"score" : keys.score});
+}
 
 // Sets the victory score field.
-function SetVictoryScore(keys) {
-    victoryScore = keys.victoryScore;
-    $("#VictoryScore").text = "Win: "+victoryScore;
+function UpdateScore(keys) {
+    score = keys.score;
+    $("#VictoryScore").text = prefix + score;
     $.Msg("Heyaa!");
-
-    if ($("#VictoryScore").text === "Win: 0") {
-	$.Schedule(0.1, SetVictoryScore);
-    }
 }
 
 (function() {
-    $("#VictoryScore").text = "Win: 0";
-    GameEvents.Subscribe("victory_score", SetVictoryScore);
+    $("#VictoryScore").text = "";
+    GameEvents.SendCustomGameEventToServer("get_initial_score", {})
+    GameEvents.Subscribe("initial_score_reply", SetInitialScore);
+    GameEvents.Subscribe("update_score", UpdateScore);
 })();

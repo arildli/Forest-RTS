@@ -13,6 +13,10 @@
 
 - Legg til tutorial, nye spillere sliter virkelig med å vite hva de skal gjøre og leaver dermed kjapt!!!
 
+- Fix patrols (especially lags!!!)
+
+- Add bosses to patrols.
+
 - WATCH TOWER VIL IKKE FULLFØRE FOR COMMANDER!
 
 
