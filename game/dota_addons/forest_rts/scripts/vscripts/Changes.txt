@@ -1,3 +1,5 @@
 General:
 - Made tower units unselectable and removed their health bar.
 - Fixed the score bar in the top-left area.
+- Reduced the tree regrow time by 5 minutes (15 -> 10).
+- Fixed an issue with the gold and lumber panels if the player has the minimap on the right side of the screen.

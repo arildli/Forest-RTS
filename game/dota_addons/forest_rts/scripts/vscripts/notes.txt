@@ -19,4 +19,6 @@
 
 - WATCH TOWER VIL IKKE FULLFØRE FOR COMMANDER!
 
+- Sjekk denne linked for tips om allied resources panel:
+https://developer.valvesoftware.com/wiki/Dota_2_Workshop_Tools/Panorama/Panels
 

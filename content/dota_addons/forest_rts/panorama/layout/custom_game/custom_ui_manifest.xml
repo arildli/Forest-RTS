@@ -36,6 +36,7 @@
     <CustomUIElement type="HeroSelection" layoutfile="file://{resources}/layout/custom_game/multiteam_hero_select_overlay.xml" />
     <CustomUIElement type="GameInfo"  layoutfile="file://{resources}/layout/custom_game/game_info.xml" />
     <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/game_clock.xml" />
+    <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/allied_resources.xml" />
     <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/victory_score.xml" />
     <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/worker_count.xml" />
     <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/resource.xml" />

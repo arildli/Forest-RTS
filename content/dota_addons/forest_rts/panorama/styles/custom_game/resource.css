@@ -18,7 +18,8 @@
     vertical-align: bottom;
 
     margin-bottom: 155px;
-    margin-right: 0px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 #GoldPanel
@@ -29,7 +30,8 @@
     vertical-align: bottom;
 
     margin-bottom: 155px;
-    margin-right: 100px;
+    margin-right: 110px;
+    margin-left: 110px;
 }
 
 #LumberText
