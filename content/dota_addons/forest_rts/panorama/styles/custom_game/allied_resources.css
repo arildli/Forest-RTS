@@ -1,3 +1,6 @@
+@define RES_PANEL_WIDTH: 225px;
+@define RES_PANEL_HEIGHT: 75px;
+
 .AlliedResourcesPanel
 {
     width: 100%;
@@ -28,11 +31,11 @@
     border: 1px solid blue;
 
     height: 35px;
-    width: 225px;
+    width: RES_PANEL_WIDTH;
     
     horizontal-align: right;
     vertical-align: bottom;
-    margin-bottom: 300px;
+    //margin-bottom: 300px;
 }
 
 #TitlePanel Label
@@ -50,20 +53,46 @@
 
 #PlayerPanels
 {
-    height: 75px;
-    width: 225px;
+    height: 375px;
+    width: RES_PANEL_WIDTH;
     
     horizontal-align: right;
     vertical-align: bottom;
     margin-bottom: 225px;
     
-    border: 1px solid green;
+    border: 1px solid yellow;
 }
 
 .PlayerPanel
 {
-    border: 1px solid white;
+    border: 3px solid green;
     
-    height: 75px;
-    width: 225px;
+    vertical-align: bottom;
+    height: RES_PANEL_HEIGHT;
+    width: RES_PANEL_WIDTH;
+}
+
+.1Up
+{
+    margin-bottom: 300px;
+}
+
+.2Up
+{
+    margin-bottom: 375px;
+}
+
+.3Up
+{
+    margin-bottom: 450px;
+}
+
+.4Up
+{
+    margin-bottom: 525px;
+}
+
+.5Up
+{
+    margin-bottom: 600px;
 }
