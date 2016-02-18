@@ -11,8 +11,6 @@
 {
     width: 100%;
     height: 100%;
-
-    border: 1px solid red;   
 }
 
 .Flipped
@@ -28,14 +26,15 @@
 
 #TitlePanel
 {
-    border: 1px solid blue;
-
     height: 35px;
     width: RES_PANEL_WIDTH;
     
     horizontal-align: right;
     vertical-align: bottom;
     //margin-bottom: 300px;
+
+    background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
+    /*border: 1px solid blue;*/
 }
 
 #TitlePanel Label
@@ -60,39 +59,56 @@
     vertical-align: bottom;
     margin-bottom: 225px;
     
-    border: 1px solid yellow;
+    /*border: 1px solid yellow;*/
 }
 
 .PlayerPanel
 {
-    border: 3px solid green;
+    /*border: 3px solid green;*/
     
     vertical-align: bottom;
     height: RES_PANEL_HEIGHT;
     width: RES_PANEL_WIDTH;
 }
 
-.1Up
+.1UpPlayer
+{
+    margin-bottom: 0px;
+}
+.2UpPlayer
+{
+    margin-bottom: 75px;
+}
+.3UpPlayer
+{
+    margin-bottom: 150px;
+}
+.4UpPlayer
+{
+    margin-bottom: 225px;
+}
+.5UpPlayer
 {
     margin-bottom: 300px;
 }
 
-.2Up
+.1UpTitle
+{
+    margin-bottom: 300px;
+}
+.2UpTitle
 {
     margin-bottom: 375px;
 }
-
-.3Up
+.3UpTitle
 {
     margin-bottom: 450px;
 }
-
-.4Up
+.4UpTitle
 {
     margin-bottom: 525px;
 }
-
-.5Up
+.5UpTitle
 {
     margin-bottom: 600px;
 }

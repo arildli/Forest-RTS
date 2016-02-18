@@ -1,0 +1,96 @@
+Image
+{
+    width: 32px;
+    height: 32px;
+}
+
+#PlayerMainPanel
+{
+    width: 100%;
+    height: 100%;
+    /*background-color: gradient( linear, 25px 0%, 40px 0%, from( black ), to( transparent ) );*/
+    background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
+}
+
+#TopPanel
+{
+    height: 32px;
+    width: 100%;
+}
+
+#BotPanel
+{
+    width: 100%;
+    height: 43px;
+
+    vertical-align: bottom;
+}
+
+#PlayerImage
+{
+    width: 57px;
+    height: 32px;
+    
+    /*horizontal-align: right;*/
+}
+
+#PlayerName
+{
+    margin-top: 2px;
+    margin-left: 75px;
+    
+    color: white;
+    font-size: 22px;
+    font-family: Radiance;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0px 0px 3px 3.0 #000000;
+}
+
+.ResourceIcon
+{
+    width: 16px;
+    height: 16px;
+    margin-top: 11px;
+    margin-left: 4px;
+}
+
+.ResourceText
+{
+    margin-top: 12px;
+    margin-left: 28px;
+
+    font-size: 16px;
+    font-family: Radiance;
+    text-shadow: 0px 0px 3px 2.0 #000000;
+}
+
+#PlayerGoldPanel
+{
+    height: 100%;
+    width: 75px;
+
+    color: gold;
+}
+
+#PlayerLumberPanel
+{
+    height: 100%;
+    width: 75px;
+    margin-left: 75px;
+    
+    color: green;
+}
+
+#PlayerWorkerPanel
+{
+    height: 100%;
+    width: 75px;
+    margin-left: 150px;
+
+    color: white;
+}
+
+#PlayerImage
+{
+}

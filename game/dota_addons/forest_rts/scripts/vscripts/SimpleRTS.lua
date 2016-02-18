@@ -335,6 +335,14 @@ function SimpleRTSGameMode:onGameStateChange(keys)
       -- Set the global prefix variable since self doesn't always work...
       prefixGlobal = self.prefix
 
+      -- Create a timer for sending team resource info to players.
+      Timers:CreateTimer(
+	 function()
+	    SimpleRTSGameMode:SendTeamResources()
+	    return 1.0
+	 end
+      )
+
    -- Game start
    elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
       print("[SimpleRTS] The game has started.")
@@ -415,6 +423,32 @@ function SimpleRTSGameMode:GetInitialScore(keys)
    local prefix = prefixGlobal
    print("Sending "..prefix.." and "..VICTORY_SCORE.." to client!")
    CustomGameEventManager:Send_ServerToPlayer(player, "initial_score_reply", {scorePrefix = prefix, score = VICTORY_SCORE})
+end
+
+
+
+---------------------------------------------------------------------------
+-- Send Team Resources.
+---------------------------------------------------------------------------
+function SimpleRTSGameMode:SendTeamResources() 
+   local resources = {}
+   for i=0, HIGHEST_PLAYER_INDEX do
+      local curPlayerHero = GetPlayerHero(i)
+      if curPlayerHero then
+	 local curTeamNumber = curPlayerHero:GetTeamNumber()
+	 resources[curTeamNumber] = resources[curTeamNumber] or {}
+	 resources[curTeamNumber][i] = {
+	    gold = curPlayerHero:GetGold(),
+	    lumber = curPlayerHero:GetLumber(),
+	    workers = curPlayerHero:GetWorkerCount()
+	 }
+      end
+   end
+   
+   for teamID,teamData in pairs(resources) do
+      CustomGameEventManager:Send_ServerToTeam(teamID, "team_resources", {teamData = teamData})
+      --CustomGameEventManager:Send_ServerToTeam(teamID, "team_resources", {teamData = teamData})
+   end
 end
 
 

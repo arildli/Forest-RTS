@@ -8,7 +8,7 @@
   </scripts>
   <Panel hittest="false" class="AlliedResourcesPanel">
     <Panel hittest="false" id="AlliedResourcesPanel">
-      <Panel hittest="false" id="TitlePanel">
+      <Panel id="TitlePanel">
 	<Label hittest="false" id="Title" text="Allied Resources" html="true" class="Text"/>
       </Panel>
       <Panel hittest="false" id="PlayerPanels">

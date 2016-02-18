@@ -1,24 +1,37 @@
 "use strict";
 
-function AlliedResources_GetPlayerCountLocalTeam() {
-    var localTeamID = Game.GetLocalPlayerInfo().player_team_id;
-    return Game.GetTeamDetails(localTeamID).team_num_players;    
+var config = {"playerXmlName": "file://{resources}/layout/custom_game/allied_resources_player.xml"};
+var playerResources = [];
+
+function GetLocalTeamID() {
+    return Game.GetLocalPlayerInfo().player_team_id;
+}
+
+function GetPlayerCountLocalTeam() {
+    return Game.GetTeamDetails(GetLocalTeamID()).team_num_players;    
+}
+
+function GetPlayerIDsLocalTeam() {
+    return Game.GetPlayerIDsOnTeam(GetLocalTeamID());
 }
 
 // Checks the player count on the local team and hides
 // the allied resource panel if it's only one on that team.
 function AlliedResources_HideIfSolo() {
-    var playerCountLocalTeam = AlliedResources_GetPlayerCountLocalTeam();
+    var playerCountLocalTeam = GetPlayerCountLocalTeam();
     // Should be if === 1, but 6 for testing.
     if (playerCountLocalTeam === 6) {
 	$("#AlliedResourcesPanel").AddClass("Hidden");
     } else {
+	var postFix = "UpTitle";
+	var titlePanel = $("#TitlePanel");
 	for (var i=1; i<6; i=i+1) {
-	    $("#TitlePanel").RemoveClass(i+"Up");   
+	    titlePanel.RemoveClass(i+postFix);   
 	}
-	var extraSpace = playerCountLocalTeam + "Up";
-	$("#TitlePanel").AddClass(extraSpace);
-	$.Msg("extraSpaceClass: " + extraSpace);
+	var extraSpace = playerCountLocalTeam + postFix;
+	titlePanel.AddClass(extraSpace);
+
+	AlliedResources_UpdateWholePanel();
     }
 }
 
@@ -47,26 +60,71 @@ function AlliedResources_UpdatePlayerPanel(parentPanel, playerID, playerConfig, 
 	return;
     }
     
+    var postFix = "UpPlayer";
     var playerPanel = AlliedResources_GetPlayerPanel(parentPanel, playerID);
     // Create player panel if it doesn't exist.
     if (playerPanel === null) {
 	$.Msg("playerPanel was null!");
 	playerPanel = $.CreatePanel("Panel", parentPanel, "player"+playerID);
 	playerPanel.SetAttributeInt("player_id", playerID);
+	playerPanel.BLoadLayout(config.playerXmlName, false, false);
 	playerPanel.AddClass("PlayerPanel");
 	playerPanel.AddClass(upClass);
     }
 
-    // Continue to fix panel while getting inspiration from
-    // multiteam_top_scoreboard.js.
+    var playerInfo = Game.GetPlayerInfo(playerID);
+    if (playerInfo) {
+	// Set player portrait.
+	var playerPortrait = playerPanel.FindChildInLayoutFile("PlayerImage");
+	if (playerPortrait) {
+	    if (playerInfo.player_selected_hero !== "") {
+		var hero = playerInfo.player_selected_hero;
+		playerPortrait.SetImage("file://{images}/heroes/" + hero + ".png");
+	    } else {
+		playerPortrait.SetImage("file://{images}/custom_game/unassigned.png");
+	    }
+	}
+	
+	var playerName = playerInfo.player_name;
+	if (!playerName) {
+	    playerName = "Name not found";
+	}
+	AlliedResources_SetTextSafe(playerPanel, "PlayerName", playerName);
+    }
+    
+    // Update the values in the panel.
+    var playerData = playerResources[playerID];
+    var playerGold = playerData.gold;
+    var playerLumber = playerData.lumber;
+    var playerWorkers = playerData.workers;
+
+    AlliedResources_SetTextSafe(playerPanel, "GoldCount", playerGold);
+    AlliedResources_SetTextSafe(playerPanel, "LumberCount", playerLumber);
+    AlliedResources_SetTextSafe(playerPanel, "WorkerCount", playerWorkers);
 }
 
 function AlliedResources_UpdateWholePanel() {
+    var playerCountTeam = GetPlayerCountLocalTeam();
+    // Should be 1.
+    if (playerCountTeam === 6) {
+	return;
+    }
+
     var parentPanel = $("#PlayerPanels");
     // Need to iterate over players on team.
-    AlliedResources_UpdatePlayerPanel(parentPanel, 0, {}, "1Up");
-    //$.Msg("Update");
-    //$.Schedule(1.0, AlliedResources_UpdateWholePanel);
+    var localTeamIDs = GetPlayerIDsLocalTeam();
+    var counter = 0;
+    for (var curID of localTeamIDs) {
+	var curMarginClass = counter + "Up";
+	AlliedResources_UpdatePlayerPanel(parentPanel, curID, config, curMarginClass);
+	counter = counter + 1;
+    }
+}
+
+function AlliedResources_UpdatePlayerData(keys) {
+    playerResources = keys.teamData;
+
+    AlliedResources_UpdateWholePanel();
 }
 
 // Moves the panels slightly higher up if flipped.
@@ -81,8 +139,8 @@ function CheckHudFlipped() {
 }
 
 (function() {
+    //GameEvents.Subscribe("team_resources", AlliedResources_UpdatePlayerData);
+
     CheckHudFlipped();
     AlliedResources_HideIfSolo();
-    AlliedResources_UpdateWholePanel();
-    $.Msg();
 })();
