@@ -2,6 +2,8 @@
 
 var config = {"playerXmlName": "file://{resources}/layout/custom_game/allied_resources_player.xml"};
 var playerResources = [];
+var portraitAdded = [];
+var lastPlayerScore = [];
 
 function GetLocalTeamID() {
     return Game.GetLocalPlayerInfo().player_team_id;
@@ -20,7 +22,7 @@ function GetPlayerIDsLocalTeam() {
 function AlliedResources_HideIfSolo() {
     var playerCountLocalTeam = GetPlayerCountLocalTeam();
     // Should be if === 1, but 6 for testing.
-    if (playerCountLocalTeam === 6) {
+    if (playerCountLocalTeam === 1) {
 	$("#AlliedResourcesPanel").AddClass("Hidden");
     } else {
 	var postFix = "UpTitle";
@@ -28,7 +30,7 @@ function AlliedResources_HideIfSolo() {
 	for (var i=1; i<6; i=i+1) {
 	    titlePanel.RemoveClass(i+postFix);   
 	}
-	var extraSpace = playerCountLocalTeam + postFix;
+	var extraSpace = (playerCountLocalTeam-1) + postFix;
 	titlePanel.AddClass(extraSpace);
 
 	AlliedResources_UpdateWholePanel();
@@ -70,16 +72,18 @@ function AlliedResources_UpdatePlayerPanel(parentPanel, playerID, playerConfig, 
 	playerPanel.BLoadLayout(config.playerXmlName, false, false);
 	playerPanel.AddClass("PlayerPanel");
 	playerPanel.AddClass(upClass);
+	$.Msg("upClass: " + upClass);
     }
 
     var playerInfo = Game.GetPlayerInfo(playerID);
-    if (playerInfo) {
+    if (playerInfo && !portraitAdded[playerID]) {
 	// Set player portrait.
 	var playerPortrait = playerPanel.FindChildInLayoutFile("PlayerImage");
 	if (playerPortrait) {
 	    if (playerInfo.player_selected_hero !== "") {
 		var hero = playerInfo.player_selected_hero;
 		playerPortrait.SetImage("file://{images}/heroes/" + hero + ".png");
+		portraitAdded[playerID] = true;
 	    } else {
 		playerPortrait.SetImage("file://{images}/custom_game/unassigned.png");
 	    }
@@ -94,28 +98,49 @@ function AlliedResources_UpdatePlayerPanel(parentPanel, playerID, playerConfig, 
     
     // Update the values in the panel.
     var playerData = playerResources[playerID];
-    var playerGold = playerData.gold;
-    var playerLumber = playerData.lumber;
-    var playerWorkers = playerData.workers;
-
-    AlliedResources_SetTextSafe(playerPanel, "GoldCount", playerGold);
-    AlliedResources_SetTextSafe(playerPanel, "LumberCount", playerLumber);
-    AlliedResources_SetTextSafe(playerPanel, "WorkerCount", playerWorkers);
+    if (playerData) {
+	var playerGold = playerData.gold;
+	var playerLumber = playerData.lumber;
+	var playerWorkers = playerData.workers;
+	
+	/* Return if info hasn't changed since last. */
+	var playerScore = lastPlayerScore[playerID];
+	if (playerScore &&
+	    playerScore.gold === playerGold &&
+	    playerScore.lumber === playerLumber &&
+	    playerScore.workers === playerWorkers) {
+	    return;
+	}
+	
+	lastPlayerScore[playerID] = {
+	    gold : playerGold,
+	    lumber : playerLumber,
+	    workers : playerWorkers
+	};
+	$.Msg("Updating player score...");
+	AlliedResources_SetTextSafe(playerPanel, "GoldCount", playerGold);
+	AlliedResources_SetTextSafe(playerPanel, "LumberCount", playerLumber);
+	AlliedResources_SetTextSafe(playerPanel, "WorkerCount", playerWorkers);
+    }
 }
 
 function AlliedResources_UpdateWholePanel() {
     var playerCountTeam = GetPlayerCountLocalTeam();
     // Should be 1.
-    if (playerCountTeam === 6) {
+    if (playerCountTeam === 1) {
 	return;
     }
 
     var parentPanel = $("#PlayerPanels");
     // Need to iterate over players on team.
     var localTeamIDs = GetPlayerIDsLocalTeam();
-    var counter = 0;
+    var localPlayerID = Players.GetLocalPlayer();
+    var counter = 1;
     for (var curID of localTeamIDs) {
-	var curMarginClass = counter + "Up";
+	if (curID === localPlayerID) {
+	    continue;
+	}
+	var curMarginClass = counter + "UpPlayer";
 	AlliedResources_UpdatePlayerPanel(parentPanel, curID, config, curMarginClass);
 	counter = counter + 1;
     }
@@ -123,7 +148,7 @@ function AlliedResources_UpdateWholePanel() {
 
 function AlliedResources_UpdatePlayerData(keys) {
     playerResources = keys.teamData;
-
+    
     AlliedResources_UpdateWholePanel();
 }
 
@@ -139,7 +164,7 @@ function CheckHudFlipped() {
 }
 
 (function() {
-    //GameEvents.Subscribe("team_resources", AlliedResources_UpdatePlayerData);
+    GameEvents.Subscribe("team_resources", AlliedResources_UpdatePlayerData);
 
     CheckHudFlipped();
     AlliedResources_HideIfSolo();
