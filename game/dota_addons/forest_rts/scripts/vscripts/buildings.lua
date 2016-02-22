@@ -253,16 +253,5 @@ function OnUnitTrained(keys)
    end
 end
 
-	--[[
-	local position = target:GetAbsOrigin()
-	ExecuteOrderFromTable({ UnitIndex = target:GetEntityIndex(),
-							OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
-							Position = position, Queue = true })
-	print(target:GetUnitName().." moving to position", position")
-	]]
-
-
---	print("Ownership set to hero!")
-
 
 

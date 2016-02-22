@@ -2531,6 +2531,541 @@
 
 
 
+//-- // Props // --// Building2
+
+
+
+     	// Building2.1
+	//================================================================================
+	// Prop Barrel
+	//================================================================================
+
+	"npc_dota_building_prop_barrel"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/props_debris/barrel002.vmdl"
+		"ModelScale"					"1.0"
+		"AbilityLayout"					"6"
+
+		"MinimapIcon"					"minimap_tower90"
+		"MinimapIconSize"				"100"
+		"Level"						"1"
+		"HealthBarOffset"				"100"
+		"HasInventory"					"0"
+
+		"SelectionGroup"				"Barrel"
+
+		// Abilities
+		//------------------------------------------------------------------------
+		"Ability10"					"ability_building"
+		"Ability11"					"ability_building_queue"
+
+		// Armor
+		//------------------------------------------------------------------------
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
+		
+		// Attack
+		//------------------------------------------------------------------------
+		"AttackCapabilities"				"DOTA_UNIT_CAP_NO_ATTACK"
+		"AttackDamageMin"				"0"
+		"AttackDamageMax"				"0"
+		"AttackDamageType"				"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"					"1.6"
+		"AttackAnimationPoint"				"0.5"
+		"AttackAcquisitionRange"			"800"
+		"AttackRange"					"800"
+		"ProjectileModel"				"particles/units/heroes/hero_mirana/mirana_base_attack.vpcf"
+		"ProjectileSpeed"				"900"
+
+		// Bounty
+		//------------------------------------------------------------------------
+		"BountyXP"					"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"				"DOTA_HULL_SIZE_SMALL"
+		"RingRadius"					"100"
+		"CollisionSize"					"0"
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"				"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"0"
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"					"50"
+		"StatusHealthRegen"				"0"
+		"StatusMana"					"0"
+		"StatusManaRegen"				"0"
+
+		// Team
+		//----------------------------------------------------------------
+		//	"TeamName"					"DOTA_TEAM_NEUTRALS"			// Team name.
+		"CombatClassAttack"				"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
+		"CombatClassDefend"				"DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
+		"UnitRelationshipClass"				"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"				"100"
+		"VisionNighttimeRange"				"100"
+
+		// Bots
+		//----------------------------------------------------------------
+		//	"AttackDesire"					"1.5"		// How much bots want to attack them vs other non-hero things
+	} 
+
+
+
+     	// Building2.2
+	//================================================================================
+	// Prop Chest
+	//================================================================================
+
+	"npc_dota_building_prop_chest"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/props_debris/merchant_debris_chest001.vmdl"
+		"ModelScale"					"1.2"
+		"AbilityLayout"					"6"
+
+		"MinimapIcon"					"minimap_tower90"
+		"MinimapIconSize"				"100"
+		"Level"						"1"
+		"HealthBarOffset"				"100"
+		"HasInventory"					"0"
+
+		"SelectionGroup"				"Chest"
+
+		// Abilities
+		//------------------------------------------------------------------------
+		"Ability10"					"ability_building"
+		"Ability11"					"ability_building_queue"
+
+		// Armor
+		//------------------------------------------------------------------------
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
+		
+		// Attack
+		//------------------------------------------------------------------------
+		"AttackCapabilities"				"DOTA_UNIT_CAP_NO_ATTACK"
+		"AttackDamageMin"				"0"
+		"AttackDamageMax"				"0"
+		"AttackDamageType"				"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"					"1.6"
+		"AttackAnimationPoint"				"0.5"
+		"AttackAcquisitionRange"			"800"
+		"AttackRange"					"800"
+		"ProjectileModel"				"particles/units/heroes/hero_mirana/mirana_base_attack.vpcf"
+		"ProjectileSpeed"				"900"
+
+		// Bounty
+		//------------------------------------------------------------------------
+		"BountyXP"					"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"				"DOTA_HULL_SIZE_SMALL"
+		"RingRadius"					"100"
+		"CollisionSize"					"0"
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"				"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"0"
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"					"50"
+		"StatusHealthRegen"				"0"
+		"StatusMana"					"0"
+		"StatusManaRegen"				"0"
+
+		// Team
+		//----------------------------------------------------------------
+		//	"TeamName"					"DOTA_TEAM_NEUTRALS"			// Team name.
+		"CombatClassAttack"				"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
+		"CombatClassDefend"				"DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
+		"UnitRelationshipClass"				"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"				"100"
+		"VisionNighttimeRange"				"100"
+
+		// Bots
+		//----------------------------------------------------------------
+		//	"AttackDesire"					"1.5"		// How much bots want to attack them vs other non-hero things
+	} 
+
+
+
+     	// Building2.3
+	//================================================================================
+	// Prop Stash
+	//================================================================================
+
+	"npc_dota_building_prop_stash"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/props_debris/secret_shop001.vmdl"
+		"ModelScale"					"0.9"
+		"AbilityLayout"					"6"
+
+		"MinimapIcon"					"minimap_tower90"
+		"MinimapIconSize"				"100"
+		"Level"						"1"
+		"HealthBarOffset"				"100"
+		"HasInventory"					"0"
+
+		"SelectionGroup"				"Weapons"
+
+		// Abilities
+		//------------------------------------------------------------------------
+		"Ability10"					"ability_building"
+		"Ability11"					"ability_building_queue"
+
+		// Armor
+		//------------------------------------------------------------------------
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
+		
+		// Attack
+		//------------------------------------------------------------------------
+		"AttackCapabilities"				"DOTA_UNIT_CAP_NO_ATTACK"
+		"AttackDamageMin"				"0"
+		"AttackDamageMax"				"0"
+		"AttackDamageType"				"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"					"1.6"
+		"AttackAnimationPoint"				"0.5"
+		"AttackAcquisitionRange"			"800"
+		"AttackRange"					"800"
+		"ProjectileModel"				"particles/units/heroes/hero_mirana/mirana_base_attack.vpcf"
+		"ProjectileSpeed"				"900"
+
+		// Bounty
+		//------------------------------------------------------------------------
+		"BountyXP"					"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"				"DOTA_HULL_SIZE_SMALL"
+		"RingRadius"					"100"
+		"CollisionSize"					"0"
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"				"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"0"
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"					"50"
+		"StatusHealthRegen"				"0"
+		"StatusMana"					"0"
+		"StatusManaRegen"				"0"
+
+		// Team
+		//----------------------------------------------------------------
+		//	"TeamName"					"DOTA_TEAM_NEUTRALS"			// Team name.
+		"CombatClassAttack"				"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
+		"CombatClassDefend"				"DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
+		"UnitRelationshipClass"				"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"				"100"
+		"VisionNighttimeRange"				"100"
+
+		// Bots
+		//----------------------------------------------------------------
+		//	"AttackDesire"					"1.5"		// How much bots want to attack them vs other non-hero things
+	} 
+
+
+
+     	// Building2.4
+	//================================================================================
+	// Prop Weapon Rack
+	//================================================================================
+
+	"npc_dota_building_prop_weapon_rack"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/props_structures/weapon_rack_00.vmdl"
+		"ModelScale"					"0.9"
+		"AbilityLayout"					"6"
+
+		"MinimapIcon"					"minimap_tower90"
+		"MinimapIconSize"				"100"
+		"Level"						"1"
+		"HealthBarOffset"				"100"
+		"HasInventory"					"0"
+
+		"SelectionGroup"				"WeaponRack"
+
+		// Abilities
+		//------------------------------------------------------------------------
+		"Ability10"					"ability_building"
+		"Ability11"					"ability_building_queue"
+
+		// Armor
+		//------------------------------------------------------------------------
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
+		
+		// Attack
+		//------------------------------------------------------------------------
+		"AttackCapabilities"				"DOTA_UNIT_CAP_NO_ATTACK"
+		"AttackDamageMin"				"0"
+		"AttackDamageMax"				"0"
+		"AttackDamageType"				"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"					"1.6"
+		"AttackAnimationPoint"				"0.5"
+		"AttackAcquisitionRange"			"800"
+		"AttackRange"					"800"
+		"ProjectileModel"				"particles/units/heroes/hero_mirana/mirana_base_attack.vpcf"
+		"ProjectileSpeed"				"900"
+
+		// Bounty
+		//------------------------------------------------------------------------
+		"BountyXP"					"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"				"DOTA_HULL_SIZE_SMALL"
+		"RingRadius"					"100"
+		"CollisionSize"					"0"
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"				"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"0"
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"					"50"
+		"StatusHealthRegen"				"0"
+		"StatusMana"					"0"
+		"StatusManaRegen"				"0"
+
+		// Team
+		//----------------------------------------------------------------
+		//	"TeamName"					"DOTA_TEAM_NEUTRALS"			// Team name.
+		"CombatClassAttack"				"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
+		"CombatClassDefend"				"DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
+		"UnitRelationshipClass"				"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"				"100"
+		"VisionNighttimeRange"				"100"
+
+		// Bots
+		//----------------------------------------------------------------
+		//	"AttackDesire"					"1.5"		// How much bots want to attack them vs other non-hero things
+	} 
+
+
+
+     	// Building2.5
+	//================================================================================
+	// Prop Banner Radiant
+	//================================================================================
+
+	"npc_dota_building_prop_banner_radiant"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/props_teams/banner_radiant.vmdl"
+		"ModelScale"					"1.0"
+		"AbilityLayout"					"6"
+
+		"MinimapIcon"					"minimap_tower90"
+		"MinimapIconSize"				"100"
+		"Level"						"1"
+		"HealthBarOffset"				"100"
+		"HasInventory"					"0"
+
+		"SelectionGroup"				"Banner"
+
+		// Abilities
+		//------------------------------------------------------------------------
+		"Ability10"					"ability_building"
+		"Ability11"					"ability_building_queue"
+
+		// Armor
+		//------------------------------------------------------------------------
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
+		
+		// Attack
+		//------------------------------------------------------------------------
+		"AttackCapabilities"				"DOTA_UNIT_CAP_NO_ATTACK"
+		"AttackDamageMin"				"0"
+		"AttackDamageMax"				"0"
+		"AttackDamageType"				"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"					"1.6"
+		"AttackAnimationPoint"				"0.5"
+		"AttackAcquisitionRange"			"800"
+		"AttackRange"					"800"
+		"ProjectileModel"				"particles/units/heroes/hero_mirana/mirana_base_attack.vpcf"
+		"ProjectileSpeed"				"900"
+
+		// Bounty
+		//------------------------------------------------------------------------
+		"BountyXP"					"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"				"DOTA_HULL_SIZE_SMALL"
+		"RingRadius"					"100"
+		"CollisionSize"					"0"
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"				"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"0"
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"					"50"
+		"StatusHealthRegen"				"0"
+		"StatusMana"					"0"
+		"StatusManaRegen"				"0"
+
+		// Team
+		//----------------------------------------------------------------
+		//	"TeamName"					"DOTA_TEAM_NEUTRALS"			// Team name.
+		"CombatClassAttack"				"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
+		"CombatClassDefend"				"DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
+		"UnitRelationshipClass"				"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"				"100"
+		"VisionNighttimeRange"				"100"
+
+		// Bots
+		//----------------------------------------------------------------
+		//	"AttackDesire"					"1.5"		// How much bots want to attack them vs other non-hero things
+	} 
+
+
+
+     	// Building2.6
+	//================================================================================
+	// Prop Banner Dire
+	//================================================================================
+
+	"npc_dota_building_prop_banner_dire"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/props_teams/banner_dire_small.vmdl"
+		"ModelScale"					"1.0"
+		"AbilityLayout"					"6"
+
+		"MinimapIcon"					"minimap_tower90"
+		"MinimapIconSize"				"100"
+		"Level"						"1"
+		"HealthBarOffset"				"100"
+		"HasInventory"					"0"
+
+		"SelectionGroup"				"Banner"
+
+		// Abilities
+		//------------------------------------------------------------------------
+		"Ability10"					"ability_building"
+		"Ability11"					"ability_building_queue"
+
+		// Armor
+		//------------------------------------------------------------------------
+		"ArmorPhysical"					"0"
+		"MagicalResistance"				"0"
+		
+		// Attack
+		//------------------------------------------------------------------------
+		"AttackCapabilities"				"DOTA_UNIT_CAP_NO_ATTACK"
+		"AttackDamageMin"				"0"
+		"AttackDamageMax"				"0"
+		"AttackDamageType"				"DAMAGE_TYPE_ArmorPhysical"
+		"AttackRate"					"1.6"
+		"AttackAnimationPoint"				"0.5"
+		"AttackAcquisitionRange"			"800"
+		"AttackRange"					"800"
+		"ProjectileModel"				"particles/units/heroes/hero_mirana/mirana_base_attack.vpcf"
+		"ProjectileSpeed"				"900"
+
+		// Bounty
+		//------------------------------------------------------------------------
+		"BountyXP"					"0"
+		"BountyGoldMin"					"0"
+		"BountyGoldMax"					"0"
+
+		// Bounds
+		//----------------------------------------------------------------
+		"BoundsHullName"				"DOTA_HULL_SIZE_SMALL"
+		"RingRadius"					"100"
+		"CollisionSize"					"0"
+
+		// Movement
+		//----------------------------------------------------------------
+		"MovementCapabilities"				"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"					"0"
+
+		// Status
+		//----------------------------------------------------------------
+		"StatusHealth"					"50"
+		"StatusHealthRegen"				"0"
+		"StatusMana"					"0"
+		"StatusManaRegen"				"0"
+
+		// Team
+		//----------------------------------------------------------------
+		//	"TeamName"					"DOTA_TEAM_NEUTRALS"			// Team name.
+		"CombatClassAttack"				"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
+		"CombatClassDefend"				"DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
+		"UnitRelationshipClass"				"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+
+		// Vision
+		//----------------------------------------------------------------
+		"VisionDaytimeRange"				"100"
+		"VisionNighttimeRange"				"100"
+
+		// Bots
+		//----------------------------------------------------------------
+		//	"AttackDesire"					"1.5"		// How much bots want to attack them vs other non-hero things
+	} 
+
+
+
+
+
+
 //-- // Buildinghelper Library Units // --// Lib1
 
 

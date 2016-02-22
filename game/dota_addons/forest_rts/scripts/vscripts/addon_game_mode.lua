@@ -92,6 +92,22 @@ function Precache( context )
 
 
 
+	-- Props
+	   -- Barrel
+	PrecacheResource("model", "models/props_debris/barrel002.vmdl", context)
+	   -- Chest
+	PrecacheResource("model", "models/props_debris/merchant_debris_chest001.vmdl", context)
+	   -- Stash
+	PrecacheResource("model", "models/props_debris/secret_shop001.vmdl", context)
+	   -- Weapon Rack
+	PrecacheResource("model", "models/props_structures/weapon_rack_00.vmdl", context)
+	   -- Banner Radiant
+	PrecacheResource("model", "models/props_teams/banner_radiant.vmdl", context)
+	   -- Banner Dire
+	PrecacheResource("model", "models/props_teams/banner_dire_small.vmdl", context)
+
+
+
 
 
 	-- Units and their items

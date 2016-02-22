@@ -1,10 +1,3 @@
-N- Sjekk om alle funksjoner/metoder med -- CHECK IF USED er i bruk.
-  Hvis ikke bÃ¸r disse fjernes.
-  *
-
-- Rydd bort utkommentert kode etter testing:
-  * buildings.lua
-
 - Legg til firkanter ved ghost!
 
 - Fiks ferdig rally point i SimpleRTSGameMode:onRallyPointSet!
@@ -26,4 +19,35 @@ N- Sjekk om alle funksjoner/metoder med -- CHECK IF USED er i bruk.
 - Sjekk denne linken for tips om allied resources panel:
 https://developer.valvesoftware.com/wiki/Dota_2_Workshop_Tools/Panorama/Panels
 
+Ideer:
+- Tips toggle knapp, f.eks. beskjed hvis harvest uten tent.
+- Game mode desc text 30 sec før start.
+- Lære 3D modellering.
+- Høyere harvesttid for hero.
+- Kjøpe billige props.
+- Beginnerquests?
+- Option hvor death er permanent.
+- Item drops fra camps.
+- Skrive hva som er målet + poeng ved patrols.
+- Sjekk good_stonewall modellene for steinmurer!
+- Sjekk bad_crystals(00x) for krystaller som mulig resource!
+- Voting for om team colors på eller av.
+- Reduser size gold mine.
 
+Mulige 3D ideer:
+- Cart (wooden_cart.vmdl) + kotl hest?
+
+Props
+- models/props_debris/barrel002.vmdl (Mørk tønne)
+- models/props_debris/merchant_debris_chest001.vmdl (Kiste)
+- models/props_debris/secret_shop001.vmdl (Stash)
+- models/props_debris/wood_fence001e.vmdl (Lite gjerde)
+- models/props_gameplay/tombstoneb01.vmdl (Gravstein liten)
+- models/props_structures/gravestone005.vmdl (Gravstein omni)
+- models/props_structures/weapon_rack_00.vmdl (Weapons rack)
+- models/props_teams/banner_tintable.vmdl (Tintable banner)
+- models/props_structures/mine001.vmdl (Port tre)
+- models/props_structures/leanto_sticks.vmdl (Telt av pinner)
+- models/props_gameplay/npc/shopkeeper_the_lost_meepo/shopkeeper_the_lost_meepo.vmdl (Meepo shopkeeper)
+
+- models/props_debris/spike_fence002a.vmdl (Små spikes, mindre mur).

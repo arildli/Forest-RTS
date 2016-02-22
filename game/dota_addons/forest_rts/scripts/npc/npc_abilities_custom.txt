@@ -903,7 +903,7 @@
 		"UnitName"					"npc_dota_building_main_tent_small"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"0"
-		"BuildTime"					"10"
+		"BuildTime"					"6"
 		// End of BuildingHelper info
 
 		"AbilitySpecial"
@@ -923,7 +923,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"build_time"	"10"
+				"build_time"	"6"
 			}
 			
 			//"04"
@@ -1750,6 +1750,469 @@
 			}	
 		}
 	}
+
+
+
+	// Spell6.5
+	//================================================================================
+	// Props Menu
+	//================================================================================
+	"srts_menu_props"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Props Menu"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"treant_natures_guise"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		"AbilityCastPoint"		"0"
+		"AbilityCastRange"		"0"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"POINT"
+				"ScriptFile"	"scripts/vscripts/ability_pages.lua"
+				"Function"	"GoToPageFunction"
+				"pageNumber"	"PAGE_MENU_PROPS"
+			}	
+		}
+	}
+
+
+
+
+
+//-- // Other spells // --// Spell10
+
+
+
+
+
+	// Spell10.1
+	//================================================================================
+	// Build Barrel
+	//================================================================================
+
+	"srts_construct_prop_barrel"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Barrel"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_barrel"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"0"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+
+		"UnitName"					"npc_dota_building_prop_barrel"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"10"
+		"AbilityLumberCost"				"0"
+		"BuildTime"					"10"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"10"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"10"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"1.0"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+	// Spell10.2
+	//================================================================================
+	// Build Chest
+	//================================================================================
+
+	"srts_construct_prop_chest"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Chest"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_chest"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"0"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+
+		"UnitName"					"npc_dota_building_prop_chest"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"10"
+		"AbilityLumberCost"				"0"
+		"BuildTime"					"10"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"10"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"10"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"1.2"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+	// Spell10.3
+	//================================================================================
+	// Build Stash
+	//================================================================================
+
+	"srts_construct_prop_stash"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Stash"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_weapons"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"0"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+
+		"UnitName"					"npc_dota_building_prop_stash"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"10"
+		"AbilityLumberCost"				"0"
+		"BuildTime"					"10"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"10"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"10"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.9"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+	// Spell10.4
+	//================================================================================
+	// Build Weapon Rack
+	//================================================================================
+
+	"srts_construct_prop_weapon_rack"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Weapon Rack"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_weapon_rack"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"0"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+
+		"UnitName"					"npc_dota_building_prop_weapon_rack"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"10"
+		"AbilityLumberCost"				"0"
+		"BuildTime"					"10"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"10"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"10"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.9"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+	// Spell10.5
+	//================================================================================
+	// Build Banner Radiant
+	//================================================================================
+
+	"srts_construct_prop_banner_radiant"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Banner"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_banner_radiant"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"0"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+
+		"UnitName"					"npc_dota_building_prop_banner_radiant"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"10"
+		"AbilityLumberCost"				"0"
+		"BuildTime"					"10"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"10"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"10"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"1.0"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
+
+
+	// Spell10.6
+	//================================================================================
+	// Build Banner Dire
+	//================================================================================
+
+	"srts_construct_prop_banner_dire"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Banner"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_banner_dire"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"0"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+
+		"UnitName"					"npc_dota_building_prop_banner_dire"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"10"
+		"AbilityLumberCost"				"0"
+		"BuildTime"					"10"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"10"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"10"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"1.0"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}	
+	}
+
 
 
 

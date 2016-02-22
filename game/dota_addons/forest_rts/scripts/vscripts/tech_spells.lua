@@ -93,6 +93,11 @@ defs = {
     category = "spell"
   },
 
+  PAGE_MENU_PROPS = {
+     spell = "srts_menu_props",
+     category = "spell"
+  },
+
   -- Upgrades
   UPGRADE_LIGHT_ARMOR = {
      spell = "srts_upgrade_light_armor",
@@ -345,6 +350,87 @@ defs = {
 
 
 
+  -- Props
+  PROP_BARREL = {
+     name = "npc_dota_building_prop_barrel",
+     spell = "srts_construct_prop_barrel",
+     category = "building",
+     req = {{"TENT_SMALL", "TENT_LARGE"}},
+     pages = {
+	PAGE_MAIN = {},
+	HIDDEN = {
+	   "BUILDING"
+	}
+     }
+  },
+
+  PROP_CHEST = {
+     name = "npc_dota_building_prop_chest",
+     spell = "srts_construct_prop_chest",
+     category = "building",
+     req = {{"TENT_SMALL", "TENT_LARGE"}},
+     pages = {
+	PAGE_MAIN = {},
+	HIDDEN = {
+	   "BUILDING"
+	}
+     }
+  },
+
+  PROP_STASH = {
+     name = "npc_dota_building_prop_stash",
+     spell = "srts_construct_prop_stash",
+     category = "building",
+     req = {{"TENT_SMALL", "TENT_LARGE"}},
+     pages = {
+	PAGE_MAIN = {},
+	HIDDEN = {
+	   "BUILDING"
+	}
+     }
+  },
+
+  PROP_WEAPON_RACK = {
+     name = "npc_dota_building_prop_weapon_rack",
+     spell = "srts_construct_prop_weapon_rack",
+     category = "building",
+     req = {{"TENT_SMALL", "TENT_LARGE"}},
+     pages = {
+	PAGE_MAIN = {},
+	HIDDEN = {
+	   "BUILDING"
+	}
+     }
+  },
+
+  PROP_BANNER_RADIANT = {
+     name = "npc_dota_building_prop_banner_radiant",
+     spell = "srts_construct_prop_banner_radiant",
+     category = "building",
+     req = {{"TENT_SMALL", "TENT_LARGE"}},
+     pages = {
+	PAGE_MAIN = {},
+	HIDDEN = {
+	   "BUILDING"
+	}
+     }
+  },
+
+  PROP_BANNER_DIRE = {
+     name = "npc_dota_building_prop_banner_dire",
+     spell = "srts_construct_prop_banner_dire",
+     category = "building",
+     req = {{"TENT_SMALL", "TENT_LARGE"}},
+     pages = {
+	PAGE_MAIN = {},
+	HIDDEN = {
+	   "BUILDING"
+	}
+     }
+  },
+
+
+
   -- Units
   COMMON_TRAIN_WORKER = {
     name = "npc_dota_creature_worker",
@@ -365,7 +451,8 @@ defs = {
 	"TRANSFER_LUMBER",
 	"REPAIR_BUILDING",
 	"PAGE_MENU_CONSTRUCTION_BASIC",
-	"PAGE_MENU_CONSTRUCTION_ADVANCED"
+	"PAGE_MENU_CONSTRUCTION_ADVANCED",
+	"PAGE_MENU_PROPS"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
 	"TENT_SMALL",
@@ -382,6 +469,14 @@ defs = {
 	"EMPTY_FILLER",
 	"EMPTY_FILLER",
 	"PAGE_MAIN"
+      },
+      PAGE_MENU_PROPS = {
+	 "PROP_BARREL",
+	 "PROP_CHEST",
+	 "PROP_STASH",
+	 "PROP_WEAPON_RACK",
+	 "PROP_BANNER_RADIANT",
+	 "PAGE_MAIN"
       },
       HIDDEN = {
 	"UNIT"
@@ -443,7 +538,8 @@ defs = {
 	"TRANSFER_LUMBER",
 	"REPAIR_BUILDING",
 	"PAGE_MENU_CONSTRUCTION_BASIC",
-	"PAGE_MENU_CONSTRUCTION_ADVANCED"
+	"PAGE_MENU_CONSTRUCTION_ADVANCED",
+	"PAGE_MENU_PROPS"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
 	"TENT_SMALL",
@@ -460,6 +556,14 @@ defs = {
 	"EMPTY_FILLER",
 	"EMPTY_FILLER",
 	"PAGE_MAIN"
+      },
+      PAGE_MENU_PROPS = {
+	 "PROP_BARREL",
+	 "PROP_CHEST",
+	 "PROP_STASH",
+	 "PROP_WEAPON_RACK",
+	 "PROP_BANNER_RADIANT",
+	 "PAGE_MAIN"
       },
       HIDDEN = {
 	"UNIT"
@@ -523,7 +627,8 @@ defs = {
 	"TRANSFER_LUMBER",
 	"REPAIR_BUILDING",
 	"PAGE_MENU_CONSTRUCTION_BASIC",
-	"PAGE_MENU_CONSTRUCTION_ADVANCED"
+	"PAGE_MENU_CONSTRUCTION_ADVANCED",
+	"PAGE_MENU_PROPS"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
 	"TENT_SMALL",
@@ -540,6 +645,14 @@ defs = {
 	"EMPTY_FILLER",
 	"EMPTY_FILLER",
 	"PAGE_MAIN"
+      },
+      PAGE_MENU_PROPS = {
+	 "PROP_BARREL",
+	 "PROP_CHEST",
+	 "PROP_STASH",
+	 "PROP_WEAPON_RACK",
+	 "PROP_BANNER_DIRE",
+	 "PAGE_MAIN"
       },
       HIDDEN = {
 	"UNIT"
@@ -600,10 +713,11 @@ defs = {
     pages = {
       PAGE_MAIN = {
 	"HARVEST_LUMBER_WORKER",
-	"TRANSFER_LUMBE",
+	"TRANSFER_LUMBER",
 	"REPAIR_BUILDING",
 	"PAGE_MENU_CONSTRUCTION_BASIC",
-	"PAGE_MENU_CONSTRUCTION_ADVANCED"
+	"PAGE_MENU_CONSTRUCTION_ADVANCED",
+	"PAGE_MENU_PROPS"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
 	"TENT_SMALL",
@@ -620,6 +734,14 @@ defs = {
 	"EMPTY_FILLER",
 	"EMPTY_FILLER",
 	"PAGE_MAIN"
+      },
+      PAGE_MENU_PROPS = {
+	 "PROP_BARREL",
+	 "PROP_CHEST",
+	 "PROP_STASH",
+	 "PROP_WEAPON_RACK",
+	 "PROP_BANNER_DIRE",
+	 "PAGE_MAIN"
       },
       HIDDEN = {
 	"UNIT"
@@ -683,7 +805,8 @@ defs = {
 	"TRANSFER_LUMBER",
 	"REPAIR_BUILDING",
 	"PAGE_MENU_CONSTRUCTION_BASIC",
-	"PAGE_MENU_CONSTRUCTION_ADVANCED"
+	"PAGE_MENU_CONSTRUCTION_ADVANCED",
+	"PAGE_MENU_PROPS"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
 	"TENT_SMALL",
@@ -700,6 +823,14 @@ defs = {
 	"EMPTY_FILLER",
 	"EMPTY_FILLER",
 	"PAGE_MAIN"
+      },
+      PAGE_MENU_PROPS = {
+	 "PROP_BARREL",
+	 "PROP_CHEST",
+	 "PROP_STASH",
+	 "PROP_WEAPON_RACK",
+	 "PROP_BANNER_DIRE",
+	 "PAGE_MAIN"
       },
       HIDDEN = {
 	"UNIT"
