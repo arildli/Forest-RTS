@@ -87,6 +87,9 @@ function Precache( context )
 	-- Healing Aura Particle
 	PrecacheResource("particle", "particles/units/heroes/hero_enchantress/enchantress_natures_attendants_heal_aura.vpcf", context)
 
+	-- Radiant Training Particle
+	PrecacheResource("particle", "particles/radiant_fx/good_barracks_ranged001_modeled_wavestop.vpcf", context)
+
 
 
 

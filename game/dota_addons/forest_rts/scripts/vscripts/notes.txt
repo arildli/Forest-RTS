@@ -1,11 +1,9 @@
-- Sjekk om alle funksjoner/metoder med -- CHECK IF USED er i bruk.
+N- Sjekk om alle funksjoner/metoder med -- CHECK IF USED er i bruk.
   Hvis ikke bÃ¸r disse fjernes.
   *
 
 - Rydd bort utkommentert kode etter testing:
   * buildings.lua
-
-- Fiks Flood Fill eller bytt ut med annen algoritme!
 
 - Legg til firkanter ved ghost!
 
@@ -17,8 +15,15 @@
 
 - Add bosses to patrols.
 
+- Speed aura går på tvers av spillere!
+
 - WATCH TOWER VIL IKKE FULLFØRE FOR COMMANDER!
 
-- Sjekk denne linked for tips om allied resources panel:
+- Sjekk etter pathable trees nær worker regelmessig!
+
+- Sjekk Rise of Nations videoer for inspirasjon.
+
+- Sjekk denne linken for tips om allied resources panel:
 https://developer.valvesoftware.com/wiki/Dota_2_Workshop_Tools/Panorama/Panels
+
 

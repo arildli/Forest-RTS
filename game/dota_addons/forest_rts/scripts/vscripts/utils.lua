@@ -376,11 +376,15 @@ end
 function GetAllPathableTreesFromList( height, list )
    local pathable_trees = {}
    for _,tree in pairs(list) do
+      if IsTreePathable(tree) then
+	 table.insert(pathable_trees, tree)
+      end
       -- EDITED
-      local treeHeight = tree:GetCenter().z
+      --[=[local treeHeight = tree:GetCenter().z
       if IsTreePathable(tree) and treeHeight == height then
 	 table.insert(pathable_trees, tree)
       end
+      ]=]
       -- DONE
    end
    return pathable_trees
@@ -431,9 +435,10 @@ function DeterminePathableTrees()
    
    --Set Q to the empty queue.
    local Q = {}
-   
+
    --Add node to the end of Q.
-   table.insert(Q, Vector(0,0,0))
+   table.insert(Q, Vector(-7200, -6600, 0))
+   --table.insert(Q, Vector(0,0,0))
    
    local vecs = {
       Vector(0,64,0),-- N
@@ -457,7 +462,7 @@ function DeterminePathableTrees()
 	 --DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 0, 255, 0, 255, 600)
 	 -- DONE
 	 
-	 --table.insert(world_positions, position)
+	 table.insert(world_positions, position)
 	 
 	 -- Mark position processed.
 	 seen[GridNav:WorldToGridPosX(position.x)..","..GridNav:WorldToGridPosX(position.y)] = 1
@@ -467,14 +472,13 @@ function DeterminePathableTrees()
 	    local xoff = vec.x
 	    local yoff = vec.y
 	    local pos = Vector(position.x + xoff, position.y + yoff, position.z)
-	    
+
 	    -- Add unprocessed nodes
 	    if not seen[GridNav:WorldToGridPosX(pos.x)..","..GridNav:WorldToGridPosX(pos.y)] then
-	       --table.insert(world_positions, position)
+	       table.insert(world_positions, position)
 	       table.insert(Q, pos)
 	    end
 	 end
-	 
       else
 	 -- EDITED
 	 --DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 255, 0, 0, 255, 600)
@@ -486,7 +490,7 @@ function DeterminePathableTrees()
 	    if #trees > 0 then
 	       local t = trees[1]
 	       t.pathable = true
-	       --table.insert(valid_trees,t)
+	       table.insert(valid_trees,t)
 	    end
 	 end
       end
@@ -494,9 +498,9 @@ function DeterminePathableTrees()
    
    print("Number of valid trees: "..#valid_trees)
    --DEBUG
-   for k,tree in pairs(valid_trees) do
-     DebugDrawCircle(tree:GetAbsOrigin(), Vector(0,255,0), 0, 32, true, 60)
-   end
+   --for k,tree in pairs(valid_trees) do
+   --  DebugDrawCircle(tree:GetAbsOrigin(), Vector(0,255,0), 0, 32, true, 60)
+   --end
 end
 
 
