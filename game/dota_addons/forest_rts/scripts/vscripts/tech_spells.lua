@@ -182,6 +182,7 @@ defs = {
     spell = "srts_upgrade_main_building",
     category = "building",
     max = 1,
+    from = "TENT_SMALL",
     pages = {
       PAGE_MAIN = {
 	-- Defined later.

@@ -350,7 +350,7 @@ function SimpleRTSGameMode:onGameStateChange(keys)
       if self.gameMode == "Solo" then
 	 SimpleRTSGameMode:SinglePlayerMode(self.botTeam)
       elseif self.gameMode == "Co-Op" then
-	 SimpleRTSGameMode:CoOpMode(self.botTeam, playerTeam, self.totalCount)
+	 SimpleRTSGameMode:CoOpMode(self.botTeam, self.playerTeam, self.totalCount)
       elseif self.gameMode == "PvP" then
 	 SimpleRTSGameMode:NormalMode()
       end

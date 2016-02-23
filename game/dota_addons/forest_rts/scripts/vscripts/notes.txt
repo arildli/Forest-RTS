@@ -20,10 +20,10 @@
 https://developer.valvesoftware.com/wiki/Dota_2_Workshop_Tools/Panorama/Panels
 
 Ideer:
+- Legg til host options, f.eks. team color eller ikke (default off).
 - Tips toggle knapp, f.eks. beskjed hvis harvest uten tent.
 - Game mode desc text 30 sec før start.
 - Lære 3D modellering.
-- Høyere harvesttid for hero.
 - Kjøpe billige props.
 - Beginnerquests?
 - Option hvor death er permanent.
@@ -31,10 +31,17 @@ Ideer:
 - Skrive hva som er målet + poeng ved patrols.
 - Sjekk good_stonewall modellene for steinmurer!
 - Sjekk bad_crystals(00x) for krystaller som mulig resource!
-- Voting for om team colors på eller av.
-- Reduser size gold mine.
 - Food system for unit buffs som kan kjøpes? Optional, men nyttig hvis man er villig til å ofre litt lumber income.
 - Lumber harvesting upgrade.
+- Tent upgrade + ny barracks.
+- Ekstra ressurser rundt om på mappet som gir bonuser av et eller annet slag. Optional?
+- Set rally points for alle bygninger i selection.
+- Tren unit for alle bygninger i selection.
+- Upgrade for flame thrower dot?
+- Upgrade for lumber harvest speed?
+- Gold bygninger
+- UpgradedFrom field i tech_spell for tent og sjekk for dette ang. unit count dec i tech_tree!
+- Legg til alle spells i Hidden hver gang page skiftes.
 
 Mulige 3D ideer:
 - Cart (wooden_cart.vmdl) + kotl hest?

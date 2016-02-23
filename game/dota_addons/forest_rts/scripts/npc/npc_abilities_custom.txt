@@ -3401,16 +3401,10 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"duration_creep"	"3"
+				"duration"	"3"
 			}
 
 			"02"
-			{
-				"var_type"	"FIELD_INTEGER"
-				"duration_hero"	"2"
-			}
-
-			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
 				"damage_per_second"	"2"
@@ -3431,21 +3425,10 @@
 						"Target"
 						{
 							"Center"	"TARGET"
-							"Type"		"DOTA_UNIT_TARGET_BASIC"
+							"Type"		"DOTA_UNIT_TARGET_ALL"
 						}
 						"ModifierName"	"modifier_ignited"
-						"Duration"	"%duration_creep"
-					}
-
-					"ApplyModifier"
-					{
-						"Target"
-						{
-							"Center"	"TARGET"
-							"Type"		"DOTA_UNIT_TARGET_HERO"
-						}
-						"ModifierName"	"modifier_ignited"
-						"Duration"	"%duration_hero"
+						"Duration"	"%duration"
 					}
 				}
 			}
@@ -3456,6 +3439,7 @@
 				"IsDebuff"	"1"
 				"IsHidden"	"0"
 				"TextureName"	"warlock_golem_flaming_fists"
+				"Attributes" 	"MODIFIER_ATTRIBUTE_MULTIPLE"
 
 				"ThinkInterval"	"1.0"
 				"OnIntervalThink"
