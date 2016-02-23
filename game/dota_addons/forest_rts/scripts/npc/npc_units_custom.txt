@@ -2344,7 +2344,7 @@
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
 		"Model"						"models/mine/mine.vmdl"
-		"ModelScale"					"0.65"
+		"ModelScale"					"0.55"
 		"AbilityLayout"					"6"		
 
 		"SoundSet"					"Creep_Good_Melee"

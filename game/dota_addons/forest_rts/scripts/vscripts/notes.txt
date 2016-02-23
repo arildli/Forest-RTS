@@ -12,7 +12,7 @@
 
 - WATCH TOWER VIL IKKE FULLFØRE FOR COMMANDER!
 
-- Sjekk etter pathable trees nær worker regelmessig!
+- Sjekk etter pathable trees nær worker regelmessig?
 
 - Sjekk Rise of Nations videoer for inspirasjon.
 
@@ -33,9 +33,12 @@ Ideer:
 - Sjekk bad_crystals(00x) for krystaller som mulig resource!
 - Voting for om team colors på eller av.
 - Reduser size gold mine.
+- Food system for unit buffs som kan kjøpes? Optional, men nyttig hvis man er villig til å ofre litt lumber income.
+- Lumber harvesting upgrade.
 
 Mulige 3D ideer:
 - Cart (wooden_cart.vmdl) + kotl hest?
+- Kobold + wolf?
 
 Props
 - models/props_debris/barrel002.vmdl (Mørk tønne)
