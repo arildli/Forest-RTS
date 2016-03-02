@@ -355,7 +355,7 @@
 		"AbilityName"			"Harvest"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"	
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_TREE"
-		"AbilityTextureName"		"beastmaster_wild_axes"
+		"AbilityTextureName"		"spellicon_harvest_tree_worker"
 		"BaseClass"			"ability_datadriven"
 		"Maxlevel"			"1"
 
@@ -493,7 +493,7 @@
 		"AbilityName"			"Harvest Worker"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"	
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_TREE"
-		"AbilityTextureName"		"beastmaster_wild_axes"
+		"AbilityTextureName"		"spellicon_harvest_tree_worker"
 		"BaseClass"			"ability_datadriven"
 		"Maxlevel"			"1"
 
@@ -1662,7 +1662,7 @@
 		//------------------------------------------------------------------------
 		"AbilityName"			"Main Menu"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityTextureName"		"omniknight_purification"
+		"AbilityTextureName"		"spellicon_main_menu"
 		"BaseClass"			"ability_datadriven"
 		"Maxlevel"			"1"
 
@@ -1696,7 +1696,7 @@
 		//------------------------------------------------------------------------
 		"AbilityName"			"Construction Menu"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityTextureName"		"chen_holy_persuasion"
+		"AbilityTextureName"		"spellicon_construction_basic"
 		"BaseClass"			"ability_datadriven"
 		"Maxlevel"			"1"
 
@@ -1730,7 +1730,7 @@
 		//------------------------------------------------------------------------
 		"AbilityName"			"Advanced Construction Menu"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityTextureName"		"chen_test_of_faith"
+		"AbilityTextureName"		"spellicon_construction_advanced"
 		"BaseClass"			"ability_datadriven"
 		"Maxlevel"			"1"
 
@@ -1764,7 +1764,7 @@
 		//------------------------------------------------------------------------
 		"AbilityName"			"Props Menu"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityTextureName"		"treant_natures_guise"
+		"AbilityTextureName"		"spellicon_props"
 		"BaseClass"			"ability_datadriven"
 		"Maxlevel"			"1"
 
@@ -2431,7 +2431,7 @@
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"	
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC"
 		"AbilityUnitTargetTeam" 	"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityTextureName"		"shredder_timber_chain"
+		"AbilityTextureName"		"spellicon_deliver_lumber_worker"
 		"BaseClass"			"ability_datadriven"
 		"Maxlevel"			"1"
 
@@ -2919,6 +2919,49 @@
 
 
 	// Spell7.16
+	//================================================================================
+	// Sniper Rifle
+	//================================================================================
+	"srts_sniper_rifle"
+	{
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"sniper_take_aim"
+		"MaxLevel"			"1"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"bonus_range"	"175"
+			}
+		}
+		
+		"Modifiers"
+		{
+			"modifier_sniper_rifle"
+			{
+				"Passive"		"1"
+				"IsBuff"		"1"
+				"IsHidden"		"1"
+				"TextureName"		"sniper_take_aim"
+				
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACK_RANGE_BONUS"	"%bonus_range"
+				}
+			}
+		}
+	}
+
+
+
+
+
+	// Spell7.17
 	//================================================================================
 	// 
 	//================================================================================

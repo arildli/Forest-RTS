@@ -1749,6 +1749,7 @@
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
 		"Model"						"models/props_structures/tent_dk_small.vmdl"
+		//"Model"						"models/main_tent/main_tent.vmdl"
 		"ModelScale"					"1.05"
 		"AbilityLayout"					"6"
 

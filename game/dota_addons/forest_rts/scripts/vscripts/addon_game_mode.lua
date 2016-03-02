@@ -62,6 +62,7 @@ function Precache( context )
 	   -- Temporary Mining Crystal
 	PrecacheResource("model", "models/props_structures/good_base_wall006.vmdl", context)
 	   -- Main Tent
+	--PrecacheResource("model", "models/main_tent/main_tent.vmdl", context)
 	PrecacheResource("model", "models/props_structures/tent_dk_small.vmdl", context)
 	   -- Good Barracks
 	PrecacheResource("model", "models/props_structures/good_barracks_melee001.vmdl", context)

@@ -135,6 +135,7 @@ tech = {
     
     -- Unit and building spells
     HEADSHOT = defs.HEADSHOT,
+    SNIPER_RIFLE = defs.SNIPER_RIFLE,
     
     COMMANDER_WORKER = defs.COMMANDER_WORKER,
     COMMANDER_FOOTMAN = defs.COMMANDER_FOOTMAN,

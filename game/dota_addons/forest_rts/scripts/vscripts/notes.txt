@@ -24,7 +24,6 @@ Ideer:
 - Tips toggle knapp, f.eks. beskjed hvis harvest uten tent.
 - Game mode desc text 30 sec før start.
 - Lære 3D modellering.
-- Kjøpe billige props.
 - Beginnerquests?
 - Option hvor death er permanent.
 - Item drops fra camps.
@@ -42,6 +41,20 @@ Ideer:
 - Gold bygninger
 - UpgradedFrom field i tech_spell for tent og sjekk for dette ang. unit count dec i tech_tree!
 - Legg til alle spells i Hidden hver gang page skiftes.
+- Lumber yard lignende bygning med tårnplass til unit?
+- Radiant/Dire "prop" base bygning for 1 extra gold per 5 + 1 worker spot?
+- Sette fargen på spillernavnet i Allied Resources lik spillerfargen.
+- Små wolves som kjapp unit til kobolds?
+- Human-like bot
+- Host mode-picking
+- Inspirasjon fra Castle Story?
+- Ikoner: Pil opp for Main Menu, pil høyre for neste prop meny?
+- Human worker ved tre for Harvest ikon, human worker ved tent for return og human workers ved tårn for repair.
+- Patrol kommando?
+- Add destroy spell til egne bygninger.
+
+Tanker:
+- Småoppdrag/Sidequests og belønninger ulike steder på mappet.
 
 Mulige 3D ideer:
 - Cart (wooden_cart.vmdl) + kotl hest?
