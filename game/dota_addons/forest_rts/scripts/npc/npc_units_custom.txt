@@ -1451,7 +1451,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/props_structures/wooden_sentry_tower001.vmdl"
+		//"Model"						"models/props_structures/wooden_sentry_tower001.vmdl"
+		"Model"						"models/watch_tower/watch_tower.vmdl"
 		"ModelScale"					"0.85"
 		"AbilityLayout"					"6"
 
@@ -1550,7 +1551,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/props_structures/good_statue008.vmdl"
+		//		"Model"						"models/props_structures/good_statue008.vmdl"
+		"Model"						"models/moonwell/moonwell.vmdl"
 		"ModelScale"					"0.8"
 		"AbilityLayout"					"6"
 
@@ -1649,7 +1651,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/props_structures/bad_column001.vmdl"
+		//"Model"						"models/props_structures/bad_column001.vmdl"
+		"Model"						"models/unholy_spire/unholy_spire.vmdl"
 		"ModelScale"					"0.6"
 		"AbilityLayout"					"6"
 
@@ -1748,8 +1751,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/props_structures/tent_dk_small.vmdl"
-		//"Model"						"models/main_tent/main_tent.vmdl"
+		//"Model"						"models/props_structures/tent_dk_small.vmdl"
+		"Model"						"models/main_tent/main_tent.vmdl"
 		"ModelScale"					"1.05"
 		"AbilityLayout"					"6"
 
@@ -1848,7 +1851,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/props_structures/tent_dk_small.vmdl"
+		//"Model"						"models/props_structures/tent_dk_small.vmdl"
+		"Model"						"models/large_tent/large_tent"
 		"ModelScale"					"1.05"
 		"AbilityLayout"					"6"
 
@@ -1947,7 +1951,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/props_structures/good_barracks_melee001.vmdl"
+		//"Model"						"models/props_structures/good_barracks_melee001.vmdl"
+		"Model"						"models/barracks_radiant/barracks_radiant.vmdl"
 		"ModelScale"					"0.8"
 		"AbilityLayout"					"6"		
 
@@ -2046,7 +2051,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/props_structures/bad_barracks001_melee.vmdl"
+		//"Model"						"models/props_structures/bad_barracks001_melee.vmdl"
+		"Model"						"models/barracks_dire/barracks_dire.vmdl"
 		"ModelScale"					"0.8"
 		"AbilityLayout"					"6"		
 
@@ -2145,7 +2151,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/props_structures/sideshop_radiant002.vmdl"
+		//"Model"						"models/props_structures/sideshop_radiant002.vmdl"
+		"Model"						"models/market/market.vmdl"
 		"ModelScale"					"0.8"
 		"AbilityLayout"					"6"		
 
@@ -2244,7 +2251,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/props_structures/tent_dk_med.vmdl"
+		//"Model"						"models/props_structures/tent_dk_med.vmdl"
+		"Model"						"models/armory/armory.vmdl"
 		"ModelScale"					"1.1"
 		"AbilityLayout"					"6"		
 
@@ -2443,7 +2451,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
-		"Model"						"models/props_debris/spike_fence_fx_b.vmdl"
+		//"Model"						"models/props_debris/spike_fence_fx_b.vmdl"
+		"Model"						"models/wooden_wall/wooden_wall.vmdl"
 		"ModelScale"					"0.8"
 		"AbilityLayout"					"6"
 

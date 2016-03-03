@@ -49,7 +49,6 @@ Ideer:
 - Host mode-picking
 - Inspirasjon fra Castle Story?
 - Ikoner: Pil opp for Main Menu, pil høyre for neste prop meny?
-- Human worker ved tre for Harvest ikon, human worker ved tent for return og human workers ved tårn for repair.
 - Patrol kommando?
 - Add destroy spell til egne bygninger.
 
