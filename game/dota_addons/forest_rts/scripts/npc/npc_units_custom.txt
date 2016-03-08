@@ -1753,7 +1753,8 @@
 		"BaseClass"					"npc_dota_creature"
 		//"Model"						"models/props_structures/tent_dk_small.vmdl"
 		"Model"						"models/main_tent/main_tent.vmdl"
-		"ModelScale"					"1.05"
+		//		"ModelScale"					"1.05"
+		"ModelScale"					"1.2"
 		"AbilityLayout"					"6"
 
 		"SoundSet"					"Creep_Good_Melee"
@@ -1880,7 +1881,7 @@
 
 		// Armor
 		//------------------------------------------------------------------------
-		"ArmorPhysical"					"15"
+		"ArmorPhysical"					"20"
 		"MagicalResistance"				"25"
 		
 		// Attack
@@ -1915,7 +1916,7 @@
 
 		// Status
 		//----------------------------------------------------------------
-		"StatusHealth"					"750"
+		"StatusHealth"					"1250"
 		"StatusHealthRegen"				"0"
 		"StatusMana"					"0"
 		"StatusManaRegen"				"0"

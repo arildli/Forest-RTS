@@ -40,6 +40,14 @@ function prepareConstruction(building, abilityName)
    building:FindAbilityByName(rotateRight):SetLevel(1)
    building:FindAbilityByName(cancelConstruction):SetLevel(1)
    
+   addRallyFunctions(building)
+
+   -- Register construction in Tech Tree.
+   TechTree:RegisterConstruction(building, abilityName)
+end
+
+
+function addRallyFunctions(building)
    function building:SetRallyPoint(pos)
       building._rallyPoint = Vector(pos["0"], pos["1"], pos["2"])
    end
@@ -47,11 +55,7 @@ function prepareConstruction(building, abilityName)
    function building:GetRallyPoint()
       return building._rallyPoint
    end
-
-   -- Register construction in Tech Tree.
-   TechTree:RegisterConstruction(building, abilityName)
 end
-
 
 
 function finishConstruction(building)
@@ -81,6 +85,51 @@ function finishConstruction(building)
    TechTree:AddAbilitiesToEntity(building)
    --TechTree:UpdateSpellsForEntity(building, playerHero)
 end
+
+
+
+function cancelUpgrade(keys)
+   local building = keys.caster
+   print("Note: Upgrade cancelled for "..building:GetUnitName())
+end
+
+
+
+function prepareUpgrade(keys)
+   print("Note: Upgrade started for "..keys.caster:GetUnitName())
+end
+
+
+
+function finishUpgrade(keys)
+   local newBuildingName = keys.newUnitName
+   local building = keys.caster
+   local buildingOrigin = building:GetOrigin()
+   print("Note: "..building:GetUnitName().." finished upgrade!")
+   local ownerHero = building:GetOwnerHero()
+   local ownerTeam = ownerHero:GetTeamNumber()
+   local ownerPlayer = building:GetOwnerPlayer()
+   local ownerID = building:GetOwnerID()
+   local buildingSize = keys.buildingSize
+   building._upgraded = true
+   ownerHero:RemoveBuilding(building)
+   BuildingHelper:RemoveBuilding(building, true)
+
+   local blockers = BuildingHelper:BlockGridNavSquare(buildingSize, buildingOrigin)
+   local newBuilding = CreateUnitByName(newBuildingName, buildingOrigin, false, ownerHero, ownerPlayer, ownerTeam)
+   newBuilding:SetControllableByPlayer(ownerID, true)
+   newBuilding.blockers = blockers
+   newBuilding._finished = true
+   ownerHero:AddBuilding(newBuilding)
+   ownerHero:IncUnitCountFor(newBuildingName)
+   TechTree:AddPlayerMethods(newBuilding, ownerPlayer)
+   newBuilding:SetBaseHealthRegen(0)
+   addRallyFunctions(newBuilding)
+   finishConstruction(newBuilding)
+end
+
+
+
 
 
 
@@ -194,7 +243,10 @@ function RefundResourcesConstruction(keys)
    GiveCharges(playerHero, lumberCost, "item_stack_of_lumber")
 
    caster._wasCancelled = true
-   caster:ForceKill(false)
+   if not keys.keepAlive then
+      print("Killed building after refunding!")
+      caster:ForceKill(false)
+   end
 end
 
 

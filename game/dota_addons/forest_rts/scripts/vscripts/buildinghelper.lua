@@ -849,8 +849,8 @@ function BuildingHelper:CancelBuilding(keys)
 
     building.state = "canceled"
     Timers:CreateTimer(1/5, function() 
-        BuildingHelper:RemoveBuilding(building, true)
-    end)
+			  BuildingHelper:RemoveBuilding(building, true)
+			    end)
 end
 
 --[[

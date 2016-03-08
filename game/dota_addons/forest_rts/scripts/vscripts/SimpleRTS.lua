@@ -523,6 +523,10 @@ function SimpleRTSGameMode:onEntityKilled(keys)
 
    -- Building Killed
    if IsBuilding(killedUnit) then   
+      if killedUnit._upgraded then
+	 print("Returning from 'onEntityKilled' due to unit being upgraded!")
+	 return
+      end
       -- Building Helper grid cleanup
       BuildingHelper:RemoveBuilding(killedUnit, true)
       local building_name = killedUnit:GetUnitName()

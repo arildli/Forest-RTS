@@ -16,7 +16,14 @@ end
 
 
 function GetAbilityPage(entity, pageName)
+   if not entity._abilityPages then
+      return GetAbilityPageFromDefs(entity:GetUnitName(), entity:GetOwnerHero():GetUnitName(), pageName)
+   end
    return entity._abilityPages[pageName]
+end
+
+function GetAbilityPageFromDefs(entityName, ownerHeroName, pageName)
+   return tech[ownerHeroName][entityName]
 end
 
 function SetAbilityPage(entity, pageName, value)
@@ -51,7 +58,7 @@ function InitAbilityPage(entity, pageNumber, abilities)
 	 --nextAbilityIndex = nextAbilityIndex + 1
       end
 
-      if DEBUG_ABILITY_PAGES == true then
+      if DEBUG_ABILITY_PAGES == true and abilities[i] then
 	 local curAbilityName = abilities[i]["spell"]
 	 textToPrint = curAbilityName
 	 print_ability_pages("InitAbilityPages", "abilities["..i.."]: "..textToPrint)
@@ -78,7 +85,7 @@ function GoToPage(entity, pageNumber)
    -- Get current ability page to read from.
    --local curAbilityPage = entity._abilityPages[pageNumber]
    local curAbilityPage = GetAbilityPage(entity, pageNumber)
-   if not curAbilityPage then
+   if not curAbilityPage and pageNumber ~= "PAGE_UPGRADE" then
       -- Crash
       print(curAbilityPage)
    end
@@ -100,26 +107,41 @@ function GoToPage(entity, pageNumber)
       end
    end
 
-   -- Add spells from the current ability page.
-   for i=0, 6 do
-      local curNewAbility = curAbilityPage[i]
-      if curNewAbility then
-	 -- Add new ability.
-	 local curNewAbilityName = curNewAbility["spell"]
-	 entity:AddAbility(curNewAbilityName)
+   -- In case of upgrade.
+   if pageNumber == "PAGE_UPGRADE" then
+      -- Temporarily learn the rotation spells.
+      local rotateLeft = "srts_rotate_left"
+      local rotateRight = "srts_rotate_right"
+      local cancelUpgrade = "srts_cancel_upgrade"
+   
+      entity:AddAbility(rotateLeft)
+      entity:AddAbility(rotateRight)
+      entity:AddAbility(cancelUpgrade)
+      entity:FindAbilityByName(rotateLeft):SetLevel(1)
+      entity:FindAbilityByName(rotateRight):SetLevel(1)
+      entity:FindAbilityByName(cancelUpgrade):SetLevel(1)
+   else
+      -- Add spells from the current ability page.
+      for i=0, 6 do
+	 local curNewAbility = curAbilityPage[i]
+	 if curNewAbility then
+	    -- Add new ability.
+	    local curNewAbilityName = curNewAbility["spell"]
+	    entity:AddAbility(curNewAbilityName)
 
-	 -- Set level of ability.
-	 if entity:HasAbility(curNewAbilityName) then
-	    local curAbilityToLevel = entity:FindAbilityByName(curNewAbilityName)
-	    local curAbilityLevel = ownerHero:GetAbilityLevelFor(curNewAbilityName)
-	    if curAbilityLevel then
-	       --	    if entity._abilityLevels[curNewAbilityName] then
-	       --curAbilityToLevel:SetLevel(entity._abilityLevels[curNewAbilityName])
-	       curAbilityToLevel:SetLevel(curAbilityLevel)
-	    else
-	       print("GoToPage: ._abilityLevels for that ability was not set!")
-	       -- Crash
-	       print(nil)
+	    -- Set level of ability.
+	    if entity:HasAbility(curNewAbilityName) then
+	       local curAbilityToLevel = entity:FindAbilityByName(curNewAbilityName)
+	       local curAbilityLevel = ownerHero:GetAbilityLevelFor(curNewAbilityName)
+	       if curAbilityLevel then
+		  --	    if entity._abilityLevels[curNewAbilityName] then
+		  --curAbilityToLevel:SetLevel(entity._abilityLevels[curNewAbilityName])
+		  curAbilityToLevel:SetLevel(curAbilityLevel)
+	       else
+		  print("GoToPage: ._abilityLevels for that ability was not set!")
+		  -- Crash
+		  print(nil)
+	       end
 	    end
 	 end
       end

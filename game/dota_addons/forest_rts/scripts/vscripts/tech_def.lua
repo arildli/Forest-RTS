@@ -145,6 +145,7 @@ tech = {
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
 				   defs.COMMANDER_WORKER,
+				   --defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
 				   defs.DELIVERY_POINT
     }),
@@ -216,6 +217,7 @@ tech = {
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
 				   defs.FURION_WORKER,
+				   --defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
 				   defs.DELIVERY_POINT
     }),
@@ -288,6 +290,7 @@ tech = {
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
 				   defs.GEOMANCER_WORKER,
+				   --defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
 				   defs.DELIVERY_POINT
     }),
@@ -359,6 +362,7 @@ tech = {
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
 				   defs.KING_OF_THE_DEAD_WORKER,
+				   --defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
 				   defs.DELIVERY_POINT
     }),
@@ -429,6 +433,7 @@ tech = {
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
 				   defs.WARLORD_WORKER,
+				   --defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
 				   defs.DELIVERY_POINT
     }),

@@ -689,7 +689,6 @@ function UpdateWorkerPanel(playerHero)
       return
    end
    local curWorkerCount = playerHero:GetWorkerCount()
-   print("CurWorkerCount for player: "..curWorkerCount)
    CustomGameEventManager:Send_ServerToPlayer(ownerPlayer, "new_worker_count", {maxWorkerCount=MAX_WORKER_COUNT, newWorkerCount=curWorkerCount})
 end
 

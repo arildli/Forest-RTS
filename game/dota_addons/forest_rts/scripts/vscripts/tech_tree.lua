@@ -471,8 +471,9 @@ end
 -- destruction/termination.
 --- * unit: The unit that was either constructed/trained or killed/destroyed.
 --- * state: Should be true if construction/training, false if killed/destroyed.
+--- * upgrade: If set with state = false, the death won't reduce the unit count.
 ---------------------------------------------------------------------------
-function TechTree:RegisterIncident(unit, state)
+function TechTree:RegisterIncident(unit, state, upgrade)
    if not unit then print("TechTree:RegisterIncident: unit was nil!"); return end
    -- Don't want this to trigger if state is fales
    if state == nil then	print("TechTree:RegisterIncident: state was nil!"); return end
@@ -482,6 +483,7 @@ function TechTree:RegisterIncident(unit, state)
    local ownerHero = unit:GetOwnerHero()
    local wasUnfinished = false
    local oldUnitCount = ownerHero:GetUnitCountFor(unitName) or 0
+   local needsUpdate = false
 
    -- On creation.
    if state == true then
@@ -512,7 +514,16 @@ function TechTree:RegisterIncident(unit, state)
    elseif state == false then
       if isBuilding == true then
 	 ownerHero:RemoveBuilding(unit)
-	 ownerHero:DecUnitCountFor(unitName)
+
+	 if not upgrade then
+	    ownerHero:DecUnitCountFor(unitName)
+	 else
+	    local upgradedFrom = ownerHero.TT.techDef[unitName].from
+	    if upgradedFrom then
+	       print("Decremented unit count for "..upgradedFrom)
+	       ownerHero:DecUnitCountFor(defs[upgradedFrom])
+	    end
+	 end
 	 --if unit._finished == true then
 	 --else
 	 if unit.finished == false then
@@ -526,7 +537,6 @@ function TechTree:RegisterIncident(unit, state)
       end
    end
 
-   local needsUpdate = false
    local maxUnitCount = TechTree:GetMaxCountFor(unitName, ownerHero)
    local newUnitCount = ownerHero:GetUnitCountFor(unitName)
 
@@ -546,6 +556,7 @@ function TechTree:RegisterIncident(unit, state)
    end
 
    if needsUpdate == true then
+      print("TECH TREE NEEDS UPDATE!")
       TechTree:UpdateTechTree(ownerHero, unit, state)
    end
 end
@@ -654,6 +665,13 @@ function TechTree:UpdateTechTree(hero, building, action)
       for k,unit in pairs(hero:GetBuildings()) do
 	 local curUnitName = unit:GetUnitName()
 	 if curUnitName == curReqName and unit._finished then
+	    -- EDITED
+	    if unit._finished then
+	       print("Note: "..curUnitName.."._finished was true.")
+	    else
+	       print("Note: "..curUnitName.."._finished was NOT TRUE!")
+	    end
+	    
 	    return true
 	 end
       end
@@ -787,6 +805,7 @@ end
 ---------------------------------------------------------------------------
 function TechTree:PrintAbilityLevels(player)
    if DEBUG_SIMPLE_TECH_TREE ~= true then
+      print("Returning from TechTree:PrintAbilityLevels")
       return
    end
 
@@ -803,7 +822,10 @@ function TechTree:PrintAbilityLevels(player)
       if key ~= "heropages" and key ~= "heroname" then
 	 local category = curSpell.category
 	 local found = false
-	 for _,v in pairs(spells[category]) do
+	 if category == "upgrade" then
+	    category = "spell"
+	 end
+	 for _,v in pairs(spells[category] or {}) do
 	    if v == curSpell then
 	       found = true
 	       break

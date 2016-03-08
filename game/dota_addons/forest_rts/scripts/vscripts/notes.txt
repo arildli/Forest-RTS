@@ -1,21 +1,17 @@
-- Legg til firkanter ved ghost!
+URGENT!
+- Tech disabled ved fjerning av Main Tent!
+- Gjør Main Tent større og sørg for at både den og Large Tent decces ved kill.
+- Lag Large Tent ikon
+- Sett upgrade time
 
-- Fiks ferdig rally point i SimpleRTSGameMode:onRallyPointSet!
 
-- Legg til tutorial, nye spillere sliter virkelig med å vite hva de skal gjøre og leaver dermed kjapt!!!
+
+
 
 - Fix patrols (especially lags!!!)
-
 - Add bosses to patrols.
-
 - Speed aura går på tvers av spillere!
-
-- WATCH TOWER VIL IKKE FULLFØRE FOR COMMANDER!
-
-- Sjekk etter pathable trees nær worker regelmessig?
-
 - Sjekk Rise of Nations videoer for inspirasjon.
-
 - Sjekk denne linken for tips om allied resources panel:
 https://developer.valvesoftware.com/wiki/Dota_2_Workshop_Tools/Panorama/Panels
 
@@ -51,6 +47,9 @@ Ideer:
 - Ikoner: Pil opp for Main Menu, pil høyre for neste prop meny?
 - Patrol kommando?
 - Add destroy spell til egne bygninger.
+- Humans: Minas Tirith lignende arkitektur med sterkere tårn.
+
+- Legg til backgrunn til loading screen
 
 Tanker:
 - Småoppdrag/Sidequests og belønninger ulike steder på mappet.

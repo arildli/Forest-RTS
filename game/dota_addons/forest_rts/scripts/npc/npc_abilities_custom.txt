@@ -504,7 +504,7 @@
 		"AbilityManacost"		"0"
 
 		"AbilityCastAnimation"		"ACT_DOTA_ATTACK"
-		"AbilityChannelTime"		"60"
+		"AbilityChannelTime"		"50"
 
 		"precache"
 		{
@@ -517,7 +517,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"channel_time"	"60"
+				"channel_time"	"50"
 			}
 			
 			"02"
@@ -651,7 +651,7 @@
 		"UnitName"					"npc_dota_building_watch_tower"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"25"
-		"AbilityLumberCost"				"40"
+		"AbilityLumberCost"				"25"
 		"BuildTime"					"15"
 		// End of BuildingHelper info
 
@@ -666,7 +666,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"40"
+				"lumber_cost"	"25"
 			}	
 
 			"03"
@@ -894,7 +894,8 @@
 
 		// BuildingHelper info
 		"Building"					"1" //bool
-		"BuildingSize"					"3"
+		//		"BuildingSize"					"3"
+		"BuildingSize"					"4"
 		"AbilityCastRange"				"200"
 		"UpdateHealth"					"1" //bool
 		"Scale"						"1" //bool
@@ -970,16 +971,17 @@
 	
 		// General
 		//------------------------------------------------------------------------
-		"AbilityName"			"Construct Main Tent"
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityName"			"Upgrade Main Tent"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
 		"AbilityTextureName"		"spellicon_main_tent"
 		"BaseClass"			"ability_datadriven"
 		"Maxlevel"			"1"
-		"AbilityCastPoint"				"0"
+		"AbilityCastPoint"				"0.1"
 
 		// BuildingHelper info
 		"Building"					"1" //bool
-		"BuildingSize"					"3"
+		"BuildingSize"					"4"
 		"AbilityCastRange"				"200"
 		"UpdateHealth"					"1" //bool
 		"Scale"						"1" //bool
@@ -987,58 +989,102 @@
 	
 		"UnitName"					"npc_dota_building_main_tent_small"
 		"AbilityCooldown"				"0"
-		"AbilityGoldCost"				"0"
-		"BuildTime"					"10"
+		"AbilityGoldCost"				"375"
+		"BuildTime"					"3"
 		// End of BuildingHelper info
+		"AbilityChannelTime"				"3"
 
 		"AbilitySpecial"
 		{
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"0"
+				"gold_cost"	"375"
 			}
 
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"0"
+				"lumber_cost"	"210"
 			}	
 
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"build_time"	"10"
+				"build_time"	"3"
+			}	
+
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"building_size"	"4"
 			}
-			
-			//"04"
-			//{
-			//	"var_type"	"FIELD_FLOAT"
-			//	"scale"		"1.05"
-			//}	
+		}
+
+		"Modifiers"
+		{
+			"modifier_upgrading_building"
+			{
+				"IsDebuff"	"0"
+				//"IsHidden"	"1"
+			}	
 		}
 
 		"OnSpellStart"
 		{
 			"RunScript"
 			{
-				"ScriptFile"	"builder.lua"
-				"Function"	"Build"
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAffordUnit"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
 			}
 
-			//"RunScript"
-			//{
-			//	"Target"	"POINT"	
-			//	"ScriptFile"	"scripts/vscripts/buildings.lua"
-			//	"Function"	"attemptConstruction"
-			//	"buildingName"	"npc_dota_building_main_tent_small"
-			//	"lumberCost"	"%lumber_cost"
-			//	"goldCost"	"%gold_cost"
-			//	"buildTime"	"%build_time"
-			//	"scale"		"%scale"
-			//	"spellName"	"srts_construct_main_building"
-			//}	
-		}	
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"prepareUpgrade"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_upgrading_building"
+				"Target"	"CASTER"	
+			}
+		}
+
+		"OnChannelFinish"	
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"	"modifier_upgrading_building"
+				"Target"	"CASTER"
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+		}
+
+		"OnChannelSucceeded"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"finishUpgrade"
+				"newUnitName"	"npc_dota_building_main_tent_large"
+				"buildingSize"	"%building_size"
+			}	
+		}
 	}
 
 
@@ -1584,7 +1630,7 @@
 		"UnitName"					"npc_dota_building_wooden_wall"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"15"
-		"AbilityLumberCost"				"20"
+		"AbilityLumberCost"				"10"
 		"BuildTime"					"10"
 		// End of BuildingHelper info
 
@@ -1599,7 +1645,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"20"
+				"lumber_cost"	"10"
 			}	
 
 			"03"
@@ -2857,7 +2903,7 @@
 					"MODIFIER_STATE_ROOTED"		"MODIFIER_STATE_VALUE_ENABLED" // Prevents moving
 					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
 					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					//"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
 				}
 
 				"OnCreated"
@@ -2962,6 +3008,35 @@
 
 
 	// Spell7.17
+	//================================================================================
+	// Cancel Upgrade
+	//================================================================================
+	"srts_cancel_upgrade"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Cancel Upgrade"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"		"omniknight_degen_aura"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"CancelBuilding"
+				"upgrade"	"1"
+			}
+		}
+	}
+
+
+
+
+
+	// Spell7.18
 	//================================================================================
 	// 
 	//================================================================================
