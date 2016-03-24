@@ -507,7 +507,6 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       return
    end
 
-
    --     BH stuff     --
    
    -- Player owner of the unit

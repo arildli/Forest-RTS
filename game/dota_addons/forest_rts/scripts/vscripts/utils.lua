@@ -284,7 +284,8 @@ function TransferLumber(keys)
     return false
   end
   
-  if target:GetUnitName() == MARKET or target:GetUnitName() == "npc_dota_building_main_tent_small" then
+  if Resources:IsValidDeliveryPoint(target) then 
+  --if target:GetUnitName() == MARKET or target:GetUnitName() == "npc_dota_building_main_tent_small" then
     local lumberCount = GetLumberCount(caster)
     if lumberCount > 0 then
        local lumberItem = GetItemFromInventory(caster, "item_stack_of_lumber")

@@ -459,9 +459,9 @@ function TechTree:AddAbilitiesToEntity(entity)
    local entityName = entity:GetUnitName()
    local abilities = TechTree:GetAbilityPagesForUnit(entity, ownerHero)
    for pageName,page in pairs(abilities) do
-      if pageName ~= "HIDDEN" then
-	 InitAbilityPage(entity, pageName, page)
-      end
+      --if pageName ~= "HIDDEN" then
+      InitAbilityPage(entity, pageName, page)
+      --end
    end
    GoToPage(entity, "PAGE_MAIN")
 end
@@ -491,9 +491,13 @@ function TechTree:RegisterIncident(unit, state, upgrade)
 	 -- Calculate number of existing, finished buildings.
 	 oldUnitCount = 0
 	 for k,unit in pairs(ownerHero:GetBuildings()) do
-	    local curUnitName = unit:GetUnitName()
-	    if curUnitName == unitName and unit._finished then
-	       oldUnitCount = oldUnitCount + 1
+	    if unit:IsNull() then
+	       ownerHero:RemoveBuilding(unit)
+	    else
+	       local curUnitName = unit:GetUnitName()
+	       if curUnitName == unitName and unit._finished then
+		  oldUnitCount = oldUnitCount + 1
+	       end
 	    end
 	 end
 
@@ -514,16 +518,24 @@ function TechTree:RegisterIncident(unit, state, upgrade)
    elseif state == false then
       if isBuilding == true then
 	 ownerHero:RemoveBuilding(unit)
+	 ownerHero:DecUnitCountFor(unitName)
 
-	 if not upgrade then
-	    ownerHero:DecUnitCountFor(unitName)
-	 else
-	    local upgradedFrom = ownerHero.TT.techDef[unitName].from
-	    if upgradedFrom then
-	       print("Decremented unit count for "..upgradedFrom)
-	       ownerHero:DecUnitCountFor(defs[upgradedFrom])
-	    end
+	 local upgradedFromConst = ownerHero.TT.techDef[unitName].from
+	 if upgradedFromConst then
+	    print("upgradedFromConst: "..upgradedFromConst)
+	    local upgradedFrom = defs[upgradedFromConst].name
+	    print("Decremented unit count for "..upgradedFrom)
+	    print("Old unit count for "..upgradedFrom..": "..ownerHero:GetUnitCountFor(upgradedFrom))
+	    ownerHero:DecUnitCountFor(upgradedFrom)
+	    print("New unit count for "..upgradedFrom..": "..ownerHero:GetUnitCountFor(upgradedFrom))
 	 end
+	 -- Not exactly sure what this is.
+	 --[=[if not upgrade then
+	    print("\n\nNOT UPGRADE\n\n")
+	 else
+	    print("\n\nINSIDE ELSE\n\n")
+	 end
+	 ]=]
 	 --if unit._finished == true then
 	 --else
 	 if unit.finished == false then
@@ -576,10 +588,18 @@ function TechTree:UpdateSpellsAllEntities(ownerHero)
 
    -- Update entities of hero.
    for _,building in pairs(ownerHero:GetBuildings()) do
-      TechTree:UpdateSpellsForEntity(building, ownerHero)
+      if building:IsNull() then
+	 ownerHero:RemoveBuilding(building)
+      else
+	 TechTree:UpdateSpellsForEntity(building, ownerHero)
+      end
    end
    for _,unit in pairs(ownerHero:GetUnits()) do 
-      TechTree:UpdateSpellsForEntity(unit, ownerHero)
+      if unit:IsNull() then
+	 ownerHero:RemoveUnit(unit)
+      else
+	 TechTree:UpdateSpellsForEntity(unit, ownerHero)
+      end
    end
 end
 
@@ -663,16 +683,13 @@ function TechTree:UpdateTechTree(hero, building, action)
 
       -- Check if at least one of them is finished if building.
       for k,unit in pairs(hero:GetBuildings()) do
-	 local curUnitName = unit:GetUnitName()
-	 if curUnitName == curReqName and unit._finished then
-	    -- EDITED
-	    if unit._finished then
-	       print("Note: "..curUnitName.."._finished was true.")
-	    else
-	       print("Note: "..curUnitName.."._finished was NOT TRUE!")
+	 if unit:IsNull() then
+	    hero:RemoveBuilding(unit)
+	 else
+	    local curUnitName = unit:GetUnitName()
+	    if curUnitName == curReqName and unit._finished then
+	       return true
 	    end
-	    
-	    return true
 	 end
       end
       -- Return false is no finished unit of that type was found.

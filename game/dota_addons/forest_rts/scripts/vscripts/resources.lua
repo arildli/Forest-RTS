@@ -184,7 +184,7 @@ function Resources:InitHarvester(unit)
    -- Returns the carried lumber to the nearest Tent or Market if possible.
    ---------------------------------------------------------------------------
    function unit:DeliverLumber()
-      local owner = unit:GetOwner() -- NIL VED DC!
+      local owner = unit:GetOwnerPlayer()
       local ownerID = owner:GetPlayerID()
       local ownerHero = GetPlayerHero(ownerID)
       local unitPosition = unit:GetAbsOrigin()
@@ -195,12 +195,19 @@ function Resources:InitHarvester(unit)
 	 print("unit:DeliverLumber: unit did not have transfer ability!")
       end
 
-      for _,building in pairs(ownerHero.structures) do
-	 if building and building:IsAlive() and Resources:IsValidDeliveryPoint(building) then
-	    local distanceToBuilding = (unitPosition - building:GetAbsOrigin()):Length()
-	    if distanceToBuilding < shortestDeliveryDistance then
-	       shortestDeliveryDistance = distanceToBuilding
-	       closestDeliveryPoint = building
+      for _,building in pairs(ownerHero:GetBuildings()) do
+      --for _,building in pairs(ownerHero.structures) do
+	 if building:IsNull() then
+	    print("Removed building for being null!")
+	    ownerHero:RemoveBuilding(building)
+	 else
+	    --print(building:GetUnitName().." isValidDeliveryPoint: "..tostring(Resources:IsValidDeliveryPoint(building)))
+	    if building and building:IsAlive() and Resources:IsValidDeliveryPoint(building) then
+	       local distanceToBuilding = (unitPosition - building:GetAbsOrigin()):Length()
+	       if distanceToBuilding < shortestDeliveryDistance then
+		  shortestDeliveryDistance = distanceToBuilding
+		  closestDeliveryPoint = building
+	       end
 	    end
 	 end
       end

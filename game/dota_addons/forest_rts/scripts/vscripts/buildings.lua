@@ -102,6 +102,9 @@ end
 
 
 function finishUpgrade(keys)
+   local caster = keys.caster
+   local ability = keys.ability
+   local modifier = keys.modifier
    local newBuildingName = keys.newUnitName
    local building = keys.caster
    local buildingOrigin = building:GetOrigin()
@@ -112,6 +115,7 @@ function finishUpgrade(keys)
    local ownerID = building:GetOwnerID()
    local buildingSize = keys.buildingSize
    building._upgraded = true
+   ability:ApplyDataDrivenModifier(caster, building, modifier, {})
    ownerHero:RemoveBuilding(building)
    BuildingHelper:RemoveBuilding(building, true)
 
@@ -120,7 +124,6 @@ function finishUpgrade(keys)
    newBuilding:SetControllableByPlayer(ownerID, true)
    newBuilding.blockers = blockers
    newBuilding._finished = true
-   ownerHero:AddBuilding(newBuilding)
    ownerHero:IncUnitCountFor(newBuildingName)
    TechTree:AddPlayerMethods(newBuilding, ownerPlayer)
    newBuilding:SetBaseHealthRegen(0)

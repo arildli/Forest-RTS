@@ -22,8 +22,12 @@ function GetAbilityPage(entity, pageName)
    return entity._abilityPages[pageName]
 end
 
+function GetAbilityPagesFromDefs(entityName, ownerHeroname)
+   return tech[ownerHeroName][entityName].pages
+end
+
 function GetAbilityPageFromDefs(entityName, ownerHeroName, pageName)
-   return tech[ownerHeroName][entityName]
+   return tech[ownerHeroName][entityName].pages[pageName]
 end
 
 function SetAbilityPage(entity, pageName, value)
@@ -107,6 +111,31 @@ function GoToPage(entity, pageNumber)
       end
    end
 
+   function AddAbilitiesFromPage(page)
+      -- Add spells from the current ability page.
+      for i=0, 6 do
+	 local curNewAbility = page[i]
+	 if curNewAbility then
+	    -- Add new ability.
+	    local curNewAbilityName = curNewAbility["spell"]
+	    entity:AddAbility(curNewAbilityName)
+
+	    -- Set level of ability
+	    if entity:HasAbility(curNewAbilityName) then
+	       local curAbilityToLevel = entity:FindAbilityByName(curNewAbilityName)
+	       local curAbilityLevel = ownerHero:GetAbilityLevelFor(curNewAbilityName)
+	       if curAbilityLevel then
+		  curAbilityToLevel:SetLevel(curAbilityLevel)
+	       else
+		  print("GoToPage: ._abilityLevels for that ability was not set!")
+		  -- Crash
+		  print(nil)		  
+	       end
+	    end
+	 end
+      end
+   end
+
    -- In case of upgrade.
    if pageNumber == "PAGE_UPGRADE" then
       -- Temporarily learn the rotation spells.
@@ -121,29 +150,10 @@ function GoToPage(entity, pageNumber)
       entity:FindAbilityByName(rotateRight):SetLevel(1)
       entity:FindAbilityByName(cancelUpgrade):SetLevel(1)
    else
-      -- Add spells from the current ability page.
-      for i=0, 6 do
-	 local curNewAbility = curAbilityPage[i]
-	 if curNewAbility then
-	    -- Add new ability.
-	    local curNewAbilityName = curNewAbility["spell"]
-	    entity:AddAbility(curNewAbilityName)
-
-	    -- Set level of ability.
-	    if entity:HasAbility(curNewAbilityName) then
-	       local curAbilityToLevel = entity:FindAbilityByName(curNewAbilityName)
-	       local curAbilityLevel = ownerHero:GetAbilityLevelFor(curNewAbilityName)
-	       if curAbilityLevel then
-		  --	    if entity._abilityLevels[curNewAbilityName] then
-		  --curAbilityToLevel:SetLevel(entity._abilityLevels[curNewAbilityName])
-		  curAbilityToLevel:SetLevel(curAbilityLevel)
-	       else
-		  print("GoToPage: ._abilityLevels for that ability was not set!")
-		  -- Crash
-		  print(nil)
-	       end
-	    end
-	 end
+      AddAbilitiesFromPage(curAbilityPage)
+      local pageHidden = GetAbilityPage(entity, "HIDDEN")
+      if pageHidden then
+	 AddAbilitiesFromPage(pageHidden)
       end
    end
 
@@ -151,26 +161,6 @@ function GoToPage(entity, pageNumber)
    local abilityBuilding = entity:FindAbilityByName("ability_building")
    local abilityBuildingQueue = entity:FindAbilityByName("ability_building_queue")
    local entityName = entity:GetUnitName()
-   if entityName:find("building") then
-      if not entity:HasAbility("ability_building") then
-	 entity:AddAbility("ability_building")
-	 local abilityBuilding = entity:FindAbilityByName("ability_building")
-	 abilityBuilding:SetLevel(1)
-      end
-      if not entity:HasAbility("ability_building_queue") then
-	 entity:AddAbility("ability_building_queue")
-	 local abilityBuildingQueue = entity:FindAbilityByName("ability_building_queue")
-	 abilityBuildingQueue:SetLevel(1)
-      end
-   --[=[else
-      local abilityUnitName = "srts_ability_unit"
-      --local abilityUnit = entity:FindAbilityByName(abilityUnitName)
-      if not entity:HasAbility(abilityUnitName) then
-	 entity:AddAbility(abilityUnitName)
-	 local abilityUnit = entity:FindAbilityByName(abilityUnitName)
-	 abilityUnit:SetLevel(1)
-      end]=]
-   end
 
    TechTree:UpdateSpellsForEntity(entity)
    --TechTree:UpdateSpellsHeroOnly(entity)

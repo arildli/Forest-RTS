@@ -1546,9 +1546,18 @@ function SimpleTechTree:RegisterIncident(unit, state)
       -- On death.
    elseif state == false then
       if isBuilding == true then
+	 print("BUILDING DEATH")
 	 hero:RemoveBuilding(unit)
 	 if unit._finished == true then
+	    print("BUILDING WAS FINISHED")
 	    hero:DecUnitCountFor(unitName)
+	    local from = tech[hero:GetUnitName()][unit:GetUnitName()].from
+	    if from then
+	       print("AND IT HAS 'FROM'")
+	       print("\n\nfrom: "..from.."\n\n")
+	    else
+	       print("IT DIDNT HAVE 'FROM'")
+	    end
 	 else
 	    --print("Note: building was destroyed before finished...")
 	    wasUnfinished = true

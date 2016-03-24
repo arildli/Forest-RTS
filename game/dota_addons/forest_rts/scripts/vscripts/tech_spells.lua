@@ -15,7 +15,7 @@ defs = {
   },
 
   UNIT = {
-    spell = "srts_ability_unit",
+    spell = "srts_ability_units",
     category = "spell"
   },
 
