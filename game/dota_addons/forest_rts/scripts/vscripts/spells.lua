@@ -133,3 +133,18 @@ function ApplyUpgradesOnTraining(unit)
       end
    end
 end
+
+
+
+function Autocast(keys)
+   local caster = keys.caster
+   local attacker = keys.attacker
+   local ability = keys.ability
+   local modifier = keys.modifier
+
+   if ability:GetAutoCastState() then
+      if not attacker:HasModifier(modifier) then
+	 caster:CastAbilityOnTarget(attacker, ability, caster:GetOwnerID())
+      end
+   end
+end

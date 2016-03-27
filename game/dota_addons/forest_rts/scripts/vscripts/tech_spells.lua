@@ -164,6 +164,11 @@ defs = {
      category = "spell"
   },
 
+  CURSE = {
+     spell = "srts_curse",
+     category = "spell"
+  },
+
 
 
   -- Buildings 
@@ -274,6 +279,21 @@ defs = {
     }
   },
 
+  BARRACKS_ADVANCED_RADIANT = {
+    name = "npc_dota_building_barracks_advanced_radiant",
+    spell = "srts_construct_barracks_advanced_radiant",
+    category = "building",
+    req = {"TENT_LARGE"},
+    pages = {
+      PAGE_MAIN = {
+	-- Defined later.
+      },
+      HIDDEN = {
+	"BUILDING"
+      }
+    }
+  },
+
   ARMORY_RADIANT = {
     name = "npc_dota_building_armory",
     spell = "srts_construct_armory_radiant",
@@ -312,6 +332,21 @@ defs = {
     spell = "srts_construct_barracks_dire",
     category = "building",
     req = {{"TENT_SMALL", "TENT_LARGE"}},
+    pages = {
+      PAGE_MAIN = {
+	-- Defined later.
+      },
+      HIDDEN = {
+	"BUILDING"
+      }
+    }
+  },
+
+  BARRACKS_ADVANCED_DIRE = {
+    name = "npc_dota_building_barracks_advanced_dire",
+    spell = "srts_construct_barracks_advanced_dire",
+    category = "building",
+    req = {"TENT_LARGE"},
     pages = {
       PAGE_MAIN = {
 	-- Defined later.
@@ -472,7 +507,7 @@ defs = {
 	"MARKET",
 	"HEALING_CRYSTAL_RADIANT",
 	"ARMORY_RADIANT",
-	"EMPTY_FILLER",
+	"BARRACKS_ADVANCED_RADIANT",
 	"EMPTY_FILLER",
 	"PAGE_MAIN"
       },
@@ -560,7 +595,7 @@ defs = {
 	"MARKET",
 	"HEALING_CRYSTAL_RADIANT",
 	"ARMORY_RADIANT",
-	"EMPTY_FILLER",
+	"BARRACKS_ADVANCED_RADIANT",
 	"EMPTY_FILLER",
 	"PAGE_MAIN"
       },
@@ -649,7 +684,7 @@ defs = {
 	"MARKET",
 	"HEALING_CRYSTAL_DIRE",
 	"ARMORY_DIRE",
-	"EMPTY_FILLER",
+	"BARRACKS_ADVANCED_DIRE",
 	"EMPTY_FILLER",
 	"PAGE_MAIN"
       },
@@ -738,7 +773,7 @@ defs = {
 	"MARKET",
 	"HEALING_CRYSTAL_DIRE",
 	"ARMORY_DIRE",
-	"EMPTY_FILLER",
+	"BARRACKS_ADVANCED_DIRE",
 	"EMPTY_FILLER",
 	"PAGE_MAIN"
       },
@@ -800,6 +835,20 @@ defs = {
     }
   },
 
+  KING_OF_THE_DEAD_CASTER = {
+    name = "npc_dota_creature_skeleton_caster",
+    spell = "srts_train_skeleton_caster",
+    category = "unit",
+    pages = {
+      PAGE_MAIN = {
+	 "CURSE"
+      },
+      HIDDEN = {
+	"UNIT"
+      }
+    }
+  },
+
   -- Warlord
   WARLORD_WORKER = {
     name = "npc_dota_creature_troll_worker",
@@ -827,7 +876,7 @@ defs = {
 	"MARKET",
 	"HEALING_CRYSTAL_DIRE",
 	"ARMORY_DIRE",
-	"EMPTY_FILLER",
+	"BARRACKS_ADVANCED_DIRE",
 	"EMPTY_FILLER",
 	"PAGE_MAIN"
       },

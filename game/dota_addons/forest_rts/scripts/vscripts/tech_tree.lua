@@ -346,10 +346,24 @@ function TechTree:ReadTechDef(ownerHero)
       if k ~= "heropages" and k ~= "heroname" then
 	 heroTT[v.spell] = v
 	 local cat = v.category
+	 --print("Looking at key: "..k)
 	 if cat == "unit" or cat == "building" then
-	    heroTT[v.name] = v
+	    local name = v.name
+	    --print("heroTT["..name.."]")
+	    heroTT[name] = v
+	    --print("heroTT["..name.."] = "..v.name)
 	 end
       end
+      --[=[
+      if k ~= "heropages" and k ~= "heroname" then
+	 heroTT[v.spell] = v
+	 local cat = v.category
+	 if cat == "unit" or cat == "building" then
+	    heroTT[v.name] = v
+	    -- EDITED
+	    print("heroTT["..v.name.."]")
+	 end
+      end]=]
    end
 end
 
@@ -412,6 +426,7 @@ function TechTree:GetAbilityPagesForUnit(unit, ownerHero)
       return unit.TT.techDef.heropages 
    end
    local unitName = unit:GetUnitName()
+
    local unitPages = ownerHero.TT.techDef[unitName].pages
    for pageName,page in pairs(unitPages) do
       for i,curSpell in pairs(page) do

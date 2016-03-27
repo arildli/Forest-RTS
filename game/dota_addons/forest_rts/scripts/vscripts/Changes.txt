@@ -1,0 +1,24 @@
+Changes:
+
+Units:
+
+- Added a new unit to King of the Dead:
+
+Mage
+------
+
+Caster unit that can curse the enemy, making them miss 30% of their attacks.
+
+* Health: 245
+* Armor: 0
+* Damage: 8
+
+* Gold Cost: 110
+* Lumber Cost: 10
+
+Has ability:
+- Curse: Debuff that can be used on enemies to make them miss 30% of the time.
+
+
+
+-- HUSK Å SETTE UPGRADE TIME TILBAKE TIL 60!

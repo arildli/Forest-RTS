@@ -215,6 +215,18 @@ function Precache( context )
 
 	PrecacheResource("particle", "particles/units/heroes/hero_clinkz/clinkz_base_attack.vpcf", context)
 
+	-- Mage
+	PrecacheResource("model", "models/heroes/pugna/pugna.vmdl", context)
+	PrecacheResource("model", "models/items/pugna/oblivion_headmaster_arms/oblivion_headmaster_arms.vmdl", context)
+	PrecacheResource("model", "models/items/pugna/oblivion_headmaster_back/oblivion_headmaster_back.vmdl", context)
+	PrecacheResource("model", "models/items/pugna/oblivion_headmaster_belt/oblivion_headmaster_belt.vmdl", context)
+	PrecacheResource("model", "models/items/pugna/oblivion_headmaster_helm/oblivion_headmaster_helm.vmdl", context)
+	PrecacheResource("model", "models/items/pugna/oblivion_headmaster_shoulders/oblivion_headmaster_shoulders.vmdl", context)
+	PrecacheResource("model", "models/items/pugna/oblivion_headmaster_wand/oblivion_headmaster_wand.vmdl", context)
+	
+	PrecacheResource("particle", "particles/units/heroes/hero_pugna/pugna_decrepify.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_pugna/pugna_base_attack.vpcf", context)
+
 
 
 	-- Warlord

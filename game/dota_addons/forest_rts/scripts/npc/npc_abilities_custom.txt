@@ -1176,6 +1176,78 @@
 
 	// Spell5.4.2
 	//================================================================================
+	// Build Barracks Advanced Radiant
+	//================================================================================
+
+	"srts_construct_barracks_advanced_radiant"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Barracks Advanced"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_barracks_advanced_radiant"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"4"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_barracks_advanced_radiant"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"125"
+		"AbilityLumberCost"				"75"
+		"BuildTime"					"20"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"125"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"75"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"20"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.8"
+			}	
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}
+	}
+
+
+
+
+
+	// Spell5.4.3
+	//================================================================================
 	// Build Barracks Dire
 	//================================================================================
 
@@ -1230,6 +1302,78 @@
 				"var_type"	"FIELD_FLOAT"
 				"scale"		"0.8"
 			}		
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"	"Build"
+			}	
+		}
+	}
+
+
+
+
+
+	// Spell5.4.4
+	//================================================================================
+	// Build Barracks Advanced Dire
+	//================================================================================
+
+	"srts_construct_barracks_advanced_dire"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Construct Barracks Advanced"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityTextureName"		"spellicon_barracks_advanced_dire"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+		"AbilityCastPoint"				"0"
+
+		// BuildingHelper info
+		"Building"					"1" //bool
+		"BuildingSize"					"4"
+		"AbilityCastRange"				"200"
+		"UpdateHealth"					"1" //bool
+		"Scale"						"1" //bool
+		"PlayerCanControl"				"1" //bool
+	
+		"UnitName"					"npc_dota_building_barracks_advanced_dire"
+		"AbilityCooldown"				"0"
+		"AbilityGoldCost"				"125"
+		"AbilityLumberCost"				"75"
+		"BuildTime"					"20"
+		// End of BuildingHelper info
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"125"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"75"
+			}	
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"build_time"	"20"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"scale"		"0.8"
+			}	
 		}
 
 		"OnSpellStart"
@@ -1668,7 +1812,7 @@
 			"04"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"scale"		"0.8"
+				"scale"		"0.7"
 			}
 		}
 
@@ -3377,23 +3521,16 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"slow_percent"	"-10"
+				"slow_percent"	"-5"
 			}
 		
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"duration_creep"	"4"
+				"duration"	"2"
 			}
-			
+
 			"03"
-			{
-				"var_type"	"FIELD_INTEGER"
-				"duration_hero"		"2"
-			}
-
-
-			"04"
 			{
 				"var_type"	"FIELD_INTEGER"
 				"damage_per_second"	"1"
@@ -3414,21 +3551,10 @@
 						"Target"
 						{
 							"Center"	"TARGET"
-							"Type"		"DOTA_UNIT_TARGET_BASIC"
+							"Type"		"DOTA_UNIT_TARGET_ALL"
 						}
 						"ModifierName"	"modifier_envenomed"
-						"Duration"	"%duration_creep"
-					}
-
-					"ApplyModifier"
-					{
-						"Target"
-						{
-							"Center"	"TARGET"
-							"Type"		"DOTA_UNIT_TARGET_HERO"
-						}
-						"ModifierName"	"modifier_envenomed"
-						"Duration"	"%duration_hero"
+						"Duration"	"%duration"
 					}
 				}
 			}
@@ -3439,7 +3565,7 @@
 				"IsDebuff"	"1"
 				"IsHidden"	"0"
 				"TextureName"	"gnoll_assassin_envenomed_weapon"
-//				"Duration"	"%duration"
+				"Attributes" 	"MODIFIER_ATTRIBUTE_MULTIPLE"
 
 				"Properties"
 				{
@@ -3601,9 +3727,84 @@
 		"AbilityTextureName"		"lone_druid_spirit_bear_demolish"
 		"AbilityUnitDamageType" 	"DAMAGE_TYPE_PHYSICAL"
 		"MaxLevel"			"1"
+	}
 
+
+
+
+
+	// Spell8.10
+	//================================================================================
+	// Curse - Skeleton Mage Ability
+	//================================================================================
+	"srts_curse"
+	{	
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityTextureName"		"pugna_decrepify"
+		"MaxLevel"			"1"
+
+		// Casting
+		//--------------------
+		"AbilityCastRange"		"600"
+		"AbilityCastPoint"		"0.4"
+
+		// Time		
+		//--------------------
+		"AbilityCooldown"		"2.0"
+
+		// Cost
+		//--------------------
+		"AbilityManaCost"		"50"
+
+		// Special
 		"AbilitySpecial"
 		{
+			"01"
+			{
+				"var_type"		"FIELD_FLOAT"
+				"miss_chance"		"30.0"
+			}
+			
+			"02"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"duration"		"15"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"TARGET"
+				"ModifierName"	"modifier_cursed"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_cursed"
+			{
+				"Passive"	"0"
+				"IsHidden"	"0"
+				"IsDebuff"	"1"
+				"Duration"	"%duration"
+			
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MISS_PERCENTAGE"	"%miss_chance"
+				}
+
+				"AbilityTextureName"	"pugna_decrepify"
+				"EffectName"		"particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
+				"EffectAttachType"	"follow_origin"
+			}
 		}
 	}
 
@@ -3633,6 +3834,14 @@
 		"AbilityTextureName"		"spellicon_gunner"
 	}  
 
+	// Spell9.1.3
+	// Commander Mage
+	"srts_hero_desc_commander_caster"
+	{
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_gunner"
+	}
+
 
 
    	// Spell9.2.1
@@ -3651,7 +3860,7 @@
 	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"			"ability_datadriven"	
 		"AbilityTextureName"		"spellicon_dryad"
-	}  
+	} 
 
 
 
@@ -3691,7 +3900,15 @@
 	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"			"ability_datadriven"	
 		"AbilityTextureName"		"spellicon_skeleton_archer"
-	}  
+	} 
+
+ 	// Spell9.4.3
+	// King of the Dead Skeleton Mage
+	"srts_hero_desc_skeleton_king_caster"
+	{
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_skeleton_mage"
+	} 
 
 
 
@@ -3712,6 +3929,14 @@
 		"BaseClass"			"ability_datadriven"	
 		"AbilityTextureName"		"spellicon_axe_thrower"
 	}  
+
+ 	// Spell9.5.3
+	// Troll 
+	"srts_hero_desc_troll_caster"
+	{
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_gunner"
+	}
 
 
 
@@ -4692,7 +4917,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		"AbilityGoldCost"		"130"
+		"AbilityGoldCost"		"125"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"8"
@@ -4702,7 +4927,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"130"
+				"gold_cost"	"125"
 			}
 
 			"02"
@@ -5009,7 +5234,7 @@
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
 		//	"AbilityCooldown"		"5 5 5 5"
-		"AbilityGoldCost"		"100"
+		"AbilityGoldCost"		"95"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"7"
@@ -5019,7 +5244,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"100"
+				"gold_cost"	"95"
 			}
 
 			"02"
@@ -5253,6 +5478,167 @@
 			"SpawnUnit"
 			{
 				"UnitName"	"npc_dota_creature_troll_ranged_1"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+//-- // Caster Units // --//
+
+
+
+     	// Train1.2.6
+	// Train Skeleton Mage
+	//================================================================================
+	// Train Skeleton Mage / Skeleton Caster
+	//================================================================================
+	"srts_train_skeleton_caster"
+	{
+		// General
+		"AbilityName"			"Skeleton_Caster"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_skeleton_mage"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		"AbilityGoldCost"		"110"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"7"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"110"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"10"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"245"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"8"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"600"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"7"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAffordUnit"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_skeleton_caster"
 				"Target"	"CASTER"
 				"Duration"	"0"
 				"UnitCount"	"1"
