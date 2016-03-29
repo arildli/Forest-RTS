@@ -157,6 +157,14 @@ function Precache( context )
 
 	PrecacheResource("particle", "particles/units/heroes/hero_sniper/sniper_base_attack.vpcf", context)
 
+	-- Sorceress
+	PrecacheResource("model", "models/heroes/lina/lina.vmdl", context)
+	
+	PrecacheResource("model", "models/items/lina/migrant_blaze_arms/migrant_blaze_arms.vmdl", context)
+	PrecacheResource("model", "models/items/lina/migrant_blaze_belt/migrant_blaze_belt.vmdl", context)
+	PrecacheResource("model", "models/items/lina/migrant_blaze_head/migrant_blaze_head.vmdl", context)
+	PrecacheResource("model", "models/items/lina/migrant_blaze_neck/migrant_blaze_neck.vmdl", context)
+
 
 
 	-- Furion

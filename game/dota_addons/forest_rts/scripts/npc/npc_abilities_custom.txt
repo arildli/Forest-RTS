@@ -115,7 +115,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"275"
+				"gold_cost"	"175"
 			}
 
 			"02"
@@ -242,7 +242,7 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"275"
+				"gold_cost"	"175"
 			}
 
 			"02"
@@ -992,7 +992,9 @@
 		"AbilityGoldCost"				"375"
 		"BuildTime"					"60"
 		// End of BuildingHelper info
-		"AbilityChannelTime"				"60"
+		// EDITED
+		"AbilityChannelTime"				"3"
+		//		"AbilityChannelTime"				"60"
 
 		"AbilitySpecial"
 		{
@@ -1202,7 +1204,9 @@
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"125"
 		"AbilityLumberCost"				"75"
-		"BuildTime"					"20"
+		// EDITED
+		"BuildTime"					"3"
+		//		"BuildTime"					"20"
 		// End of BuildingHelper info
 
 		"AbilitySpecial"
@@ -3756,7 +3760,107 @@
 
 		// Time		
 		//--------------------
-		"AbilityCooldown"		"2.0"
+		"AbilityCooldown"		"0.0"
+
+		// Cost
+		//--------------------
+		"AbilityManaCost"		"40"
+
+		// Special
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"		"FIELD_FLOAT"
+				"miss_chance"		"35.0"
+			}
+			
+			"02"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"duration_hero"		"5"
+			}
+
+			"03"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"duration_other"	"15"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"
+				{
+					"Center"	"TARGET"
+					"Type"		"DOTA_UNIT_TARGET_HERO"
+				}
+				"ModifierName"	"modifier_cursed"
+				"Duration"	"%duration_hero"
+			}
+
+			"ApplyModifier"
+			{
+				"Target"
+				{
+					"Center"	"TARGET"
+					"Type"		"DOTA_UNIT_TARGET_BASIC"
+				}
+				"ModifierName"	"modifier_cursed"
+				"Duration"	"%duration_other"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_cursed"
+			{
+				"Passive"	"0"
+				"IsHidden"	"0"
+				"IsDebuff"	"1"
+			
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MISS_PERCENTAGE"	"%miss_chance"
+				}
+
+				"AbilityTextureName"	"pugna_decrepify"
+				"EffectName"		"particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
+				"EffectAttachType"	"follow_origin"
+			}
+		}
+	}
+
+
+
+
+
+	// Spell8.11
+	//================================================================================
+	// Slow - Human Sorceress Ability
+	//================================================================================
+	"srts_slow"
+	{	
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_NO"
+		"AbilityTextureName"		"pugna_decrepify"
+		"MaxLevel"			"1"
+
+		// Casting
+		//--------------------
+		"AbilityCastRange"		"625"
+		"AbilityCastPoint"		"0.4"
+
+		// Time		
+		//--------------------
+		"AbilityCooldown"		"0.0"
 
 		// Cost
 		//--------------------
@@ -3768,13 +3872,25 @@
 			"01"
 			{
 				"var_type"		"FIELD_FLOAT"
-				"miss_chance"		"30.0"
+				"attack_slow"		"-25"
 			}
-			
+
 			"02"
 			{
+				"var_type"		"FIELD_FLOAT"
+				"move_slow"		"-40"
+			}
+			
+			"03"
+			{
 				"var_type"		"FIELD_INTEGER"
-				"duration"		"15"
+				"duration_hero"		"5"
+			}
+
+			"04"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"duration_other"	"15"
 			}
 		}
 
@@ -3782,28 +3898,44 @@
 		{
 			"ApplyModifier"
 			{
-				"Target"	"TARGET"
-				"ModifierName"	"modifier_cursed"
+				"Target"
+				{
+					"Center"	"TARGET"
+					"Type"		"DOTA_UNIT_TARGET_HERO"
+				}
+				"ModifierName"	"modifier_slowed"
+				"Duration"	"%duration_hero"
+			}
+
+			"ApplyModifier"
+			{
+				"Target"
+				{
+					"Center"	"TARGET"
+					"Type"		"DOTA_UNIT_TARGET_BASIC"
+				}
+				"ModifierName"	"modifier_slowed"
+				"Duration"	"%duration_other"
 			}
 		}
 
 		"Modifiers"
 		{
-			"modifier_cursed"
+			"modifier_slowed"
 			{
 				"Passive"	"0"
 				"IsHidden"	"0"
 				"IsDebuff"	"1"
-				"Duration"	"%duration"
 			
 				"Properties"
 				{
-					"MODIFIER_PROPERTY_MISS_PERCENTAGE"	"%miss_chance"
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attack_slow"
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_slow"
 				}
 
 				"AbilityTextureName"	"pugna_decrepify"
-				"EffectName"		"particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
-				"EffectAttachType"	"follow_origin"
+				//"EffectName"		"particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
+				//"EffectAttachType"	"follow_origin"
 			}
 		}
 	}
@@ -3839,7 +3971,7 @@
 	"srts_hero_desc_commander_caster"
 	{
 		"BaseClass"			"ability_datadriven"
-		"AbilityTextureName"		"spellicon_gunner"
+		"AbilityTextureName"		"spellicon_sorceress"
 	}
 
 
@@ -5268,7 +5400,7 @@
 			"05"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"damage"	"9"
+				"damage"	"10"
 			}
 
 			"06"
@@ -5639,6 +5771,165 @@
 			"SpawnUnit"
 			{
 				"UnitName"	"npc_dota_creature_skeleton_caster"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+
+
+     	// Train1.2.7
+	// Train Human Sorceress
+	//================================================================================
+	// Train Human Sorceress
+	//================================================================================
+	"srts_train_human_sorceress"
+	{
+		// General
+		"AbilityName"			"Human_Sorceress"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_sorceress"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		"AbilityGoldCost"		"120"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"120"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"10"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"255"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"9"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"600"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAffordUnit"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_human_sorceress"
 				"Target"	"CASTER"
 				"Duration"	"0"
 				"UnitCount"	"1"

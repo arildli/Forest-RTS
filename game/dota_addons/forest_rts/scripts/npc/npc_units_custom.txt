@@ -400,7 +400,7 @@
 		"AttackDamageMax"		"17"
 		"AttackRate"			"1.75"
 		"AttackAnimationPoint"		"0.38"
-		"AttackAcquisitionRange"	"600"
+		"AttackAcquisitionRange"	"775"
 		"AttackRange"			"600"
 		"ProjectileModel"		"particles/units/heroes/hero_sniper/sniper_base_attack.vpcf"
 		"ProjectileSpeed"		"1200"
@@ -633,8 +633,8 @@
 		"ArmorPhysical"			"0"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"		"7"
-		"AttackDamageMax"		"11"
+		"AttackDamageMin"		"8"
+		"AttackDamageMax"		"12"
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
@@ -781,8 +781,8 @@
 		"ModelScale"			"0.9"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"31"
-		"BountyGoldMax"			"31"
+		"BountyGoldMin"			"27"
+		"BountyGoldMax"			"27"
 
 		"Ability1"			""
 		"Ability2"			""
@@ -848,6 +848,89 @@
 				"Wearable6"
 				{
 					"ItemDef"	"6001"
+				}
+			}
+		}			
+	}
+
+
+
+
+
+	// Unit2.7
+	//================================================================================
+	// Unit: Human Sorceress
+	//================================================================================
+	
+	// Level 1	
+	//========================================
+	"npc_dota_creature_human_sorceress"
+	{
+		"Model"				"models/heroes/lina/lina.vmdl"
+		"BaseClass"			"npc_dota_creature"
+		"SoundSet"			"n_creep_Ranged"
+		"ModelScale"			"0.9"
+
+		"BountyXP"			"25"
+		"BountyGoldMin"			"30"
+		"BountyGoldMax"			"30"
+
+		"Ability1"			""
+		"Ability2"			""
+		"Ability3"			""
+		"Ability10"			"srts_ability_units"
+
+		"SelectionGroup"		"Human_Sorceress"
+
+		"ArmorPhysical"			"0"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"		"8"
+		"AttackDamageMax"		"10"
+		"AttackRate"			"1.9"
+		"AttackAnimationPoint"		"0.5"
+		"AttackAcquisitionRange"	"625"
+		"AttackRange"			"625"
+		"ProjectileModel"		"particles/units/heroes/hero_lina/lina_base_attack.vpcf"
+		"ProjectileSpeed"		"1200"
+
+		"RingRadius"			"40"
+		"HealthBarOffset"		"150"
+		"FormationRank" 		"2"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"350"
+		"MovementTurnRate"		"0.7"
+
+		"StatusHealth"			"255"
+		"StatusHealthRegen"		"1.0"
+		"StatusMana"			"200"
+		"StatusManaRegen"		"1.0"	
+
+		"VisionDaytimeRange"		"800"
+		"VisionNighttimeRange"		"800"	
+
+		"Creature"
+		{
+			//"DisableClumpingBehavior"	"1"
+
+			"AttachWearables"
+			{
+				"Wearable1"
+				{
+					"ItemDef"	"8118"
+				}
+				"Wearable2"
+				{
+					"ItemDef"	"8119"
+				}
+				"Wearable3"
+				{
+					"ItemDef"	"8120"
+				}
+				"Wearable4"
+				{
+					"ItemDef"	"8121"
 				}
 			}
 		}			

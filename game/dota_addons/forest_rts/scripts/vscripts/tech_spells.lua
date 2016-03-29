@@ -169,6 +169,11 @@ defs = {
      category = "spell"
   },
 
+  SLOW = {
+     spell = "srts_slow",
+     category = "spell"
+  },
+
 
 
   -- Buildings 
@@ -564,6 +569,20 @@ defs = {
       },
       HIDDEN = {
 	 "UNIT"
+      }
+    }
+  },
+
+  COMMANDER_SORCERESS = {
+    name = "npc_dota_creature_human_sorceress",
+    spell = "srts_train_human_sorceress",
+    category = "unit",
+    pages = {
+      PAGE_MAIN = {
+	 "SLOW"
+      },
+      HIDDEN = {
+	"UNIT"
       }
     }
   },
