@@ -104,7 +104,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		"AbilityGoldCost"		"275"
+		"AbilityGoldCost"		"175"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"90"
@@ -231,7 +231,7 @@
 		"AbilityCastRange"		"250"
 		"AbilityCooldown"		"0"
 		"AbilityManaCost"		"0"
-		"AbilityGoldCost"		"275"
+		"AbilityGoldCost"		"175"
 		//	"AbilityUpgradeGoldCost"	"0"
 
 		"AbilityChannelTime"		"90"
@@ -992,9 +992,7 @@
 		"AbilityGoldCost"				"375"
 		"BuildTime"					"60"
 		// End of BuildingHelper info
-		// EDITED
-		"AbilityChannelTime"				"3"
-		//		"AbilityChannelTime"				"60"
+		"AbilityChannelTime"				"60"
 
 		"AbilitySpecial"
 		{
@@ -1204,9 +1202,7 @@
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"125"
 		"AbilityLumberCost"				"75"
-		// EDITED
-		"BuildTime"					"3"
-		//		"BuildTime"					"20"
+		"BuildTime"					"20"
 		// End of BuildingHelper info
 
 		"AbilitySpecial"
@@ -3850,7 +3846,7 @@
 		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
 		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_NO"
-		"AbilityTextureName"		"pugna_decrepify"
+		"AbilityTextureName"		"skywrath_mage_concussive_shot"
 		"MaxLevel"			"1"
 
 		// Casting
@@ -3933,7 +3929,7 @@
 					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%move_slow"
 				}
 
-				"AbilityTextureName"	"pugna_decrepify"
+				"AbilityTextureName"	"skywrath_mage_concussive_shot"
 				//"EffectName"		"particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
 				//"EffectAttachType"	"follow_origin"
 			}

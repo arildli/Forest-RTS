@@ -62,7 +62,6 @@ Ideer:
 - Upgrade for lumber harvest og flame thrower dot.
 - Tech level ikon for spiller. 
 - Gi melding om at upgrades er ferdige.
-- Øk Skeleton Archer skade med 1.
 - Living Bomb upgrade Sorceress?
 
 - Skeleton Mage (Pugna): Frenzy (MoM effect) (og ress aura?).
