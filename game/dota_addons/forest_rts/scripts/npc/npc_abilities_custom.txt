@@ -3940,6 +3940,112 @@
 
 
 
+	// Spell8.12
+	//================================================================================
+	// Frenzy - Troll Elder Ability
+	//================================================================================
+	"srts_frenzy"
+	{	
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_BOTH"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+		"AbilityTextureName"		"ogre_magi_bloodlust"
+		"MaxLevel"			"1"
+
+		// Casting
+		//--------------------
+		"AbilityCastRange"		"600"
+		"AbilityCastPoint"		"0.4"
+
+		// Time		
+		//--------------------
+		"AbilityCooldown"		"0.0"
+
+		// Cost
+		//--------------------
+		"AbilityManaCost"		"35"
+
+		// Special
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"		"FIELD_FLOAT"
+				"attack_speed_bonus"	"40"
+			}
+
+			"02"
+			{
+				"var_type"		"FIELD_FLOAT"
+				"extra_damage"		"10"
+			}
+			
+			"03"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"duration_hero"		"10"
+			}
+
+			"04"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"duration_other"	"20"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"
+				{
+					"Center"	"TARGET"
+					"Type"		"DOTA_UNIT_TARGET_HERO"
+				}
+				"ModifierName"	"modifier_frenzy"
+				"Duration"	"%duration_hero"
+			}
+
+			"ApplyModifier"
+			{
+				"Target"
+				{
+					"Center"	"TARGET"
+					"Type"		"DOTA_UNIT_TARGET_BASIC"
+				}
+				"ModifierName"	"modifier_frenzy"
+				"Duration"	"%duration_other"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_frenzy"
+			{
+				"Passive"	"0"
+				"IsHidden"	"0"
+				"IsBuff"	"1"
+			
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"	"%attack_speed_bonus"
+					"MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE"	"%extra_damage"
+				}
+
+				"AbilityTextureName"	"ogre_magi_bloodlust"
+				"EffectName"		"particles/items2_fx/mask_of_madness.vpcf"
+				"EffectAttachType"	"follow_origin"
+			}
+		}
+	}
+
+
+
+
+
 // --// Hero Description Spells //-- // Spell9
 
 
@@ -4060,7 +4166,7 @@
 
  	// Spell9.5.3
 	// Troll 
-	"srts_hero_desc_troll_caster"
+	"srts_hero_desc_troll_warlord_caster"
 	{
 		"BaseClass"			"ability_datadriven"
 		"AbilityTextureName"		"spellicon_gunner"
@@ -5926,6 +6032,165 @@
 			"SpawnUnit"
 			{
 				"UnitName"	"npc_dota_creature_human_sorceress"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
+
+
+
+    	// Train1.2.8
+	// Train Troll Elder
+	//================================================================================
+	// Train Troll Elder
+	//================================================================================
+	"srts_train_troll_elder"
+	{
+		// General
+		"AbilityName"			"Troll_Elder"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_sorceress"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		"AbilityGoldCost"		"115"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"115"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"10"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"240"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"8"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"600"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAffordUnit"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_troll_elder"
 				"Target"	"CASTER"
 				"Duration"	"0"
 				"UnitCount"	"1"

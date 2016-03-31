@@ -438,14 +438,17 @@ tech = {
 
     -- Unit and building spells
     HATRED = defs.HATRED,
+    FRENZY = defs.FRENZY,
 
     WARLORD_WORKER = defs.WARLORD_WORKER,
     WARLORD_FIGHTER = defs.WARLORD_FIGHTER,
     WARLORD_AXE_THROWER = defs.WARLORD_AXE_THROWER,
     WARLORD_CATAPULT = defs.WARLORD_CATAPULT,
+    WARLORD_ELDER = defs.WARLORD_ELDER,
 
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
+				   defs.WARLORD_ELDER,
 				   defs.WARLORD_WORKER,
 				   defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
@@ -462,6 +465,7 @@ tech = {
 				      defs.WARLORD_CATAPULT
     }),
     BARRACKS_ADVANCED_DIRE = CopyWithNewMain(defs.BARRACKS_ADVANCED_DIRE, {
+						defs.WARLORD_ELDER
     }),
     ARMORY_DIRE = defs.ARMORY_DIRE,
     HEALING_CRYSTAL_DIRE = defs.HEALING_CRYSTAL_DIRE,

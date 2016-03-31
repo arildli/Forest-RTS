@@ -226,7 +226,7 @@
 
 		"Ability1"		"srts_hero_desc_troll_warlord_melee"
 		"Ability2"		"srts_hero_desc_troll_warlord_ranged"
-		"Ability3"		""
+		"Ability3"		"srts_hero_desc_troll_warlord_caster"
 		"Ability4"		""
 		"Ability5"		""
 		"Ability6"		""

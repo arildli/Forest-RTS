@@ -1,4 +1,18 @@
+Units:
 
+- Added a new unit to Warlord:
 
+Elder
+------
+Caster unit that can frenzy their allies, increasing their attack speed while also slightly increasing the damage they take.
 
--- HUSK Å SETTE UPGRADE TIME TILBAKE TIL 60!
+* Health: 230
+* Armor: 0
+* Damage: 8
+
+* Gold Cost: 115
+* Lumber Cost: 10
+
+Has ability:
+- Frenzy: Increases the attack speed of the targetted allied unit by 40, while also increasing the damage they take by 10%.
+

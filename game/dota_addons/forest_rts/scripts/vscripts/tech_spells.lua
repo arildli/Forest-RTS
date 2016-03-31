@@ -174,6 +174,11 @@ defs = {
      category = "spell"
   },
 
+  FRENZY = {
+     spell = "srts_frenzy",
+     category = "spell"
+  },
+
 
 
   -- Buildings 
@@ -950,6 +955,21 @@ defs = {
     pages = {
       PAGE_MAIN = {
 	 "SIEGE_DAMAGE"
+      },
+      HIDDEN = {
+	"UNIT"
+      }
+    }
+  },
+
+  WARLORD_ELDER = {
+    name = "npc_dota_creature_troll_elder",
+    spell = "srts_train_troll_elder",
+    category = "unit",
+    req = {},
+    pages = {
+      PAGE_MAIN = {
+	"FRENZY"
       },
       HIDDEN = {
 	"UNIT"

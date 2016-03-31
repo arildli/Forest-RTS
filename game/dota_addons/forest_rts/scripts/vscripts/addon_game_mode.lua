@@ -247,7 +247,12 @@ function Precache( context )
 
 	-- Axe Thrower
 	PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_troll_dark_a/n_creep_troll_dark_a.vmdl", context)
+	
+	-- Troll Elder
+	PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_troll_dark_b/n_creep_troll_dark_b.vmdl", context)
 
+	PrecacheResource("particle", "particles/units/heroes/hero_witchdoctor/witchdoctor_base_attack.vpcf", context)
+	PrecacheResource("particle", "particles/items2_fx/mask_of_madness.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_troll_warlord/troll_warlord_base_attack.vpcf", context)
 
 
