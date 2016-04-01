@@ -3966,33 +3966,33 @@
 
 		// Cost
 		//--------------------
-		"AbilityManaCost"		"35"
+		"AbilityManaCost"		"45"
 
 		// Special
 		"AbilitySpecial"
-		{
+		{			
 			"01"
-			{
-				"var_type"		"FIELD_FLOAT"
-				"attack_speed_bonus"	"40"
-			}
-
-			"02"
-			{
-				"var_type"		"FIELD_FLOAT"
-				"extra_damage"		"10"
-			}
-			
-			"03"
 			{
 				"var_type"		"FIELD_INTEGER"
 				"duration_hero"		"10"
 			}
 
-			"04"
+			"02"
 			{
 				"var_type"		"FIELD_INTEGER"
 				"duration_other"	"20"
+			}
+
+			"03"
+			{
+				"var_type"		"FIELD_FLOAT"
+				"attack_speed_bonus"	"40"
+			}
+
+			"04"
+			{
+				"var_type"		"FIELD_FLOAT"
+				"extra_damage"		"10"
 			}
 		}
 
@@ -4169,7 +4169,7 @@
 	"srts_hero_desc_troll_warlord_caster"
 	{
 		"BaseClass"			"ability_datadriven"
-		"AbilityTextureName"		"spellicon_gunner"
+		"AbilityTextureName"		"spellicon_elder"
 	}
 
 
@@ -6096,7 +6096,7 @@
 		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
 		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
 		"BaseClass"			"ability_datadriven"
-		"AbilityTextureName"		"spellicon_sorceress"
+		"AbilityTextureName"		"spellicon_elder"
 		"Maxlevel"			"1"
 
 		"AbilityCastPoint"		"0.1"
