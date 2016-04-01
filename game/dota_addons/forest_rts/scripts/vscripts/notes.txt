@@ -44,6 +44,7 @@ Ideer:
 - Gi liten buff til wk.
 - Ogre race med kraftige, men dyre melee units. Bloodlust.
 - Passive tab for heroes.
+- Forskjellig vision range dag og natt for mer dybde og fordeler med tårn.
 
 - Dire Sea race: Slardar, Naga, Slark, Medusa
 - Patrols lager baser hvis man somler med å komme i gang.

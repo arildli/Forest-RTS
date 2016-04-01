@@ -4003,10 +4003,10 @@
 				"Target"
 				{
 					"Center"	"TARGET"
-					"Type"		"DOTA_UNIT_TARGET_HERO"
+					"Type"		"DOTA_UNIT_TARGET_BASIC"
 				}
 				"ModifierName"	"modifier_frenzy"
-				"Duration"	"%duration_hero"
+				"Duration"	"%duration_other"
 			}
 
 			"ApplyModifier"
@@ -4014,10 +4014,10 @@
 				"Target"
 				{
 					"Center"	"TARGET"
-					"Type"		"DOTA_UNIT_TARGET_BASIC"
+					"Type"		"DOTA_UNIT_TARGET_HERO"
 				}
 				"ModifierName"	"modifier_frenzy"
-				"Duration"	"%duration_other"
+				"Duration"	"%duration_hero"
 			}
 		}
 

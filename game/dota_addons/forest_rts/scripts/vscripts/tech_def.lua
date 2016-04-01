@@ -448,7 +448,6 @@ tech = {
 
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-				   defs.WARLORD_ELDER,
 				   defs.WARLORD_WORKER,
 				   defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
