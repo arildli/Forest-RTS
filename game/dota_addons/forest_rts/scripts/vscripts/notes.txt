@@ -64,6 +64,7 @@ Ideer:
 - Tech level ikon for spiller. 
 - Gi melding om at upgrades er ferdige.
 - Living Bomb upgrade Sorceress?
+- Entangling roots upgrade for leshrac?
 
 - Skeleton Mage (Pugna): Frenzy (MoM effect) (og ress aura?).
 - Barracks 2 kan lære flame throwers å gi en viss miss chance.

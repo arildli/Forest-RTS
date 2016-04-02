@@ -179,6 +179,11 @@ defs = {
      category = "spell"
   },
 
+  LIVING_ARMOR = {
+     spell = "srts_living_armor",
+     category = "spell"
+  },
+
 
 
   -- Buildings 
@@ -674,6 +679,21 @@ defs = {
     pages = {
       PAGE_MAIN = {
 	 "SIEGE_DAMAGE"
+      },
+      HIDDEN = {
+	"UNIT"
+      }
+    }
+  },
+
+  FURION_TORMENTED_SOUL = {
+    name = "npc_dota_creature_forest_tormented_soul",
+    spell = "srts_train_forest_tormented_soul",
+    category = "unit",
+    req = {},
+    pages = {
+      PAGE_MAIN = {
+	"LIVING_ARMOR"
       },
       HIDDEN = {
 	"UNIT"

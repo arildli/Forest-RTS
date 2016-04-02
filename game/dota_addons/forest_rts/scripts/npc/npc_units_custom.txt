@@ -955,8 +955,8 @@
 		"ModelScale"			"0.8"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"30"
-		"BountyGoldMax"			"30"
+		"BountyGoldMin"			"29"
+		"BountyGoldMax"			"29"
 
 		"Ability1"			""
 		"Ability2"			""
@@ -996,6 +996,89 @@
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
+		}			
+	}
+
+
+
+
+
+	// Unit2.9
+	//================================================================================
+	// Unit: Forest Tormented Soul
+	//================================================================================
+	
+	// Level 1	
+	//========================================
+	"npc_dota_creature_forest_tormented_soul"
+	{
+		"Model"				"models/heroes/leshrac/leshrac.vmdl"
+		"BaseClass"			"npc_dota_creature"
+		"SoundSet"			"n_creep_Ranged"
+		"ModelScale"			"0.8"
+
+		"BountyXP"			"25"
+		"BountyGoldMin"			"31"
+		"BountyGoldMax"			"31"
+
+		"Ability1"			""
+		"Ability2"			""
+		"Ability3"			""
+		"Ability10"			"srts_ability_units"
+
+		"SelectionGroup"		"Forest_Tormented_Soul"
+
+		"ArmorPhysical"			"0"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"		"8"
+		"AttackDamageMax"		"10"
+		"AttackRate"			"1.8"
+		"AttackAnimationPoint"		"0.38"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"			"600"
+		"ProjectileModel"		"particles/units/heroes/hero_leshrac/leshrac_base_attack.vpcf"
+		"ProjectileSpeed"		"1200"
+
+		"RingRadius"			"40"
+		"HealthBarOffset"		"150"
+		"FormationRank" 		"2"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"350"
+		"MovementTurnRate"		"0.7"
+
+		"StatusHealth"			"275"
+		"StatusHealthRegen"		"1.0"
+		"StatusMana"			"200"
+		"StatusManaRegen"		"1.0"	
+
+		"VisionDaytimeRange"		"800"
+		"VisionNighttimeRange"		"800"	
+
+		"Creature"
+		{
+			//"DisableClumpingBehavior"	"1"
+
+			"AttachWearables"
+			{
+				"Wearable1"
+				{
+					"ItemDef"	"4990"
+				}
+				"Wearable2"
+				{
+					"ItemDef"	"4991"
+				}
+				"Wearable3"
+				{
+					"ItemDef"	"4992"
+				}
+				"Wearable4"
+				{
+					"ItemDef"	"4993"
+				}
+			}
 		}			
 	}
 

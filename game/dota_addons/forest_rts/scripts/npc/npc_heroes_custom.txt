@@ -67,7 +67,7 @@
 
 		"Ability1"		"srts_hero_desc_furion_melee"
 		"Ability2"		"srts_hero_desc_furion_ranged"
-		"Ability3"		""
+		"Ability3"		"srts_hero_desc_furion_caster"
 		"Ability4"		""
 		"Ability5"		""
 		"Ability6"		""

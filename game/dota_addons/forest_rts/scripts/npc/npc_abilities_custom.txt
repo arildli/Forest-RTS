@@ -4046,6 +4046,112 @@
 
 
 
+	// Spell8.13
+	//================================================================================
+	// Living Armor - Forest Tormented Soul Ability
+	//================================================================================
+	"srts_living_armor"
+	{	
+		// General
+		//--------------------
+		"BaseClass"			"ability_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+		"AbilityTextureName"		"treant_living_armor"
+		"MaxLevel"			"1"
+
+		// Casting
+		//--------------------
+		"AbilityCastRange"		"600"
+		"AbilityCastPoint"		"0.4"
+
+		// Time		
+		//--------------------
+		"AbilityCooldown"		"0.0"
+
+		// Cost
+		//--------------------
+		"AbilityManaCost"		"35"
+
+		// Special
+		"AbilitySpecial"
+		{			
+			"01"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"duration_hero"		"10"
+			}
+
+			"02"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"duration_other"	"20"
+			}
+
+			"03"
+			{
+				"var_type"		"FIELD_FLOAT"
+				"armor_bonus"		"4"
+			}
+
+			"04"
+			{
+				"var_type"		"FIELD_FLOAT"
+				"regen_bonus"		"2"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"
+				{
+					"Center"	"TARGET"
+					"Type"		"DOTA_UNIT_TARGET_BASIC"
+				}
+				"ModifierName"	"modifier_living_armor"
+				"Duration"	"%duration_other"
+			}
+
+			"ApplyModifier"
+			{
+				"Target"
+				{
+					"Center"	"TARGET"
+					"Type"		"DOTA_UNIT_TARGET_HERO"
+				}
+				"ModifierName"	"modifier_living_armor"
+				"Duration"	"%duration_hero"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_living_armor"
+			{
+				"Passive"	"0"
+				"IsHidden"	"0"
+				"IsBuff"	"1"
+			
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"	"%armor_bonus"
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%regen_bonus"
+				}
+
+				"AbilityTextureName"	"treant_living_armor"
+				"EffectName"		"particles/units/heroes/hero_treant/treant_livingarmor.vpcf"
+				"EffectAttachType"	"follow_origin"
+			}
+		}
+	}
+
+
+
+
+
 // --// Hero Description Spells //-- // Spell9
 
 
@@ -4094,6 +4200,15 @@
 	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 		"BaseClass"			"ability_datadriven"	
 		"AbilityTextureName"		"spellicon_dryad"
+	} 
+
+  	// Spell9.2.3
+	// Furion Tormented Soul
+   	"srts_hero_desc_furion_caster"
+      	{
+	//	"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"BaseClass"			"ability_datadriven"	
+		"AbilityTextureName"		"spellicon_tormented_soul"
 	} 
 
 
@@ -6238,6 +6353,167 @@
 			}							
 		}
 	}
+
+
+
+
+
+    	// Train1.2.9
+	// Train Forest Tormented Soul
+	//================================================================================
+	// Train Forest Tormented Soul
+	//================================================================================
+	"srts_train_forest_tormented_soul"
+	{
+		// General
+		"AbilityName"			"Forest_Tormented_Soul"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"spellicon_tormented_soul"
+		"Maxlevel"			"1"
+
+		"AbilityCastPoint"		"0.1"
+		"AbilityCastRange"		"250"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		//	"AbilityCooldown"		"5 5 5 5"
+		"AbilityGoldCost"		"125"
+		//	"AbilityUpgradeGoldCost"	"0"
+
+		"AbilityChannelTime"		"8"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"125"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"10"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"health"	"275"
+			}
+		
+			"04"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"armor"		"0"
+			}
+
+			"05"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"damage"	"9"
+			}
+
+			"06"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"range"		"600"
+			}
+
+			"07"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"training_time"	"8"
+			}	
+		}		
+
+
+		"precache"
+		{
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"CheckIfCanAffordUnit"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}
+
+			"ApplyModifier"
+			{
+				"ModifierName"	"modifier_train_unit"
+				"Target"	"CASTER"
+			}
+		}	
+		
+		"OnChannelFinish"
+		{
+			"RemoveModifier"
+			{
+				"ModifierName"		"modifier_train_unit"
+				"Target"		"CASTER"
+			}	
+		}
+
+		"OnChannelSucceeded"
+		{	
+			"SpawnUnit"
+			{
+				"UnitName"	"npc_dota_creature_forest_tormented_soul"
+				"Target"	"CASTER"
+				"Duration"	"0"
+				"UnitCount"	"1"
+				"UnitLimit"	"0"
+				"GrantsGold"	"1"
+				"GrantsXP"	"1"
+				"SpawnRadius"	"10"
+				
+				"OnSpawn"
+				{
+					"ApplyModifier"
+					{
+						"ModifierName"	"modifier_phased"
+						"Target"	"TARGET"
+						"Duration"	"0.03"
+					}
+
+					"FireSound"
+					{
+						"EffectName"	"DOTA_Item.Hand_Of_Midas"
+						"Target"	"CASTER"
+					}
+
+					"RunScript"
+					{
+						"Target"	"POINT"	
+						"ScriptFile"	"scripts/vscripts/buildings.lua"
+						"Function"	"OnUnitTrained"
+						"goldCost"	"%gold_cost"
+						"lumberCost"	"%lumber_cost"
+					}
+				}
+			}	
+		}
+
+		"OnChannelInterrupted"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings.lua"
+				"Function"	"RefundResources"
+				"Target"	"CASTER"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}							
+		}
+	}
+
+
 
 
 

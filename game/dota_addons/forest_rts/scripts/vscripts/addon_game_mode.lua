@@ -79,6 +79,7 @@ function Precache( context )
 	   -- Gold Mine
 	PrecacheResource("model", "models/mine/mine.vmdl", context)
 
+
 	-- Midas Particle
 	PrecacheResource("particle", "particles/items2_fx/hand_of_midas_b.vpcf", context)
 
@@ -187,6 +188,18 @@ function Precache( context )
 	PrecacheResource("model", "models/items/enchantress/anuxi_summer_spear/anuxi_summer_spear.vmdl", context)
 
 	PrecacheResource("particle" ,"particles/units/heroes/hero_enchantress/enchantress_base_attack.vpcf", context)
+
+	-- Tormented Soul
+	PrecacheResource("model", "models/heroes/leshrac/leshrac.vmdl", context)
+
+	PrecacheResource("model", "models/items/leshrac/aboundedroots_thornsofsundering/aboundedroots_thornsofsundering.vmdl", context)
+	PrecacheResource("model", "models/items/leshrac/horns_thornsofsundering/horns_thornsofsundering.vmdl", context)
+	PrecacheResource("model", "models/items/leshrac/pauldronsofsundering/pauldronsofsundering.vmdl", context)
+	PrecacheResource("model", "models/items/leshrac/tailofsundering/tailofsundering.vmdl", context)
+	
+	PrecacheResource("particle", "particles/units/heroes/hero_leshrac/leshrac_base_attack.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_treant/treant_livingarmor.vpcf", context)
+	PrecacheResource("particle", "particles/units/heroes/hero_treant/treant_livingarmor_regen.vpcf", context)
 
 
 
