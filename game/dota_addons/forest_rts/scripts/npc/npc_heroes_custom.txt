@@ -28,8 +28,8 @@
 		// Attributes - Strength
 		//------------------------------------------------------------------------
 		"AttributePrimary"		"DOTA_ATTRIBUTE_STRENGTH"
-		"AttributeBaseStrength"		"25"
-		"AttributeStrengthGain"		"4.0"
+		"AttributeBaseStrength"		"30"
+		"AttributeStrengthGain"		"5.0"
 		"AttributeBaseIntelligence"	"20"
 		"AttributeIntelligenceGain"	"2.0"
 		"AttributeBaseAgility"		"20"
@@ -81,8 +81,8 @@
 		// Attributes - Intelligence
 		//------------------------------------------------------------------------
 		"AttributePrimary"		"DOTA_ATTRIBUTE_AGILITY"
-		"AttributeBaseStrength"		"20"
-		"AttributeStrengthGain"		"4.0"
+		"AttributeBaseStrength"		"25"
+		"AttributeStrengthGain"		"4.5"
 		"AttributeBaseIntelligence"	"25"
 		"AttributeIntelligenceGain"	"2.0"
 		"AttributeBaseAgility"		"20"
@@ -134,8 +134,8 @@
 		// Attributes - Strength
 		//------------------------------------------------------------------------
 		"AttributePrimary"		"DOTA_ATTRIBUTE_STRENGTH"
-		"AttributeBaseStrength"		"25"
-		"AttributeStrengthGain"		"4.0"
+		"AttributeBaseStrength"		"30"
+		"AttributeStrengthGain"		"5.0"
 		"AttributeBaseIntelligence"	"20"
 		"AttributeIntelligenceGain"	"2.0"
 		"AttributeBaseAgility"		"20"
@@ -187,8 +187,8 @@
 		// Attributes - Strength
 		//------------------------------------------------------------------------
 		"AttributePrimary"		"DOTA_ATTRIBUTE_STRENGTH"
-		"AttributeBaseStrength"		"25"
-		"AttributeStrengthGain"		"4.0"
+		"AttributeBaseStrength"		"30"
+		"AttributeStrengthGain"		"5.0"
 		"AttributeBaseIntelligence"	"20"
 		"AttributeIntelligenceGain"	"2.0"
 		"AttributeBaseAgility"		"20"
@@ -240,8 +240,8 @@
 		// Attributes - Agility
 		//------------------------------------------------------------------------
 		"AttributePrimary"		"DOTA_ATTRIBUTE_AGILITY"
-		"AttributeBaseStrength"		"20"
-		"AttributeStrengthGain"		"4.0"
+		"AttributeBaseStrength"		"25"
+		"AttributeStrengthGain"		"4.5"
 		"AttributeBaseIntelligence"	"20"
 		"AttributeIntelligenceGain"	"2.0"
 		"AttributeBaseAgility"		"25"

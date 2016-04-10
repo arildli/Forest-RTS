@@ -65,6 +65,22 @@ Ideer:
 - Gi melding om at upgrades er ferdige.
 - Living Bomb upgrade Sorceress?
 - Entangling roots upgrade for leshrac?
+- Roaming wolf packs, som går rundt omkring og angriper det den møter på?
+  Kan i så fall også gå løs på baser. Vote!
+- Skriv om hvilken mode som vil bli valgt med de valgte lagene + kort desc.
+- Vise space required ved bygging.
+- Autocast slow upgrade på flame throwers.
+- Ensnare upgrade til troll Elders.
+- Lua/Python editor for spells/units.
+- Script for å sende slikt til mobilen.
+- Unit/spell editor script.
+- Zeus med autocast chain lightning til Commander?
+- Autocast debuffs ved attack?
+- Synlig gridnav bruk på eksisterende bygninger ved konstruksjon.
+- Hero item shop med billig magic immunity?
+- Cash bygninger (litt)
+- Block chance upgrade melee units etter Large Tent
+- Buff Sorceress Slow
 
 - Skeleton Mage (Pugna): Frenzy (MoM effect) (og ress aura?).
 - Barracks 2 kan lære flame throwers å gi en viss miss chance.

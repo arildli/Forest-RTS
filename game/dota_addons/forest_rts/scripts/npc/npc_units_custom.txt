@@ -485,7 +485,7 @@
 		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"14"
 		"AttackDamageMax"		"18"
-		"AttackRate"			"1.6"
+		"AttackRate"			"1.65"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
 		"AttackRange"			"600"
@@ -500,7 +500,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"250"
+		"StatusHealth"			"240"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -1779,7 +1779,7 @@
 		"BaseClass"					"npc_dota_creature"
 		//"Model"						"models/props_structures/wooden_sentry_tower001.vmdl"
 		"Model"						"models/watch_tower/watch_tower.vmdl"
-		"ModelScale"					"0.85"
+		"ModelScale"					"0.9"
 		"AbilityLayout"					"6"
 
 		"SoundSet"					"Creep_Good_Melee"
