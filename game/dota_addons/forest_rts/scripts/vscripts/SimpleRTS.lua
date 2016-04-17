@@ -10,11 +10,14 @@ PLAYER_COUNT = 0
 VICTORY_SCORE = 0
 
 COLOR_RADIANT = "#3455ff"
+COLOR_RADIANT_RGB = {52,85,255}
 --"#3dd296"
 --"#1bc0d8"
 --"#3455ff"
 --"#4789ab"
 COLOR_DIRE = "#b0171b"
+COLOR_DIRE_RGB = {176,23,27}
+
 
 -- For some reason the type of self is number in one of the methods...
 local prefixGlobal = ""

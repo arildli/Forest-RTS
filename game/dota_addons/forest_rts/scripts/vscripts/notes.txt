@@ -45,6 +45,7 @@ Ideer:
 - Ogre race med kraftige, men dyre melee units. Bloodlust.
 - Passive tab for heroes.
 - Forskjellig vision range dag og natt for mer dybde og fordeler med tårn.
+- Bør ta lenger tid å trene tropper.
 
 - Dire Sea race: Slardar, Naga, Slark, Medusa
 - Patrols lager baser hvis man somler med å komme i gang.
@@ -81,6 +82,9 @@ Ideer:
 - Cash bygninger (litt)
 - Block chance upgrade melee units etter Large Tent
 - Buff Sorceress Slow
+
+- Legg til TeamColor boolean i tech, og SetRenderColor på de som har det.
+- Legge til hengende banner med teamcolor på tårn?
 
 - Skeleton Mage (Pugna): Frenzy (MoM effect) (og ress aura?).
 - Barracks 2 kan lære flame throwers å gi en viss miss chance.

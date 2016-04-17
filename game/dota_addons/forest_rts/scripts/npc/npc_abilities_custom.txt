@@ -1128,8 +1128,8 @@
 	
 		"UnitName"					"npc_dota_building_barracks_radiant"
 		"AbilityCooldown"				"0"
-		"AbilityGoldCost"				"100"
-		"AbilityLumberCost"				"75"
+		"AbilityGoldCost"				"140"
+		"AbilityLumberCost"				"50"
 		"BuildTime"					"20"
 		// End of BuildingHelper info
 
@@ -1138,13 +1138,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"100"
+				"gold_cost"	"140"
 			}
 
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"75"
+				"lumber_cost"	"50"
 			}	
 
 			"03"
@@ -1272,8 +1272,8 @@
 	
 		"UnitName"					"npc_dota_building_barracks_dire"
 		"AbilityCooldown"				"0"
-		"AbilityGoldCost"				"100"
-		"AbilityLumberCost"				"75"
+		"AbilityGoldCost"				"140"
+		"AbilityLumberCost"				"50"
 		"BuildTime"					"20"
 		// End of BuildingHelper info
 
@@ -1282,13 +1282,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"100"
+				"gold_cost"	"140"
 			}
 
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"75"
+				"lumber_cost"	"50"
 			}
 
 			"03"
@@ -1417,7 +1417,7 @@
 		"UnitName"					"npc_dota_building_market"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"50"
-		"AbilityLumberCost"				"40"
+		"AbilityLumberCost"				"25"
 		"BuildTime"					"20"
 		// End of BuildingHelper info
 
@@ -1432,7 +1432,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"40"
+				"lumber_cost"	"25"
 			}
 
 			"03"
@@ -1507,7 +1507,7 @@
 		"UnitName"					"npc_dota_building_armory"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"150"
-		"AbilityLumberCost"				"150"
+		"AbilityLumberCost"				"125"
 		"BuildTime"					"25"
 		// End of BuildingHelper info
 
@@ -1522,7 +1522,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"150"
+				"lumber_cost"	"125"
 			}
 
 			"03"
@@ -1687,8 +1687,8 @@
 		"UnitName"					"npc_dota_building_gold_mine"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"0"
-		"AbilityLumberCost"				"10"
-		"BuildTime"					"15"
+		"AbilityLumberCost"				"0"
+		"BuildTime"					"10"
 		// End of BuildingHelper info
 
 		"AbilitySpecial"
@@ -1702,13 +1702,13 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"10"
+				"lumber_cost"	"0"
 			}
 
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"build_time"	"15"
+				"build_time"	"10"
 			}
 			
 			"04"
@@ -1739,7 +1739,7 @@
 			"08"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"amount"	"20"
+				"amount"	"5"
 			}		
 		}
 
@@ -2752,15 +2752,15 @@
 		{
 			"01"
 			{
-				"var_type"	"FIELD_FLOAT"
-				"period"	"5.0"
+				"var_type"	"FIELD_INTEGER"
+				"amount"	"5"
 			}
 
-			"02"
-			{
-				"var_type"	"FIELD_INTEGER"
-				"amount"	"20"
-			}
+			//"02"
+			//{
+			//	"var_type"	"FIELD_FLOAT"
+			//	"period"	"1.0"
+			//}
 		}
 		
 		"OnSpellStart"
@@ -2780,7 +2780,7 @@
 				"IsDebuff"	"0"
 				"IsHidden"	"1"
 			//	"ThinkInterval"	"%period"
-				"ThinkInterval"	"5.0"
+				"ThinkInterval"	"1.0"
 
 				"OnIntervalThink"
 				{	
@@ -3768,7 +3768,7 @@
 			"01"
 			{
 				"var_type"		"FIELD_FLOAT"
-				"miss_chance"		"35.0"
+				"miss_chance"		"40.0"
 			}
 			
 			"02"
@@ -3868,13 +3868,13 @@
 			"01"
 			{
 				"var_type"		"FIELD_FLOAT"
-				"attack_slow"		"-25"
+				"attack_slow"		"-40"
 			}
 
 			"02"
 			{
 				"var_type"		"FIELD_FLOAT"
-				"move_slow"		"-40"
+				"move_slow"		"-35"
 			}
 			
 			"03"

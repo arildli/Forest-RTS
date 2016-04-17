@@ -297,6 +297,26 @@ function OnUnitTrained(keys)
    -- Apply current upgrades.
    ApplyUpgradesOnTraining(target)
 
+   -- EDITED render color
+   --[=[
+   local targetTeam = target:GetTeamNumber()
+   print("targetTeam: "..targetTeam)
+   print("Radiant: "..DOTA_TEAM_GOODGUYS)
+   print("Dire: "..DOTA_TEAM_BADGUYS)
+   local teamColor = {}
+   if targetTeam == DOTA_TEAM_GOODGUYS then
+      if not COLOR_RADIANT_RGB then
+	 print("Fuck Radiant!")
+      end
+      teamColor = COLOR_RADIANT_RGB
+   elseif targetTeam == DOTA_TEAM_BADGUYS then
+      if not COLOR_DIRE_RGB then
+	 print("Fuck Dire!")
+      end
+      teamColor = COLOR_DIRE_RGB
+   end
+   target:SetRenderColor(teamColor[1], teamColor[2], teamColor[3]) ]=]
+
    -- Move to rally point if it exists.
    local rallyPoint = caster:GetRallyPoint()
    if rallyPoint then
