@@ -1,0 +1,25 @@
+Bot:
+- Sender scout etter par minutter, gi spiller melding om dette.
+- Sender deretter litt og litt flere tropper til basen deres,
+  disse blir sterkere + flere typer units.
+
+Upgrades:
+- Levelsystem på weapon upgrade. Rename LIGHT_DAMAGE og LIGHT_ARMOR
+  til DAMAGE_UPGRADE og ARMOR_UPGRADE, og lag table av name/spell med level
+  som indeks. Oppgrader denne levelen med 1 for hver upgrade. Oppdater
+  deretter inventoryen til alle units ved å fjerne eksisterende items og
+  sette dem på nytt.
+- Flere creep camps, der noen av dem er ganske enkle. Gi noen items som drop.
+
+- Tips til spillere som kan slås av? For eksempel at spiller først bør lage 
+  Main Tent og Gold Mine, deretter tren 5 workers til å hugge trær, creeping osv.
+- Vise plassbruk for bygninger med building ghost.
+- Lengre training time for units.
+- Litt lengre construction time for bygninger.
+- Litt mer plass i enkelte base locations?
+- Færre og bredere chokepoints!
+- Mulig å gjøre human workers til militia?
+- Øk regen på skeletons.
+- Lage Tent modell med team color banner?
+- Team color flag i tech_spells slik at units eller bygninger med team color
+  materials kan få det.
