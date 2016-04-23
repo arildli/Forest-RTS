@@ -26,8 +26,8 @@
 		"ModelScale"			"0.8"
 
 		"BountyXP"			"29"
-		"BountyGoldMin"			"29"
-		"BountyGoldMax"			"29"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			""
 		"Ability2"			""
@@ -117,8 +117,8 @@
 		"ModelScale"			"0.9"
 
 		"BountyXP"			"26"
-		"BountyGoldMin"			"26"
-		"BountyGoldMax"			"26"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_regenerative_bark"
 		"Ability2"			""
@@ -188,8 +188,8 @@
 		"ModelScale"			"1.0"
 
 		"BountyXP"			"21"
-		"BountyGoldMin"			"21"
-		"BountyGoldMax"			"21"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_long_weapon"
 		"Ability2"			""
@@ -251,8 +251,8 @@
 		"ModelScale"			"1.2"
 
 		"BountyXP"			"16"
-		"BountyGoldMin"			"16"
-		"BountyGoldMax"			"16"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_undead_strength"
 		"Ability2"			""
@@ -314,8 +314,8 @@
 		"ModelScale"			"1.0"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"25"
-		"BountyGoldMax"			"25"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_hatred"
 		"Ability2"			""
@@ -383,8 +383,8 @@
 		"ModelScale"			"0.9"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"31"
-		"BountyGoldMax"			"31"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_headshot"
 		"Ability2"			""
@@ -470,8 +470,8 @@
 		"ModelScale"			"0.9"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"32"
-		"BountyGoldMax"			"32"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_envenomed_spears"
 		"Ability2"			""
@@ -557,8 +557,8 @@
 		"ModelScale"			"1.0"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"26"
-		"BountyGoldMax"			"26"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_ignite"
 		"Ability2"			""
@@ -620,8 +620,8 @@
 		"ModelScale"			"0.8"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"25"
-		"BountyGoldMax"			"25"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_burning_arrows"
 		"Ability2"			""
@@ -712,8 +712,8 @@
 		"ModelScale"			"0.8"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"27"
-		"BountyGoldMax"			"27"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_hatred"
 		"Ability2"			""
@@ -781,8 +781,8 @@
 		"ModelScale"			"0.9"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"27"
-		"BountyGoldMax"			"27"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			""
 		"Ability2"			""
@@ -872,8 +872,8 @@
 		"ModelScale"			"0.9"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"30"
-		"BountyGoldMax"			"30"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			""
 		"Ability2"			""
@@ -955,8 +955,8 @@
 		"ModelScale"			"0.8"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"29"
-		"BountyGoldMax"			"29"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			""
 		"Ability2"			""
@@ -1018,8 +1018,8 @@
 		"ModelScale"			"0.8"
 
 		"BountyXP"			"25"
-		"BountyGoldMin"			"31"
-		"BountyGoldMax"			"31"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			""
 		"Ability2"			""
@@ -1243,8 +1243,8 @@
 		"ModelScale"			"0.7"
 
 		"BountyXP"			"19"
-		"BountyGoldMin"			"19"
-		"BountyGoldMax"			"19"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
 		"Ability1"			"srts_harvest_lumber_worker"
@@ -1309,8 +1309,8 @@
 		"ModelScale"			"0.7"
 
 		"BountyXP"			"57"
-		"BountyGoldMin"			"42"
-		"BountyGoldMax"			"42"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_siege_damage"
 		"Ability2"			""
@@ -1372,8 +1372,8 @@
 		"ModelScale"			"0.8"
 
 		"BountyXP"			"57"
-		"BountyGoldMin"			"42"
-		"BountyGoldMax"			"42"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 
 		"Ability1"			"srts_siege_damage"
 		"Ability2"			""
@@ -1440,8 +1440,8 @@
 		"ModelScale"			"0.7"
 
 		"BountyXP"			"19"
-		"BountyGoldMin"			"19"
-		"BountyGoldMax"			"19"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
 		"Ability1"			"srts_harvest_lumber_worker"
@@ -1513,8 +1513,8 @@
 		"ModelScale"			"0.9"
 
 		"BountyXP"			"19"
-		"BountyGoldMin"			"19"
-		"BountyGoldMax"			"19"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
 		"Ability1"			"srts_harvest_lumber_worker"
@@ -1578,8 +1578,8 @@
 		"ModelScale"			"1.0"
 
 		"BountyXP"			"19"
-		"BountyGoldMin"			"19"
-		"BountyGoldMax"			"19"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
 		"Ability1"			"srts_harvest_lumber_worker"
@@ -1643,8 +1643,8 @@
 		"ModelScale"			"1.0"
 
 		"BountyXP"			"19"
-		"BountyGoldMin"			"19"
-		"BountyGoldMax"			"19"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
 		"Ability1"			"srts_harvest_lumber_worker"
@@ -1708,8 +1708,8 @@
 		"ModelScale"			"1.0"
 
 		"BountyXP"			"19"
-		"BountyGoldMin"			"19"
-		"BountyGoldMax"			"19"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
 		"Ability1"			"srts_harvest_lumber_worker"

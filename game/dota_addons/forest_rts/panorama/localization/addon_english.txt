@@ -43,6 +43,8 @@
 
 		"addonname"					"Forest RTS"
 
+		"note_30_sec_start_patrols"			"An enemy patrol group will spawn in 30 seconds!"
+		"note_30_sec_start_pvp"				"Score points by killing enemy heroes and their main buildings!"
 		"simplerts_single_player_mode"			"Enemy patrol spawned!"
 
 		"PointsToWin"					"+{d:points_to_win} more"

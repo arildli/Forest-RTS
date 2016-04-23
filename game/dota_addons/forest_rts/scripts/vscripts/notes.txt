@@ -46,6 +46,12 @@ Ideer:
 - Passive tab for heroes.
 - Forskjellig vision range dag og natt for mer dybde og fordeler med tårn.
 - Bør ta lenger tid å trene tropper.
+- Castle gate? 
+- Steinmurer man kan gå på?
+- Undead race med lifestealer og weaver + krypende zombie som worker?
+- Night Stalker med lifesteal?
+- Creep camp/fortification med PHAT LEWT?!
+- Summonable units (undead?)
 
 - Dire Sea race: Slardar, Naga, Slark, Medusa
 - Patrols lager baser hvis man somler med å komme i gang.
@@ -82,6 +88,14 @@ Ideer:
 - Cash bygninger (litt)
 - Block chance upgrade melee units etter Large Tent
 - Buff Sorceress Slow
+- STATS!
+- Researche spell buff som gir prosentvis sjanse til å resse?
+- HERO SPELLS AND PASSIVES!!!
+- Consumables: w3 orc salve
+- TP scroll?
+- Hero item shop (eller Market?)
+- Kjøpe Merc fra neutral shop (som må cleares først!)
+- Beastmaster hero spells.
 
 - Legg til TeamColor boolean i tech, og SetRenderColor på de som har det.
 - Legge til hengende banner med teamcolor på tårn?

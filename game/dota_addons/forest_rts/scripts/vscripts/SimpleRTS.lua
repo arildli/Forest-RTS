@@ -109,6 +109,8 @@ function SimpleRTSGameMode:InitGameMode()
    self.teamColors[DOTA_TEAM_GOODGUYS] = {52, 85, 255};
    self.teamColors[DOTA_TEAM_BADGUYS] = {176, 23, 27};
 
+   self.players = {}
+
    for team=0,10 do
       local color = self.teamColors[team]
       if color then
@@ -668,9 +670,7 @@ end
 -- Single Player Mode
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:SinglePlayerMode(botTeam)
-   --print("[SimpleRTS] Single Player Mode:\tPlayer ID: "..localPlayer:GetPlayerID().."\tBot Team: "..botTeam)
-   --Notifications:ClearTop(localPlayer)
-   --Notifications:Top(localPlayer, {text="#simplerts_single_player_mode", duration=5})
+   ---print("[SimpleRTS] Single Player Mode:\tPlayer ID: "..localPlayer:GetPlayerID().."\tBot Team: "..botTeam)
    SimpleRTSGameMode:ShowCenterMessage("#simplerts_single_player_mode", 5)
    SimpleRTSGameMode:spawnSimpleBot(botTeam, 1.1)
 end

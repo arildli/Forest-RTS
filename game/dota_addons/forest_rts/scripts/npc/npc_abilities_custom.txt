@@ -107,7 +107,7 @@
 		"AbilityGoldCost"		"175"
 		//	"AbilityUpgradeGoldCost"	"0"
 
-		"AbilityChannelTime"		"90"
+		"AbilityChannelTime"		"60"
 		//"AbilityChannelTime"		"3"
 
 		"AbilitySpecial"
@@ -127,7 +127,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"upgrade_time"	"90"
+				"upgrade_time"	"60"
 			}	
 		}
 
@@ -234,7 +234,7 @@
 		"AbilityGoldCost"		"175"
 		//	"AbilityUpgradeGoldCost"	"0"
 
-		"AbilityChannelTime"		"90"
+		"AbilityChannelTime"		"60"
 		//"AbilityChannelTime"		"3"
 
 		"AbilitySpecial"
@@ -254,7 +254,7 @@
 			"03"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"upgrade_time"	"90"
+				"upgrade_time"	"60"
 			}	
 		}
 
@@ -2466,7 +2466,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_FLOAT"
-				"regen"		"20"
+				"regen"		"15"
 			}
 		}
 
@@ -3780,7 +3780,7 @@
 			"03"
 			{
 				"var_type"		"FIELD_INTEGER"
-				"duration_other"	"15"
+				"duration_other"	"20"
 			}
 		}
 
@@ -3886,7 +3886,7 @@
 			"04"
 			{
 				"var_type"		"FIELD_INTEGER"
-				"duration_other"	"15"
+				"duration_other"	"20"
 			}
 		}
 
@@ -3974,13 +3974,13 @@
 			"01"
 			{
 				"var_type"		"FIELD_INTEGER"
-				"duration_hero"		"10"
+				"duration_hero"		"20"
 			}
 
 			"02"
 			{
 				"var_type"		"FIELD_INTEGER"
-				"duration_other"	"20"
+				"duration_other"	"30"
 			}
 
 			"03"
@@ -4080,13 +4080,13 @@
 			"01"
 			{
 				"var_type"		"FIELD_INTEGER"
-				"duration_hero"		"10"
+				"duration_hero"		"20"
 			}
 
 			"02"
 			{
 				"var_type"		"FIELD_INTEGER"
-				"duration_other"	"20"
+				"duration_other"	"30"
 			}
 
 			"03"
