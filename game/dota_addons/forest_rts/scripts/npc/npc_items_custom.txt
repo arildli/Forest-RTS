@@ -986,6 +986,51 @@
 
 
 
+	//================================================================================
+	// Lumber
+	//================================================================================
+	"item_stack_of_lumber"
+	{
+		// General
+		//--------------------------------------------------------------------------------
+		"ID"				"1101"
+		"BaseClass"			"item_datadriven"	
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// ItemInfo
+		//-------------------------------------------------------------------------------- 
+		"AbilityTextureName"		"item_stack_of_lumber"
+		"ItemQuality"  			"common"
+
+		"ItemShopTags"			""
+		"ItemAliases"			"stack_of_lumber;lumber;logs"
+    		"ItemCost"     			"0"
+    		"ItemKillable" 			"1" 
+    		"ItemSellable" 			"0"
+    		"ItemPurchasable" 		"0"
+    		"ItemDroppable" 		"1"
+    		"ItemShareability" 		"ITEM_FULLY_SHAREABLE"
+    		"ItemStackable" 		"1"
+    		"ItemPermanent" 		"0"
+    		"ItemDisassembleRule" 		"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+		"ItemInitialCharges"		"1"
+
+    		"SideShop"     			"0" 
+    		"SecretShop"   			"0"
+
+		// Sounds
+		//--------------------------------------------------------------------------------
+		"UIPickupSound"			"Item.PickUpRingShop"
+		"UIDropSound"			"Item.DropRecipeShop"
+		"WorldDropSound"		"Item.DropGemWorld"
+
+	}
+
+
+
+
+
 	// -----| BuildingHelper stuff |----- //
 
 

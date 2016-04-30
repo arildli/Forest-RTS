@@ -5,6 +5,7 @@
 ]]--
 
 -- Building Particle Settings
+-- EDITED
 GRID_ALPHA = 0 -- Defines the transparency of the ghost squares (Panorama)
 MODEL_ALPHA = 100 -- Defines the transparency of both the ghost model (Panorama) and Building Placed (Lua)
 RECOLOR_GHOST_MODEL = false -- Whether to recolor the ghost model green/red or not

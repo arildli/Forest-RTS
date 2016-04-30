@@ -102,6 +102,8 @@ defs = {
   UPGRADE_LIGHT_ARMOR = {
      spell = "srts_upgrade_light_armor",
      category = "upgrade",
+     --items = {"item_upgrade_light_armor",
+     --"item_upgrade_medium_armor"},
      item = "item_upgrade_light_armor",
      max = 1
   },
@@ -109,6 +111,8 @@ defs = {
   UPGRADE_LIGHT_DAMAGE = {
      spell = "srts_upgrade_light_damage",
      category = "upgrade",
+     --items = {"item_upgrade_light_damage",
+     --"item_upgrade_medium_damage"},
      item = "item_upgrade_light_damage",
      max = 1
   },
@@ -492,6 +496,8 @@ defs = {
     name = "npc_dota_creature_worker",
     spell = "srts_train_worker",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT
   },
 
@@ -500,6 +506,8 @@ defs = {
     name = "npc_dota_creature_human_worker",
     spell = "srts_train_human_worker",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
@@ -544,6 +552,8 @@ defs = {
     name = "npc_dota_creature_human_guard_1",
     spell = "srts_train_human_footman",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {},
       HIDDEN = {
@@ -556,6 +566,8 @@ defs = {
     name = "npc_dota_creature_human_ranged_1",
     spell = "srts_train_human_gunner",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
@@ -572,6 +584,8 @@ defs = {
     name = "npc_dota_creature_catapult_radiant",
     spell = "srts_train_catapult_radiant",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {"ARMORY_RADIANT"},
     pages = {
        PAGE_MAIN = {
@@ -587,6 +601,8 @@ defs = {
     name = "npc_dota_creature_human_sorceress",
     spell = "srts_train_human_sorceress",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
 	 "SLOW"
@@ -602,6 +618,8 @@ defs = {
     name = "npc_dota_creature_forest_worker",
     spell = "srts_train_forest_worker",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
@@ -646,6 +664,8 @@ defs = {
     name = "npc_dota_creature_treant_warrior_1",
     spell = "srts_train_forest_warrior",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
 	"REGENERATIVE_BARK"
@@ -660,6 +680,8 @@ defs = {
     name = "npc_dota_creature_forest_ranged_1",
     spell = "srts_train_forest_dryad",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
@@ -675,6 +697,8 @@ defs = {
     name = "npc_dota_creature_catapult_radiant",
     spell = "srts_train_catapult_radiant",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {"ARMORY_RADIANT"},
     pages = {
       PAGE_MAIN = {
@@ -690,6 +714,8 @@ defs = {
     name = "npc_dota_creature_forest_tormented_soul",
     spell = "srts_train_forest_tormented_soul",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {},
     pages = {
       PAGE_MAIN = {
@@ -706,6 +732,8 @@ defs = {
     name = "npc_dota_creature_kobold_worker",
     spell = "srts_train_kobold_worker",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
@@ -750,6 +778,8 @@ defs = {
     name = "npc_dota_creature_kobold_guard_1",
     spell = "srts_train_kobold_spearman",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
 	"LONG_WEAPON"
@@ -764,6 +794,8 @@ defs = {
     name = "npc_dota_creature_kobold_ranged_1",
     spell = "srts_train_kobold_flame_thrower",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
@@ -779,6 +811,8 @@ defs = {
     name = "npc_dota_creature_catapult_dire",
     spell = "srts_train_catapult_dire",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {"ARMORY_DIRE"},
     pages = {
       PAGE_MAIN = {
@@ -795,6 +829,8 @@ defs = {
     name = "npc_dota_creature_skeleton_worker",
     spell = "srts_train_skeleton_worker",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
@@ -839,6 +875,8 @@ defs = {
     name = "npc_dota_creature_skeleton_warrior_1",
     spell = "srts_train_skeleton_warrior",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
 	"UNDEAD_STRENGTH"
@@ -853,6 +891,8 @@ defs = {
     name = "npc_dota_creature_skeleton_ranged_1",
     spell = "srts_train_skeleton_archer",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
@@ -868,6 +908,8 @@ defs = {
     name = "npc_dota_creature_catapult_dire",
     spell = "srts_train_catapult_dire",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {"ARMORY_DIRE"},
     pages = {
       PAGE_MAIN = {
@@ -883,6 +925,8 @@ defs = {
     name = "npc_dota_creature_skeleton_caster",
     spell = "srts_train_skeleton_caster",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
 	 "CURSE"
@@ -898,6 +942,8 @@ defs = {
     name = "npc_dota_creature_troll_worker",
     spell = "srts_train_troll_worker",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
@@ -942,6 +988,8 @@ defs = {
     name = "npc_dota_creature_troll_guard_1",
     spell = "srts_train_troll_fighter",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
 	"HATRED"
@@ -956,6 +1004,8 @@ defs = {
     name = "npc_dota_creature_troll_ranged_1",
     spell = "srts_train_troll_axe_thrower",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
@@ -971,6 +1021,8 @@ defs = {
     name = "npc_dota_creature_catapult_dire",
     spell = "srts_train_catapult_dire",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {"ARMORY_DIRE"},
     pages = {
       PAGE_MAIN = {
@@ -986,6 +1038,8 @@ defs = {
     name = "npc_dota_creature_troll_elder",
     spell = "srts_train_troll_elder",
     category = "unit",
+    upgrades = {"UPGRADE_LIGHT_ARMOR",
+		"UPGRADE_LIGHT_DAMAGE"},
     req = {},
     pages = {
       PAGE_MAIN = {

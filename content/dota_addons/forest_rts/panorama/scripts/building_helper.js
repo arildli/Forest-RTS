@@ -29,9 +29,10 @@ function StartBuildingHelper( params )
         var entindex = params.entindex;
         
         // If we chose to not recolor the ghost model, set it white
-        var ghost_color = [0, 255, 0]
-        if (!recolor_ghost)
-            ghost_color = [255,255,255]
+        //var ghost_color = [0, 255, 0]
+        //if (!recolor_ghost)
+        //    ghost_color = [255,255,255]
+        var ghost_color = [255,255,255];
 
         pressedShift = GameUI.IsShiftDown();
 
@@ -117,12 +118,14 @@ function StartBuildingHelper( params )
      
                     if (mouseEntities.length > 0)
                     {
-                        color = [255,0,0]
+                        //color = [255,0,0]
+                        color = [255,255,255]
                         invalid = true //Mark invalid for the ghost recolor
                     }
                     else
                     {
-                        color = [0,255,0]
+                        //color = [0,255,0]
+			color = [255,255,255]
                     }
 
                     Particles.SetParticleControl(gridParticle, 2, color)            
@@ -162,10 +165,13 @@ function StartBuildingHelper( params )
      
 		    // ADD SQUARES HERE!
 
+		    /*
                     if (mouseEntities2.length > 0)
                         color = [255,0,0]
                     else
                         color = [255,255,255] //White on empty positions		    
+		    */
+		    color = [255,255,255];
 
                     Particles.SetParticleControl(overlayParticle, 2, color)        
                     Particles.SetParticleControl(overlayParticle, 3, [overlay_alpha,0,0])
@@ -177,10 +183,10 @@ function StartBuildingHelper( params )
 
             // Turn the model red if we can't build there
             if (recolor_ghost){
-                if (invalid)
-                    Particles.SetParticleControl(modelParticle, 2, [255,0,0])
-                else
-                    Particles.SetParticleControl(modelParticle, 2, [255,255,255])
+            //    if (invalid)
+            //        Particles.SetParticleControl(modelParticle, 2, [255,0,0])
+            //    else
+                Particles.SetParticleControl(modelParticle, 2, [255,255,255])
             }
         }
 

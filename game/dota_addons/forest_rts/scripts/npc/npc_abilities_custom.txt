@@ -1027,6 +1027,10 @@
 			{
 				"IsDebuff"	"0"
 				//"IsHidden"	"1"
+
+				"EffectName"		"particles/econ/items/effigies/status_fx_effigies/gold_effigy_ambient_radiant_lvl2.vpcf"
+				"EffectAttachType"	"follow_overhead"
+				"EffectRadius"		"300"
 			}
 
 			"modifier_invis"
