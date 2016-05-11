@@ -987,34 +987,43 @@
 
 
 	//================================================================================
-	// Lumber
+	// Healing Salve
 	//================================================================================
-	"item_stack_of_lumber"
+	"item_healing_salve"
 	{
 		// General
 		//--------------------------------------------------------------------------------
-		"ID"				"1101"
+		"ID"				"2101"
 		"BaseClass"			"item_datadriven"	
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		// Kun for units???
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityTextureName"		"item_healing_salve"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		"AbilityCastRange"		"500"
 
-		// ItemInfo
-		//-------------------------------------------------------------------------------- 
-		"AbilityTextureName"		"item_stack_of_lumber"
-		"ItemQuality"  			"common"
+		"Model"                         "models/props_gameplay/salve.vmdl" //Green
+	    	"Effect"                        "particles/generic_gameplay/dropped_item.vpcf"
 
-		"ItemShopTags"			""
-		"ItemAliases"			"stack_of_lumber;lumber;logs"
-    		"ItemCost"     			"0"
-    		"ItemKillable" 			"1" 
-    		"ItemSellable" 			"0"
-    		"ItemPurchasable" 		"0"
-    		"ItemDroppable" 		"1"
-    		"ItemShareability" 		"ITEM_FULLY_SHAREABLE"
-    		"ItemStackable" 		"1"
-    		"ItemPermanent" 		"0"
-    		"ItemDisassembleRule" 		"DOTA_ITEM_DISASSEMBLE_NEVER"
+		"ItemShareability"              "ITEM_FULLY_SHAREABLE_STACKING"		
+		"ItemShopTags"			"flask"
+		"ItemQuality"                   "common"
+		"ItemPermanent"                 "0"
+	    	"ItemStackable"                 "1"
+		"ItemKillable"                  "1"
+		"ItemSellable"                  "1"
+		"ItemDroppable"                 "1"
+		"ItemInitialCharges"            "4"
+	    	"ItemAlertable"                 "1"
 
-		"ItemInitialCharges"		"1"
+	    	// Shops
+	    	"ItemCost"                      "160"
+		//		"StockMax"                  	"3" 
+		//		"StockTime"                 	"60"
+		//		"StockInitial"			"2"
+		//	    	"RequiresTier"              	"1"
 
     		"SideShop"     			"0" 
     		"SecretShop"   			"0"
@@ -1025,6 +1034,77 @@
 		"UIDropSound"			"Item.DropRecipeShop"
 		"WorldDropSound"		"Item.DropGemWorld"
 
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"cast_range"	"500"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"total_health_regen"	"360"
+			}		
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"duration"	"45"
+			}
+			
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"health_per_second"	"8"
+			}	
+		}
+
+		"Modifiers"
+		{
+			"modifier_healing_salve"
+			{
+				"Duration"	"%duration"
+				
+				"EffectName"	"particles/items_fx/healing_flask.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"TextureName"		"spellicon_buy_healing_salve"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%health_per_second"
+				}
+
+				"OnTakeDamage"
+				{
+					"RemoveModifier"
+					{
+						"Target"	"UNIT"
+						"ModifierName"	"modifier_healing_salve"
+					}
+				}
+			}	
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	"TARGET"
+				"ModifierName"	"modifier_healing_salve"
+				"Duration"	"%duration"
+			}
+
+			"FireSound"
+			{
+				"EffectName"	"DOTA_Item.HealingSalve.Activate"
+				"Target"	"CASTER"
+			}
+
+			"SpendCharge"
+			{}
+		}
 	}
 
 

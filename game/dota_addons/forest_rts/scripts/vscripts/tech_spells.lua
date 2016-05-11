@@ -34,6 +34,11 @@ defs = {
     category = "spell"
   },
 
+  DEMOLISH_BUILDING = {
+     spell = "srts_demolish_building",
+     category = "spell"
+  },
+
   -- Auras
   GLOBAL_SPEED_AURA = {
     spell = "srts_global_speed_aura",
@@ -95,6 +100,12 @@ defs = {
 
   PAGE_MENU_PROPS = {
      spell = "srts_menu_props",
+     category = "spell"
+  },
+
+  -- Items
+  BUY_HEALING_SALVE = {
+     spell = "srts_buy_healing_salve",
      category = "spell"
   },
 
@@ -229,7 +240,8 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}},
     pages = {
       PAGE_MAIN = {
-	"ENTER_TOWER"
+	"ENTER_TOWER",
+	"DEMOLISH_BUILDING"
       },
       HIDDEN = {
 	"BUILDING"
@@ -243,7 +255,9 @@ defs = {
     category = "building",
     req = {{"TENT_SMALL", "TENT_LARGE"}},
     pages = {
-      PAGE_MAIN = {},
+      PAGE_MAIN = {
+	 "DEMOLISH_BUILDING"
+      },
       HIDDEN = {
 	"BUILDING"
       }
@@ -258,7 +272,9 @@ defs = {
     pages = {
       PAGE_MAIN = {
 	"SELL_LUMBER_SMALL",
-	"DELIVERY_POINT"
+	"BUY_HEALING_SALVE",
+	"DELIVERY_POINT",
+	"DEMOLISH_BUILDING"
       },
       HIDDEN = {
 	"BUILDING"
@@ -274,7 +290,8 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}},
     pages = {
       PAGE_MAIN = {
-	"PERIODIC_MINE_GOLD"
+	"PERIODIC_MINE_GOLD",
+	"DEMOLISH_BUILDING"
       },
       HIDDEN = {
 	"BUILDING"
@@ -320,9 +337,10 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_RADIANT"},
     max = 1,
     pages = {
-      PAGE_MAIN = {
-	 "UPGRADE_LIGHT_DAMAGE",
-	 "UPGRADE_LIGHT_ARMOR"
+       PAGE_MAIN = {
+	  "UPGRADE_LIGHT_DAMAGE",
+	  "UPGRADE_LIGHT_ARMOR",
+	  "DEMOLISH_BUILDING"
       },
       HIDDEN = {
 	"BUILDING"
@@ -337,7 +355,8 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_RADIANT"},
     pages = {
       PAGE_MAIN = {
-	"CRYSTAL_AURA"
+	"CRYSTAL_AURA",
+	"DEMOLISH_BUILDING"
       },
       HIDDEN = {
 	"BUILDING"
@@ -383,10 +402,11 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_DIRE"},
     max = 1,
     pages = {
-      PAGE_MAIN = {
-	 "UPGRADE_LIGHT_DAMAGE",
-	 "UPGRADE_LIGHT_ARMOR"
-      },
+       PAGE_MAIN = {
+	  "UPGRADE_LIGHT_DAMAGE",
+	  "UPGRADE_LIGHT_ARMOR",
+	  "DEMOLISH_BUILDING"
+       },
       HIDDEN = {
 	"BUILDING"
       }
@@ -400,7 +420,8 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_DIRE"},
     pages = {
       PAGE_MAIN = {
-	"CRYSTAL_AURA"
+	"CRYSTAL_AURA",
+	"DEMOLISH_BUILDING"
       },
       HIDDEN = {
 	"BUILDING"
@@ -417,7 +438,9 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {},
+	PAGE_MAIN = {
+	   "DEMOLISH_BUILDING"
+	},
 	HIDDEN = {
 	   "BUILDING"
 	}
@@ -430,7 +453,9 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {},
+	PAGE_MAIN = {
+	   "DEMOLISH_BUILDING"
+	},
 	HIDDEN = {
 	   "BUILDING"
 	}
@@ -443,7 +468,9 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {},
+	PAGE_MAIN = {
+	   "DEMOLISH_BUILDING"
+	},
 	HIDDEN = {
 	   "BUILDING"
 	}
@@ -456,7 +483,9 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {},
+	PAGE_MAIN = {
+	   "DEMOLISH_BUILDING"
+	},
 	HIDDEN = {
 	   "BUILDING"
 	}
@@ -469,7 +498,9 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {},
+	PAGE_MAIN = {
+	   "DEMOLISH_BUILDING"
+	},
 	HIDDEN = {
 	   "BUILDING"
 	}
@@ -482,7 +513,9 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {},
+	PAGE_MAIN = {
+	   "DEMOLISH_BUILDING"
+	},
 	HIDDEN = {
 	   "BUILDING"
 	}

@@ -17,6 +17,7 @@ COLOR_RADIANT_RGB = {52,85,255}
 --"#4789ab"
 COLOR_DIRE = "#b0171b"
 COLOR_DIRE_RGB = {176,23,27}
+stats = {}
 
 
 -- For some reason the type of self is number in one of the methods...
@@ -67,6 +68,7 @@ function SimpleRTSGameMode:InitGameMode()
    loadModule('simple_bot')
    loadModule('timers')
    loadModule('spells')
+   loadModule('stats')
 
    loadModule('builder')
    -- Must be turned off due to crash with the new buildingHelper!
@@ -156,7 +158,8 @@ function SimpleRTSGameMode:InitGameMode()
    -- Keeps the blighted gridnav positions
    GameRules.Blight = {}
 
-
+   -- Initialize the Stats module.
+   --Stats:Init()
 
    -- Register console commands
 
@@ -191,6 +194,29 @@ function SimpleRTSGameMode:InitGameMode()
 			      --playerHero:AddItem(newItem)
 			      playerHero:IncLumber(1000)
 				   end, 'Beefs up the hero of the caller', FCVAR_CHEAT )
+
+   Convars:RegisterCommand('info', function()
+			      Stats:PrintStatsAll()
+				    end, 'Shows stats', FCVAR_CHEAT)
+
+   Convars:RegisterCommand('stats', function()
+			      print("Stats will be printed:\n")
+			      --Stats:PrintStatsAll()
+				    end, 'Prints all stats collected so far', FCVAR_CHEAT )
+
+   Convars:RegisterCommand("Salve", function()
+			      local cmdPlayer = Convars:GetCommandClient()
+			      if cmdPlayer then
+				 local playerHero
+				 local playerID = cmdPlayer:GetPlayerID()
+				 if playerID and playerID ~= -1 then
+				    playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+				 end
+
+				 local salves = CreateItem("item_healing_salve", playerHero, playerHero)
+				 playerHero:AddItem(salves)
+			      end
+				    end, "Gives the hero 10 healing salves", FCVAR_CHEAT )
    
    Convars:RegisterCommand('debug', function()
 			      
@@ -246,9 +272,13 @@ function SimpleRTSGameMode:onHeroPick(keys)
 
    --     BH stuff     --
 
+
    local hero = EntIndexToHScript(keys.heroindex)
    local player = EntIndexToHScript(keys.player)
    local playerID = hero:GetPlayerID()
+
+   print("onHeroPick")
+   Stats:AddPlayer(hero, player, playerID)
 
    Resources:InitHero(hero)
    
@@ -282,6 +312,10 @@ function SimpleRTSGameMode:onEntityLevel(keys)
 	 hero:SetAbilityPoints(0)
       end
    end
+
+   local playerID = player:GetPlayerID()
+   local newLevel = PlayerResource:GetLevel(playerID)
+   Stats:OnLevelUp(playerID, newLevel)
 end
 
 
@@ -507,9 +541,28 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    local killerTeam = killerUnit:GetTeam()
    local unitName = killedUnit:GetUnitName()
    
-   -- No need for more processing if a soldier
-   if SimpleRTSGameMode:IsSoldier(killedUnit) == true then
+   local killerID = nil
+   if killerUnit._playerOwned or killerUnit:IsRealHero() then
+      print("Killer was neither soldier nor neutral.")
+      killerID = killerUnit:GetOwnerID()
+   else
+      print("killerID not set!")
+      print("Name: "..killerUnit:GetUnitName())
+   end
+
+   -- No need for more processing if a soldier or neutral.
+   if SimpleRTSGameMode:IsSoldier(killedUnit) or killedUnit:IsNeutralUnitType() or not killedUnit._playerOwned then
+      Stats:OnDeathNeutral(killerID, killedUnit)
       return
+   end
+
+   local killedID = nil
+   if killedUnit._playerOwned or (not SimpleRTSGameMode:IsSoldier(killerUnit) and not killerUnit:IsNeutralUnitType()) then
+      print("Killed was playerOwned.")
+      killerID = killerUnit:GetOwnerID()
+   else
+      print("killedID not set!")
+      print("Name: "..killedUnit:GetUnitName())
    end
 
    --     BH stuff     --
@@ -538,6 +591,10 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       if playerHero.buildings[building_name] then
 	 playerHero.buildings[building_name] = playerHero.buildings[building_name] - 1
       end
+      
+      Stats:OnDeath(killedID, killerID, killedUnit, "building")
+   else
+      Stats:OnDeath(killedID, killerID, killedUnit, "unit")
    end
 
    -- Cancel queue of a builder when killed

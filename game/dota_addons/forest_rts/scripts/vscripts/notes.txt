@@ -108,6 +108,13 @@ Ideer:
 - Forest ? (?): Svak living armor (armor + liten regen).
 - Banner unit!!!
 
+- Gjør ferdig Healing Salve.
+- Legg til AoE DOT Healing item.
+- Begynne å lage stats struktur?
+- Reduser hero attack damage.
+- Upgrade for casters: +50 mana og 25% mana regen.
+- Toggle spell i Tent som bestemmer om man spawner der eller ved spawn.
+
 
 
 Tanker:

@@ -85,6 +85,8 @@ tech = {
     PAGE_MENU_PROPS = defs.PAGE_MENU_PROPS,
     UPGRADE_LIGHT_ARMOR = defs.UPGRADE_LIGHT_ARMOR,
     UPGRADE_LIGHT_DAMAGE = defs.UPGRADE_LIGHT_DAMAGE,
+    DEMOLISH_BUILDING = defs.DEMOLISH_BUILDING,
+    BUY_HEALING_SALVE = defs.BUY_HEALING_SALVE,
     
     PROP_BARREL = defs.PROP_BARREL,
     PROP_CHEST = defs.PROP_CHEST,
@@ -149,20 +151,24 @@ tech = {
 				   defs.COMMANDER_WORKER,
 				   defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT
+				   defs.DELIVERY_POINT,
+				   defs.DEMOLISH_BUILDING
     }),
     TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
 				   defs.COMMANDER_WORKER,
 				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT
+				   defs.DELIVERY_POINT,
+				   defs.DEMOLISH_BUILDING
     }),
     BARRACKS_RADIANT = CopyWithNewMain(defs.BARRACKS_RADIANT, {
 					 defs.COMMANDER_FOOTMAN,
 					 defs.COMMANDER_GUNNER,
-					 defs.COMMANDER_CATAPULT
+					 defs.COMMANDER_CATAPULT,
+					 defs.DEMOLISH_BUILDING
     }),
     BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(defs.BARRACKS_ADVANCED_RADIANT, {
-						   defs.COMMANDER_SORCERESS
+						   defs.COMMANDER_SORCERESS,
+						   defs.DEMOLISH_BUILDING
     }),
     ARMORY_RADIANT = defs.ARMORY_RADIANT,
     HEALING_CRYSTAL_RADIANT = defs.HEALING_CRYSTAL_RADIANT,
@@ -226,20 +232,24 @@ tech = {
 				   defs.FURION_WORKER,
 				   defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT
+				   defs.DELIVERY_POINT,
+				   defs.DEMOLISH_BUILDING
     }),
     TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
 				   defs.FURION_WORKER,
 				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT
+				   defs.DELIVERY_POINT,
+				   defs.DEMOLISH_BUILDING
     }),
     BARRACKS_RADIANT = CopyWithNewMain(defs.BARRACKS_RADIANT, {
 					 defs.FURION_WARRIOR,
 					 defs.FURION_DRYAD,
-					 defs.FURION_CATAPULT
+					 defs.FURION_CATAPULT,
+					 defs.DEMOLISH_BUILDING
     }),
     BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(defs.BARRACKS_ADVANCED_RADIANT, {
-						   defs.FURION_TORMENTED_SOUL
+						   defs.FURION_TORMENTED_SOUL,
+						   defs.DEMOLISH_BUILDING
     }),
     ARMORY_RADIANT = defs.ARMORY_RADIANT,
     HEALING_CRYSTAL_RADIANT = defs.HEALING_CRYSTAL_RADIANT,
@@ -302,19 +312,23 @@ tech = {
 				   defs.GEOMANCER_WORKER,
 				   defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT
+				   defs.DELIVERY_POINT,
+				   defs.DEMOLISH_BUILDING
     }),
     TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
 				   defs.GEOMANCER_WORKER,
 				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT
+				   defs.DELIVERY_POINT,
+				   defs.DEMOLISH_BUILDING
     }),
     BARRACKS_DIRE = CopyWithNewMain(defs.BARRACKS_DIRE, {
 				      defs.GEOMANCER_SPEARMAN,
 				      defs.GEOMANCER_FLAME_THROWER,
-				      defs.GEOMANCER_CATAPULT
+				      defs.GEOMANCER_CATAPULT,
+				      defs.DEMOLISH_BUILDING
     }),
     BARRACKS_ADVANCED_DIRE = CopyWithNewMain(defs.BARRACKS_ADVANCED_DIRE, {
+						defs.DEMOLISH_BUILDING
     }),
     ARMORY_DIRE = defs.ARMORY_DIRE,
     HEALING_CRYSTAL_DIRE = defs.HEALING_CRYSTAL_DIRE,
@@ -378,20 +392,24 @@ tech = {
 				   defs.KING_OF_THE_DEAD_WORKER,
 				   defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT
+				   defs.DELIVERY_POINT,
+				   defs.DEMOLISH_BUILDING
     }),
     TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
 				   defs.KING_OF_THE_DEAD_WORKER,
 				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT
+				   defs.DELIVERY_POINT,
+				   defs.DEMOLISH_BUILDING
     }),
     BARRACKS_DIRE = CopyWithNewMain(defs.BARRACKS_DIRE, {
 				      defs.KING_OF_THE_DEAD_WARRIOR,
 				      defs.KING_OF_THE_DEAD_ARCHER,
-				      defs.KING_OF_THE_DEAD_CATAPULT
+				      defs.KING_OF_THE_DEAD_CATAPULT,
+				      defs.DEMOLISH_BUILDING
     }),
     BARRACKS_ADVANCED_DIRE = CopyWithNewMain(defs.BARRACKS_ADVANCED_DIRE, {
-						defs.KING_OF_THE_DEAD_CASTER
+						defs.KING_OF_THE_DEAD_CASTER,
+						defs.DEMOLISH_BUILDING
     }),
     ARMORY_DIRE = defs.ARMORY_DIRE,
     HEALING_CRYSTAL_DIRE = defs.HEALING_CRYSTAL_DIRE,
@@ -454,20 +472,24 @@ tech = {
 				   defs.WARLORD_WORKER,
 				   defs.TENT_LARGE,
 				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT
+				   defs.DELIVERY_POINT,
+				   defs.DEMOLISH_BUILDING
     }),
     TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
 				   defs.WARLORD_WORKER,
 				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT
+				   defs.DELIVERY_POINT,
+				   defs.DEMOLISH_BUILDING
     }),
     BARRACKS_DIRE = CopyWithNewMain(defs.BARRACKS_DIRE, {
 				      defs.WARLORD_FIGHTER,
 				      defs.WARLORD_AXE_THROWER,
-				      defs.WARLORD_CATAPULT
+				      defs.WARLORD_CATAPULT,
+				      defs.DEMOLISH_BUILDING
     }),
     BARRACKS_ADVANCED_DIRE = CopyWithNewMain(defs.BARRACKS_ADVANCED_DIRE, {
-						defs.WARLORD_ELDER
+						defs.WARLORD_ELDER,
+						defs.DEMOLISH_BUILDING
     }),
     ARMORY_DIRE = defs.ARMORY_DIRE,
     HEALING_CRYSTAL_DIRE = defs.HEALING_CRYSTAL_DIRE,

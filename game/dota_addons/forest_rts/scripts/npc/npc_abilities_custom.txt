@@ -2981,7 +2981,8 @@
 		// General
 		//------------------------------------------------------------------------
 		"AbilityName"			"Ability Delivery Point"
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"		"spellicon_deliver_lumber_worker"
 		"BaseClass"			"ability_datadriven"
 		"Maxlevel"			"1"
 
@@ -8141,6 +8142,129 @@
 				"radius"	"900"				
 			}
 		}
+	}
+
+
+
+	//================================================================================
+	// Demolish Building
+	//================================================================================
+	"srts_demolish_building"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Demolish Building"
+		"AbilityType"			"DOTA_ABILITY_TYPE_BASIC"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET"	
+		"BaseClass"			"ability_datadriven"
+		"AbilityTextureName"		"necrolyte_death_pulse"
+
+		// Numbers
+		"AbilityCastPoint"		"0.1"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+		"Maxlevel"			"1"
+
+		"precache"
+		{
+			// Not working
+			//"soundfile"		"soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"
+			//"particle"		"particles/units/heroes/hero_vengeful/vengeful_magic_missle.vpcf"
+		}
+
+		"OnSpellStart"
+		{
+			"Damage"
+			{
+				"Target"	"CASTER"
+				"Type"		"DAMAGE_TYPE_PURE"
+				"Damage"	"10000"
+			}
+
+			"FireEffect"
+			{
+				// Not working
+				//"EffectName"	"particles/units/heroes/hero_techies/techies_suicide_fire.vpcf"
+				"EffectName"	"particles/units/heroes/hero_vengeful/vengeful_magic_missle.vpcf"
+				"EffectAttachType"	"follow_origin"
+				"Target"	"CASTER"
+			}
+
+			"FireSound"
+			{
+				// Not working
+				//"EffectName"	"Hero_Techies.Suicide"
+				"EffectName"	"DOTA_Item.Dagon.Activate"
+				"Target"	"CASTER"
+			}	
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"value"		"-9000"
+			}
+		}
+	}
+
+
+
+	//================================================================================
+	// Buy Healing Salve
+	//================================================================================
+
+	"srts_buy_healing_salve"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Buy Healing Salve"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"AbilityTextureName"		"spellicon_buy_healing_salve"
+		"BaseClass"			"ability_datadriven"
+		"Maxlevel"			"1"
+
+		// Casting
+		"AbilityCastPoint"		"0.1"
+		"AbilityCooldown"		"0"
+		"AbilityManacost"		"0"
+		"AbilityGoldCost"		"160"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"lumber_cost"	"0"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"gold_cost"	"160"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"amount"	"4"
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"Target"	"POINT"	
+				"ScriptFile"	"scripts/vscripts/spells.lua"
+				"Function"	"BuyItem"
+				"item"		"item_healing_salve"
+				"amount"	"4"
+				"goldCost"	"%gold_cost"
+				"lumberCost"	"%lumber_cost"
+			}	
+		}	
 	}
 
 

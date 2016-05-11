@@ -148,3 +148,72 @@ function Autocast(keys)
       end
    end
 end
+
+
+
+function CanAfford(player, gold, wood)
+   local playerID = player:GetPlayerID()
+   local hero = GetPlayerHero(playerID)
+   local curGold = PlayerResource:GetGold(playerID)
+   local curLumber = hero:GetLumber()
+   if curGold >= gold and curLumber >= wood then
+      return true
+   else
+      return false
+   end
+end
+
+
+
+function GiveResources(player, gold, wood)
+   print("Giving "..gold.." gold and "..wood.." lumber to a player.")
+   print("Before: "..PlayerResource:GetReliableGold(player:GetPlayerID()))
+
+   local playerID = player:GetPlayerID()
+   local hero = GetPlayerHero(playerID)
+   hero:IncLumber(wood)
+   local curGold = PlayerResource:GetReliableGold(playerID)
+   PlayerResource:SetGold(playerID, curGold + gold, true)
+
+   print("After: "..PlayerResource:GetReliableGold(playerID))
+end
+
+
+
+function BuyItem(keys)
+   local shop = keys.caster
+   local ability = keys.ability
+   local itemName = keys.item
+   local goldCost = keys.goldCost or 0
+   local lumberCost = keys.lumberCost or 0
+   local buyRange = 900.0
+   local amount = keys.amount or 1
+   local buyerHero = shop:GetOwnerHero()
+   local buyerPlayer = shop:GetOwnerPlayer()
+   local buyerHeroLocation = buyerHero:GetAbsOrigin()
+   
+   shop._canAfford = nil
+
+   --if not CheckIfCanAfford({goldCost=goldCost, lumberCost=lumberCost, caster=shop, ability=keys.ability}) then
+   if not CanAfford(buyerPlayer, goldCost, lumberCost) then
+      Notifications:ClearTop(buyerPlayer)
+      Notifications:Top(buyerPlayer, {text="Not enough resources!", duration=3})
+      print("Cannot afford, retuning from BuyItem.")
+      return
+   end
+
+   if shop:GetRangeToUnit(buyerHero) > buyRange then
+      print("HERO OUTSIDE SHOP RANGE!")
+      local message = "Hero must be within "..tostring(buyRange).."range of shop!"
+      Notifications:ClearTop(buyerPlayer)
+      Notifications:Top(buyerPlayer, {text=message, duration=3})
+      -- Needed for RefundResources to work properly.
+      --shop._canAfford = true
+      GiveResources(buyerPlayer, goldCost, lumberCost)
+      --RefundResources({caster=shop, goldCost=goldCost, lumberCost=lumberCost})
+      print("Returning")
+      return
+   end
+
+   GiveCharges(buyerHero, amount, itemName)
+end

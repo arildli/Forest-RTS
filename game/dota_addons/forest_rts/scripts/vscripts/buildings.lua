@@ -24,6 +24,7 @@ end
 
 function prepareConstruction(building, abilityName)
    building._interrupted = false
+   building._playerOwned = true
 
    local owner = building:GetOwner()
    TechTree:AddPlayerMethods(building, owner)
@@ -72,6 +73,7 @@ function finishConstruction(building)
       interrupted = "false"
    end
    building._building = true
+   building._playerOwned = true
 
    -- Remove rotation spells.
    building:RemoveAbility(rotateRight)
@@ -84,6 +86,9 @@ function finishConstruction(building)
    TechTree:RegisterIncident(building, true)
    TechTree:AddAbilitiesToEntity(building)
    --TechTree:UpdateSpellsForEntity(building, playerHero)
+
+   local playerID = building:GetOwnerID()
+   Stats:OnTrained(playerID, building, "building")
 end
 
 
@@ -153,7 +158,7 @@ function CheckIfCanAffordUnit(keys)
    local caster = keys.caster
    local playerID = caster:GetOwner():GetPlayerID()
    GiveGoldToPlayer(playerID, goldCost)
-   CheckIfCanAfford(keys)
+   return CheckIfCanAfford(keys)
 end
 
 
@@ -175,11 +180,13 @@ function CheckIfCanAfford(keys)
 	 print("caster._canAfford set to 'false'")
       end
       caster:Stop()
+      return false
    else
       caster._canAfford = true
       if DEBUG_CONSTRUCT_BUILDING == true then
 	 print("caster._canAfford set to 'true'")
       end
+      return true
    end
 end
 
@@ -195,15 +202,16 @@ function RefundResources(keys)
    end
 
    if caster._canAfford == false then
-      if DEBUG_CONSTRUCT_BUILDING == true then
-	 print("Caster can afford: false")
-      end
+      --if DEBUG_CONSTRUCT_BUILDING == true then
+      print("Caster can afford: false")
+      --end
       return
    end
    if DEBUG_CONSTRUCT_BUILDING == true then
       print("Caster can afford: true")
    end
-
+   print("Refunding resources.")
+   
    local player = caster:GetOwner()
    local playerID = player:GetPlayerID()
    local playerHero = GetPlayerHero(playerID)
@@ -284,6 +292,7 @@ function OnUnitTrained(keys)
    local playerHero = caster:GetOwnerHero()
    target:SetOwner(playerHero)
    target:SetHasInventory(true)
+   target._playerOwned = true
    
    -- Register Trained
    TechTree:RegisterIncident(target, true)
@@ -296,6 +305,9 @@ function OnUnitTrained(keys)
    
    -- Apply current upgrades.
    ApplyUpgradesOnTraining(target)
+
+   local playerID = target:GetOwnerID()
+   Stats:OnTrained(playerID, target, "unit")
 
    -- EDITED render color
    --[=[
