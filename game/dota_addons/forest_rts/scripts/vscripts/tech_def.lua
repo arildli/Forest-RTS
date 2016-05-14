@@ -68,6 +68,7 @@ tech = {
     EMPTY_FILLER = defs.EMPTY_FILLER,
     BUILDING = defs.BUILDING,
     UNIT = defs.UNIT,
+    PROP = defs.PROP,
     ENTER_TOWER = defs.ENTER_TOWER,
     LEAVE_BUILDING = defs.LEAVE_BUILDING,
     REPAIR_BUILDING = defs.REPAIR_BUILDING,

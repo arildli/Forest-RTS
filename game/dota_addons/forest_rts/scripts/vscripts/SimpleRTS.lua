@@ -559,7 +559,6 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    local killedID = nil
    if killedUnit._playerOwned or (not SimpleRTSGameMode:IsSoldier(killerUnit) and not killerUnit:IsNeutralUnitType()) then
       print("Killed was playerOwned.")
-      killerID = killerUnit:GetOwnerID()
    else
       print("killedID not set!")
       print("Name: "..killedUnit:GetUnitName())

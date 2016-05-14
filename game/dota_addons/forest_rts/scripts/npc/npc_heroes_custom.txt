@@ -28,7 +28,7 @@
 		// Attributes - Strength
 		//------------------------------------------------------------------------
 		"AttributePrimary"		"DOTA_ATTRIBUTE_STRENGTH"
-		"AttributeBaseStrength"		"30"
+		"AttributeBaseStrength"		"25"
 		"AttributeStrengthGain"		"5.0"
 		"AttributeBaseIntelligence"	"20"
 		"AttributeIntelligenceGain"	"2.0"
@@ -37,8 +37,8 @@
 
 		// Attack - Melee
 		//------------------------------------------------------------------------
-		"AttackDamageMin"		"35"
-		"AttackDamageMax"		"45"
+		"AttackDamageMin"		"25"
+		"AttackDamageMax"		"35"
 		"AttackRate"			"1.5"
 		"AttackAnimationPoint"		"0.25"
 		"AttackAcquisitionRange"	"800"
@@ -81,7 +81,7 @@
 		// Attributes - Intelligence
 		//------------------------------------------------------------------------
 		"AttributePrimary"		"DOTA_ATTRIBUTE_AGILITY"
-		"AttributeBaseStrength"		"25"
+		"AttributeBaseStrength"		"20"
 		"AttributeStrengthGain"		"4.5"
 		"AttributeBaseIntelligence"	"25"
 		"AttributeIntelligenceGain"	"2.0"
@@ -90,8 +90,8 @@
 
 		// Attack - Ranged
 		//------------------------------------------------------------------------
-		"AttackDamageMin"		"30"
-		"AttackDamageMax"		"40"
+		"AttackDamageMin"		"20"
+		"AttackDamageMax"		"30"
 		"AttackRate"			"1.5"
 		"AttackAnimationPoint"		"0.25"
 		"AttackAcquisitionRange"	"800"
@@ -134,7 +134,7 @@
 		// Attributes - Strength
 		//------------------------------------------------------------------------
 		"AttributePrimary"		"DOTA_ATTRIBUTE_STRENGTH"
-		"AttributeBaseStrength"		"30"
+		"AttributeBaseStrength"		"25"
 		"AttributeStrengthGain"		"5.0"
 		"AttributeBaseIntelligence"	"20"
 		"AttributeIntelligenceGain"	"2.0"
@@ -143,8 +143,8 @@
 
 		// Attack - Melee
 		//------------------------------------------------------------------------
-		"AttackDamageMin"		"35"
-		"AttackDamageMax"		"45"
+		"AttackDamageMin"		"25"
+		"AttackDamageMax"		"35"
 		"AttackRate"			"1.5"
 		"AttackAnimationPoint"		"0.25"
 		"AttackAcquisitionRange"	"800"
@@ -187,7 +187,7 @@
 		// Attributes - Strength
 		//------------------------------------------------------------------------
 		"AttributePrimary"		"DOTA_ATTRIBUTE_STRENGTH"
-		"AttributeBaseStrength"		"30"
+		"AttributeBaseStrength"		"25"
 		"AttributeStrengthGain"		"5.0"
 		"AttributeBaseIntelligence"	"20"
 		"AttributeIntelligenceGain"	"2.0"
@@ -196,8 +196,8 @@
 
 		// Attack - Melee
 		//------------------------------------------------------------------------
-		"AttackDamageMin"		"35"
-		"AttackDamageMax"		"45"
+		"AttackDamageMin"		"25"
+		"AttackDamageMax"		"35"
 		"AttackRate"			"1.5"
 		"AttackAnimationPoint"		"0.25"
 		"AttackAcquisitionRange"	"800"
@@ -240,7 +240,7 @@
 		// Attributes - Agility
 		//------------------------------------------------------------------------
 		"AttributePrimary"		"DOTA_ATTRIBUTE_AGILITY"
-		"AttributeBaseStrength"		"25"
+		"AttributeBaseStrength"		"20"
 		"AttributeStrengthGain"		"4.5"
 		"AttributeBaseIntelligence"	"20"
 		"AttributeIntelligenceGain"	"2.0"
@@ -249,8 +249,8 @@
 
 		// Attack - Ranged
 		//------------------------------------------------------------------------
-		"AttackDamageMin"		"30"
-		"AttackDamageMax"		"40"
+		"AttackDamageMin"		"20"
+		"AttackDamageMax"		"30"
 		"AttackRate"			"1.5"
 		"AttackAnimationPoint"		"0.25"
 		"AttackAcquisitionRange"	"800"

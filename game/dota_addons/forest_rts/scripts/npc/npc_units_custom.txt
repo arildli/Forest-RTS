@@ -3149,8 +3149,8 @@
 
 		// Vision
 		//----------------------------------------------------------------
-		"VisionDaytimeRange"				"100"
-		"VisionNighttimeRange"				"100"
+		"VisionDaytimeRange"				"0"
+		"VisionNighttimeRange"				"0"
 
 		// Bots
 		//----------------------------------------------------------------
@@ -3237,8 +3237,8 @@
 
 		// Vision
 		//----------------------------------------------------------------
-		"VisionDaytimeRange"				"100"
-		"VisionNighttimeRange"				"100"
+		"VisionDaytimeRange"				"0"
+		"VisionNighttimeRange"				"0"
 
 		// Bots
 		//----------------------------------------------------------------
@@ -3325,8 +3325,8 @@
 
 		// Vision
 		//----------------------------------------------------------------
-		"VisionDaytimeRange"				"100"
-		"VisionNighttimeRange"				"100"
+		"VisionDaytimeRange"				"0"
+		"VisionNighttimeRange"				"0"
 
 		// Bots
 		//----------------------------------------------------------------
@@ -3413,8 +3413,8 @@
 
 		// Vision
 		//----------------------------------------------------------------
-		"VisionDaytimeRange"				"100"
-		"VisionNighttimeRange"				"100"
+		"VisionDaytimeRange"				"0"
+		"VisionNighttimeRange"				"0"
 
 		// Bots
 		//----------------------------------------------------------------
@@ -3501,8 +3501,8 @@
 
 		// Vision
 		//----------------------------------------------------------------
-		"VisionDaytimeRange"				"100"
-		"VisionNighttimeRange"				"100"
+		"VisionDaytimeRange"				"0"
+		"VisionNighttimeRange"				"0"
 
 		// Bots
 		//----------------------------------------------------------------
@@ -3589,8 +3589,8 @@
 
 		// Vision
 		//----------------------------------------------------------------
-		"VisionDaytimeRange"				"100"
-		"VisionNighttimeRange"				"100"
+		"VisionDaytimeRange"				"0"
+		"VisionNighttimeRange"				"0"
 
 		// Bots
 		//----------------------------------------------------------------

@@ -92,6 +92,9 @@ function Precache( context )
 	-- Main Tent Upgrade Particle
 	PrecacheResource("particle", "particles/econ/items/effigies/status_fx_effigies/gold_effigy_ambient_radiant_lvl2.vpcf", context)
 
+	-- Building Destruction
+	PrecacheResource("particle", "particles/base_destruction_fx/gensmoke.vpcf", context)
+
 
 
 	-- Props

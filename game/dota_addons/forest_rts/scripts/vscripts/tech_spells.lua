@@ -19,6 +19,11 @@ defs = {
     category = "spell"
   },
 
+  PROP = {
+     spell = "srts_ability_prop",
+     category = "spell"
+  },
+
   ENTER_TOWER = {
     spell = "srts_enter_tower",
     category = "spell"
@@ -442,6 +447,7 @@ defs = {
 	   "DEMOLISH_BUILDING"
 	},
 	HIDDEN = {
+	   "PROP",
 	   "BUILDING"
 	}
      }
@@ -457,6 +463,7 @@ defs = {
 	   "DEMOLISH_BUILDING"
 	},
 	HIDDEN = {
+	   "PROP",
 	   "BUILDING"
 	}
      }
@@ -472,6 +479,7 @@ defs = {
 	   "DEMOLISH_BUILDING"
 	},
 	HIDDEN = {
+	   "PROP",
 	   "BUILDING"
 	}
      }
@@ -487,6 +495,7 @@ defs = {
 	   "DEMOLISH_BUILDING"
 	},
 	HIDDEN = {
+	   "PROP",
 	   "BUILDING"
 	}
      }
@@ -502,6 +511,7 @@ defs = {
 	   "DEMOLISH_BUILDING"
 	},
 	HIDDEN = {
+	   "PROP",
 	   "BUILDING"
 	}
      }
@@ -517,6 +527,7 @@ defs = {
 	   "DEMOLISH_BUILDING"
 	},
 	HIDDEN = {
+	   "PROP",
 	   "BUILDING"
 	}
      }

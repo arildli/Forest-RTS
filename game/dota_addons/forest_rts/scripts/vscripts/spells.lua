@@ -178,7 +178,20 @@ function GiveResources(player, gold, wood)
    print("After: "..PlayerResource:GetReliableGold(playerID))
 end
 
+function RefundGoldTooltip(player, gold)
+   local playerID = player:GetPlayerID()
+   local hero = GetPlayerHero(playerID)
+   local curGold = PlayerResource:GetReliableGold(playerID)
+   PlayerResource:SetGold(playerID, curGold + gold, true)
+end
 
+function SpendResourcesNew(player, goldCost, lumberCost)
+   local playerID = player:GetPlayerID()
+   local hero = GetPlayerHero(playerID)
+   local curGold = PlayerResource:GetReliableGold(playerID)
+   PlayerResource:SetGold(playerID, curGold - goldCost, true)
+   hero:DecLumber(lumberCost)
+end
 
 function BuyItem(keys)
    local shop = keys.caster
@@ -193,6 +206,8 @@ function BuyItem(keys)
    local buyerHeroLocation = buyerHero:GetAbsOrigin()
    
    shop._canAfford = nil
+   -- We need to give back the gold before checking.
+   RefundGoldTooltip(buyerPlayer, goldCost)
 
    --if not CheckIfCanAfford({goldCost=goldCost, lumberCost=lumberCost, caster=shop, ability=keys.ability}) then
    if not CanAfford(buyerPlayer, goldCost, lumberCost) then
@@ -207,13 +222,10 @@ function BuyItem(keys)
       local message = "Hero must be within "..tostring(buyRange).."range of shop!"
       Notifications:ClearTop(buyerPlayer)
       Notifications:Top(buyerPlayer, {text=message, duration=3})
-      -- Needed for RefundResources to work properly.
-      --shop._canAfford = true
-      GiveResources(buyerPlayer, goldCost, lumberCost)
-      --RefundResources({caster=shop, goldCost=goldCost, lumberCost=lumberCost})
       print("Returning")
       return
    end
 
+   SpendResourcesNew(buyerPlayer, goldCost, lumberCost)
    GiveCharges(buyerHero, amount, itemName)
 end
