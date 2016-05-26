@@ -1,5 +1,8 @@
 
 
+- Rework single player til å være uten patrols, men med en enkel bot,
+  flere camps og en tutorial.
+- Installer ny versjon av BuildingHelper
 
 - Fix patrols (especially lags!!!)
 - Add bosses to patrols.
@@ -96,6 +99,7 @@ Ideer:
 - Hero item shop (eller Market?)
 - Kjøpe Merc fra neutral shop (som må cleares først!)
 - Beastmaster hero spells.
+- Single player uten patrols, men med camps og tutorial?
 
 - Legg til TeamColor boolean i tech, og SetRenderColor på de som har det.
 - Legge til hengende banner med teamcolor på tårn?

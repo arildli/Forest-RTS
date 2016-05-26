@@ -69,6 +69,8 @@ function SimpleRTSGameMode:InitGameMode()
    loadModule('timers')
    loadModule('spells')
    loadModule('stats')
+   loadModule('libraries/selection.lua')
+   loadModule('libraries/buildinghelper.lua')
 
    loadModule('builder')
    -- Must be turned off due to crash with the new buildingHelper!
@@ -93,6 +95,7 @@ function SimpleRTSGameMode:InitGameMode()
    GameMode:SetLoseGoldOnDeath(false)
    GameMode:SetTopBarTeamValuesOverride(true)
    GameMode:SetTopBarTeamValuesVisible(true)
+   GameMode:SetLoseGoldOnDeath(false)
    
    -- Find pathable trees.
    DeterminePathableTrees()
@@ -505,6 +508,7 @@ function SimpleRTSGameMode:onNPCSpawned(keys)
       local playerID = owner:GetPlayerID()
       PLAYER_HEROES[playerID] = spawnedUnit
       TechTree:InitTechTree(spawnedUnit)
+      spawnedUnit._playerOwned = true
       
       --CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})
       --print("Sent victory score: "..VICTORY_SCORE)
@@ -531,6 +535,7 @@ end
 -- On Entity Killed
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onEntityKilled(keys)
+   print("onEntityKilled")
    local killedUnit = EntIndexToHScript(keys.entindex_killed)
    local killerEntity
    if keys.entindex_attacker then
@@ -551,8 +556,11 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    end
 
    -- No need for more processing if a soldier or neutral.
-   if SimpleRTSGameMode:IsSoldier(killedUnit) or killedUnit:IsNeutralUnitType() or not killedUnit._playerOwned then
+   if killedUnit:IsRealHero() then
+      print("Killed unit was hero.")
+   elseif SimpleRTSGameMode:IsSoldier(killedUnit) or killedUnit:IsNeutralUnitType() or not killedUnit._playerOwned then
       Stats:OnDeathNeutral(killerID, killedUnit)
+      print("Killed unit was soldier or neutral, returning.")
       return
    end
 
@@ -598,6 +606,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
 
    -- Cancel queue of a builder when killed
    if IsBuilder(killedUnit) then
+      print("Killed unit was builder.")
       BuildingHelper:ClearQueue(killedUnit)
    end
 
@@ -636,7 +645,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    end
 
    if (killedUnit:IsRealHero() == true or StringStartsWith(unitName, "npc_dota_building_main_tent")) then 
-
+      print("Killed unit was hero or main building.")
       --if not killedUnit._wasCancelled then 
       local killedTeamString
       local scoreMessage
@@ -653,6 +662,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
 	    GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
 	 end
       end
+      print("Updating scores: "..self.scoreRadiant.." and "..self.scoreDire)
       CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
       
       print("Radiant: "..self.scoreRadiant.."\tDire: "..self.scoreDire)

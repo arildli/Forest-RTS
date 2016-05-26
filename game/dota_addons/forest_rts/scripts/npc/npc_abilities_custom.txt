@@ -724,7 +724,7 @@
 		"UnitName"					"npc_dota_building_crystal_radiant"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"100"
-		"AbilityLumberCost"				"75"
+		"AbilityLumberCost"				"40"
 		"BuildTime"					"15"
 		// End of BuildingHelper info
 
@@ -739,7 +739,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"75"
+				"lumber_cost"	"40"
 			}	
 
 			"03"
@@ -814,7 +814,7 @@
 		"UnitName"					"npc_dota_building_crystal_dire"
 		"AbilityCooldown"				"0"
 		"AbilityGoldCost"				"100"
-		"AbilityLumberCost"				"75"
+		"AbilityLumberCost"				"40"
 		"BuildTime"					"15"
 		// End of BuildingHelper info
 
@@ -829,7 +829,7 @@
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"75"
+				"lumber_cost"	"40"
 			}	
 
 			"03"
@@ -989,7 +989,7 @@
 	
 		"UnitName"					"npc_dota_building_main_tent_small"
 		"AbilityCooldown"				"0"
-		"AbilityGoldCost"				"375"
+		"AbilityGoldCost"				"320"
 		"BuildTime"					"60"
 		// End of BuildingHelper info
 		"AbilityChannelTime"				"60"
@@ -999,13 +999,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"375"
+				"gold_cost"	"320"
 			}
 
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"210"
+				"lumber_cost"	"175"
 			}	
 
 			"03"
@@ -1510,8 +1510,8 @@
 	
 		"UnitName"					"npc_dota_building_armory"
 		"AbilityCooldown"				"0"
-		"AbilityGoldCost"				"180"
-		"AbilityLumberCost"				"75"
+		"AbilityGoldCost"				"150"
+		"AbilityLumberCost"				"60"
 		"BuildTime"					"25"
 		// End of BuildingHelper info
 
@@ -1520,13 +1520,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"180"
+				"gold_cost"	"150"
 			}
 
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"75"
+				"lumber_cost"	"60"
 			}
 
 			"03"
@@ -1600,8 +1600,8 @@
 	
 		"UnitName"					"npc_dota_building_armory"
 		"AbilityCooldown"				"0"
-		"AbilityGoldCost"				"180"
-		"AbilityLumberCost"				"75"
+		"AbilityGoldCost"				"150"
+		"AbilityLumberCost"				"60"
 		"BuildTime"					"25"
 		// End of BuildingHelper info
 
@@ -1610,13 +1610,13 @@
 			"01"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"180"
+				"gold_cost"	"150"
 			}
 
 			"02"
 			{
 				"var_type"	"FIELD_INTEGER"
-				"lumber_cost"	"75"
+				"lumber_cost"	"60"
 			}
 
 			"03"
@@ -8341,6 +8341,35 @@
 			}
 		}
 	}
+
+	"dummy_tree"
+	{
+		"BaseClass"         "ability_datadriven"
+	    	"AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	   	
+		"Modifiers"
+    		{
+			"dummy_modifier"
+        		{
+				"Passive"   "1"
+
+            			"States"
+            			{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+                			"MODIFIER_STATE_NO_TEAM_MOVE_TO"    	"MODIFIER_STATE_VALUE_ENABLED"
+                			"MODIFIER_STATE_NO_TEAM_SELECT" 	"MODIFIER_STATE_VALUE_ENABLED"
+                			"MODIFIER_STATE_COMMAND_RESTRICTED" 	"MODIFIER_STATE_VALUE_ENABLED"
+                			"MODIFIER_STATE_ATTACK_IMMUNE"  	"MODIFIER_STATE_VALUE_ENABLED"
+                			"MODIFIER_STATE_INVULNERABLE"   	"MODIFIER_STATE_VALUE_ENABLED"
+                			//"MODIFIER_STATE_FLYING"   		"MODIFIER_STATE_VALUE_ENABLED"
+                			"MODIFIER_STATE_NOT_ON_MINIMAP" 	"MODIFIER_STATE_VALUE_ENABLED"
+                			"MODIFIER_STATE_UNSELECTABLE"   	"MODIFIER_STATE_VALUE_ENABLED"
+                			//"MODIFIER_STATE_OUT_OF_GAME"  	"MODIFIER_STATE_VALUE_ENABLED"
+                			"MODIFIER_STATE_NO_HEALTH_BAR"         	"MODIFIER_STATE_VALUE_ENABLED"
+            			}
+        		}
+    		}
+    	}
 	 
 	 // this ability is optional.
 	"building"
