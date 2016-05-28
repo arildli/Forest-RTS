@@ -10,7 +10,6 @@ require('utilities')
 require('mechanics')
 require('orders')
 --require('builder') --Check SimpleRTS.lua
-require('buildinghelper')
 
 require('libraries/timers')
 require('libraries/popups')
@@ -94,6 +93,8 @@ function Precache( context )
 
 	-- Building Destruction
 	PrecacheResource("particle", "particles/base_destruction_fx/gensmoke.vpcf", context)
+	PrecacheResource("particle", "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf", context)
+	PrecacheResource("particle", "particles/dire_fx/fire_barracks.vpcf", context)
 
 
 

@@ -79,9 +79,11 @@ function Build( event )
             end
         end
 
+	-- EDITED
         -- Units can't attack while building
-        unit.original_attack = unit:GetAttackCapability()
-        unit:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
+        --unit.original_attack = unit:GetAttackCapability()
+        --unit:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
+	-- END
 
         -- Give item to cancel
         unit.item_building_cancel = CreateItem("item_building_cancel", hero, hero)
@@ -96,6 +98,14 @@ function Build( event )
 
         -- Remove invulnerability on npc_dota_building baseclass
         unit:RemoveModifierByName("modifier_invulnerable")
+
+	-- EDITED
+	prepareConstruction(unit, ability_name)
+
+	local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
+	-- Add the building handle to the list of structures
+	table.insert(playerHero.structures, unit)
+	-- END
     end)
 
     -- A building finished construction
@@ -109,9 +119,11 @@ function Build( event )
             UTIL_Remove(unit.item_building_cancel)
         end
 
+	-- EDITED
         -- Give the unit their original attack capability
-        unit:SetAttackCapability(unit.original_attack)
-
+        --unit:SetAttackCapability(unit.original_attack)
+	finishConstruction(unit)
+	-- END
     end)
 
     -- These callbacks will only fire when the state between below half health/above half health changes.

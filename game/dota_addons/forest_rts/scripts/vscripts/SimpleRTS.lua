@@ -69,9 +69,8 @@ function SimpleRTSGameMode:InitGameMode()
    loadModule('timers')
    loadModule('spells')
    loadModule('stats')
-   loadModule('libraries/selection.lua')
-   loadModule('libraries/buildinghelper.lua')
-
+   loadModule('libraries/selection')
+   loadModule('libraries/buildinghelper')
    loadModule('builder')
    -- Must be turned off due to crash with the new buildingHelper!
    --loadModule('buildinghelper_old')
@@ -137,8 +136,8 @@ function SimpleRTSGameMode:InitGameMode()
    -- Register Listener
    CustomGameEventManager:RegisterListener( "update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
    CustomGameEventManager:RegisterListener( "repair_order", Dynamic_Wrap(SimpleRTSGameMode, "RepairOrder"))  	
-   CustomGameEventManager:RegisterListener( "building_helper_build_command", Dynamic_Wrap(BuildingHelper, "BuildCommand"))
-   CustomGameEventManager:RegisterListener( "building_helper_cancel_command", Dynamic_Wrap(BuildingHelper, "CancelCommand"))
+   --CustomGameEventManager:RegisterListener( "building_helper_build_command", Dynamic_Wrap(BuildingHelper, "BuildCommand"))
+   --CustomGameEventManager:RegisterListener( "building_helper_cancel_command", Dynamic_Wrap(BuildingHelper, "CancelCommand"))
    CustomGameEventManager:RegisterListener( "set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
    CustomGameEventManager:RegisterListener( "get_initial_score", Dynamic_Wrap(SimpleRTSGameMode, "GetInitialScore"))
 
@@ -607,7 +606,6 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    -- Cancel queue of a builder when killed
    if IsBuilder(killedUnit) then
       print("Killed unit was builder.")
-      BuildingHelper:ClearQueue(killedUnit)
    end
 
    -- Table cleanup
