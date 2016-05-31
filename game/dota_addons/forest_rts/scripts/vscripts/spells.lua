@@ -185,6 +185,21 @@ function RefundGoldTooltip(player, gold)
    PlayerResource:SetGold(playerID, curGold + gold, true)
 end
 
+function RefundResourcesSpell(keys)
+   RefundResourcesID(keys.caster:GetOwnerID(), keys.goldCost, keys.lumberCost)
+end
+
+function RefundResources(player, gold, lumber)
+   RefundResourcesID(player:GetPlayerID(), gold, lumber)
+end
+
+function RefundResourcesID(playerID, gold, lumber)
+   print("REFUNDING "..gold.." Gold and "..lumber.." Lumber!")
+   local hero = GetPlayerHero(playerID)
+   hero:IncGold(gold)
+   hero:IncLumber(lumber)   
+end
+
 function SpendResourcesNew(player, goldCost, lumberCost)
    local playerID = player:GetPlayerID()
    local hero = GetPlayerHero(playerID)
@@ -204,6 +219,7 @@ function BuyItem(keys)
    local buyerHero = shop:GetOwnerHero()
    local buyerPlayer = shop:GetOwnerPlayer()
    local buyerHeroLocation = buyerHero:GetAbsOrigin()
+   local buyerID = shop:GetOwnerID()
    
    shop._canAfford = nil
    -- We need to give back the gold before checking.
@@ -211,18 +227,13 @@ function BuyItem(keys)
 
    --if not CheckIfCanAfford({goldCost=goldCost, lumberCost=lumberCost, caster=shop, ability=keys.ability}) then
    if not CanAfford(buyerPlayer, goldCost, lumberCost) then
-      Notifications:ClearTop(buyerPlayer)
-      Notifications:Top(buyerPlayer, {text="Not enough resources!", duration=3})
+      SendErrorMessage(buyerID, "#error_not_enough_resources")
       print("Cannot afford, retuning from BuyItem.")
       return
    end
 
    if shop:GetRangeToUnit(buyerHero) > buyRange then
-      print("HERO OUTSIDE SHOP RANGE!")
-      local message = "Hero must be within "..tostring(buyRange).."range of shop!"
-      Notifications:ClearTop(buyerPlayer)
-      Notifications:Top(buyerPlayer, {text=message, duration=3})
-      print("Returning")
+      SendErrorMessage(buyerID, "#error_hero_outside_shop_range")
       return
    end
 

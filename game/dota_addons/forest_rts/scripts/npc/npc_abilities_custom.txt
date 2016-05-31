@@ -688,6 +688,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}	
 	}
@@ -778,6 +779,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}	
 	}
@@ -868,6 +870,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}	
 	}
@@ -940,6 +943,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}
 
 			//"RunScript"
@@ -1170,6 +1174,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}
 	}
@@ -1242,6 +1247,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}
 	}
@@ -1314,6 +1320,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}
 	}
@@ -1386,6 +1393,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}
 	}
@@ -1476,6 +1484,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}	
 	}
@@ -1566,6 +1575,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}	
 	}
@@ -1656,6 +1666,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}	
 	}
@@ -1753,6 +1764,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}	
 	}
@@ -1826,6 +1838,7 @@
 			{
 				"ScriptFile"	"builder.lua"
 				"Function"	"Build"
+				"LumberCost"	"%lumber_cost"
 			}	
 		}	
 	}

@@ -32,14 +32,16 @@
 		"game_info_htp_15"				"That is pretty much the basics of the mod, but there are still more features to explore. Keep in mind that this mod is still work in progress, so there will be bugs and unbalances. If you find such things in the mod, feel free to post a comment about it on the workshop page of the mod. All feedback is highly appreciated!"
 	
 		// Error Messages
-		"error_invalid_build_position"			"You can't build there"
+		"error_invalid_build_position"			"You Can't Build There"
 		"error_not_enough_gold"				"Not Enough Gold"
 		"error_not_enough_lumber"			"Not Enough Lumber"
-		"error_full_health"				"Already on full health"
-		"error_queue_full"				"Queue is full"	
+		"error_not_enough_resources"			"Not Enough Resources"
+		"error_full_health"				"Already On Full Health"
+		"error_queue_full"				"Queue Is Full"	
 
-		"error_target_must_be_unit"			"Target must be a regular unit"
-		"error_target_must_be_ranged_unit"		"Target must be a ranged unit"
+		"error_target_must_be_unit"			"Target Must Be A Regular Unit"
+		"error_target_must_be_ranged_unit"		"Target Must Be A Ranged Unit"
+		"error_hero_outside_shop_range"			"Hero Is Outside Shop Range"
 
 		"addonname"					"Forest RTS"
 

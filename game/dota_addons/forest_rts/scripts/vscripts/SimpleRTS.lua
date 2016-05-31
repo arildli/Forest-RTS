@@ -507,6 +507,7 @@ function SimpleRTSGameMode:onNPCSpawned(keys)
       local playerID = owner:GetPlayerID()
       PLAYER_HEROES[playerID] = spawnedUnit
       TechTree:InitTechTree(spawnedUnit)
+      TechTree:AddPlayerMethods(spawnedUnit, owner)
       spawnedUnit._playerOwned = true
       
       --CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})

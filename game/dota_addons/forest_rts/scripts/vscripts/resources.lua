@@ -6,9 +6,6 @@ end
 ---------------------------------------------------------------------------
 -- Inits the hero with the necessary properties to work with this 
 -- resource system.
---
---   * hero: The hero to initialize.
---
 ---------------------------------------------------------------------------
 function Resources:InitHero(hero)
   if not hero or hero:IsRealHero() == false then
@@ -24,6 +21,7 @@ function Resources:InitHero(hero)
 
   hero.SRES = {}
   hero.SRES.lumber = 0
+  hero.SRES.gold = 0
 
   ---------------------------------------------------------------------------
   -- Returns the gold count of the hero.
@@ -41,9 +39,6 @@ function Resources:InitHero(hero)
 
   ---------------------------------------------------------------------------
   -- Returns if the hero has more gold than the specified amount.
-  --
-  --   * amount: The amount to compare with.
-  --
   ---------------------------------------------------------------------------
   function hero:HasEnoughGold(amount)
      return hero:GetGold() >= amount
@@ -51,9 +46,6 @@ function Resources:InitHero(hero)
 
   ---------------------------------------------------------------------------
   -- Returns if the hero has more lumber than the specified amount.
-  --
-  --   * amount: The amount to compare with.
-  --
   ---------------------------------------------------------------------------
   function hero:HasEnoughLumber(amount)
      return hero:GetLumber() >= amount
@@ -61,19 +53,14 @@ function Resources:InitHero(hero)
 
   ---------------------------------------------------------------------------
   -- Sets the gold count of the hero.
-  --
-  --   * amount: The new gold amount.
-  --
   ---------------------------------------------------------------------------
   function hero:SetGold(amount)
     hero.SRES.gold = amount
+    PlayerResource:SetGold(hero:GetOwnerID(), amount, true)
   end
   
   ---------------------------------------------------------------------------
   -- Sets the lumber count of the hero.
-  --
-  --   * amount: The new lumber count.
-  --
   ---------------------------------------------------------------------------
   function hero:SetLumber(amount)
     hero.SRES.lumber = amount
@@ -83,19 +70,14 @@ function Resources:InitHero(hero)
   
   ---------------------------------------------------------------------------
   -- Increases the gold count of the hero.
-  --
-  --   * amount: The amount to increase with.
-  --
   ---------------------------------------------------------------------------
   function hero:IncGold(amount)
     hero.SRES.gold = hero.SRES.gold + amount
+    hero:SetGold(hero:GetGold() + amount)
   end
 
   ---------------------------------------------------------------------------
   -- Increases the lumber count of the hero.
-  --
-  --   * amount: The amount to increase with.
-  --
   ---------------------------------------------------------------------------
   function hero:IncLumber(amount)
     hero.SRES.lumber = hero.SRES.lumber + amount
@@ -105,9 +87,6 @@ function Resources:InitHero(hero)
 
   ---------------------------------------------------------------------------
   -- Decreases the lumber count of the hero.
-  --
-  --   * amount: The amount to decrease with.
-  --
   ---------------------------------------------------------------------------
   function hero:DecLumber(amount)
      hero.SRES.lumber = hero.SRES.lumber - amount
@@ -126,9 +105,6 @@ end
 ---------------------------------------------------------------------------
 -- Inits the unit or hero with the necessary properties to work with the
 -- harvesting system.
---
---   * unit: The unit to initialize.
---
 ---------------------------------------------------------------------------
 function Resources:InitHarvester(unit)
    if not unit then
@@ -143,9 +119,6 @@ function Resources:InitHarvester(unit)
    ---------------------------------------------------------------------------
    -- Updates the last tree location so that the worker can return to it
    -- after delivering the lumber to search for other trees to cut.
-   --
-   --   * tree: The tree that was just cut down.
-   --
    ---------------------------------------------------------------------------
    function unit:SetLastTree(tree)
       unit.HARVESTER.prevTree = tree:GetAbsOrigin()
@@ -223,9 +196,6 @@ end
 
 ---------------------------------------------------------------------------
 -- Returns true if unit can accept lumber deliveries.
---
--- * building: The unit or building to check.
---
 ---------------------------------------------------------------------------
 function Resources:IsValidDeliveryPoint(building)
    local buildingName = building:GetUnitName()

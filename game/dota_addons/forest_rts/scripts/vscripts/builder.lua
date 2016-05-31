@@ -4,9 +4,14 @@ function Build( event )
     local ability = event.ability
     local ability_name = ability:GetAbilityName()
     local building_name = ability:GetAbilityKeyValues()['UnitName']
-    local gold_cost = ability:GetGoldCost(1) 
+    local gold_cost = ability:GetGoldCost(1) or 0
     local hero = caster:IsRealHero() and caster or caster:GetOwner()
     local playerID = hero:GetPlayerID()
+
+    -- EDITED
+    local player = caster:GetOwnerPlayer()
+    local lumber_cost = event.LumberCost or 0
+    -- DONE
 
     -- If the ability has an AbilityGoldCost, it's impossible to not have enough gold the first time it's cast
     -- Always refund the gold here, as the building hasn't been placed yet
@@ -26,9 +31,16 @@ function Build( event )
         end
 
         -- If not enough resources to queue, stop
-        if PlayerResource:GetGold(playerID) < gold_cost then
+	-- EDITED
+        --if PlayerResource:GetGold(playerID) < gold_cost then
+	print("GOLD COST: "..gold_cost)
+	print("LUMBER COST: "..lumber_cost)
+	print("CAN AFFORD: "..tostring(CanAfford(player, gold_cost, lumber_cost)))
+	if not CanAfford(player, gold_cost, lumber_cost) then
+	   -- DONE
             BuildingHelper:print("Failed placement of " .. building_name .." - Not enough gold!")
-            SendErrorMessage(playerID, "#error_not_enough_gold")
+            SendErrorMessage(playerID, "#error_not_enough_resources")
+            --SendErrorMessage(playerID, "#error_not_enough_gold")
             return false
         end
 
@@ -38,8 +50,11 @@ function Build( event )
     -- Position for a building was confirmed and valid
     event:OnBuildingPosChosen(function(vPos)
         -- Spend resources
-        hero:ModifyGold(-gold_cost, false, 0)
-
+        --hero:ModifyGold(-gold_cost, false, 0)
+	-- EDITED
+	SpendResourcesNew(player, gold_cost, lumber_cost)
+	-- DONE
+				 
         -- Play a sound
         EmitSoundOnClient("DOTA_Item.ObserverWard.Activate", PlayerResource:GetPlayer(playerID))
     end)
@@ -48,6 +63,8 @@ function Build( event )
     event:OnConstructionFailed(function()
         local playerTable = BuildingHelper:GetPlayerTable(playerID)
         local building_name = playerTable.activeBuilding
+
+	SendErrorMessage(playerID, "Cannot build there!")
 
         BuildingHelper:print("Failed placement of " .. building_name)
     end)
@@ -59,7 +76,14 @@ function Build( event )
 
         -- Refund resources for this cancelled work
         if work.refund then
-            hero:ModifyGold(gold_cost, false, 0)
+	   -- EDITED
+	   print("GOLD BEFORE: "..hero:GetGold())
+	   print("LUMBER BEFORE: "..hero:GetLumber())
+	   RefundResourcesID(playerID, gold_cost, lumber_cost)
+	   print("GOLD AFTER: "..hero:GetGold())
+	   print("LUMBER AFTER: "..hero:GetLumber())
+	   -- DONE
+            --hero:ModifyGold(gold_cost, false, 0)
         end
     end)
 
@@ -83,14 +107,14 @@ function Build( event )
         -- Units can't attack while building
         --unit.original_attack = unit:GetAttackCapability()
         --unit:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
-	-- END
 
         -- Give item to cancel
-        unit.item_building_cancel = CreateItem("item_building_cancel", hero, hero)
-        if unit.item_building_cancel then 
-            unit:AddItem(unit.item_building_cancel)
-            unit.gold_cost = gold_cost
-        end
+        --unit.item_building_cancel = CreateItem("item_building_cancel", hero, hero)
+        --if unit.item_building_cancel then 
+        --    unit:AddItem(unit.item_building_cancel)
+        --    unit.gold_cost = gold_cost
+        --end
+	-- END
 
         -- FindClearSpace for the builder
         FindClearSpaceForUnit(caster, caster:GetAbsOrigin(), true)
@@ -113,13 +137,13 @@ function Build( event )
         BuildingHelper:print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
         
         -- Play construction complete sound
-        
-        -- Remove the item
-        if unit.item_building_cancel then
-            UTIL_Remove(unit.item_building_cancel)
-        end
 
-	-- EDITED
+	-- EDITED        
+        -- Remove the item
+        --if unit.item_building_cancel then
+        --    UTIL_Remove(unit.item_building_cancel)
+        --end
+
         -- Give the unit their original attack capability
         --unit:SetAttackCapability(unit.original_attack)
 	finishConstruction(unit)
