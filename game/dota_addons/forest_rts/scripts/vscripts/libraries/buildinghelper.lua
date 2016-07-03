@@ -376,9 +376,6 @@ end
     * Detects a Right Click/Tab with a builder through Panorama
 ]]--
 function BuildingHelper:CancelCommand(args)
-   -- EDITED
-   print("CancelCommand!")
-   -- DONE
     local playerID = args['PlayerID']
     local playerTable = BuildingHelper:GetPlayerTable(playerID)
     playerTable.activeBuilding = nil
@@ -1806,10 +1803,7 @@ function BuildingHelper:AdvanceQueue(builder)
 
         -- Move towards the point at cast range
         ExecuteOrderFromTable({ UnitIndex = builder:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION, Position = location, Queue = false}) 
-        print("Adding builder.move_to_build_timer")
         builder.move_to_build_timer = Timers:CreateTimer(0.03, function()
-            print("Tick")
-
             builder:MoveToPosition(location)
             if not IsValidEntity(builder) or not builder:IsAlive() then return end
             builder.state = "moving_to_build"
@@ -1833,12 +1827,6 @@ function BuildingHelper:AdvanceQueue(builder)
                 return
             end
         end)  
-        print("Name of builder: "..builder:GetUnitName())
-        if builder.move_to_build_timer then
-            print("Yep, builder has the timer.")
-        else
-            print("builder.move_to_build_timer is nil right after being set...!")
-        end  
     else
         -- Set the builder work to nil to accept next work directly
         BuildingHelper:print("Builder "..builder:GetUnitName().." "..builder:GetEntityIndex().." finished its building Queue")
@@ -1852,8 +1840,6 @@ end
     * Clear the build queue, the player right clicked
 ]]--
 function BuildingHelper:ClearQueue(builder)
-    print("ClearQueue called!")
-
     local work = builder.work
     builder.work = nil
     builder.state = "idle"
@@ -1862,15 +1848,11 @@ function BuildingHelper:ClearQueue(builder)
 
     -- Clear movement
     if builder.move_to_build_timer then
-        print("Removing 'builder.move_to_build_timer")
         Timers:RemoveTimer(builder.move_to_build_timer)
-    elseif builder.move_to_build_timer == nil then
-        print("In ClearnQueue, .move_to_build_timer was nil!")
     end
 
     -- Skip if there's nothing to clear
     if not builder.buildingQueue or (not work and #builder.buildingQueue == 0) then
-        print("Nothing to clear, skipping...")
         return
     end
 
@@ -1888,7 +1870,6 @@ function BuildingHelper:ClearQueue(builder)
         end
 
         if work.callbacks.onConstructionCancelled ~= nil then
-            print("Calling onConstructionCancelled")
             work.callbacks.onConstructionCancelled(work)
         end
     end
@@ -1903,7 +1884,6 @@ function BuildingHelper:ClearQueue(builder)
         table.remove(builder.buildingQueue, 1)
 
         if work.callbacks.onConstructionCancelled ~= nil then
-            print("Calling onConstructionCancelled inside while loop")
             work.callbacks.onConstructionCancelled(work)
         end
     end

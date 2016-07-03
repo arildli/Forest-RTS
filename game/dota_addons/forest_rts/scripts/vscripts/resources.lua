@@ -64,16 +64,14 @@ function Resources:InitHero(hero)
     function hero:SetLumber(amount)
         hero.SRES.lumber = amount
         local player = hero:GetOwner()
-        CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
+        CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(amount) })
     end
   
     ---------------------------------------------------------------------------
     -- Increases the gold count of the hero.
     ---------------------------------------------------------------------------
     function hero:IncGold(amount)
-        print("Amount: "..amount.." and currentGold: "..hero:GetGold())
         hero:SetGold(hero:GetGold() + amount)
-        print("Gold after IncGold: "..hero:GetGold() + amount)
     end
 
     ---------------------------------------------------------------------------

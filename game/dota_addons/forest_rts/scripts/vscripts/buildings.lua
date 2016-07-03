@@ -113,35 +113,37 @@ end
 
 
 function finishUpgrade(keys)
-   print("Note: Upgrade finished!")
+    print("Note: Upgrade finished!")
 
-   local caster = keys.caster
-   local ability = keys.ability
-   local modifier = keys.modifier
-   local newBuildingName = keys.newUnitName
-   local building = keys.caster
-   local buildingOrigin = building:GetOrigin()
-   print("Note: "..building:GetUnitName().." finished upgrade!")
-   local ownerHero = building:GetOwnerHero()
-   local ownerTeam = ownerHero:GetTeamNumber()
-   local ownerPlayer = building:GetOwnerPlayer()
-   local ownerID = building:GetOwnerID()
-   local buildingSize = keys.buildingSize
-   building._upgraded = true
-   ability:ApplyDataDrivenModifier(caster, building, modifier, {})
-   ownerHero:RemoveBuilding(building)
-   BuildingHelper:RemoveBuilding(building, true)
+    local caster = keys.caster
+    local ability = keys.ability
+    local modifier = keys.modifier
+    local newBuildingName = keys.newUnitName
+    local building = keys.caster
+    local buildingOrigin = building:GetOrigin()
+    print("Note: "..building:GetUnitName().." finished upgrade!")
+    local ownerHero = building:GetOwnerHero()
+    local ownerTeam = ownerHero:GetTeamNumber()
+    local ownerPlayer = building:GetOwnerPlayer()
+    local ownerID = building:GetOwnerID()
+    --local buildingSize = keys.buildingSize
+    --ability:ApplyDataDrivenModifier(caster, building, modifier, {})
+    --BuildingHelper:RemoveBuilding(building, true)
 
-   local blockers = BuildingHelper:BlockGridNavSquare(buildingSize, buildingOrigin)
-   local newBuilding = CreateUnitByName(newBuildingName, buildingOrigin, false, ownerHero, ownerPlayer, ownerTeam)
-   newBuilding:SetControllableByPlayer(ownerID, true)
-   newBuilding.blockers = blockers
-   newBuilding._finished = true
-   ownerHero:IncUnitCountFor(newBuildingName)
-   TechTree:AddPlayerMethods(newBuilding, ownerPlayer)
-   newBuilding:SetBaseHealthRegen(0)
-   addRallyFunctions(newBuilding)
-   finishConstruction(newBuilding)
+    building._upgraded = true
+    ownerHero:RemoveBuilding(building)
+    local newBuilding = BuildingHelper:UpgradeBuilding(building, newBuildingName)
+
+    --local blockers = BuildingHelper:BlockGridNavSquare(buildingSize, buildingOrigin)
+    --local newBuilding = CreateUnitByName(newBuildingName, buildingOrigin, false, ownerHero, ownerPlayer, ownerTeam)
+    --newBuilding:SetControllableByPlayer(ownerID, true)
+    --newBuilding.blockers = blockers
+    newBuilding._finished = true
+    ownerHero:IncUnitCountFor(newBuildingName)
+    TechTree:AddPlayerMethods(newBuilding, ownerPlayer)
+    --newBuilding:SetBaseHealthRegen(0)
+    addRallyFunctions(newBuilding)
+    finishConstruction(newBuilding)
 end
 
 

@@ -122,7 +122,6 @@ function GoToPage(entity, pageNumber)
 
                 -- Set level of ability
                 if entity:HasAbility(curNewAbilityName) then
-                    print("Entity has ability "..curNewAbilityName)
                     local curAbilityToLevel = entity:FindAbilityByName(curNewAbilityName)
                     local curAbilityLevel = ownerHero:GetAbilityLevelFor(curNewAbilityName)
                     if curAbilityLevel then
@@ -154,7 +153,6 @@ function GoToPage(entity, pageNumber)
         AddAbilitiesFromPage(curAbilityPage)
         local pageHidden = GetAbilityPage(entity, "HIDDEN")
         if pageHidden then
-            print("Adding abilities from pageHidden!")
             AddAbilitiesFromPage(pageHidden)
         end
     end

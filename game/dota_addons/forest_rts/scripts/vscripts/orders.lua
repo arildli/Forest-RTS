@@ -12,9 +12,6 @@ function SimpleRTSGameMode:FilterExecuteOrder( filterTable )
       print("Order: " .. k .. " " .. tostring(v) )
       end
    ]]
-   -- EDITED
-   print("Inside FilterExecuteOrder!")
-   -- DONE
 
    local units = filterTable["units"]
    local order_type = filterTable["order_type"]

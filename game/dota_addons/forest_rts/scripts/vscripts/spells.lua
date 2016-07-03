@@ -166,16 +166,11 @@ end
 
 
 function GiveResources(player, gold, wood)
-   print("Giving "..gold.." gold and "..wood.." lumber to a player.")
-   print("Before: "..PlayerResource:GetReliableGold(player:GetPlayerID()))
-
    local playerID = player:GetPlayerID()
    local hero = GetPlayerHero(playerID)
    hero:IncLumber(wood)
    local curGold = PlayerResource:GetReliableGold(playerID)
    PlayerResource:SetGold(playerID, curGold + gold, true)
-
-   print("After: "..PlayerResource:GetReliableGold(playerID))
 end
 
 function RefundGoldTooltip(player, gold)
@@ -194,7 +189,6 @@ function RefundResources(player, gold, lumber)
 end
 
 function RefundResourcesID(playerID, gold, lumber)
-   print("REFUNDING "..gold.." Gold and "..lumber.." Lumber!")
    local hero = GetPlayerHero(playerID)
    hero:IncGold(gold)
    hero:IncLumber(lumber)   

@@ -1,3 +1,0 @@
-General:
-- Updated to a much newer version of BuildingHelper, fixing several bugs and improving the construction of buildings.
-- Setting the rally point for a building now applies to all selected buildings.
