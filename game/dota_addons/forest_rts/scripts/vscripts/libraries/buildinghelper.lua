@@ -386,6 +386,7 @@ function BuildingHelper:CancelCommand(args)
     if not playerTable.activeBuilder or not IsValidEntity(playerTable.activeBuilder) then
         return
     end
+
     BuildingHelper:ClearQueue(playerTable.activeBuilder)
 end
 
@@ -412,6 +413,8 @@ function BuildingHelper:OnSelectionUpdate(event)
 end
 
 function BuildingHelper:OrderFilter(order)
+    print("Inside OrderFilter")
+
     local ret = true    
 
     if BuildingHelper.nextFilter then
@@ -1828,6 +1831,7 @@ end
     * Clear the build queue, the player right clicked
 ]]--
 function BuildingHelper:ClearQueue(builder)
+    print("ClearQueue called!")
 
     local work = builder.work
     builder.work = nil
@@ -1837,11 +1841,13 @@ function BuildingHelper:ClearQueue(builder)
 
     -- Clear movement
     if builder.move_to_build_timer then
+        print("Removing 'builder.move_to_build_timer")
         Timers:RemoveTimer(builder.move_to_build_timer)
     end
 
     -- Skip if there's nothing to clear
     if not builder.buildingQueue or (not work and #builder.buildingQueue == 0) then
+        print("Nothing to clear, skipping...")
         return
     end
 
@@ -1859,6 +1865,7 @@ function BuildingHelper:ClearQueue(builder)
         end
 
         if work.callbacks.onConstructionCancelled ~= nil then
+            print("Calling onConstructionCancelled")
             work.callbacks.onConstructionCancelled(work)
         end
     end
@@ -1873,6 +1880,7 @@ function BuildingHelper:ClearQueue(builder)
         table.remove(builder.buildingQueue, 1)
 
         if work.callbacks.onConstructionCancelled ~= nil then
+            print("Calling onConstructionCancelled inside while loop")
             work.callbacks.onConstructionCancelled(work)
         end
     end

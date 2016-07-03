@@ -122,6 +122,7 @@ function GoToPage(entity, pageNumber)
 
                 -- Set level of ability
                 if entity:HasAbility(curNewAbilityName) then
+                    print("Entity has ability "..curNewAbilityName)
                     local curAbilityToLevel = entity:FindAbilityByName(curNewAbilityName)
                     local curAbilityLevel = ownerHero:GetAbilityLevelFor(curNewAbilityName)
                     if curAbilityLevel then

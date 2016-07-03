@@ -45,6 +45,17 @@ function OnRightButtonPressed()
         if (!pressedShift) SendCancelCommand()
     }
 
+    if (selectedEntities.length > 0)
+    {
+        var clickPos = Game.ScreenXYToWorld(cursor[0], cursor[1]);
+        for (var e of selectedEntities)
+        {
+            if (IsCustomBuilding(e) && Entities.IsControllableByPlayer(e, iPlayerID)) {
+                GameEvents.SendCustomGameEventToServer("set_rally_point", {pID: iPlayerID, mainSelected: e, clickPos: clickPos});
+            }
+        }
+    }
+
     /*
     $.Msg("IsCustomBuilding: " + IsCustomBuilding(mainSelected))
     // Send message about rally point. From PMP by Noya.

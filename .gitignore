@@ -1,2 +1,16 @@
 tools_thumbnail_cache.bin
 settings.kv
+*.vxml_c
+*.vcss_c
+*.vjs_c
+*.vtex_c
+*.lua#
+*.vmesh_c
+*.vmdl_c
+*.vanim_c
+*.vagrp_c
+*.css#
+*.js#
+*.xml#
+*.vpcf_c
+*.txt#
