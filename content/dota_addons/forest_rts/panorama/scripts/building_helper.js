@@ -59,6 +59,8 @@ if (! Root.loaded)
     Root.loaded = true;
 }
 
+$.Msg("building_helper.js running!")
+
 function StartBuildingHelper( params )
 {
     if (params !== undefined)

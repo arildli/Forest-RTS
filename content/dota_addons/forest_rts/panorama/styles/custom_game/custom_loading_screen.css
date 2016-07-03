@@ -1,0 +1,74 @@
+
+.LoadingScreen 
+{
+    width: 100%;
+    height: 100%;
+    overflow: clip;
+}
+
+#ImagePanel
+{
+    overflow: clip;
+    height: 50%;
+    width: 50%;
+    horizontal-align: left;
+    vertical-align: bottom;
+}
+
+#ImagePanel Image
+{
+    horizontal-align: left;
+    vertical-align: bottom;
+}
+
+#bg
+{
+    width: 100%;
+    height: 100%;
+}
+
+#bg_spearman
+{
+    width: 50%;
+    height: 70%;
+    margin-left: -5%;
+    margin-bottom: 10%;
+}
+
+#bg_flame_thrower
+{
+    width: 45%;
+    height: 60%;
+    margin-left: 17.5%;
+    margin-bottom: -5%;
+}
+
+.PanelBg
+{
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 100% 100%;
+}
+
+.PanelImg
+{
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: 100% 100%;
+}
+
+#TitlePanel
+{
+    horizontal-align: left;
+    vertical-align: bottom;
+    margin-bottom: 150px;
+    margin-left: 150px;
+}
+
+#Title
+{
+    vertical-align: center;
+    font-size: 60px;
+    color: #cccccc;
+    text-shadow: 5px 5px 5px #000000;
+}

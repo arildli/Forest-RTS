@@ -118,7 +118,7 @@ function SimpleRTSGameMode:InitGameMode()
    for team=0,10 do
       local color = self.teamColors[team]
       if color then
-	 SetTeamCustomHealthbarColor(team, color[1], color[2], color[3])
+	     SetTeamCustomHealthbarColor(team, color[1], color[2], color[3])
       end
    end
    
@@ -135,7 +135,7 @@ function SimpleRTSGameMode:InitGameMode()
    
    -- Register Listener
    CustomGameEventManager:RegisterListener( "update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
-   CustomGameEventManager:RegisterListener( "repair_order", Dynamic_Wrap(SimpleRTSGameMode, "RepairOrder"))  	
+   --CustomGameEventManager:RegisterListener( "repair_order", Dynamic_Wrap(SimpleRTSGameMode, "RepairOrder"))  	
    --CustomGameEventManager:RegisterListener( "building_helper_build_command", Dynamic_Wrap(BuildingHelper, "BuildCommand"))
    --CustomGameEventManager:RegisterListener( "building_helper_cancel_command", Dynamic_Wrap(BuildingHelper, "CancelCommand"))
    CustomGameEventManager:RegisterListener( "set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
@@ -442,6 +442,8 @@ end
 -- On Rally Point Set.
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onRallyPointSet(keys)
+   print("NOTE: onRallyPointSet called!")
+
    local player = PlayerResource:GetPlayer(keys.pID)
    local rallyPos = keys.clickPos
    local building = EntIndexToHScript(keys.mainSelected)

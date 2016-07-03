@@ -1,5 +1,7 @@
 "use strict"
 
+$.Msg("Using clicks.js!")
+
 function GetMouseTarget()
 {
     var mouseEntities = GameUI.FindScreenEntities( GameUI.GetCursorPosition() )
@@ -23,24 +25,42 @@ function GetMouseTarget()
 // Handle Right Button events
 function OnRightButtonPressed()
 {
+    $.Msg("OnRightButtonPressed!")
+
     var iPlayerID = Players.GetLocalPlayer()
     var selectedEntities = Players.GetSelectedEntities( iPlayerID )
     var mainSelected = Players.GetLocalPlayerPortraitUnit() 
     var targetIndex = GetMouseTarget()
     var pressedShift = GameUI.IsShiftDown()
+    
+    // Added {
+    var cursor = GameUI.GetCursorPosition();
+    // }
 
     // Builder Right Click
     if ( IsBuilder( mainSelected ) )
     {
         // Cancel BH
+        $.Msg("SendCancelCommand from OnRightButtonPressed!")
         if (!pressedShift) SendCancelCommand()
     }
+
+    /*
+    $.Msg("IsCustomBuilding: " + IsCustomBuilding(mainSelected))
+    // Send message about rally point. From PMP by Noya.
+    if (IsCustomBuilding(mainSelected) && Entities.IsControllableByPlayer(mainSelected, iPlayerID)) {
+        var clickPos = Game.ScreenXYToWorld(cursor[0], cursor[1]);
+        GameEvents.SendCustomGameEventToServer("set_rally_point", {pID: iPlayerID, mainSelected: mainSelected, clickPos: clickPos});
+        return false;
+    }*/
 
     return false
 }
 
 // Handle Left Button events
 function OnLeftButtonPressed() {
+    $.Msg("OnLeftButtonPressed!")
+
     return false
 }
 
@@ -78,3 +98,11 @@ GameUI.SetMouseCallback( function( eventName, arg ) {
     }
     return CONTINUE_PROCESSING_EVENT
 } )
+
+// Added {
+function IsCustomBuilding( entityIndex ){
+    var ability_building = Entities.GetAbilityByName( entityIndex, "ability_building")
+    var ability_tower = Entities.GetAbilityByName( entityIndex, "ability_tower")
+    return (ability_building != -1 || ability_tower != -1)
+}
+// }

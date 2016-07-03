@@ -19,6 +19,8 @@ function Selection_New(msg)
 // Recieves a list of entities to add to the current selection
 function Selection_Add(msg)
 {
+    print("Selection_Add")
+
     var entities = msg.entities
     //$.Msg("Selection_Add ", entities)
     for (var i in entities) {

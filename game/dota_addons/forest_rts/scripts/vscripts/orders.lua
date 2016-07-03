@@ -12,6 +12,9 @@ function SimpleRTSGameMode:FilterExecuteOrder( filterTable )
       print("Order: " .. k .. " " .. tostring(v) )
       end
    ]]
+   -- EDITED
+   print("Inside FilterExecuteOrder!")
+   -- DONE
 
    local units = filterTable["units"]
    local order_type = filterTable["order_type"]
@@ -35,32 +38,31 @@ function SimpleRTSGameMode:FilterExecuteOrder( filterTable )
    local numBuildings = 0
    if units then
       for n,unit_index in pairs(units) do
-	 local unit = EntIndexToHScript(unit_index)
-	 if unit and IsValidEntity(unit) then
-	    if not unit:IsBuilding() and not IsCustomBuilding(unit) then
-	       numUnits = numUnits + 1
-	       
-	       -- Set hold position
-	       if order_type == DOTA_UNIT_ORDER_HOLD_POSITION then
-		  unit.bHold = true
-	       end
-	    elseif unit:IsBuilding() or IsCustomBuilding(unit) then
-	       numBuildings = numBuildings + 1
-	    end
-	 end
+         local unit = EntIndexToHScript(unit_index)
+         if unit and IsValidEntity(unit) then
+            if not unit:IsBuilding() and not IsCustomBuilding(unit) then
+               numUnits = numUnits + 1
+          
+               -- Set hold position
+               if order_type == DOTA_UNIT_ORDER_HOLD_POSITION then
+                  unit.bHold = true
+               end
+            elseif unit:IsBuilding() or IsCustomBuilding(unit) then
+               numBuildings = numBuildings + 1
+            end
+         end
       end
    end
 
 
-   if units and (order_type == DOTA_UNIT_ORDER_MOVE_TO_POSITION or order_type == DOTA_UNIT_ORDER_ATTACK_MOVE) and numUnits > 1 then
-      
+   if units and (order_type == DOTA_UNIT_ORDER_MOVE_TO_POSITION or order_type == DOTA_UNIT_ORDER_ATTACK_MOVE) and numUnits > 1 then 
       -- Get buildings out of the units table
       local _units = {}
       for n, unit_index in pairs(units) do 
-	 local unit = EntIndexToHScript(unit_index)
-	 if not unit:IsBuilding() and not IsCustomBuilding(unit) then
-	    _units[#_units+1] = unit_index
-	 end
+         local unit = EntIndexToHScript(unit_index)
+         if not unit:IsBuilding() and not IsCustomBuilding(unit) then
+            _units[#_units+1] = unit_index
+         end
       end
       units = _units
 
@@ -99,77 +101,77 @@ function SimpleRTSGameMode:FilterExecuteOrder( filterTable )
       local right = RotatePosition(Vector(0,0,0), QAngle(0,90,0), forward)
 
       for i=1,unitsPerRow do
-	 for j=1,unitsPerColumn do
-	    --print ('grid point (' .. curX .. ', ' .. curY .. ')')
-	    local newPoint = point + (curX * offsetX * right) + (curY * offsetY * forward)
-	    if DEBUG then 
-	       DebugDrawCircle(newPoint, Vector(0,0,0), 255, 25, true, 5)
-	       DebugDrawText(newPoint, curX .. ', ' .. curY, true, 10) 
-	    end
-	    navPoints[#navPoints+1] = newPoint
-	    curX = curX + 1
-	 end
-	 curX = start
-	 curY = curY - 1
+         for j=1,unitsPerColumn do
+         --print ('grid point (' .. curX .. ', ' .. curY .. ')')
+         local newPoint = point + (curX * offsetX * right) + (curY * offsetY * forward)
+            if DEBUG then 
+               DebugDrawCircle(newPoint, Vector(0,0,0), 255, 25, true, 5)
+               DebugDrawText(newPoint, curX .. ', ' .. curY, true, 10) 
+            end
+            navPoints[#navPoints+1] = newPoint
+            curX = curX + 1
+         end
+         curX = start
+         curY = curY - 1
       end
 
       local curX = ((remainder-1) * -.5)
 
       for i=1,remainder do 
-	 --print ('grid point (' .. curX .. ', ' .. curY .. ')')
-	 local newPoint = point + (curX * offsetX * right) + (curY * offsetY * forward)
-	 if DEBUG then 
-	    DebugDrawCircle(newPoint, Vector(0,0,255), 255, 25, true, 5)
-	    DebugDrawText(newPoint, curX .. ', ' .. curY, true, 10) 
-	 end
-	 navPoints[#navPoints+1] = newPoint
-	 curX = curX + 1
+         --print ('grid point (' .. curX .. ', ' .. curY .. ')')
+         local newPoint = point + (curX * offsetX * right) + (curY * offsetY * forward)
+         if DEBUG then 
+            DebugDrawCircle(newPoint, Vector(0,0,255), 255, 25, true, 5)
+            DebugDrawText(newPoint, curX .. ', ' .. curY, true, 10) 
+         end
+         navPoints[#navPoints+1] = newPoint
+         curX = curX + 1
       end
 
       for i=1,#navPoints do 
-	 local point = navPoints[i]
-	 --print(i,navPoints[i])
+         local point = navPoints[i]
+         --print(i,navPoints[i])
       end
 
       -- Sort the units by distance to the nav points
       sortedUnits = {}
       for i=1,#navPoints do
-	 local point = navPoints[i]
-	 local closest_unit_index = GetClosestUnitToPoint(units, point)
-	 if closest_unit_index then
-	    --print("Closest to point is ",closest_unit_index," - inserting in table of sorted units")
-	    table.insert(sortedUnits, closest_unit_index)
+         local point = navPoints[i]
+         local closest_unit_index = GetClosestUnitToPoint(units, point)
+         if closest_unit_index then
+            --print("Closest to point is ",closest_unit_index," - inserting in table of sorted units")
+            table.insert(sortedUnits, closest_unit_index)
 
-	    --print("Removing unit of index "..closest_unit_index.." from the table:")
-	    --DeepPrintTable(units)
-	    units = RemoveElementFromTable(units, closest_unit_index)
-	 end
+            --print("Removing unit of index "..closest_unit_index.." from the table:")
+            --DeepPrintTable(units)
+            units = RemoveElementFromTable(units, closest_unit_index)
+         end
       end
 
       -- Sort the units by rank (0,1,2,3)
       unitsByRank = {}
       for i=0,3 do
-	 local units = GetUnitsWithFormationRank(sortedUnits, i)
-	 if units then
-	    unitsByRank[i] = units
-	 end
+         local units = GetUnitsWithFormationRank(sortedUnits, i)
+         if units then
+            unitsByRank[i] = units
+         end
       end
 
       -- Order each unit sorted to move to its respective Nav Point
       local n = 0
       for i=0,3 do
-	 if unitsByRank[i] then
-	    for _,unit_index in pairs(unitsByRank[i]) do
-	       local unit = EntIndexToHScript(unit_index)
-	       --print("Issuing a New Movement Order to unit index: ",unit_index)
+         if unitsByRank[i] then
+            for _,unit_index in pairs(unitsByRank[i]) do
+               local unit = EntIndexToHScript(unit_index)
+               --print("Issuing a New Movement Order to unit index: ",unit_index)
 
-	       local pos = navPoints[tonumber(n)+1]
-	       --print("Unit Number "..n.." moving to ", pos)
-	       n = n+1
-	       
-	       ExecuteOrderFromTable({ UnitIndex = unit_index, OrderType = order_type, Position = pos, Queue = false})
-	    end
-	 end
+               local pos = navPoints[tonumber(n)+1]
+               --print("Unit Number "..n.." moving to ", pos)
+               n = n+1
+          
+               ExecuteOrderFromTable({ UnitIndex = unit_index, OrderType = order_type, Position = pos, Queue = false})
+            end
+         end
       end
       return false
    end
@@ -184,30 +186,28 @@ function SimpleRTSGameMode:FilterExecuteOrder( filterTable )
       local abilityName = ability:GetAbilityName()
       local entityList = GetSelectedEntities(unit:GetPlayerOwnerID())
       for _,entityIndex in pairs(entityList) do
-	 local caster = EntIndexToHScript(entityIndex)
-	 -- Make sure the original caster unit doesn't cast twice
-	 if caster and caster ~= unit and caster:HasAbility(abilityName) then
-	    
-	    local abil = caster:FindAbilityByName(abilityName)
-	    if abil and abil:IsFullyCastable() then
+         local caster = EntIndexToHScript(entityIndex)
+         -- Make sure the original caster unit doesn't cast twice
+         if caster and caster ~= unit and caster:HasAbility(abilityName) then
+       
+            local abil = caster:FindAbilityByName(abilityName)
+            if abil and abil:IsFullyCastable() then
 
-	       caster.skip = true
-	       if order_type == DOTA_UNIT_ORDER_CAST_POSITION then
-		  ExecuteOrderFromTable({ UnitIndex = entityIndex, OrderType = order_type, Position = point, AbilityIndex = abil:GetEntityIndex(), Queue = queue})
+               caster.skip = true
+               if order_type == DOTA_UNIT_ORDER_CAST_POSITION then
+                  ExecuteOrderFromTable({ UnitIndex = entityIndex, OrderType = order_type, Position = point, AbilityIndex = abil:GetEntityIndex(), Queue = queue})
 
-	       elseif order_type == DOTA_UNIT_ORDER_CAST_TARGET then
-		  ExecuteOrderFromTable({ UnitIndex = entityIndex, OrderType = order_type, TargetIndex = targetIndex, AbilityIndex = abil:GetEntityIndex(), Queue = queue})
+               elseif order_type == DOTA_UNIT_ORDER_CAST_TARGET then
+                  ExecuteOrderFromTable({ UnitIndex = entityIndex, OrderType = order_type, TargetIndex = targetIndex, AbilityIndex = abil:GetEntityIndex(), Queue = queue})
 
-	       else --order_type == DOTA_UNIT_ORDER_CAST_NO_TARGET or order_type == DOTA_UNIT_ORDER_CAST_TOGGLE or order_type == DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO
-		  ExecuteOrderFromTable({ UnitIndex = entityIndex, OrderType = order_type, AbilityIndex = abil:GetEntityIndex(), Queue = queue})
-	       end
-	    end
-	 end
+               else --order_type == DOTA_UNIT_ORDER_CAST_NO_TARGET or order_type == DOTA_UNIT_ORDER_CAST_TOGGLE or order_type == DOTA_UNIT_ORDER_CAST_TOGGLE_AUTO
+                  ExecuteOrderFromTable({ UnitIndex = entityIndex, OrderType = order_type, AbilityIndex = abil:GetEntityIndex(), Queue = queue})
+               end
+            end
+         end
       end
       return true
-      
    end
-   
    return true
 end
 
@@ -279,11 +279,11 @@ function GetClosestUnitToPoint( units_table, point )
       local min_distance = (point - EntIndexToHScript(closest_unit):GetAbsOrigin()):Length()
 
       for _,unit_index in pairs(units_table) do
-	 local distance = (point - EntIndexToHScript(unit_index):GetAbsOrigin()):Length()
-	 if distance < min_distance then
-	    closest_unit = unit_index
-	    min_distance = distance
-	 end
+    local distance = (point - EntIndexToHScript(unit_index):GetAbsOrigin()):Length()
+    if distance < min_distance then
+       closest_unit = unit_index
+       min_distance = distance
+    end
       end
       return closest_unit
    else
@@ -296,7 +296,7 @@ function GetUnitsWithFormationRank( units_table, rank )
    local allUnitsOfRank = {}
    for _,unit_index in pairs(units_table) do
       if GetFormationRank( EntIndexToHScript(unit_index) ) == rank then
-	 table.insert(allUnitsOfRank, unit_index)
+    table.insert(allUnitsOfRank, unit_index)
       end
    end
    if #allUnitsOfRank == 0 then
@@ -321,7 +321,7 @@ function RemoveElementFromTable(table, element)
    local new_table = {}
    for k,v in pairs(table) do
       if v and v ~= element then
-	 new_table[#new_table+1] = v
+    new_table[#new_table+1] = v
       end
    end
 

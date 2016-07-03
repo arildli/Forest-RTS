@@ -23,21 +23,21 @@ function Build( event )
     -- Additional checks to confirm a valid building position can be performed here
     event:OnPreConstruction(function(vPos)
 
-        -- Check for minimum height if defined
-        if not BuildingHelper:MeetsHeightCondition(vPos) then
-            BuildingHelper:print("Failed placement of " .. building_name .." - Placement is below the min height required")
-            SendErrorMessage(playerID, "#error_invalid_build_position")
-            return false
-        end
+    -- Check for minimum height if defined
+    if not BuildingHelper:MeetsHeightCondition(vPos) then
+        BuildingHelper:print("Failed placement of " .. building_name .." - Placement is below the min height required")
+        SendErrorMessage(playerID, "#error_invalid_build_position")
+        return false
+    end
 
         -- If not enough resources to queue, stop
-	-- EDITED
+    -- EDITED
         --if PlayerResource:GetGold(playerID) < gold_cost then
-	print("GOLD COST: "..gold_cost)
-	print("LUMBER COST: "..lumber_cost)
-	print("CAN AFFORD: "..tostring(CanAfford(player, gold_cost, lumber_cost)))
-	if not CanAfford(player, gold_cost, lumber_cost) then
-	   -- DONE
+    print("GOLD COST: "..gold_cost)
+    print("LUMBER COST: "..lumber_cost)
+    print("CAN AFFORD: "..tostring(CanAfford(player, gold_cost, lumber_cost)))
+    if not CanAfford(player, gold_cost, lumber_cost) then
+       -- DONE
             BuildingHelper:print("Failed placement of " .. building_name .." - Not enough gold!")
             SendErrorMessage(playerID, "#error_not_enough_resources")
             --SendErrorMessage(playerID, "#error_not_enough_gold")
@@ -51,10 +51,10 @@ function Build( event )
     event:OnBuildingPosChosen(function(vPos)
         -- Spend resources
         --hero:ModifyGold(-gold_cost, false, 0)
-	-- EDITED
-	SpendResourcesNew(player, gold_cost, lumber_cost)
-	-- DONE
-				 
+        -- Added {
+        SpendResourcesNew(player, gold_cost, lumber_cost)
+        -- }
+                 
         -- Play a sound
         EmitSoundOnClient("DOTA_Item.ObserverWard.Activate", PlayerResource:GetPlayer(playerID))
     end)
@@ -64,7 +64,7 @@ function Build( event )
         local playerTable = BuildingHelper:GetPlayerTable(playerID)
         local building_name = playerTable.activeBuilding
 
-	SendErrorMessage(playerID, "Cannot build there!")
+        SendErrorMessage(playerID, "Cannot build there!")
 
         BuildingHelper:print("Failed placement of " .. building_name)
     end)
@@ -76,13 +76,13 @@ function Build( event )
 
         -- Refund resources for this cancelled work
         if work.refund then
-	   -- EDITED
-	   print("GOLD BEFORE: "..hero:GetGold())
-	   print("LUMBER BEFORE: "..hero:GetLumber())
-	   RefundResourcesID(playerID, gold_cost, lumber_cost)
-	   print("GOLD AFTER: "..hero:GetGold())
-	   print("LUMBER AFTER: "..hero:GetLumber())
-	   -- DONE
+       -- EDITED
+       print("GOLD BEFORE: "..hero:GetGold())
+       print("LUMBER BEFORE: "..hero:GetLumber())
+       RefundResourcesID(playerID, gold_cost, lumber_cost)
+       print("GOLD AFTER: "..hero:GetGold())
+       print("LUMBER AFTER: "..hero:GetLumber())
+       -- DONE
             --hero:ModifyGold(gold_cost, false, 0)
         end
     end)
@@ -103,7 +103,7 @@ function Build( event )
             end
         end
 
-	-- EDITED
+    -- EDITED
         -- Units can't attack while building
         --unit.original_attack = unit:GetAttackCapability()
         --unit:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
@@ -114,7 +114,7 @@ function Build( event )
         --    unit:AddItem(unit.item_building_cancel)
         --    unit.gold_cost = gold_cost
         --end
-	-- END
+    -- END
 
         -- FindClearSpace for the builder
         FindClearSpaceForUnit(caster, caster:GetAbsOrigin(), true)
@@ -123,13 +123,13 @@ function Build( event )
         -- Remove invulnerability on npc_dota_building baseclass
         unit:RemoveModifierByName("modifier_invulnerable")
 
-	-- EDITED
-	prepareConstruction(unit, ability_name)
+        -- EDITED
+        prepareConstruction(unit, ability_name)
 
-	local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
-	-- Add the building handle to the list of structures
-	table.insert(playerHero.structures, unit)
-	-- END
+        local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
+        -- Add the building handle to the list of structures
+        table.insert(playerHero.structures, unit)
+        -- END
     end)
 
     -- A building finished construction
@@ -138,7 +138,7 @@ function Build( event )
         
         -- Play construction complete sound
 
-	-- EDITED        
+    -- EDITED        
         -- Remove the item
         --if unit.item_building_cancel then
         --    UTIL_Remove(unit.item_building_cancel)
@@ -146,8 +146,8 @@ function Build( event )
 
         -- Give the unit their original attack capability
         --unit:SetAttackCapability(unit.original_attack)
-	finishConstruction(unit)
-	-- END
+    finishConstruction(unit)
+    -- END
     end)
 
     -- These callbacks will only fire when the state between below half health/above half health changes.

@@ -23,72 +23,78 @@ end
 
 
 function prepareConstruction(building, abilityName)
-   building._interrupted = false
-   building._playerOwned = true
+    print("prepareConstruction called!")
 
-   local owner = building:GetOwner()
-   TechTree:AddPlayerMethods(building, owner)
+    building._interrupted = false
+    building._playerOwned = true
 
-   -- Temporarily learn the rotation spells.
-   rotateLeft = "srts_rotate_left"
-   rotateRight = "srts_rotate_right"
-   cancelConstruction = "srts_cancel_construction"
+    local owner = building:GetOwner()
+    TechTree:AddPlayerMethods(building, owner)
+
+    -- Temporarily learn the rotation spells.
+    rotateLeft = "srts_rotate_left"
+    rotateRight = "srts_rotate_right"
+    cancelConstruction = "srts_cancel_construction"
    
-   building:AddAbility(rotateLeft)
-   building:AddAbility(rotateRight)
-   building:AddAbility(cancelConstruction)
-   building:FindAbilityByName(rotateLeft):SetLevel(1)
-   building:FindAbilityByName(rotateRight):SetLevel(1)
-   building:FindAbilityByName(cancelConstruction):SetLevel(1)
+    building:AddAbility(rotateLeft)
+    building:AddAbility(rotateRight)
+    building:AddAbility(cancelConstruction)
+    building:FindAbilityByName(rotateLeft):SetLevel(1)
+    building:FindAbilityByName(rotateRight):SetLevel(1)
+    building:FindAbilityByName(cancelConstruction):SetLevel(1)
    
-   addRallyFunctions(building)
+    addRallyFunctions(building)
 
-   -- Register construction in Tech Tree.
-   TechTree:RegisterConstruction(building, abilityName)
+    -- Register construction in Tech Tree.
+    TechTree:RegisterConstruction(building, abilityName)
 end
 
 
 function addRallyFunctions(building)
-   function building:SetRallyPoint(pos)
-      building._rallyPoint = Vector(pos["0"], pos["1"], pos["2"])
-   end
+    print("rallyFunctions added!")
 
-   function building:GetRallyPoint()
-      return building._rallyPoint
-   end
+    function building:SetRallyPoint(pos)
+        building._rallyPoint = Vector(pos["0"], pos["1"], pos["2"])
+    end
+
+    function building:GetRallyPoint()
+        return building._rallyPoint
+    end
 end
 
 
 function finishConstruction(building)
-   if not building:IsAlive() or building._interrupted == true then
-      --print("attemptConstruction: Note: building was destroyed before finish.")
-      print("BUILDING WAS INTERRUPTED OR NOT ALIVE!")
-      return
-   end
+    print("finishConstruction called!")
    
-   local interrupted = "nil"
-   if building._interrupted == true then
-      interrupted = "true"
-   elseif building._interrupted == false then
-      interrupted = "false"
-   end
-   building._building = true
-   building._playerOwned = true
-
-   -- Remove rotation spells.
-   building:RemoveAbility(rotateRight)
-   building:RemoveAbility(rotateLeft)
-   building:RemoveAbility(cancelConstruction)
+    if not building:IsAlive() or building._interrupted == true then
+        --print("attemptConstruction: Note: building was destroyed before finish.")
+        print("BUILDING WAS INTERRUPTED OR NOT ALIVE!")
+        return
+    end
    
-   local playerHero = GetPlayerHero(building:GetOwner():GetPlayerID())
+    local interrupted = "nil"
+    if building._interrupted == true then
+        interrupted = "true"
+    elseif building._interrupted == false then
+        interrupted = "false"
+    end
+    building._building = true
+    building._playerOwned = true
 
-   -- Register Trained
-   TechTree:RegisterIncident(building, true)
-   TechTree:AddAbilitiesToEntity(building)
-   --TechTree:UpdateSpellsForEntity(building, playerHero)
+    -- Remove rotation spells.
+    building:RemoveAbility(rotateRight)
+    building:RemoveAbility(rotateLeft)
+    building:RemoveAbility(cancelConstruction)
+   
+    local playerHero = GetPlayerHero(building:GetOwner():GetPlayerID())
 
-   local playerID = building:GetOwnerID()
-   Stats:OnTrained(playerID, building, "building")
+    -- Register Trained
+    TechTree:RegisterIncident(building, true)
+    TechTree:AddAbilitiesToEntity(building)
+    --TechTree:UpdateSpellsForEntity(building, playerHero)
+
+    local playerID = building:GetOwnerID()
+    Stats:OnTrained(playerID, building, "building")
 end
 
 
@@ -107,6 +113,8 @@ end
 
 
 function finishUpgrade(keys)
+   print("Note: Upgrade finished!")
+
    local caster = keys.caster
    local ability = keys.ability
    local modifier = keys.modifier
@@ -143,7 +151,7 @@ end
 
 
 
---					-----| Economy Units and Buildings |-----
+--                  -----| Economy Units and Buildings |-----
 
 
 
@@ -154,11 +162,11 @@ end
 -- Unit edition of CheckIfCanAfford().
 ---------------------------------------------------------------------------
 function CheckIfCanAffordUnit(keys)
-   local goldCost = keys.goldCost
-   local caster = keys.caster
-   local playerID = caster:GetOwner():GetPlayerID()
-   GiveGoldToPlayer(playerID, goldCost)
-   return CheckIfCanAfford(keys)
+    local goldCost = keys.goldCost
+    local caster = keys.caster
+    local playerID = caster:GetOwner():GetPlayerID()
+    GiveGoldToPlayer(playerID, goldCost)
+    return CheckIfCanAfford(keys)
 end
 
 
@@ -169,25 +177,27 @@ end
 -- if not.
 ---------------------------------------------------------------------------
 function CheckIfCanAfford(keys)
-   local ability = keys.ability
-   local caster = keys.caster
-   local goldCost = keys.goldCost
-   local lumberCost = keys.lumberCost
+    local ability = keys.ability
+    local caster = keys.caster
+    local goldCost = keys.goldCost
+    local lumberCost = keys.lumberCost
 
-   if SpendResources(caster, goldCost, lumberCost) == false then
-      caster._canAfford = false
-      if DEBUG_CONSTRUCT_BUILDING == true then
-	 print("caster._canAfford set to 'false'")
-      end
-      caster:Stop()
-      return false
-   else
-      caster._canAfford = true
-      if DEBUG_CONSTRUCT_BUILDING == true then
-	 print("caster._canAfford set to 'true'")
-      end
-      return true
-   end
+    if SpendResources(caster, goldCost, lumberCost) == false then
+        caster._canAfford = false
+        if DEBUG_CONSTRUCT_BUILDING == true then
+            print("caster._canAfford set to 'false'")
+        end
+        caster:Stop()
+        print("CANNOT afford")
+        return false
+    else
+        caster._canAfford = true
+        if DEBUG_CONSTRUCT_BUILDING == true then
+            print("caster._canAfford set to 'true'")
+        end
+        print("Can afford!")
+        return true
+    end
 end
 
 
@@ -267,7 +277,7 @@ end
 --- * building: The unit to check.
 ---------------------------------------------------------------------------
 function IsBuilding(building)
-   return building._building or IsCustomBuilding(building)
+    return building._building or IsCustomBuilding(building)
 end
 
 
@@ -318,12 +328,12 @@ function OnUnitTrained(keys)
    local teamColor = {}
    if targetTeam == DOTA_TEAM_GOODGUYS then
       if not COLOR_RADIANT_RGB then
-	 print("Fuck Radiant!")
+     print("Fuck Radiant!")
       end
       teamColor = COLOR_RADIANT_RGB
    elseif targetTeam == DOTA_TEAM_BADGUYS then
       if not COLOR_DIRE_RGB then
-	 print("Fuck Dire!")
+     print("Fuck Dire!")
       end
       teamColor = COLOR_DIRE_RGB
    end
@@ -333,10 +343,10 @@ function OnUnitTrained(keys)
    local rallyPoint = caster:GetRallyPoint()
    if rallyPoint then
       Timers:CreateTimer({
-			    endTime = 0.1,
-			    callback = function()
-			       target:MoveToPosition(rallyPoint)
-			    end})
+                endTime = 0.1,
+                callback = function()
+                   target:MoveToPosition(rallyPoint)
+                end})
    end
 end
 

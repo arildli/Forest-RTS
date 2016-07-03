@@ -100,6 +100,16 @@ Ideer:
 - Kjøpe Merc fra neutral shop (som må cleares først!)
 - Beastmaster hero spells.
 - Single player uten patrols, men med camps og tutorial?
+- Omniknight som Paladin, med purification (allied heal) + repel eller holy damage spell
+- Neutral villages som man kan trade med
+- Egne heroes til disse villagene?
+- Free for all?
+- Flere resources som kan selges for gull?
+- Utposter som gir tilgang til ressurser eller items?
+
+- Hovedsakelig singleplayer og Co-Op??
+- Food som kilde til income
+
 
 - Legg til TeamColor boolean i tech, og SetRenderColor på de som har det.
 - Legge til hengende banner med teamcolor på tårn?

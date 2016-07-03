@@ -885,55 +885,57 @@
 
 	"srts_construct_main_building"
 	{
+		// Often changed:
+		"AbilityName"				"Construct Main Tent"
+		"AbilityTextureName"		"spellicon_main_tent"
+		"AbilityGoldCost"			"0"
+		"BuildTime"					"6"
+
 	
 		// General
 		//------------------------------------------------------------------------
-		"AbilityName"			"Construct Main Tent"
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
-		"AbilityTextureName"		"spellicon_main_tent"
-		"BaseClass"			"ability_datadriven"
-		"Maxlevel"			"1"
-		"AbilityCastPoint"				"0"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"					"ability_datadriven"
+		"Maxlevel"					"1"
+		"AbilityCastPoint"			"0"
 
 		// BuildingHelper info
 		"Building"					"1" //bool
-		//		"BuildingSize"					"3"
-		"BuildingSize"					"4"
-		"AbilityCastRange"				"200"
-		"UpdateHealth"					"1" //bool
+		//		"BuildingSize"		"3"
+		"BuildingSize"				"4"
+		"AbilityCastRange"			"200"
+		"UpdateHealth"				"1" //bool
 		"Scale"						"1" //bool
-		"PlayerCanControl"				"1" //bool
+		"PlayerCanControl"			"1" //bool
 	
 		"UnitName"					"npc_dota_building_main_tent_small"
-		"AbilityCooldown"				"0"
-		"AbilityGoldCost"				"0"
-		"BuildTime"					"6"
+		"AbilityCooldown"			"0"
 		// End of BuildingHelper info
 
 		"AbilitySpecial"
 		{
 			"01"
 			{
-				"var_type"	"FIELD_INTEGER"
-				"gold_cost"	"0"
+				"var_type"		"FIELD_INTEGER"
+				"gold_cost"		"0"
 			}
 
 			"02"
 			{
-				"var_type"	"FIELD_INTEGER"
+				"var_type"		"FIELD_INTEGER"
 				"lumber_cost"	"0"
 			}	
 
 			"03"
 			{
-				"var_type"	"FIELD_INTEGER"
+				"var_type"		"FIELD_INTEGER"
 				"build_time"	"6"
 			}
 			
 			//"04"
-			//{
-			//	"var_type"	"FIELD_FLOAT"
-			//	"scale"		"1.05"
+			//{	
+			//	"var_type"		"FIELD_FLOAT"
+			//	"scale"			"1.05"
 			//}	
 		}
 
@@ -942,7 +944,7 @@
 			"RunScript"
 			{
 				"ScriptFile"	"builder.lua"
-				"Function"	"Build"
+				"Function"		"Build"
 				"LumberCost"	"%lumber_cost"
 			}
 
