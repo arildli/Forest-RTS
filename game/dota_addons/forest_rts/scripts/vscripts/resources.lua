@@ -21,7 +21,6 @@ function Resources:InitHero(hero)
 
   hero.SRES = {}
   hero.SRES.lumber = 0
-  hero.SRES.gold = 0
 
   ---------------------------------------------------------------------------
   -- Returns the gold count of the hero.
@@ -51,51 +50,52 @@ function Resources:InitHero(hero)
      return hero:GetLumber() >= amount
   end
 
-  ---------------------------------------------------------------------------
-  -- Sets the gold count of the hero.
-  ---------------------------------------------------------------------------
-  function hero:SetGold(amount)
-    hero.SRES.gold = amount
-    PlayerResource:SetGold(hero:GetOwnerID(), amount, true)
-  end
+    ---------------------------------------------------------------------------
+    -- Sets the gold count of the hero.
+    ---------------------------------------------------------------------------
+    function hero:SetGold(amount)
+        PlayerResource:SetGold(hero:GetOwnerID(), 0, false)
+        PlayerResource:SetGold(hero:GetOwnerID(), amount, true)
+    end
   
-  ---------------------------------------------------------------------------
-  -- Sets the lumber count of the hero.
-  ---------------------------------------------------------------------------
-  function hero:SetLumber(amount)
-    hero.SRES.lumber = amount
-    local player = hero:GetOwner()
-    CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
-  end
+    ---------------------------------------------------------------------------
+    -- Sets the lumber count of the hero.
+    ---------------------------------------------------------------------------
+    function hero:SetLumber(amount)
+        hero.SRES.lumber = amount
+        local player = hero:GetOwner()
+        CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
+    end
   
-  ---------------------------------------------------------------------------
-  -- Increases the gold count of the hero.
-  ---------------------------------------------------------------------------
-  function hero:IncGold(amount)
-    hero.SRES.gold = hero.SRES.gold + amount
-    hero:SetGold(hero:GetGold() + amount)
-  end
+    ---------------------------------------------------------------------------
+    -- Increases the gold count of the hero.
+    ---------------------------------------------------------------------------
+    function hero:IncGold(amount)
+        print("Amount: "..amount.." and currentGold: "..hero:GetGold())
+        hero:SetGold(hero:GetGold() + amount)
+        print("Gold after IncGold: "..hero:GetGold() + amount)
+    end
 
-  ---------------------------------------------------------------------------
-  -- Increases the lumber count of the hero.
-  ---------------------------------------------------------------------------
-  function hero:IncLumber(amount)
-    hero.SRES.lumber = hero.SRES.lumber + amount
-    local player = hero:GetOwner()
-    CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
-  end
+    ---------------------------------------------------------------------------
+    -- Increases the lumber count of the hero.
+    ---------------------------------------------------------------------------
+    function hero:IncLumber(amount)
+        hero.SRES.lumber = hero.SRES.lumber + amount
+        local player = hero:GetOwner()
+        CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
+    end
 
-  ---------------------------------------------------------------------------
-  -- Decreases the lumber count of the hero.
-  ---------------------------------------------------------------------------
-  function hero:DecLumber(amount)
-     hero.SRES.lumber = hero.SRES.lumber - amount
-     if hero.SRES.lumber < 0 then
-	hero.SRES.lumber = 0
-     end
-     local player = hero:GetOwner()
-     CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
-  end
+    ---------------------------------------------------------------------------
+    -- Decreases the lumber count of the hero.
+    ---------------------------------------------------------------------------
+    function hero:DecLumber(amount)
+        hero.SRES.lumber = hero.SRES.lumber - amount
+        if hero.SRES.lumber < 0 then
+            hero.SRES.lumber = 0
+        end
+        local player = hero:GetOwner()
+        CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
+    end
 end
 
 
@@ -131,25 +131,25 @@ function Resources:InitHarvester(unit)
    function unit:ReturnToHarvest()
       local newHarvestLocation
       if unit.HARVESTER.prevTree then
-	 newHarvestLocation = unit.HARVESTER.prevTree:GetCenter()
-	 unit.HARVESTER.prevTree = nil
+     newHarvestLocation = unit.HARVESTER.prevTree:GetCenter()
+     unit.HARVESTER.prevTree = nil
       else
-	 newHarvestLocation = unit:GetAbsOrigin()
+     newHarvestLocation = unit:GetAbsOrigin()
       end
       local ownerID = unit:GetOwner():GetPlayerID()
       unit.HARVESTER.newTree = FindEmptyTree(unit, newHarvestLocation, unit.HARVESTER.treeSearchRadius)
       if unit.HARVESTER.newTree then
-	 local harvestAbility
-	 if unit:IsRealHero() then
-	    harvestAbility = unit:FindAbilityByName("srts_harvest_lumber")
-	 else
-	    harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker")
-	 end
-	 if harvestAbility then
-	    unit:CastAbilityOnTarget(unit.HARVESTER.newTree, harvestAbility, ownerID)
-	 end
+     local harvestAbility
+     if unit:IsRealHero() then
+        harvestAbility = unit:FindAbilityByName("srts_harvest_lumber")
+     else
+        harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker")
+     end
+     if harvestAbility then
+        unit:CastAbilityOnTarget(unit.HARVESTER.newTree, harvestAbility, ownerID)
+     end
       else
-	 print("unit:ReturnToHarvest: (Note) couldn't find new tree to harvest!")
+     print("unit:ReturnToHarvest: (Note) couldn't find new tree to harvest!")
       end
    end
 
@@ -165,29 +165,29 @@ function Resources:InitHarvester(unit)
       local shortestDeliveryDistance = 100000
       local returnAbility = unit:FindAbilityByName("srts_transfer_lumber")
       if not returnAbility then
-	 print("unit:DeliverLumber: unit did not have transfer ability!")
+     print("unit:DeliverLumber: unit did not have transfer ability!")
       end
 
       for _,building in pairs(ownerHero:GetBuildings()) do
       --for _,building in pairs(ownerHero.structures) do
-	 if building:IsNull() then
-	    print("Removed building for being null!")
-	    ownerHero:RemoveBuilding(building)
-	 else
-	    --print(building:GetUnitName().." isValidDeliveryPoint: "..tostring(Resources:IsValidDeliveryPoint(building)))
-	    if building and building:IsAlive() and Resources:IsValidDeliveryPoint(building) then
-	       local distanceToBuilding = (unitPosition - building:GetAbsOrigin()):Length()
-	       if distanceToBuilding < shortestDeliveryDistance then
-		  shortestDeliveryDistance = distanceToBuilding
-		  closestDeliveryPoint = building
-	       end
-	    end
-	 end
+     if building:IsNull() then
+        print("Removed building for being null!")
+        ownerHero:RemoveBuilding(building)
+     else
+        --print(building:GetUnitName().." isValidDeliveryPoint: "..tostring(Resources:IsValidDeliveryPoint(building)))
+        if building and building:IsAlive() and Resources:IsValidDeliveryPoint(building) then
+           local distanceToBuilding = (unitPosition - building:GetAbsOrigin()):Length()
+           if distanceToBuilding < shortestDeliveryDistance then
+          shortestDeliveryDistance = distanceToBuilding
+          closestDeliveryPoint = building
+           end
+        end
+     end
       end
       if not closestDeliveryPoint then
-	 print("unit:DeliverLumber: (Warning) No nearby delivery points found!")
+     print("unit:DeliverLumber: (Warning) No nearby delivery points found!")
       else
-	 unit:CastAbilityOnTarget(closestDeliveryPoint, returnAbility, ownerID)
+     unit:CastAbilityOnTarget(closestDeliveryPoint, returnAbility, ownerID)
       end
    end
 end

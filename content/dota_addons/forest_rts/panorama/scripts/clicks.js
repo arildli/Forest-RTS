@@ -45,6 +45,8 @@ function OnRightButtonPressed()
         if (!pressedShift) SendCancelCommand()
     }
 
+    // Sets rally point for all selected buildings.
+    // Added {
     if (selectedEntities.length > 0)
     {
         var clickPos = Game.ScreenXYToWorld(cursor[0], cursor[1]);
@@ -55,15 +57,7 @@ function OnRightButtonPressed()
             }
         }
     }
-
-    /*
-    $.Msg("IsCustomBuilding: " + IsCustomBuilding(mainSelected))
-    // Send message about rally point. From PMP by Noya.
-    if (IsCustomBuilding(mainSelected) && Entities.IsControllableByPlayer(mainSelected, iPlayerID)) {
-        var clickPos = Game.ScreenXYToWorld(cursor[0], cursor[1]);
-        GameEvents.SendCustomGameEventToServer("set_rally_point", {pID: iPlayerID, mainSelected: mainSelected, clickPos: clickPos});
-        return false;
-    }*/
+    // }
 
     return false
 }

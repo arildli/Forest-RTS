@@ -1764,7 +1764,14 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
         if builder.work == nil and not builder:HasModifier("modifier_builder_hidden") and not (builder.state == "repairing" or builder.state == "moving_to_repair") then
             builder.work = builder.buildingQueue[1]
             BuildingHelper:AdvanceQueue(builder)
-	    if not builder.work then print("builder.work is nil!") end
+	        if not builder.work then print("builder.work is nil!") end
+
+            if builder.move_to_build_timer then
+                print("builder.move_to_build_timer exists in AddToQueue")
+            else
+                print("builder.move_to_build_timer IS NIL in AddToQueue!")
+            end
+
             BuildingHelper:print("Builder doesn't have work to do, start right away")
         else
             BuildingHelper:print("Work was queued, builder already has work to do")
@@ -1778,7 +1785,12 @@ end
       * Processes an item of the builders work queue
 ]]--
 function BuildingHelper:AdvanceQueue(builder)
-    if (builder.move_to_build_timer) then Timers:RemoveTimer(builder.move_to_build_timer) end
+    print("AdvanceQueue called!")
+
+    if (builder.move_to_build_timer) then 
+        print("Timer already exists, removing...")
+        Timers:RemoveTimer(builder.move_to_build_timer) 
+    end
 
     if builder.buildingQueue and #builder.buildingQueue > 0 then
         BuildingHelper:printQueue(builder)
@@ -1794,7 +1806,10 @@ function BuildingHelper:AdvanceQueue(builder)
 
         -- Move towards the point at cast range
         ExecuteOrderFromTable({ UnitIndex = builder:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION, Position = location, Queue = false}) 
+        print("Adding builder.move_to_build_timer")
         builder.move_to_build_timer = Timers:CreateTimer(0.03, function()
+            print("Tick")
+
             builder:MoveToPosition(location)
             if not IsValidEntity(builder) or not builder:IsAlive() then return end
             builder.state = "moving_to_build"
@@ -1817,7 +1832,13 @@ function BuildingHelper:AdvanceQueue(builder)
                 end
                 return
             end
-        end)    
+        end)  
+        print("Name of builder: "..builder:GetUnitName())
+        if builder.move_to_build_timer then
+            print("Yep, builder has the timer.")
+        else
+            print("builder.move_to_build_timer is nil right after being set...!")
+        end  
     else
         -- Set the builder work to nil to accept next work directly
         BuildingHelper:print("Builder "..builder:GetUnitName().." "..builder:GetEntityIndex().." finished its building Queue")
@@ -1843,6 +1864,8 @@ function BuildingHelper:ClearQueue(builder)
     if builder.move_to_build_timer then
         print("Removing 'builder.move_to_build_timer")
         Timers:RemoveTimer(builder.move_to_build_timer)
+    elseif builder.move_to_build_timer == nil then
+        print("In ClearnQueue, .move_to_build_timer was nil!")
     end
 
     -- Skip if there's nothing to clear

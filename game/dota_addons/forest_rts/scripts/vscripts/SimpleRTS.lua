@@ -197,6 +197,18 @@ function SimpleRTSGameMode:InitGameMode()
 			      playerHero:IncLumber(1000)
 				   end, 'Beefs up the hero of the caller', FCVAR_CHEAT )
 
+   Convars:RegisterCommand('lumber', function()
+      local cmdPlayer = Convars:GetCommandClient()
+      local playerHero
+      if cmdPlayer then
+         local playerID = cmdPlayer:GetPlayerID()
+         if playerID and playerID ~= -1 then
+            playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+            playerHero:IncLumber(1000)
+         end
+      end
+   end, 'Gives the player lumber', FCVAR_CHEAT)
+
    Convars:RegisterCommand('info', function()
 			      Stats:PrintStatsAll()
 				    end, 'Shows stats', FCVAR_CHEAT)

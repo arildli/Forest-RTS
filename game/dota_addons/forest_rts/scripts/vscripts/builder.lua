@@ -76,13 +76,13 @@ function Build( event )
 
         -- Refund resources for this cancelled work
         if work.refund then
-       -- EDITED
-       print("GOLD BEFORE: "..hero:GetGold())
-       print("LUMBER BEFORE: "..hero:GetLumber())
-       RefundResourcesID(playerID, gold_cost, lumber_cost)
-       print("GOLD AFTER: "..hero:GetGold())
-       print("LUMBER AFTER: "..hero:GetLumber())
-       -- DONE
+            -- EDITED
+            print("GOLD BEFORE: "..hero:GetGold())
+            print("LUMBER BEFORE: "..hero:GetLumber())
+            RefundResourcesID(playerID, gold_cost, lumber_cost)
+            print("GOLD AFTER: "..hero:GetGold())
+            print("LUMBER AFTER: "..hero:GetLumber())
+            -- DONE
             --hero:ModifyGold(gold_cost, false, 0)
         end
     end)
@@ -123,13 +123,15 @@ function Build( event )
         -- Remove invulnerability on npc_dota_building baseclass
         unit:RemoveModifierByName("modifier_invulnerable")
 
-        -- EDITED
+        -- Added {
         prepareConstruction(unit, ability_name)
+        unit.gold_cost = gold_cost
+        unit.lumber_cost = lumber_cost
 
         local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
         -- Add the building handle to the list of structures
         table.insert(playerHero.structures, unit)
-        -- END
+        -- }
     end)
 
     -- A building finished construction
@@ -169,10 +171,13 @@ function CancelBuilding( keys )
 
     BuildingHelper:print("CancelBuilding "..building:GetUnitName().." "..building:GetEntityIndex())
 
+    --RefundResourcesID(playerID, building.gold_cost, building.lumber_cost)
+    
     -- Refund here
-    if building.gold_cost then
-        hero:ModifyGold(building.gold_cost, false, 0)
-    end
+    --if building.gold_cost then
+    --    hero:ModifyGold(building.gold_cost, false, 0)
+    --end
+    RefundResourcesID(playerID, building.gold_cost, building.lumber_cost)
 
     -- Eject builder
     local builder = building.builder_inside
