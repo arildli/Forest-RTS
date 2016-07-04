@@ -1,3 +1,10 @@
+Viktigst:
+- Worker right-click på trær starter harvest.
+- Queueing på training med items.
+- Nye abilitypages for bygninger.
+- Ranged unit right-click enter tower.
+- Support units auto-cast spells.
+- Filtrere vekk workers fra selection.
 
 
 - Rework single player til å være uten patrols, men med en enkel bot,
@@ -55,6 +62,7 @@ Ideer:
 - Night Stalker med lifesteal?
 - Creep camp/fortification med PHAT LEWT?!
 - Summonable units (undead?)
+- Trenespell i Lua som alle trenespellsa kaller på.
 
 - Dire Sea race: Slardar, Naga, Slark, Medusa
 - Patrols lager baser hvis man somler med å komme i gang.

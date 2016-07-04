@@ -25,7 +25,7 @@ function GetMouseTarget()
 // Handle Right Button events
 function OnRightButtonPressed()
 {
-    $.Msg("OnRightButtonPressed!")
+    //$.Msg("OnRightButtonPressed!")
 
     var iPlayerID = Players.GetLocalPlayer()
     var selectedEntities = Players.GetSelectedEntities( iPlayerID )
@@ -41,7 +41,7 @@ function OnRightButtonPressed()
     if ( IsBuilder( mainSelected ) )
     {
         // Cancel BH
-        $.Msg("SendCancelCommand from OnRightButtonPressed!")
+        //$.Msg("SendCancelCommand from OnRightButtonPressed!")
         if (!pressedShift) SendCancelCommand()
     }
 
@@ -64,7 +64,13 @@ function OnRightButtonPressed()
 
 // Handle Left Button events
 function OnLeftButtonPressed() {
-    $.Msg("OnLeftButtonPressed!")
+    //$.Msg("OnLeftButtonPressed!");
+    /*var cursor = GameUI.GetScreenWorldPosition(GameUI.GetCursorPosition());
+    var output = '';
+    for (var property in cursor) {
+        output += property + ": " + cursor[property] + ";\n";
+    }
+    $.Msg(output);*/
 
     return false
 }

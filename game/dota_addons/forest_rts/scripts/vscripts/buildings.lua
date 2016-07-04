@@ -23,8 +23,6 @@ end
 
 
 function prepareConstruction(building, abilityName)
-    print("prepareConstruction called!")
-
     building._interrupted = false
     building._playerOwned = true
 
@@ -51,8 +49,6 @@ end
 
 
 function addRallyFunctions(building)
-    print("rallyFunctions added!")
-
     function building:SetRallyPoint(pos)
         building._rallyPoint = Vector(pos["0"], pos["1"], pos["2"])
     end
@@ -101,19 +97,19 @@ end
 
 function cancelUpgrade(keys)
    local building = keys.caster
-   print("Note: Upgrade cancelled for "..building:GetUnitName())
+   --print("Note: Upgrade cancelled for "..building:GetUnitName())
 end
 
 
 
 function prepareUpgrade(keys)
-   print("Note: Upgrade started for "..keys.caster:GetUnitName())
+   --print("Note: Upgrade started for "..keys.caster:GetUnitName())
 end
 
 
 
 function finishUpgrade(keys)
-    print("Note: Upgrade finished!")
+    --print("Note: Upgrade finished!")
 
     local caster = keys.caster
     local ability = keys.ability
@@ -121,7 +117,7 @@ function finishUpgrade(keys)
     local newBuildingName = keys.newUnitName
     local building = keys.caster
     local buildingOrigin = building:GetOrigin()
-    print("Note: "..building:GetUnitName().." finished upgrade!")
+    --print("Note: "..building:GetUnitName().." finished upgrade!")
     local ownerHero = building:GetOwnerHero()
     local ownerTeam = ownerHero:GetTeamNumber()
     local ownerPlayer = building:GetOwnerPlayer()

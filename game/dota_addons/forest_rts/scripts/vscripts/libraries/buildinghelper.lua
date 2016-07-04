@@ -784,6 +784,12 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     local model_offset = BuildingHelper.UnitKV[name]["ModelOffset"] or 0
     local model_location = Vector(location.x, location.y, location.z + model_offset)
 
+    -- Added {
+    for k,v in pairs(location) do
+        print("k: "..tostring(v))
+    end
+    -- }
+
     -- Spawn the building
     local building = CreateUnitByName(name, model_location, false, playersHero, player, playersHero:GetTeamNumber())
     building:SetControllableByPlayer(playerID, true)
@@ -1763,15 +1769,9 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
             BuildingHelper:AdvanceQueue(builder)
 	        if not builder.work then print("builder.work is nil!") end
 
-            if builder.move_to_build_timer then
-                print("builder.move_to_build_timer exists in AddToQueue")
-            else
-                print("builder.move_to_build_timer IS NIL in AddToQueue!")
-            end
-
-            BuildingHelper:print("Builder doesn't have work to do, start right away")
+            --BuildingHelper:print("Builder doesn't have work to do, start right away")
         else
-            BuildingHelper:print("Work was queued, builder already has work to do")
+            --BuildingHelper:print("Work was queued, builder already has work to do")
             BuildingHelper:printQueue(builder)
         end
     end
@@ -1785,7 +1785,6 @@ function BuildingHelper:AdvanceQueue(builder)
     print("AdvanceQueue called!")
 
     if (builder.move_to_build_timer) then 
-        print("Timer already exists, removing...")
         Timers:RemoveTimer(builder.move_to_build_timer) 
     end
 

@@ -1,2 +1,0 @@
--- This is a file used for testing some of the lua files in this folder
--- without firing up Dota 2.

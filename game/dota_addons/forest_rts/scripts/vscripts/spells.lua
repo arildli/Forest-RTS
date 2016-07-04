@@ -189,6 +189,7 @@ function RefundResources(player, gold, lumber)
 end
 
 function RefundResourcesID(playerID, gold, lumber)
+   print("RefundResourcesID called with gold: "..gold.." and lumber: "..lumber)
    local hero = GetPlayerHero(playerID)
    hero:IncGold(gold)
    hero:IncLumber(lumber)   

@@ -5,9 +5,9 @@ if CustomGameMode == nil then
 end
 
 require('statcollection/init')
-require('utilities')
+require('other/utilities')
 --require('upgrades')
-require('mechanics')
+require('other/mechanics')
 require('orders')
 --require('builder') --Check SimpleRTS.lua
 

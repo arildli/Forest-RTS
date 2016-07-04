@@ -814,9 +814,7 @@ function TechTree:UpdateTechTree(hero, building, action)
       local curSpellLevel = hero:GetAbilityLevelFor(curSpellName)
    end
 
-   print("Updating all spells.")
    TechTree:PrintAbilityLevels(hero:GetOwnerPlayer())
-   --DEBUG_SIMPLE_TECH_TREE = true
    TechTree:UpdateSpellsAllEntities(hero)
 
    print_simple_tech_tree("UpdateTechTree", "\n\tTech tree update done!")
@@ -838,7 +836,6 @@ end
 ---------------------------------------------------------------------------
 function TechTree:PrintAbilityLevels(player)
    if DEBUG_SIMPLE_TECH_TREE ~= true then
-      print("Returning from TechTree:PrintAbilityLevels")
       return
    end
 

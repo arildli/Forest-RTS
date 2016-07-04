@@ -33,9 +33,6 @@ function Build( event )
         -- If not enough resources to queue, stop
     -- EDITED
         --if PlayerResource:GetGold(playerID) < gold_cost then
-    print("GOLD COST: "..gold_cost)
-    print("LUMBER COST: "..lumber_cost)
-    print("CAN AFFORD: "..tostring(CanAfford(player, gold_cost, lumber_cost)))
     if not CanAfford(player, gold_cost, lumber_cost) then
        -- DONE
             BuildingHelper:print("Failed placement of " .. building_name .." - Not enough gold!")

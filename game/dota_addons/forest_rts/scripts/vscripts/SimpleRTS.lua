@@ -18,7 +18,16 @@ COLOR_RADIANT_RGB = {52,85,255}
 COLOR_DIRE = "#b0171b"
 COLOR_DIRE_RGB = {176,23,27}
 stats = {}
+MAX_PLAYERS_PER_TEAM = 5
+MAX_PLAYERS_WITH_BOT = MAX_PLAYERS_PER_TEAM - 1
 
+HERO_NAMES = {
+    "npc_dota_hero_legion_commander",
+    "npc_dota_hero_furion",
+    "npc_dota_hero_meepo",
+    "npc_dota_hero_skeleton_king",
+    "npc_dota_hero_troll_warlord"
+}
 
 -- For some reason the type of self is number in one of the methods...
 local prefixGlobal = ""
@@ -72,6 +81,7 @@ function SimpleRTSGameMode:InitGameMode()
    loadModule('libraries/selection')
    loadModule('libraries/buildinghelper')
    loadModule('builder')
+   loadModule('ai/main')
    -- Must be turned off due to crash with the new buildingHelper!
    --loadModule('buildinghelper_old')
    
@@ -98,8 +108,6 @@ function SimpleRTSGameMode:InitGameMode()
    
    -- Find pathable trees.
    DeterminePathableTrees()
-
-   --BuildingHelper:SetForceUnitsAway(true)
    
    print("[SimpleRTS] Gamemode rules are set.")
    
@@ -118,7 +126,7 @@ function SimpleRTSGameMode:InitGameMode()
    for team=0,10 do
       local color = self.teamColors[team]
       if color then
-	     SetTeamCustomHealthbarColor(team, color[1], color[2], color[3])
+         SetTeamCustomHealthbarColor(team, color[1], color[2], color[3])
       end
    end
    
@@ -135,15 +143,9 @@ function SimpleRTSGameMode:InitGameMode()
    
    -- Register Listener
    CustomGameEventManager:RegisterListener( "update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
-   --CustomGameEventManager:RegisterListener( "repair_order", Dynamic_Wrap(SimpleRTSGameMode, "RepairOrder"))  	
-   --CustomGameEventManager:RegisterListener( "building_helper_build_command", Dynamic_Wrap(BuildingHelper, "BuildCommand"))
-   --CustomGameEventManager:RegisterListener( "building_helper_cancel_command", Dynamic_Wrap(BuildingHelper, "CancelCommand"))
    CustomGameEventManager:RegisterListener( "set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
    CustomGameEventManager:RegisterListener( "get_initial_score", Dynamic_Wrap(SimpleRTSGameMode, "GetInitialScore"))
 
-   -- Custom Events
-   --   ListenToGameEvent('resource_gold_found', Dynamic_Wrap(SimpleRTSGameMode, 'onGoldFound'), self)
-   
    -- Register Think
    GameMode:SetContextThink("SimpleRTSThink", Dynamic_Wrap(SimpleRTSGameMode, 'Think'), THINK_TIME)
    
@@ -163,39 +165,38 @@ function SimpleRTSGameMode:InitGameMode()
    -- Initialize the Stats module.
    --Stats:Init()
 
-   -- Register console commands
+   -- Initialize AI.
+   AI:Init()
 
-   -- DebugPrint
-   --Convars:RegisterConvar('debug_spew', tostring(DEBUG_SPEW), 'Set to 1 to start spewing debug info. Set to 0 to disable.', 0)
-   
+   -- Register console commands
    Convars:RegisterCommand('boss', function()
-			      
-			      local cmdPlayer = Convars:GetCommandClient()
-			      local playerHero
-			      if cmdPlayer then
-				 local playerID = cmdPlayer:GetPlayerID()
-				 if playerID ~= nil and playerID ~= -1 then
-				    playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-				 end
-			      end
-			      
-			      --SimpleBot:MultiplyInitialPatrol(5)
-			      PlayerResource:SetGold(cmdPlayer:GetPlayerID(), 99999, true)
-			      
-			      local newItem = CreateItem("item_blink", playerHero, playerHero)
-			      playerHero:AddItem(newItem)
-			      newItem = CreateItem("item_heart", playerHero, playerHero)
-			      playerHero:AddItem(newItem)
-			      newItem = CreateItem("item_assault", playerHero, playerHero)
-			      playerHero:AddItem(newItem)
-			      newItem = CreateItem("item_mjollnir", playerHero, playerHero)
-			      playerHero:AddItem(newItem)
-			      newItem = CreateItem("item_rapier", playerHero, playerHero)
-			      playerHero:AddItem(newItem)
-			      --newItem = CreateItem("item_bundle_of_lumber", playerHero, playerHero)
-			      --playerHero:AddItem(newItem)
-			      playerHero:IncLumber(1000)
-				   end, 'Beefs up the hero of the caller', FCVAR_CHEAT )
+                  
+                  local cmdPlayer = Convars:GetCommandClient()
+                  local playerHero
+                  if cmdPlayer then
+                 local playerID = cmdPlayer:GetPlayerID()
+                 if playerID ~= nil and playerID ~= -1 then
+                    playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+                 end
+                  end
+                  
+                  --SimpleBot:MultiplyInitialPatrol(5)
+                  PlayerResource:SetGold(cmdPlayer:GetPlayerID(), 99999, true)
+                  
+                  local newItem = CreateItem("item_blink", playerHero, playerHero)
+                  playerHero:AddItem(newItem)
+                  newItem = CreateItem("item_heart", playerHero, playerHero)
+                  playerHero:AddItem(newItem)
+                  newItem = CreateItem("item_assault", playerHero, playerHero)
+                  playerHero:AddItem(newItem)
+                  newItem = CreateItem("item_mjollnir", playerHero, playerHero)
+                  playerHero:AddItem(newItem)
+                  newItem = CreateItem("item_rapier", playerHero, playerHero)
+                  playerHero:AddItem(newItem)
+                  --newItem = CreateItem("item_bundle_of_lumber", playerHero, playerHero)
+                  --playerHero:AddItem(newItem)
+                  playerHero:IncLumber(1000)
+                   end, 'Beefs up the hero of the caller', FCVAR_CHEAT )
 
    Convars:RegisterCommand('lumber', function()
       local cmdPlayer = Convars:GetCommandClient()
@@ -210,67 +211,67 @@ function SimpleRTSGameMode:InitGameMode()
    end, 'Gives the player lumber', FCVAR_CHEAT)
 
    Convars:RegisterCommand('info', function()
-			      Stats:PrintStatsAll()
-				    end, 'Shows stats', FCVAR_CHEAT)
+                  Stats:PrintStatsAll()
+                    end, 'Shows stats', FCVAR_CHEAT)
 
    Convars:RegisterCommand('stats', function()
-			      print("Stats will be printed:\n")
-			      --Stats:PrintStatsAll()
-				    end, 'Prints all stats collected so far', FCVAR_CHEAT )
+                  print("Stats will be printed:\n")
+                  --Stats:PrintStatsAll()
+                    end, 'Prints all stats collected so far', FCVAR_CHEAT )
 
    Convars:RegisterCommand("Salve", function()
-			      local cmdPlayer = Convars:GetCommandClient()
-			      if cmdPlayer then
-				 local playerHero
-				 local playerID = cmdPlayer:GetPlayerID()
-				 if playerID and playerID ~= -1 then
-				    playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-				 end
+                  local cmdPlayer = Convars:GetCommandClient()
+                  if cmdPlayer then
+                 local playerHero
+                 local playerID = cmdPlayer:GetPlayerID()
+                 if playerID and playerID ~= -1 then
+                    playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+                 end
 
-				 local salves = CreateItem("item_healing_salve", playerHero, playerHero)
-				 playerHero:AddItem(salves)
-			      end
-				    end, "Gives the hero 10 healing salves", FCVAR_CHEAT )
+                 local salves = CreateItem("item_healing_salve", playerHero, playerHero)
+                 playerHero:AddItem(salves)
+                  end
+                    end, "Gives the hero 10 healing salves", FCVAR_CHEAT )
    
    Convars:RegisterCommand('debug', function()
-			      
-			      DEBUG = true
-			      SimpleBot:MultiplyInitialPatrol(5)
-			      VICTORY_SCORE = 25
-				    end, 'Enables standard debug mode for lower construction time', FCVAR_CHEAT)
+                  
+                  DEBUG = true
+                  SimpleBot:MultiplyInitialPatrol(5)
+                  VICTORY_SCORE = 25
+                    end, 'Enables standard debug mode for lower construction time', FCVAR_CHEAT)
    
    
    Convars:RegisterCommand('unitCount', function()
-			      
-			      local cmdPlayer = Convars:GetCommandClient()
-			      local playerHero
-			      if cmdPlayer then
-				 local playerID = cmdPlayer:GetPlayerID()
-				 if playerID ~= nil and playerID ~= -1 then
-				    playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-				 end
-			      end
-			      
-			      playerHero:PrintUnitCount()
-					end, 'Print the unitCount table of the hero of the caller', FCVAR_CHEAT)
+                  
+                  local cmdPlayer = Convars:GetCommandClient()
+                  local playerHero
+                  if cmdPlayer then
+                 local playerID = cmdPlayer:GetPlayerID()
+                 if playerID ~= nil and playerID ~= -1 then
+                    playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+                 end
+                  end
+                  
+                  playerHero:PrintUnitCount()
+                    end, 'Print the unitCount table of the hero of the caller', FCVAR_CHEAT)
    
    Convars:RegisterCommand('start', function()
-			      
-				    end, 'Start game', FCVAR_CHEAT)
+                  
+                    end, 'Start game', FCVAR_CHEAT)
    
    Convars:RegisterCommand('test_endgame', function()
-			      
-			      GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-			      --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
-			      GameRules:Defeated()
-					   end, 'Ends the game.', FCVAR_CHEAT)
+                  
+                  GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+                  --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+                  GameRules:Defeated()
+                       end, 'Ends the game.', FCVAR_CHEAT)
 end
 
 
 
 
 
---					-----| Listener functions |-----
+--                  -----| Listener functions |-----
 
 
 
@@ -291,7 +292,6 @@ function SimpleRTSGameMode:onHeroPick(keys)
    local player = EntIndexToHScript(keys.player)
    local playerID = hero:GetPlayerID()
 
-   print("onHeroPick")
    Stats:AddPlayer(hero, player, playerID)
 
    Resources:InitHero(hero)
@@ -321,9 +321,9 @@ function SimpleRTSGameMode:onEntityLevel(keys)
    else
       local hero = player:GetAssignedHero()
       if not hero then
-	 print("SimpleRTSGameMode:onEntityLevel: hero was nil!")
+     print("SimpleRTSGameMode:onEntityLevel: hero was nil!")
       else
-	 hero:SetAbilityPoints(0)
+     hero:SetAbilityPoints(0)
       end
    end
 
@@ -338,83 +338,84 @@ end
 -- On Game State Change
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onGameStateChange(keys)
-   local newState = GameRules:State_Get()
-   
-   -- Selection state
-   if newState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-      --PLAYER_COUNT = PlayerResource:GetTeamPlayerCount()
-      --VICTORY_SCORE = math.ceil(KILLS_TO_WIN * PLAYER_COUNT / 2)
-      --print("PLAYER_COUNT: "..PLAYER_COUNT.."\tVICTORY_SCORE: "..VICTORY_SCORE)
-           
-   elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
-      self.radiantCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS)
-      self.direCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
-      self.totalCount = self.radiantCount + self.direCount
+    local newState = GameRules:State_Get()
 
-      VICTORY_SCORE = math.ceil(self.totalCount * KILLS_TO_WIN / 2)
-      print("VICTORY_SCORE: "..VICTORY_SCORE)
+    -- Selection state
+    if newState == DOTA_GAMERULES_STATE_HERO_SELECTION then
+        self.radiantCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS)
+        self.direCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
+        self.totalCount = self.radiantCount + self.direCount
 
-      self.prefix = "Default: "
+        VICTORY_SCORE = math.ceil(self.totalCount * KILLS_TO_WIN / 2)
+        print("VICTORY_SCORE: "..VICTORY_SCORE)
 
-      if self.radiantCount > 0 and self.direCount == 0 then
-	 if self.totalCount > 1 then
-	    self.gameMode = "Co-Op"
-	 else
-	    self.gameMode = "Solo"
-	 end
-	 self.botTeam = DOTA_TEAM_BADGUYS
-	 self.prefix = "Lives: "
-	 self.playerTeam = DOTA_TEAM_GOODGUYS
-      elseif self.direCount > 0 and self.radiantCount == 0 then
-	 if self.totalCount > 1 then
-	    self.gameMode = "Co-Op"
-	 else
-	    self.gameMode = "Solo"
-	 end
-	 self.botTeam = DOTA_TEAM_GOODGUYS
-	 self.prefix = "Lives: "
-	 self.playerTeam = DOTA_TEAM_BADGUYS
-      elseif self.radiantCount > 0 and self.direCount > 0 then
-	 self.gameMode = "PvP"
-	 self.prefix = "Goal: "
-      else
-	 print("radiantCount: "..self.radiantCount.."\tdireCount: "..self.direCount.."\ttotalCount: "..self.totalCount)
-	 self.prefix = "ErrorPrefix: "
-      end
-      --CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})
+        self.prefix = "Default: "
 
-      print("\nself.radiantCount: "..self.radiantCount.."\tself.direCount: "..self.direCount.."\tself.totalCount: "..self.totalCount.."\tself.gameMode: "..self.gameMode.."\tself.prefix: "..self.prefix)
+        if self.radiantCount > 0 and self.direCount == 0 then
+            if self.totalCount > 1 then
+                self.gameMode = "Co-Op"
+            else
+                self.gameMode = "Solo"
+            end
+            self.botTeam = DOTA_TEAM_BADGUYS
+            self.prefix = "Lives: "
+            self.playerTeam = DOTA_TEAM_GOODGUYS
+        elseif self.direCount > 0 and self.radiantCount == 0 then
+            if self.totalCount > 1 then
+                self.gameMode = "Co-Op"
+            else
+                self.gameMode = "Solo"
+            end
+            self.botTeam = DOTA_TEAM_GOODGUYS
+            self.prefix = "Lives: "
+            self.playerTeam = DOTA_TEAM_BADGUYS
+        elseif self.radiantCount > 0 and self.direCount > 0 then
+            self.gameMode = "PvP"
+            self.prefix = "Goal: "
+        else
+            print("radiantCount: "..self.radiantCount.."\tdireCount: "..self.direCount.."\ttotalCount: "..self.totalCount)
+            self.prefix = "ErrorPrefix: "
+        end
 
-      -- Set the global prefix variable since self doesn't always work...
-      prefixGlobal = self.prefix
+        print("\nself.radiantCount: "..self.radiantCount.."\tself.direCount: "..self.direCount.."\tself.totalCount: "..self.totalCount.."\tself.gameMode: "..self.gameMode.."\tself.prefix: "..self.prefix)
 
-      -- Create a timer for sending team resource info to players.
-      Timers:CreateTimer(
-	 function()
-	    SimpleRTSGameMode:SendTeamResources()
-	    return 1.0
-	 end
-      )
+        -- Set the global prefix variable since self doesn't always work...
+        prefixGlobal = self.prefix
 
-   -- Game start
-   elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
-      print("[SimpleRTS] The game has started.")
+        -- Add player-like bots
+        if IsTeamEmpty(DOTA_TEAM_GOODGUYS) then
+            AI:AddBot(DOTA_TEAM_GOODGUYS)
+        elseif IsTeamEmpty(DOTA_TEAM_BADGUYS) then
+            AI:AddBot(DOTA_TEAM_BADGUYS)
+        end
 
-      if self.gameMode == "Solo" then
-	 SimpleRTSGameMode:SinglePlayerMode(self.botTeam)
-      elseif self.gameMode == "Co-Op" then
-	 SimpleRTSGameMode:CoOpMode(self.botTeam, self.playerTeam, self.totalCount)
-      elseif self.gameMode == "PvP" then
-	 SimpleRTSGameMode:NormalMode()
-      end
-   end
+        -- Create a timer for sending team resource info to players.
+        Timers:CreateTimer(
+            function()
+                SimpleRTSGameMode:SendTeamResources()
+                return 1.0
+            end)
+
+    elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
+        print("[SimpleRTS] The game has started.")
+
+        if self.gameMode == "Solo" then
+            SimpleRTSGameMode:SinglePlayerMode(self.botTeam)
+        elseif self.gameMode == "Co-Op" then
+            SimpleRTSGameMode:CoOpMode(self.botTeam, self.playerTeam, self.totalCount)
+        elseif self.gameMode == "PvP" then
+            SimpleRTSGameMode:NormalMode()
+        end
+    -- Game start
+    elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+    end
 end
 
 
 
 ---------------------------------------------------------------------------
 -- On Game Start
--- 	Called by onGameStateChange
+--  Called by onGameStateChange
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onGameStart(keys)
    local playerCount = 0
@@ -425,23 +426,23 @@ function SimpleRTSGameMode:onGameStart(keys)
       
       local currentPlayer = PlayerResource:GetPlayer(i)
       if currentPlayer then
-	 
-	 if not PlayerResource:HasSelectedHero(currentPlayer:GetPlayerID()) then
-	    PlayerResource:SetHasRepicked(i)
-	    currentPlayer:MakeRandomHeroSelection()
-	    print("Randomed hero for player "..i)
-	 else
-	    print("Player with index "..i.." has already picked")
-	 end
-	 
-	 local playerTeam = PlayerResource:GetTeam(currentPlayer:GetPlayerID())
-	 if playerTeam == DOTA_TEAM_GOODGUYS then
-	    radiantCount = radiantCount + 1
-	 elseif playerTeam == DOTA_TEAM_BADGUYS then
-	    direCount = direCount + 1
-	 end
-	 playerCount = playerCount + 1
-	 lastFoundPlayer = currentPlayer
+     
+     if not PlayerResource:HasSelectedHero(currentPlayer:GetPlayerID()) then
+        PlayerResource:SetHasRepicked(i)
+        currentPlayer:MakeRandomHeroSelection()
+        print("Randomed hero for player "..i)
+     else
+        print("Player with index "..i.." has already picked")
+     end
+     
+     local playerTeam = PlayerResource:GetTeam(currentPlayer:GetPlayerID())
+     if playerTeam == DOTA_TEAM_GOODGUYS then
+        radiantCount = radiantCount + 1
+     elseif playerTeam == DOTA_TEAM_BADGUYS then
+        direCount = direCount + 1
+     end
+     playerCount = playerCount + 1
+     lastFoundPlayer = currentPlayer
       end
    end
    
@@ -490,13 +491,13 @@ function SimpleRTSGameMode:SendTeamResources()
    for i=0, HIGHEST_PLAYER_INDEX do
       local curPlayerHero = GetPlayerHero(i)
       if curPlayerHero then
-	 local curTeamNumber = curPlayerHero:GetTeamNumber()
-	 resources[curTeamNumber] = resources[curTeamNumber] or {}
-	 resources[curTeamNumber][i] = {
-	    gold = curPlayerHero:GetGold(),
-	    lumber = curPlayerHero:GetLumber(),
-	    workers = curPlayerHero:GetWorkerCount()
-	 }
+     local curTeamNumber = curPlayerHero:GetTeamNumber()
+     resources[curTeamNumber] = resources[curTeamNumber] or {}
+     resources[curTeamNumber][i] = {
+        gold = curPlayerHero:GetGold(),
+        lumber = curPlayerHero:GetLumber(),
+        workers = curPlayerHero:GetWorkerCount()
+     }
       end
    end
    
@@ -531,14 +532,14 @@ function SimpleRTSGameMode:onNPCSpawned(keys)
    else
       local unitName = spawnedUnit:GetUnitName()
       if unitName ~= "npc_dota_creature_worker" and
-	 unitName ~= "npc_dota_creature_human_worker" and
-	 unitName ~= "npc_dota_creature_forest_worker" and
-	 unitName ~= "npc_dota_creature_kobold_worker" and
-	 unitName ~= "npc_dota_creature_skeleton_worker" and
+     unitName ~= "npc_dota_creature_human_worker" and
+     unitName ~= "npc_dota_creature_forest_worker" and
+     unitName ~= "npc_dota_creature_kobold_worker" and
+     unitName ~= "npc_dota_creature_skeleton_worker" and
       unitName ~= "npc_dota_creature_troll_worker" then --and
-	 --not IsCustomBuilding(spawnedUnit) then
-	 
-	 spawnedUnit:SetIdleAcquire(true)
+     --not IsCustomBuilding(spawnedUnit) then
+     
+     spawnedUnit:SetIdleAcquire(true)
       end
    end
 end
@@ -602,15 +603,15 @@ function SimpleRTSGameMode:onEntityKilled(keys)
    -- Building Killed
    if IsBuilding(killedUnit) then   
       if killedUnit._upgraded then
-	 print("Returning from 'onEntityKilled' due to unit being upgraded!")
-	 return
+     print("Returning from 'onEntityKilled' due to unit being upgraded!")
+     return
       end
       -- Building Helper grid cleanup
       BuildingHelper:RemoveBuilding(killedUnit, true)
       local building_name = killedUnit:GetUnitName()
       -- Substract 1 to the player building tracking table for that name
       if playerHero.buildings[building_name] then
-	 playerHero.buildings[building_name] = playerHero.buildings[building_name] - 1
+     playerHero.buildings[building_name] = playerHero.buildings[building_name] - 1
       end
       
       Stats:OnDeath(killedID, killerID, killedUnit, "building")
@@ -628,20 +629,20 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       -- Remake the tables
       local table_structures = {}
       for _,building in pairs(playerHero.structures) do
-	 if building and IsValidEntity(building) and building:IsAlive() then
-	    --print("Valid building: "..building:GetUnitName())
-	    table.insert(table_structures, building)
-	 end
+     if building and IsValidEntity(building) and building:IsAlive() then
+        --print("Valid building: "..building:GetUnitName())
+        table.insert(table_structures, building)
+     end
       end
       playerHero.structures = table_structures
       
       local table_units = {}
       for _,unit in pairs(playerHero.units) do
-	 if unit and IsValidEntity(unit) then
-	    table.insert(table_units, unit)
-	 end
+     if unit and IsValidEntity(unit) then
+        table.insert(table_units, unit)
+     end
       end
-      playerHero.units = table_units		
+      playerHero.units = table_units        
    end
 
    --     BH stuff end     --
@@ -663,17 +664,17 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       local killedTeamString
       local scoreMessage
       if killedTeam == DOTA_TEAM_GOODGUYS then
-	 killedTeamString = "<font color='"..COLOR_RADIANT.."'>Radiant</font>"
-	 self.scoreDire = self.scoreDire + 1
-	 if StringStartsWith(unitName, "npc_dota_building_main_tent") then
-	    GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
-	 end
+     killedTeamString = "<font color='"..COLOR_RADIANT.."'>Radiant</font>"
+     self.scoreDire = self.scoreDire + 1
+     if StringStartsWith(unitName, "npc_dota_building_main_tent") then
+        GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
+     end
       elseif killedTeam == DOTA_TEAM_BADGUYS then
-	 killedTeamString = "<font color='"..COLOR_DIRE.."'>Dire</font>"
-	 self.scoreRadiant = self.scoreRadiant + 1
-	 if StringStartsWith(unitName, "npc_dota_building_main_tent") then
-	    GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
-	 end
+     killedTeamString = "<font color='"..COLOR_DIRE.."'>Dire</font>"
+     self.scoreRadiant = self.scoreRadiant + 1
+     if StringStartsWith(unitName, "npc_dota_building_main_tent") then
+        GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
+     end
       end
       print("Updating scores: "..self.scoreRadiant.." and "..self.scoreDire)
       CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
@@ -683,44 +684,44 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       local gameMode = self.gameMode
       -- In this case, the losing condition is reaching 0 points.
       if gameMode == "Solo" or gameMode == "Co-Op" then
-	 -- Get lives left.
-	 local livesLeft
-	 if self.botTeam == DOTA_TEAM_GOODGUYS then
-	    livesLeft = VICTORY_SCORE - self.scoreRadiant
-	 elseif self.botTeam == DOTA_TEAM_BADGUYS then
-	    livesLeft = VICTORY_SCORE - self.scoreDire
-	 end
+     -- Get lives left.
+     local livesLeft
+     if self.botTeam == DOTA_TEAM_GOODGUYS then
+        livesLeft = VICTORY_SCORE - self.scoreRadiant
+     elseif self.botTeam == DOTA_TEAM_BADGUYS then
+        livesLeft = VICTORY_SCORE - self.scoreDire
+     end
 
-	 print("LivesLeft: "..livesLeft.."\tVICTORY_SCORE: "..VICTORY_SCORE)
+     print("LivesLeft: "..livesLeft.."\tVICTORY_SCORE: "..VICTORY_SCORE)
 
-	 -- Check if loss.
-	 if livesLeft <= 0 then
-	    if self.botTeam == DOTA_TEAM_GOODGUYS then
-	       GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
-	       GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
-	       GameRules:Defeated()
-	    elseif self.botTeam == DOTA_TEAM_BADGUYS then
-	       GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-	       GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
-	       GameRules:Defeated()
-	    end
-	 end
+     -- Check if loss.
+     if livesLeft <= 0 then
+        if self.botTeam == DOTA_TEAM_GOODGUYS then
+           GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+           GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
+           GameRules:Defeated()
+        elseif self.botTeam == DOTA_TEAM_BADGUYS then
+           GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+           GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+           GameRules:Defeated()
+        end
+     end
 
-	 -- Send lives left to players.
-	 CustomGameEventManager:Send_ServerToAllClients("update_score", {score = livesLeft})
+     -- Send lives left to players.
+     CustomGameEventManager:Send_ServerToAllClients("update_score", {score = livesLeft})
       elseif gameMode == "PvP" then
-	 -- Check if enough kills have been made
-	 if self.scoreRadiant >= VICTORY_SCORE then
-	    print("#simplerts_radiant_victory")
-	    GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
-	    --GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
-	    GameRules:Defeated()
-	 elseif self.scoreDire >= VICTORY_SCORE then
-	    print("#simplerts_dire_victory")
-	    GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-	    --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
-	    GameRules:Defeated()
-	 end
+     -- Check if enough kills have been made
+     if self.scoreRadiant >= VICTORY_SCORE then
+        print("#simplerts_radiant_victory")
+        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+        --GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
+        GameRules:Defeated()
+     elseif self.scoreDire >= VICTORY_SCORE then
+        print("#simplerts_dire_victory")
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+        --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+        GameRules:Defeated()
+     end
       end
    end
    
@@ -739,7 +740,7 @@ end
 
 
 
---					-----| Game Modes |-----
+--                  -----| Game Modes |-----
 
 
 
@@ -779,7 +780,7 @@ end
 
 
 
---					-----| Bot |-----
+--                  -----| Bot |-----
 
 
 
@@ -826,12 +827,12 @@ function SimpleRTSGameMode:OnTreeCut(keys)
       local nearbyTree = GridNav:IsNearbyTree(pos, 96, true)
       --local nearbyTree = GridNav:IsNearbyTree(pos, 64, true)
       if nearbyTree then
-	 local trees = GridNav:GetAllTreesAroundPoint(pos, 48, true)
-	 --local trees = GridNav:GetAllTreesAroundPoint(pos, 32, true)
-	 for _,t in pairs(trees) do
-	    --DebugDrawCircle(t:GetAbsOrigin(), Vector(0,255,0), 255, 32, true, 60)
-	    t.pathable = true
-	 end
+     local trees = GridNav:GetAllTreesAroundPoint(pos, 48, true)
+     --local trees = GridNav:GetAllTreesAroundPoint(pos, 32, true)
+     for _,t in pairs(trees) do
+        --DebugDrawCircle(t:GetAbsOrigin(), Vector(0,255,0), 255, 32, true, 60)
+        t.pathable = true
+     end
       end
    end
 end
@@ -840,7 +841,7 @@ end
 
 
 
---					-----| Utility functions |-----
+--                  -----| Utility functions |-----
 
 
 
@@ -849,7 +850,7 @@ end
 ---------------------------------------------------------------------------
 -- Returns the hero for the player with the given ID
 --
---	* playerID: The ID of the player
+--  * playerID: The ID of the player
 --
 ---------------------------------------------------------------------------
 function GetPlayerHero(playerID)
@@ -861,7 +862,7 @@ end
 ---------------------------------------------------------------------------
 -- Returns true if the unit is a neutral soldier
 --
---	* unit: The unit to check
+--  * unit: The unit to check
 --
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:IsSoldier(unit)
@@ -894,8 +895,8 @@ end
 ---------------------------------------------------------------------------
 -- Shows a message to all clients
 --
---	* msg: The message to print in ALL CAPS
---	* dur: The duration to show the message
+--  * msg: The message to print in ALL CAPS
+--  * dur: The duration to show the message
 --
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:ShowCenterMessage(msg, dur)
@@ -911,7 +912,7 @@ end
 
 
 
---					-----| BuildingHelper Stuff |-----
+--                  -----| BuildingHelper Stuff |-----
 
 
 
