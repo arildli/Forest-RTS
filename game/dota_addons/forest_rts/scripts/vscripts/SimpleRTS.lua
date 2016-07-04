@@ -21,13 +21,6 @@ stats = {}
 MAX_PLAYERS_PER_TEAM = 5
 MAX_PLAYERS_WITH_BOT = MAX_PLAYERS_PER_TEAM - 1
 
-HERO_NAMES = {
-    "npc_dota_hero_legion_commander",
-    "npc_dota_hero_furion",
-    "npc_dota_hero_meepo",
-    "npc_dota_hero_skeleton_king",
-    "npc_dota_hero_troll_warlord"
-}
 
 -- For some reason the type of self is number in one of the methods...
 local prefixGlobal = ""
@@ -82,8 +75,6 @@ function SimpleRTSGameMode:InitGameMode()
    loadModule('libraries/buildinghelper')
    loadModule('builder')
    loadModule('ai/main')
-   -- Must be turned off due to crash with the new buildingHelper!
-   --loadModule('buildinghelper_old')
    
    -- Setup rules
    GameRules:SetGoldPerTick(0)
@@ -384,9 +375,9 @@ function SimpleRTSGameMode:onGameStateChange(keys)
 
         -- Add player-like bots
         if IsTeamEmpty(DOTA_TEAM_GOODGUYS) then
-            AI:AddBot(DOTA_TEAM_GOODGUYS)
+            AI:AddBot(DOTA_TEAM_GOODGUYS, "npc_dota_hero_legion_commander")
         elseif IsTeamEmpty(DOTA_TEAM_BADGUYS) then
-            AI:AddBot(DOTA_TEAM_BADGUYS)
+            AI:AddBot(DOTA_TEAM_BADGUYS, "npc_dota_hero_legion_commander")
         end
 
         -- Create a timer for sending team resource info to players.
@@ -455,18 +446,18 @@ end
 -- On Rally Point Set.
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onRallyPointSet(keys)
-   print("NOTE: onRallyPointSet called!")
+    print("NOTE: onRallyPointSet called!")
 
-   local player = PlayerResource:GetPlayer(keys.pID)
-   local rallyPos = keys.clickPos
-   local building = EntIndexToHScript(keys.mainSelected)
-   local buildingName = building:GetUnitName()
-   if buildingName:find("tent") or buildingName:find("barracks") then
-      building:SetRallyPoint(rallyPos)
-      print("Rally point set!")
-      Notifications:ClearTop(player)
-      Notifications:Top(player, {text="Rally point set!", duration=3})
-   end
+    local player = PlayerResource:GetPlayer(keys.pID)
+    local rallyPos = keys.clickPos
+    local building = EntIndexToHScript(keys.mainSelected)
+    local buildingName = building:GetUnitName()
+    if buildingName:find("tent") or buildingName:find("barracks") then
+        building:SetRallyPoint(rallyPos)
+        print("Rally point set!")
+        Notifications:ClearTop(player)
+        Notifications:Top(player, {text="Rally point set!", duration=3})
+    end
 end
 
 
@@ -475,10 +466,10 @@ end
 -- Get Initial Score.
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:GetInitialScore(keys)
-   local player = PlayerResource:GetPlayer(keys.PlayerID)
-   local prefix = prefixGlobal
-   print("Sending "..prefix.." and "..VICTORY_SCORE.." to client!")
-   CustomGameEventManager:Send_ServerToPlayer(player, "initial_score_reply", {scorePrefix = prefix, score = VICTORY_SCORE})
+    local player = PlayerResource:GetPlayer(keys.PlayerID)
+    local prefix = prefixGlobal
+    print("Sending "..prefix.." and "..VICTORY_SCORE.." to client!")
+    CustomGameEventManager:Send_ServerToPlayer(player, "initial_score_reply", {scorePrefix = prefix, score = VICTORY_SCORE})
 end
 
 
@@ -487,24 +478,24 @@ end
 -- Send Team Resources.
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:SendTeamResources() 
-   local resources = {}
-   for i=0, HIGHEST_PLAYER_INDEX do
-      local curPlayerHero = GetPlayerHero(i)
-      if curPlayerHero then
-     local curTeamNumber = curPlayerHero:GetTeamNumber()
-     resources[curTeamNumber] = resources[curTeamNumber] or {}
-     resources[curTeamNumber][i] = {
-        gold = curPlayerHero:GetGold(),
-        lumber = curPlayerHero:GetLumber(),
-        workers = curPlayerHero:GetWorkerCount()
-     }
-      end
-   end
+    local resources = {}
+    for i=0, HIGHEST_PLAYER_INDEX do
+        local curPlayerHero = GetPlayerHero(i)
+        if curPlayerHero then
+            local curTeamNumber = curPlayerHero:GetTeamNumber()
+            resources[curTeamNumber] = resources[curTeamNumber] or {}
+            resources[curTeamNumber][i] = {
+                gold = curPlayerHero:GetGold() or 0,
+                lumber = curPlayerHero:GetLumber() or 0,
+                workers = curPlayerHero:GetWorkerCount() or 0
+            }  
+        end
+    end
    
-   for teamID,teamData in pairs(resources) do
-      CustomGameEventManager:Send_ServerToTeam(teamID, "team_resources", {teamData = teamData})
-      --CustomGameEventManager:Send_ServerToTeam(teamID, "team_resources", {teamData = teamData})
-   end
+    for teamID,teamData in pairs(resources) do
+        CustomGameEventManager:Send_ServerToTeam(teamID, "team_resources", {teamData = teamData})
+        --CustomGameEventManager:Send_ServerToTeam(teamID, "team_resources", {teamData = teamData})
+    end
 end
 
 
@@ -513,35 +504,20 @@ end
 -- On NPC Spawn
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onNPCSpawned(keys)
-   local spawnedUnit = EntIndexToHScript(keys.entindex)
-   if not spawnedUnit:IsIllusion() and spawnedUnit:IsHero() and not spawnedUnit._initialized then
-      spawnedUnit._initialized = true
-      spawnedUnit:SetAbilityPoints(0)
-      
-      local owner = spawnedUnit:GetOwner()
-      local playerID = owner:GetPlayerID()
-      PLAYER_HEROES[playerID] = spawnedUnit
-      TechTree:InitTechTree(spawnedUnit)
-      TechTree:AddPlayerMethods(spawnedUnit, owner)
-      spawnedUnit._playerOwned = true
-      
-      --CustomGameEventManager:Send_ServerToAllClients("victory_score", {victoryScore=VICTORY_SCORE})
-      --print("Sent victory score: "..VICTORY_SCORE)
+    local spawnedUnit = EntIndexToHScript(keys.entindex)
+    if not spawnedUnit:IsIllusion() and spawnedUnit:IsHero() and not spawnedUnit._initialized then
+        spawnedUnit._initialized = true
+        spawnedUnit:SetAbilityPoints(0)
 
-      --elseif not spawnedUnit:IsIllusion() and not spawnedUnit:IsHero() and not spawnedUnit:IsNeutralUnitType() then
-   else
-      local unitName = spawnedUnit:GetUnitName()
-      if unitName ~= "npc_dota_creature_worker" and
-     unitName ~= "npc_dota_creature_human_worker" and
-     unitName ~= "npc_dota_creature_forest_worker" and
-     unitName ~= "npc_dota_creature_kobold_worker" and
-     unitName ~= "npc_dota_creature_skeleton_worker" and
-      unitName ~= "npc_dota_creature_troll_worker" then --and
-     --not IsCustomBuilding(spawnedUnit) then
-     
-     spawnedUnit:SetIdleAcquire(true)
-      end
-   end
+        local owner = spawnedUnit:GetOwner()
+        local playerID = owner:GetPlayerID()
+        PLAYER_HEROES[playerID] = spawnedUnit
+        TechTree:AddPlayerMethods(spawnedUnit, owner)
+        TechTree:InitTechTree(spawnedUnit)
+        spawnedUnit._playerOwned = true
+    else
+        spawnedUnit:SetIdleAcquire(true)
+    end
 end
 
 
@@ -751,7 +727,7 @@ end
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:SinglePlayerMode(botTeam)
    ---print("[SimpleRTS] Single Player Mode:\tPlayer ID: "..localPlayer:GetPlayerID().."\tBot Team: "..botTeam)
-   SimpleRTSGameMode:ShowCenterMessage("#simplerts_single_player_mode", 5)
+   --SimpleRTSGameMode:ShowCenterMessage("#simplerts_single_player_mode", 5)
    SimpleRTSGameMode:spawnSimpleBot(botTeam, 1.1)
 end
 
@@ -761,7 +737,7 @@ end
 -- Co-Op Mode
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:CoOpMode(botTeam, activeTeam, playersOnTeam)
-   SimpleRTSGameMode:ShowCenterMessage("#simplerts_co-op_mode_text", 5)
+   --SimpleRTSGameMode:ShowCenterMessage("#simplerts_co-op_mode_text", 5)
 
    print("[SimpleRTS] Co-Op versus Soldiers Mode:\tTeam: "..activeTeam.."\tBot Team: "..botTeam)
    print("[SimpleRTS] Player on team: "..playersOnTeam)

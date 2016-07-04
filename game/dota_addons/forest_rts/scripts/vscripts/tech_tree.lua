@@ -668,7 +668,6 @@ function TechTree:UpdateTechTree(hero, building, action)
       return false
    end
    if not building and action == "init" then
-      print("\nTechTree:UpdateTechTree: Initing tech tree...")
    elseif not building then
       print("\nTechTree:UpdateTechTree: building was nil!")
       return false
@@ -683,7 +682,6 @@ function TechTree:UpdateTechTree(hero, building, action)
 
    -- Print info.
    local playerID = hero:GetOwnerID()
-   print("[TechTree] Updating tech tree for player with ID "..playerID.."!")
    local needsUpdate = true
 
    ---------------------------------------------------------------------------

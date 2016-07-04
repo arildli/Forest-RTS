@@ -684,13 +684,17 @@ end
 -- Updates the worker count panel of the player.
 ---------------------------------------------------------------------------
 function UpdateWorkerPanel(playerHero)
-   local ownerPlayer = playerHero:GetOwnerPlayer()
-   if not ownerPlayer then
-      print("Error: Couldn't get owner of hero!")
-      return
-   end
-   local curWorkerCount = playerHero:GetWorkerCount()
-   CustomGameEventManager:Send_ServerToPlayer(ownerPlayer, "new_worker_count", {maxWorkerCount=MAX_WORKER_COUNT, newWorkerCount=curWorkerCount})
+    local ownerPlayer = playerHero:GetOwnerPlayer()
+    if not ownerPlayer then
+        print("Error: Couldn't get owner of hero!")
+        return
+    end
+    local playerID = playerHero:GetOwnerID()
+    if IsBot(playerID) then
+        return
+    end
+    local curWorkerCount = playerHero:GetWorkerCount()
+    CustomGameEventManager:Send_ServerToPlayer(ownerPlayer, "new_worker_count", {maxWorkerCount=MAX_WORKER_COUNT, newWorkerCount=curWorkerCount})
 end
 
 
@@ -717,6 +721,14 @@ function IsNil(funcName, vars, len)
     print("IsNull: vars must be a table, was "..varsType)
     return false
   end
+end
+
+---------------------------------------------------------------------------
+-- Checks if the player is a bot.
+-- @playerID: The playerID of the player to check.
+---------------------------------------------------------------------------
+function IsBot(playerID)
+    return (PlayerResource:GetConnectionState(playerID) == 1)
 end
 
 
