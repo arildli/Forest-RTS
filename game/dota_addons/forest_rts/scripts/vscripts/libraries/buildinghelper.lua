@@ -769,8 +769,8 @@ end
     * Make sure the position is valid before calling this in code.
 ]]--
 function BuildingHelper:PlaceBuilding(player, name, location, construction_size, pathing_size, angle)
-    construction_size = construction_size or BuildingHelper:GetConstructionSize(newName)
-    pathing_size = pathing_size or BuildingHelper:GetBlockPathingSize(newName)
+    construction_size = construction_size or BuildingHelper:GetConstructionSize(name)
+    pathing_size = pathing_size or BuildingHelper:GetBlockPathingSize(name)
     BuildingHelper:SnapToGrid(construction_size, location)
     local playerID = type(player)=="number" and player or player:GetPlayerID() --accept pass player ID or player Handle
     local player = PlayerResource:GetPlayer(playerID)
@@ -783,12 +783,6 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     -- Adjust the model position z
     local model_offset = BuildingHelper.UnitKV[name]["ModelOffset"] or 0
     local model_location = Vector(location.x, location.y, location.z + model_offset)
-
-    -- Added {
-    for k,v in pairs(location) do
-        print("k: "..tostring(v))
-    end
-    -- }
 
     -- Spawn the building
     local building = CreateUnitByName(name, model_location, false, playersHero, player, playersHero:GetTeamNumber())

@@ -1,7 +1,20 @@
+-- Created by Arild.
+-- Depends on the following:
+-- * BuildingHelper 1.1.5
+
+if not AI then
+    AI = {
+        debug = true,
+        bots = {},
+        botIDs = {}
+    }
+end
+
 if not BH_VERSION then
     require("libraries/buildinghelper")
 end
 require("AI/utilities")
+require("AI/controller")
 
 
 -- These settings should be set by the user:
@@ -16,13 +29,6 @@ local HEROES = {
 }
 -- End of settings.
 
-if not AI then
-    AI = {
-        debug = true,
-        bots = {},
-        botIDs = {}
-    }
-end
 
 
 ---------------------------------------------------------------------------
@@ -78,17 +84,33 @@ function AI:OnNPCSpawned(keys)
         -- NEED FIXING TO CHOOSE HERO!
         spawnedUnit:SetRespawnsDisabled(true)
         UTIL_Remove(spawnedUnit)
-        AI.bots[#AI.bots+1] = {
+        local botStruct = {
             playerID = playerID,
             team = spawnedUnit:GetTeam(),
             hero = CreateHeroForPlayer("npc_dota_hero_legion_commander", player)
         }
+        AI.bots[#AI.bots+1] = botStruct
+        AI:InitBot(botStruct)
     end
 end
 
 ---------------------------------------------------------------------------
+-- Get the bot with the specified playerID if present.
+-- @playerID (Int): The playerID of the bot.
+---------------------------------------------------------------------------
+function AI:GetBotByID(playerID)
+    for k,bot in pairs(AI.bots) do
+        if bot.playerID == playerID then
+            return bot
+        end
+    end
+    print("AI:GetBotById: No such bot found!")
+    return nil
+end
+
+---------------------------------------------------------------------------
 -- Checks if the bot already has the right hero.
--- @playerID: The playerID of the bot.
+-- @playerID (Int): The playerID of the bot.
 ---------------------------------------------------------------------------
 function AI:BotHasHero(playerID)
     if AI.botIDs[playerID] then

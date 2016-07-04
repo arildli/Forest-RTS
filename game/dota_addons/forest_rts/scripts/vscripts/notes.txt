@@ -5,6 +5,7 @@ Viktigst:
 - Ranged unit right-click enter tower.
 - Support units auto-cast spells.
 - Filtrere vekk workers fra selection.
+- Bots!
 
 
 - Rework single player til å være uten patrols, men med en enkel bot,

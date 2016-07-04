@@ -9,7 +9,6 @@ require('other/utilities')
 --require('upgrades')
 require('other/mechanics')
 require('orders')
---require('builder') --Check SimpleRTS.lua
 
 require('libraries/timers')
 require('libraries/popups')
