@@ -733,8 +733,14 @@ function BuildingHelper:AddBuilding(keys)
     -- Adjust the Model Orientation
     local yaw = buildingTable:GetVal("ModelRotation", "float")
     mgd:SetAngles(0, -yaw, 0)
-                        
-    CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", event)
+       
+
+
+    -- Added {       
+    if not keys.bot then      
+    -- }   
+        CustomGameEventManager:Send_ServerToPlayer(player, "building_helper_enable", event)
+    end
 end
 
 --[[

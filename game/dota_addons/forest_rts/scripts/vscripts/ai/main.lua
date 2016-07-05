@@ -3,11 +3,7 @@
 -- * BuildingHelper 1.1.5
 
 if not AI then
-    AI = {
-        debug = true,
-        bots = {},
-        botIDs = {}
-    }
+    AI = {}
 end
 
 if not BH_VERSION then
@@ -35,6 +31,11 @@ local HEROES = {
 -- Initializes this module.
 ---------------------------------------------------------------------------
 function AI:Init()
+    AI.debug = true                                     -- Whether to show AI:Prints or not.
+    AI.bots = {}                                        -- Will contain info about the bots.
+    AI.botIDs = {}                                      -- Set containing the playerIDs used by bots.
+    AI.nextHero = "npc_dota_hero_legion_commander"      -- The next spawned bot hero should be set to this.
+
     ListenToGameEvent('npc_spawned', Dynamic_Wrap(AI, 'OnNPCSpawned'), self)
 
     Convars:RegisterCommand("ai.debug", function()
@@ -63,8 +64,7 @@ function AI:Init()
 end
 
 ---------------------------------------------------------------------------
--- Adds a bot to the DOTA_TEAM_NEUTRALS team if possible.
--- (ADD SUPPORT FOR CHOOSING HERO TO BE SPAWNED!)
+-- Makes sure the newest bot hero spawns as the right one.
 -- @heroname (String): The name of the hero, optional.
 ---------------------------------------------------------------------------
 function AI:OnNPCSpawned(keys)
@@ -81,13 +81,12 @@ function AI:OnNPCSpawned(keys)
 
         AI:Print("New bot spawned!")
         AI.botIDs[playerID] = true
-        -- NEED FIXING TO CHOOSE HERO!
         spawnedUnit:SetRespawnsDisabled(true)
         UTIL_Remove(spawnedUnit)
         local botStruct = {
             playerID = playerID,
             team = spawnedUnit:GetTeam(),
-            hero = CreateHeroForPlayer("npc_dota_hero_legion_commander", player)
+            hero = CreateHeroForPlayer(AI.nextHero, player)
         }
         AI.bots[#AI.bots+1] = botStruct
         AI:InitBot(botStruct)
@@ -147,6 +146,10 @@ function AI:AddBotNeutralTeam(heroname)
     AI:AddBot(DOTA_TEAM_NEUTRALS, heroname)
 end
 
+---------------------------------------------------------------------------
+-- Adds a new bot to the specified team.
+-- @heroname (String): The name of the hero, optional.
+---------------------------------------------------------------------------
 function AI:AddBot(teamID, heroname)
     if IsTeamDireOrRadiant(teamID) and not AI:IsSpaceForBot(teamID) then
         AI:Print("No empty player slot was found for a new bot.")
@@ -158,6 +161,7 @@ function AI:AddBot(teamID, heroname)
     if not heroname then
         heroname = HEROES[RandomInt(1,#HEROES)]
     end
+    AI.nextHero = heroname
 
     Tutorial:AddBot(heroname,"","",GetTeamAsBool(teamID))
     AI:Print("Added bot to team "..teamID.." (DOTA_TEAM_GOODGUYS: "..DOTA_TEAM_GOODGUYS..", DOTA_TEAM_BADGUYS: "..DOTA_TEAM_BADGUYS..", DOTA_TEAM_NEUTRALS: "..DOTA_TEAM_NEUTRALS..")")

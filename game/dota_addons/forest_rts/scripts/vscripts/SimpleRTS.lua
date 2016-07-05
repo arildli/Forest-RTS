@@ -63,7 +63,6 @@ function SimpleRTSGameMode:InitGameMode()
    loadModule('settings')
    loadModule('utils')
    loadModule('resources')
-   --loadModule('simple_tech_tree')
    loadModule('tech_tree')
    loadModule('buildings')
    loadModule('ability_pages')
@@ -76,8 +75,8 @@ function SimpleRTSGameMode:InitGameMode()
    loadModule('builder')
 
    -- Added EDITED
-   loadModule('ai/utilities')
-   --loadModule('ai/main')
+   --loadModule('ai/utilities')
+   loadModule('ai/main')
    -- DONE
    
    -- Setup rules
@@ -162,7 +161,7 @@ function SimpleRTSGameMode:InitGameMode()
    --Stats:Init()
 
    -- Initialize AI.
-   --AI:Init()
+   AI:Init()
 
    -- Register console commands
    Convars:RegisterCommand('boss', function()
@@ -384,13 +383,11 @@ function SimpleRTSGameMode:onGameStateChange(keys)
         prefixGlobal = self.prefix
 
         -- Add player-like bots
-        --[=[
         if IsTeamEmpty(DOTA_TEAM_GOODGUYS) then
             AI:AddBot(DOTA_TEAM_GOODGUYS, "npc_dota_hero_legion_commander")
         elseif IsTeamEmpty(DOTA_TEAM_BADGUYS) then
             AI:AddBot(DOTA_TEAM_BADGUYS, "npc_dota_hero_legion_commander")
         end
-        ]=]
 
         -- Create a timer for sending team resource info to players.
         Timers:CreateTimer(

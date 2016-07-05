@@ -1,5 +1,7 @@
 
 
+--// ----- | Tower related |----- \\--
+
 function FlipTowerSpell(tower)
    local enterSpellName = "srts_enter_tower"
    local leaveSpellName = "srts_leave_tower"
@@ -81,6 +83,8 @@ function RemoveIfBuilding(keys)
    end
 end
 
+
+
 function GetAbilityByName(unit, abilityName)
     return UnitHasAbility(unit, abilityName)
 end
@@ -105,6 +109,13 @@ function HeroAttackSpeedAura(keys)
 end
 
 
+
+--// ----- | Training related |----- \\--
+
+
+
+
+--// ----- | Upgrade related |----- \\--
 
 function ApplyUpgradeUnits(keys)
    local caster = keys.caster
@@ -173,6 +184,8 @@ end
 
 
 
+--// ----- | Economy related |----- \\--
+
 function CanAfford(player, gold, wood)
    local playerID = player:GetPlayerID()
    local hero = GetPlayerHero(playerID)
@@ -184,8 +197,6 @@ function CanAfford(player, gold, wood)
       return false
    end
 end
-
-
 
 function GiveResources(player, gold, wood)
    local playerID = player:GetPlayerID()

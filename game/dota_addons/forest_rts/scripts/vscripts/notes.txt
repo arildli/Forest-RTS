@@ -11,7 +11,7 @@ Viktigst:
 
 - Rework single player til å være uten patrols, men med en enkel bot,
   flere camps og en tutorial.
-- Installer ny versjon av BuildingHelper
+- Options, som f.eks. autoharvest?
 
 - Fix patrols (especially lags!!!)
 - Add bosses to patrols.
@@ -35,7 +35,6 @@ Ideer:
 - Lumber harvesting upgrade.
 - Tent upgrade + ny barracks.
 - Ekstra ressurser rundt om på mappet som gir bonuser av et eller annet slag. Optional?
-- Set rally points for alle bygninger i selection.
 - Tren unit for alle bygninger i selection.
 - Upgrade for flame thrower dot?
 - Upgrade for lumber harvest speed?
@@ -51,9 +50,7 @@ Ideer:
 - Inspirasjon fra Castle Story?
 - Ikoner: Pil opp for Main Menu, pil høyre for neste prop meny?
 - Patrol kommando?
-- Add destroy spell til egne bygninger.
 - Humans: Minas Tirith lignende arkitektur med sterkere tårn.
-- Gi liten buff til wk.
 - Ogre race med kraftige, men dyre melee units. Bloodlust.
 - Passive tab for heroes.
 - Forskjellig vision range dag og natt for mer dybde og fordeler med tårn.
@@ -133,7 +130,6 @@ Ideer:
 - Forest ? (?): Svak living armor (armor + liten regen).
 - Banner unit!!!
 
-- Gjør ferdig Healing Salve.
 - Legg til AoE DOT Healing item.
 - Begynne å lage stats struktur?
 - Reduser hero attack damage.

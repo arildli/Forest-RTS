@@ -1,6 +1,14 @@
 -- Constants
 MAX_WORKER_COUNT = 10
 
+function GetSpellForEntity(entName)
+    for k,entry in pairs(defs) do
+        if entry.name and entry.name == entName then
+            return entry.spell
+        end
+    end
+end
+
 -- Spell definitions --
 defs = {
   -- Other

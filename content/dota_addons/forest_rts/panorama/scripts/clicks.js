@@ -76,6 +76,10 @@ function OnRightButtonPressed()
     }
     //}
 
+    // Added { 
+    $.Msg("Classname: "+Entities.GetClassname(targetIndex));
+    //}
+
     return false
 }
 
