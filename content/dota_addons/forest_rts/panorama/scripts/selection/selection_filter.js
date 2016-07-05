@@ -53,8 +53,6 @@ function DeselectBuildings() {
     var first = FirstNonBuildingEntityFromSelection(selectedEntities)
     GameUI.SelectUnit(first, false); // Overrides the selection group
 
-    $.Msg("Attempting to deselect buildings...")
-
     for (var unit of selectedEntities) {
         skip = true; // Makes it skip an update
         if (!IsCustomBuilding(unit) && unit != first){

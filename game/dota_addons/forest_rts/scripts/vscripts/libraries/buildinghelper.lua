@@ -467,6 +467,12 @@ function BuildingHelper:BuildCommand(args)
         end
     end
 
+    -- Added {
+    if args.bot and #builders == 0 then
+        table.insert(builders, builder)
+    end
+    -- }
+
     -- First select from idle builders
     if #idle_builders > 0 then
         builder = GetClosestToPosition(idle_builders, location)

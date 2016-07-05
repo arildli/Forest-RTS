@@ -52,5 +52,5 @@ function IsOppositeTeamEmpty(teamID)
 end
 
 function GetConstructionSpellForBuilding(buildingName)
-    print(GetSpellForEntity(buildingName))
+    return GetSpellForEntity(buildingName)
 end

@@ -159,7 +159,7 @@ function AI:AddBot(teamID, heroname)
         print("Max player count neutrals: "..tostring(PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_NEUTRALS)))
     end
     if not heroname then
-        heroname = HEROES[RandomInt(1,#HEROES)]
+        heroname = "npc_dota_hero_legion_commander"
     end
     AI.nextHero = heroname
 

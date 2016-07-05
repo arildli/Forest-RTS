@@ -85,12 +85,6 @@ end
 
 
 
-function GetAbilityByName(unit, abilityName)
-    return UnitHasAbility(unit, abilityName)
-end
-
-
-
 function HeroAttackSpeedAura(keys)
    local caster = keys.caster
    local target = keys.target

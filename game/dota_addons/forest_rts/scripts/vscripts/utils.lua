@@ -212,9 +212,9 @@ function GiveCharges(hero, amount, itemName)
     
     if hero:IsRealHero() then
       if hero:HasInventory() and hero:HasRoomForItem(itemName, false, false) then
-	hero:AddItem(newItem)
+    hero:AddItem(newItem)
       else
-	CreateItemOnPositionSync(hero:GetOrigin(), newItem)
+    CreateItemOnPositionSync(hero:GetOrigin(), newItem)
       end
     else
       hero:AddItem(newItem)
@@ -290,8 +290,8 @@ function TransferLumber(keys)
     if lumberCount > 0 then
        local lumberItem = GetItemFromInventory(caster, "item_stack_of_lumber")
        if lumberItem then
-	  PopupLumber(caster, lumberCount)
-	  caster:RemoveItem(lumberItem)
+      PopupLumber(caster, lumberCount)
+      caster:RemoveItem(lumberItem)
        end
        hero:IncLumber(lumberCount)
        caster:ReturnToHarvest()
@@ -342,9 +342,9 @@ function FindEmptyTree(unit, location, radius)
       -- IsTreePathable(tree)
       local color
       if IsTreePathable(tree) then
-	 color = Vector(35, 231, 38)
+     color = Vector(35, 231, 38)
       else
-	 color = Vector(238, 2, 2)
+     color = Vector(238, 2, 2)
       end
       DebugDrawCircle(tree:GetCenter(), color, 5, 100, false, 3)
    end
@@ -364,7 +364,7 @@ function FindEmptyTree(unit, location, radius)
    local sortedList = SortListByClosest(pathableTrees, location)
    for _,tree in pairs(sortedList) do
       if TreeIsEmpty(tree) and IsTreePathable(tree) then
-	 return tree
+     return tree
       end
    end
 end
@@ -378,12 +378,12 @@ function GetAllPathableTreesFromList( height, list )
    local pathable_trees = {}
    for _,tree in pairs(list) do
       if IsTreePathable(tree) then
-	 table.insert(pathable_trees, tree)
+     table.insert(pathable_trees, tree)
       end
       -- EDITED
       --[=[local treeHeight = tree:GetCenter().z
       if IsTreePathable(tree) and treeHeight == height then
-	 table.insert(pathable_trees, tree)
+     table.insert(pathable_trees, tree)
       end
       ]=]
       -- DONE
@@ -398,12 +398,12 @@ function GetClosestEntityToPosition(list, position)
    for k,ent in pairs(list) do
       local this_distance = (position - ent:GetAbsOrigin()):Length()
       if this_distance < distance then
-	 distance = this_distance
-	 closest = k
+     distance = this_distance
+     closest = k
       end
    end
    
-   return closest	
+   return closest   
 end
 
 function SortListByClosest( list, position )
@@ -425,7 +425,7 @@ end
 function DeterminePathableTrees()
    
    --------------------------
-	--      Flood Fill      --
+    --      Flood Fill      --
    --------------------------
    
    print("DeterminePathableTrees")
@@ -459,41 +459,41 @@ function DeterminePathableTrees()
       --If the color of n is equal to target-color:
       local blocked = not GridNav:IsTraversable(position) or GridNav:IsBlocked(position)
       if not blocked then
-	 -- EDITED
-	 --DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 0, 255, 0, 255, 600)
-	 -- DONE
-	 
-	 table.insert(world_positions, position)
-	 
-	 -- Mark position processed.
-	 seen[GridNav:WorldToGridPosX(position.x)..","..GridNav:WorldToGridPosX(position.y)] = 1
-	 
-	 for k=1,#vecs do
-	    local vec = vecs[k]
-	    local xoff = vec.x
-	    local yoff = vec.y
-	    local pos = Vector(position.x + xoff, position.y + yoff, position.z)
+     -- EDITED
+     --DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 0, 255, 0, 255, 600)
+     -- DONE
+     
+     table.insert(world_positions, position)
+     
+     -- Mark position processed.
+     seen[GridNav:WorldToGridPosX(position.x)..","..GridNav:WorldToGridPosX(position.y)] = 1
+     
+     for k=1,#vecs do
+        local vec = vecs[k]
+        local xoff = vec.x
+        local yoff = vec.y
+        local pos = Vector(position.x + xoff, position.y + yoff, position.z)
 
-	    -- Add unprocessed nodes
-	    if not seen[GridNav:WorldToGridPosX(pos.x)..","..GridNav:WorldToGridPosX(pos.y)] then
-	       table.insert(world_positions, position)
-	       table.insert(Q, pos)
-	    end
-	 end
+        -- Add unprocessed nodes
+        if not seen[GridNav:WorldToGridPosX(pos.x)..","..GridNav:WorldToGridPosX(pos.y)] then
+           table.insert(world_positions, position)
+           table.insert(Q, pos)
+        end
+     end
       else
-	 -- EDITED
-	 --DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 255, 0, 0, 255, 600)
-	 -- DONE
+     -- EDITED
+     --DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 255, 0, 0, 255, 600)
+     -- DONE
 
-	 local nearbyTree = GridNav:IsNearbyTree(position, 64, true)
-	 if nearbyTree then
-	    local trees = GridNav:GetAllTreesAroundPoint(position, 1, true)
-	    if #trees > 0 then
-	       local t = trees[1]
-	       t.pathable = true
-	       table.insert(valid_trees,t)
-	    end
-	 end
+     local nearbyTree = GridNav:IsNearbyTree(position, 64, true)
+     if nearbyTree then
+        local trees = GridNav:GetAllTreesAroundPoint(position, 1, true)
+        if #trees > 0 then
+           local t = trees[1]
+           t.pathable = true
+           table.insert(valid_trees,t)
+        end
+     end
       end
    end
    
@@ -557,7 +557,7 @@ function GetItemFromInventory(hero, itemName)
     for i=0, 5 do
       local currentItem = hero:GetItemInSlot(i)
       if currentItem and currentItem:GetAbilityName() == itemName then
-	return currentItem
+    return currentItem
       end
     end
   else
@@ -643,18 +643,28 @@ end
 ---------------------------------------------------------------------------
 -- Returns the ability if unit has it, nil otherwise.
 --
---	* unit: The unit to check
---	* abilityName: The ability to look for
+--  * unit: The unit to check
+--  * abilityName: The ability to look for
 --
 ---------------------------------------------------------------------------
 function UnitHasAbility(unit, abilityName)  
-  for i=0, 5 do
+  for i=0, 6 do
     local ability = unit:GetAbilityByIndex(i)
     if ability and ability:GetAbilityName() == abilityName then
       return ability
     end
   end
   return nil
+end
+
+
+---------------------------------------------------------------------------
+-- Checks if the specified unit is ranged.
+-- @unit: The unit to check.
+-- @abilityName: The name of the ability to get.
+---------------------------------------------------------------------------
+function GetAbilityByName(unit, abilityName)
+    return UnitHasAbility(unit, abilityName)
 end
 
 
@@ -667,6 +677,46 @@ function IsRanged(unit)
    return unit:GetAttackRange() > 150 and 
       unit:GetUnitName() ~= "npc_dota_creature_kobold_guard_1"
 end
+
+
+
+---------------------------------------------------------------------------
+-- Checks if the specified unit is ranged.
+---------------------------------------------------------------------------
+function GetAllAbilities(unit)
+    local abilities = {}
+    for i=0, 6 do
+        local ability = unit:GetAbilityByIndex(i)
+        if ability then
+            local index = ability:GetAbilityName()
+            abilities[index] = ability
+        end
+    end
+    return abilities
+end
+
+
+
+---------------------------------------------------------------------------
+-- Adds a new ability to the unit and skills it.
+---------------------------------------------------------------------------
+function LearnAbility(unit, abilityName)
+    unit:AddAbility(abilityName)
+    if unit:HasAbility(abilityName) then
+        local ability = unit:FindAbilityByName(abilityName)
+        ability:SetLevel(1)
+    end
+end
+
+
+
+---------------------------------------------------------------------------
+-- Unlearns and removes an ability from the unit
+---------------------------------------------------------------------------
+function UnlearnAbility(unit, abilityName)
+    unit:RemoveAbility(abilityName)
+end
+
 
 
 
@@ -712,8 +762,8 @@ function IsNil(funcName, vars, len)
     for i=1,len do
       local cur = vars[i]
       if not cur then
-	print(funcName..": index "..i.." is nil!")
-	proper = false
+    print(funcName..": index "..i.." is nil!")
+    proper = false
       end
     end
     return proper

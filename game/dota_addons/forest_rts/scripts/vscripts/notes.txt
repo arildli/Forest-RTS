@@ -7,6 +7,8 @@ Viktigst:
 - Support units auto-cast spells.
 - Filtrere vekk workers fra selection.
 - Bots!
+- Bruk gathering library fra Dotacraft!
+- Reduser dependencies fra andre filer for AI.
 
 
 - Rework single player til å være uten patrols, men med en enkel bot,
