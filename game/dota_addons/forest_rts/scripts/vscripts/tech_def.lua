@@ -67,6 +67,7 @@ tech = {
     -- Common
     EMPTY_FILLER = defs.EMPTY_FILLER,
     BUILDING = defs.BUILDING,
+    TOWER = defs.TOWER,
     UNIT = defs.UNIT,
     PROP = defs.PROP,
     ENTER_TOWER = defs.ENTER_TOWER,

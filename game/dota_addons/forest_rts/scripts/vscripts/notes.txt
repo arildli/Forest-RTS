@@ -1,20 +1,21 @@
+
+
 Viktigst:
-- Worker right-click på trær starter harvest.
-- Queueing på training med items.
+- Worker right-click pÃ¥ trÃ¦r starter harvest.
+- Queueing pÃ¥ training med items.
 - Nye abilitypages for bygninger.
-- Ranged unit right-click enter tower.
 - Support units auto-cast spells.
 - Filtrere vekk workers fra selection.
 - Bots!
 
 
-- Rework single player til å være uten patrols, men med en enkel bot,
+- Rework single player til Ã¥ vÃ¦re uten patrols, men med en enkel bot,
   flere camps og en tutorial.
 - Installer ny versjon av BuildingHelper
 
 - Fix patrols (especially lags!!!)
 - Add bosses to patrols.
-- Speed aura går på tvers av spillere!
+- Speed aura gÃ¥r pÃ¥ tvers av spillere!
 - Sjekk Rise of Nations videoer for inspirasjon.
 - Sjekk denne linken for tips om allied resources panel:
 https://developer.valvesoftware.com/wiki/Dota_2_Workshop_Tools/Panorama/Panels
@@ -22,18 +23,18 @@ https://developer.valvesoftware.com/wiki/Dota_2_Workshop_Tools/Panorama/Panels
 Ideer:
 - Legg til host options, f.eks. team color eller ikke (default off).
 - Tips toggle knapp, f.eks. beskjed hvis harvest uten tent.
-- Game mode desc text 30 sec før start.
-- Lære 3D modellering.
+- Game mode desc text 30 sec fÃ¸r start.
+- LÃ¦re 3D modellering.
 - Beginnerquests?
 - Option hvor death er permanent.
 - Item drops fra camps.
-- Skrive hva som er målet + poeng ved patrols.
+- Skrive hva som er mÃ¥let + poeng ved patrols.
 - Sjekk good_stonewall modellene for steinmurer!
 - Sjekk bad_crystals(00x) for krystaller som mulig resource!
-- Food system for unit buffs som kan kjøpes? Optional, men nyttig hvis man er villig til å ofre litt lumber income.
+- Food system for unit buffs som kan kjÃ¸pes? Optional, men nyttig hvis man er villig til Ã¥ ofre litt lumber income.
 - Lumber harvesting upgrade.
 - Tent upgrade + ny barracks.
-- Ekstra ressurser rundt om på mappet som gir bonuser av et eller annet slag. Optional?
+- Ekstra ressurser rundt om pÃ¥ mappet som gir bonuser av et eller annet slag. Optional?
 - Set rally points for alle bygninger i selection.
 - Tren unit for alle bygninger i selection.
 - Upgrade for flame thrower dot?
@@ -41,72 +42,73 @@ Ideer:
 - Gold bygninger
 - UpgradedFrom field i tech_spell for tent og sjekk for dette ang. unit count dec i tech_tree!
 - Legg til alle spells i Hidden hver gang page skiftes.
-- Lumber yard lignende bygning med tårnplass til unit?
+- Lumber yard lignende bygning med tÃ¥rnplass til unit?
 - Radiant/Dire "prop" base bygning for 1 extra gold per 5 + 1 worker spot?
-- Sette fargen på spillernavnet i Allied Resources lik spillerfargen.
-- Små wolves som kjapp unit til kobolds?
+- Sette fargen pÃ¥ spillernavnet i Allied Resources lik spillerfargen.
+- SmÃ¥ wolves som kjapp unit til kobolds?
 - Human-like bot
 - Host mode-picking
 - Inspirasjon fra Castle Story?
-- Ikoner: Pil opp for Main Menu, pil høyre for neste prop meny?
+- Ikoner: Pil opp for Main Menu, pil hÃ¸yre for neste prop meny?
 - Patrol kommando?
 - Add destroy spell til egne bygninger.
-- Humans: Minas Tirith lignende arkitektur med sterkere tårn.
+- Humans: Minas Tirith lignende arkitektur med sterkere tÃ¥rn.
 - Gi liten buff til wk.
 - Ogre race med kraftige, men dyre melee units. Bloodlust.
 - Passive tab for heroes.
-- Forskjellig vision range dag og natt for mer dybde og fordeler med tårn.
-- Bør ta lenger tid å trene tropper.
+- Forskjellig vision range dag og natt for mer dybde og fordeler med tÃ¥rn.
+- BÃ¸r ta lenger tid Ã¥ trene tropper.
 - Castle gate? 
-- Steinmurer man kan gå på?
+- Steinmurer man kan gÃ¥ pÃ¥?
 - Undead race med lifestealer og weaver + krypende zombie som worker?
 - Night Stalker med lifesteal?
 - Creep camp/fortification med PHAT LEWT?!
 - Summonable units (undead?)
-- Trenespell i Lua som alle trenespellsa kaller på.
+- Trenespell i Lua som alle trenespellsa kaller pÃ¥.
+- GrÃ¥ statue av soldat med sokkel som prop?
 
 - Dire Sea race: Slardar, Naga, Slark, Medusa
-- Patrols lager baser hvis man somler med å komme i gang.
+- Patrols lager baser hvis man somler med Ã¥ komme i gang.
 - Particles til moonwell og spire healing!
 - Jakiro-like dot upgrade for catapults
 - Treant Protector som late game tank til Forest fremfor cavalry.
 - Trepinnehus til kobolds.
 - Bredere chokepoints!
-- Hver special unit er spesielt god på akkurat det den gjør!
-- Heroes får etterhvert en viss immunitet mot spells og debuffs.
-- Flere av creep campsa bør være svakere. Bør også ha en ancient camp eller to.
-- Thorns-ish upgrade på treants?
-- Svak block upgrade på alle melee units.
-- Spell eller passive upgrade på hero hvert level.
+- Hver special unit er spesielt god pÃ¥ akkurat det den gjÃ¸r!
+- Heroes fÃ¥r etterhvert en viss immunitet mot spells og debuffs.
+- Flere av creep campsa bÃ¸r vÃ¦re svakere. BÃ¸r ogsÃ¥ ha en ancient camp eller to.
+- Thorns-ish upgrade pÃ¥ treants?
+- Svak block upgrade pÃ¥ alle melee units.
+- Spell eller passive upgrade pÃ¥ hero hvert level.
 - Liten patrol camp fremfor anceints.
 - Upgrade for lumber harvest og flame thrower dot.
 - Tech level ikon for spiller. 
 - Gi melding om at upgrades er ferdige.
 - Living Bomb upgrade Sorceress?
 - Entangling roots upgrade for leshrac?
-- Roaming wolf packs, som går rundt omkring og angriper det den møter på?
-  Kan i så fall også gå løs på baser. Vote!
+- Roaming wolf packs, som gÃ¥r rundt omkring og angriper det den mÃ¸ter pÃ¥?
+  Kan i sÃ¥ fall ogsÃ¥ gÃ¥ lÃ¸s pÃ¥ baser. Vote!
 - Skriv om hvilken mode som vil bli valgt med de valgte lagene + kort desc.
 - Vise space required ved bygging.
-- Autocast slow upgrade på flame throwers.
+- Autocast slow upgrade pÃ¥ flame throwers.
 - Ensnare upgrade til troll Elders.
 - Lua/Python editor for spells/units.
-- Script for å sende slikt til mobilen.
+- Script for Ã¥ sende slikt til mobilen.
 - Unit/spell editor script.
 - Zeus med autocast chain lightning til Commander?
 - Autocast debuffs ved attack?
-- Synlig gridnav bruk på eksisterende bygninger ved konstruksjon.
+- Synlig gridnav bruk pÃ¥ eksisterende bygninger ved konstruksjon.
 - Hero item shop med billig magic immunity?
 - Cash bygninger (litt)
 - Block chance upgrade melee units etter Large Tent
 - Buff Sorceress Slow
 - STATS!
-- Researche spell buff som gir prosentvis sjanse til å resse?
+- Researche spell buff som gir prosentvis sjanse til Ã¥ resse?
 - HERO SPELLS AND PASSIVES!!!
 - Consumables: w3 orc salve
 - TP scroll?
 - Hero item shop (eller Market?)
-- Kjøpe Merc fra neutral shop (som må cleares først!)
+- KjÃ¸pe Merc fra neutral shop (som mÃ¥ cleares fÃ¸rst!)
 - Beastmaster hero spells.
 - Single player uten patrols, men med camps og tutorial?
 - Omniknight som Paladin, med purification (allied heal) + repel eller holy damage spell
@@ -120,20 +122,20 @@ Ideer:
 - Food som kilde til income
 
 
-- Legg til TeamColor boolean i tech, og SetRenderColor på de som har det.
-- Legge til hengende banner med teamcolor på tårn?
+- Legg til TeamColor boolean i tech, og SetRenderColor pÃ¥ de som har det.
+- Legge til hengende banner med teamcolor pÃ¥ tÃ¥rn?
 
 - Skeleton Mage (Pugna): Frenzy (MoM effect) (og ress aura?).
-- Barracks 2 kan lære flame throwers å gi en viss miss chance.
+- Barracks 2 kan lÃ¦re flame throwers Ã¥ gi en viss miss chance.
 - Human Mage (Lina): Slow (Attack and Movement).
 - Troll Priest (Dazzle): Dazzle heal.
 - Troll ? (Troll Camp Wizard): Bloodlust eller ensnare. 
 - Forest ? (?): Svak living armor (armor + liten regen).
 - Banner unit!!!
 
-- Gjør ferdig Healing Salve.
+- GjÃ¸r ferdig Healing Salve.
 - Legg til AoE DOT Healing item.
-- Begynne å lage stats struktur?
+- Begynne Ã¥ lage stats struktur?
 - Reduser hero attack damage.
 - Upgrade for casters: +50 mana og 25% mana regen.
 - Toggle spell i Tent som bestemmer om man spawner der eller ved spawn.
@@ -141,14 +143,14 @@ Ideer:
 
 
 Tanker:
-- Småoppdrag/Sidequests og belønninger ulike steder på mappet.
+- SmÃ¥oppdrag/Sidequests og belÃ¸nninger ulike steder pÃ¥ mappet.
 
 Mulige 3D ideer:
 - Cart (wooden_cart.vmdl) + kotl hest?
 - Kobold + wolf?
 
 Props
-- models/props_debris/barrel002.vmdl (Mørk tønne)
+- models/props_debris/barrel002.vmdl (MÃ¸rk tÃ¸nne)
 - models/props_debris/merchant_debris_chest001.vmdl (Kiste)
 - models/props_debris/secret_shop001.vmdl (Stash)
 - models/props_debris/wood_fence001e.vmdl (Lite gjerde)
@@ -160,4 +162,4 @@ Props
 - models/props_structures/leanto_sticks.vmdl (Telt av pinner)
 - models/props_gameplay/npc/shopkeeper_the_lost_meepo/shopkeeper_the_lost_meepo.vmdl (Meepo shopkeeper)
 
-- models/props_debris/spike_fence002a.vmdl (Små spikes, mindre mur).
+- models/props_debris/spike_fence002a.vmdl (SmÃ¥ spikes, mindre mur).

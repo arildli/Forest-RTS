@@ -1,13 +1,7 @@
-BH_VERSION = "1.2.6"
-
---[[
-    For installation, usage and implementation examples check the wiki:
-        https://github.com/MNoya/BuildingHelper/wiki
-]]
+BH_VERSION = "1.1.5"
 
 require('libraries/timers')
 require('libraries/selection')
-require('libraries/keyvalues')
 
 if not BuildingHelper then
     BuildingHelper = class({})
@@ -18,13 +12,16 @@ end
     * Loads Key Values into the BuildingAbilities
 ]]--
 function BuildingHelper:Init()
+    BuildingHelper.AbilityKV = LoadKeyValues("scripts/npc/npc_abilities_custom.txt")
+    BuildingHelper.ItemKV = LoadKeyValues("scripts/npc/npc_items_custom.txt")
+    BuildingHelper.UnitKV = LoadKeyValues("scripts/npc/npc_units_custom.txt")
+
     -- building_settings nettable from buildings.kv
     BuildingHelper:LoadSettings()
 
     BuildingHelper:print("BuildingHelper Init")
     BuildingHelper.Players = {} -- Holds a table for each player ID
     BuildingHelper.Dummies = {} -- Holds up to one entity for each building name
-    BuildingHelper.TreeDummies = {} -- Holds tree chopped dummies
     BuildingHelper.Grid = {}    -- Construction grid
     BuildingHelper.Terrain = {} -- Terrain grid, this only changes when a tree is cut
     BuildingHelper.Encoded = "" -- String containing the base terrain, networked to clients
@@ -40,7 +37,6 @@ function BuildingHelper:Init()
     -- Panorama Event Listeners
     CustomGameEventManager:RegisterListener("building_helper_build_command", Dynamic_Wrap(BuildingHelper, "BuildCommand"))
     CustomGameEventManager:RegisterListener("building_helper_cancel_command", Dynamic_Wrap(BuildingHelper, "CancelCommand"))
-    CustomGameEventManager:RegisterListener("building_helper_repair_command", Dynamic_Wrap(BuildingHelper, "RepairCommand"))
     CustomGameEventManager:RegisterListener("selection_update", Dynamic_Wrap(BuildingHelper, 'OnSelectionUpdate')) --Hook selection library
     CustomGameEventManager:RegisterListener("gnv_request", Dynamic_Wrap(BuildingHelper, "SendGNV"))
 
@@ -56,30 +52,13 @@ function BuildingHelper:Init()
     LinkLuaModifier("modifier_out_of_world", "libraries/modifiers/modifier_out_of_world", LUA_MODIFIER_MOTION_NONE)
     LinkLuaModifier("modifier_builder_hidden", "libraries/modifiers/modifier_builder_hidden", LUA_MODIFIER_MOTION_NONE)
     LinkLuaModifier("modifier_disable_turning", "libraries/modifiers/modifier_disable_turning", LUA_MODIFIER_MOTION_NONE)
-    LinkLuaModifier("modifier_repairing", "libraries/modifiers/repair_modifiers", LUA_MODIFIER_MOTION_NONE)
-    LinkLuaModifier("modifier_builder_repairing", "libraries/modifiers/repair_modifiers", LUA_MODIFIER_MOTION_NONE)
     
-    -- Check KVs and set relevant construction_size nettable values
-    self:ParseKV()
+    BuildingHelper.KV = {} -- Merge KVs into a single table
+    BuildingHelper:ParseKV(BuildingHelper.AbilityKV, BuildingHelper.KV)
+    BuildingHelper:ParseKV(BuildingHelper.ItemKV, BuildingHelper.KV)
+    BuildingHelper:ParseKV(BuildingHelper.UnitKV, BuildingHelper.KV)
 
-    -- Order Filter override
-    self:HookBoilerplate()
-
-    -- Some game function overrides
-    self:HookFunctions()
-
-    -- Reload settings file
-    self:OnScriptReload()
-end
-
-function BuildingHelper:OnScriptReload()
-    BuildingHelper:LoadSettings()
-    if BuildingHelper.Settings["REPAIR_PATH"] then
-        require(BuildingHelper.Settings["REPAIR_PATH"])
-    end
-end
-
-function BuildingHelper:HookBoilerplate()
+    -- Hook Boilerplate
     if not __ACTIVATE_HOOK then
         __ACTIVATE_HOOK = {funcs={}}
         setmetatable(__ACTIVATE_HOOK, {
@@ -121,41 +100,6 @@ function BuildingHelper:HookBoilerplate()
     end)
 end
 
--- This requires that buildinghelper is required before the usage of these functions
-function BuildingHelper:HookFunctions()
-    local oldSetTreeRegrowTime = GameRules.SetTreeRegrowTime
-    BuildingHelper.TreeRegrowTime = 300
-    GameRules.SetTreeRegrowTime = function(gameRules, time)
-        BuildingHelper.TreeRegrowTime = time
-        oldSetTreeRegrowTime(gameRules, time)
-    end
-
-    local oldRegrowAllTrees = GridNav.RegrowAllTrees
-    GridNav.RegrowAllTrees = function(gridNav)
-        for _,dummy in pairs(BuildingHelper.TreeDummies) do
-            UTIL_Remove(dummy)
-        end
-        BuildingHelper.TreeDummies = {}
-        oldRegrowAllTrees(gridNav)
-    end
-
-    local oldCutDownRegrowAfter = CDOTA_MapTree.CutDownRegrowAfter
-    CDOTA_MapTree.CutDownRegrowAfter = function(tree, time, team)
-        oldCutDownRegrowAfter(tree, time, team)
-        Timers:CreateTimer(time, function()
-            BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-            UTIL_Remove(tree.chopped_dummy)
-        end)
-    end
-
-    local oldGrowBack = CDOTA_MapTree.GrowBack
-    CDOTA_MapTree.GrowBack = function(tree)
-        BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-        UTIL_Remove(tree.chopped_dummy)
-        oldGrowBack(tree)
-    end
-end
-
 function BuildingHelper:LoadSettings()
     BuildingHelper.Settings = LoadKeyValues("scripts/kv/building_settings.kv")
     
@@ -163,7 +107,6 @@ function BuildingHelper:LoadSettings()
     BuildingHelper.Settings["RECOLOR_BUILDING_PLACED"] = tobool(BuildingHelper.Settings["RECOLOR_BUILDING_PLACED"])
     BuildingHelper.Settings["UPDATE_TREES"] = tobool(BuildingHelper.Settings["UPDATE_TREES"])
     BuildingHelper.Settings["DISABLE_BUILDING_TURNING"] = tobool(BuildingHelper.Settings["DISABLE_BUILDING_TURNING"])
-    BuildingHelper.Settings["RIGHT_CLICK_REPAIR"] = tobool(BuildingHelper.Settings["RIGHT_CLICK_REPAIR"])
 
     CustomNetTables:SetTableValue("building_settings", "grid_alpha", { value = BuildingHelper.Settings["GRID_ALPHA"] })
     CustomNetTables:SetTableValue("building_settings", "alt_grid_alpha", { value = BuildingHelper.Settings["ALT_GRID_ALPHA"] })
@@ -174,18 +117,23 @@ function BuildingHelper:LoadSettings()
     CustomNetTables:SetTableValue("building_settings", "turn_red", { value = tobool(BuildingHelper.Settings["RED_MODEL_WHEN_INVALID"]) })
     CustomNetTables:SetTableValue("building_settings", "permanent_alt_grid", { value = tobool(BuildingHelper.Settings["PERMANENT_ALT_GRID"]) })
     CustomNetTables:SetTableValue("building_settings", "update_trees", { value = BuildingHelper.Settings["UPDATE_TREES"] })
-    CustomNetTables:SetTableValue("building_settings", "right_click_repair", { value = BuildingHelper.Settings["RIGHT_CLICK_REPAIR"] })
 
     if BuildingHelper.Settings["HEIGHT_RESTRICTION"] and BuildingHelper.Settings["HEIGHT_RESTRICTION"] ~= "" then
         CustomNetTables:SetTableValue("building_settings", "height_restriction", { value = BuildingHelper.Settings["HEIGHT_RESTRICTION"] })
     end
 end
 
-function BuildingHelper:ParseKV()
-    for name,info in pairs(KeyValues.All) do
+function BuildingHelper:ParseKV(t, result)
+    for name,info in pairs(t) do
         if type(info) == "table" then
             local isBuilding = info["Building"] or info["ConstructionSize"]
             if isBuilding then
+                if result[name] then
+                    BuildingHelper:print("Error: There's more than 2 entries for "..name)
+                else
+                    result[name] = info
+                end
+
                 -- Build NetTable with the building properties
                 local values = {}
                 if info['ConstructionSize'] then
@@ -235,7 +183,7 @@ end
 
 function BuildingHelper:OnEntityKilled(keys)
     local killed = EntIndexToHScript(keys.entindex_killed)
-    local unitTable = killed:GetKeyValue()
+    local unitTable = BuildingHelper.UnitKV[killed:GetUnitName()]
     local gridTable = unitTable and unitTable["Grid"]
 
     if IsBuilder(killed) then
@@ -262,27 +210,11 @@ end
 
 function BuildingHelper:OnTreeCut(keys)
     local treePos = Vector(keys.tree_x,keys.tree_y,0)
-    local tree -- Figure out which tree was cut
-    for _,t in pairs(BuildingHelper.AllTrees) do
-        local pos = t:GetAbsOrigin()
-        if pos.x == treePos.x and pos.y == treePos.y then
-            tree = t
-            break
-        end
-    end
-
-    if not tree then
-        BuildingHelper:print("ERROR: OnTreeCut couldn't find a tree for pos "..treePos.x..","..treePos.y)
-        return
-    elseif tree.chopped_dummy then
-        UTIL_Remove(tree.chopped_dummy)
-    end
 
     -- Create a dummy for clients to be able to detect trees standing and block their grid
-    tree.chopped_dummy = CreateUnitByName("npc_dota_thinker", treePos, false, nil, nil, 0)
-    BuildingHelper.TreeDummies[tree:GetEntityIndex()] = tree.chopped_dummy
-
-    local tree_ability = tree.chopped_dummy:AddAbility("dummy_tree")
+    local tree_chopped = CreateUnitByName("npc_dota_thinker", treePos, false, nil, nil, 0)
+    tree_chopped:AddAbility("dummy_tree")
+    local tree_ability = tree_chopped:FindAbilityByName("dummy_tree")
     if not tree_ability then
         BuildingHelper:print("ERROR: dummy_tree ability is missing!")
     else
@@ -293,14 +225,6 @@ function BuildingHelper:OnTreeCut(keys)
     if not GridNav:IsBlocked(treePos) then
         BuildingHelper:FreeGridSquares(2, treePos)
     end
-
-    -- Remove the dummy, allowing the tree to regrow
-    Timers:CreateTimer(BuildingHelper.TreeRegrowTime, function()
-        if IsValidEntity(tree.chopped_dummy) then
-            BuildingHelper.TreeDummies[tree:GetEntityIndex()] = nil
-            UTIL_Remove(tree.chopped_dummy)
-        end
-    end)
 end
 
 function BuildingHelper:InitGNV()
@@ -409,8 +333,6 @@ function BuildingHelper:InitGNV()
     BuildingHelper.squareY = squareY
     BuildingHelper.minBoundX = boundX1
     BuildingHelper.minBoundY = boundY1
-
-    BuildingHelper.AllTrees = Entities:FindAllByClassname("ent_dota_tree")
 end
 
 function BuildingHelper:SendGNV(args)
@@ -424,26 +346,13 @@ function BuildingHelper:SendGNV(args)
     end
 end
 
--- Used to find the closest builder to a building location
-local GetClosestToPosition = function(unitList, position)
-    local t = {}
-    local distance = math.huge
-    local closest
-    for _,unit in pairs(unitList) do
-        local thisDistance = (unit:GetAbsOrigin()-position):Length2D()
-        if thisDistance < distance then
-            closest = unit
-            distance = thisDistance
-        end
-    end
-    return closest
-end
-
 --[[
     BuildCommand
     * Detects a Left Click with a builder through Panorama
 ]]--
 function BuildingHelper:BuildCommand(args)
+    print("BuildCommand!")
+
     local playerID = args['PlayerID']
     local x = args['X']
     local y = args['Y']
@@ -451,34 +360,14 @@ function BuildingHelper:BuildCommand(args)
     local location = Vector(x, y, z)
     local queue = args['Queue'] == 1
     local builder = EntIndexToHScript(args['builder']) --activeBuilder
-    local name = builder:GetUnitName()
-    local builders = {}
-    local idle_builders = {}
-    local entityList = PlayerResource:GetSelectedEntities(playerID)
-
-    -- Filter all the selected builders
-    for k,entIndex in pairs(entityList) do
-        local unit = EntIndexToHScript(entIndex)
-        if unit:GetUnitName() == name then
-            if unit:IsIdle() then
-                table.insert(idle_builders, unit)
-            end
-            table.insert(builders, unit)
-        end
-    end
-
-    -- First select from idle builders
-    if #idle_builders > 0 then
-        builder = GetClosestToPosition(idle_builders, location)
-    else
-        builder = GetClosestToPosition(builders, location)
-    end
 
     -- Cancel current action
     if not queue then
-        ExecuteOrderFromTable({UnitIndex = builder:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_STOP, Queue = false}) 
+        print("Telling worker to stop!")
+        ExecuteOrderFromTable({ UnitIndex = args['builder'], OrderType = DOTA_UNIT_ORDER_STOP, Queue = false}) 
     end
 
+    print("Adding build command to queue!")
     BuildingHelper:AddToQueue(builder, location, queue)
 end
 
@@ -487,38 +376,15 @@ end
     * Detects a Right Click/Tab with a builder through Panorama
 ]]--
 function BuildingHelper:CancelCommand(args)
-    local playerID = args.PlayerID
+    local playerID = args['PlayerID']
     local playerTable = BuildingHelper:GetPlayerTable(playerID)
     playerTable.activeBuilding = nil
 
-    local selectedEntities = PlayerResource:GetSelectedEntities(playerID)
-    for _,entityIndex in pairs(selectedEntities) do
-        local unit = EntIndexToHScript(entityIndex)
-        if IsBuilder(unit) then
-            BuildingHelper:ClearQueue(unit)
-        end
+    if not playerTable.activeBuilder or not IsValidEntity(playerTable.activeBuilder) then
+        return
     end
-end
 
-function BuildingHelper:RepairCommand(args)
-    local playerID = args.PlayerID
-    local building = EntIndexToHScript(args.targetIndex)
-    local selectedEntities = PlayerResource:GetSelectedEntities(playerID)
-    local queue = tobool(args.queue)
-
-    for _,entityIndex in pairs(selectedEntities) do
-        local unit = EntIndexToHScript(entityIndex)
-
-        if IsBuilder(unit) then
-            -- Cancel current action
-            if not queue then
-                ExecuteOrderFromTable({UnitIndex = entityIndex, OrderType = DOTA_UNIT_ORDER_STOP, Queue = false}) 
-            end
-
-            -- Repair added to the queue
-            BuildingHelper:AddRepairToQueue(unit, building, queue)
-        end
-    end
+    BuildingHelper:ClearQueue(playerTable.activeBuilder)
 end
 
 function BuildingHelper:OnSelectionUpdate(event)
@@ -544,6 +410,8 @@ function BuildingHelper:OnSelectionUpdate(event)
 end
 
 function BuildingHelper:OrderFilter(order)
+    print("Inside OrderFilter")
+
     local ret = true    
 
     if BuildingHelper.nextFilter then
@@ -562,7 +430,6 @@ function BuildingHelper:OrderFilter(order)
     local order_type = order.order_type
     local units = order.units
     local abilityIndex = order.entindex_ability
-    local targetIndex = order.entindex_target
     local unit = nil
     if units["0"] then
         unit = EntIndexToHScript(units["0"])
@@ -589,38 +456,7 @@ function BuildingHelper:OrderFilter(order)
         if not IsBuildingAbility(ability) then
             BuildingHelper:ClearQueue(unit)
         end
-
-        -- Repair Multi Order
-        if order_type == DOTA_UNIT_ORDER_CAST_TARGET and BuildingHelper:GetRepairAbility(unit) then
-            local ability = EntIndexToHScript(abilityIndex) 
-            local abilityName = ability:GetAbilityName()
-            local target_handle = EntIndexToHScript(targetIndex)
-            local target_name = target_handle:GetUnitName()
-            
-            if self:OnPreRepair(target_handle, unit) then
-                self:print("Order: Repair "..target_handle:GetUnitName())
-
-                -- Get the currently selected units and send new orders
-                local entityList = PlayerResource:GetSelectedEntities(unit:GetPlayerOwnerID())
-                if not entityList or #entityList == 1 then return true end
-
-                for k,entityIndex in pairs(entityList) do
-                    local ent = EntIndexToHScript(entityIndex)
-                    local repair_ability = BuildingHelper:GetRepairAbility(ent)
-                    if ent ~= unit and repair_ability then
-                        if repair_ability:IsHidden() and ent.ReturnAbility then -- Swap to the repair ability
-                            ent:SwapAbilities(repair_ability:GetAbilityName(), ent.ReturnAbility:GetAbilityName(), true, false)
-                        end
-
-                        ent.skip = true
-                        BuildingHelper:print("Repair Multi Order "..target_handle:GetUnitName())
-                        ExecuteOrderFromTable({UnitIndex = entityIndex, OrderType = DOTA_UNIT_ORDER_CAST_TARGET, TargetIndex = targetIndex, AbilityIndex = repair_ability:GetEntityIndex(), Queue = queue})
-                    end
-                end
-            end
-        end
     end
-
 
     return ret
 end    
@@ -652,7 +488,7 @@ end
 ]]--
 function BuildingHelper:AddBuilding(keys)
     -- Callbacks
-    local callbacks = BuildingHelper:SetCallbacks(keys)
+    callbacks = BuildingHelper:SetCallbacks(keys)
     local builder = keys.caster
     local ability = keys.ability
     local abilName = ability:GetAbilityName()
@@ -676,7 +512,7 @@ function BuildingHelper:AddBuilding(keys)
     local fMaxScale = buildingTable:GetVal("MaxScale", "float")
     if not fMaxScale then
         -- If no MaxScale is defined, check the "ModelScale" KeyValue. Otherwise just default to 1
-        local fModelScale = GetUnitKV(unitName, "ModelScale")
+        local fModelScale = BuildingHelper.UnitKV[unitName].ModelScale
         if fModelScale then
           fMaxScale = fModelScale
         else
@@ -703,7 +539,7 @@ function BuildingHelper:AddBuilding(keys)
     playerTable.activeCallbacks = callbacks
 
     -- Offset Z on the model particle
-    event.modelOffset = GetUnitKV(unitName, "ModelOffset") or 0
+    event.modelOffset = BuildingHelper.UnitKV[unitName]["ModelOffset"] or 0
 
     -- npc_dota_creature doesn't render cosmetics on the particle ghost, use hero names instead
     local overrideGhost = buildingTable:GetVal("OverrideBuildingGhost", "string")
@@ -785,7 +621,7 @@ end
 ]]--
 function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
 
-    local buildingTable = GetKeyValue(abilityName)
+    local buildingTable = BuildingHelper.KV[abilityName]
 
     function buildingTable:GetVal(key, expectedType)
         local val = buildingTable[key]
@@ -836,7 +672,7 @@ function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
     end
 
     -- Ensure that the unit actually exists
-    local unitTable = GetUnitKV(unitName)
+    local unitTable = BuildingHelper.UnitKV[unitName]
     if not unitTable then
         BuildingHelper:print('Error: Definition for Unit ' .. unitName .. ' could not be found in the KeyValue files.')
         return
@@ -850,7 +686,7 @@ function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
     buildingTable:SetVal("ConstructionSize", construction_size)
 
     -- OverrideBuildingGhost
-    local override_ghost = GetUnitKV(unitName, "OverrideBuildingGhost")
+    local override_ghost = BuildingHelper.UnitKV[unitName]["OverrideBuildingGhost"]
     if override_ghost then
         buildingTable:SetVal("OverrideBuildingGhost", override_ghost)
     end
@@ -873,19 +709,19 @@ function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
     buildingTable:SetVal("BlockPathingSize", pathing_size)
 
     -- Pedestal Model
-    local pedestal_model = GetUnitKV(unitName, "PedestalModel")
+    local pedestal_model = BuildingHelper.UnitKV[unitName]["PedestalModel"]
     if pedestal_model then
         buildingTable:SetVal("PedestalModel", pedestal_model)
     end
 
     -- Pedestal Scale
-    local pedestal_scale = GetUnitKV(unitName, "PedestalModelScale")
+    local pedestal_scale = BuildingHelper.UnitKV[unitName]["PedestalModelScale"]
     if pedestal_scale then
         buildingTable:SetVal("PedestalModelScale", pedestal_scale)
     end
 
     -- Pedestal Offset
-    local pedestal_offset = GetUnitKV(unitName, "PedestalOffset")
+    local pedestal_offset = BuildingHelper.UnitKV[unitName]["PedestalOffset"]
     if pedestal_offset then
         buildingTable:SetVal("PedestalOffset", pedestal_offset)
     end
@@ -911,14 +747,14 @@ function BuildingHelper:SetupBuildingTable(abilityName, builderHandle)
     local fMaxScale = buildingTable:GetVal("MaxScale", "float")
     if not fMaxScale then
         -- If no MaxScale is defined, check the Units "ModelScale" KeyValue. Otherwise just default to 1
-        fMaxScale = GetUnitKV(unitName, "ModelScale") or 1
+        fMaxScale = BuildingHelper.UnitKV[unitName].ModelScale or 1
     end
     buildingTable:SetVal("MaxScale", fMaxScale)
 
     local fModelRotation = buildingTable:GetVal("ModelRotation", "float")
     if not fModelRotation then
         -- If no defined, check the Units KeyValue. Otherwise just default to 0
-        fModelRotation = GetUnitKV(unitName, "ModelRotation") or 0
+        fModelRotation = BuildingHelper.UnitKV[unitName].ModelRotation or 0
     end
     buildingTable:SetVal("ModelRotation", fModelRotation)
 
@@ -945,7 +781,7 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     local gridNavBlockers = BuildingHelper:BlockGridSquares(construction_size, pathing_size, location)
 
     -- Adjust the model position z
-    local model_offset = GetUnitKV(name, "ModelOffset") or 0
+    local model_offset = BuildingHelper.UnitKV[name]["ModelOffset"] or 0
     local model_location = Vector(location.x, location.y, location.z + model_offset)
 
     -- Spawn the building
@@ -958,7 +794,7 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     building.blockers = gridNavBlockers
 
     -- Disable turning. If DisableTurning unit KV setting is not defined, use the global setting
-    local disableTurning = GetUnitKV(name, "DisableTurning")
+    local disableTurning = BuildingHelper.UnitKV[name]["DisableTurning"]
     if not disableTurning then
         if BuildingHelper.Settings["DISABLE_BUILDING_TURNING"] then
             building:AddNewModifier(building, nil, "modifier_disable_turning", {})
@@ -968,7 +804,7 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     end
 
     -- Create pedestal
-    local pedestal = GetUnitKV(name, "PedestalModel")
+    local pedestal = BuildingHelper.UnitKV[name]["PedestalModel"]
     if pedestal then
         BuildingHelper:CreatePedestalForBuilding(building, name, GetGroundPosition(location, nil), pedestal)
     end
@@ -980,6 +816,8 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     if not building:HasAbility("ability_building") then
         building:AddAbility("ability_building")
     end
+
+    building.state = "complete"
 
     BuildingHelper:AddBuildingToPlayerTable(playerID, building)
 
@@ -996,9 +834,9 @@ function BuildingHelper:UpgradeBuilding(building, newName)
     BuildingHelper:print("Upgrading Building: "..oldBuildingName.." -> "..newName)
     local playerID = building:GetPlayerOwnerID()
     local position = building:GetAbsOrigin()
-    local angle = GetUnitKV(newName, "ModelRotation") or -building:GetAngles().y
+    local angle = BuildingHelper.UnitKV[newName]["ModelRotation"] or -building:GetAngles().y
     
-    local old_offset = GetUnitKV(oldBuildingName, "ModelOffset") or 0
+    local old_offset = BuildingHelper.UnitKV[oldBuildingName]["ModelOffset"] or 0
     position.z = position.z - old_offset
 
     -- Kill the old building
@@ -1007,18 +845,7 @@ function BuildingHelper:UpgradeBuilding(building, newName)
     building:ForceKill(true) --This will call RemoveBuilding
     
     -- Create the new building
-    local new_building = BuildingHelper:PlaceBuilding(playerID, newName, position, BuildingHelper:GetConstructionSize(newName), BuildingHelper:GetBlockPathingSize(newName), angle)
-
-    -- If there were units repairing the old building, redirect them to the new building
-    if building.units_repairing then
-        for _,builder in pairs(building.units_repairing) do
-            builder.repair_target = new_building
-        end
-    end
-    new_building.units_repairing = building.units_repairing
-    building.upgraded_to = new_building
-
-    return new_building
+    return BuildingHelper:PlaceBuilding(playerID, newName, position, BuildingHelper:GetConstructionSize(newName), BuildingHelper:GetBlockPathingSize(newName), angle)  
 end
 
 --[[
@@ -1031,7 +858,7 @@ function BuildingHelper:RemoveBuilding(building, bSkipEffects)
 
     -- Don't show the destruction effects when specified or killed to due UpgradeBuilding
     if not bSkipEffects and building.upgraded ~= true then
-        local particleName = building:GetKeyValue("DestructionEffect")
+        local particleName = BuildingHelper.UnitKV[building:GetUnitName()]["DestructionEffect"]
         if particleName then
             local particle = ParticleManager:CreateParticle(particleName, PATTACH_CUSTOMORIGIN, building)
             ParticleManager:SetParticleControlEnt(particle, 0, building, PATTACH_POINT_FOLLOW, "attach_origin", building:GetAbsOrigin(), true)
@@ -1052,17 +879,8 @@ function BuildingHelper:RemoveBuilding(building, bSkipEffects)
     local playerID = building:GetPlayerOwnerID()
     local buidingList = BuildingHelper:GetBuildings(playerID)
     local index = getIndexTable(buidingList, building)
-    if index then
-        table.remove(buidingList, index)
-        BuildingHelper:SetBuildingCount(playerID, buildingName, BuildingHelper:GetBuildingCount(playerID, buildingName)-1)
-    else
-        buildingList = BuildingHelper:GetBuildingsUnderConstruction(playerID)
-        index = getIndexTable(buildingList, building)
-        if index then
-            table.remove(buildingList, index)
-            BuildingHelper:SetBuildingCount(playerID, buildingName, BuildingHelper:GetBuildingCount(playerID, buildingName)-1)
-        end
-    end
+    if index then table.remove(buidingList, index) end
+    BuildingHelper:SetBuildingCount(playerID, buildingName, BuildingHelper:GetBuildingCount(playerID, buildingName)-1)
 
     if not building.blockers then return end
     for k, v in pairs(building.blockers) do
@@ -1075,6 +893,9 @@ end
       * Creates the building and starts the construction process
 ]]--
 function BuildingHelper:StartBuilding(builder)
+   -- EDITED
+   print("BH: StartBuilding called!")
+   -- DONE
     local playerID = builder:GetMainControllingPlayer()
     local work = builder.work
     local callbacks = work.callbacks
@@ -1121,26 +942,27 @@ function BuildingHelper:StartBuilding(builder)
     end
 
     -- Make pedestal
-    local pedestal = GetUnitKV(unitName, "PedestalModel")
+    local pedestal = BuildingHelper.UnitKV[unitName]["PedestalModel"]
     if pedestal then
         BuildingHelper:CreatePedestalForBuilding(building, unitName, location, pedestal)
     end
 
     -- Initialize the building
-    local model_offset = GetUnitKV(unitName, "ModelOffset") or 0
+    local model_offset = BuildingHelper.UnitKV[unitName]["ModelOffset"] or 0
     location.z = location.z + model_offset
     building:SetAbsOrigin(location)
     building.blockers = gridNavBlockers
     building.construction_size = construction_size
     building.buildingTable = buildingTable
-    self:AddBuildingToPlayerTable(playerID, building, true)
+    building.state = "building"
+    function building:IsUnderConstruction() return true end
 
     -- Adjust the Model Orientation
     local yaw = buildingTable:GetVal("ModelRotation", "float")
     building:SetAngles(0, -yaw, 0)
 
     -- Disable turning
-    if GetUnitKV(unitName, "DisableTurning")==1 or BuildingHelper.Settings["DISABLE_BUILDING_TURNING"] then
+    if BuildingHelper.UnitKV[unitName]["DisableTurning"]==1 or BuildingHelper.Settings["DISABLE_BUILDING_TURNING"] then
         building:AddNewModifier(building, nil, "modifier_disable_turning", {})
     end
 
@@ -1171,12 +993,8 @@ function BuildingHelper:StartBuilding(builder)
     end
 
     -- buildTime can be overriden in the construction start callback
-    local buildTime = buildingTable:GetVal("BuildTime", "float")
-    building.buildTime = buildTime
-    if building.overrideBuildTime then buildTime = building.overrideBuildTime end
-
-    local startTime = GameRules:GetGameTime()
-    local fTimeBuildingCompleted = startTime+buildTime -- the gametime when the building should be completed
+    local buildTime = building.overrideBuildTime or buildingTable:GetVal("BuildTime", "float")
+    local fTimeBuildingCompleted = GameRules:GetGameTime()+buildTime -- the gametime when the building should be completed
 
     -- Dota server updates at 30 frames per second
     local fserverFrameRate = 1/30
@@ -1185,8 +1003,9 @@ function BuildingHelper:StartBuilding(builder)
     local fMaxHealth = building:GetMaxHealth()
     local fInitialHealthFactor = BuildingHelper.Settings["INITIAL_HEALTH_FACTOR"]
     local nInitialHealth = math.floor(fInitialHealthFactor * (fMaxHealth))
-    local fUpdateHealthInterval = math.max(fserverFrameRate, buildTime / math.floor(fMaxHealth-nInitialHealth)) -- health tick interval
+    local fUpdateHealthInterval = buildTime / math.floor(fMaxHealth-nInitialHealth) -- health to add every tick until build time is completed.
     building:SetHealth(nInitialHealth)
+    building.bUpdatingHealth = true
 
     local bScale = buildingTable:GetVal("Scale", "bool") -- whether we should scale the building.
     local fInitialModelScale = 0.2 -- initial size
@@ -1206,8 +1025,15 @@ function BuildingHelper:StartBuilding(builder)
         BuildingHelper:HideBuilder(builder, location, building)
     end
 
-    -- Health Update Timer and Behaviors
-    if not bRequiresRepair then
+     -- Health Update Timer and Behaviors
+    -- If BuildTime*30 > Health, the tick would be faster than 1 frame, adjust the HP gained per frame (This doesn't work well with repair)
+    -- Otherwise just add 1 health each frame.
+    if fUpdateHealthInterval <= fserverFrameRate then
+
+        BuildingHelper:print("Building needs float adjust")
+        if bRequiresRepair then
+            BuildingHelper:print("Error: Don't use Repair with fast-ticking buildings!")
+        end
 
         if not bBuilderInside then
             -- Advance Queue
@@ -1215,52 +1041,39 @@ function BuildingHelper:StartBuilding(builder)
         end
 
         local fAddedHealth = 0
-        local nHealthInterval = (fMaxHealth-nInitialHealth) / (buildTime / fserverFrameRate)
+        local nHealthInterval = fMaxHealth / (buildTime / fserverFrameRate)
         local fSmallHealthInterval = nHealthInterval - math.floor(nHealthInterval) -- just the floating point component
         nHealthInterval = math.floor(nHealthInterval)
         local fHPAdjustment = 0
 
         building.updateHealthTimer = Timers:CreateTimer(function()
             if IsValidEntity(building) and building:IsAlive() then
-                local timesUp = GameRules:GetGameTime() >= fTimeBuildingCompleted or building:GetHealth() == building:GetMaxHealth()
+                local timesUp = GameRules:GetGameTime() >= fTimeBuildingCompleted
                 if not timesUp then
-                    -- Use +1 every frame or float adjustment
-                    local hpGain = 0
-                    if fUpdateHealthInterval <= fserverFrameRate then
+                    if building.bUpdatingHealth then
                         fHPAdjustment = fHPAdjustment + fSmallHealthInterval
                         if fHPAdjustment > 1 then
-                            hpGain = nHealthInterval + 1
+                            building:SetHealth(building:GetHealth() + nHealthInterval + 1)
                             fHPAdjustment = fHPAdjustment - 1
+                            fAddedHealth = fAddedHealth + nHealthInterval + 1
                         else
-                            hpGain = nHealthInterval
+                            building:SetHealth(building:GetHealth() + nHealthInterval)
+                            fAddedHealth = fAddedHealth + nHealthInterval
                         end
-                    else
-                        hpGain = 1
-                    end
-
-                    -- Fasten up
-                    if GameRules.WarpTen then
-                        hpGain = hpGain * 42
-                    end
-
-                    if hpGain > 0 then
-                        fAddedHealth = fAddedHealth + hpGain
-                        building:SetHealth(building:GetHealth() + hpGain)
                     end
                 else
-                    local adjustment = fMaxHealth - fAddedHealth - nInitialHealth
-                    if adjustment > 0 then
-                        building:SetHealth(building:GetHealth() + fMaxHealth - fAddedHealth - nInitialHealth) -- round up the last little bit
-                    end
-                    BuildingHelper:print(string.format("Finished %s in %.2f seconds. HP was off by %.2f",building:GetUnitName(),GameRules:GetGameTime()-startTime,adjustment))
+                    building:SetHealth(building:GetHealth() + fMaxHealth - fAddedHealth) -- round up the last little bit
 
-                    -- completion: timesUp is true
+                     -- completion: timesUp is true
                     if callbacks.onConstructionCompleted then
                         building.constructionCompleted = true
+                        building.state = "complete"
                         building.builder = builder
-                        BuildingHelper:AddBuildingToPlayerTable(playerID, building)
                         callbacks.onConstructionCompleted(building)
+                        BuildingHelper:AddBuildingToPlayerTable(playerID, building)
                     end
+                    
+                    BuildingHelper:print("HP was off by: ".. fMaxHealth - fAddedHealth)
 
                     -- Eject Builder
                     if bBuilderInside then
@@ -1273,7 +1086,7 @@ function BuildingHelper:StartBuilding(builder)
                         end
 
                         -- Advance Queue
-                        BuildingHelper:AdvanceQueue(builder)
+                        BuildingHelper:AdvanceQueue(builder)           
                     end
                 
                     return
@@ -1292,19 +1105,99 @@ function BuildingHelper:StartBuilding(builder)
 
                 return nil
             end
+            return fserverFrameRate
+        end)
+    
+    elseif not bRequiresRepair then
+
+        if not bBuilderInside then
+            -- Advance Queue
+            BuildingHelper:AdvanceQueue(builder)
+        end
+
+        building.updateHealthTimer = Timers:CreateTimer(function()
+            if IsValidEntity(building) and building:IsAlive() then
+                local timesUp = GameRules:GetGameTime() >= fTimeBuildingCompleted
+                if not timesUp then
+                    if building.bUpdatingHealth then
+                        if building:GetHealth() < fMaxHealth then
+                            building:SetHealth(building:GetHealth() + 1)
+                        else
+                            building.bUpdatingHealth = false
+                        end
+                    end
+                else
+                    -- completion: timesUp is true
+                    if callbacks.onConstructionCompleted then
+                        building.constructionCompleted = true
+                        building.state = "complete"
+                        building.builder = builder
+                        callbacks.onConstructionCompleted(building)
+                        BuildingHelper:AddBuildingToPlayerTable(playerID, building)
+                    end
+
+                    -- Eject Builder
+                    if bBuilderInside then
+                    
+                        -- Consume Builder
+                        if bConsumesBuilder then
+                            builder:ForceKill(true)
+                        else
+                            BuildingHelper:ShowBuilder(builder)
+                        end
+
+                        -- Advance Queue
+                        BuildingHelper:AdvanceQueue(builder)           
+                    end
+                    
+                    return
+                end
+            else
+                -- Building destroyed
+
+                -- Eject Builder
+                if bBuilderInside then
+                    builder:RemoveModifierByName("modifier_builder_hidden")
+                    builder:RemoveNoDraw()
+                end
+
+                -- Advance Queue
+                BuildingHelper:AdvanceQueue(builder)
+
+                return nil
+            end
+
+            -- Update health every frame
             return fUpdateHealthInterval
-        end)    
+        end)
+    
     else
+
         -- The building will have to be assisted through a repair ability
         local repair_ability = BuildingHelper:GetRepairAbility(builder)
         if repair_ability then
-            self:print("Building "..building:GetUnitName().." will be constructed using RepairAbility")
-            building.repair_distance = (builder:GetAbsOrigin() - building:GetAbsOrigin()):Length2D() -- To instantly start repairing
-            building.callbacks = callbacks
-            BuildingHelper:StartRepair(builder, building)
-        else
-            self:print("Error, couldn't find \"RepairAbility\" of "..builder:GetUnitName())
+            builder:CastAbilityOnTarget(building, repair_ability, playerID)
         end
+
+        building.updateHealthTimer = Timers:CreateTimer(function()
+            if IsValidEntity(building) then
+                if building.constructionCompleted then --This is set on the repair ability when the builders have restored the necessary health
+                    if callbacks.onConstructionCompleted and building:IsAlive() then
+                        callbacks.onConstructionCompleted(building)
+                    end
+
+                     -- Finished repair-construction
+                    BuildingHelper:AdvanceQueue(builder)
+
+                    building.state = "complete"
+
+                    BuildingHelper:AddBuildingToPlayerTable(playerID, building)
+                    return
+                else
+                    return 0.1
+                end
+            end
+        end)
     end
 
     -- Scale Update Timer
@@ -1340,8 +1233,7 @@ function BuildingHelper:StartBuilding(builder)
     -- OnBelowHalfHealth timer
     building.onBelowHalfHealthProc = false
     building.healthChecker = Timers:CreateTimer(.2, function()
-        local fireEffect = GetUnitKV(unitName, "FireEffect")
-        local attachPoint = GetUnitKV(unitName, "AttachPoint")
+        local fireEffect = BuildingHelper.KV[unitName]["FireEffect"]
 
         if IsValidEntity(building) and building:IsAlive() then
             local health_percentage = building:GetHealthPercent() * 0.01
@@ -1349,9 +1241,9 @@ function BuildingHelper:StartBuilding(builder)
             if belowThreshold and not building.onBelowHalfHealthProc and building.state == "complete" then
                 if fireEffect then
                     -- Fire particle
-                    if attachPoint then
+                    if BuildingHelper.KV[unitName]["AttachPoint"] then
                         building.fireEffectParticle = ParticleManager:CreateParticle(fireEffect, PATTACH_CUSTOMORIGIN_FOLLOW, building)
-                        ParticleManager:SetParticleControlEnt(building.fireEffectParticle, 0, building, PATTACH_POINT_FOLLOW, attachPoint, building:GetAbsOrigin(), true)
+                        ParticleManager:SetParticleControlEnt(building.fireEffectParticle, 0, building, PATTACH_POINT_FOLLOW, BuildingHelper.KV[unitName]["AttachPoint"], building:GetAbsOrigin(), true)
                     else
                         building.fireEffectParticle = ParticleManager:CreateParticle(fireEffect, PATTACH_ABSORIGIN_FOLLOW, building)
                     end
@@ -1375,244 +1267,6 @@ function BuildingHelper:StartBuilding(builder)
 
     -- Remove the work particles
     BuildingHelper:ClearWorkParticles(work)
-end
-
---[[
-      StartRepair
-      * Starts the repair process when the builder is on range of the target
-]]--
-function BuildingHelper:StartRepair(builder, target)
-    local work = builder.work
-    local underConstruction = IsCustomBuilding(target) and target:IsUnderConstruction() -- For RequiresRepair building behaviour
-    
-    -- Check target and cancel if invalid
-    local repair_ability = BuildingHelper:GetRepairAbility(builder)
-    if underConstruction and repair_ability and not repair_ability:GetKeyValue("CanAssistConstruction") then
-        self:print("The Repair Ability "..repair_ability:GetAbilityName().." can't be used to assist construction! Cancelling")
-
-        -- Advance Queue
-        BuildingHelper:AdvanceQueue(builder)
-
-        BuildingHelper:OnRepairCancelled(builder, target)
-        return
-    end
-
-    -- External repair callback
-    self:OnRepairStarted(builder, target)
-
-    -- Initialize builder list
-    target.units_repairing = target.units_repairing or {}
-    table.insert(target.units_repairing, builder)
-    builder.repair_target = target
-
-    local buildTime = target.buildTime or target:GetKeyValue("BuildTime")
-    local costRatio = repair_ability and repair_ability:GetKeyValue("RepairCostRatio") or BuildingHelper.Settings.REPAIR_SETTINGS["RepairCostRatio"]
-    local timeRatio = repair_ability and repair_ability:GetKeyValue("RepairTimeRatio") or BuildingHelper.Settings.REPAIR_SETTINGS["RepairTimeRatio"]
-    local powerBuildCost = repair_ability and repair_ability:GetKeyValue("PowerbuildCost") or BuildingHelper.Settings.REPAIR_SETTINGS["PowerbuildCost"]
-    local powerBuildRate = repair_ability and repair_ability:GetKeyValue("PowerbuildRate") or BuildingHelper.Settings.REPAIR_SETTINGS["PowerbuildRate"]
-
-    -- C++ -> Lua Double nonsense
-    function correctFloat(f) return tonumber(string.format("%.4f", f)) end
-    timeRatio = correctFloat(timeRatio)
-    costRatio = correctFloat(costRatio)
-    powerBuildCost = correctFloat(powerBuildCost)
-    powerBuildRate = correctFloat(powerBuildRate)
-
-    local fserverFrameRate = 1/30
-    local fAddedHealth = 0
-    local fHPAdjustment = 0
-
-    local repairing = {}
-    for k,v in pairs(target.units_repairing) do
-        if IsValidEntity(v) and v:IsAlive() then
-            table.insert(repairing, v)
-        end
-    end
-    target.units_repairing = repairing
-
-    builder.state = "repairing"
-    builder.lastRepairPosition = builder:GetAbsOrigin()
-    builder:AddNewModifier(builder, repair_ability, "modifier_builder_repairing", {})
-    target:AddNewModifier(target, repair_ability, "modifier_repairing", {})
-    target:SetModifierStackCount("modifier_repairing", target, getTableCount(target.units_repairing))
-
-    -- If its an unfinished building, keep track of how much does it require to mark as finished
-    if underConstruction and not target.missingHealthToComplete then
-        target.missingHealthToComplete = target:GetHealthDeficit()
-    end
-
-    -- Repair Dynamic Tick
-    if not target.repairTimer then
-        target.repairTimer = Timers:CreateTimer(function()
-            local builderCount = 0
-            for k,v in pairs(target.units_repairing) do
-                if IsValidEntity(v) and v:IsAlive() then builderCount = builderCount + 1 end
-            end
-
-            if not IsValidEntity(target) or not target:IsAlive() then
-                if target and target.units_repairing and not target.upgraded then
-                    self:CancelRepair(target)
-                    return
-                end
-
-                -- Redirect in case of upgrade
-                if target.upgraded and target.units_repairing then
-                    target = target.upgraded_to
-                    if not IsValidEntity(repair_ability) then
-                        repair_ability = target.units_repairing[1]:GetRepairAbility()
-                    end
-                    if not IsValidEntity(repair_ability) then
-                        self:print("Something went wrong, couldn't get a RepairAbility on the first repairing unit")
-                    else
-                        target:AddNewModifier(target, repair_ability, "modifier_repairing", {})
-                    end
-                end
-            end
-
-            target:SetModifierStackCount("modifier_repairing", target, builderCount)
-            if builderCount == 0 then
-                self:CancelRepair(target)
-                return
-            end
-
-            -- Finished repairing?
-            local health_deficit = target.missingHealthToComplete or target:GetHealthDeficit()
-            if health_deficit <= 0 then
-                target.missingHealthToComplete = nil
-                self:CancelRepair(target)
-
-                if target.callbacks and target.callbacks.onConstructionCompleted then
-                    target.constructionCompleted = true
-                    BuildingHelper:AddBuildingToPlayerTable(target:GetPlayerOwnerID(), target)
-                    target.callbacks.onConstructionCompleted(target)
-                end
-
-                self:OnRepairFinished(builder, target)
-                return
-            end
-
-            -- Builders must be stopped and close to the target to count and heal hitpoints
-            builderCount = BuildingHelper:GetNumBuildersRepairing(target)
-            if builderCount == 0 then return fserverFrameRate end
-
-            local buildTimeFactor = timeRatio*(powerBuildRate^(builderCount-1))
-            local nextTick = (buildTime*buildTimeFactor)/target:GetMaxHealth()
-            local hpGain = 0
-
-            -- Calculate the HP to be gained on this tick
-            if nextTick > fserverFrameRate then
-                hpGain = 1
-            else
-                local nHealthInterval = target:GetMaxHealth() / (buildTime*buildTimeFactor / fserverFrameRate)
-                local fSmallHealthInterval = nHealthInterval - math.floor(nHealthInterval) --floating point component
-                nHealthInterval = math.floor(nHealthInterval)
-
-                -- How much HP do we add this frame?
-                fHPAdjustment = fHPAdjustment + fSmallHealthInterval
-                if fHPAdjustment > 1 then
-                    fHPAdjustment = fHPAdjustment - 1
-                    hpGain = nHealthInterval + 1
-                elseif nHealthInterval > 0 then
-                    hpGain = nHealthInterval
-                end
-
-                nextTick = fserverFrameRate
-            end
-
-            local buildCostFactor = costRatio + powerBuildCost*(builderCount-1)
-
-            -- Don't expend resources for the first unit repairing a building if its a construction
-            if underConstruction then
-                if builderCount == 1 then
-                    buildCostFactor = 0
-                else
-                    buildCostFactor = costRatio + powerBuildCost*(builderCount-2)
-                end
-            end
-
-            -- Fasten up
-            if GameRules.WarpTen then
-                hpGain = hpGain * 42
-                buildCostFactor = buildCostFactor * 42
-            end
-            
-            if hpGain > 0 then
-                if target.missingHealthToComplete then
-                    target.missingHealthToComplete = target.missingHealthToComplete - hpGain
-                end
-                local bCanPayResource = true
-                if buildCostFactor > 0 then
-                    bCanPayResource = self:OnRepairTick(target, hpGain, buildCostFactor) ~= false
-                end
-                
-                if bCanPayResource then
-                    self:print("Repaired "..target:GetUnitName().." with "..builderCount.." builders for "..hpGain.." | Time Factor: "..buildTimeFactor.." | Cost Factor: "..buildCostFactor)
-                    target:SetHealth(target:GetHealth() + hpGain)
-                else
-                    self:print("Repair Ended, not enough resources!")
-                    self:CancelRepair(target)
-                    return
-                end
-            end
-
-            return nextTick
-        end)
-    end
-end
-
-function BuildingHelper:GetNumBuildersRepairing(target)
-    if not target.units_repairing then return 0 end
-
-    local targetPos = target:GetAbsOrigin()
-    local numReparing = 0
-    for _,unit in pairs(target.units_repairing) do
-        if IsValidEntity(unit) then
-            local currentPos = unit:GetAbsOrigin()
-            if not unit.lastRepairPosition then
-                unit.lastRepairPosition = currentPos
-                unit.state = "repairing"
-                numReparing = numReparing + 1
-            else
-                local changedPosition = (unit.lastRepairPosition-currentPos):Length2D() > 1
-                if changedPosition or (targetPos-currentPos):Length2D() > unit:GetFollowRange(target) then
-                    unit.state = "moving_to_repair"
-                    unit:MoveToNPC(target)
-                else
-                    unit.state = "repairing"
-                    numReparing = numReparing + 1
-                end
-                unit.lastRepairPosition = currentPos
-            end
-        end
-    end
-    return numReparing
-end
-
-function BuildingHelper:CancelRepair(building)
-    building.repairTimer = nil
-    if building.units_repairing == nil then return end
-    for k,v in pairs(building.units_repairing) do
-        if IsValidEntity(v) and v:IsAlive() then
-            v:RemoveModifierByName("modifier_builder_repairing")
-            local repair_ability = BuildingHelper:GetRepairAbility(v)
-            if repair_ability and repair_ability:GetToggleState() then
-                repair_ability:ToggleAbility()
-            end
-            v.state = "idle"
-            if IsValidEntity(building) then
-                self:OnRepairCancelled(v, building)
-            end
-            BuildingHelper:AdvanceQueue(v)
-        end
-    end
-    building.units_repairing = {}
-
-    if IsValidEntity(building) then
-        building:RemoveModifierByName("modifier_repairing")
-        self:print("Repair of "..building:GetUnitName().." fully cancelled")
-    else
-        self:print("Building removed during the repair process")
-    end
 end
 
 --[[
@@ -1861,7 +1515,7 @@ function BuildingHelper:ValidPosition(size, location, unit, callbacks)
     -- Check for special requirement
     local playerTable = BuildingHelper:GetPlayerTable(unit:GetPlayerOwnerID())
     local buildingName = playerTable.activeBuilding
-    local buildingTable = buildingName and GetUnitKV(buildingName)
+    local buildingTable = buildingName and BuildingHelper.UnitKV[buildingName]
     local requires = buildingTable and buildingTable["Requires"]
     local prevents = buildingTable and buildingTable["Prevents"]
 
@@ -1923,8 +1577,8 @@ function BuildingHelper:EnemyIsInsideBuildingArea(enemy_location, building_locat
         return num < upper and num > lower
     end
 
-    local betweenX = between(eBounds.Min.x, bBounds.Min.x, bBounds.Max.x) or between(eBounds.Max.x, bBounds.Min.x, bBounds.Max.x) or between(enemy_location.x,bBounds.Min.x,bBounds.Max.x)
-    local betweenY = between(eBounds.Min.y, bBounds.Min.y, bBounds.Max.y) or between(eBounds.Max.y, bBounds.Min.y, bBounds.Max.y) or between(enemy_location.y,bBounds.Min.y,bBounds.Max.y)
+    local betweenX = between(eBounds.Min.x, bBounds.Min.x, bBounds.Max.x) or between(eBounds.Max.x, bBounds.Min.x, bBounds.Max.x)
+    local betweenY = between(eBounds.Min.y, bBounds.Min.y, bBounds.Max.y) or between(eBounds.Max.y, bBounds.Min.y, bBounds.Max.y)
 
     return betweenX and betweenY
 end
@@ -1991,6 +1645,7 @@ function BuildingHelper:AreaMeetsCriteria(size, location, grid_type, option)
     end
 end
 
+
 --[[
     AddToQueue
     * Adds a location to the builders work queue
@@ -2042,7 +1697,7 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
 
     else
         -- Adjust the model position z
-        local model_offset = GetUnitKV(buildingName, "ModelOffset") or 0
+        local model_offset = BuildingHelper.UnitKV[buildingName]["ModelOffset"] or 0
         local model_location = Vector(location.x, location.y, location.z + model_offset)
 
         -- npc_dota_creature doesn't render cosmetics on the particle ghost, use hero names instead
@@ -2056,13 +1711,12 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
             -- Create the building entity that will be used to start construction and project the queue particles
             entity = CreateUnitByName(unitName, model_location, false, nil, nil, builder:GetTeam())
             entity:SetNeverMoveToClearSpace(true)
-            function entity:IsUnderConstruction() return true end
         end
         entity:AddEffects(EF_NODRAW)
         entity:AddNewModifier(entity, nil, "modifier_out_of_world", {})
         work.entity = entity
 
-        local modelParticle = ParticleManager:CreateParticleForPlayer("particles/buildinghelper/ghost_model.vpcf", PATTACH_CUSTOMORIGIN, nil, player)
+        local modelParticle = ParticleManager:CreateParticleForPlayer("particles/buildinghelper/ghost_model.vpcf", PATTACH_ABSORIGIN, entity, player)
         ParticleManager:SetParticleControl(modelParticle, 0, model_location)
         ParticleManager:SetParticleControlEnt(modelParticle, 1, entity, 1, "attach_hitloc", entity:GetAbsOrigin(), true) -- Model attach          
         ParticleManager:SetParticleControl(modelParticle, 3, Vector(BuildingHelper.Settings["MODEL_ALPHA"],0,0)) -- Alpha
@@ -2081,7 +1735,7 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
             local offset_location = Vector(location.x, location.y, location.z + offset)
 
             prop:AddEffects(EF_NODRAW)
-            prop.pedestalParticle = ParticleManager:CreateParticleForPlayer("particles/buildinghelper/ghost_model.vpcf", PATTACH_CUSTOMORIGIN, nil, player)
+            prop.pedestalParticle = ParticleManager:CreateParticleForPlayer("particles/buildinghelper/ghost_model.vpcf", PATTACH_ABSORIGIN, prop, player)
             ParticleManager:SetParticleControl(prop.pedestalParticle, 0, offset_location)
             ParticleManager:SetParticleControlEnt(prop.pedestalParticle, 1, prop, 1, "attach_hitloc", prop:GetAbsOrigin(), true) -- Model attach
             ParticleManager:SetParticleControl(prop.pedestalParticle, 2, color) -- Color
@@ -2106,55 +1760,14 @@ function BuildingHelper:AddToQueue(builder, location, bQueued)
         -- Extra check for builder-inside behaviour, those abilities are always queued
         if builder.work == nil and not builder:HasModifier("modifier_builder_hidden") and not (builder.state == "repairing" or builder.state == "moving_to_repair") then
             builder.work = builder.buildingQueue[1]
-            BuildingHelper:print("Builder doesn't have work to do, start right away")
             BuildingHelper:AdvanceQueue(builder)
+	        if not builder.work then print("builder.work is nil!") end
+
+            --BuildingHelper:print("Builder doesn't have work to do, start right away")
         else
-            BuildingHelper:print("Work was queued, builder already has work to do")
-            BuildingHelper:PrintQueue(builder)
+            --BuildingHelper:print("Work was queued, builder already has work to do")
+            BuildingHelper:printQueue(builder)
         end
-    end
-end
-
---[[
-    AddRepairToQueue
-    * Adds a repair to the builders work queue
-    * bQueued will be true if the command was done with shift pressed
-    * If bQueued is false, the queue is cleared and this repair is put on top
-]]--
-function BuildingHelper:AddRepairToQueue(builder, building, bQueued)
-    -- External pre repair checks
-    local bResult = self:OnPreRepair(builder, building)
-    if bResult == false then return end
-
-    local playerID = builder:GetMainControllingPlayer()
-    local player = PlayerResource:GetPlayer(playerID)
-    local playerTable = BuildingHelper:GetPlayerTable(playerID)
-    local buildingName = building:GetUnitName()
-    local buildingTable = playerTable.activeBuildingTable
-    local callbacks = playerTable.activeCallbacks
-
-    BuildingHelper:print("AddRepairToQueue "..builder:GetUnitName().." "..builder:GetEntityIndex().." -> building "..building:GetUnitName())
-    
-    -- Make the new work entry
-    local work = {["building"] = building, ["name"] = buildingName, ["buildingTable"] = buildingTable, ["callbacks"] = callbacks}
-
-    -- If the ability wasn't queued, override the building queue
-    if not bQueued then
-        BuildingHelper:ClearQueue(builder)
-    end
-
-    -- Add this to the builder queue
-    table.insert(builder.buildingQueue, work)
-
-    -- If the builder doesn't have a current work, start the queue
-    -- Extra check for builder-inside behaviour, those abilities are always queued
-    if builder.work == nil and not builder:HasModifier("modifier_builder_hidden") and not (builder.state == "repairing" or builder.state == "moving_to_repair") then
-        builder.work = builder.buildingQueue[1]
-        BuildingHelper:print("Builder doesn't have work to do, start moving to repair right away")
-        BuildingHelper:AdvanceQueue(builder)
-    else
-        BuildingHelper:print("Repair Work was queued, builder already has work to do")
-        BuildingHelper:PrintQueue(builder)
     end
 end
 
@@ -2163,89 +1776,54 @@ end
       * Processes an item of the builders work queue
 ]]--
 function BuildingHelper:AdvanceQueue(builder)
-    if (builder.move_to_build_timer) then Timers:RemoveTimer(builder.move_to_build_timer) end
+    print("AdvanceQueue called!")
+
+    if (builder.move_to_build_timer) then 
+        Timers:RemoveTimer(builder.move_to_build_timer) 
+    end
 
     if builder.buildingQueue and #builder.buildingQueue > 0 then
-        BuildingHelper:PrintQueue(builder)
+        BuildingHelper:printQueue(builder)
 
         local work = builder.buildingQueue[1]
         table.remove(builder.buildingQueue, 1) --Pop
 
-        if work.building then
-            -- Repair Queued
-            if not IsValidEntity(work.building) or not work.building:IsAlive() then
-                self:print("Queued Repair "..work.name.." but it was removed, continue with the queue")
-                self:AdvanceQueue(builder)                
+        local buildingTable = work.buildingTable
+        local castRange = buildingTable:GetVal("AbilityCastRange", "number")
+        local callbacks = work.callbacks
+        local location = work.location
+        builder.work = work
+
+        -- Move towards the point at cast range
+        ExecuteOrderFromTable({ UnitIndex = builder:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION, Position = location, Queue = false}) 
+        builder.move_to_build_timer = Timers:CreateTimer(0.03, function()
+            builder:MoveToPosition(location)
+            if not IsValidEntity(builder) or not builder:IsAlive() then return end
+            builder.state = "moving_to_build"
+
+            local distance = (location - builder:GetAbsOrigin()):Length2D()
+            if distance > castRange then
+                return 0.03
             else
-                local building = work.building
-                local callbacks = work.callbacks
-                local castRange = builder:GetFollowRange(building)
-                if building.repair_distance then castRange = math.max(building.repair_distance, castRange) end
-                builder.work = work
-                builder.repair_target = building
-                builder.state = "moving_to_repair"
-
-                self:print("AdvanceQueue: Repair "..work.name.." "..work.building:GetEntityIndex())
-
-                -- Move towards the building until close range
-                ExecuteOrderFromTable({UnitIndex = builder:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_MOVE_TO_TARGET, TargetIndex = building:GetEntityIndex(), Queue = false}) 
-                builder.move_to_build_timer = Timers:CreateTimer(function()
-                    if not IsValidEntity(builder) or not builder:IsAlive() then return end -- End if killed
-                    if not IsValidEntity(building) or not building:IsAlive() then return end -- End if killed
-                    
-                    local distance = (building:GetAbsOrigin() - builder:GetAbsOrigin()):Length()
-                    if distance > castRange then
-                        return 0.03
-                    else
-                        self:print("Reached building, start the Repair process!")
-                        --builder:Stop()
-                        
-                        builder.repairRange = castRange
-                        BuildingHelper:StartRepair(builder, building)
-                        return
+                builder:Stop()
+                
+                -- Self placement goes directly to the OnConstructionStarted callback
+                if work.name == builder:GetUnitName() then
+                    local callbacks = work.callbacks
+                    if callbacks.onConstructionStarted then
+                        callbacks.onConstructionStarted(builder)
                     end
-                end)
-            end
-        else
-            -- Construction Queued
-            local buildingTable = work.buildingTable
-            local castRange = buildingTable:GetVal("AbilityCastRange", "number")
-            local callbacks = work.callbacks
-            local location = work.location
-            builder.work = work
 
-            -- Move towards the point at cast range
-            ExecuteOrderFromTable({ UnitIndex = builder:GetEntityIndex(), OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION, Position = location, Queue = false}) 
-            builder.move_to_build_timer = Timers:CreateTimer(0.03, function()
-                builder:MoveToPosition(location)
-                if not IsValidEntity(builder) or not builder:IsAlive() then return end
-                builder.state = "moving_to_build"
-
-                local distance = (location - builder:GetAbsOrigin()):Length2D()
-                if distance > castRange then
-                    return 0.03
                 else
-                    builder:Stop()
-                    
-                    -- Self placement goes directly to the OnConstructionStarted callback
-                    if work.name == builder:GetUnitName() then
-                        local callbacks = work.callbacks
-                        if callbacks.onConstructionStarted then
-                            callbacks.onConstructionStarted(builder)
-                        end
-
-                    else
-                        BuildingHelper:StartBuilding(builder)
-                    end
-                    return
+                    BuildingHelper:StartBuilding(builder)
                 end
-            end)
-        end
+                return
+            end
+        end)  
     else
         -- Set the builder work to nil to accept next work directly
         BuildingHelper:print("Builder "..builder:GetUnitName().." "..builder:GetEntityIndex().." finished its building Queue")
         builder.state = "idle"
-        builder.repair_target = nil
         builder.work = nil
     end
 end
@@ -2255,7 +1833,6 @@ end
     * Clear the build queue, the player right clicked
 ]]--
 function BuildingHelper:ClearQueue(builder)
-
     local work = builder.work
     builder.work = nil
     builder.state = "idle"
@@ -2263,24 +1840,8 @@ function BuildingHelper:ClearQueue(builder)
     BuildingHelper:StopGhost(builder)
 
     -- Clear movement
-    if builder.move_to_build_timer then Timers:RemoveTimer(builder.move_to_build_timer) end
-
-    -- Clear repair
-    if builder.repair_target then
-        local target = builder.repair_target
-        local index = getIndexTable(target.units_repairing, builder)
-        if index then
-            table.remove(target.units_repairing, index)
-            self:print("Builder stopped repairing, currently "..getTableCount(target.units_repairing).." left.")
-        end
-        builder.repair_target = nil
-        self:OnRepairCancelled(builder, target)
-    end
-
-    local repair_ability = self:GetRepairAbility(builder)
-    if repair_ability then
-        if repair_ability:GetToggleState() then repair_ability:ToggleAbility() end
-        builder:RemoveModifierByName("modifier_builder_repairing")
+    if builder.move_to_build_timer then
+        Timers:RemoveTimer(builder.move_to_build_timer)
     end
 
     -- Skip if there's nothing to clear
@@ -2293,7 +1854,7 @@ function BuildingHelper:ClearQueue(builder)
     -- Main work  
     if work then
         BuildingHelper:ClearWorkParticles(work)
-        if work.entity then BuildingHelper:RemoveEntity(work.entity.prop) end
+        BuildingHelper:RemoveEntity(work.entity.prop)
 
         -- Only refund work that hasn't been placed yet
         if not work.inProgress then
@@ -2301,7 +1862,7 @@ function BuildingHelper:ClearQueue(builder)
             work.refund = true
         end
 
-        if work.name and work.callbacks and work.callbacks.onConstructionCancelled then
+        if work.callbacks.onConstructionCancelled ~= nil then
             work.callbacks.onConstructionCancelled(work)
         end
     end
@@ -2311,13 +1872,11 @@ function BuildingHelper:ClearQueue(builder)
         work = builder.buildingQueue[1]
         work.refund = true --Refund this
         BuildingHelper:ClearWorkParticles(work)
-        if work.entity then
-            BuildingHelper:RemoveEntity(work.entity.prop)
-            BuildingHelper:RemoveEntity(work.entity)
-        end
+        BuildingHelper:RemoveEntity(work.entity.prop)
+        BuildingHelper:RemoveEntity(work.entity)
         table.remove(builder.buildingQueue, 1)
 
-        if work.name and work.callbacks.onConstructionCancelled then
+        if work.callbacks.onConstructionCancelled ~= nil then
             work.callbacks.onConstructionCancelled(work)
         end
     end
@@ -2331,7 +1890,7 @@ function BuildingHelper:RemoveEntity(ent)
 end
 
 function BuildingHelper:ClearWorkParticles(work)
-    if work.particleIndex then ParticleManager:DestroyParticle(work.particleIndex, true) end
+    ParticleManager:DestroyParticle(work.particleIndex, true)
     if work.propParticleIndex then ParticleManager:DestroyParticle(work.propParticleIndex, true) end
 end
 
@@ -2349,26 +1908,13 @@ end
     PrintQueue
     * Shows the current queued work for this builder
 ]]--
-function BuildingHelper:PrintQueue(builder)
+function BuildingHelper:printQueue(builder)
     BuildingHelper:print("Builder Queue of "..builder:GetUnitName().. " "..builder:GetEntityIndex())
     local buildingQueue = builder.buildingQueue
     for k,v in pairs(buildingQueue) do
-        if buildingQueue[k]["location"] then
-            BuildingHelper:print(" #"..k..": "..buildingQueue[k]["name"].." at "..VectorString(buildingQueue[k]["location"]))
-        elseif buildingQueue[k]["building"] then
-            BuildingHelper:print(" #"..k..": ".." repair "..buildingQueue[k]["name"])
-        end
+        BuildingHelper:print(" #"..k..": "..buildingQueue[k]["name"].." at "..VectorString(buildingQueue[k]["location"]))
     end
     BuildingHelper:print("------------------------------------")
-end
-
--- Toggles fast building/repairing cheat
-function BuildingHelper:WarpTen(bEnabled)
-    if bEnabled == nil then -- Toggle
-        GameRules.WarpTen = not GameRules.WarpTen
-    else
-        GameRules.WarpTen = bEnabled
-    end
 end
 
 function BuildingHelper:SnapToGrid(size, location)
@@ -2390,7 +1936,7 @@ function BuildingHelper:SnapToGrid32(coord)
 end
 
 function BuildingHelper:print(...)
-    if BuildingHelper.Settings["TESTING"] then
+    if BuildingHelper.Settings and BuildingHelper.Settings["TESTING"] then
         print('[BH] '.. ...)
     end
 end
@@ -2431,9 +1977,9 @@ function BuildingHelper:GetOrCreateProp(propName)
 end
 
 function BuildingHelper:CreatePedestalForBuilding(entity, buildingName, location, pedestalName)
-    local offset = GetUnitKV(buildingName, "PedestalOffset") or 0
+    local offset = BuildingHelper.UnitKV[buildingName]["PedestalOffset"] or 0
     local prop = SpawnEntityFromTableSynchronous("prop_dynamic", {model = pedestalName})
-    local scale = GetUnitKV(buildingName, "PedestalModelScale") or entity:GetModelScale()
+    local scale = BuildingHelper.UnitKV[buildingName]["PedestalModelScale"] or entity:GetModelScale()
     local offset_location = Vector(location.x, location.y, location.z + offset)
     prop:SetModelScale(scale)
     prop:SetAbsOrigin(offset_location)
@@ -2444,99 +1990,60 @@ end
 -- Retrieves the handle of the ability marked as "RepairAbility" on the unit key values
 function BuildingHelper:GetRepairAbility(unit)
     local unitName = unit:GetUnitName()
-    local abilityName = GetUnitKV(unitName, "RepairAbility")
-    if abilityName then
-        return unit:FindAbilityByName(abilityName)
+    local abilityName = BuildingHelper.UnitKV[unitName]["RepairAbility"]
+    if not abilityName then
+        BuildingHelper:print("Error, no \"RepairAbility\" KV defined for "..unitName)
+        return
+    end
+
+    local ability = unit:FindAbilityByName(abilityName)
+    if not ability then
+        BuildingHelper:print("Error, can't find "..abilityName.." on the builder "..unitName)
+        return
+    else
+        return ability
     end
 end
 
 -- Retrieves a list of all the buildings built by a player
 function BuildingHelper:GetBuildings(playerID)
-    local playerTable = self:GetPlayerTable(playerID)
+    local playerTable = BuildingHelper:GetPlayerTable(playerID)
     playerTable.BuildingHandles = playerTable.BuildingHandles or {}
     return playerTable.BuildingHandles
 end
 
-function BuildingHelper:GetBuildingsUnderConstruction(playerID)
-    local playerTable = self:GetPlayerTable(playerID)
-    playerTable.BuildingConstructionHandles = playerTable.BuildingConstructionHandles or {}
-    return playerTable.BuildingConstructionHandles
-end
-
--- This includes both buildings completed and under construction
-function BuildingHelper:GetAllBuildings(playerID)
-    local buildings = {}
-    local finished = self:GetBuildings(playerID)
-    local construction = self:GetBuildingsUnderConstruction(playerID) 
-    for k,v in pairs(finished) do
-        table.insert(buildings, v)
-    end
-    for k,v in pairs(construction) do
-        table.insert(buildings, v)
-    end
-    return buildings
-end
-
 -- Returns number of buildings by name of a player
-function BuildingHelper:GetBuildingCount(playerID, buildingName, bIncludeUnderConstruction)
-    local playerTable = self:GetPlayerTable(playerID)
+function BuildingHelper:GetBuildingCount(playerID, buildingName)
+    local playerTable = BuildingHelper:GetPlayerTable(playerID)
     playerTable.BuildingCount = playerTable.BuildingCount or {}
     playerTable.BuildingCount[buildingName] = playerTable.BuildingCount[buildingName] or 0
-    local count = playerTable.BuildingCount[buildingName]
-    if bIncludeUnderConstruction then
-        playerTable.BuildingConstructionCount = playerTable.BuildingConstructionCount or {}
-        playerTable.BuildingConstructionCount[buildingName] = playerTable.BuildingConstructionCount[buildingName] or 0
-        count = count + playerTable.BuildingConstructionCount[buildingName]
-    end
-    return count
+    return playerTable.BuildingCount[buildingName]
 end
 
 -- Sets the number of buildings by name of a player
-function BuildingHelper:SetBuildingCount(playerID, buildingName, number, bUnderConstruction)
-    local playerTable = self:GetPlayerTable(playerID)
-    if bUnderConstruction then
-        playerTable.BuildingConstructionCount = playerTable.BuildingConstructionCount or {}
-        playerTable.BuildingConstructionCount[buildingName] = number
-    else
-        playerTable.BuildingCount = playerTable.BuildingCount or {}
-        playerTable.BuildingCount[buildingName] = number
-    end
+function BuildingHelper:SetBuildingCount(playerID, buildingName, number)
+    local playerTable = BuildingHelper:GetPlayerTable(playerID)
+    playerTable.BuildingCount = playerTable.BuildingCount or {}
+    playerTable.BuildingCount[buildingName] = number
 end
 
 -- Store handle and increment count tracking
-function BuildingHelper:AddBuildingToPlayerTable(playerID, building, bUnderConstruction)
+function BuildingHelper:AddBuildingToPlayerTable(playerID, building)
     local buildingName = building:GetUnitName()
-    if bUnderConstruction then
-        building.state = "building"
-        table.insert(self:GetBuildingsUnderConstruction(playerID), building)
-        self:SetBuildingCount(playerID, buildingName, self:GetBuildingCount(playerID, buildingName, true)+1, true)
-        function building:IsUnderConstruction() return true end
-    else
-        -- Remove from construction
-        local buildingList = self:GetBuildingsUnderConstruction(playerID)
-        local index = getIndexTable(buildingList, building)
-        if index then
-            table.remove(buildingList, index)
-            local constructionCount = self:GetBuildingCount(playerID, buildingName, true)
-            self:SetBuildingCount(playerID, buildingName, constructionCount-1, true)
-        end
-
-        building.state = "complete"
-        table.insert(self:GetBuildings(playerID), building)
-        self:SetBuildingCount(playerID, buildingName, self:GetBuildingCount(playerID, buildingName)+1)
-        function building:IsUnderConstruction() return false end
-    end
+    table.insert(BuildingHelper:GetBuildings(playerID), building)
+    BuildingHelper:SetBuildingCount(playerID, buildingName, BuildingHelper:GetBuildingCount(playerID, buildingName)+1)
+    function building:IsUnderConstruction() return false end
 end
 
 -- Returns "ConstructionSize" value of a unit handle or unit name
 function BuildingHelper:GetConstructionSize(unit)
-    local unitTable = (type(unit) == "table") and unit:GetKeyValue() or GetUnitKV(unit)
+    local unitTable = (type(unit) == "table") and BuildingHelper.UnitKV[unit:GetUnitName()] or BuildingHelper.UnitKV[unit]
     return unitTable["ConstructionSize"]
 end
 
 -- Returns "BlockPathingSize" kv of a unit handle or unit name
 function BuildingHelper:GetBlockPathingSize(unit)
-    local unitTable = (type(unit) == "table") and unit:GetKeyValue() or GetUnitKV(unit)
+    local unitTable = (type(unit) == "table") and BuildingHelper.UnitKV[unit:GetUnitName()] or BuildingHelper.UnitKV[unit]
     return unitTable["BlockPathingSize"]
 end
 
@@ -2644,17 +2151,18 @@ function IsBuildingAbility(ability)
     end
 
     local ability_name = ability:GetAbilityName()
-    return GetKeyValue(ability_name, "Building")
+    local ability_table = BuildingHelper.KV[ability_name]
+    if ability_table and ability_table["Building"] then
+        return true
+    end
+
+    return false
 end
 
 -- Builders are stored in a nettable in addition to the builder label
 function IsBuilder(unit)
     local table = CustomNetTables:GetTableValue("builders", tostring(unit:GetEntityIndex()))
     return unit:GetUnitLabel() == "builder" or (table and (table["IsBuilder"] == 1)) or false
-end
-
-function CDOTA_BaseNPC:GetFollowRange(target)
-    return self:GetHullRadius() + target:GetHullRadius() + 100
 end
 
 function IsCustomBuilding(unit)
@@ -2689,14 +2197,6 @@ function split(inputstr, sep)
     return t
 end
 
-function getTableCount(t)
-    local n = 0
-    for _ in pairs( t ) do
-        n = n + 1
-    end
-    return n
-end
-
 function getIndexTable(list, element)
     if list == nil then return false end
     for k,v in pairs(list) do if v == element then return k end end
@@ -2718,4 +2218,4 @@ function DrawGridSquare(x, y, color)
     end)
 end
 
-if not BuildingHelper.Players then BuildingHelper:Init() else BuildingHelper:OnScriptReload() end
+if not BuildingHelper.KV then BuildingHelper:Init() end

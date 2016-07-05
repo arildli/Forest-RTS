@@ -74,7 +74,11 @@ function SimpleRTSGameMode:InitGameMode()
    loadModule('libraries/selection')
    loadModule('libraries/buildinghelper')
    loadModule('builder')
-   loadModule('ai/main')
+
+   -- Added EDITED
+   loadModule('ai/utilities')
+   --loadModule('ai/main')
+   -- DONE
    
    -- Setup rules
    GameRules:SetGoldPerTick(0)
@@ -133,9 +137,10 @@ function SimpleRTSGameMode:InitGameMode()
    ListenToGameEvent('tree_cut', Dynamic_Wrap(SimpleRTSGameMode, 'OnTreeCut'), self)
    
    -- Register Listener
-   CustomGameEventManager:RegisterListener( "update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
-   CustomGameEventManager:RegisterListener( "set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
-   CustomGameEventManager:RegisterListener( "get_initial_score", Dynamic_Wrap(SimpleRTSGameMode, "GetInitialScore"))
+   CustomGameEventManager:RegisterListener("update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
+   CustomGameEventManager:RegisterListener("set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
+   CustomGameEventManager:RegisterListener("get_initial_score", Dynamic_Wrap(SimpleRTSGameMode, "GetInitialScore"))
+   CustomGameEventManager:RegisterListener("enter_tower", Dynamic_Wrap(SimpleRTSGameMode, "CastEnterTower"))
 
    -- Register Think
    GameMode:SetContextThink("SimpleRTSThink", Dynamic_Wrap(SimpleRTSGameMode, 'Think'), THINK_TIME)
@@ -157,7 +162,7 @@ function SimpleRTSGameMode:InitGameMode()
    --Stats:Init()
 
    -- Initialize AI.
-   AI:Init()
+   --AI:Init()
 
    -- Register console commands
    Convars:RegisterCommand('boss', function()
@@ -187,7 +192,12 @@ function SimpleRTSGameMode:InitGameMode()
                   --newItem = CreateItem("item_bundle_of_lumber", playerHero, playerHero)
                   --playerHero:AddItem(newItem)
                   playerHero:IncLumber(1000)
-                   end, 'Beefs up the hero of the caller', FCVAR_CHEAT )
+                  BuildingHelper:WarpTen(true)
+                   end, 'Beefs up the hero of the caller, adds resources and reduces construction time', FCVAR_CHEAT )
+
+  Convars:RegisterCommand('warpten', function()
+      BuildingHelper:WarpTen(true)
+    end, "Speeds up construction", FCVAR_CHEAT)
 
    Convars:RegisterCommand('lumber', function()
       local cmdPlayer = Convars:GetCommandClient()
@@ -374,11 +384,13 @@ function SimpleRTSGameMode:onGameStateChange(keys)
         prefixGlobal = self.prefix
 
         -- Add player-like bots
+        --[=[
         if IsTeamEmpty(DOTA_TEAM_GOODGUYS) then
             AI:AddBot(DOTA_TEAM_GOODGUYS, "npc_dota_hero_legion_commander")
         elseif IsTeamEmpty(DOTA_TEAM_BADGUYS) then
             AI:AddBot(DOTA_TEAM_BADGUYS, "npc_dota_hero_legion_commander")
         end
+        ]=]
 
         -- Create a timer for sending team resource info to players.
         Timers:CreateTimer(
@@ -470,6 +482,15 @@ function SimpleRTSGameMode:GetInitialScore(keys)
     local prefix = prefixGlobal
     print("Sending "..prefix.." and "..VICTORY_SCORE.." to client!")
     CustomGameEventManager:Send_ServerToPlayer(player, "initial_score_reply", {scorePrefix = prefix, score = VICTORY_SCORE})
+end
+
+
+
+---------------------------------------------------------------------------
+-- Call CastEnterTower.
+---------------------------------------------------------------------------
+function SimpleRTSGameMode:CastEnterTower(keys)
+  CastEnterTower(keys)
 end
 
 

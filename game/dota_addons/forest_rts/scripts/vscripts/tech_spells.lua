@@ -14,6 +14,11 @@ defs = {
     category = "spell"
   },
 
+  TOWER = {
+    spell = "ability_tower",
+    category = "spell"
+  },
+
   UNIT = {
     spell = "srts_ability_units",
     category = "spell"
@@ -214,10 +219,10 @@ defs = {
     max = 1,
     pages = {
       PAGE_MAIN = {
-	-- Defined later.
+  -- Defined later.
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -230,29 +235,30 @@ defs = {
     from = "TENT_SMALL",
     pages = {
       PAGE_MAIN = {
-	-- Defined later.
+  -- Defined later.
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
 
-  WATCH_TOWER = {
-    name = "npc_dota_building_watch_tower",
-    spell = "srts_construct_watch_tower",
-    category = "building",
-    req = {{"TENT_SMALL", "TENT_LARGE"}},
-    pages = {
-      PAGE_MAIN = {
-	"ENTER_TOWER",
-	"DEMOLISH_BUILDING"
-      },
-      HIDDEN = {
-	"BUILDING"
-      }
-    }
-  },
+    WATCH_TOWER = {
+        name = "npc_dota_building_watch_tower",
+        spell = "srts_construct_watch_tower",
+        category = "building",
+        req = {{"TENT_SMALL", "TENT_LARGE"}},
+        pages = {
+            PAGE_MAIN = {
+                "ENTER_TOWER",
+                "DEMOLISH_BUILDING"
+            },
+            HIDDEN = {
+                "BUILDING",
+                "TOWER"
+            }
+        }
+    },
   
   WOODEN_WALL = {
     name = "npc_dota_building_wooden_wall",
@@ -261,10 +267,10 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}},
     pages = {
       PAGE_MAIN = {
-	 "DEMOLISH_BUILDING"
+   "DEMOLISH_BUILDING"
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -276,13 +282,13 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}},
     pages = {
       PAGE_MAIN = {
-	"SELL_LUMBER_SMALL",
-	"BUY_HEALING_SALVE",
-	"DELIVERY_POINT",
-	"DEMOLISH_BUILDING"
+  "SELL_LUMBER_SMALL",
+  "BUY_HEALING_SALVE",
+  "DELIVERY_POINT",
+  "DEMOLISH_BUILDING"
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   }, 
@@ -295,11 +301,11 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}},
     pages = {
       PAGE_MAIN = {
-	"PERIODIC_MINE_GOLD",
-	"DEMOLISH_BUILDING"
+  "PERIODIC_MINE_GOLD",
+  "DEMOLISH_BUILDING"
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -312,10 +318,10 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}},
     pages = {
       PAGE_MAIN = {
-	-- Defined later.
+  -- Defined later.
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -327,10 +333,10 @@ defs = {
     req = {"TENT_LARGE"},
     pages = {
       PAGE_MAIN = {
-	-- Defined later.
+  -- Defined later.
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -343,12 +349,12 @@ defs = {
     max = 1,
     pages = {
        PAGE_MAIN = {
-	  "UPGRADE_LIGHT_DAMAGE",
-	  "UPGRADE_LIGHT_ARMOR",
-	  "DEMOLISH_BUILDING"
+    "UPGRADE_LIGHT_DAMAGE",
+    "UPGRADE_LIGHT_ARMOR",
+    "DEMOLISH_BUILDING"
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -360,11 +366,11 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_RADIANT"},
     pages = {
       PAGE_MAIN = {
-	"CRYSTAL_AURA",
-	"DEMOLISH_BUILDING"
+  "CRYSTAL_AURA",
+  "DEMOLISH_BUILDING"
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -377,10 +383,10 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}},
     pages = {
       PAGE_MAIN = {
-	-- Defined later.
+  -- Defined later.
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -392,10 +398,10 @@ defs = {
     req = {"TENT_LARGE"},
     pages = {
       PAGE_MAIN = {
-	-- Defined later.
+  -- Defined later.
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -408,12 +414,12 @@ defs = {
     max = 1,
     pages = {
        PAGE_MAIN = {
-	  "UPGRADE_LIGHT_DAMAGE",
-	  "UPGRADE_LIGHT_ARMOR",
-	  "DEMOLISH_BUILDING"
+    "UPGRADE_LIGHT_DAMAGE",
+    "UPGRADE_LIGHT_ARMOR",
+    "DEMOLISH_BUILDING"
        },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -425,11 +431,11 @@ defs = {
     req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_DIRE"},
     pages = {
       PAGE_MAIN = {
-	"CRYSTAL_AURA",
-	"DEMOLISH_BUILDING"
+  "CRYSTAL_AURA",
+  "DEMOLISH_BUILDING"
       },
       HIDDEN = {
-	"BUILDING"
+  "BUILDING"
       }
     }
   },
@@ -443,13 +449,13 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {
-	   "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-	   "PROP",
-	   "BUILDING"
-	}
+  PAGE_MAIN = {
+     "DEMOLISH_BUILDING"
+  },
+  HIDDEN = {
+     "PROP",
+     "BUILDING"
+  }
      }
   },
 
@@ -459,13 +465,13 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {
-	   "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-	   "PROP",
-	   "BUILDING"
-	}
+  PAGE_MAIN = {
+     "DEMOLISH_BUILDING"
+  },
+  HIDDEN = {
+     "PROP",
+     "BUILDING"
+  }
      }
   },
 
@@ -475,13 +481,13 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {
-	   "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-	   "PROP",
-	   "BUILDING"
-	}
+  PAGE_MAIN = {
+     "DEMOLISH_BUILDING"
+  },
+  HIDDEN = {
+     "PROP",
+     "BUILDING"
+  }
      }
   },
 
@@ -491,13 +497,13 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {
-	   "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-	   "PROP",
-	   "BUILDING"
-	}
+  PAGE_MAIN = {
+     "DEMOLISH_BUILDING"
+  },
+  HIDDEN = {
+     "PROP",
+     "BUILDING"
+  }
      }
   },
 
@@ -507,13 +513,13 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {
-	   "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-	   "PROP",
-	   "BUILDING"
-	}
+  PAGE_MAIN = {
+     "DEMOLISH_BUILDING"
+  },
+  HIDDEN = {
+     "PROP",
+     "BUILDING"
+  }
      }
   },
 
@@ -523,13 +529,13 @@ defs = {
      category = "building",
      req = {{"TENT_SMALL", "TENT_LARGE"}},
      pages = {
-	PAGE_MAIN = {
-	   "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-	   "PROP",
-	   "BUILDING"
-	}
+  PAGE_MAIN = {
+     "DEMOLISH_BUILDING"
+  },
+  HIDDEN = {
+     "PROP",
+     "BUILDING"
+  }
      }
   },
 
@@ -541,7 +547,7 @@ defs = {
     spell = "srts_train_worker",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT
   },
 
@@ -551,43 +557,43 @@ defs = {
     spell = "srts_train_human_worker",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
-	"HARVEST_LUMBER_WORKER",
-	"TRANSFER_LUMBER",
-	"PAGE_MENU_CONSTRUCTION_BASIC",
-	"PAGE_MENU_CONSTRUCTION_ADVANCED",
-	"PAGE_MENU_PROPS",
-	"REPAIR_BUILDING"
+  "HARVEST_LUMBER_WORKER",
+  "TRANSFER_LUMBER",
+  "PAGE_MENU_CONSTRUCTION_BASIC",
+  "PAGE_MENU_CONSTRUCTION_ADVANCED",
+  "PAGE_MENU_PROPS",
+  "REPAIR_BUILDING"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	"TENT_SMALL",
-	"GOLD_MINE",
-	"BARRACKS_RADIANT",
-	"WATCH_TOWER",
-	"WOODEN_WALL",
-	"PAGE_MAIN"
+  "TENT_SMALL",
+  "GOLD_MINE",
+  "BARRACKS_RADIANT",
+  "WATCH_TOWER",
+  "WOODEN_WALL",
+  "PAGE_MAIN"
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	"MARKET",
-	"HEALING_CRYSTAL_RADIANT",
-	"ARMORY_RADIANT",
-	"BARRACKS_ADVANCED_RADIANT",
-	"EMPTY_FILLER",
-	"PAGE_MAIN"
+  "MARKET",
+  "HEALING_CRYSTAL_RADIANT",
+  "ARMORY_RADIANT",
+  "BARRACKS_ADVANCED_RADIANT",
+  "EMPTY_FILLER",
+  "PAGE_MAIN"
       },
       PAGE_MENU_PROPS = {
-	 "PROP_BARREL",
-	 "PROP_CHEST",
-	 "PROP_STASH",
-	 "PROP_WEAPON_RACK",
-	 "PROP_BANNER_RADIANT",
-	 "PAGE_MAIN"
+   "PROP_BARREL",
+   "PROP_CHEST",
+   "PROP_STASH",
+   "PROP_WEAPON_RACK",
+   "PROP_BANNER_RADIANT",
+   "PAGE_MAIN"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -597,11 +603,11 @@ defs = {
     spell = "srts_train_human_footman",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {},
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -611,15 +617,15 @@ defs = {
     spell = "srts_train_human_gunner",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
-	"SNIPER_RIFLE",
-	"HEADSHOT"
+  "SNIPER_RIFLE",
+  "HEADSHOT"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -629,14 +635,14 @@ defs = {
     spell = "srts_train_catapult_radiant",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {"ARMORY_RADIANT"},
     pages = {
        PAGE_MAIN = {
-	  "SIEGE_DAMAGE"
+    "SIEGE_DAMAGE"
       },
       HIDDEN = {
-	 "UNIT"
+   "UNIT"
       }
     }
   },
@@ -646,13 +652,13 @@ defs = {
     spell = "srts_train_human_sorceress",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
-	 "SLOW"
+   "SLOW"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -663,43 +669,43 @@ defs = {
     spell = "srts_train_forest_worker",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
-	"HARVEST_LUMBER_WORKER",
-	"TRANSFER_LUMBER",
-	"PAGE_MENU_CONSTRUCTION_BASIC",
-	"PAGE_MENU_CONSTRUCTION_ADVANCED",
-	"PAGE_MENU_PROPS",
-	"REPAIR_BUILDING"
+  "HARVEST_LUMBER_WORKER",
+  "TRANSFER_LUMBER",
+  "PAGE_MENU_CONSTRUCTION_BASIC",
+  "PAGE_MENU_CONSTRUCTION_ADVANCED",
+  "PAGE_MENU_PROPS",
+  "REPAIR_BUILDING"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	"TENT_SMALL",
-	"GOLD_MINE",
-	"BARRACKS_RADIANT",
-	"WATCH_TOWER",
-	"WOODEN_WALL",
-	"PAGE_MAIN"
+  "TENT_SMALL",
+  "GOLD_MINE",
+  "BARRACKS_RADIANT",
+  "WATCH_TOWER",
+  "WOODEN_WALL",
+  "PAGE_MAIN"
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	"MARKET",
-	"HEALING_CRYSTAL_RADIANT",
-	"ARMORY_RADIANT",
-	"BARRACKS_ADVANCED_RADIANT",
-	"EMPTY_FILLER",
-	"PAGE_MAIN"
+  "MARKET",
+  "HEALING_CRYSTAL_RADIANT",
+  "ARMORY_RADIANT",
+  "BARRACKS_ADVANCED_RADIANT",
+  "EMPTY_FILLER",
+  "PAGE_MAIN"
       },
       PAGE_MENU_PROPS = {
-	 "PROP_BARREL",
-	 "PROP_CHEST",
-	 "PROP_STASH",
-	 "PROP_WEAPON_RACK",
-	 "PROP_BANNER_RADIANT",
-	 "PAGE_MAIN"
+   "PROP_BARREL",
+   "PROP_CHEST",
+   "PROP_STASH",
+   "PROP_WEAPON_RACK",
+   "PROP_BANNER_RADIANT",
+   "PAGE_MAIN"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -709,13 +715,13 @@ defs = {
     spell = "srts_train_forest_warrior",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
-	"REGENERATIVE_BARK"
+  "REGENERATIVE_BARK"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -725,14 +731,14 @@ defs = {
     spell = "srts_train_forest_dryad",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
-	"ENVENOMED_SPEARS"
+  "ENVENOMED_SPEARS"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -742,14 +748,14 @@ defs = {
     spell = "srts_train_catapult_radiant",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {"ARMORY_RADIANT"},
     pages = {
       PAGE_MAIN = {
-	 "SIEGE_DAMAGE"
+   "SIEGE_DAMAGE"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -759,14 +765,14 @@ defs = {
     spell = "srts_train_forest_tormented_soul",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {},
     pages = {
       PAGE_MAIN = {
-	"LIVING_ARMOR"
+  "LIVING_ARMOR"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -777,43 +783,43 @@ defs = {
     spell = "srts_train_kobold_worker",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
-	"HARVEST_LUMBER_WORKER",
-	"TRANSFER_LUMBER",
-	"PAGE_MENU_CONSTRUCTION_BASIC",
-	"PAGE_MENU_CONSTRUCTION_ADVANCED",
-	"PAGE_MENU_PROPS",
-	"REPAIR_BUILDING"
+  "HARVEST_LUMBER_WORKER",
+  "TRANSFER_LUMBER",
+  "PAGE_MENU_CONSTRUCTION_BASIC",
+  "PAGE_MENU_CONSTRUCTION_ADVANCED",
+  "PAGE_MENU_PROPS",
+  "REPAIR_BUILDING"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	"TENT_SMALL",
-	"GOLD_MINE",
-	"BARRACKS_DIRE",
-	"WATCH_TOWER",
-	"WOODEN_WALL",
-	"PAGE_MAIN"
+  "TENT_SMALL",
+  "GOLD_MINE",
+  "BARRACKS_DIRE",
+  "WATCH_TOWER",
+  "WOODEN_WALL",
+  "PAGE_MAIN"
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	"MARKET",
-	"HEALING_CRYSTAL_DIRE",
-	"ARMORY_DIRE",
-	"BARRACKS_ADVANCED_DIRE",
-	"EMPTY_FILLER",
-	"PAGE_MAIN"
+  "MARKET",
+  "HEALING_CRYSTAL_DIRE",
+  "ARMORY_DIRE",
+  "BARRACKS_ADVANCED_DIRE",
+  "EMPTY_FILLER",
+  "PAGE_MAIN"
       },
       PAGE_MENU_PROPS = {
-	 "PROP_BARREL",
-	 "PROP_CHEST",
-	 "PROP_STASH",
-	 "PROP_WEAPON_RACK",
-	 "PROP_BANNER_DIRE",
-	 "PAGE_MAIN"
+   "PROP_BARREL",
+   "PROP_CHEST",
+   "PROP_STASH",
+   "PROP_WEAPON_RACK",
+   "PROP_BANNER_DIRE",
+   "PAGE_MAIN"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -823,13 +829,13 @@ defs = {
     spell = "srts_train_kobold_spearman",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
-	"LONG_WEAPON"
+  "LONG_WEAPON"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -839,14 +845,14 @@ defs = {
     spell = "srts_train_kobold_flame_thrower",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
-	"IGNITE"
+  "IGNITE"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -856,14 +862,14 @@ defs = {
     spell = "srts_train_catapult_dire",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {"ARMORY_DIRE"},
     pages = {
       PAGE_MAIN = {
-	 "SIEGE_DAMAGE"
+   "SIEGE_DAMAGE"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -874,43 +880,43 @@ defs = {
     spell = "srts_train_skeleton_worker",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
-	"HARVEST_LUMBER_WORKER",
-	"TRANSFER_LUMBER",
-	"PAGE_MENU_CONSTRUCTION_BASIC",
-	"PAGE_MENU_CONSTRUCTION_ADVANCED",
-	"PAGE_MENU_PROPS",
-	"REPAIR_BUILDING"
+  "HARVEST_LUMBER_WORKER",
+  "TRANSFER_LUMBER",
+  "PAGE_MENU_CONSTRUCTION_BASIC",
+  "PAGE_MENU_CONSTRUCTION_ADVANCED",
+  "PAGE_MENU_PROPS",
+  "REPAIR_BUILDING"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	"TENT_SMALL",
-	"GOLD_MINE",
-	"BARRACKS_DIRE",
-	"WATCH_TOWER",
-	"WOODEN_WALL",
-	"PAGE_MAIN"
+  "TENT_SMALL",
+  "GOLD_MINE",
+  "BARRACKS_DIRE",
+  "WATCH_TOWER",
+  "WOODEN_WALL",
+  "PAGE_MAIN"
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	"MARKET",
-	"HEALING_CRYSTAL_DIRE",
-	"ARMORY_DIRE",
-	"BARRACKS_ADVANCED_DIRE",
-	"EMPTY_FILLER",
-	"PAGE_MAIN"
+  "MARKET",
+  "HEALING_CRYSTAL_DIRE",
+  "ARMORY_DIRE",
+  "BARRACKS_ADVANCED_DIRE",
+  "EMPTY_FILLER",
+  "PAGE_MAIN"
       },
       PAGE_MENU_PROPS = {
-	 "PROP_BARREL",
-	 "PROP_CHEST",
-	 "PROP_STASH",
-	 "PROP_WEAPON_RACK",
-	 "PROP_BANNER_DIRE",
-	 "PAGE_MAIN"
+   "PROP_BARREL",
+   "PROP_CHEST",
+   "PROP_STASH",
+   "PROP_WEAPON_RACK",
+   "PROP_BANNER_DIRE",
+   "PAGE_MAIN"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -920,13 +926,13 @@ defs = {
     spell = "srts_train_skeleton_warrior",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
-	"UNDEAD_STRENGTH"
+  "UNDEAD_STRENGTH"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -936,14 +942,14 @@ defs = {
     spell = "srts_train_skeleton_archer",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
-	"BURNING_ARROWS"
+  "BURNING_ARROWS"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -953,14 +959,14 @@ defs = {
     spell = "srts_train_catapult_dire",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {"ARMORY_DIRE"},
     pages = {
       PAGE_MAIN = {
-	 "SIEGE_DAMAGE"
+   "SIEGE_DAMAGE"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -970,13 +976,13 @@ defs = {
     spell = "srts_train_skeleton_caster",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
-	 "CURSE"
+   "CURSE"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -987,43 +993,43 @@ defs = {
     spell = "srts_train_troll_worker",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     max = MAX_WORKER_COUNT,
     pages = {
       PAGE_MAIN = {
-	"HARVEST_LUMBER_WORKER",
-	"TRANSFER_LUMBER",
-	"PAGE_MENU_CONSTRUCTION_BASIC",
-	"PAGE_MENU_CONSTRUCTION_ADVANCED",
-	"PAGE_MENU_PROPS",
-	"REPAIR_BUILDING"
+  "HARVEST_LUMBER_WORKER",
+  "TRANSFER_LUMBER",
+  "PAGE_MENU_CONSTRUCTION_BASIC",
+  "PAGE_MENU_CONSTRUCTION_ADVANCED",
+  "PAGE_MENU_PROPS",
+  "REPAIR_BUILDING"
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	"TENT_SMALL",
-	"GOLD_MINE",
-	"BARRACKS_DIRE",
-	"WATCH_TOWER",
-	"WOODEN_WALL",
-	"PAGE_MAIN"
+  "TENT_SMALL",
+  "GOLD_MINE",
+  "BARRACKS_DIRE",
+  "WATCH_TOWER",
+  "WOODEN_WALL",
+  "PAGE_MAIN"
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	"MARKET",
-	"HEALING_CRYSTAL_DIRE",
-	"ARMORY_DIRE",
-	"BARRACKS_ADVANCED_DIRE",
-	"EMPTY_FILLER",
-	"PAGE_MAIN"
+  "MARKET",
+  "HEALING_CRYSTAL_DIRE",
+  "ARMORY_DIRE",
+  "BARRACKS_ADVANCED_DIRE",
+  "EMPTY_FILLER",
+  "PAGE_MAIN"
       },
       PAGE_MENU_PROPS = {
-	 "PROP_BARREL",
-	 "PROP_CHEST",
-	 "PROP_STASH",
-	 "PROP_WEAPON_RACK",
-	 "PROP_BANNER_DIRE",
-	 "PAGE_MAIN"
+   "PROP_BARREL",
+   "PROP_CHEST",
+   "PROP_STASH",
+   "PROP_WEAPON_RACK",
+   "PROP_BANNER_DIRE",
+   "PAGE_MAIN"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -1033,13 +1039,13 @@ defs = {
     spell = "srts_train_troll_fighter",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     pages = {
       PAGE_MAIN = {
-	"HATRED"
+  "HATRED"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -1049,14 +1055,14 @@ defs = {
     spell = "srts_train_troll_axe_thrower",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {"MARKET"},
     pages = {
       PAGE_MAIN = {
-	"HATRED"
+  "HATRED"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -1066,14 +1072,14 @@ defs = {
     spell = "srts_train_catapult_dire",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {"ARMORY_DIRE"},
     pages = {
       PAGE_MAIN = {
-	 "SIEGE_DAMAGE"
+   "SIEGE_DAMAGE"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   },
@@ -1083,14 +1089,14 @@ defs = {
     spell = "srts_train_troll_elder",
     category = "unit",
     upgrades = {"UPGRADE_LIGHT_ARMOR",
-		"UPGRADE_LIGHT_DAMAGE"},
+    "UPGRADE_LIGHT_DAMAGE"},
     req = {},
     pages = {
       PAGE_MAIN = {
-	"FRENZY"
+  "FRENZY"
       },
       HIDDEN = {
-	"UNIT"
+  "UNIT"
       }
     }
   }

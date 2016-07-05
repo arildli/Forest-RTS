@@ -39,6 +39,24 @@ function EnterTower(keys)
    FlipTowerSpell(caster)
 end
 
+function CastEnterTower(keys)
+    local tower = EntIndexToHScript(keys.towerIndex)
+    local unit = EntIndexToHScript(keys.unitIndex)
+    local abilityName = "srts_enter_tower"
+    local ability = GetAbilityByName(tower, abilityName)
+    if ability then
+        tower:CastAbilityOnTarget(unit, ability, tower:GetOwnerID())
+        local towerAbs = tower:GetAbsOrigin()
+        -- For some reason the timer is needed for make the unit bother to execute the order!
+        Timers:CreateTimer({
+            endTime = 0.05,
+            callback = function()
+                unit:MoveToPosition(towerAbs)
+            end}
+        )
+    end
+end
+
 function LeaveTower(keys)
    local caster = keys.caster
    RemoveUnitFromTower(caster)
@@ -61,6 +79,10 @@ function RemoveIfBuilding(keys)
    if IsBuilding(caster) then
       caster:RemoveModifierByName(modifier)
    end
+end
+
+function GetAbilityByName(unit, abilityName)
+    return UnitHasAbility(unit, abilityName)
 end
 
 
@@ -94,8 +116,8 @@ function ApplyUpgradeUnits(keys)
    ownerHero:SetUnitCountFor(abilityName, 1)
    for _,unit in pairs(ownerHero:GetUnits()) do
       if not IsWorker(unit) then
-	 local newItem = CreateItem(itemName, unit, unit)
-	 unit:AddItem(newItem)
+     local newItem = CreateItem(itemName, unit, unit)
+     unit:AddItem(newItem)
       end
    end
 
@@ -109,9 +131,9 @@ function ApplyUpgradesOnTraining(unit)
    local function UpgradeItem(upgradeSpellName)
       local upgradeLevel = ownerHero:GetUnitCountFor(upgradeSpellName)
       if upgradeLevel > 0 then
-	 return ownerHero.TT.techDef[upgradeSpellName].item
+     return ownerHero.TT.techDef[upgradeSpellName].item
       else
-	 return nil
+     return nil
       end
    end
    
@@ -125,11 +147,11 @@ function ApplyUpgradesOnTraining(unit)
    if not IsWorker(unit) then
       local armorUpgradeItem = UpgradeItem("srts_upgrade_light_armor")
       if armorUpgradeItem then
-	 AddUpgradeItem(armorUpgradeItem)
+     AddUpgradeItem(armorUpgradeItem)
       end
       local damageUpgradeItem = UpgradeItem("srts_upgrade_light_damage")
       if damageUpgradeItem then
-	 AddUpgradeItem(damageUpgradeItem)
+     AddUpgradeItem(damageUpgradeItem)
       end
    end
 end
@@ -144,7 +166,7 @@ function Autocast(keys)
 
    if ability:GetAutoCastState() then
       if not attacker:HasModifier(modifier) then
-	 caster:CastAbilityOnTarget(attacker, ability, caster:GetOwnerID())
+     caster:CastAbilityOnTarget(attacker, ability, caster:GetOwnerID())
       end
    end
 end
@@ -189,7 +211,6 @@ function RefundResources(player, gold, lumber)
 end
 
 function RefundResourcesID(playerID, gold, lumber)
-   print("RefundResourcesID called with gold: "..gold.." and lumber: "..lumber)
    local hero = GetPlayerHero(playerID)
    hero:IncGold(gold)
    hero:IncLumber(lumber)   

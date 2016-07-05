@@ -60,11 +60,8 @@ end
 
 
 function finishConstruction(building)
-    print("finishConstruction called!")
    
     if not building:IsAlive() or building._interrupted == true then
-        --print("attemptConstruction: Note: building was destroyed before finish.")
-        print("BUILDING WAS INTERRUPTED OR NOT ALIVE!")
         return
     end
    

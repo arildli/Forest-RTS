@@ -1,3 +1,4 @@
+#base "abilities/dummy_tree.txt"
 // Dota Heroes File
 "DOTAAbilities"
 {
@@ -2901,6 +2902,30 @@
 					"MODIFIER_PROPERTY_IGNORE_CAST_ANGLE"	"1"
 					"MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE"	"0.1"
 				}
+			}
+		}	
+	}
+
+	// Spell7.9
+	//================================================================================
+	// Ability Tower
+	//================================================================================
+	"ability_tower"
+	{
+		// General
+		//------------------------------------------------------------------------
+		"AbilityName"			"Ability Tower"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"BaseClass"				"ability_datadriven"
+		"Maxlevel"				"1"
+
+		"Modifiers"
+		{
+			"modifier_tower"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+				"Attributes"	"MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT"	
 			}
 		}	
 	}

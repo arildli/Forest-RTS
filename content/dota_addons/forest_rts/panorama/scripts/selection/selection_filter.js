@@ -6,8 +6,6 @@ var DISPLAY_RANGE_PARTICLE = false; // Uses the main selected entity to update a
 var rangedParticle
 
 function SelectionFilter( entityList ) {
-    $.Msg("SelectionFilter")
-
     if (DESELECT_BUILDINGS) {
         if (entityList.length > 1 && IsMixedBuildingSelectionGroup(entityList) ){
             $.Schedule(1/60, DeselectBuildings) 
