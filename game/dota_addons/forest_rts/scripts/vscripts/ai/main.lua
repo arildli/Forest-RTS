@@ -1,6 +1,20 @@
--- Created by Arild.
--- Depends on the following:
--- * BuildingHelper 1.1.5
+--[[ 
+    A simple library for creating bots in Dota.
+    Author: Arild
+
+    Installation:
+    - require 'ai/main' in your code.
+    - make sure the settings file can be found on this path: scripts/kv/ai_settings.kv
+    - make sure to also have the following installed:
+        * BuildingHelper from https://github.com/MNoya/BuildingHelper/releases
+        * keyvalues.lua from https://github.com/MNoya/DotaCraft/tree/master/game/dota_addons/dotacraft/scripts/vscripts/libraries
+
+    Usage: 
+    - Modify the controller file with the logic for your bot.
+      See commands.lua for commands the bot can perform.
+    - Call AI:Init() to initialize the module.
+    - Use AI:AddBot or AI:AddBotOppositeTeam to spawn a bot. 
+]]
 
 if not AI then
     AI = {}
@@ -10,7 +24,9 @@ if not BH_VERSION then
     require("libraries/buildinghelper")
 end
 require("AI/utilities")
+require("AI/commands")
 require("AI/controller")
+require('libraries/keyvalues')
 
 
 -- These settings should be set by the user:
@@ -31,28 +47,36 @@ local HEROES = {
 -- Initializes this module.
 ---------------------------------------------------------------------------
 function AI:Init()
-    AI.debug = true                                     -- Whether to show AI:Prints or not.
+    AI:LoadSettings()
+
     AI.bots = {}                                        -- Will contain info about the bots.
     AI.botIDs = {}                                      -- Set containing the playerIDs used by bots.
     AI.nextHero = "npc_dota_hero_legion_commander"      -- The next spawned bot hero should be set to this.
+
+    AI:PrintSettings()
 
     ListenToGameEvent('npc_spawned', Dynamic_Wrap(AI, 'OnNPCSpawned'), self)
 
     Convars:RegisterCommand("ai.debug", function()
             print("[AI Cheat] ai.debug = true")
-            AI.debug = true
+            AI.settings["TESTING"] = true
         end, "Enables debug text for the AI modules.", FCVAR_CHEAT) 
+
+
+    Convars:RegisterCommand("ai.settings", function()
+            AI:PrintSettings()
+        end, "Prints the settings of the module.", FCVAR_CHEAT) 
 
 
     Convars:RegisterCommand("ai.addbot.dire", function()
             print("[AI Cheat] Adding Dire bot...")
-            AI:AddBot(DOTA_TEAM_BADGUYS)
+            AI:AddBot(DOTA_TEAM_BADGUYS, HEROES[1])
         end, "Adds a bot to the dire team.", FCVAR_CHEAT)
             
 
     Convars:RegisterCommand("ai.addbot.radiant", function()
             print("[AI Cheat] Adding Radiant bot...")
-            AI:AddBot(DOTA_TEAM_GOODGUYS)
+            AI:AddBot(DOTA_TEAM_GOODGUYS, HEROES[1])
         end, "Adds a bot to the radiant team.", FCVAR_CHEAT)
 
     Convars:RegisterCommand("ai.addbot.neutral", function()
@@ -64,8 +88,29 @@ function AI:Init()
 end
 
 ---------------------------------------------------------------------------
+-- Loads the settings to use from a KV file.
+---------------------------------------------------------------------------
+function AI:LoadSettings()
+    AI.settings = LoadKeyValues("scripts/kv/ai_settings.kv")
+
+    AI.settings["TESTING"] = tobool(AI.settings["TESTING"])
+end
+
+---------------------------------------------------------------------------
+-- Prints the current settings.
+---------------------------------------------------------------------------
+function AI:PrintSettings()
+    AI:Print("Printing settings:")
+    for k,v in pairs(AI.settings) do
+        AI:Print("\t"..k..": "..tostring(v))
+    end
+    AI:Print("\n")
+end
+
+---------------------------------------------------------------------------
 -- Makes sure the newest bot hero spawns as the right one.
--- @heroname (String): The name of the hero, optional.
+--
+-- @heroname (string): The name of the hero, optional.
 ---------------------------------------------------------------------------
 function AI:OnNPCSpawned(keys)
     local spawnedUnit = EntIndexToHScript(keys.entindex)
@@ -95,7 +140,9 @@ end
 
 ---------------------------------------------------------------------------
 -- Get the bot with the specified playerID if present.
--- @playerID (Int): The playerID of the bot.
+--
+-- @playerID (number): The playerID of the bot.
+-- @return (table): A table containing information about the bot.
 ---------------------------------------------------------------------------
 function AI:GetBotByID(playerID)
     for k,bot in pairs(AI.bots) do
@@ -109,7 +156,9 @@ end
 
 ---------------------------------------------------------------------------
 -- Checks if the bot already has the right hero.
--- @playerID (Int): The playerID of the bot.
+--
+-- @playerID (number): The playerID of the bot.
+-- @return (boolean): Whether or not the bot has been inited yet.
 ---------------------------------------------------------------------------
 function AI:BotHasHero(playerID)
     if AI.botIDs[playerID] then
@@ -120,7 +169,9 @@ end
 
 ---------------------------------------------------------------------------
 -- Checks if there's space for another bot on the specified team.
--- @teamID (Int): The identifier of the team to check.
+--
+-- @teamID (number): The identifier of the team to check.
+-- @return (boolean): Whether or not the team has space for a new bot.
 ---------------------------------------------------------------------------
 function AI:IsSpaceForBot(teamID)
     local playerCountForTeam = PlayerResource:GetPlayerCountForTeam(teamID)
@@ -131,7 +182,9 @@ end
 -- Adds a bot to the opposite team of the one specified.
 -- This will be Dire if DOTA_TEAM_GOODGUYS is specified or
 -- Radiant if DOTA_TEAM_BADGUYS is specified.
--- @teamID (Int): The identifier of the team to spawn at.
+--
+-- @teamID (number): The identifier of the team to spawn at.
+-- @heroname (string): The name of the hero to spawn.
 ---------------------------------------------------------------------------
 function AI:AddBotOppositeTeam(teamID, heroname)
     AI:AddBot(GetOppositeTeam(teamID), heroname)
@@ -140,31 +193,38 @@ end
 ---------------------------------------------------------------------------
 -- Adds a bot to the DOTA_TEAM_NEUTRALS team if possible.
 -- (BROKEN!)
--- @heroname (String): The name of the hero, optional.
+--
+-- @heroname (string): The name of the hero, optional.
 ---------------------------------------------------------------------------
-function AI:AddBotNeutralTeam(heroname)
-    AI:AddBot(DOTA_TEAM_NEUTRALS, heroname)
-end
+--function AI:AddBotNeutralTeam(heroname)
+--    AI:AddBot(DOTA_TEAM_NEUTRALS, heroname)
+--end
 
 ---------------------------------------------------------------------------
 -- Adds a new bot to the specified team.
--- @heroname (String): The name of the hero, optional.
+-- ONLY works for Radiant and Dire due to restriction in Tutorial:AddBot!
+--
+-- @teamID (number): The identifier of the team to spawn at.
+-- @heroname (string) (Optional): The name of the hero.
+-- @return (boolean): Whether or not a new bot was added.
 ---------------------------------------------------------------------------
 function AI:AddBot(teamID, heroname)
-    if IsTeamDireOrRadiant(teamID) and not AI:IsSpaceForBot(teamID) then
-        AI:Print("No empty player slot was found for a new bot.")
+    if not IsTeamDireOrRadiant(teamID) then
+        AI:Failure("Team must be DOTA_TEAM_GOODGUYS or DOTA_TEAM_BADGUYS!")
+        return false
+    elseif not AI:IsSpaceForBot(teamID) then
+        AI:Failure("No empty player slot was found on team "..teamID.."!")
         return false
     end
-    if IsTeamNeutrals(teamID) then
-        print("Max player count neutrals: "..tostring(PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_NEUTRALS)))
-    end
+    AI:Print("Max player count neutrals: "..tostring(PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_NEUTRALS)))
     if not heroname then
         heroname = "npc_dota_hero_legion_commander"
     end
     AI.nextHero = heroname
 
-    Tutorial:AddBot(heroname,"","",GetTeamAsBool(teamID))
+    Tutorial:AddBot("npc_dota_hero_legion_commander","","",GetTeamAsBool(teamID))
     AI:Print("Added bot to team "..teamID.." (DOTA_TEAM_GOODGUYS: "..DOTA_TEAM_GOODGUYS..", DOTA_TEAM_BADGUYS: "..DOTA_TEAM_BADGUYS..", DOTA_TEAM_NEUTRALS: "..DOTA_TEAM_NEUTRALS..")")
+    return true
 end
 
 ---------------------------------------------------------------------------
@@ -172,7 +232,19 @@ end
 -- Also prepends '[AI] ' to the front.
 ---------------------------------------------------------------------------
 function AI:Print(...)
-    if AI.debug then
+    if AI.settings["TESTING"] then
         print("[AI] ".. ...)
     end
+end
+
+function AI:print(...)
+    AI:Print(...)
+end
+
+---------------------------------------------------------------------------
+-- Prints an error message.
+-- Also prepends '[AI] (ERROR) ' to the front.
+---------------------------------------------------------------------------
+function AI:Failure(...)
+    print("[AI] (ERROR) ".. ...)
 end

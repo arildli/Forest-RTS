@@ -14,3 +14,4 @@ settings.kv
 *.xml#
 *.vpcf_c
 *.txt#
+*.vmat_c

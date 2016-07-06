@@ -1,4 +1,4 @@
-  --  CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
+--  CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
 
 
 -- Variables
@@ -27,19 +27,19 @@ local prefixGlobal = ""
 
 
 if not SimpleRTSGameMode then
-   SimpleRTSGameMode = {}
-   SimpleRTSGameMode.__index = SimpleRTSGameMode
+    SimpleRTSGameMode = {}
+    SimpleRTSGameMode.__index = SimpleRTSGameMode
 end
 
 if not SRTSGM then
-   SRTSGM = SimpleRTSGameMode
+    SRTSGM = SimpleRTSGameMode
 end
 
 function SimpleRTSGameMode:new(o)
-   o = o or {}
-   setmetatable(o, self)
-   SIMPLERTS_REFERENCE = o
-   return o
+    o = o or {}
+    setmetatable(o, self)
+    SIMPLERTS_REFERENCE = o
+    return o
 end
 
 
@@ -57,214 +57,220 @@ end
 -- and registers commands.
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:InitGameMode()
-   print("[SimpleRTS] Gamemode is initialising.")
+    print("[SimpleRTS] Gamemode is initialising.")
    
-   -- Load the rest of the modules that requires that the game modes are set
-   loadModule('settings')
-   loadModule('utils')
-   loadModule('resources')
-   loadModule('tech_tree')
-   loadModule('buildings')
-   loadModule('ability_pages')
-   loadModule('simple_bot')
-   loadModule('spells')
-   loadModule('stats')
-   loadModule('libraries/timers')
-   loadModule('libraries/selection')
-   loadModule('libraries/buildinghelper')
-   loadModule('builder')
+    -- Load the rest of the modules that requires that the game modes are set
+    loadModule('settings')
+    loadModule('utils')
+    loadModule('resources')
+    loadModule('tech_tree')
+    loadModule('buildings')
+    loadModule('ability_pages')
+    loadModule('simple_bot')
+    loadModule('spells')
+    loadModule('stats')
+    loadModule('libraries/timers')
+    loadModule('libraries/selection')
+    loadModule('libraries/buildinghelper')
+    loadModule('builder')
 
-   -- Added EDITED
-   --loadModule('ai/utilities')
-   loadModule('ai/main')
-   -- DONE
+    -- Added EDITED
+    --loadModule('ai/utilities')
+    loadModule('ai/main')
+    -- DONE
    
-   -- Setup rules
-   GameRules:SetGoldPerTick(0)
-   --GameRules:SetGoldPerTick(GOLD_PER_TICK)
-   GameRules:SetGoldTickTime(GOLD_TICK_TIME)
-   GameRules:SetFirstBloodActive(FIRST_BLOOD_ACTIVE)
-   GameRules:SetSameHeroSelectionEnabled(SAME_HERO_ENABLED)
-   GameRules:SetHeroSelectionTime(HERO_SELECTION_TIME)
-   GameRules:SetPreGameTime(PRE_GAME_TIME)
-   GameRules:SetPostGameTime(POST_GAME_TIME)
-   GameRules:SetTreeRegrowTime(TREE_REGROW_TIME_SECONDS)
-   GameRules:GetGameModeEntity():SetLoseGoldOnDeath(LOSE_GOLD_ON_DEATH)
-   GameRules:GetGameModeEntity():SetCameraDistanceOverride(1300)
+    LinkLuaModifier("modifier_train_unit", "libraries/modifiers/modifier_train_unit", LUA_MODIFIER_MOTION_NONE)
+
+    -- Setup rules
+    GameRules:SetGoldPerTick(0)
+    --GameRules:SetGoldPerTick(GOLD_PER_TICK)
+    GameRules:SetGoldTickTime(GOLD_TICK_TIME)
+    GameRules:SetFirstBloodActive(FIRST_BLOOD_ACTIVE)
+    GameRules:SetSameHeroSelectionEnabled(SAME_HERO_ENABLED)
+    GameRules:SetHeroSelectionTime(HERO_SELECTION_TIME)
+    GameRules:SetPreGameTime(PRE_GAME_TIME)
+    GameRules:SetPostGameTime(POST_GAME_TIME)
+    GameRules:SetTreeRegrowTime(TREE_REGROW_TIME_SECONDS)
+    GameRules:GetGameModeEntity():SetLoseGoldOnDeath(LOSE_GOLD_ON_DEATH)
+    GameRules:GetGameModeEntity():SetCameraDistanceOverride(1300)
    
-   -- Setup game mode rules
-   GameMode = GameRules:GetGameModeEntity()
-   GameMode:SetBuybackEnabled(BUYBACK_ENABLED)
-   GameMode:SetLoseGoldOnDeath(false)
-   GameMode:SetTopBarTeamValuesOverride(true)
-   GameMode:SetTopBarTeamValuesVisible(true)
-   GameMode:SetLoseGoldOnDeath(false)
+    -- Setup game mode rules
+    GameMode = GameRules:GetGameModeEntity()
+    GameMode:SetBuybackEnabled(BUYBACK_ENABLED)
+    GameMode:SetLoseGoldOnDeath(false)
+    GameMode:SetTopBarTeamValuesOverride(true)
+    GameMode:SetTopBarTeamValuesVisible(true)
+    GameMode:SetLoseGoldOnDeath(false)
    
-   -- Find pathable trees.
-   DeterminePathableTrees()
+    -- Find pathable trees.
+    DeterminePathableTrees()
    
-   print("[SimpleRTS] Gamemode rules are set.")
+    print("[SimpleRTS] Gamemode rules are set.")
    
-   -- Init self
-   SimpleRTS = self
-   self.scoreDire = 0
-   self.scoreRadiant = 0
-   self.playerCount = 0
+    -- Init self
+    SimpleRTS = self
+    self.scoreDire = 0
+    self.scoreRadiant = 0
+    self.playerCount = 0
 
-   self.teamColors = {}
-   self.teamColors[DOTA_TEAM_GOODGUYS] = {52, 85, 255};
-   self.teamColors[DOTA_TEAM_BADGUYS] = {176, 23, 27};
+    self.teamColors = {}
+    self.teamColors[DOTA_TEAM_GOODGUYS] = {52, 85, 255};
+    self.teamColors[DOTA_TEAM_BADGUYS] = {176, 23, 27};
 
-   self.players = {}
+    self.players = {}
 
-   for team=0,10 do
-      local color = self.teamColors[team]
-      if color then
-         SetTeamCustomHealthbarColor(team, color[1], color[2], color[3])
-      end
-   end
+    for team=0,10 do
+        local color = self.teamColors[team]
+        if color then
+            SetTeamCustomHealthbarColor(team, color[1], color[2], color[3])
+        end
+    end
    
-   -- Filters
-   GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( SimpleRTSGameMode, "FilterExecuteOrder" ), self )
+    -- Filters
+    GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( SimpleRTSGameMode, "FilterExecuteOrder" ), self )
 
-   -- Event Hooks 
-   ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(SimpleRTSGameMode, 'onHeroPick'), self)
-   ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(SimpleRTSGameMode, 'onGameStateChange'), self)
-   ListenToGameEvent('npc_spawned', Dynamic_Wrap(SimpleRTSGameMode, 'onNPCSpawned'), self)
-   ListenToGameEvent('entity_killed', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityKilled'), self)
-   ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityLevel'), self)
-   ListenToGameEvent('tree_cut', Dynamic_Wrap(SimpleRTSGameMode, 'OnTreeCut'), self)
+    -- Event Hooks 
+    ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(SimpleRTSGameMode, 'onHeroPick'), self)
+    ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(SimpleRTSGameMode, 'onGameStateChange'), self)
+    ListenToGameEvent('npc_spawned', Dynamic_Wrap(SimpleRTSGameMode, 'onNPCSpawned'), self)
+    ListenToGameEvent('entity_killed', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityKilled'), self)
+    ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityLevel'), self)
+    ListenToGameEvent('tree_cut', Dynamic_Wrap(SimpleRTSGameMode, 'OnTreeCut'), self)
    
-   -- Register Listener
-   CustomGameEventManager:RegisterListener("update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
-   CustomGameEventManager:RegisterListener("set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
-   CustomGameEventManager:RegisterListener("get_initial_score", Dynamic_Wrap(SimpleRTSGameMode, "GetInitialScore"))
-   CustomGameEventManager:RegisterListener("enter_tower", Dynamic_Wrap(SimpleRTSGameMode, "CastEnterTower"))
+    -- Register Listener
+    CustomGameEventManager:RegisterListener("update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
+    CustomGameEventManager:RegisterListener("set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
+    CustomGameEventManager:RegisterListener("get_initial_score", Dynamic_Wrap(SimpleRTSGameMode, "GetInitialScore"))
+    CustomGameEventManager:RegisterListener("enter_tower", Dynamic_Wrap(SimpleRTSGameMode, "CastEnterTower"))
 
-   -- Register Think
-   GameMode:SetContextThink("SimpleRTSThink", Dynamic_Wrap(SimpleRTSGameMode, 'Think'), THINK_TIME)
+    -- Register Think
+    GameMode:SetContextThink("SimpleRTSThink", Dynamic_Wrap(SimpleRTSGameMode, 'Think'), THINK_TIME)
    
-   -- Full units file to get the custom values
-   GameRules.AbilityKV = LoadKeyValues("scripts/npc/npc_abilities_custom.txt")
-   GameRules.UnitKV = LoadKeyValues("scripts/npc/npc_units_custom.txt")
-   GameRules.HeroKV = LoadKeyValues("scripts/npc/npc_heroes_custom.txt")
-   GameRules.ItemKV = LoadKeyValues("scripts/npc/npc_items_custom.txt")
-   --GameRules.Requirements = LoadKeyValues("scripts/kv/tech_tree.kv")
+    -- Full units file to get the custom values
+    GameRules.AbilityKV = LoadKeyValues("scripts/npc/npc_abilities_custom.txt")
+    GameRules.UnitKV = LoadKeyValues("scripts/npc/npc_units_custom.txt")
+    GameRules.HeroKV = LoadKeyValues("scripts/npc/npc_heroes_custom.txt")
+    GameRules.ItemKV = LoadKeyValues("scripts/npc/npc_items_custom.txt")
+    --GameRules.Requirements = LoadKeyValues("scripts/kv/tech_tree.kv")
 
-   -- Store and update selected units of each pID
-   GameRules.SELECTED_UNITS = {}
+    -- Store and update selected units of each pID
+    GameRules.SELECTED_UNITS = {}
    
-   -- Keeps the blighted gridnav positions
-   GameRules.Blight = {}
+    -- Keeps the blighted gridnav positions
+    GameRules.Blight = {}
 
-   -- Initialize the Stats module.
-   --Stats:Init()
+    -- Initialize the Stats module.
+    --Stats:Init()
 
-   -- Initialize AI.
-   AI:Init()
+    -- Initialize AI.
+    if AI then
+        AI:Init()
+    end
 
-   -- Register console commands
-   Convars:RegisterCommand('boss', function()
+    -- Register console commands
+    Convars:RegisterCommand('boss', function()
+        local cmdPlayer = Convars:GetCommandClient()
+        local playerHero
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID ~= nil and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+            end
+        end
+
+        --SimpleBot:MultiplyInitialPatrol(5)
+        PlayerResource:SetGold(cmdPlayer:GetPlayerID(), 99999, true)
                   
-                  local cmdPlayer = Convars:GetCommandClient()
-                  local playerHero
-                  if cmdPlayer then
-                 local playerID = cmdPlayer:GetPlayerID()
-                 if playerID ~= nil and playerID ~= -1 then
-                    playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-                 end
-                  end
-                  
-                  --SimpleBot:MultiplyInitialPatrol(5)
-                  PlayerResource:SetGold(cmdPlayer:GetPlayerID(), 99999, true)
-                  
-                  local newItem = CreateItem("item_blink", playerHero, playerHero)
-                  playerHero:AddItem(newItem)
-                  newItem = CreateItem("item_heart", playerHero, playerHero)
-                  playerHero:AddItem(newItem)
-                  newItem = CreateItem("item_assault", playerHero, playerHero)
-                  playerHero:AddItem(newItem)
-                  newItem = CreateItem("item_mjollnir", playerHero, playerHero)
-                  playerHero:AddItem(newItem)
-                  newItem = CreateItem("item_rapier", playerHero, playerHero)
-                  playerHero:AddItem(newItem)
-                  --newItem = CreateItem("item_bundle_of_lumber", playerHero, playerHero)
-                  --playerHero:AddItem(newItem)
-                  playerHero:IncLumber(1000)
-                  BuildingHelper:WarpTen(true)
-                   end, 'Beefs up the hero of the caller, adds resources and reduces construction time', FCVAR_CHEAT )
+        local newItem = CreateItem("item_blink", playerHero, playerHero)
+        playerHero:AddItem(newItem)
+        newItem = CreateItem("item_heart", playerHero, playerHero)
+        playerHero:AddItem(newItem)
+        newItem = CreateItem("item_assault", playerHero, playerHero)
+        playerHero:AddItem(newItem)
+        newItem = CreateItem("item_mjollnir", playerHero, playerHero)
+        playerHero:AddItem(newItem)
+        newItem = CreateItem("item_rapier", playerHero, playerHero)
+        playerHero:AddItem(newItem)
+        playerHero:IncLumber(1000)
+        BuildingHelper:WarpTen(true)
+    end, 'Beefs up the hero of the caller, adds resources and reduces construction time', FCVAR_CHEAT )
 
-  Convars:RegisterCommand('warpten', function()
-      BuildingHelper:WarpTen(true)
+
+    Convars:RegisterCommand('warpten', function()
+        BuildingHelper:WarpTen(true)
     end, "Speeds up construction", FCVAR_CHEAT)
 
-   Convars:RegisterCommand('lumber', function()
-      local cmdPlayer = Convars:GetCommandClient()
-      local playerHero
-      if cmdPlayer then
-         local playerID = cmdPlayer:GetPlayerID()
-         if playerID and playerID ~= -1 then
-            playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-            playerHero:IncLumber(1000)
-         end
-      end
-   end, 'Gives the player lumber', FCVAR_CHEAT)
 
-   Convars:RegisterCommand('info', function()
-                  Stats:PrintStatsAll()
-                    end, 'Shows stats', FCVAR_CHEAT)
+    Convars:RegisterCommand('lumber', function()
+        local cmdPlayer = Convars:GetCommandClient()
+        local playerHero
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+                playerHero:IncLumber(1000)
+            end
+        end
+    end, 'Gives the player lumber', FCVAR_CHEAT)
 
-   Convars:RegisterCommand('stats', function()
-                  print("Stats will be printed:\n")
-                  --Stats:PrintStatsAll()
-                    end, 'Prints all stats collected so far', FCVAR_CHEAT )
 
-   Convars:RegisterCommand("Salve", function()
-                  local cmdPlayer = Convars:GetCommandClient()
-                  if cmdPlayer then
-                 local playerHero
-                 local playerID = cmdPlayer:GetPlayerID()
-                 if playerID and playerID ~= -1 then
-                    playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-                 end
+    Convars:RegisterCommand('info', function()
+        Stats:PrintStatsAll()
+    end, 'Shows stats', FCVAR_CHEAT)
 
-                 local salves = CreateItem("item_healing_salve", playerHero, playerHero)
-                 playerHero:AddItem(salves)
-                  end
-                    end, "Gives the hero 10 healing salves", FCVAR_CHEAT )
+
+    Convars:RegisterCommand('stats', function()
+        print("Stats will be printed:\n")
+        --Stats:PrintStatsAll()
+    end, 'Prints all stats collected so far', FCVAR_CHEAT )
+
+
+    Convars:RegisterCommand("Salve", function()
+        local cmdPlayer = Convars:GetCommandClient()
+        if cmdPlayer then
+            local playerHero
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+            end
+
+            local salves = CreateItem("item_healing_salve", playerHero, playerHero)
+            playerHero:AddItem(salves)
+        end
+    end, "Gives the hero 10 healing salves", FCVAR_CHEAT )
    
-   Convars:RegisterCommand('debug', function()
-                  
-                  DEBUG = true
-                  SimpleBot:MultiplyInitialPatrol(5)
-                  VICTORY_SCORE = 25
-                    end, 'Enables standard debug mode for lower construction time', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('debug', function()
+        DEBUG = true
+        SimpleBot:MultiplyInitialPatrol(5)
+        VICTORY_SCORE = 25
+    end, 'Enables standard debug mode for lower construction time', FCVAR_CHEAT)
    
    
-   Convars:RegisterCommand('unitCount', function()
+    Convars:RegisterCommand('unitCount', function()   
+        local cmdPlayer = Convars:GetCommandClient()
+        local playerHero
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID ~= nil and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+            end
+        end
                   
-                  local cmdPlayer = Convars:GetCommandClient()
-                  local playerHero
-                  if cmdPlayer then
-                 local playerID = cmdPlayer:GetPlayerID()
-                 if playerID ~= nil and playerID ~= -1 then
-                    playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-                 end
-                  end
-                  
-                  playerHero:PrintUnitCount()
-                    end, 'Print the unitCount table of the hero of the caller', FCVAR_CHEAT)
+        playerHero:PrintUnitCount()
+    end, 'Print the unitCount table of the hero of the caller', FCVAR_CHEAT)
    
-   Convars:RegisterCommand('start', function()
+
+    Convars:RegisterCommand('start', function()
                   
-                    end, 'Start game', FCVAR_CHEAT)
+    end, 'Start game', FCVAR_CHEAT)
    
-   Convars:RegisterCommand('test_endgame', function()
-                  
-                  GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-                  --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
-                  GameRules:Defeated()
-                       end, 'Ends the game.', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('test_endgame', function()    
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+        --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+        GameRules:Defeated()
+    end, 'Ends the game.', FCVAR_CHEAT)
 end
 
 
@@ -285,15 +291,11 @@ function SimpleRTSGameMode:onHeroPick(keys)
    PlayerResource:SetGold(currentPlayer:GetPlayerID(), START_GOLD, true)
    PlayerResource:SetGold(currentPlayer:GetPlayerID(), 0, false)
 
-   --     BH stuff     --
-
-
    local hero = EntIndexToHScript(keys.heroindex)
    local player = EntIndexToHScript(keys.player)
    local playerID = hero:GetPlayerID()
 
    Stats:AddPlayer(hero, player, playerID)
-
    Resources:InitHero(hero)
    
    -- Initialize Variables for Tracking
@@ -314,22 +316,18 @@ end
 -- On Entity Level
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onEntityLevel(keys)
-   -- Prevent hero from using ability points by removing them.
-   local player = EntIndexToHScript(keys.player)
-   if not player then
-      print("SimpleRTSGameMode:onEntityLevel: player was nil!")
-   else
-      local hero = player:GetAssignedHero()
-      if not hero then
-     print("SimpleRTSGameMode:onEntityLevel: hero was nil!")
-      else
-     hero:SetAbilityPoints(0)
-      end
-   end
+    -- Prevent hero from using ability points by removing them.
+    local player = EntIndexToHScript(keys.player)
+    local hero = player:GetAssignedHero()
+    if not hero then
+        print("SimpleRTSGameMode:onEntityLevel: hero was nil!")
+    else
+        hero:SetAbilityPoints(0)
+    end
 
-   local playerID = player:GetPlayerID()
-   local newLevel = PlayerResource:GetLevel(playerID)
-   Stats:OnLevelUp(playerID, newLevel)
+    local playerID = player:GetPlayerID()
+    local newLevel = PlayerResource:GetLevel(playerID)
+    Stats:OnLevelUp(playerID, newLevel)
 end
 
 
@@ -383,17 +381,20 @@ function SimpleRTSGameMode:onGameStateChange(keys)
         prefixGlobal = self.prefix
 
         -- Add player-like bots
-        if IsTeamEmpty(DOTA_TEAM_GOODGUYS) then
-            AI:AddBot(DOTA_TEAM_GOODGUYS, "npc_dota_hero_legion_commander")
-        elseif IsTeamEmpty(DOTA_TEAM_BADGUYS) then
-            AI:AddBot(DOTA_TEAM_BADGUYS, "npc_dota_hero_legion_commander")
+        if AI then
+          --if IsTeamEmpty(DOTA_TEAM_GOODGUYS) then
+          --  AI:AddBot(DOTA_TEAM_GOODGUYS, "npc_dota_hero_legion_commander")
+          --elseif IsTeamEmpty(DOTA_TEAM_BADGUYS) then
+          --  AI:AddBot(DOTA_TEAM_BADGUYS, "npc_dota_hero_legion_commander")
+          --end
+          AI:AddBot(DOTA_TEAM_GOODGUYS, "npc_dota_hero_legion_commander")
         end
 
         -- Create a timer for sending team resource info to players.
         Timers:CreateTimer(
             function()
                 SimpleRTSGameMode:SendTeamResources()
-                return 1.0
+                return 0.5
             end)
 
     elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
@@ -418,35 +419,29 @@ end
 --  Called by onGameStateChange
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onGameStart(keys)
-   local playerCount = 0
-   local radiantCount = 0
-   local direCount = 0
+    local playerCount = 0
+    local radiantCount = 0
+    local direCount = 0
 
-   for i=0, HIGHEST_PLAYER_INDEX do
-      
-      local currentPlayer = PlayerResource:GetPlayer(i)
-      if currentPlayer then
+    for i=0, HIGHEST_PLAYER_INDEX do  
+        local currentPlayer = PlayerResource:GetPlayer(i)
+        if currentPlayer then
+            if not PlayerResource:HasSelectedHero(currentPlayer:GetPlayerID()) then
+                PlayerResource:SetHasRepicked(i)
+                currentPlayer:MakeRandomHeroSelection()
+            end
      
-     if not PlayerResource:HasSelectedHero(currentPlayer:GetPlayerID()) then
-        PlayerResource:SetHasRepicked(i)
-        currentPlayer:MakeRandomHeroSelection()
-        print("Randomed hero for player "..i)
-     else
-        print("Player with index "..i.." has already picked")
-     end
-     
-     local playerTeam = PlayerResource:GetTeam(currentPlayer:GetPlayerID())
-     if playerTeam == DOTA_TEAM_GOODGUYS then
-        radiantCount = radiantCount + 1
-     elseif playerTeam == DOTA_TEAM_BADGUYS then
-        direCount = direCount + 1
-     end
-     playerCount = playerCount + 1
-     lastFoundPlayer = currentPlayer
-      end
-   end
-   
-   return playerCount, radiantCount, direCount
+            local playerTeam = PlayerResource:GetTeam(currentPlayer:GetPlayerID())
+            if playerTeam == DOTA_TEAM_GOODGUYS then
+                radiantCount = radiantCount + 1
+            elseif playerTeam == DOTA_TEAM_BADGUYS then
+                direCount = direCount + 1
+            end
+            playerCount = playerCount + 1
+            lastFoundPlayer = currentPlayer
+        end
+    end
+    return playerCount, radiantCount, direCount
 end
 
 

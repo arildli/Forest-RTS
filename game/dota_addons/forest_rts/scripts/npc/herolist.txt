@@ -5,9 +5,9 @@
 
 "CustomHeroList"
 {
-	"npc_dota_hero_legion_commander"		"1"
-	"npc_dota_hero_furion"				"1"
-	"npc_dota_hero_meepo"				"1"
-	"npc_dota_hero_skeleton_king"			"1"
-	"npc_dota_hero_troll_warlord"			"1"
+	"npc_dota_hero_legion_commander"		 "-1"
+	"npc_dota_hero_furion"				     "-1"
+	"npc_dota_hero_meepo"				      "-1"
+	"npc_dota_hero_skeleton_king"			   "-1"
+	"npc_dota_hero_troll_warlord"			   "-1"
 }
