@@ -74,9 +74,6 @@ function AI:InitBot(bot)
     ListenToGameEvent("construction_done", Dynamic_Wrap(AI, "OnConstructionFinished"), self)
     ListenToGameEvent("unit_trained", Dynamic_Wrap(AI, "OnUnitTrained"), self)
 
-    -- TEMP
-    --bot.hero:SetOrigin(Vector(-6880, -2208, 512))
-
     bot.state = "idle"
     AI:StartThink(bot)
 end
@@ -125,6 +122,9 @@ function AI:FindActionToPerform(bot)
     return nil
 end
 
+---------------------------------------------------------------------------
+-- Called when construction of a structure has started.
+---------------------------------------------------------------------------
 function AI:OnConstructionStarted(keys)
     local playerID = keys.playerID
     local bot = AI:GetBotByID(playerID)
@@ -140,11 +140,14 @@ function AI:OnConstructionStarted(keys)
     end
 end
 
+---------------------------------------------------------------------------
+-- Called when construction of a structure has finished.
+---------------------------------------------------------------------------
 function AI:OnConstructionFinished(keys)
     local playerID = keys.playerID
     local bot = AI:GetBotByID(playerID)
     if not bot or bot.playerID ~= playerID then
-        AI:Print("Nope, event wasn't for me!")
+        AI:BotPrint(bot, "Nope, event wasn't for me!")
         return
     end
     local building = EntIndexToHScript(keys.building)
@@ -157,8 +160,39 @@ function AI:OnConstructionFinished(keys)
     end
 end
 
+---------------------------------------------------------------------------
+-- Called when training of a unit has finished.
+---------------------------------------------------------------------------
 function AI:OnUnitTrained(keys)
+    local playerID = keys.playerID
+    local bot = AI:GetBotByID(playerID)
+    if not bot or bot.playerID ~= playerID then
+        AI:BotPrint(bot, "Nope, event wasn't for me!")
+        return
+    end
+    local unit = EntIndexToHScript(keys.unit)
+    local unitName = unit:GetUnitName()
 
+    AI:BotPrint(bot, "New "..unitName.." trained!")
+
+    -- Worker
+    if IsWorker(unit) then
+        Resources:InitHarvester(unit)
+        local tree = FindEmptyTree(unit, unit:GetAbsOrigin(), unit.HARVESTER.treeSearchRadius)
+        if not tree then
+            AI:Failure("Failed to find tree in radius "..unit.HARVESTER.treeSearchRadius)
+            return
+        end
+
+        local harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker")
+        if harvestAbility then
+            Timers:CreateTimer({
+                endTime = 0.05,
+                callback = function()
+                    unit:CastAbilityOnTarget(tree, harvestAbility, playerID)
+                end})
+        end
+    end
 end
 
 

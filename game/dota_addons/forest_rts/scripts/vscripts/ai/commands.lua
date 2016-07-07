@@ -75,6 +75,10 @@ function AI:TrainUnit(bot, unitName)
     end
 
     local ability = building:FindAbilityByName(abilityName)
+    if ability:GetLevel() == 0 then
+        AI:Failure("Cannot train unit "..unitName)
+        return false
+    end
     building:CastAbilityNoTarget(ability, playerID)
     return true
 end
@@ -116,34 +120,6 @@ function TrainWorker(bot)
     AI:BotPrint(bot, "Training Worker")
     local unitConst = GetWorkerConstFor(bot.heroname)
     AI:TrainUnit(bot, unitConst)
-    --[=[
-    local building = AI:GetBuilding(bot, "TENT_SMALL")
-    if not building then
-        AI:Failure("Failed to find Main Tent to train workers from!")
-        return false
-    elseif building:IsChanneling() then
-        AI:BotPrint(bot, "Building already channeling.")
-        return false
-    end
-    local unitName = GetWorkerStructFor(bot.heroname).name
-    local spellName = GetSpellForEntity(unitName)
-    local goldCost = GetAbilitySpecial(spellName, "gold_cost")
-    local lumberCost = GetAbilitySpecial(spellName, "lumber_cost")
-    local playerID = bot.playerID
-    local player = PlayerResource:GetPlayer(playerID)
-    print("Gold cost: "..goldCost..", lumber cost: "..lumberCost)
-    if not CanAfford(player, goldCost, lumberCost) then
-        AI:BotPrint(bot, "Cannot afford a new "..unitName.." (GoldCost: "..goldCost..", lumberCost: "..lumberCost..")")
-        return false
-    end
-    if not building:HasAbility(spellName) then
-        AI:Failure("The building didn't have "..spellName)
-        return false
-    end
-    local ability = building:FindAbilityByName(spellName)
-    building:CastAbilityNoTarget(ability, playerID)
-    return true
-    ]=]
 end
 
 ---------------------------------------------------------------------------
