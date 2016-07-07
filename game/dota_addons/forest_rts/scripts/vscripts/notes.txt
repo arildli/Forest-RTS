@@ -1,3 +1,6 @@
+Husk:
+- Sett "TESTING" til "false" i building_settings.kv
+
 
 
 Viktigst:

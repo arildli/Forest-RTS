@@ -2,15 +2,15 @@
 
 
 if ConstructionUtils == nil then
-   print("[ConstructionUtils] ConstructionUtils is starting!")
-   ConstructionUtils = {}
-   ConstructionUtils.__index = ConstructionUtils
+    print("[ConstructionUtils] ConstructionUtils is starting!")
+    ConstructionUtils = {}
+    ConstructionUtils.__index = ConstructionUtils
 end
 
 function ConstructionUtils:new(o)
-   o = o or {}
-   setmetatable(o, ConstructionUtils)
-   return o
+    o = o or {}
+    setmetatable(o, ConstructionUtils)
+    return o
 end
 
 
@@ -33,18 +33,24 @@ function prepareConstruction(building, abilityName)
     rotateLeft = "srts_rotate_left"
     rotateRight = "srts_rotate_right"
     cancelConstruction = "srts_cancel_construction"
-   
+
     building:AddAbility(rotateLeft)
     building:AddAbility(rotateRight)
     building:AddAbility(cancelConstruction)
     building:FindAbilityByName(rotateLeft):SetLevel(1)
     building:FindAbilityByName(rotateRight):SetLevel(1)
     building:FindAbilityByName(cancelConstruction):SetLevel(1)
-   
+
     addRallyFunctions(building)
 
     -- Register construction in Tech Tree.
     TechTree:RegisterConstruction(building, abilityName)
+
+    local event = {
+        playerID = building:GetOwnerID(),
+        building = building:GetEntityIndex()
+    }
+    FireGameEvent("construction_started", event)
 end
 
 
@@ -59,12 +65,11 @@ function addRallyFunctions(building)
 end
 
 
-function finishConstruction(building)
-   
+function finishConstruction(building)  
     if not building:IsAlive() or building._interrupted == true then
         return
     end
-   
+    
     local interrupted = "nil"
     if building._interrupted == true then
         interrupted = "true"
@@ -78,7 +83,7 @@ function finishConstruction(building)
     building:RemoveAbility(rotateRight)
     building:RemoveAbility(rotateLeft)
     building:RemoveAbility(cancelConstruction)
-   
+
     local playerHero = GetPlayerHero(building:GetOwner():GetPlayerID())
 
     -- Register Trained
@@ -88,19 +93,25 @@ function finishConstruction(building)
 
     local playerID = building:GetOwnerID()
     Stats:OnTrained(playerID, building, "building")
+
+    local event = {
+        playerID = building:GetOwnerID(),
+        building = building:GetEntityIndex()
+    }
+    FireGameEvent("construction_done", event)
 end
 
 
 
 function cancelUpgrade(keys)
-   local building = keys.caster
-   --print("Note: Upgrade cancelled for "..building:GetUnitName())
+    local building = keys.caster
+    --print("Note: Upgrade cancelled for "..building:GetUnitName())
 end
 
 
 
 function prepareUpgrade(keys)
-   --print("Note: Upgrade started for "..keys.caster:GetUnitName())
+    --print("Note: Upgrade started for "..keys.caster:GetUnitName())
 end
 
 
@@ -201,68 +212,68 @@ end
 -- Refunds the resources spent on cancel of training spell.
 ---------------------------------------------------------------------------
 function RefundResources(keys)
-   local caster = keys.caster
-   if not caster then
-      print("Caster is nil!")
-   end
+    local caster = keys.caster
+    if not caster then
+        print("Caster is nil!")
+    end
 
-   if caster._canAfford == false then
-      --if DEBUG_CONSTRUCT_BUILDING == true then
-      print("Caster can afford: false")
-      --end
-      return
-   end
-   if DEBUG_CONSTRUCT_BUILDING == true then
-      print("Caster can afford: true")
-   end
-   print("Refunding resources.")
-   
-   local player = caster:GetOwner()
-   local playerID = player:GetPlayerID()
-   local playerHero = GetPlayerHero(playerID)
+    if caster._canAfford == false then
+        --if DEBUG_CONSTRUCT_BUILDING == true then
+        print("Caster can afford: false")
+        --end
+        return
+    end
+    if DEBUG_CONSTRUCT_BUILDING == true then
+        print("Caster can afford: true")
+    end
+    print("Refunding resources.")
 
-   local gold = keys.goldCost
-   local currentGold = PlayerResource:GetReliableGold(playerID)
-   PlayerResource:SetGold(playerID, currentGold + gold, true)
-   local lumber = keys.lumberCost
-   playerHero:IncLumber(keys.lumberCost)
-   --GiveCharges(playerHero, lumber, "item_stack_of_lumber")
+    local player = caster:GetOwner()
+    local playerID = player:GetPlayerID()
+    local playerHero = GetPlayerHero(playerID)
+
+    local gold = keys.goldCost
+    local currentGold = PlayerResource:GetReliableGold(playerID)
+    PlayerResource:SetGold(playerID, currentGold + gold, true)
+    local lumber = keys.lumberCost
+    playerHero:IncLumber(keys.lumberCost)
+    --GiveCharges(playerHero, lumber, "item_stack_of_lumber")
 end
 
 
 
 -- Refunds the resources spent on the construction of the building.
 function RefundResourcesConstruction(keys)
-   local caster = keys.caster
-   if not caster then
-      print("Caster is nil!")
-      return
-   end
+    local caster = keys.caster
+    if not caster then
+        print("Caster is nil!")
+        return
+    end
 
-   print("\n\t\tRefundResourcesConstruction called!!!\n")
+    print("\n\t\tRefundResourcesConstruction called!!!\n")
 
-   if DEBUG_CONSTRUCT_BUILDING == true then
-      print("Construction cancelled!")
-   end
+    if DEBUG_CONSTRUCT_BUILDING == true then
+        print("Construction cancelled!")
+    end
 
-   local player = caster:GetOwner()
-   local playerID = player:GetPlayerID()
-   local playerHero = GetPlayerHero(playerID)
+    local player = caster:GetOwner()
+    local playerID = player:GetPlayerID()
+    local playerHero = GetPlayerHero(playerID)
 
-   local goldCost = caster._goldCost
-   local lumberCost = caster._lumberCost
-   if not goldCost or not lumberCost then
-      print("RefundResourcesConstruction: caster was missing either goldCost or lumberCost!")
-      return
-   end
-   GiveGold({caster = keys.caster, amount = goldCost})
-   GiveCharges(playerHero, lumberCost, "item_stack_of_lumber")
+    local goldCost = caster._goldCost
+    local lumberCost = caster._lumberCost
+    if not goldCost or not lumberCost then
+        print("RefundResourcesConstruction: caster was missing either goldCost or lumberCost!")
+        return
+    end
+    GiveGold({caster = keys.caster, amount = goldCost})
+    GiveCharges(playerHero, lumberCost, "item_stack_of_lumber")
 
-   caster._wasCancelled = true
-   if not keys.keepAlive then
-      print("Killed building after refunding!")
-      caster:ForceKill(false)
-   end
+    caster._wasCancelled = true
+    if not keys.keepAlive then
+        print("Killed building after refunding!")
+        caster:ForceKill(false)
+    end
 end
 
 
@@ -281,68 +292,70 @@ end
 -- Run when a unit is trained to make sure the unit works properly.
 ---------------------------------------------------------------------------
 function OnUnitTrained(keys)
-   local caster = keys.caster
-   local target = keys.target
+    local caster = keys.caster
+    local target = keys.target
 
-   if target:GetUnitName() == "bh_dummy_unit" then
-      return
-   end
-   
-   local owner = caster:GetOwnerPlayer() or caster:GetOwner()
-   TechTree:AddPlayerMethods(target, owner)
+    if target:GetUnitName() == "bh_dummy_unit" then
+        return
+    end
+    
+    local owner = caster:GetOwnerPlayer() or caster:GetOwner()
+    TechTree:AddPlayerMethods(target, owner)
 
-   --local player = caster:GetOwner()
-   --local playerID = player:GetPlayerID()
-   --local playerHero = GetPlayerHero(playerID)
-   local playerHero = caster:GetOwnerHero()
-   target:SetOwner(playerHero)
-   target:SetHasInventory(true)
-   target._playerOwned = true
-   
-   -- Register Trained
-   TechTree:RegisterIncident(target, true)
-   TechTree:AddAbilitiesToEntity(target)
+    --local player = caster:GetOwner()
+    --local playerID = player:GetPlayerID()
+    --local playerHero = GetPlayerHero(playerID)
+    local playerHero = caster:GetOwnerHero()
+    target:SetOwner(playerHero)
+    target:SetHasInventory(true)
+    target._playerOwned = true
 
-   -- Update worker panel of owner hero.
-   if IsWorker(target) then
-      UpdateWorkerPanel(playerHero)
-   end
-   
-   -- Apply current upgrades.
-   ApplyUpgradesOnTraining(target)
+    -- Register Trained
+    TechTree:RegisterIncident(target, true)
+    TechTree:AddAbilitiesToEntity(target)
 
-   local playerID = target:GetOwnerID()
-   Stats:OnTrained(playerID, target, "unit")
+    -- Update worker panel of owner hero.
+    if IsWorker(target) then
+        UpdateWorkerPanel(playerHero)
+    end
 
-   -- EDITED render color
-   --[=[
-   local targetTeam = target:GetTeamNumber()
-   print("targetTeam: "..targetTeam)
-   print("Radiant: "..DOTA_TEAM_GOODGUYS)
-   print("Dire: "..DOTA_TEAM_BADGUYS)
-   local teamColor = {}
-   if targetTeam == DOTA_TEAM_GOODGUYS then
-      if not COLOR_RADIANT_RGB then
-     print("Fuck Radiant!")
-      end
-      teamColor = COLOR_RADIANT_RGB
-   elseif targetTeam == DOTA_TEAM_BADGUYS then
-      if not COLOR_DIRE_RGB then
-     print("Fuck Dire!")
-      end
-      teamColor = COLOR_DIRE_RGB
-   end
-   target:SetRenderColor(teamColor[1], teamColor[2], teamColor[3]) ]=]
+    -- Apply current upgrades.
+    ApplyUpgradesOnTraining(target)
 
-   -- Move to rally point if it exists.
-   local rallyPoint = caster:GetRallyPoint()
-   if rallyPoint then
-      Timers:CreateTimer({
-                endTime = 0.1,
-                callback = function()
-                   target:MoveToPosition(rallyPoint)
-                end})
-   end
+    local playerID = target:GetOwnerID()
+    Stats:OnTrained(playerID, target, "unit")
+
+    -- EDITED render color
+    --[=[
+    local targetTeam = target:GetTeamNumber()
+    print("targetTeam: "..targetTeam)
+    print("Radiant: "..DOTA_TEAM_GOODGUYS)
+    print("Dire: "..DOTA_TEAM_BADGUYS)
+    local teamColor = {}
+    if targetTeam == DOTA_TEAM_GOODGUYS then
+        if not COLOR_RADIANT_RGB then
+            print("Fuck Radiant!")
+        end
+        teamColor = COLOR_RADIANT_RGB
+    elseif targetTeam == DOTA_TEAM_BADGUYS then
+        if not COLOR_DIRE_RGB then
+            print("Fuck Dire!")
+        end
+        teamColor = COLOR_DIRE_RGB
+    end
+    target:SetRenderColor(teamColor[1], teamColor[2], teamColor[3]) ]=]
+
+    -- Move to rally point if it exists.
+    local rallyPoint = caster:GetRallyPoint()
+    if rallyPoint then
+        Timers:CreateTimer({
+            endTime = 0.1,
+            callback = function()
+            target:MoveToPosition(rallyPoint)
+            end})
+    end
+
+    FireGameEvent("unit_trained", {playerID=playerID, unit=target:GetEntityIndex()})
 end
 
 

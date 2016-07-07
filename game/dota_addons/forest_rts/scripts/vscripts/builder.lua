@@ -74,11 +74,7 @@ function Build( event )
         -- Refund resources for this cancelled work
         if work.refund then
             -- EDITED
-            print("GOLD BEFORE: "..hero:GetGold())
-            print("LUMBER BEFORE: "..hero:GetLumber())
             RefundResourcesID(playerID, gold_cost, lumber_cost)
-            print("GOLD AFTER: "..hero:GetGold())
-            print("LUMBER AFTER: "..hero:GetLumber())
             -- DONE
             --hero:ModifyGold(gold_cost, false, 0)
         end

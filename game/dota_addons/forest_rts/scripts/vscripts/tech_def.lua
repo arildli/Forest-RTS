@@ -2,8 +2,8 @@
 require("tech_spells")
 
 if not defs then
-   print("ERROR: table 'defs' not found!")
-   return
+    print("ERROR: table 'defs' not found!")
+    return
 end
 
 -- Hero names --
@@ -19,18 +19,18 @@ WARLORD = "npc_dota_hero_troll_warlord"
 -- Taken from http://lua-users.org/wiki/CopyTable
 ---------------------------------------------------------------------------
 function deepcopy(orig)
-  local orig_type = type(orig)
-  local copy
-  if orig_type == 'table' then
-    copy = {}
-    for orig_key, orig_value in next, orig, nil do
-      copy[deepcopy(orig_key)] = deepcopy(orig_value)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = orig
     end
-    setmetatable(copy, deepcopy(getmetatable(orig)))
-  else -- number, string, boolean, etc
-    copy = orig
-  end
-  return copy
+    return copy
 end
 
 ---------------------------------------------------------------------------
@@ -38,9 +38,9 @@ end
 -- PAGE_MAIN set to a new value.
 ---------------------------------------------------------------------------
 function CopyWithNewMain(originalTable, pageMainTable)
-  local copy = deepcopy(originalTable)
-  copy["pages"]["PAGE_MAIN"] = pageMainTable
-  return copy
+    local copy = deepcopy(originalTable)
+    copy["pages"]["PAGE_MAIN"] = pageMainTable
+    return copy
 end
 
 ---------------------------------------------------------------------------
@@ -48,14 +48,66 @@ end
 -- spells to the table of each hero.
 ---------------------------------------------------------------------------
 function AddCommonAbilities()
-   for herokey,herotable in pairs(tech) do
-      if herokey ~= "COMMON" then
-	 tech[herotable.heroname] = herotable
-	 for k,v in pairs(tech["COMMON"]) do
-	    herotable[k] = v
-	 end
-      end
-   end
+    for herokey,herotable in pairs(tech) do
+        if herokey ~= "COMMON" then
+            tech[herotable.heroname] = herotable
+            for k,v in pairs(tech["COMMON"]) do
+                herotable[k] = v
+            end
+        end
+    end
+end
+
+---------------------------------------------------------------------------
+-- Returns the constant for the specified hero.
+---------------------------------------------------------------------------
+function GetHeroConst(heroname)
+    local cases = {
+        [COMMANDER]        = "COMMANDER",
+        [FURION]           = "FURION",
+        [GEOMANCER]        = "GEOMANCER",
+        [KING_OF_THE_DEAD] = "KING_OF_THE_DEAD",
+        [WARLORD]          = "WARLORD"
+    }
+    return cases[heroname]
+end
+
+---------------------------------------------------------------------------
+-- Returns the tech[heroname].
+---------------------------------------------------------------------------
+function GetHeroTable(heroname)
+    local heroConst = GetHeroConst(heroname)
+    return tech[heroConst]
+end
+
+---------------------------------------------------------------------------
+-- Returns the constant used for the workers of the hero.
+---------------------------------------------------------------------------
+function GetWorkerConstFor(heroname)
+    local heroConst = GetHeroConst(heroname)
+    return heroConst.."_WORKER"
+end
+
+---------------------------------------------------------------------------
+-- Get a certain unit type for the hero.
+---------------------------------------------------------------------------
+function GetWorkerStructFor(heroname)
+    local heroConst = GetHeroConst(heroname)
+    local workerConst = heroConst.."_WORKER"
+    return tech[heroConst][workerConst]
+end
+
+function GetMeleeStructFor(heroname)
+    local cases = {
+        [COMMANDER]        = "COMMANDER_FOOTMAN",
+        [FURION]           = "FURION_WARRIOR",
+        [GEOMANCER]        = "GEOMANCER_SPEARMAN",
+        [KING_OF_THE_DEAD] = "KING_OF_THE_DEAD_WARRIOR",
+        [WARLORD]          = "WARLORD_FIGHTER"
+    }
+    local heroConst = GetHeroConst(heroname)
+    local unitConst = cases[heroname]
+    return tech[heroConst][unitConst]
 end
 
 
@@ -105,35 +157,35 @@ tech = {
 
     heropages = {
       PAGE_MAIN = {
-	defs.HARVEST_LUMBER_HERO,
-	defs.TRANSFER_LUMBER,
-	defs.PAGE_MENU_CONSTRUCTION_BASIC,
-	defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
-	defs.PAGE_MENU_PROPS
+    defs.HARVEST_LUMBER_HERO,
+    defs.TRANSFER_LUMBER,
+    defs.PAGE_MENU_CONSTRUCTION_BASIC,
+    defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
+    defs.PAGE_MENU_PROPS
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	defs.TENT_SMALL,
-	defs.GOLD_MINE,
-	defs.BARRACKS_RADIANT,
-	defs.WATCH_TOWER,
-	defs.WOODEN_WALL,
-	defs.PAGE_MAIN
+    defs.TENT_SMALL,
+    defs.GOLD_MINE,
+    defs.BARRACKS_RADIANT,
+    defs.WATCH_TOWER,
+    defs.WOODEN_WALL,
+    defs.PAGE_MAIN
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	defs.MARKET,
-	defs.HEALING_CRYSTAL_RADIANT,
-	defs.ARMORY_RADIANT,
-	defs.BARRACKS_ADVANCED_RADIANT,
-	defs.EMPTY_FILLER,
-	defs.PAGE_MAIN
+    defs.MARKET,
+    defs.HEALING_CRYSTAL_RADIANT,
+    defs.ARMORY_RADIANT,
+    defs.BARRACKS_ADVANCED_RADIANT,
+    defs.EMPTY_FILLER,
+    defs.PAGE_MAIN
       },
       PAGE_MENU_PROPS = {
-	 defs.PROP_BARREL,
-	 defs.PROP_CHEST,
-	 defs.PROP_STASH,
-	 defs.PROP_WEAPON_RACK,
-	 defs.PROP_BANNER_RADIANT,
-	 defs.PAGE_MAIN
+     defs.PROP_BARREL,
+     defs.PROP_CHEST,
+     defs.PROP_STASH,
+     defs.PROP_WEAPON_RACK,
+     defs.PROP_BANNER_RADIANT,
+     defs.PAGE_MAIN
       }
     },
     
@@ -150,27 +202,27 @@ tech = {
 
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-				   defs.COMMANDER_WORKER,
-				   defs.TENT_LARGE,
-				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT,
-				   defs.DEMOLISH_BUILDING
+                   defs.COMMANDER_WORKER,
+                   defs.TENT_LARGE,
+                   defs.GLOBAL_SPEED_AURA,
+                   defs.DELIVERY_POINT,
+                   defs.DEMOLISH_BUILDING
     }),
     TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-				   defs.COMMANDER_WORKER,
-				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT,
-				   defs.DEMOLISH_BUILDING
+                   defs.COMMANDER_WORKER,
+                   defs.GLOBAL_SPEED_AURA,
+                   defs.DELIVERY_POINT,
+                   defs.DEMOLISH_BUILDING
     }),
     BARRACKS_RADIANT = CopyWithNewMain(defs.BARRACKS_RADIANT, {
-					 defs.COMMANDER_FOOTMAN,
-					 defs.COMMANDER_GUNNER,
-					 defs.COMMANDER_CATAPULT,
-					 defs.DEMOLISH_BUILDING
+                     defs.COMMANDER_FOOTMAN,
+                     defs.COMMANDER_GUNNER,
+                     defs.COMMANDER_CATAPULT,
+                     defs.DEMOLISH_BUILDING
     }),
     BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(defs.BARRACKS_ADVANCED_RADIANT, {
-						   defs.COMMANDER_SORCERESS,
-						   defs.DEMOLISH_BUILDING
+                           defs.COMMANDER_SORCERESS,
+                           defs.DEMOLISH_BUILDING
     }),
     ARMORY_RADIANT = defs.ARMORY_RADIANT,
     HEALING_CRYSTAL_RADIANT = defs.HEALING_CRYSTAL_RADIANT,
@@ -186,35 +238,35 @@ tech = {
     
     heropages = {
       PAGE_MAIN = {
-	defs.HARVEST_LUMBER_HERO,
-	defs.TRANSFER_LUMBER,
-	defs.PAGE_MENU_CONSTRUCTION_BASIC,
-	defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
-	defs.PAGE_MENU_PROPS
+    defs.HARVEST_LUMBER_HERO,
+    defs.TRANSFER_LUMBER,
+    defs.PAGE_MENU_CONSTRUCTION_BASIC,
+    defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
+    defs.PAGE_MENU_PROPS
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	defs.TENT_SMALL,
-	defs.GOLD_MINE,
-	defs.BARRACKS_RADIANT,
-	defs.WATCH_TOWER,
-	defs.WOODEN_WALL,
-	defs.PAGE_MAIN
+    defs.TENT_SMALL,
+    defs.GOLD_MINE,
+    defs.BARRACKS_RADIANT,
+    defs.WATCH_TOWER,
+    defs.WOODEN_WALL,
+    defs.PAGE_MAIN
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	defs.MARKET,
-	defs.HEALING_CRYSTAL_RADIANT,
-	defs.ARMORY_RADIANT,
-	defs.BARRACKS_ADVANCED_RADIANT,
-	defs.EMPTY_FILLER,
-	defs.PAGE_MAIN
+    defs.MARKET,
+    defs.HEALING_CRYSTAL_RADIANT,
+    defs.ARMORY_RADIANT,
+    defs.BARRACKS_ADVANCED_RADIANT,
+    defs.EMPTY_FILLER,
+    defs.PAGE_MAIN
       },
       PAGE_MENU_PROPS = {
-	 defs.PROP_BARREL,
-	 defs.PROP_CHEST,
-	 defs.PROP_STASH,
-	 defs.PROP_WEAPON_RACK,
-	 defs.PROP_BANNER_RADIANT,
-	 defs.PAGE_MAIN
+     defs.PROP_BARREL,
+     defs.PROP_CHEST,
+     defs.PROP_STASH,
+     defs.PROP_WEAPON_RACK,
+     defs.PROP_BANNER_RADIANT,
+     defs.PAGE_MAIN
       }
     },
 
@@ -231,27 +283,27 @@ tech = {
 
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-				   defs.FURION_WORKER,
-				   defs.TENT_LARGE,
-				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT,
-				   defs.DEMOLISH_BUILDING
+                   defs.FURION_WORKER,
+                   defs.TENT_LARGE,
+                   defs.GLOBAL_SPEED_AURA,
+                   defs.DELIVERY_POINT,
+                   defs.DEMOLISH_BUILDING
     }),
     TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-				   defs.FURION_WORKER,
-				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT,
-				   defs.DEMOLISH_BUILDING
+                   defs.FURION_WORKER,
+                   defs.GLOBAL_SPEED_AURA,
+                   defs.DELIVERY_POINT,
+                   defs.DEMOLISH_BUILDING
     }),
     BARRACKS_RADIANT = CopyWithNewMain(defs.BARRACKS_RADIANT, {
-					 defs.FURION_WARRIOR,
-					 defs.FURION_DRYAD,
-					 defs.FURION_CATAPULT,
-					 defs.DEMOLISH_BUILDING
+                     defs.FURION_WARRIOR,
+                     defs.FURION_DRYAD,
+                     defs.FURION_CATAPULT,
+                     defs.DEMOLISH_BUILDING
     }),
     BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(defs.BARRACKS_ADVANCED_RADIANT, {
-						   defs.FURION_TORMENTED_SOUL,
-						   defs.DEMOLISH_BUILDING
+                           defs.FURION_TORMENTED_SOUL,
+                           defs.DEMOLISH_BUILDING
     }),
     ARMORY_RADIANT = defs.ARMORY_RADIANT,
     HEALING_CRYSTAL_RADIANT = defs.HEALING_CRYSTAL_RADIANT,
@@ -268,35 +320,35 @@ tech = {
 
     heropages = {
       PAGE_MAIN = {
-	defs.HARVEST_LUMBER_HERO,
-	defs.TRANSFER_LUMBER,
-	defs.PAGE_MENU_CONSTRUCTION_BASIC,
-	defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
-	defs.PAGE_MENU_PROPS
+    defs.HARVEST_LUMBER_HERO,
+    defs.TRANSFER_LUMBER,
+    defs.PAGE_MENU_CONSTRUCTION_BASIC,
+    defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
+    defs.PAGE_MENU_PROPS
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	defs.TENT_SMALL,
-	defs.GOLD_MINE,
-	defs.BARRACKS_DIRE,
-	defs.WATCH_TOWER,
-	defs.WOODEN_WALL,
-	defs.PAGE_MAIN
+    defs.TENT_SMALL,
+    defs.GOLD_MINE,
+    defs.BARRACKS_DIRE,
+    defs.WATCH_TOWER,
+    defs.WOODEN_WALL,
+    defs.PAGE_MAIN
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	defs.MARKET,
-	defs.HEALING_CRYSTAL_DIRE,
-	defs.ARMORY_DIRE,
-	defs.BARRACKS_ADVANCED_DIRE,
-	defs.EMPTY_FILLER,
-	defs.PAGE_MAIN
+    defs.MARKET,
+    defs.HEALING_CRYSTAL_DIRE,
+    defs.ARMORY_DIRE,
+    defs.BARRACKS_ADVANCED_DIRE,
+    defs.EMPTY_FILLER,
+    defs.PAGE_MAIN
       },
       PAGE_MENU_PROPS = {
-	 defs.PROP_BARREL,
-	 defs.PROP_CHEST,
-	 defs.PROP_STASH,
-	 defs.PROP_WEAPON_RACK,
-	 defs.PROP_BANNER_DIRE,
-	 defs.PAGE_MAIN
+     defs.PROP_BARREL,
+     defs.PROP_CHEST,
+     defs.PROP_STASH,
+     defs.PROP_WEAPON_RACK,
+     defs.PROP_BANNER_DIRE,
+     defs.PAGE_MAIN
       }
     },
 
@@ -311,26 +363,26 @@ tech = {
 
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-				   defs.GEOMANCER_WORKER,
-				   defs.TENT_LARGE,
-				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT,
-				   defs.DEMOLISH_BUILDING
+                   defs.GEOMANCER_WORKER,
+                   defs.TENT_LARGE,
+                   defs.GLOBAL_SPEED_AURA,
+                   defs.DELIVERY_POINT,
+                   defs.DEMOLISH_BUILDING
     }),
     TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-				   defs.GEOMANCER_WORKER,
-				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT,
-				   defs.DEMOLISH_BUILDING
+                   defs.GEOMANCER_WORKER,
+                   defs.GLOBAL_SPEED_AURA,
+                   defs.DELIVERY_POINT,
+                   defs.DEMOLISH_BUILDING
     }),
     BARRACKS_DIRE = CopyWithNewMain(defs.BARRACKS_DIRE, {
-				      defs.GEOMANCER_SPEARMAN,
-				      defs.GEOMANCER_FLAME_THROWER,
-				      defs.GEOMANCER_CATAPULT,
-				      defs.DEMOLISH_BUILDING
+                      defs.GEOMANCER_SPEARMAN,
+                      defs.GEOMANCER_FLAME_THROWER,
+                      defs.GEOMANCER_CATAPULT,
+                      defs.DEMOLISH_BUILDING
     }),
     BARRACKS_ADVANCED_DIRE = CopyWithNewMain(defs.BARRACKS_ADVANCED_DIRE, {
-						defs.DEMOLISH_BUILDING
+                        defs.DEMOLISH_BUILDING
     }),
     ARMORY_DIRE = defs.ARMORY_DIRE,
     HEALING_CRYSTAL_DIRE = defs.HEALING_CRYSTAL_DIRE,
@@ -346,35 +398,35 @@ tech = {
     
     heropages = {
       PAGE_MAIN = {
-	defs.HARVEST_LUMBER_HERO,
-	defs.TRANSFER_LUMBER,
-	defs.PAGE_MENU_CONSTRUCTION_BASIC,
-	defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
-	defs.PAGE_MENU_PROPS
+    defs.HARVEST_LUMBER_HERO,
+    defs.TRANSFER_LUMBER,
+    defs.PAGE_MENU_CONSTRUCTION_BASIC,
+    defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
+    defs.PAGE_MENU_PROPS
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	defs.TENT_SMALL,
-	defs.GOLD_MINE,
-	defs.BARRACKS_DIRE,
-	defs.WATCH_TOWER,
-	defs.WOODEN_WALL,
-	defs.PAGE_MAIN
+    defs.TENT_SMALL,
+    defs.GOLD_MINE,
+    defs.BARRACKS_DIRE,
+    defs.WATCH_TOWER,
+    defs.WOODEN_WALL,
+    defs.PAGE_MAIN
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	defs.MARKET,
-	defs.HEALING_CRYSTAL_DIRE,
-	defs.ARMORY_DIRE,
-	defs.BARRACKS_ADVANCED_DIRE,
-	defs.EMPTY_FILLER,
-	defs.PAGE_MAIN
+    defs.MARKET,
+    defs.HEALING_CRYSTAL_DIRE,
+    defs.ARMORY_DIRE,
+    defs.BARRACKS_ADVANCED_DIRE,
+    defs.EMPTY_FILLER,
+    defs.PAGE_MAIN
       },
       PAGE_MENU_PROPS = {
-	 defs.PROP_BARREL,
-	 defs.PROP_CHEST,
-	 defs.PROP_STASH,
-	 defs.PROP_WEAPON_RACK,
-	 defs.PROP_BANNER_DIRE,
-	 defs.PAGE_MAIN
+     defs.PROP_BARREL,
+     defs.PROP_CHEST,
+     defs.PROP_STASH,
+     defs.PROP_WEAPON_RACK,
+     defs.PROP_BANNER_DIRE,
+     defs.PAGE_MAIN
       }
     },
 
@@ -391,27 +443,27 @@ tech = {
 
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-				   defs.KING_OF_THE_DEAD_WORKER,
-				   defs.TENT_LARGE,
-				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT,
-				   defs.DEMOLISH_BUILDING
+                   defs.KING_OF_THE_DEAD_WORKER,
+                   defs.TENT_LARGE,
+                   defs.GLOBAL_SPEED_AURA,
+                   defs.DELIVERY_POINT,
+                   defs.DEMOLISH_BUILDING
     }),
     TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-				   defs.KING_OF_THE_DEAD_WORKER,
-				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT,
-				   defs.DEMOLISH_BUILDING
+                   defs.KING_OF_THE_DEAD_WORKER,
+                   defs.GLOBAL_SPEED_AURA,
+                   defs.DELIVERY_POINT,
+                   defs.DEMOLISH_BUILDING
     }),
     BARRACKS_DIRE = CopyWithNewMain(defs.BARRACKS_DIRE, {
-				      defs.KING_OF_THE_DEAD_WARRIOR,
-				      defs.KING_OF_THE_DEAD_ARCHER,
-				      defs.KING_OF_THE_DEAD_CATAPULT,
-				      defs.DEMOLISH_BUILDING
+                      defs.KING_OF_THE_DEAD_WARRIOR,
+                      defs.KING_OF_THE_DEAD_ARCHER,
+                      defs.KING_OF_THE_DEAD_CATAPULT,
+                      defs.DEMOLISH_BUILDING
     }),
     BARRACKS_ADVANCED_DIRE = CopyWithNewMain(defs.BARRACKS_ADVANCED_DIRE, {
-						defs.KING_OF_THE_DEAD_CASTER,
-						defs.DEMOLISH_BUILDING
+                        defs.KING_OF_THE_DEAD_CASTER,
+                        defs.DEMOLISH_BUILDING
     }),
     ARMORY_DIRE = defs.ARMORY_DIRE,
     HEALING_CRYSTAL_DIRE = defs.HEALING_CRYSTAL_DIRE,
@@ -427,35 +479,35 @@ tech = {
 
     heropages = {
       PAGE_MAIN = {
-	defs.HARVEST_LUMBER_HERO,
-	defs.TRANSFER_LUMBER,
-	defs.PAGE_MENU_CONSTRUCTION_BASIC,
-	defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
-	defs.PAGE_MENU_PROPS
+    defs.HARVEST_LUMBER_HERO,
+    defs.TRANSFER_LUMBER,
+    defs.PAGE_MENU_CONSTRUCTION_BASIC,
+    defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
+    defs.PAGE_MENU_PROPS
       },
       PAGE_MENU_CONSTRUCTION_BASIC = {
-	defs.TENT_SMALL,
-	defs.GOLD_MINE,
-	defs.BARRACKS_DIRE,
-	defs.WATCH_TOWER,
-	defs.WOODEN_WALL,
-	defs.PAGE_MAIN
+    defs.TENT_SMALL,
+    defs.GOLD_MINE,
+    defs.BARRACKS_DIRE,
+    defs.WATCH_TOWER,
+    defs.WOODEN_WALL,
+    defs.PAGE_MAIN
       },
       PAGE_MENU_CONSTRUCTION_ADVANCED = {
-	defs.MARKET,
-	defs.HEALING_CRYSTAL_DIRE,
-	defs.ARMORY_DIRE,
-	defs.BARRACKS_ADVANCED_DIRE,
-	defs.EMPTY_FILLER,
-	defs.PAGE_MAIN
+    defs.MARKET,
+    defs.HEALING_CRYSTAL_DIRE,
+    defs.ARMORY_DIRE,
+    defs.BARRACKS_ADVANCED_DIRE,
+    defs.EMPTY_FILLER,
+    defs.PAGE_MAIN
       },
       PAGE_MENU_PROPS = {
-	 defs.PROP_BARREL,
-	 defs.PROP_CHEST,
-	 defs.PROP_STASH,
-	 defs.PROP_WEAPON_RACK,
-	 defs.PROP_BANNER_DIRE,
-	 defs.PAGE_MAIN
+     defs.PROP_BARREL,
+     defs.PROP_CHEST,
+     defs.PROP_STASH,
+     defs.PROP_WEAPON_RACK,
+     defs.PROP_BANNER_DIRE,
+     defs.PAGE_MAIN
       }
     },
 
@@ -471,27 +523,27 @@ tech = {
 
     -- Buildings
     TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-				   defs.WARLORD_WORKER,
-				   defs.TENT_LARGE,
-				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT,
-				   defs.DEMOLISH_BUILDING
+                   defs.WARLORD_WORKER,
+                   defs.TENT_LARGE,
+                   defs.GLOBAL_SPEED_AURA,
+                   defs.DELIVERY_POINT,
+                   defs.DEMOLISH_BUILDING
     }),
     TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-				   defs.WARLORD_WORKER,
-				   defs.GLOBAL_SPEED_AURA,
-				   defs.DELIVERY_POINT,
-				   defs.DEMOLISH_BUILDING
+                   defs.WARLORD_WORKER,
+                   defs.GLOBAL_SPEED_AURA,
+                   defs.DELIVERY_POINT,
+                   defs.DEMOLISH_BUILDING
     }),
     BARRACKS_DIRE = CopyWithNewMain(defs.BARRACKS_DIRE, {
-				      defs.WARLORD_FIGHTER,
-				      defs.WARLORD_AXE_THROWER,
-				      defs.WARLORD_CATAPULT,
-				      defs.DEMOLISH_BUILDING
+                      defs.WARLORD_FIGHTER,
+                      defs.WARLORD_AXE_THROWER,
+                      defs.WARLORD_CATAPULT,
+                      defs.DEMOLISH_BUILDING
     }),
     BARRACKS_ADVANCED_DIRE = CopyWithNewMain(defs.BARRACKS_ADVANCED_DIRE, {
-						defs.WARLORD_ELDER,
-						defs.DEMOLISH_BUILDING
+                        defs.WARLORD_ELDER,
+                        defs.DEMOLISH_BUILDING
     }),
     ARMORY_DIRE = defs.ARMORY_DIRE,
     HEALING_CRYSTAL_DIRE = defs.HEALING_CRYSTAL_DIRE,

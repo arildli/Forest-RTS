@@ -54,7 +54,7 @@ function TechTree:InitTechTree(hero)
    -- Returns the count of units with 'name' as unitName.
    ---------------------------------------------------------------------------
    function hero:GetUnitCountFor(name)
-      return hero.TT.unitCount[name]
+      return hero.TT.unitCount[name] or 0
    end
 
    ---------------------------------------------------------------------------

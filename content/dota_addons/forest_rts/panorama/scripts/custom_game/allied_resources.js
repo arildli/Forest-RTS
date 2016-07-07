@@ -117,7 +117,6 @@ function AlliedResources_UpdatePlayerPanel(parentPanel, playerID, playerConfig, 
 	    lumber : playerLumber,
 	    workers : playerWorkers
 	};
-	$.Msg("Updating player score...");
 	AlliedResources_SetTextSafe(playerPanel, "GoldCount", playerGold);
 	AlliedResources_SetTextSafe(playerPanel, "LumberCount", playerLumber);
 	AlliedResources_SetTextSafe(playerPanel, "WorkerCount", playerWorkers);

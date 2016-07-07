@@ -39,6 +39,13 @@ local HEROES = {
     "npc_dota_hero_skeleton_king",
     "npc_dota_hero_troll_warlord"
 }
+
+local RACES = {}
+RACES[HEROES[1]] = "Commander"
+RACES[HEROES[2]] = "Furion"
+RACES[HEROES[3]] = "Geomancer"
+RACES[HEROES[4]] = "King of the Dead"
+RACES[HEROES[5]] = "Warlord"
 -- End of settings.
 
 
@@ -49,11 +56,18 @@ local HEROES = {
 function AI:Init()
     AI:LoadSettings()
 
-    AI.bots = {}                                        -- Will contain info about the bots.
-    AI.botIDs = {}                                      -- Set containing the playerIDs used by bots.
-    AI.nextHero = "npc_dota_hero_legion_commander"      -- The next spawned bot hero should be set to this.
+    -- Will contain info about the bots.
+    AI.bots = {}                                        
+    -- Set containing the playerIDs used by bots.
+    AI.botIDs = {}        
+    -- Contains the valid locations for bases and outposts.
+    AI.bases = {}                       
+    -- The next spawned bot hero should be set to this.
+    AI.nextHero = "npc_dota_hero_legion_commander"     
+    AI.thinkInterval = 1.0
 
     AI:PrintSettings()
+    AI:AddBases()
 
     ListenToGameEvent('npc_spawned', Dynamic_Wrap(AI, 'OnNPCSpawned'), self)
 
@@ -104,7 +118,6 @@ function AI:PrintSettings()
     for k,v in pairs(AI.settings) do
         AI:Print("\t"..k..": "..tostring(v))
     end
-    AI:Print("\n")
 end
 
 ---------------------------------------------------------------------------
@@ -131,7 +144,9 @@ function AI:OnNPCSpawned(keys)
         local botStruct = {
             playerID = playerID,
             team = spawnedUnit:GetTeam(),
-            hero = CreateHeroForPlayer(AI.nextHero, player)
+            hero = CreateHeroForPlayer(AI.nextHero, player),
+            heroname = AI.nextHero,
+            race = RACES[AI.nextHero]
         }
         AI.bots[#AI.bots+1] = botStruct
         AI:InitBot(botStruct)
@@ -239,6 +254,13 @@ end
 
 function AI:print(...)
     AI:Print(...)
+end
+
+function AI:BotPrint(bot, ...)
+    if not ... then
+        print("ERROR: ... was nil!")
+    end
+    AI:Print("["..bot.race.." - "..bot.playerID.."] ".. ...)
 end
 
 ---------------------------------------------------------------------------

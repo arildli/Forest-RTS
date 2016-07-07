@@ -1,3 +1,5 @@
+-- These functions should be quite independent of the mod it's used in.
+
 ---------------------------------------------------------------------------
 -- Returns the constant for the opposite team.
 --
@@ -57,6 +59,40 @@ function IsOppositeTeamEmpty(teamID)
     return IsTeamEmpty(GetOppositeTeam(teamID))
 end
 
-function GetConstructionSpellForBuilding(buildingName)
-    return GetSpellForEntity(buildingName)
+---------------------------------------------------------------------------
+-- Attempts to place a building for the specified bot.
+-- This building is instantly created!
+--
+-- @playerID (Int): The playerID of the owning bot.
+-- @buildingName (String): The name of the building to place.
+-- @position (Vector): The positional vector to place the building at.
+-- @angle (optional) (Vector?): The angle the building should face.
+-- @return (Building): The constructed building on success.
+---------------------------------------------------------------------------
+function PlaceBuilding(playerID, buildingName, position, angle)
+    return BuildingHelper:PlaceBuilding(playerID, buildingName, position, angle)
+end
+
+---------------------------------------------------------------------------
+-- Constructs a building the ordinary way.
+--
+-- @worker (Unit): The worker to construct the building.
+-- @ability (Ability): The ability to use to construct the building.
+-- @position (Vector): The position where the building should be created.
+---------------------------------------------------------------------------
+function ConstructBuilding(worker, ability, position)
+    local playerID = worker:GetPlayerOwnerID()
+    -- I've only tried setting Queue to 0, might be better at 1 if queuing
+    local buildArgs = {
+        builder = worker:GetEntityIndex(),
+        Queue = 0,
+        PlayerID = playerID,
+        X = position.x,
+        Y = position.y,
+        Z = position.z,
+        bot = true
+    }
+
+    Build({caster=worker, ability=ability})
+    BuildingHelper:BuildCommand(buildArgs)
 end

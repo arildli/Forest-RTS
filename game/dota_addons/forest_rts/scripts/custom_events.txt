@@ -20,6 +20,25 @@
 
 "CustomEvents"
 {
+	"unit_trained"
+	{
+		"playerID"		"short"
+		"unit"			"short"
+	}
+
+	"construction_started"
+	{
+		"playerID"		"short"
+		"building"		"short"
+	}
+
+	"construction_done"
+	{
+		"playerID"		"short"
+		"building"		"short"
+	}
+
+
 	// Stat collection
     	"stat_collection_part"
     	{
@@ -41,6 +60,7 @@
 	{
 		"unit"		"long"
 	}
+
 
 	"score_board"
 	{
