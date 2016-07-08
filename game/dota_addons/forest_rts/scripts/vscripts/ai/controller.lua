@@ -54,7 +54,9 @@ end
 AI.priorities = {
     {pred = HasTent, onFail = ConstructTent},
     {pred = HasGoldMine, onFail = ConstructGoldMine},
-    {pred = Has5Workers, onFail = TrainWorker}
+    {pred = Has10Workers, onFail = TrainWorker},
+    {pred = HasBarracks, onFail = ConstructBarracks},
+    {pred = HasMiniForce, onFail = TrainMelee}
 }
 
 ---------------------------------------------------------------------------
@@ -96,11 +98,23 @@ end
 -- @bot (table): A table containing info about the bot.
 ---------------------------------------------------------------------------
 function AI:Think(bot)
+    AI:BotPrint(bot, "Current state: "..bot.state)
     if bot.state == "idle" then
         AI:BotPrint(bot, "Looking for stuff to do...")
         local action = AI:FindActionToPerform(bot)
         if action then
-            action.onFail(bot)
+            local result = action.onFail(bot)
+            if not result and action.ifFalse then
+                if action.ifFalse(bot) and action.ifFalseAction then
+                    action.ifFalseAction(bot)
+                end
+            else
+                AI:BotPrint(bot, "Couldn't perform action, harvesting lumber.")
+                AI:IdleHeroAction(bot)
+            end
+        else
+            AI:BotPrint(bot, "Nothing to do, harvesting lumber.")
+            AI:IdleHeroAction(bot)
         end
     end
 end
@@ -153,11 +167,10 @@ function AI:OnConstructionFinished(keys)
     local building = EntIndexToHScript(keys.building)
     local buildingName = building:GetUnitName()
     AI:BotPrint(bot, "Construction of a new "..buildingName.." just finished!")
-    if buildingName == GetEntityNameFromConstant("TENT_SMALL") or
-       buildingName == GetEntityNameFromConstant("GOLD_MINE") then
-        AI:BotPrint(bot, "My Main Tent/Gold Mine is finished!")
-        bot.state = "idle"
+    if buildingName == GetEntityNameFromConstant("TENT_SMALL") then
+        AI:BotPrint(bot, "My Main Tent is finished!")
     end
+    bot.state = "idle"
 end
 
 ---------------------------------------------------------------------------
@@ -178,20 +191,7 @@ function AI:OnUnitTrained(keys)
     -- Worker
     if IsWorker(unit) then
         Resources:InitHarvester(unit)
-        local tree = FindEmptyTree(unit, unit:GetAbsOrigin(), unit.HARVESTER.treeSearchRadius)
-        if not tree then
-            AI:Failure("Failed to find tree in radius "..unit.HARVESTER.treeSearchRadius)
-            return
-        end
-
-        local harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker")
-        if harvestAbility then
-            Timers:CreateTimer({
-                endTime = 0.05,
-                callback = function()
-                    unit:CastAbilityOnTarget(tree, harvestAbility, playerID)
-                end})
-        end
+        AI:HarvestLumber(bot, unit)
     end
 end
 

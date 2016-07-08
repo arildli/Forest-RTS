@@ -23,6 +23,7 @@ end
 if not BH_VERSION then
     require("libraries/buildinghelper")
 end
+require("AI/independent_utilities")
 require("AI/utilities")
 require("AI/commands")
 require("AI/controller")

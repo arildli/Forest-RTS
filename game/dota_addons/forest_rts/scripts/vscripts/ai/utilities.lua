@@ -1,62 +1,160 @@
--- These functions should be quite independent of the mod it's used in.
+-- These methods might depend on the mods used in.
 
----------------------------------------------------------------------------
--- Returns the constant for the opposite team.
---
--- @teamID (number): The identifier of the team to get the opposite of.
----------------------------------------------------------------------------
-function GetOppositeTeam(teamID)
-    if teamID == DOTA_TEAM_BADGUYS then
-        return DOTA_TEAM_GOODGUYS
-    else
-        return DOTA_TEAM_BADGUYS
+--// -----| Getters |----- \\--
+
+function AI:GetEntName(constant, teamID)
+    return GetEntityFieldFromConstant(constant, teamID, "name")
+end
+
+function AI:GetTrainedAt(constant, teamID)
+    return GetEntityFieldFromConstant(constant, teamID, "trainedAt")
+end
+
+function AI:GetEntLoc(bot, constant, teamID)
+    return bot.base.locations[constant][1]
+end
+
+function AI:GetBuilding(bot, constant)
+    local buildingName = AI:GetEntName(constant, bot.team)
+    local buildings = bot.hero:GetBuildings()
+    for index,building in pairs(buildings) do
+        if building:GetUnitName() == buildingName then
+            return building
+        end
+    end
+    AI:Failure("Bot doesn't have building with name "..constant.." ("..buildingName..")")
+    return nil
+end
+
+
+
+--// -----| Bools |----- \\--
+
+function AI:HasAtLeast(bot, constant, count)
+    local hero = bot.hero
+    local name
+    if IsConstant(constant) then
+        name = GetEntityNameFromConstant(constant, bot.team)
+    else 
+        name = constant
+    end
+    local countOfEntity = hero:GetUnitCountFor(name)
+    return (countOfEntity >= count)
+end
+
+function AI:HasEntity(bot, constant)
+    return AI:HasAtLeast(bot, constant, 1)
+end
+
+function AI:HasEntityTeamSpecific(bot, constant)
+    local team = bot.team
+    local suffixes = {
+        [DOTA_TEAM_GOODGUYS] = "_RADIANT",
+        [DOTA_TEAM_BADGUYS] = "_DIRE"
+    }
+    return AI:HasAtLeast(bot, constant..suffixes[team], 1)
+end
+
+
+function AI:CanAfford(bot, abilityName)
+    local goldCost = GetAbilitySpecial(abilityName, "gold_cost")
+    local lumberCost = GetAbilitySpecial(abilityName, "lumber_cost")
+    print(abilityName.." (gold: "..goldCost..", lumber: "..lumberCost..")".." for player "..bot.playerID)
+    return CanAfford(bot.playerID, goldCost, lumberCost)
+end
+
+
+
+--// -----| Economy |----- \\--
+
+function AI:HarvestLumber(bot, unit)
+    if not unit.HARVESTER then
+        Resources:InitHarvester(unit)
+    end
+    local tree = FindEmptyTree(unit, unit:GetAbsOrigin(), unit.HARVESTER.treeSearchRadius)
+    if not tree then
+        AI:Failure("Failed to find tree in radius "..unit.HARVESTER.treeSearchRadius)
+        return
+    end
+
+    local harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker") or
+        unit:FindAbilityByName("srts_harvest_lumber")
+    if harvestAbility then
+        Timers:CreateTimer({
+            endTime = 0.05,
+            callback = function()
+                unit:CastAbilityOnTarget(tree, harvestAbility, playerID)
+            end})
     end
 end
 
----------------------------------------------------------------------------
--- Used by Tutorial:AddBot for the last argument.
---
--- @teamID (number): The identifier of the team to get a bool for.
----------------------------------------------------------------------------
-function GetTeamAsBool(teamID)
-    return (teamID == DOTA_TEAM_GOODGUYS)
+function AI:SpendResourcesConstruction(bot, abilityName)
+    local goldCost = GetAbilitySpecial(abilityName, "gold_cost")
+    local lumberCost = GetAbilitySpecial(abilityName, "lumber_cost")
+    AI:SpendResources(bot, goldCost, lumberCost)
 end
 
----------------------------------------------------------------------------
--- Checks if the team is one of the two default ones.
---
--- @teamID (number): The identifier of the team to check.
----------------------------------------------------------------------------
-function IsTeamDireOrRadiant(teamID)
-    return (teamID == DOTA_TEAM_GOODGUYS or teamID == DOTA_TEAM_BADGUYS)
+function AI:SpendResources(bot, gold, lumber)
+    local player = PlayerResource:GetPlayer(bot.playerID)
+    SpendResourcesNew(player, gold, lumber)
 end
 
----------------------------------------------------------------------------
--- Checks if the team is the neutral one.
---
--- @teamID (number): The identifier of the team to check.
----------------------------------------------------------------------------
-function IsTeamNeutrals(teamID)
-    return (teamID == DOTA_TEAM_NEUTRALS)
+function AI:ConstructBuildingWrapper(bot, constant)
+    local buildingName = AI:GetEntName(constant, bot.team)
+    local location = AI:GetEntLoc(bot, constant, bot.team)
+    return AI:ConstructBuilding(bot, buildingName, location)
 end
 
----------------------------------------------------------------------------
--- Checks if the team is empty.
---
--- @teamID (number): The identifier of the team to check.
----------------------------------------------------------------------------
-function IsTeamEmpty(teamID)
-    local playerCountTeam = PlayerResource:GetPlayerCountForTeam(teamID)
-    return (playerCountTeam == 0)
-end
+
+
+--// -----| Training and Construction |----- \\--
 
 ---------------------------------------------------------------------------
--- Checks if the opposite team is empty.
+-- Gets all the necessary information and performs all necessary
+-- checks to determine if and where the unit can be trained.
+-- Trains the unit on success.
 --
--- @teamID (number): The identifier of the opposite of the team to check.
+-- @bot (Bot): The bot to train it for.
+-- @unitName (string): The name of the unit to train.
+-- @return (bool): Whether or not the unit could be trained.
 ---------------------------------------------------------------------------
-function IsOppositeTeamEmpty(teamID)
-    return IsTeamEmpty(GetOppositeTeam(teamID))
+function AI:TrainUnit(bot, unitName)
+    local abilityName = GetSpellForEntityConst(unitName)
+    local buildingConst = AI:GetTrainedAt(unitName, bot.team)
+    local building = AI:GetBuilding(bot, buildingConst)
+    if not building then
+        AI:BotPrint(bot, "Couldn't find building to train "..unitName.." at")
+        return false
+    elseif building:IsChanneling() then
+        AI:BotPrint(bot, "Building already channeling.")
+        return false
+    end
+
+    local playerID = bot.playerID
+    local player = PlayerResource:GetPlayer(playerID)
+    if not AI:CanAfford(bot, abilityName) then
+        AI:BotPrint(bot, "Cannot afford a new "..unitName)
+        return false
+    end
+    --[=[
+    local goldCost = GetAbilitySpecial(abilityName, "gold_cost")
+    local lumberCost = GetAbilitySpecial(abilityName, "lumber_cost")
+    if not CanAfford(player, goldCost, lumberCost) then
+        AI:BotPrint(bot, "Cannot afford a new "..unitName.." (GoldCost: "..goldCost..", lumberCost: "..lumberCost..")")
+        return false
+    end]=]
+    if not building:HasAbility(abilityName) then
+        AI:Failure("The building doesn't have "..abilityName)
+        return false
+    end
+
+    local ability = building:FindAbilityByName(abilityName)
+    if ability:GetLevel() == 0 then
+        AI:Failure("Cannot train unit "..unitName)
+        return false
+    end
+    building:CastAbilityNoTarget(ability, playerID)
+    return true
 end
 
 ---------------------------------------------------------------------------
@@ -69,30 +167,57 @@ end
 -- @angle (optional) (Vector?): The angle the building should face.
 -- @return (Building): The constructed building on success.
 ---------------------------------------------------------------------------
-function PlaceBuilding(playerID, buildingName, position, angle)
-    return BuildingHelper:PlaceBuilding(playerID, buildingName, position, angle)
+function AI:PlaceBuilding(playerID, buildingName, position, angle)
+    return PlaceBuilding(playerID, buildingName, position, angle)
 end
 
 ---------------------------------------------------------------------------
--- Constructs a building the ordinary way.
+-- Attempts to construct a building for the specified bot the 
+-- traditional way.
 --
--- @worker (Unit): The worker to construct the building.
--- @ability (Ability): The ability to use to construct the building.
--- @position (Vector): The position where the building should be created.
+-- @buildingName (String): The name (or constant) of the building to place.
+-- @position (Vector): The position to construct the building at.
+-- @worker (Optional) (unit): The unit to construct with (hero if nil)
+-- @return (boolean): Whether or not the construction could be initiated.
 ---------------------------------------------------------------------------
-function ConstructBuilding(worker, ability, position)
-    local playerID = worker:GetPlayerOwnerID()
-    -- I've only tried setting Queue to 0, might be better at 1 if queuing
-    local buildArgs = {
-        builder = worker:GetEntityIndex(),
-        Queue = 0,
-        PlayerID = playerID,
-        X = position.x,
-        Y = position.y,
-        Z = position.z,
-        bot = true
-    }
+function AI:ConstructBuilding(bot, buildingName, position, worker)
+    if IsConstant(buildingName) then
+        buildingName = AI:GetEntName(buildingName, bots.team)
+    end
 
-    Build({caster=worker, ability=ability})
-    BuildingHelper:BuildCommand(buildArgs)
+    -- Make sure to have access to both a worker, a playerID and a hero.
+    playerID = bot.playerID
+    local hero = bot.hero
+    if not worker then
+        worker = hero
+    end
+
+    -- Check if the worker has the required tech to construct the building.
+    local abilityName = GetConstructionSpellForBuilding(buildingName)
+    local abilityLevel = hero:GetAbilityLevelFor(abilityName)
+    if abilityLevel < 1 then
+        AI:Print("Error: Level requirement not met for "..abilityName.." (playerID: "..playerID..")")
+        return false
+    end
+
+    if not AI:CanAfford(bot, abilityName) then
+        AI:BotPrint(bot, "Cannot afford a new "..buildingName)
+        return false
+    end
+    AI:SpendResourcesConstruction(bot, abilityName)
+
+    -- Make sure to temporarily learn and unlearn the ability if 
+    -- the worker doesn't have it, but has its requirements met.
+    local hadAbility = worker:HasAbility(abilityName)
+    if not hadAbility then
+        LearnAbility(worker, abilityName)
+    end   
+    local ability = GetAbilityByName(worker, abilityName)
+
+    ConstructBuilding(worker, ability, position)
+
+    if not hadAbility then
+        UnlearnAbility(worker, abilityName)
+    end
+    return true
 end
