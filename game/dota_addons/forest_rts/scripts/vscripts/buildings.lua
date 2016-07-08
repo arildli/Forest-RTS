@@ -78,6 +78,7 @@ function finishConstruction(building)
     end
     building._building = true
     building._playerOwned = true
+    building._finished = true
 
     -- Remove rotation spells.
     building:RemoveAbility(rotateRight)

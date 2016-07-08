@@ -147,6 +147,7 @@ function AI:OnNPCSpawned(keys)
             team = spawnedUnit:GetTeam(),
             hero = CreateHeroForPlayer(AI.nextHero, player),
             heroname = AI.nextHero,
+            names = {},
             race = RACES[AI.nextHero]
         }
         AI.bots[#AI.bots+1] = botStruct

@@ -1,21 +1,38 @@
 -- Constants
 MAX_WORKER_COUNT = 10
 
+function InsertKeysDefs()
+	for key,entry in pairs(defs) do
+		local curName = entry.name
+		if curName then
+			defs[curName] = entry
+		end
+		local curSpell = entry.spell
+		if curSpell then
+			defs[curSpell] = entry
+		end
+	end
+end 
+
 function IsConstant(constant)
 	return (defs[constant] ~= nil)
 end
 
+function GetSpellForEntity(entName)
+	return defs[entName].spell
+end
+--[=[
 function GetSpellForEntity(entName)
 	for k,entry in pairs(defs) do
 		if entry.name and entry.name == entName then
 			return entry.spell
 		end
 	end
-end
+end]=]
 
-function GetSpellForEntityConst(constant)
-	return defs[constant].spell
-end
+--function GetSpellForEntityConst(constant)
+--	return defs[constant].spell
+--end
 
 function GetConstructionSpellForBuilding(buildingName)
 	return GetSpellForEntity(buildingName)
@@ -602,6 +619,7 @@ defs = {
 		spell = "srts_train_human_worker",
 		category = "unit",
 		trainedAt = "TENT_SMALL",
+		unitType = "worker",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -650,6 +668,7 @@ defs = {
 		spell = "srts_train_human_footman",
 		category = "unit",
 		trainedAt = "BARRACKS_RADIANT",
+		unitType = "melee",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -666,6 +685,7 @@ defs = {
 		spell = "srts_train_human_gunner",
 		category = "unit",
 		trainedAt = "BARRACKS_RADIANT",
+		unitType = "ranged",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -686,6 +706,7 @@ defs = {
 		spell = "srts_train_catapult_radiant",
 		category = "unit",
 		trainedAt = "BARRACKS_RADIANT",
+		unitType = "siege",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -705,6 +726,7 @@ defs = {
 		spell = "srts_train_human_sorceress",
 		category = "unit",
 		trainedAt = "BARRACKS_ADVANCED_RADIANT",
+		unitType = "caster",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -724,6 +746,7 @@ defs = {
 		spell = "srts_train_forest_worker",
 		category = "unit",
 		trainedAt = "TENT_SMALL",
+		unitType = "worker",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -772,6 +795,7 @@ defs = {
 		spell = "srts_train_forest_warrior",
 		category = "unit",
 		trainedAt = "BARRACKS_RADIANT",
+		unitType = "melee",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -790,6 +814,7 @@ defs = {
 		spell = "srts_train_forest_dryad",
 		category = "unit",
 		trainedAt = "BARRACKS_RADIANT",
+		unitType = "ranged",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -809,6 +834,7 @@ defs = {
 		spell = "srts_train_catapult_radiant",
 		category = "unit",
 		trainedAt = "BARRACKS_RADIANT",
+		unitType = "siege",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -828,6 +854,7 @@ defs = {
 		spell = "srts_train_forest_tormented_soul",
 		category = "unit",
 		trainedAt = "BARRACKS_ADVANCED_RADIANT",
+		unitType = "caster",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -848,6 +875,7 @@ defs = {
 		spell = "srts_train_kobold_worker",
 		category = "unit",
 		trainedAt = "TENT_SMALL",
+		unitType = "worker",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -896,6 +924,7 @@ defs = {
 		spell = "srts_train_kobold_spearman",
 		category = "unit",
 		trainedAt = "BARRACKS_DIRE",
+		unitType = "melee",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -914,6 +943,7 @@ defs = {
 		spell = "srts_train_kobold_flame_thrower",
 		category = "unit",
 		trainedAt = "BARRACKS_DIRE",
+		unitType = "ranged",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -933,6 +963,7 @@ defs = {
 		spell = "srts_train_catapult_dire",
 		category = "unit",
 		trainedAt = "BARRACKS_DIRE",
+		unitType = "siege",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -953,6 +984,7 @@ defs = {
 		spell = "srts_train_skeleton_worker",
 		category = "unit",
 		trainedAt = "TENT_SMALL",
+		unitType = "worker",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -1001,6 +1033,7 @@ defs = {
 		spell = "srts_train_skeleton_warrior",
 		category = "unit",
 		trainedAt = "BARRACKS_DIRE",
+		unitType = "melee",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -1019,6 +1052,7 @@ defs = {
 		spell = "srts_train_skeleton_archer",
 		category = "unit",
 		trainedAt = "BARRACKS_DIRE",
+		unitType = "ranged",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -1038,6 +1072,7 @@ defs = {
 		spell = "srts_train_catapult_dire",
 		category = "unit",
 		trainedAt = "BARRACKS_DIRE",
+		unitType = "siege",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -1057,6 +1092,7 @@ defs = {
 		spell = "srts_train_skeleton_caster",
 		category = "unit",
 		trainedAt = "BARRACKS_ADVANCED_DIRE",
+		unitType = "caster",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -1076,6 +1112,7 @@ defs = {
 		spell = "srts_train_troll_worker",
 		category = "unit",
 		trainedAt = "TENT_SMALL",
+		unitType = "worker",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -1124,6 +1161,7 @@ defs = {
 		spell = "srts_train_troll_fighter",
 		category = "unit",
 		trainedAt = "BARRACKS_DIRE",
+		unitType = "melee",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -1142,6 +1180,7 @@ defs = {
 		spell = "srts_train_troll_axe_thrower",
 		category = "unit",
 		trainedAt = "BARRACKS_DIRE",
+		unitType = "ranged",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -1161,6 +1200,7 @@ defs = {
 		spell = "srts_train_catapult_dire",
 		category = "unit",
 		trainedAt = "BARRACKS_DIRE",
+		unitType = "siege",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -1180,6 +1220,7 @@ defs = {
 		spell = "srts_train_troll_elder",
 		category = "unit",
 		trainedAt = "BARRACKS_ADVANCED_DIRE",
+		unitType = "caster",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
 			"UPGRADE_LIGHT_DAMAGE"},
@@ -1194,3 +1235,5 @@ defs = {
 		}
 	}
 }
+
+InsertKeysDefs()

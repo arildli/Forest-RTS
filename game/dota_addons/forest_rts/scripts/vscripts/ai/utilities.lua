@@ -26,6 +26,36 @@ function AI:GetBuilding(bot, constant)
     return nil
 end
 
+function AI:GetUnitTypeNames(bot, unitType)
+    if not bot.names[unitType] then
+        local heroName = bot.hero:GetUnitName()
+        local newName = GetUnitStructFor(unitType, heroName).name
+        bot.names[unitType] = newName
+        return newName
+    end
+    return bot.names[unitType]
+end
+
+function AI:GetWorkerName(bot)
+    return bot.names.worker or AI:GetUnitTypeNames(bot, "worker")
+end
+
+function AI:GetMeleeName(bot)
+    return bot.names.melee or AI:GetUnitTypeNames(bot, "melee")
+end
+
+function AI:GetRangedName(bot)
+    return bot.names.ranged or AI:GetUnitTypeNames(bot, "ranged")
+end
+
+function AI:GetSiegeName(bot)
+    return bot.names.siege or AI:GetUnitTypeNames(bot, "siege")
+end
+
+function AI:GetCasterName(bot)
+    return bot.names.caster or AI:GetUnitTypeNames(bot, "caster")
+end
+
 
 
 --// -----| Bools |----- \\--
@@ -119,7 +149,7 @@ end
 -- @return (bool): Whether or not the unit could be trained.
 ---------------------------------------------------------------------------
 function AI:TrainUnit(bot, unitName)
-    local abilityName = GetSpellForEntityConst(unitName)
+    local abilityName = GetSpellForEntity(unitName)
     local buildingConst = AI:GetTrainedAt(unitName, bot.team)
     local building = AI:GetBuilding(bot, buildingConst)
     if not building then
@@ -182,7 +212,7 @@ end
 ---------------------------------------------------------------------------
 function AI:ConstructBuilding(bot, buildingName, position, worker)
     if IsConstant(buildingName) then
-        buildingName = AI:GetEntName(buildingName, bots.team)
+        buildingName = AI:GetEntName(buildingName, bot.team)
     end
 
     -- Make sure to have access to both a worker, a playerID and a hero.

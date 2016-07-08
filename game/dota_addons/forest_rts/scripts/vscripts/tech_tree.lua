@@ -287,85 +287,85 @@ end
 --- * ownerhero: The hero of a player.
 ---------------------------------------------------------------------------
 function TechTree:ReadTechDef(ownerHero)
-   -- Crash
-   if not ownerHero:IsRealHero() then print(ownerHero) end
-   if not defs then print(defs.abc) end
+    -- Crash
+    if not ownerHero:IsRealHero() then print(ownerHero) end
+    if not defs then print(defs.abc) end
 
-   -- Init TT vars of hero.
-   local heroName = ownerHero:GetUnitName()
-   ownerHero.TT.techDef = tech[heroName]
-   ownerHero._spells = {}
-   local heroTT = ownerHero.TT.techDef
+    -- Init TT vars of hero.
+    local heroName = ownerHero:GetUnitName()
+    ownerHero.TT.techDef = tech[heroName]
+    ownerHero._spells = {}
+    local heroTT = ownerHero.TT.techDef
 
-   -- Add owner methods to hero.
-   local owner = ownerHero:GetOwner()
-   TechTree:AddPlayerMethods(ownerHero, owner)
+    -- Add owner methods to hero.
+    local owner = ownerHero:GetOwner()
+    TechTree:AddPlayerMethods(ownerHero, owner)
 
-   -- Set ability pages for the unit.
-   for key,page in pairs(tech[heroName].heropages) do
-      InitAbilityPage(ownerHero, key, page)
-   end
+    -- Set ability pages for the unit.
+    for key,page in pairs(tech[heroName].heropages) do
+        InitAbilityPage(ownerHero, key, page)
+    end
 
-   -- Set ability levels and unitCount for the player.
-   for key,value in pairs(heroTT) do
-      if key ~= "heroname" and key ~= "heropages" then
-     -- Set unit count and ability level.
-     local cat = value.category
-     if cat == "unit" or cat == "building" then
-        ownerHero:SetUnitCountFor(value.name, 0)
-     elseif cat == "spell" or cat == "upgrade" then
-        ownerHero:SetUnitCountFor(value.spell, 0)
-     end
-     ownerHero:SetAbilityLevelFor(value.spell, 0)
+    -- Set ability levels and unitCount for the player.
+    for key,value in pairs(heroTT) do
+        if key ~= "heroname" and key ~= "heropages" and key ~= "units" then
+            -- Set unit count and ability level.
+            local cat = value.category
+            if cat == "unit" or cat == "building" then
+                ownerHero:SetUnitCountFor(value.name, 0)
+            elseif cat == "spell" or cat == "upgrade" then
+                ownerHero:SetUnitCountFor(value.spell, 0)
+            end
+            ownerHero:SetAbilityLevelFor(value.spell, 0)
      
-     -- Debug print
-     --[=[
-     if value.req then
-        print("\nLooking at reqs for "..value.spell.." (#req: "..#value.req.."):")
-        for k,v in pairs(value.req) do
-           if type(v) == "string" then
-           --if v.category then
-          print("\tSinglechoice:")
-          print("\t\t"..heroTT[v].name)
-           elseif type(v) == "table" then  -- Note
-          print("\tMultichoice (#v = "..#v.."):")
-          for i,v2 in pairs(v) do
-             print("\t\t"..i..": "..heroTT[v2].name)
-          end
-           end
+             -- Debug print
+             --[=[
+             if value.req then
+                print("\nLooking at reqs for "..value.spell.." (#req: "..#value.req.."):")
+                for k,v in pairs(value.req) do
+                   if type(v) == "string" then
+                   --if v.category then
+                  print("\tSinglechoice:")
+                  print("\t\t"..heroTT[v].name)
+                   elseif type(v) == "table" then  -- Note
+                  print("\tMultichoice (#v = "..#v.."):")
+                  for i,v2 in pairs(v) do
+                     print("\t\t"..i..": "..heroTT[v2].name)
+                  end
+                   end
+                end
+                end]=]
+
+            local curSpellName = value.spell
+            ownerHero._spells[curSpellName] = value
+            --table.insert(ownerHero._spells, value)
         end
-        end]=]
+    end
 
-     local curSpellName = value.spell
-     ownerHero._spells[curSpellName] = value
-     --table.insert(ownerHero._spells, value)
-      end
-   end
-
-   -- Set more keys for easier usage.
-   for k,v in pairs(heroTT) do
-      if k ~= "heropages" and k ~= "heroname" then
-     heroTT[v.spell] = v
-     local cat = v.category
-     --print("Looking at key: "..k)
-     if cat == "unit" or cat == "building" then
-        local name = v.name
-        --print("heroTT["..name.."]")
-        heroTT[name] = v
-        --print("heroTT["..name.."] = "..v.name)
-     end
-      end
-      --[=[
-      if k ~= "heropages" and k ~= "heroname" then
-     heroTT[v.spell] = v
-     local cat = v.category
-     if cat == "unit" or cat == "building" then
+    -- Set more keys for easier usage.
+    for k,v in pairs(heroTT) do
+        if k ~= "heropages" and k ~= "heroname" and k ~= "units" then
+            heroTT[v.spell] = v
+            local cat = v.category
+            --print("Looking at key: "..k)
+            if cat == "unit" or cat == "building" then
+                local name = v.name
+                --print("heroTT["..name.."]")
+                heroTT[name] = v
+                --print("heroTT["..name.."] = "..v.name)
+            end
+        end
+        --[=[
+        if k ~= "heropages" and k ~= "heroname" then
+        heroTT[v.spell] = v
+        local cat = v.category
+        if cat == "unit" or cat == "building" then
         heroTT[v.name] = v
         -- EDITED
         print("heroTT["..v.name.."]")
-     end
-      end]=]
-   end
+        end
+        end]=]
+    end
 end
 
 

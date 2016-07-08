@@ -18,14 +18,14 @@ function HasGoldMine(bot)
 end
 
 function Has5Workers(bot)
-    local workerName = GetWorkerStructFor(bot.heroname).name
+    local workerName = AI:GetWorkerName(bot)
     local hasEnough = AI:HasAtLeast(bot, workerName, 5)
     AI:BotPrint(bot, "Has5Workers: "..tostring(hasEnough))
     return hasEnough
 end
 
 function Has10Workers(bot)
-    local workerName = GetWorkerStructFor(bot.heroname).name
+    local workerName = AI:GetWorkerName(bot)
     local hasEnough = AI:HasAtLeast(bot, workerName, 10)
     return hasEnough
 end
@@ -36,7 +36,18 @@ function HasBarracks(bot)
 end
 
 function HasMiniForce(bot)
+    local hero = bot.hero
+    local meleeName = AI:GetMeleeName(bot)
+    local rangedName = AI:GetRangedName(bot)
 
+    local meleeCount = hero:GetUnitCountFor(meleeName)
+    local rangedCount = hero:GetUnitCountFor(rangedName)
+    local sum = meleeCount + rangedCount
+    local requirement = 5
+
+    AI:BotPrint(bot, "meleeCount: "..meleeCount..", rangedCount: "..rangedCount..", sum: "..sum)
+
+    return (sum >= requirement)
 end
 
 ---------------------------------------------------------------------------
@@ -71,4 +82,10 @@ function TrainWorker(bot)
     local unitConst = GetWorkerConstFor(bot.heroname)
     AI:TrainUnit(bot, unitConst)
     return true
+end
+
+function TrainMelee(bot)
+    AI:BotPrint(bot, "Training Melee")
+    local unitName = AI:GetMeleeName(bot)
+    AI:TrainUnit(bot, unitName)
 end
