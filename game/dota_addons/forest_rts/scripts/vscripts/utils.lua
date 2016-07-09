@@ -626,6 +626,25 @@ end
 
 
 ---------------------------------------------------------------------------
+-- Temporarily grants vision of the caster to the other team.
+---------------------------------------------------------------------------
+function GiveVisionOfHero(keys)
+  local caster = keys.caster
+  local target = keys.target
+  
+  local team = caster:GetTeam()
+  if team == DOTA_TEAM_GOODGUYS then
+    team = DOTA_TEAM_BADGUYS
+  elseif team == DOTA_TEAM_BADGUYS then
+    team = DOTA_TEAM_GOODGUYS
+  end
+  
+  AddFOWViewer(team, caster:GetAbsOrigin(), 1500, 0.75, true)
+end
+
+
+
+---------------------------------------------------------------------------
 -- Function used to test if an ability works.
 ---------------------------------------------------------------------------
 function AbilityTestPrint(keys)

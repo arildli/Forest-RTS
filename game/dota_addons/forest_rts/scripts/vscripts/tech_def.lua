@@ -58,6 +58,17 @@ function AddCommonAbilities()
     end
 end
 
+function IsHeroConst(heroname)
+    local cases = {
+        COMMANDER = true,
+        FURION = true,
+        GEOMANCER = true,
+        KING_OF_THE_DEAD = true,
+        WARLORD = true
+    }
+    return cases[heroname] or false
+end
+
 ---------------------------------------------------------------------------
 -- Returns the constant for the specified hero.
 ---------------------------------------------------------------------------
@@ -80,22 +91,137 @@ function GetHeroTable(heroname)
     return tech[heroConst]
 end
 
----------------------------------------------------------------------------
--- Returns the constant used for the workers of the hero.
----------------------------------------------------------------------------
-function GetWorkerConstFor(heroname)
+function GetConstFor(unitName, heroname)
     local heroConst = GetHeroConst(heroname)
-    return heroConst.."_WORKER"
+    for constant,entry in pairs(entities[heroConst]) do
+        if entry.name == unitName then
+            return constant
+        end
+    end
 end
 
+---------------------------------------------------------------------------
+-- Returns the struct for a specific unit.
+---------------------------------------------------------------------------
 function GetUnitStructFor(unitType, heroname)
-    if not IsConstant(heroname) then
+    if not IsHeroConst(heroname) then
         heroname = GetHeroConst(heroname)
     end
-    return tech[heroname].units[unitType]
+    return entities[heroname][unitType]
+end
+
+---------------------------------------------------------------------------
+-- Returns the struct for a specific building.
+---------------------------------------------------------------------------
+function GetBuildingStructFor(buildingType, heroname)
+    return GetUnitStructFor(buildingType, heroname)
 end
 
 
+
+-- Apparently the entities table fucks up the tech table, so it 
+-- has to go elsewhere...
+entities = {
+    COMMANDER = {
+        WORKER = defs.COMMANDER_WORKER,
+        MELEE = defs.COMMANDER_FOOTMAN,
+        RANGED = defs.COMMANDER_GUNNER,
+        SIEGE = defs.COMMANDER_CATAPULT,
+        CASTER = defs.COMMANDER_SORCERESS,
+
+        TENT_SMALL = defs.TENT_SMALL,
+        GOLD_MINE = defs.GOLD_MINE,
+        WATCH_TOWER = defs.WATCH_TOWER,
+        WOODEN_WALL = defs.WOODEN_WALL,
+        BARRACKS = defs.BARRACKS_RADIANT,
+        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_RADIANT,
+        ARMORY = defs.ARMORY_RADIANT,
+        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_RADIANT,
+        MARKET = defs.MARKET
+    },
+    FURION = {
+        WORKER = defs.FURION_WORKER,
+        MELEE = defs.FURION_WARRIOR,
+        RANGED = defs.FURION_DRYAD,
+        SIEGE = defs.FURION_CATAPULT,
+        CASTER = defs.FURION_TORMENTED_SOUL,
+
+        TENT_SMALL = defs.TENT_SMALL,
+        GOLD_MINE = defs.GOLD_MINE,
+        WATCH_TOWER = defs.WATCH_TOWER,
+        WOODEN_WALL = defs.WOODEN_WALL,
+        BARRACKS = defs.BARRACKS_RADIANT,
+        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_RADIANT,
+        ARMORY = defs.ARMORY_RADIANT,
+        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_RADIANT,
+        MARKET = defs.MARKET
+    },
+    GEOMANCER = {
+        WORKER = defs.GEOMANCER_WORKER,
+        MELEE = defs.GEOMANCER_SPEARMAN,
+        RANGED = defs.GEOMANCER_FLAME_THROWER,
+        SIEGE = defs.GEOMANCER_CATAPULT,
+
+        TENT_SMALL = defs.TENT_SMALL,
+        GOLD_MINE = defs.GOLD_MINE,
+        WATCH_TOWER = defs.WATCH_TOWER,
+        WOODEN_WALL = defs.WOODEN_WALL,
+        BARRACKS = defs.BARRACKS_DIRE,
+        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_DIRE,
+        ARMORY = defs.ARMORY_DIRE,
+        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_DIRE,
+        MARKET = defs.MARKET
+    },
+    KING_OF_THE_DEAD = {
+        WORKER = defs.KING_OF_THE_DEAD_WORKER,
+        MELEE = defs.KING_OF_THE_DEAD_WARRIOR,
+        RANGED = defs.KING_OF_THE_DEAD_ARCHER,
+        SIEGE = defs.KING_OF_THE_DEAD_CATAPULT,
+        CASTER = defs.KING_OF_THE_DEAD_CASTER,
+
+        TENT_SMALL = defs.TENT_SMALL,
+        GOLD_MINE = defs.GOLD_MINE,
+        WATCH_TOWER = defs.WATCH_TOWER,
+        WOODEN_WALL = defs.WOODEN_WALL,
+        BARRACKS = defs.BARRACKS_DIRE,
+        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_DIRE,
+        ARMORY = defs.ARMORY_DIRE,
+        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_DIRE,
+        MARKET = defs.MARKET
+    },
+    WARLORD = {
+        WORKER = defs.WARLORD_WORKER,
+        MELEE = defs.WARLORD_FIGHTER,
+        RANGED = defs.WARLORD_AXE_THROWER,
+        SIEGE = defs.WARLORD_CATAPULT,
+        CASTER = defs.WARLORD_ELDER,
+
+        TENT_SMALL = defs.TENT_SMALL,
+        GOLD_MINE = defs.GOLD_MINE,
+        WATCH_TOWER = defs.WATCH_TOWER,
+        WOODEN_WALL = defs.WOODEN_WALL,
+        BARRACKS = defs.BARRACKS_DIRE,
+        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_DIRE,
+        ARMORY = defs.ARMORY_DIRE,
+        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_DIRE,
+        MARKET = defs.MARKET
+    }
+}
+
+function InitEntitiesTable()
+    for heroname,ents in pairs(entities) do
+        for constant,entry in pairs(ents) do
+            ents[entry.name] = entry
+        end
+    end
+end
+InitEntitiesTable()
+
+entities[COMMANDER] = entities["COMMANDER"]
+entities[FURION] = entities["FURION"]
+entities[GEOMANCER] = entities["GEOMANCER"]
+entities[KING_OF_THE_DEAD] = entities["KING_OF_THE_DEAD"]
+entities[WARLORD] = entities["WARLORD"]
 
 
 -- Tech tree definitions --
@@ -173,14 +299,6 @@ tech = {
                  defs.PROP_BANNER_RADIANT,
                  defs.PAGE_MAIN
             }
-        },
-
-        units = {
-            worker = defs.COMMANDER_WORKER,
-            melee = defs.COMMANDER_FOOTMAN,
-            ranged = defs.COMMANDER_GUNNER,
-            siege = defs.COMMANDER_CATAPULT,
-            caster = defs.COMMANDER_SORCERESS
         },
         
         -- Unit and building spells
@@ -264,14 +382,6 @@ tech = {
             }
         },
 
-        units = {
-            worker = defs.FURION_WORKER,
-            melee = defs.FURION_WARRIOR,
-            ranged = defs.FURION_DRYAD,
-            siege = defs.FURION_CATAPULT,
-            caster = defs.FURION_TORMENTED_SOUL
-        },
-
         -- Unit and building spells
         REGENERATIVE_BARK = defs.REGENERATIVE_BARK,
         ENVENOMED_SPEARS = defs.ENVENOMED_SPEARS,
@@ -345,20 +455,13 @@ tech = {
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
-                 defs.PROP_BARREL,
-                 defs.PROP_CHEST,
-                 defs.PROP_STASH,
-                 defs.PROP_WEAPON_RACK,
-                 defs.PROP_BANNER_DIRE,
-                 defs.PAGE_MAIN
+                defs.PROP_BARREL,
+                defs.PROP_CHEST,
+                defs.PROP_STASH,
+                defs.PROP_WEAPON_RACK,
+                defs.PROP_BANNER_DIRE,
+                defs.PAGE_MAIN
             }
-        },
-
-        units = {
-            worker = defs.GEOMANCER_WORKER,
-            melee = defs.GEOMANCER_SPEARMAN,
-            ranged = defs.GEOMANCER_FLAME_THROWER,
-            siege = defs.GEOMANCER_CATAPULT
         },
 
         -- Unit and building spells
@@ -437,14 +540,6 @@ tech = {
                 defs.PROP_BANNER_DIRE,
                 defs.PAGE_MAIN
             }
-        },
-
-        units = {
-            worker = defs.KING_OF_THE_DEAD_WORKER,
-            melee = defs.KING_OF_THE_DEAD_WARRIOR,
-            ranged = defs.KING_OF_THE_DEAD_ARCHER,
-            siege = defs.KING_OF_THE_DEAD_CATAPULT,
-            caster = defs.KING_OF_THE_DEAD_CASTER
         },
 
         -- Unit and building spells
@@ -526,14 +621,6 @@ tech = {
                  defs.PROP_BANNER_DIRE,
                  defs.PAGE_MAIN
             }
-        },
-
-        units = {
-            worker = defs.WARLORD_WORKER,
-            melee = defs.WARLORD_FIGHTER,
-            ranged = defs.WARLORD_AXE_THROWER,
-            siege = defs.WARLORD_CATAPULT,
-            caster = defs.WARLORD_ELDER
         },
 
         -- Unit and building spells

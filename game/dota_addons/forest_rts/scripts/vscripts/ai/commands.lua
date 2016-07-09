@@ -20,7 +20,6 @@ end
 function Has5Workers(bot)
     local workerName = AI:GetWorkerName(bot)
     local hasEnough = AI:HasAtLeast(bot, workerName, 5)
-    AI:BotPrint(bot, "Has5Workers: "..tostring(hasEnough))
     return hasEnough
 end
 
@@ -31,7 +30,7 @@ function Has10Workers(bot)
 end
 
 function HasBarracks(bot)
-    local bool = AI:HasEntityTeamSpecific(bot, "BARRACKS")
+    local bool = AI:HasEntity(bot, "BARRACKS")
     return bool
 end
 
@@ -79,13 +78,30 @@ end
 
 function TrainWorker(bot)
     AI:BotPrint(bot, "Training Worker")
-    local unitConst = GetWorkerConstFor(bot.heroname)
-    AI:TrainUnit(bot, unitConst)
-    return true
+    local unitName = AI:GetWorkerName(bot)
+    return AI:TrainUnit(bot, unitName)
 end
 
 function TrainMelee(bot)
     AI:BotPrint(bot, "Training Melee")
     local unitName = AI:GetMeleeName(bot)
-    AI:TrainUnit(bot, unitName)
+    return AI:TrainUnit(bot, unitName)
+end
+
+function TrainRanged(bot)
+    AI:BotPrint(bot, "Training Ranged")
+    local unitName = AI:GetRangedName(bot)
+    return AI:TrainUnit(bot, unitName)
+end
+
+function TrainSiege(bot)
+    AI:BotPrint(bot, "Training Siege")
+    local unitName = AI:GetSiegeName(bot)
+    return AI:TrainUnit(bot, unitName)
+end
+
+function TrainCaster(bot)
+    AI:BotPrint(bot, "Training Caster")
+    local unitName = AI:GetCasterName(bot)
+    return AI:TrainUnit(bot, unitName)
 end

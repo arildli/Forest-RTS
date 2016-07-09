@@ -9,8 +9,12 @@ function AI:AddBases()
             basetype = "base",
             locations = {    
                 --TENT_SMALL = Vector(-5925, 2176, 384),
-                TENT_SMALL = {Vector(-6656, -1216, 512)},
-                GOLD_MINE = {Vector(-6656, -832, 512)},
+                TENT_SMALL = {
+                    Vector(-6656, -1216, 512)
+                },
+                GOLD_MINE = {
+                    Vector(-6656, -832, 512)
+                },
                 WATCH_TOWER = {
                     -- By tent
                     Vector(-6656, -1216, 512),
@@ -28,13 +32,15 @@ function AI:AddBases()
                     -- South wall
                     Vector(-6880, -2208, 512)
                 },
-                ARMORY = {Vector(-7616, 64, 512)},
                 BARRACKS = {
                     Vector(-7296, -256, 512),
                     Vector(-7296, -640, 512)
                 },
                 BARRACKS_ADVANCED = {
                     Vector(-7296, 320, 512)
+                },
+                ARMORY = {
+                    Vector(-7616, 64, 512)
                 },
                 HEALING_CRYSTAL = {
                     Vector(-6912, -1664, 512)
@@ -47,7 +53,49 @@ function AI:AddBases()
     }
 
     AI.bases[DOTA_TEAM_BADGUYS] = {
-
+        {
+            name = "Dire #1 - Top",
+            taken = false,
+            basetype = "base",
+            locations = {
+                TENT_SMALL = {
+                    Vector(3456, 4864, 256)
+                },
+                GOLD_MINE = {
+                    Vector(3648, 5312, 256)
+                },
+                WATCH_TOWER = {
+                    -- South
+                    Vector(4064, 4704, 256), 
+                    Vector(4640, 4704, 256),
+                    -- North
+                    Vector(5216, 6112, 384),
+                    Vector(5126, 5344, 384)
+                },
+                WOODEN_WALL = {
+                    -- North
+                    Vector(5216, 5920, 384),
+                    Vector(5216, 5728, 384),
+                    Vector(5216, 5536, 384)
+                },
+                BARRACKS = {
+                    Vector(4032, 5312, 256),
+                    Vector(4480, 5312, 256)
+                },
+                BARRACKS_ADVANCED = {
+                    Vector(4736, 5440, 256)
+                },
+                ARMORY = {
+                    Vector(4416, 6080, 256)
+                },
+                HEALING_CRYSTAL = {
+                    Vector(4480, 5696, 256)
+                },
+                MARKET = {
+                    Vector(4800, 4288, 128)
+                }
+            }
+        }
     }
 end
 
@@ -140,10 +188,10 @@ end
 -- Called when construction of a structure has started.
 ---------------------------------------------------------------------------
 function AI:OnConstructionStarted(keys)
+    print("AI:OnConstructionStarted")
     local playerID = keys.playerID
     local bot = AI:GetBotByID(playerID)
     if not bot or bot.playerID ~= playerID then
-        AI:Print("Nope, event wasn't for me!")
         return
     end
     local building = EntIndexToHScript(keys.building)
@@ -158,10 +206,10 @@ end
 -- Called when construction of a structure has finished.
 ---------------------------------------------------------------------------
 function AI:OnConstructionFinished(keys)
+    print("AI:OnConstructionFinished")
     local playerID = keys.playerID
     local bot = AI:GetBotByID(playerID)
     if not bot or bot.playerID ~= playerID then
-        AI:BotPrint(bot, "Nope, event wasn't for me!")
         return
     end
     local building = EntIndexToHScript(keys.building)
@@ -177,10 +225,10 @@ end
 -- Called when training of a unit has finished.
 ---------------------------------------------------------------------------
 function AI:OnUnitTrained(keys)
+    print("AI:OnUnitTrained")
     local playerID = keys.playerID
     local bot = AI:GetBotByID(playerID)
     if not bot or bot.playerID ~= playerID then
-        AI:BotPrint(bot, "Nope, event wasn't for me!")
         return
     end
     local unit = EntIndexToHScript(keys.unit)

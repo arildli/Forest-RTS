@@ -41,6 +41,14 @@ local HEROES = {
     "npc_dota_hero_troll_warlord"
 }
 
+local HEROTEAM = {
+    [HEROES[1]] = DOTA_TEAM_GOODGUYS,
+    [HEROES[2]] = DOTA_TEAM_GOODGUYS,
+    [HEROES[3]] = DOTA_TEAM_BADGUYS,
+    [HEROES[4]] = DOTA_TEAM_BADGUYS,
+    [HEROES[5]] = DOTA_TEAM_BADGUYS
+}
+
 local RACES = {}
 RACES[HEROES[1]] = "Commander"
 RACES[HEROES[2]] = "Furion"
@@ -73,31 +81,43 @@ function AI:Init()
     ListenToGameEvent('npc_spawned', Dynamic_Wrap(AI, 'OnNPCSpawned'), self)
 
     Convars:RegisterCommand("ai.debug", function()
-            print("[AI Cheat] ai.debug = true")
-            AI.settings["TESTING"] = true
-        end, "Enables debug text for the AI modules.", FCVAR_CHEAT) 
+        print("[AI Cheat] ai.debug = true")
+        AI.settings["TESTING"] = true
+    end, "Enables debug text for the AI modules.", FCVAR_CHEAT) 
 
 
     Convars:RegisterCommand("ai.settings", function()
-            AI:PrintSettings()
-        end, "Prints the settings of the module.", FCVAR_CHEAT) 
+        AI:PrintSettings()
+    end, "Prints the settings of the module.", FCVAR_CHEAT) 
 
 
     Convars:RegisterCommand("ai.addbot.dire", function()
-            print("[AI Cheat] Adding Dire bot...")
-            AI:AddBot(DOTA_TEAM_BADGUYS, HEROES[1])
-        end, "Adds a bot to the dire team.", FCVAR_CHEAT)
+        print("[AI Cheat] Adding Dire bot...")
+        AI:AddBot(DOTA_TEAM_BADGUYS, HEROES[1])
+    end, "Adds a bot to the dire team.", FCVAR_CHEAT)
             
 
     Convars:RegisterCommand("ai.addbot.radiant", function()
-            print("[AI Cheat] Adding Radiant bot...")
-            AI:AddBot(DOTA_TEAM_GOODGUYS, HEROES[1])
-        end, "Adds a bot to the radiant team.", FCVAR_CHEAT)
+        print("[AI Cheat] Adding Radiant bot...")
+        AI:AddBot(DOTA_TEAM_GOODGUYS, HEROES[1])
+    end, "Adds a bot to the radiant team.", FCVAR_CHEAT)
 
     Convars:RegisterCommand("ai.addbot.neutral", function()
-            print("[AI Cheat] Adding Neutral bot...")
-            AI:AddBotNeutralTeam()
-        end, "Adds a bot to the radiant team.", FCVAR_CHEAT)
+        print("[AI Cheat] Adding Neutral bot...")
+        AI:AddBotNeutralTeam()
+    end, "Adds a bot to the radiant team.", FCVAR_CHEAT)
+
+    Convars:RegisterCommand("ai.testing", function()
+        AI:Print("Enabling cheat mode!")
+        BuildingHelper:WarpTen(true)
+        AI:AddBot(DOTA_TEAM_BADGUYS, HEROES[1])
+        AI:AddBot(DOTA_TEAM_GOODGUYS, HEROES[1])
+        AI.speedUpTraining = true
+        AI.cheat = true
+
+        -- FIKS INSTANT TRAINING!
+
+    end, "Speeds up the bot stuff", FCVAR_CHEAT)
 
     print("[AI] Initialized AI module.")
 end
@@ -148,9 +168,18 @@ function AI:OnNPCSpawned(keys)
             hero = CreateHeroForPlayer(AI.nextHero, player),
             heroname = AI.nextHero,
             names = {},
+            heroTeam = HEROTEAM[heroname],
             race = RACES[AI.nextHero]
         }
         AI.bots[#AI.bots+1] = botStruct
+        if AI.cheat then
+            local hero = botStruct.hero
+            Resources:InitHero(hero)
+            hero:SetGold(99999)
+            hero:SetLumber(99999)
+            hero:AddAbility("srts_hero_vision")
+            hero:FindAbilityByName("srts_hero_vision"):SetLevel(1)
+        end
         AI:InitBot(botStruct)
     end
 end

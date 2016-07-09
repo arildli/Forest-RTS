@@ -1,15 +1,15 @@
 
 
 if not TechTree then
-   TechTree = {}
-   TechTree.__index = TechTree
+    TechTree = {}
+    TechTree.__index = TechTree
 end
 
 function TechTree:new(o)
-   o = o or {}
-   setmetatable(o, self)
-   SIMPLETECHTREE_REFERENCE = o
-   return o
+    o = o or {}
+    setmetatable(o, self)
+    SIMPLETECHTREE_REFERENCE = o
+    return o
 end
 
 print("[TechTree] Loading Tech Tree Definitions...")
@@ -23,258 +23,272 @@ print("[TechTree] Creating Tech Tree Structures...")
 --- * hero: The unit to init the tech tree for.
 ---------------------------------------------------------------------------
 function TechTree:InitTechTree(hero)
-   if not hero then
-      -- Crash
-      hero:GetUnitName()
-   end
-   if not TechTree:IsHero(hero) then
-      print_simple_tech_tree("TechTree:InitTechTree", "hero was not a hero! ("..hero:GetUnitName()..")!")
-   end
+    if not hero then
+        -- Crash
+        hero:GetUnitName()
+    end
+    if not TechTree:IsHero(hero) then
+        print_simple_tech_tree("TechTree:InitTechTree", "hero was not a hero! ("..hero:GetUnitName()..")!")
+    end
 
-   -- Init tables for unit.
-   hero.TT = {
-      unitCount = {},
-      buildings = {},
-      units = {},
-      abilityLevels = {}
-   }
+    -- Init tables for unit.
+    hero.TT = {
+        unitCount = {},
+        buildings = {},
+        units = {},
+        abilityLevels = {}
+    }
 
 
    --                   -----| UnitCount table |-----
 
 
-   ---------------------------------------------------------------------------
-   -- Returns the total number of units.
-   ---------------------------------------------------------------------------
-   function hero:GetUnitCount()
-      return hero.TT.unitCount
-   end
+    ---------------------------------------------------------------------------
+    -- Returns the total number of units.
+    ---------------------------------------------------------------------------
+    function hero:GetUnitCount()
+        return hero.TT.unitCount
+    end
 
-   ---------------------------------------------------------------------------
-   -- Returns the count of units with 'name' as unitName.
-   ---------------------------------------------------------------------------
-   function hero:GetUnitCountFor(name)
-      return hero.TT.unitCount[name] or 0
-   end
+    ---------------------------------------------------------------------------
+    -- Returns the count of units with 'name' as unitName.
+    ---------------------------------------------------------------------------
+    function hero:GetUnitCountFor(name)
+        return hero.TT.unitCount[name] or 0
+    end
 
-   ---------------------------------------------------------------------------
-   -- Returns the worker count for the player.
-   ---------------------------------------------------------------------------
-   function hero:GetWorkerCount()
-      local heroName = hero:GetUnitName()
-      local workerTable = 
-     tech[heroName]["COMMANDER_WORKER"] or
-     tech[heroName]["FURION_WORKER"] or
-     tech[heroName]["GEOMANCER_WORKER"] or
-     tech[heroName]["KING_OF_THE_DEAD_WORKER"] or
-     tech[heroName]["WARLORD_WORKER"]
-      local workerName = workerTable["name"]
-      return hero:GetUnitCountFor(workerName)
-   end
+    ---------------------------------------------------------------------------
+    -- Returns the worker count for the player.
+    ---------------------------------------------------------------------------
+    function hero:GetWorkerCount()
+        local heroName = hero:GetUnitName()
+        local workerTable = 
+        tech[heroName]["COMMANDER_WORKER"] or
+        tech[heroName]["FURION_WORKER"] or
+        tech[heroName]["GEOMANCER_WORKER"] or
+        tech[heroName]["KING_OF_THE_DEAD_WORKER"] or
+        tech[heroName]["WARLORD_WORKER"]
+        local workerName = workerTable["name"]
+        return hero:GetUnitCountFor(workerName)
+    end
 
-   ---------------------------------------------------------------------------
-   -- Sets the count of units with 'name' as unitName.
-   ---------------------------------------------------------------------------
-   function hero:SetUnitCountFor(name, value)
-      if name and value then
-     hero.TT.unitCount[name] = value
-      else
-     -- Crash
-     print(name.." "..value)
-      end
-   end
-
-   ---------------------------------------------------------------------------
-   -- Increments the count of units with 'name' as unitName.
-   ---------------------------------------------------------------------------
-   function hero:IncUnitCountFor(name)
-      if name then
-     if not hero.TT.unitCount[name] then
-        hero.TT.unitCount[name] = 0
-     end
-     hero.TT.unitCount[name] = hero.TT.unitCount[name] + 1
-     return hero.TT.unitCount[name]
-      else
-     -- Crash
-     print("IncUnitCountFor: "..name)
-      end
-   end
-
-   ---------------------------------------------------------------------------
-   -- Decrements the count of units with 'name' as unitName.
-   ---------------------------------------------------------------------------
-   function hero:DecUnitCountFor(name)
-      if name then
-     if not hero.TT.unitCount[name] then
-        hero.TT.unitCount[name] = 0
-     end
-     hero.TT.unitCount[name] = hero.TT.unitCount[name] - 1
-     return hero.TT.unitCount[name]
-      else
-     -- Crash
-     print("DecUnitCountFor: "..name)
-      end
-   end
-
-
-   --                   -----| Buildings and Units tables |-----
-
-
-   ---------------------------------------------------------------------------
-   -- Gets the ability level for the entities with the
-   -- specified name.
-   ---------------------------------------------------------------------------
-   function hero:GetAbilityLevelFor(name)
-      local level = hero.TT.abilityLevels[name]
-      if level then
-     return level
-      else
-     return 1
-      end
-   end
-
-   ---------------------------------------------------------------------------
-   -- Sets the ability level for the entities with the
-   -- specified name.
-   ---------------------------------------------------------------------------
-   function hero:SetAbilityLevelFor(name, level)
-      hero.TT.abilityLevels[name] = level
-   end
-
-
-   --                   -----| Buildings and Units tables |-----
-
-
-   ---------------------------------------------------------------------------
-   -- Get the table with handles to all the buildings of the hero.
-   ---------------------------------------------------------------------------
-   function hero:GetBuildings()
-      return hero.TT.buildings
-   end
-
-   ---------------------------------------------------------------------------
-   -- Get the table with handles to all the units of the hero.
-   ---------------------------------------------------------------------------
-   function hero:GetUnits()
-      return hero.TT.units
-   end
-
-   ---------------------------------------------------------------------------
-   -- Add the building handle to the building table.
-   ---------------------------------------------------------------------------
-   function hero:AddBuilding(building)
-      if building then
-     table.insert(hero.TT.buildings, building)
-      else
-     -- Crash
-     unit:GetUnitName()
-      end
-   end
-
-   ---------------------------------------------------------------------------
-   -- Add the unit handle to the unit table.
-   ---------------------------------------------------------------------------
-   function hero:AddUnit(unit)
-      if unit then
-     table.insert(hero.TT.units, unit)
-      else
-     -- Crash
-     unit:GetUnitName()
-      end
-   end
-
-   ---------------------------------------------------------------------------
-   -- Remove the building from the building table by index.
-   ---------------------------------------------------------------------------
-   function hero:RemoveBuildingByIndex(index)
-      if index then
-     table.remove(hero.TT.buildings, index)
-      else
-     -- Crash
-     print(index)
-      end
-   end
-
-   ---------------------------------------------------------------------------
-   -- Remove the unit from the unit table by index.
-   ---------------------------------------------------------------------------
-   function hero:RemoveUnitByIndex(index)
-      if index then
-     table.remove(hero.TT.units, index)
-      else
-     -- Crash
-     print(index)
-      end
-   end
-
-   ---------------------------------------------------------------------------
-   -- Remove the reference to the building from the building table.
-   ---------------------------------------------------------------------------
-   function hero:RemoveBuilding(building)
-      local index = -1
-      for k,v in pairs(hero:GetBuildings()) do
-     if v == building then
-        index = k
-        break
-     end
-      end
-      if index ~= -1 then
-     hero:RemoveBuildingByIndex(index)
-     return true
-      end
-      return false
-   end
-
-   ---------------------------------------------------------------------------
-   -- Remove the reference to unit from the unit table.
-   ---------------------------------------------------------------------------
-   function hero:RemoveUnit(unit)
-      local index = -1
-      for k,v in pairs(hero:GetUnits()) do
-     if v == unit then
-        index = k
-        break
-     end
-      end
-      if index ~= -1 then
-     hero:RemoveUnitByIndex(index)
-     return true
-      end
-      return false
-   end
-
-   ---------------------------------------------------------------------------
-   -- Print the count of units and buildings for the owner of that unit.
-   ---------------------------------------------------------------------------
-   function hero:PrintUnitCount()
-      local player = unit:GetOwner()
-      local playerID = player:GetPlayerID()
-      local playerHero = GetPlayerHero(playerID)
-
-      if DEBUG_SIMPLE_TECH_TREE then
-     print("\n------------------")
-     print("Printing unit count for "..playerID..":")
-     print("------------------")
-     for index,count in pairs(playerHero.TT._unitCount) do
-        if index ~= "none" then
-           print(index..": "..count)
+    ---------------------------------------------------------------------------
+    -- Sets the count of units with 'name' as unitName.
+    ---------------------------------------------------------------------------
+    function hero:SetUnitCountFor(name, value)
+        if name and value then
+        hero.TT.unitCount[name] = value
+        else
+            -- Crash
+            print(name.." "..value)
         end
-     end
-     print("------------------")
-      end
-   end
-   ---------------------------------------------------------------------------
-   TechTree:RemoveDescriptionSpells(hero)
+    end
 
-   local heroName = hero:GetUnitName()
+    ---------------------------------------------------------------------------
+    -- Increments the count of units with 'name' as unitName.
+    ---------------------------------------------------------------------------
+    function hero:IncUnitCountFor(name)
+        if name then
+            if not hero.TT.unitCount[name] then
+                hero.TT.unitCount[name] = 0
+            end
+            hero.TT.unitCount[name] = hero.TT.unitCount[name] + 1
+            return hero.TT.unitCount[name]
+        else
+            -- Crash
+            print("IncUnitCountFor: "..name)
+        end
+    end
 
-   TechTree:ReadTechDef(hero)
+    ---------------------------------------------------------------------------
+    -- Decrements the count of units with 'name' as unitName.
+    ---------------------------------------------------------------------------
+    function hero:DecUnitCountFor(name)
+        if name then
+            if not hero.TT.unitCount[name] then
+                hero.TT.unitCount[name] = 0
+            end
+            hero.TT.unitCount[name] = hero.TT.unitCount[name] - 1
+            return hero.TT.unitCount[name]
+        else
+            -- Crash
+            print("DecUnitCountFor: "..name)
+        end
+    end
 
-   -- Update tech tree.
-   TechTree:UpdateTechTree(hero, nil, "init")
 
-   -- Set current page to the main one.
-   GoToPage(hero, "PAGE_MAIN")
+    --                   -----| Buildings and Units tables |-----
+
+
+    ---------------------------------------------------------------------------
+    -- Gets the ability level for the entities with the
+    -- specified name.
+    ---------------------------------------------------------------------------
+    function hero:GetAbilityLevelFor(name)
+        local level = hero.TT.abilityLevels[name]
+        if level then
+            return level
+        else
+            return 1
+        end
+    end
+
+    ---------------------------------------------------------------------------
+    -- Sets the ability level for the entities with the
+    -- specified name.
+    ---------------------------------------------------------------------------
+    function hero:SetAbilityLevelFor(name, level)
+        hero.TT.abilityLevels[name] = level
+    end
+
+
+    --                   -----| Buildings and Units tables |-----
+
+
+    ---------------------------------------------------------------------------
+    -- Get the table with handles to all the buildings of the hero.
+    ---------------------------------------------------------------------------
+    function hero:GetBuildings()
+        return hero.TT.buildings
+    end
+
+    ---------------------------------------------------------------------------
+    -- Get the table with handles to all the units of the hero.
+    ---------------------------------------------------------------------------
+    function hero:GetUnits()
+        return hero.TT.units
+    end
+
+    ---------------------------------------------------------------------------
+    -- Get a table with all units with the specified name.
+    ---------------------------------------------------------------------------
+    function hero:GetUnitsWithName(unitName)
+        local allUnits = hero:GetUnits()
+        local units = {}
+        for _,unit in pairs(allUnits) do
+            if unit:GetUnitName() == unitName then
+                units[#units+1] = unit
+            end
+        end
+        return units
+    end
+
+    ---------------------------------------------------------------------------
+    -- Add the building handle to the building table.
+    ---------------------------------------------------------------------------
+    function hero:AddBuilding(building)
+        if building then
+            table.insert(hero.TT.buildings, building)
+        else
+            -- Crash
+            unit:GetUnitName()
+        end
+    end
+
+    ---------------------------------------------------------------------------
+    -- Add the unit handle to the unit table.
+    ---------------------------------------------------------------------------
+    function hero:AddUnit(unit)
+        if unit then
+            table.insert(hero.TT.units, unit)
+        else
+            -- Crash
+            unit:GetUnitName()
+        end
+    end
+
+    ---------------------------------------------------------------------------
+    -- Remove the building from the building table by index.
+    ---------------------------------------------------------------------------
+    function hero:RemoveBuildingByIndex(index)
+        if index then
+            table.remove(hero.TT.buildings, index)
+        else
+            -- Crash
+            print(index)
+        end
+    end
+
+    ---------------------------------------------------------------------------
+    -- Remove the unit from the unit table by index.
+    ---------------------------------------------------------------------------
+    function hero:RemoveUnitByIndex(index)
+        if index then
+            table.remove(hero.TT.units, index)
+        else
+            -- Crash
+            print(index)
+        end
+    end
+
+    ---------------------------------------------------------------------------
+    -- Remove the reference to the building from the building table.
+    ---------------------------------------------------------------------------
+    function hero:RemoveBuilding(building)
+        local index = -1
+        for k,v in pairs(hero:GetBuildings()) do
+            if v == building then
+                index = k
+                break
+            end
+        end
+        if index ~= -1 then
+            hero:RemoveBuildingByIndex(index)
+            return true
+        end
+        return false
+    end
+
+    ---------------------------------------------------------------------------
+    -- Remove the reference to unit from the unit table.
+    ---------------------------------------------------------------------------
+    function hero:RemoveUnit(unit)
+        local index = -1
+        for k,v in pairs(hero:GetUnits()) do
+            if v == unit then
+                index = k
+                break
+            end
+        end
+        if index ~= -1 then
+            hero:RemoveUnitByIndex(index)
+            return true
+        end
+        return false
+    end
+
+    ---------------------------------------------------------------------------
+    -- Print the count of units and buildings for the owner of that unit.
+    ---------------------------------------------------------------------------
+    function hero:PrintUnitCount()
+        local player = unit:GetOwner()
+        local playerID = player:GetPlayerID()
+        local playerHero = GetPlayerHero(playerID)
+
+        if DEBUG_SIMPLE_TECH_TREE then
+            print("\n------------------")
+            print("Printing unit count for "..playerID..":")
+            print("------------------")
+            for index,count in pairs(playerHero.TT._unitCount) do
+                if index ~= "none" then
+                    print(index..": "..count)
+                end
+            end
+            print("------------------")
+        end
+    end
+    ---------------------------------------------------------------------------
+    TechTree:RemoveDescriptionSpells(hero)
+
+    local heroName = hero:GetUnitName()
+
+    TechTree:ReadTechDef(hero)
+
+    -- Update tech tree.
+    TechTree:UpdateTechTree(hero, nil, "init")
+
+    -- Set current page to the main one.
+    GoToPage(hero, "PAGE_MAIN")
 end
 
 
@@ -308,7 +322,7 @@ function TechTree:ReadTechDef(ownerHero)
 
     -- Set ability levels and unitCount for the player.
     for key,value in pairs(heroTT) do
-        if key ~= "heroname" and key ~= "heropages" and key ~= "units" then
+        if key ~= "heroname" and key ~= "heropages" and key ~= "entities" then
             -- Set unit count and ability level.
             local cat = value.category
             if cat == "unit" or cat == "building" then
@@ -344,13 +358,12 @@ function TechTree:ReadTechDef(ownerHero)
 
     -- Set more keys for easier usage.
     for k,v in pairs(heroTT) do
-        if k ~= "heropages" and k ~= "heroname" and k ~= "units" then
+        --print("Looking at key: "..k)
+        if k ~= "heropages" and k ~= "heroname" and k ~= "entities" then
             heroTT[v.spell] = v
             local cat = v.category
-            --print("Looking at key: "..k)
             if cat == "unit" or cat == "building" then
                 local name = v.name
-                --print("heroTT["..name.."]")
                 heroTT[name] = v
                 --print("heroTT["..name.."] = "..v.name)
             end
@@ -423,21 +436,43 @@ end
 --- * ownerHero: The hero of the owning player.
 ---------------------------------------------------------------------------
 function TechTree:GetAbilityPagesForUnit(unit, ownerHero)
-   if unit:IsRealHero() then 
-      return unit.TT.techDef.heropages 
-   end
-   local unitName = unit:GetUnitName()
+    if unit:IsRealHero() then 
+        return unit.TT.techDef.heropages 
+    end
+    local unitName = unit:GetUnitName()
 
-   local unitPages = ownerHero.TT.techDef[unitName].pages
-   for pageName,page in pairs(unitPages) do
-      for i,curSpell in pairs(page) do
-     if type(curSpell) == "string" then
-        -- Replace string with ref to actual spell.
-        page[i] = ownerHero.TT.techDef[curSpell]
-     end
-      end
-   end
-   return unitPages
+    local unitStruct = ownerHero.TT.techDef[unitName]
+
+    --[[
+    local count = 0
+    for k,v in pairs(ownerHero.TT.techDef) do
+        count = count + 1
+        if k == unitName then
+            print("FOUND "..unitName.." AS KEY!")
+            print("ownerHero.TT.techDef["..unitName.."] ~= nil: "..tostring(ownerHero.TT.techDef[unitName] ~= nil))
+        else
+            print("\t"..k)
+        end
+    end
+    print("GetAbilityPagesForUnit: Keys: "..count)
+    ]]
+
+    if not unitStruct then
+        print("\n\nunitStruct for "..unitName.." was nil!\n\n\n")
+    end
+    local unitPages = unitStruct.pages
+    if not unitPages then
+        print("UNITPAGES NOT FOUND FOR "..unitName.."!")
+    end
+    for pageName,page in pairs(unitPages) do
+        for i,curSpell in pairs(page) do
+            if type(curSpell) == "string" then
+                -- Replace string with ref to actual spell.
+                page[i] = ownerHero.TT.techDef[curSpell]
+            end
+        end
+    end
+    return unitPages
 end
 
 ---------------------------------------------------------------------------
@@ -908,11 +943,8 @@ end
 --- * ownerHero: The hero of the caller.
 ---------------------------------------------------------------------------
 function TechTree:GetMaxCountFor(name, ownerHero)
-   if not ownerHero.TT.techDef[name] then
-      print("ownerHero.TT.techDef["..name.."] was nil!")
-      return nil
-   end
-   return ownerHero.TT.techDef[name].max
+    local unitStruct = ownerHero.TT.techDef[name] or defs[name]
+    return unitStruct.max
 end
 
 

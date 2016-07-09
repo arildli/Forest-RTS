@@ -12,45 +12,39 @@ function InsertKeysDefs()
 			defs[curSpell] = entry
 		end
 	end
-end 
-
-function IsConstant(constant)
-	return (defs[constant] ~= nil)
 end
 
 function GetSpellForEntity(entName)
 	return defs[entName].spell
 end
---[=[
-function GetSpellForEntity(entName)
-	for k,entry in pairs(defs) do
-		if entry.name and entry.name == entName then
-			return entry.spell
+
+function FindUnitStructByName(unitName)
+	for k,struct in pairs(defs) do
+		if struct.name == unitName then
+			return struct
 		end
 	end
-end]=]
+	return nil
+end
 
---function GetSpellForEntityConst(constant)
---	return defs[constant].spell
---end
 
 function GetConstructionSpellForBuilding(buildingName)
 	return GetSpellForEntity(buildingName)
 end
 
-function GetEntityNameFromConstant(constant, teamID)
-	return GetEntityFieldFromConstant(constant, teamID, "name")
+function GetEntityNameFromConstant(constant)
+	return defs[constant].name
 end
 
-function GetEntitySpellFromConstant(constant, teamID)
-	return GetEntityFieldFromConstant(constant, teamID, "spell")
+function GetEntitySpellFromConstant(constant)
+	return defs[constant].spell
 end
 
-function GetEntityFieldFromConstant(constant, teamID, field)
+function GetEntityFieldFromConstant(constant, heroTeam, field)
 	local suffix = ""
-	if teamID and teamID == DOTA_TEAM_GOODGUYS then
+	if heroTeam and heroTeam == DOTA_TEAM_GOODGUYS then
 		suffix = "_RADIANT"
-	elseif teamID and teamID == DOTA_TEAM_BADGUYS then
+	elseif heroTeam and heroTeam == DOTA_TEAM_BADGUYS then
 		suffix = "_DIRE"
 	end
 	local key = constant .. suffix
@@ -281,10 +275,10 @@ defs = {
 		max = 1,
 		pages = {
 			PAGE_MAIN = {
-	-- Defined later.
+				-- Defined later.
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -300,27 +294,27 @@ defs = {
 	-- Defined later.
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
 
-		WATCH_TOWER = {
-				name = "npc_dota_building_watch_tower",
-				spell = "srts_construct_watch_tower",
-				category = "building",
-				req = {{"TENT_SMALL", "TENT_LARGE"}},
-				pages = {
-						PAGE_MAIN = {
-								"ENTER_TOWER",
-								"DEMOLISH_BUILDING"
-						},
-						HIDDEN = {
-								"BUILDING",
-								"TOWER"
-						}
-				}
-		},
+	WATCH_TOWER = {
+		name = "npc_dota_building_watch_tower",
+		spell = "srts_construct_watch_tower",
+		category = "building",
+		req = {{"TENT_SMALL", "TENT_LARGE"}},
+		pages = {
+			PAGE_MAIN = {
+				"ENTER_TOWER",
+				"DEMOLISH_BUILDING"
+			},
+			HIDDEN = {
+				"BUILDING",
+				"TOWER"
+			}
+		}
+	},
 	
 	WOODEN_WALL = {
 		name = "npc_dota_building_wooden_wall",
@@ -329,10 +323,10 @@ defs = {
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
 			PAGE_MAIN = {
-	 "DEMOLISH_BUILDING"
+				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -344,13 +338,13 @@ defs = {
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
 			PAGE_MAIN = {
-	"SELL_LUMBER_SMALL",
-	"BUY_HEALING_SALVE",
-	"DELIVERY_POINT",
-	"DEMOLISH_BUILDING"
+				"SELL_LUMBER_SMALL",
+				"BUY_HEALING_SALVE",
+				"DELIVERY_POINT",
+				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	}, 
@@ -363,11 +357,11 @@ defs = {
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
 			PAGE_MAIN = {
-	"PERIODIC_MINE_GOLD",
-	"DEMOLISH_BUILDING"
+				"PERIODIC_MINE_GOLD",
+				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -380,10 +374,10 @@ defs = {
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
 			PAGE_MAIN = {
-	-- Defined later.
+				-- Defined later.
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -395,10 +389,10 @@ defs = {
 		req = {"TENT_LARGE"},
 		pages = {
 			PAGE_MAIN = {
-	-- Defined later.
+				-- Defined later.
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -411,12 +405,12 @@ defs = {
 		max = 1,
 		pages = {
 			 PAGE_MAIN = {
-		"UPGRADE_LIGHT_DAMAGE",
-		"UPGRADE_LIGHT_ARMOR",
-		"DEMOLISH_BUILDING"
+				"UPGRADE_LIGHT_DAMAGE",
+				"UPGRADE_LIGHT_ARMOR",
+				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -428,11 +422,11 @@ defs = {
 		req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_RADIANT"},
 		pages = {
 			PAGE_MAIN = {
-	"CRYSTAL_AURA",
-	"DEMOLISH_BUILDING"
+				"CRYSTAL_AURA",
+				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -445,10 +439,10 @@ defs = {
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
 			PAGE_MAIN = {
-	-- Defined later.
+				-- Defined later.
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -460,10 +454,10 @@ defs = {
 		req = {"TENT_LARGE"},
 		pages = {
 			PAGE_MAIN = {
-	-- Defined later.
+				-- Defined later.
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -475,13 +469,13 @@ defs = {
 		req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_DIRE"},
 		max = 1,
 		pages = {
-			 PAGE_MAIN = {
-		"UPGRADE_LIGHT_DAMAGE",
-		"UPGRADE_LIGHT_ARMOR",
-		"DEMOLISH_BUILDING"
-			 },
+			PAGE_MAIN = {
+				"UPGRADE_LIGHT_DAMAGE",
+				"UPGRADE_LIGHT_ARMOR",
+				"DEMOLISH_BUILDING"
+			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -493,11 +487,11 @@ defs = {
 		req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_DIRE"},
 		pages = {
 			PAGE_MAIN = {
-	"CRYSTAL_AURA",
-	"DEMOLISH_BUILDING"
+				"CRYSTAL_AURA",
+				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-	"BUILDING"
+				"BUILDING"
 			}
 		}
 	},
@@ -506,99 +500,99 @@ defs = {
 
 	-- Props
 	PROP_BARREL = {
-		 name = "npc_dota_building_prop_barrel",
-		 spell = "srts_construct_prop_barrel",
-		 category = "building",
-		 req = {{"TENT_SMALL", "TENT_LARGE"}},
-		 pages = {
-	PAGE_MAIN = {
-		 "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-		 "PROP",
-		 "BUILDING"
-	}
-		 }
+		name = "npc_dota_building_prop_barrel",
+		spell = "srts_construct_prop_barrel",
+		category = "building",
+		req = {{"TENT_SMALL", "TENT_LARGE"}},
+		pages = {
+			PAGE_MAIN = {
+		 		"DEMOLISH_BUILDING"
+			},
+			HIDDEN = {
+		 		"PROP",
+		 		"BUILDING"
+			}
+		}
 	},
 
 	PROP_CHEST = {
-		 name = "npc_dota_building_prop_chest",
-		 spell = "srts_construct_prop_chest",
-		 category = "building",
-		 req = {{"TENT_SMALL", "TENT_LARGE"}},
-		 pages = {
-	PAGE_MAIN = {
-		 "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-		 "PROP",
-		 "BUILDING"
-	}
-		 }
+		name = "npc_dota_building_prop_chest",
+		spell = "srts_construct_prop_chest",
+		category = "building",
+		req = {{"TENT_SMALL", "TENT_LARGE"}},
+		pages = {
+			PAGE_MAIN = {
+				"DEMOLISH_BUILDING"
+			},
+			HIDDEN = {
+				"PROP",
+				"BUILDING"
+			}
+		}
 	},
 
 	PROP_STASH = {
-		 name = "npc_dota_building_prop_stash",
-		 spell = "srts_construct_prop_stash",
-		 category = "building",
-		 req = {{"TENT_SMALL", "TENT_LARGE"}},
-		 pages = {
-	PAGE_MAIN = {
-		 "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-		 "PROP",
-		 "BUILDING"
-	}
-		 }
+		name = "npc_dota_building_prop_stash",
+		spell = "srts_construct_prop_stash",
+		category = "building",
+		req = {{"TENT_SMALL", "TENT_LARGE"}},
+		pages = {
+			PAGE_MAIN = {
+				"DEMOLISH_BUILDING"
+			},
+			HIDDEN = {
+				"PROP",
+				"BUILDING"
+			}
+		}
 	},
 
 	PROP_WEAPON_RACK = {
-		 name = "npc_dota_building_prop_weapon_rack",
-		 spell = "srts_construct_prop_weapon_rack",
-		 category = "building",
-		 req = {{"TENT_SMALL", "TENT_LARGE"}},
-		 pages = {
-	PAGE_MAIN = {
-		 "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-		 "PROP",
-		 "BUILDING"
-	}
-		 }
+		name = "npc_dota_building_prop_weapon_rack",
+		spell = "srts_construct_prop_weapon_rack",
+		category = "building",
+		req = {{"TENT_SMALL", "TENT_LARGE"}},
+		pages = {
+			PAGE_MAIN = {
+				"DEMOLISH_BUILDING"
+			},
+			HIDDEN = {
+				"PROP",
+				"BUILDING"
+			}
+		}
 	},
 
 	PROP_BANNER_RADIANT = {
-		 name = "npc_dota_building_prop_banner_radiant",
-		 spell = "srts_construct_prop_banner_radiant",
-		 category = "building",
-		 req = {{"TENT_SMALL", "TENT_LARGE"}},
-		 pages = {
-	PAGE_MAIN = {
-		 "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-		 "PROP",
-		 "BUILDING"
-	}
-		 }
+		name = "npc_dota_building_prop_banner_radiant",
+		spell = "srts_construct_prop_banner_radiant",
+		category = "building",
+		req = {{"TENT_SMALL", "TENT_LARGE"}},
+		pages = {
+			PAGE_MAIN = {
+				"DEMOLISH_BUILDING"
+			},
+			HIDDEN = {
+				"PROP",
+				"BUILDING"
+			}
+		}
 	},
 
 	PROP_BANNER_DIRE = {
-		 name = "npc_dota_building_prop_banner_dire",
-		 spell = "srts_construct_prop_banner_dire",
-		 category = "building",
-		 req = {{"TENT_SMALL", "TENT_LARGE"}},
-		 pages = {
-	PAGE_MAIN = {
-		 "DEMOLISH_BUILDING"
-	},
-	HIDDEN = {
-		 "PROP",
-		 "BUILDING"
-	}
-		 }
+		name = "npc_dota_building_prop_banner_dire",
+		spell = "srts_construct_prop_banner_dire",
+		category = "building",
+		req = {{"TENT_SMALL", "TENT_LARGE"}},
+		pages = {
+			PAGE_MAIN = {
+				"DEMOLISH_BUILDING"
+			},
+			HIDDEN = {
+				"PROP",
+				"BUILDING"
+			}
+		}
 	},
 
 

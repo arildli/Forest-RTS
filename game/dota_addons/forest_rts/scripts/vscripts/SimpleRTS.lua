@@ -75,7 +75,7 @@ function SimpleRTSGameMode:InitGameMode()
     loadModule('builder')
 
     -- Added EDITED
-    --loadModule('ai/utilities')
+    --loadModule('ai/independent_utilities')
     loadModule('ai/main')
     -- DONE
    

@@ -191,18 +191,20 @@ function CheckIfCanAfford(keys)
 
     if SpendResources(caster, goldCost, lumberCost) == false then
         caster._canAfford = false
-        if DEBUG_CONSTRUCT_BUILDING == true then
-            print("caster._canAfford set to 'false'")
-        end
         caster:Stop()
-        print("CANNOT afford")
         return false
     else
         caster._canAfford = true
-        if DEBUG_CONSTRUCT_BUILDING == true then
-            print("caster._canAfford set to 'true'")
+
+        -- Finish channeling ASAP if cheat.
+        if AI and AI.speedUpTraining then
+            Timers:CreateTimer({
+                endTime = 0.05,
+                callback = function() ability:EndChannel(false)
+            end})
+            
         end
-        print("Can afford!")
+
         return true
     end
 end
