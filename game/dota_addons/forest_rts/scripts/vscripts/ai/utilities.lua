@@ -28,7 +28,28 @@ end
 -- @return (Vector): A location where the building can be constructed.
 ---------------------------------------------------------------------------
 function AI:GetEntLoc(bot, constant)
-    return bot.base.locations[constant][1]
+    local locations = bot.base.locations[constant]
+    local constructionSize = AI:GetConstructionSize(bot, constant)
+    print("Number of building locations for "..constant..": "..#locations)
+    for _,loc in pairs(locations) do 
+        if AI:IsValidLocation(bot, constructionSize, loc) then
+            return loc
+        end
+    end
+    AI:Failure("Failed to find valid location for a new "..constant.."!")
+    return nil
+end
+
+---------------------------------------------------------------------------
+-- Returns the space needed to construct the building.
+--
+-- @bot (Bot): The owning bot.
+-- @constant (BuildingConstant): The building to check.
+-- @return (number): Amount of space needed.
+---------------------------------------------------------------------------
+function AI:GetConstructionSize(bot, constant)
+    local buildingName = AI:GetNameFromConst(bot, constant)
+    return BuildingHelper:GetConstructionSize(buildingName)
 end
 
 ---------------------------------------------------------------------------
@@ -66,6 +87,20 @@ function AI:GetCertainUnits(bot, unitName)
         print("Nope, "..unitName.." was NOT a constant")
     end
     return bot.hero:GetUnitsWithName(unitName)
+end
+
+---------------------------------------------------------------------------
+-- Returns the count of the specified unit or building.
+--
+-- @bot (Bot): The owning bot.
+-- @constant (UnitConstant/BuildingConstant): The building or unit
+--   type to check.
+-- @return (number): The number of building or units of that type.
+---------------------------------------------------------------------------
+function AI:GetCountFor(bot, constant)
+    local hero = bot.hero
+    local name = AI:GetNameFromConst(bot, constant)
+    return hero:GetUnitCountFor(name)
 end
 
 ---------------------------------------------------------------------------
@@ -138,15 +173,17 @@ function AI:GetBaseLocation(bot)
     return bot.base.locations.TENT_SMALL[1]
 end
 
+function AI:GetHealingCrystalLocation(bot)
+    return bot.base.locations.HEALING_CRYSTAL[1]
+end
+
 
 
 
 --// -----| Bools |----- \\--
 
 function AI:HasAtLeast(bot, constant, count)
-    local hero = bot.hero
-    local name = AI:GetNameFromConst(bot, constant) --GetEntityNameFromConstant(constant)
-    local countOfEntity = hero:GetUnitCountFor(name)
+    local countOfEntity = AI:GetCountFor(bot, constant)
     return (countOfEntity >= count)
 end
 
@@ -158,6 +195,13 @@ function AI:CanAfford(bot, abilityName)
     local goldCost = GetAbilitySpecial(abilityName, "gold_cost")
     local lumberCost = GetAbilitySpecial(abilityName, "lumber_cost")
     return CanAfford(bot.playerID, goldCost, lumberCost)
+end
+
+function AI:IsValidLocation(bot, size, location)
+    local callbacks = {
+        onConstructionFailed = function() return; end
+    }
+    return BuildingHelper:ValidPosition(size, location, bot.hero, callbacks)
 end
 
 function AI:UnitShouldReturnToBase(bot, unit)
@@ -189,7 +233,7 @@ end
 --// -----| Unit Commands |----- \\--
 
 function AI:ReturnToBase(bot, unit)
-    local baseLocation = AI:GetBaseLocation(bot)
+    local baseLocation = AI:GetHealingCrystalLocation(bot)
     MoveWithSmallTimer(unit, baseLocation)
 end
 
@@ -232,7 +276,15 @@ end
 function AI:ConstructBuildingWrapper(bot, constant)
     local buildingName = AI:GetNameFromConst(bot, constant)
     local location = AI:GetEntLoc(bot, constant, bot.heroTeam)
-    return AI:ConstructBuilding(bot, buildingName, location)
+    if not location then
+        AI:Failure("Failed to find valid location for "..constant.."!")
+        return false
+    end
+    local result = AI:ConstructBuilding(bot, buildingName, location)
+    if result and constant ~= "TENT_SMALL" then
+        bot.state = "constructing"
+    end
+    return result
 end
 
 

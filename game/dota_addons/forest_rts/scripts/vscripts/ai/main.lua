@@ -184,6 +184,7 @@ function AI:OnNPCSpawned(keys)
             hero:SetLumber(99999)
             hero:AddAbility("srts_hero_vision")
             hero:FindAbilityByName("srts_hero_vision"):SetLevel(1)
+            hero:SetBaseMoveSpeed(650)
         end
         AI:InitBot(botStruct)
     end

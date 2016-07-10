@@ -17,6 +17,18 @@ function HasGoldMine(bot)
     return AI:HasEntity(bot, "GOLD_MINE")
 end
 
+function HasBarracks(bot)
+    return AI:HasEntity(bot, "BARRACKS")
+end
+
+function HasHealingCrystal(bot)
+    return AI:HasEntity(bot, "HEALING_CRYSTAL")
+end
+
+function HasMarket(bot)
+    return AI:HasEntity(bot, "MARKET")
+end
+
 function Has5Workers(bot)
     local workerName = AI:GetWorkerName(bot)
     local hasEnough = AI:HasAtLeast(bot, workerName, 5)
@@ -29,24 +41,30 @@ function Has10Workers(bot)
     return hasEnough
 end
 
-function HasBarracks(bot)
-    local bool = AI:HasEntity(bot, "BARRACKS")
-    return bool
-end
-
 function HasMiniForce(bot)
     local hero = bot.hero
-    local meleeName = AI:GetMeleeName(bot)
-    local rangedName = AI:GetRangedName(bot)
 
-    local meleeCount = hero:GetUnitCountFor(meleeName)
-    local rangedCount = hero:GetUnitCountFor(rangedName)
+    local meleeCount = AI:GetCountFor(bot, "MELEE")
+    local rangedCount = AI:GetCountFor(bot, "RANGED")
     local sum = meleeCount + rangedCount
     local requirement = 5
 
     AI:BotPrint(bot, "meleeCount: "..meleeCount..", rangedCount: "..rangedCount..", sum: "..sum)
 
     return (sum >= requirement)
+end
+
+function HasBaseDefences(bot)
+    local hero = bot.hero
+    local maxTowerLocations = #bot.base.locations.WATCH_TOWER
+    local maxWallLocations = #bot.base.locations.WOODEN_WALL
+
+    local towerCount = AI:GetCountFor(bot, "WATCH_TOWER")
+    local wallCount = AI:GetCountFor(bot, "WOODEN_WALL")
+
+    local bool = (towerCount == maxTowerLocations and wallCount == maxWallLocations)
+    AI:BotPrint(bot, "HasBaseDefences: "..tostring(bool))
+    return bool
 end
 
 ---------------------------------------------------------------------------
@@ -60,17 +78,49 @@ function ConstructTent(bot)
 end
 
 function ConstructGoldMine(bot)
-    if AI:ConstructBuildingWrapper(bot, "GOLD_MINE") then
-        bot.state = "constructing"
-        return true
-    end
+    return AI:ConstructBuildingWrapper(bot, "GOLD_MINE")
 end
 
 function ConstructBarracks(bot)
-    if AI:ConstructBuildingWrapper(bot, "BARRACKS") then
-        bot.state = "constructing"
-        return true
+    return AI:ConstructBuildingWrapper(bot, "BARRACKS")
+end
+
+function ConstructHealingCrystal(bot)
+    return AI:ConstructBuildingWrapper(bot, "HEALING_CRYSTAL")
+end
+
+function ConstructMarket(bot)
+    return AI:ConstructBuildingWrapper(bot, "MARKET")
+end
+
+function ConstructWatchTower(bot)
+    return AI:ConstructBuildingWrapper(bot, "WATCH_TOWER")
+end
+
+function ConstructWoodenWall(bot)
+    return AI:ConstructBuildingWrapper(bot, "WOODEN_WALL")
+end
+
+function ConstructBaseDefences(bot)
+    local hero = bot.hero
+
+    local maxTowerLocations = #bot.base.locations.WATCH_TOWER
+    local maxWallLocations = #bot.base.locations.WOODEN_WALL
+    local towerCount = AI:GetCountFor(bot, "WATCH_TOWER") 
+    local wallCount = AI:GetCountFor(bot, "WOODEN_WALL")
+
+    local enoughTowers = (towerCount == maxTowerLocations)
+    if not enoughTowers then
+        AI:BotPrint(bot, "Didn't have enough towers ("..maxTowerLocations.."), building more... (cur: "..towerCount..")")
+        return ConstructWatchTower(bot)
     end
+    local enoughtWalls = (wallCount == maxWallLocations)
+    if not enoughWalls then
+        AI:BotPrint(bot, "Didn't have enough walls ("..maxWallLocations.."), buildign more... (cur: "..wallCount..")")
+        return ConstructWoodenWall(bot)
+    end
+    AI:BotPrint(bot, "Had enough towers and walls, but still had to construct more...")
+    return false
 end
 
 ---------------------------------------------------------------------------

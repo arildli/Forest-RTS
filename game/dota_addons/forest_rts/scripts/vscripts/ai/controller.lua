@@ -10,14 +10,14 @@ function AI:AddBases()
             locations = {    
                 --TENT_SMALL = Vector(-5925, 2176, 384),
                 TENT_SMALL = {
-                    Vector(-6656, -1216, 512)
+                    Vector(-6784, -1216, 512)
                 },
                 GOLD_MINE = {
-                    Vector(-6656, -832, 512)
+                    Vector(-6784, -832, 512)
                 },
                 WATCH_TOWER = {
                     -- By tent
-                    Vector(-6656, -1216, 512),
+                    Vector(-6848, -512, 512),
                     -- North wall
                     Vector(-6880, 928, 640),
                     Vector(-7456, 864, 640),
@@ -59,7 +59,7 @@ function AI:AddBases()
             basetype = "base",
             locations = {
                 TENT_SMALL = {
-                    Vector(3456, 4864, 256)
+                    Vector(3648, 4864, 256)
                 },
                 GOLD_MINE = {
                     Vector(3648, 5312, 256)
@@ -70,7 +70,7 @@ function AI:AddBases()
                     Vector(4640, 4704, 256),
                     -- North
                     Vector(5216, 6112, 384),
-                    Vector(5126, 5344, 384)
+                    Vector(5216, 5312, 384)
                 },
                 WOODEN_WALL = {
                     -- North
@@ -104,7 +104,10 @@ AI.priorities = {
     {pred = HasGoldMine, onFail = ConstructGoldMine},
     {pred = Has10Workers, onFail = TrainWorker},
     {pred = HasBarracks, onFail = ConstructBarracks},
-    {pred = HasMiniForce, onFail = TrainMelee}
+    {pred = HasMiniForce, onFail = TrainMelee},
+    {pred = HasHealingCrystal, onFail = ConstructHealingCrystal},
+    {pred = HasMarket, onFail = ConstructMarket},
+    {pred = HasBaseDefences, onFail = ConstructBaseDefences}
 }
 
 ---------------------------------------------------------------------------
@@ -146,9 +149,9 @@ end
 -- @bot (Bot): A table containing info about the bot.
 ---------------------------------------------------------------------------
 function AI:Think(bot)
-    AI:BotPrint(bot, "Current state: "..bot.state)
+    --AI:BotPrint(bot, "Current state: "..bot.state)
     if bot.state == "idle" then
-        AI:BotPrint(bot, "Looking for stuff to do...")
+        --AI:BotPrint(bot, "Looking for stuff to do...")
         local action = AI:FindActionToPerform(bot)
         if action then
             local result = action.onFail(bot)
@@ -205,7 +208,7 @@ function AI:ThinkUnits(bot)
     for k,_ in pairs(selection) do
         selectionSize = selectionSize + 1
     end
-    AI:BotPrint(bot, "Size of current selection: "..selectionSize)
+    --AI:BotPrint(bot, "Size of current selection: "..selectionSize)
 end
 
 ---------------------------------------------------------------------------
@@ -229,7 +232,6 @@ end
 -- Called when construction of a structure has started.
 ---------------------------------------------------------------------------
 function AI:OnConstructionStarted(keys)
-    print("AI:OnConstructionStarted")
     local playerID = keys.playerID
     local bot = AI:GetBotByID(playerID)
     if not bot or bot.playerID ~= playerID then
@@ -247,7 +249,6 @@ end
 -- Called when construction of a structure has finished.
 ---------------------------------------------------------------------------
 function AI:OnConstructionFinished(keys)
-    print("AI:OnConstructionFinished")
     local playerID = keys.playerID
     local bot = AI:GetBotByID(playerID)
     if not bot or bot.playerID ~= playerID then
@@ -266,7 +267,6 @@ end
 -- Called when training of a unit has finished.
 ---------------------------------------------------------------------------
 function AI:OnUnitTrained(keys)
-    print("AI:OnUnitTrained")
     local playerID = keys.playerID
     local bot = AI:GetBotByID(playerID)
     if not bot or bot.playerID ~= playerID then

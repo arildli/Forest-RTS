@@ -193,6 +193,8 @@ function SimpleRTSGameMode:InitGameMode()
         playerHero:AddItem(newItem)
         playerHero:IncLumber(1000)
         BuildingHelper:WarpTen(true)
+        AI = {}
+        AI.speedUpTraining = true
     end, 'Beefs up the hero of the caller, adds resources and reduces construction time', FCVAR_CHEAT )
 
 
