@@ -2,10 +2,15 @@
 
 --// -----| Getters |----- \\--
 
---function AI:GetEntName(bot, constant)
---    return GetEntityNameFromConstant(constant)
---end
-
+------------------------------------------------------------------
+-- Returns the name of the building used to train this unit.
+--
+-- @bot (Bot): The bot to train for.
+-- @constant (UnitConstant): The constant representing the unit to train.
+--   Example: WORKER, MELEE, RANGED, SIEGE, CASTER
+-- @return (BuildingConstant): The constant representing the building used.
+--   Example: TENT_SMALL, BARRACKS, BARRACKS_ADVANCED.
+---------------------------------------------------------------------------
 function AI:GetTrainedAt(bot, constant)
     local buildingConst = GetEntityFieldFromConstant(constant, bot.team, "trainedAt")
     local hasTeamSuffix = string.find(buildingConst, "_DIRE") or string.find(buildingConst, "_RADIANT")
@@ -15,10 +20,25 @@ function AI:GetTrainedAt(bot, constant)
     return buildingConst
 end
 
-function AI:GetEntLoc(bot, constant, heroTeam)
+---------------------------------------------------------------------------
+-- Returns a valid location where the building can be constructed.
+--
+-- @bot (Bot): The bot that wants to build.
+-- @constant (UnitContant): The constant representing the building.
+-- @return (Vector): A location where the building can be constructed.
+---------------------------------------------------------------------------
+function AI:GetEntLoc(bot, constant)
     return bot.base.locations[constant][1]
 end
 
+---------------------------------------------------------------------------
+-- Returns a building of the specified constant if found.
+--
+-- @bot (Bot): The bot the building belongs to.
+-- @constant (BuildingConstant): The constant representing the building
+--   to get.
+-- @return (Building): A building handle.
+---------------------------------------------------------------------------
 function AI:GetBuilding(bot, constant)
     local buildingName = AI:GetNameFromConst(bot, constant)
     local buildings = bot.hero:GetBuildings()
@@ -31,10 +51,30 @@ function AI:GetBuilding(bot, constant)
     return nil
 end
 
+---------------------------------------------------------------------------
+-- Returns all units of the specified type.
+--
+-- @bot (Bot): The bot owning the units.
+-- @unitName (string): The name of the units to get.
+-- @return (table (Units)): The table of the specified units.
+---------------------------------------------------------------------------
 function AI:GetCertainUnits(bot, unitName)
+    if IsStringConstant(unitName) then
+        print(unitName.." was constant!")
+        unitName = AI:GetNameFromConst(bot, unitName)
+    else
+        print("Nope, "..unitName.." was NOT a constant")
+    end
     return bot.hero:GetUnitsWithName(unitName)
 end
 
+---------------------------------------------------------------------------
+-- Converts a constant to a unit or building name.
+--
+-- @bot (Bot): The requesting bot.
+-- @unitType (UnitConstant/BuildingConstant): The constant to convert.
+-- @return (string): The name of the building or unit.
+---------------------------------------------------------------------------
 function AI:GetNameFromConst(bot, unitType)
     if not bot.names[unitType] then
         local heroName = bot.hero:GetUnitName()
@@ -45,11 +85,20 @@ function AI:GetNameFromConst(bot, unitType)
     return bot.names[unitType]
 end
 
+---------------------------------------------------------------------------
+-- Converts a name in form of a string to the related constant.
+--
+-- @bot (Bot): The requesting bot. 
+-- @unitName (string): The name to convert.
+-- @return (UnitConstant/BuildingConstant): The related constant.
+---------------------------------------------------------------------------
 function AI:GetConstFromName(bot, unitName)
     return GetConstFor(unitName)
 end
 
-
+---------------------------------------------------------------------------
+-- Gets the real unit or building name for a constant.
+---------------------------------------------------------------------------
 function AI:GetWorkerName(bot)
     return bot.names.WORKER or AI:GetNameFromConst(bot, "WORKER")
 end
@@ -82,6 +131,13 @@ function AI:GetBarracksName(bot)
     return bot.names.BARRACKS or AI:GetNameFromConst(bot, "BARRACKS")
 end
 
+---------------------------------------------------------------------------
+-- Gets certain locations.
+---------------------------------------------------------------------------
+function AI:GetBaseLocation(bot)
+    return bot.base.locations.TENT_SMALL[1]
+end
+
 
 
 
@@ -104,9 +160,32 @@ function AI:CanAfford(bot, abilityName)
     return CanAfford(bot.playerID, goldCost, lumberCost)
 end
 
+function AI:UnitShouldReturnToBase(bot, unit)
+    return unit:UnitIsLow(bot, unit) and not unit:IsAtBase(bot, unit)
+end
+
+function AI:IsAtBase(bot, unit)
+    local unitLocation = unit:GetAbsOrigin()
+    local baseLocation = AI:GetBaseLocation(bot)
+    return VectorDistance(unitLocation, baseLocation) < bot.atBaseThreshold
+end
+
+function AI:UnitIsLow(bot, unit)
+    local healthPercent = unit:GetHealthPercent()
+    if healthPercent < bot.healthThreshold then
+        AI:BotPrint(bot, unit:GetUnitName().." has low health, returning to base.")
+        AI:UnitReturnToBase()
+    end
+end
 
 
---// -----| Economy |----- \\--
+
+--// -----| Unit Commands |----- \\--
+
+function AI:ReturnToBase(bot, unit)
+    local baseLocation = AI:GetBaseLocation(bot)
+    MoveWithSmallTimer(unit, baseLocation)
+end
 
 function AI:HarvestLumber(bot, unit)
     if not unit.HARVESTER then
@@ -128,6 +207,10 @@ function AI:HarvestLumber(bot, unit)
             end})
     end
 end
+
+
+
+--// -----| Economy |----- \\--
 
 function AI:SpendResourcesConstruction(bot, abilityName)
     local goldCost = GetAbilitySpecial(abilityName, "gold_cost")

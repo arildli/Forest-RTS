@@ -168,6 +168,9 @@ function AI:OnNPCSpawned(keys)
             hero = CreateHeroForPlayer(AI.nextHero, player),
             heroname = AI.nextHero,
             names = {},
+            healthThreshold = 15,
+            atBaseThreshold = 900,
+            base = nil,
             heroTeam = HEROTEAM[heroname],
             race = RACES[AI.nextHero]
         }

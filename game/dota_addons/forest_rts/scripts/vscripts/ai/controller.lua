@@ -146,6 +146,7 @@ end
 -- @bot (table): A table containing info about the bot.
 ---------------------------------------------------------------------------
 function AI:Think(bot)
+    AI:IsAtBase(bot, bot.hero)
     AI:BotPrint(bot, "Current state: "..bot.state)
     if bot.state == "idle" then
         AI:BotPrint(bot, "Looking for stuff to do...")
@@ -235,6 +236,9 @@ function AI:OnUnitTrained(keys)
     local unitName = unit:GetUnitName()
 
     AI:BotPrint(bot, "New "..unitName.." trained!")
+    unit.AI = {
+        state = "idle"
+    }
 
     -- Worker
     if IsWorker(unit) then

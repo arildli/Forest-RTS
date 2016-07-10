@@ -60,6 +60,49 @@ function IsOppositeTeamEmpty(teamID)
 end
 
 ---------------------------------------------------------------------------
+-- Checks if the string is all uppercase.
+--
+-- @str (string): The string to check.
+---------------------------------------------------------------------------
+function IsStringConstant(str)
+    return (str:upper() == str)
+end
+
+---------------------------------------------------------------------------
+-- Prints a vector
+--
+-- @vector (Vector): The vector to print.
+---------------------------------------------------------------------------
+function PrintVector(vector)
+    print("Vector(x: "..vector.x..", y: "..vector.y..", z: "..vector.z..")")
+end
+
+---------------------------------------------------------------------------
+-- Returns the distance between two points.
+--
+-- @v1 (Vector): The first vector.
+-- @v2 (Vector): The second vector.
+---------------------------------------------------------------------------
+function VectorDistance(v1, v2)
+    return math.sqrt((v1.x - v2.x)^2 + (v1.y - v2.y)^2 + (v1.z - v2.z)^2)
+end
+
+---------------------------------------------------------------------------
+-- Orders the unit to move to the location after a small time.
+-- Sometimes necessary for movement commands to actually work.
+-- 
+-- @unit (Unit): The unit to move.
+-- @position (Vector): The position to move to.
+---------------------------------------------------------------------------
+function MoveWithSmallTimer(unit, position)
+    Timers:CreateTimer({
+        endTime = 0.05,
+        callback = function()
+            unit:MoveToPosition(position)
+    end})
+end
+
+---------------------------------------------------------------------------
 -- Attempts to place a building for the specified bot.
 -- This building is instantly created!
 --
