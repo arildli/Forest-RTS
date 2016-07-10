@@ -53,7 +53,6 @@ end
 -- Construction of buildings.
 ---------------------------------------------------------------------------
 function ConstructTent(bot)
-    AI:BotPrint(bot, "Constructing Main Tent")
     if AI:ConstructBuildingWrapper(bot, "TENT_SMALL") then
         bot.state = "busy"
         return true
@@ -61,7 +60,6 @@ function ConstructTent(bot)
 end
 
 function ConstructGoldMine(bot)
-    AI:BotPrint(bot, "Constructing Gold Mine")
     if AI:ConstructBuildingWrapper(bot, "GOLD_MINE") then
         bot.state = "constructing"
         return true
@@ -69,39 +67,37 @@ function ConstructGoldMine(bot)
 end
 
 function ConstructBarracks(bot)
-    AI:BotPrint(bot, "Constructing Barracks")
     if AI:ConstructBuildingWrapper(bot, "BARRACKS") then
         bot.state = "constructing"
         return true
     end
 end
 
+---------------------------------------------------------------------------
+-- Training of units.
+---------------------------------------------------------------------------
+
 function TrainWorker(bot)
-    AI:BotPrint(bot, "Training Worker")
     local unitName = AI:GetWorkerName(bot)
     return AI:TrainUnit(bot, unitName)
 end
 
 function TrainMelee(bot)
-    AI:BotPrint(bot, "Training Melee")
     local unitName = AI:GetMeleeName(bot)
     return AI:TrainUnit(bot, unitName)
 end
 
 function TrainRanged(bot)
-    AI:BotPrint(bot, "Training Ranged")
     local unitName = AI:GetRangedName(bot)
     return AI:TrainUnit(bot, unitName)
 end
 
 function TrainSiege(bot)
-    AI:BotPrint(bot, "Training Siege")
     local unitName = AI:GetSiegeName(bot)
     return AI:TrainUnit(bot, unitName)
 end
 
 function TrainCaster(bot)
-    AI:BotPrint(bot, "Training Caster")
     local unitName = AI:GetCasterName(bot)
     return AI:TrainUnit(bot, unitName)
 end

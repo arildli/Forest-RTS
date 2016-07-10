@@ -161,7 +161,11 @@ function AI:CanAfford(bot, abilityName)
 end
 
 function AI:UnitShouldReturnToBase(bot, unit)
-    return unit:UnitIsLow(bot, unit) and not unit:IsAtBase(bot, unit)
+    return AI:UnitIsLow(bot, unit) and not AI:IsAtBase(bot, unit)
+end
+
+function AI:UnitShouldStopFleeing(bot, unit)
+    return (unit.AI.state == "returning to base" and not AI:UnitIsLow(bot, unit))
 end
 
 function AI:IsAtBase(bot, unit)
@@ -172,10 +176,12 @@ end
 
 function AI:UnitIsLow(bot, unit)
     local healthPercent = unit:GetHealthPercent()
-    if healthPercent < bot.healthThreshold then
-        AI:BotPrint(bot, unit:GetUnitName().." has low health, returning to base.")
-        AI:UnitReturnToBase()
-    end
+    return (healthPercent < bot.lowHealthThreshold)
+end
+
+function AI:UnitIsHealthy(bot, unit)
+    local healthPercent = unit:GetHealthPercent()
+    return (healthPercent > bot.highHealthThreshold)
 end
 
 

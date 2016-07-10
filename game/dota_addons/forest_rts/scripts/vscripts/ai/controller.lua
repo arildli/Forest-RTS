@@ -110,7 +110,7 @@ AI.priorities = {
 ---------------------------------------------------------------------------
 -- Initializes a new bot.
 --
--- @bot (table): A table containing info about the bot to init.
+-- @bot (Bot): A table containing info about the bot to init.
 ---------------------------------------------------------------------------
 function AI:InitBot(bot)
     --AI:ConstructBuilding(bot.playerID, "npc_dota_building_main_tent_small", Vector(-5984,2144,384))
@@ -131,7 +131,7 @@ end
 ---------------------------------------------------------------------------
 -- Starts the regular thinking.
 --
--- @bot (table): A table containing info about the bot.
+-- @bot (Bot): A table containing info about the bot.
 ---------------------------------------------------------------------------
 function AI:StartThink(bot)
     Timers:CreateTimer(function()
@@ -143,10 +143,9 @@ end
 ---------------------------------------------------------------------------
 -- The regular thinking that decides what to do next.
 --
--- @bot (table): A table containing info about the bot.
+-- @bot (Bot): A table containing info about the bot.
 ---------------------------------------------------------------------------
 function AI:Think(bot)
-    AI:IsAtBase(bot, bot.hero)
     AI:BotPrint(bot, "Current state: "..bot.state)
     if bot.state == "idle" then
         AI:BotPrint(bot, "Looking for stuff to do...")
@@ -158,14 +157,55 @@ function AI:Think(bot)
                     action.ifFalseAction(bot)
                 end
             else
-                AI:BotPrint(bot, "Couldn't perform action, harvesting lumber.")
+                --AI:BotPrint(bot, "Couldn't perform action, harvesting lumber.")
                 AI:IdleHeroAction(bot)
             end
         else
-            AI:BotPrint(bot, "Nothing to do, harvesting lumber.")
+            --AI:BotPrint(bot, "Nothing to do, harvesting lumber.")
             AI:IdleHeroAction(bot)
         end
     end
+    AI:ThinkUnits(bot)
+end
+
+---------------------------------------------------------------------------
+-- The regular thinking for the units of a bot.
+--
+-- @bot (Bot): The bot owning the units.
+---------------------------------------------------------------------------
+function AI:ThinkUnits(bot)
+    local hero = bot.hero
+    local units = hero:GetUnits()
+    local selection = {}
+    for index,unit in pairs(units) do
+        local unitState = unit.AI.state
+
+        -- Check if the unit should flee back to base...
+        if unitState ~= "returning to base" then 
+            if bot.fleeWhenLowHealth and not IsWorker(unit) and AI:UnitShouldReturnToBase(bot, unit) then
+                AI:BotPrint(bot, "A "..unit:GetUnitName().." is returning to base!")
+                unit.AI.state = "returning to base"
+                AI:ReturnToBase(bot, unit)
+            elseif not IsWorker(unit) then
+                table.insert(selection, unit)
+            end
+
+            if AI:UnitShouldReturnToBase(bot, unit) then
+                AI:BotPrint(bot, "A "..unit:GetUnitName().." should return to base immidiately!")
+            end
+        -- ... or stop fleeing.
+        elseif unitState == "returning to base" and AI:UnitIsHealthy(bot, unit) then
+            AI:BotPrint(bot, "A "..unit:GetUnitName().." has stopped fleeing!")
+            unit.AI.state = "idle"
+            table.insert(selection, unit)
+        end
+    end
+
+    local selectionSize = 0
+    for k,_ in pairs(selection) do
+        selectionSize = selectionSize + 1
+    end
+    AI:BotPrint(bot, "Size of current selection: "..selectionSize)
 end
 
 ---------------------------------------------------------------------------

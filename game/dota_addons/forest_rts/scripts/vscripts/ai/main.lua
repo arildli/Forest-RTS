@@ -73,7 +73,7 @@ function AI:Init()
     AI.bases = {}                       
     -- The next spawned bot hero should be set to this.
     AI.nextHero = "npc_dota_hero_legion_commander"     
-    AI.thinkInterval = 1.0
+    AI.thinkInterval = 0.5
 
     AI:PrintSettings()
     AI:AddBases()
@@ -168,7 +168,9 @@ function AI:OnNPCSpawned(keys)
             hero = CreateHeroForPlayer(AI.nextHero, player),
             heroname = AI.nextHero,
             names = {},
-            healthThreshold = 15,
+            fleeWhenLowHealth = true,
+            lowHealthThreshold = 15,
+            highHealthThreshold = 85,
             atBaseThreshold = 900,
             base = nil,
             heroTeam = HEROTEAM[heroname],
@@ -191,7 +193,7 @@ end
 -- Get the bot with the specified playerID if present.
 --
 -- @playerID (number): The playerID of the bot.
--- @return (table): A table containing information about the bot.
+-- @return (Bot): A table containing information about the bot.
 ---------------------------------------------------------------------------
 function AI:GetBotByID(playerID)
     for k,bot in pairs(AI.bots) do
@@ -201,6 +203,15 @@ function AI:GetBotByID(playerID)
     end
     print("AI:GetBotById: No such bot found!")
     return nil
+end
+
+---------------------------------------------------------------------------
+-- Returns a table with all the bots.
+--
+-- @return (Bot): A table containing information about the bot.
+---------------------------------------------------------------------------
+function AI:GetAllBots()
+    return AI.bots
 end
 
 ---------------------------------------------------------------------------
