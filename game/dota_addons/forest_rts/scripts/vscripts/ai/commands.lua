@@ -49,7 +49,7 @@ function HasMiniForce(bot)
     local sum = meleeCount + rangedCount
     local requirement = 5
 
-    AI:BotPrint(bot, "meleeCount: "..meleeCount..", rangedCount: "..rangedCount..", sum: "..sum)
+    --AI:BotPrint(bot, "meleeCount: "..meleeCount..", rangedCount: "..rangedCount..", sum: "..sum)
 
     return (sum >= requirement)
 end
@@ -62,9 +62,23 @@ function HasBaseDefences(bot)
     local towerCount = AI:GetCountFor(bot, "WATCH_TOWER")
     local wallCount = AI:GetCountFor(bot, "WOODEN_WALL")
 
-    local bool = (towerCount == maxTowerLocations and wallCount == maxWallLocations)
-    AI:BotPrint(bot, "HasBaseDefences: "..tostring(bool))
-    return bool
+    return (towerCount == maxTowerLocations and wallCount == maxWallLocations)
+end
+
+function HasTowerDefenders(bot)
+    local towers = AI:GetCertainBuildings(bot, "WATCH_TOWER")
+    for k,tower in pairs(towers) do
+        if AI:IsTowerEmpty(bot, tower) then
+            return false
+        end
+    end
+    return true
+end
+
+function HasMixedForce(bot)
+    local towerUnitCount = AI:GetTowerUnitsCount(bot)
+    return (AI:HasAtLeast(bot, "MELEE", bot.mixedMinimumEach) and
+            AI:HasAtLeast(bot, "RANGED", bot.mixedMinimumEach + towerUnitCount))
 end
 
 ---------------------------------------------------------------------------
@@ -102,8 +116,6 @@ function ConstructWoodenWall(bot)
 end
 
 function ConstructBaseDefences(bot)
-    local hero = bot.hero
-
     local maxTowerLocations = #bot.base.locations.WATCH_TOWER
     local maxWallLocations = #bot.base.locations.WOODEN_WALL
     local towerCount = AI:GetCountFor(bot, "WATCH_TOWER") 
@@ -111,16 +123,51 @@ function ConstructBaseDefences(bot)
 
     local enoughTowers = (towerCount == maxTowerLocations)
     if not enoughTowers then
-        AI:BotPrint(bot, "Didn't have enough towers ("..maxTowerLocations.."), building more... (cur: "..towerCount..")")
         return ConstructWatchTower(bot)
     end
     local enoughtWalls = (wallCount == maxWallLocations)
     if not enoughWalls then
-        AI:BotPrint(bot, "Didn't have enough walls ("..maxWallLocations.."), buildign more... (cur: "..wallCount..")")
         return ConstructWoodenWall(bot)
     end
-    AI:BotPrint(bot, "Had enough towers and walls, but still had to construct more...")
     return false
+end
+
+function FillTowers(bot)
+    local rangedUnits = AI:GetCertainUnits(bot, "RANGED")
+    if not rangedUnits or #rangedUnits == 0 then
+        TrainRanged(bot)
+        return false
+    end
+    for k,unit in pairs(rangedUnits) do
+        if not AI:IsUnitInside(bot, unit) and unit.AI.state == "idle" then
+            local emptyTower = AI:GetEmptyTower(bot)
+            if emptyTower then
+                AI:EnterTower(bot, unit, emptyTower)
+                emptyTower._occupied = true
+                unit._enteringTower = true
+            else
+                break
+            end
+        end
+    end
+    local emptyTower = AI:GetEmptyTower(bot)
+    if emptyTower then
+        TrainRanged(bot)
+        return false
+    end
+    return true
+end
+
+function TrainMixedForce(bot)
+    local towerUnitCount = AI:GetTowerUnitsCount(bot)
+    if not AI:HasAtLeast(bot, "MELEE", bot.mixedMinimumEach) then
+        TrainMelee(bot)
+        return false
+    elseif not AI:HasAtLeast(bot, "RANGED", bot.mixedMinimumEach + towerUnitCount) then
+        TrainRanged(bot)
+        return false
+    end
+    return true
 end
 
 ---------------------------------------------------------------------------
