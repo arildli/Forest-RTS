@@ -174,6 +174,20 @@ function TechTree:InitTechTree(hero)
     end
 
     ---------------------------------------------------------------------------
+    -- Get a table with all building with the specified name.
+    ---------------------------------------------------------------------------
+    function hero:GetBuildingsWithName(buildingName)
+        local allBuildings = hero:GetBuildings()
+        local buildings = {}
+        for _,building in pairs(allBuildings) do
+            if building:GetUnitName() == buildingName then
+                buildings[#buildings+1] = building
+            end
+        end
+        return buildings
+    end
+
+    ---------------------------------------------------------------------------
     -- Add the building handle to the building table.
     ---------------------------------------------------------------------------
     function hero:AddBuilding(building)

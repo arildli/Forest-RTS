@@ -639,7 +639,7 @@ function GiveVisionOfHero(keys)
     team = DOTA_TEAM_GOODGUYS
   end
   
-  AddFOWViewer(team, caster:GetAbsOrigin(), 1500, 0.75, true)
+  AddFOWViewer(team, caster:GetAbsOrigin(), 3000, 0.75, true)
 end
 
 

@@ -103,6 +103,21 @@ function MoveWithSmallTimer(unit, position)
 end
 
 ---------------------------------------------------------------------------
+-- Orders the unit to move to the location aggressively after a small time.
+-- Sometimes necessary for movement commands to actually work.
+-- 
+-- @unit (Unit): The unit to move.
+-- @position (Vector): The position to move to.
+---------------------------------------------------------------------------
+function AggressiveMoveWithSmallTimer(unit, position)
+    Timers:CreateTimer({
+        endTime = 0.05,
+        callback = function()
+            unit:MoveToPositionAggressive(position)
+    end})
+end
+
+---------------------------------------------------------------------------
 -- Attempts to place a building for the specified bot.
 -- This building is instantly created!
 --

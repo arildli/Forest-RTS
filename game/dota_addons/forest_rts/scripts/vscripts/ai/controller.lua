@@ -26,11 +26,11 @@ function AI:AddBases()
                     Vector(-7072, -2208, 512)
                 },
                 WOODEN_WALL = {
+                    -- South wall
+                    Vector(-6880, -2208, 512),
                     -- North wall
                     Vector(-7072, 928, 640),
-                    Vector(-7264, 928, 640),
-                    -- South wall
-                    Vector(-6880, -2208, 512)
+                    Vector(-7264, 928, 640)
                 },
                 BARRACKS = {
                     Vector(-7296, -256, 512),
@@ -107,7 +107,9 @@ AI.priorities = {
     {pred = HasMiniForce, onFail = TrainMelee},
     {pred = HasHealingCrystal, onFail = ConstructHealingCrystal},
     {pred = HasMarket, onFail = ConstructMarket},
-    {pred = HasBaseDefences, onFail = ConstructBaseDefences}
+    {pred = HasBaseDefences, onFail = ConstructBaseDefences},
+    {pred = HasTowerDefenders, onFail = FillTowers},
+    {pred = HasMixedForce, onFail = TrainMixedForce}
 }
 
 ---------------------------------------------------------------------------
@@ -189,7 +191,7 @@ function AI:ThinkUnits(bot)
                 AI:BotPrint(bot, "A "..unit:GetUnitName().." is returning to base!")
                 unit.AI.state = "returning to base"
                 AI:ReturnToBase(bot, unit)
-            elseif not IsWorker(unit) then
+            elseif not IsWorker(unit) and not AI:IsUnitInside(bot, unit) then
                 table.insert(selection, unit)
             end
 
@@ -208,7 +210,7 @@ function AI:ThinkUnits(bot)
     for k,_ in pairs(selection) do
         selectionSize = selectionSize + 1
     end
-    --AI:BotPrint(bot, "Size of current selection: "..selectionSize)
+    AI:BotPrint(bot, "Size of current selection: "..selectionSize)
 end
 
 ---------------------------------------------------------------------------
@@ -238,7 +240,6 @@ function AI:OnConstructionStarted(keys)
         return
     end
     local building = EntIndexToHScript(keys.building)
-    AI:Print("Started construction of a new "..building:GetUnitName())
     if bot.state == "constructing" then
         AI:BotPrint(bot, "Now idling")
         bot.state = "idle"
@@ -256,7 +257,6 @@ function AI:OnConstructionFinished(keys)
     end
     local building = EntIndexToHScript(keys.building)
     local buildingName = building:GetUnitName()
-    AI:BotPrint(bot, "Construction of a new "..buildingName.." just finished!")
     if buildingName == GetEntityNameFromConstant("TENT_SMALL") then
         AI:BotPrint(bot, "My Main Tent is finished!")
     end
@@ -275,7 +275,6 @@ function AI:OnUnitTrained(keys)
     local unit = EntIndexToHScript(keys.unit)
     local unitName = unit:GetUnitName()
 
-    AI:BotPrint(bot, "New "..unitName.." trained!")
     unit.AI = {
         state = "idle"
     }

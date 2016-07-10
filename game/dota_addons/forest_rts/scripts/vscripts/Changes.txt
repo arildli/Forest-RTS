@@ -1,2 +1,0 @@
-General:
-- Reduced regrow time of trees from 10 to 5 minutes.

@@ -38,31 +38,51 @@ function EnterTower(keys)
      target._tower = caster
      caster._inside = target
 
+    -- To make sure that the unit automatically attacks enemies in range.
+    Timers:CreateTimer({
+        endTime = 0.05,
+        callback = function()
+            target:MoveToPositionAggressive(towerOrigin)
+    end})
+
      FlipTowerSpell(caster)
 end
 
 function CastEnterTower(keys)
-        local tower = EntIndexToHScript(keys.towerIndex)
-        local unit = EntIndexToHScript(keys.unitIndex)
-        local abilityName = "srts_enter_tower"
-        local ability = GetAbilityByName(tower, abilityName)
-        if ability then
-                tower:CastAbilityOnTarget(unit, ability, tower:GetOwnerID())
-                local towerAbs = tower:GetAbsOrigin()
-                -- For some reason the timer is needed for make the unit bother to execute the order!
-                Timers:CreateTimer({
-                        endTime = 0.05,
-                        callback = function()
-                                unit:MoveToPosition(towerAbs)
-                        end}
-                )
-        end
+    local tower = EntIndexToHScript(keys.towerIndex)
+    local unit = EntIndexToHScript(keys.unitIndex)
+    local abilityName = "srts_enter_tower"
+    local ability = GetAbilityByName(tower, abilityName)
+    if ability then
+        tower:CastAbilityOnTarget(unit, ability, tower:GetOwnerID())
+        local towerAbs = tower:GetAbsOrigin()
+        -- For some reason the timer is needed for make the unit bother to execute the order!
+        Timers:CreateTimer({
+            endTime = 0.05,
+            callback = function()
+                unit:MoveToPosition(towerAbs)
+            end}
+        )
+    end
 end
 
 function LeaveTower(keys)
      local caster = keys.caster
      RemoveUnitFromTower(caster)
 end
+
+function TowerIsEmpty(tower)
+    return (tower._inside == nil)
+end
+
+function TowerHasUnitInside(tower)
+    return (tower._inside ~= nil)
+end
+
+function UnitIsInsideTower(unit)
+    return (unit._tower ~= nil)
+end
+
 
 function RemoveUnitFromTower(tower)
      local unit = tower._inside

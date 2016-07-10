@@ -81,12 +81,40 @@ end
 ---------------------------------------------------------------------------
 function AI:GetCertainUnits(bot, unitName)
     if IsStringConstant(unitName) then
-        print(unitName.." was constant!")
         unitName = AI:GetNameFromConst(bot, unitName)
-    else
-        print("Nope, "..unitName.." was NOT a constant")
     end
     return bot.hero:GetUnitsWithName(unitName)
+end
+
+---------------------------------------------------------------------------
+-- Returns all buildings of the specified type.
+--
+-- @bot (Bot): The bot owning the buildings.
+-- @buildingName (string): The name of the buildings to get.
+-- @return (table (Buildings)): The table of the specified buildings.
+---------------------------------------------------------------------------
+function AI:GetCertainBuildings(bot, buildingName)
+    if IsStringConstant(buildingName) then
+        buildingName = AI:GetNameFromConst(bot, buildingName)
+    end
+    return bot.hero:GetBuildingsWithName(buildingName)
+end
+
+---------------------------------------------------------------------------
+-- Returns an empty tower if present.
+--
+-- @bot (Bot): The bot owning the units.
+-- @return (Building): An empty tower
+---------------------------------------------------------------------------
+function AI:GetEmptyTower(bot)
+    local towers = AI:GetCertainBuildings(bot, "WATCH_TOWER")
+    for k,tower in pairs(towers) do
+        if AI:IsTowerEmpty(bot, tower) and not tower._occupied then
+            return tower
+        end
+    end
+    AI:BotPrint(bot, "No more empty towers left!")
+    return nil
 end
 
 ---------------------------------------------------------------------------
@@ -101,6 +129,23 @@ function AI:GetCountFor(bot, constant)
     local hero = bot.hero
     local name = AI:GetNameFromConst(bot, constant)
     return hero:GetUnitCountFor(name)
+end
+
+---------------------------------------------------------------------------
+-- Returns the count of units inside towers.
+--
+-- @bot (Bot): The owning bot.
+-- @return (number): The number of units in towers.
+---------------------------------------------------------------------------
+function AI:GetTowerUnitsCount(bot)
+    local units = AI:GetCertainUnits(bot, "RANGED")
+    local towerUnits = 0
+    for k,unit in pairs(units) do
+        if AI:IsUnitInside(bot, unit) then
+            towerUnits = towerUnits + 1
+        end
+    end
+    return towerUnits
 end
 
 ---------------------------------------------------------------------------
@@ -228,6 +273,14 @@ function AI:UnitIsHealthy(bot, unit)
     return (healthPercent > bot.highHealthThreshold)
 end
 
+function AI:IsTowerEmpty(bot, tower)
+    return TowerIsEmpty(tower) and not tower._occupied
+end
+
+function AI:IsUnitInside(bot, unit)
+    return UnitIsInsideTower(unit) or unit._enteringTower
+end
+
 
 
 --// -----| Unit Commands |----- \\--
@@ -256,6 +309,19 @@ function AI:HarvestLumber(bot, unit)
                 unit:CastAbilityOnTarget(tree, harvestAbility, playerID)
             end})
     end
+end
+
+function AI:EnterTower(bot, unit, tower)
+    if not AI:IsTowerEmpty(bot, tower) or AI:IsUnitInside(bot, unit) then
+        AI:Failure("Either tower is not empty or unit is already inside one!")
+        return false
+    end
+    local keys = {
+        unitIndex = unit:GetEntityIndex(),
+        towerIndex = tower:GetEntityIndex()
+    }
+    CastEnterTower(keys)
+    return true
 end
 
 

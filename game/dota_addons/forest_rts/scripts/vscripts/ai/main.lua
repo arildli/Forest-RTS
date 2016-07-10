@@ -115,8 +115,6 @@ function AI:Init()
         AI.speedUpTraining = true
         AI.cheat = true
 
-        -- FIKS INSTANT TRAINING!
-
     end, "Speeds up the bot stuff", FCVAR_CHEAT)
 
     print("[AI] Initialized AI module.")
@@ -169,10 +167,11 @@ function AI:OnNPCSpawned(keys)
             heroname = AI.nextHero,
             names = {},
             fleeWhenLowHealth = true,
-            lowHealthThreshold = 15,
-            highHealthThreshold = 85,
-            atBaseThreshold = 900,
+            lowHealthThreshold = 20,
+            highHealthThreshold = 80,
+            atBaseThreshold = 1200,
             base = nil,
+            mixedMinimumEach = 5,
             heroTeam = HEROTEAM[heroname],
             race = RACES[AI.nextHero]
         }
