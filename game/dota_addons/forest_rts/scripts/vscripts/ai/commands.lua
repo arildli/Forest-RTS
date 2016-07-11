@@ -29,6 +29,24 @@ function HasMarket(bot)
     return AI:HasEntity(bot, "MARKET")
 end
 
+function HasArmory(bot)
+    return AI:HasEntity(bot, "ARMORY")
+end
+
+function HasLightDamage(bot)
+    local armory = AI:GetBuilding(bot, "ARMORY")
+    return (AI:GetUpgradeLevel(bot, "UPGRADE_LIGHT_DAMAGE") > 0) or (armory and armory:IsChanneling())
+end
+
+function HasLightArmor(bot)
+    local armory = AI:GetBuilding(bot, "ARMORY")
+    return (AI:GetUpgradeLevel(bot, "UPGRADE_LIGHT_ARMOR") > 0) or (armory and armory:IsChanneling())
+end
+
+function HasDoubleBarracks(bot)
+    return AI:HasAtLeast(bot, "BARRACKS", 2)
+end
+
 function Has5Workers(bot)
     local workerName = AI:GetWorkerName(bot)
     local hasEnough = AI:HasAtLeast(bot, workerName, 5)
@@ -47,11 +65,7 @@ function HasMiniForce(bot)
     local meleeCount = AI:GetCountFor(bot, "MELEE")
     local rangedCount = AI:GetCountFor(bot, "RANGED")
     local sum = meleeCount + rangedCount
-    local requirement = 5
-
-    --AI:BotPrint(bot, "meleeCount: "..meleeCount..", rangedCount: "..rangedCount..", sum: "..sum)
-
-    return (sum >= requirement)
+    return (sum >= bot.miniForce)
 end
 
 function HasBaseDefences(bot)
@@ -79,6 +93,20 @@ function HasMixedForce(bot)
     local towerUnitCount = AI:GetTowerUnitsCount(bot)
     return (AI:HasAtLeast(bot, "MELEE", bot.mixedMinimumEach) and
             AI:HasAtLeast(bot, "RANGED", bot.mixedMinimumEach + towerUnitCount))
+end
+
+function HasBasicSiege(bot)
+    local siegeCount = AI:GetCountFor(bot, "SIEGE")
+    return (siegeCount >= bot.basicSiege)
+end
+
+function HasDecentForce(bot)
+    local meleeCount = AI:GetCountFor(bot, "MELEE")
+    local rangedCount = AI:GetCountFor(bot, "RANGED")
+    local casterCount = AI:GetCountFor(bot, "CASTER")
+    local siegeCount = AI:GetCountFor(bot, "SIEGE")
+    return (meleeCount + rangedCount >= bot.decentForceBasicUnits) and
+           (meleeCount + rangedCount + casterCount + siegeCount >= bot.decentForceLeastTotal)
 end
 
 ---------------------------------------------------------------------------
@@ -115,6 +143,10 @@ function ConstructWoodenWall(bot)
     return AI:ConstructBuildingWrapper(bot, "WOODEN_WALL")
 end
 
+function ConstructArmory(bot)
+    return AI:ConstructBuildingWrapper(bot, "ARMORY")
+end
+
 function ConstructBaseDefences(bot)
     local maxTowerLocations = #bot.base.locations.WATCH_TOWER
     local maxWallLocations = #bot.base.locations.WOODEN_WALL
@@ -130,6 +162,14 @@ function ConstructBaseDefences(bot)
         return ConstructWoodenWall(bot)
     end
     return false
+end
+
+function ResearchLightDamage(bot)
+    return AI:Research(bot, "UPGRADE_LIGHT_DAMAGE", "ARMORY")
+end
+
+function ResearchLightArmor(bot)
+    return AI:Research(bot, "UPGRADE_LIGHT_ARMOR", "ARMORY")
 end
 
 function FillTowers(bot)
@@ -166,6 +206,33 @@ function TrainMixedForce(bot)
     elseif not AI:HasAtLeast(bot, "RANGED", bot.mixedMinimumEach + towerUnitCount) then
         TrainRanged(bot)
         return false
+    end
+    return true
+end
+
+function TrainBasicSiege(bot)
+    TrainSiege(bot)
+end
+
+function TrainDecentForce(bot)
+    local decentForceBasicMin = bot.decentForceBasicUnits
+    local meleeCount = AI:GetCountFor(bot, "MELEE")
+    local rangedCount = AI:GetCountFor(bot, "RANGED")
+    local siegeCount = AI:GetCountFor(bot, "SIEGE")
+    local casterCount = AI:GetCountFor(bot, "CASTER")
+    local basicUnitsCount = meleeCount + rangedCount
+    local totalCount = meleeCount + rangedCount + siegeCount + casterCount
+    if meleeCount < decentForceBasicMin/2 then
+        TrainMelee(bot)
+    end
+    if rangedCount < decentForceBasicMin/2 then
+        TrainRanged(bot)
+    end
+    if siegeCount < bot.basicSiege then
+        AI:TrainSiege(bot)
+    end
+    if totalCount < bot.decentForceLeastTotal then
+        TrainMelee(bot)
     end
     return true
 end

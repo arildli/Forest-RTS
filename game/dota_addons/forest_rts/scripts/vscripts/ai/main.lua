@@ -171,7 +171,11 @@ function AI:OnNPCSpawned(keys)
             highHealthThreshold = 80,
             atBaseThreshold = 1200,
             base = nil,
+            miniForce = 5,
+            decentForceBasicUnits = 16,
+            decentForceLeastTotal = 20,
             mixedMinimumEach = 5,
+            basicSiege = 3,
             heroTeam = HEROTEAM[heroname],
             race = RACES[AI.nextHero]
         }

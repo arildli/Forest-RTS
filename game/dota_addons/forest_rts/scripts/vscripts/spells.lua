@@ -132,53 +132,96 @@ end
 --// ----- | Upgrade related |----- \\--
 
 function ApplyUpgradeUnits(keys)
-     local caster = keys.caster
-     local ability = keys.ability
-     local abilityName = ability:GetAbilityName()
-     local ownerHero = caster:GetOwnerHero()
-     local itemName = ownerHero.TT.techDef[abilityName].item
-     ownerHero:SetAbilityLevelFor(abilityName, 0)
-     ownerHero:SetUnitCountFor(abilityName, 1)
-     for _,unit in pairs(ownerHero:GetUnits()) do
-            if not IsWorker(unit) then
-         local newItem = CreateItem(itemName, unit, unit)
-         unit:AddItem(newItem)
-            end
-     end
+    local caster = keys.caster
+    local ability = keys.ability
+    local abilityName = ability:GetAbilityName()
+    local ownerHero = caster:GetOwnerHero()
+    local itemName = ownerHero.TT.techDef[abilityName].item
+    ownerHero:SetAbilityLevelFor(abilityName, 0)
+    ownerHero:SetUnitCountFor(abilityName, 1)
+    local canGetUpgrade = {}
 
-     TechTree:UpdateTechTree(ownerHero, ownerHero, true)
+    local function AddUpgradeBool(itemName, unit)
+        print("AddUpgradeBool called!")
+        local unitName = unit:GetUnitName()
+        local upgrades = GetUpgradesForUnit(unit)
+        for _,upgradeConst in pairs(upgrades) do
+            local upgradeItemName = ownerHero.TT.techDef[upgradeConst].item
+            if itemName == upgradeItemName then
+                canGetUpgrade[unitName] = true
+                return
+            end
+        end
+        canGetUpgrade[unitName] = false
+    end
+
+    for _,unit in pairs(ownerHero:GetUnits()) do
+        local unitName = unit:GetUnitName()
+        if canGetUpgrade[unitName] == nil then
+            AddUpgradeBool(itemName, unit)
+        end
+        if canGetUpgrade[unitName] then
+            local newItem = CreateItem(itemName, unit, unit)
+            unit:AddItem(newItem)
+        end
+    end
+
+    TechTree:UpdateTechTree(ownerHero, ownerHero, true)
+end
+
+function GetUpgradesForUnit(unit)
+    local unitName = unit:GetUnitName()
+    return defs[unitName].upgrades
+end
+
+function GetUpgradeItem(hero, upgradeSpellName)
+    upgradeSpellName = hero.TT.techDef[upgradeSpellName].spell
+    local upgradeLevel = hero:GetUnitCountFor(upgradeSpellName)
+    if upgradeLevel > 0 then
+        return hero.TT.techDef[upgradeSpellName].item
+    else
+        return nil
+    end
+end
+
+function GetUpgradeLevel(hero, upgradeSpellName)
+    return hero:GetUnitCountFor(upgradeSpellName)
 end
 
 function ApplyUpgradesOnTraining(unit)
-     local ownerHero = unit:GetOwnerHero()
+    local ownerHero = unit:GetOwnerHero()
+    print("ApplyUpgradesOnTraining")
+     
+    -- Add upgrade item to newly trained unit if unlocked.
+    local function AddUpgradeItem(upgradeItemName)
+        print("Creating item of name "..upgradeItemName)
+        local newItem = CreateItem(upgradeItemName, unit, unit)
+        unit:AddItem(newItem)
+    end
+     
+    local upgrades = GetUpgradesForUnit(unit)
+    if upgrades then
+        for _,upgradeConst in pairs(upgrades) do
+            print("Looking at "..upgradeConst)
+            local upgradeItem = GetUpgradeItem(ownerHero, upgradeConst)
+            if upgradeItem then
+                AddUpgradeItem(upgradeItem)
+            end
+        end
+    end
 
-     -- Get upgrade item if upgrade is unlocked.
-     local function UpgradeItem(upgradeSpellName)
-            local upgradeLevel = ownerHero:GetUnitCountFor(upgradeSpellName)
-            if upgradeLevel > 0 then
-         return ownerHero.TT.techDef[upgradeSpellName].item
-            else
-         return nil
-            end
-     end
-     
-     -- Add upgrade item to newly trained unit if unlocked.
-     local function AddUpgradeItem(upgradeItemName)
-            local newItem = CreateItem(upgradeItemName, unit, unit)
-            unit:AddItem(newItem)
-     end
-     
-     -- Combine
-     if not IsWorker(unit) then
-            local armorUpgradeItem = UpgradeItem("srts_upgrade_light_armor")
-            if armorUpgradeItem then
-         AddUpgradeItem(armorUpgradeItem)
-            end
-            local damageUpgradeItem = UpgradeItem("srts_upgrade_light_damage")
-            if damageUpgradeItem then
-         AddUpgradeItem(damageUpgradeItem)
-            end
-     end
+    -- Combine
+    --[[
+    if not IsWorker(unit) then
+        local armorUpgradeItem = UpgradeItem("srts_upgrade_light_armor")
+        if armorUpgradeItem then
+            AddUpgradeItem(armorUpgradeItem)
+        end
+        local damageUpgradeItem = UpgradeItem("srts_upgrade_light_damage")
+        if damageUpgradeItem then
+            AddUpgradeItem(damageUpgradeItem)
+        end
+    end]]
 end
 
 

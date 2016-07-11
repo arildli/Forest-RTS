@@ -149,6 +149,18 @@ function AI:GetTowerUnitsCount(bot)
 end
 
 ---------------------------------------------------------------------------
+-- Returns the current level of the specified upgrade.
+--
+-- @bot (Bot): The owning bot.
+-- @upgradeConst (UpgradeConst): The const representing the upgrade.
+-- @return (number): The current researched level of the upgrade.
+---------------------------------------------------------------------------
+function AI:GetUpgradeLevel(bot, upgradeConst)
+    local upgradeSpellName = defs[upgradeConst].spell
+    return GetUpgradeLevel(bot.hero, upgradeSpellName)
+end
+
+---------------------------------------------------------------------------
 -- Converts a constant to a unit or building name.
 --
 -- @bot (Bot): The requesting bot.
@@ -355,7 +367,47 @@ end
 
 
 
---// -----| Training and Construction |----- \\--
+--// -----| Training, Construction and Researching |----- \\--
+
+---------------------------------------------------------------------------
+-- Gets all the necessary information and performs all necessary
+-- checks to determine if and where a research can be researched.
+-- Reseaches on success.
+--
+-- @bot (Bot): The owning bot.
+-- @researchConst (UpgradeConst): The const of the upgrade to research.
+-- @buildingConst (BuildingConst): The const of the building to use.
+-- @return (bool): Whether or not the research could be started.
+---------------------------------------------------------------------------
+function AI:Research(bot, researchConst, buildingConst)
+    local building = AI:GetBuilding(bot, buildingConst)
+    if not building then
+        AI:BotPrint(bot, "Couldn't find building to research "..buildingConst.." at")
+        return false
+    elseif building:IsChanneling() then
+        AI:BotPrint(bot, "Building already channeling.")
+        return false
+    end
+
+    local abilityName = defs[researchConst].spell
+    local playerID = bot.playerID
+    if not AI:CanAfford(bot, abilityName) then
+        AI:BotPrint(bot, "Cannot afford to research "..researchConst)
+        return false
+    end
+    if not building:HasAbility(abilityName) then
+        AI:Failure("The building doesn't have "..abilityName)
+        return false
+    end
+
+    local ability = building:FindAbilityByName(abilityName)
+    if ability:GetLevel() == 0 then
+        AI:Failure("Cannot research "..researchConst)
+        return false
+    end
+    building:CastAbilityNoTarget(ability, playerID)
+    return true
+end
 
 ---------------------------------------------------------------------------
 -- Gets all the necessary information and performs all necessary

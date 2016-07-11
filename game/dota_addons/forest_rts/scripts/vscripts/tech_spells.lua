@@ -179,6 +179,7 @@ defs = {
 	UPGRADE_LIGHT_ARMOR = {
 		 spell = "srts_upgrade_light_armor",
 		 category = "upgrade",
+		 constant = "UPGRADE_LIGHT_ARMOR",
 		 --items = {"item_upgrade_light_armor",
 		 --"item_upgrade_medium_armor"},
 		 item = "item_upgrade_light_armor",
@@ -188,6 +189,7 @@ defs = {
 	UPGRADE_LIGHT_DAMAGE = {
 		 spell = "srts_upgrade_light_damage",
 		 category = "upgrade",
+		 constant = "UPGRADE_LIGHT_DAMAGE",
 		 --items = {"item_upgrade_light_damage",
 		 --"item_upgrade_medium_damage"},
 		 item = "item_upgrade_light_damage",

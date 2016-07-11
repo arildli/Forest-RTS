@@ -109,7 +109,13 @@ AI.priorities = {
     {pred = HasMarket, onFail = ConstructMarket},
     {pred = HasBaseDefences, onFail = ConstructBaseDefences},
     {pred = HasTowerDefenders, onFail = FillTowers},
-    {pred = HasMixedForce, onFail = TrainMixedForce}
+    {pred = HasMixedForce, onFail = TrainMixedForce},
+    {pred = HasArmory, onFail = ConstructArmory},
+    {pred = HasLightDamage, onFail = ResearchLightDamage},
+    {pred = HasDoubleBarracks, onFail = ConstructBarracks},
+    {pred = HasBasicSiege, onFail = TrainBasicSiege},
+    {pred = HasLightArmor, onFail = ResearchLightArmor},
+    {pred = HasDecentForce, onFail = TrainDecentForce}
 }
 
 ---------------------------------------------------------------------------
