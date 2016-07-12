@@ -1,3 +1,45 @@
+-- Locations blueprint:
+--[=[
+            locations = {
+                TENT_SMALL = {
+                    Vector()
+                },
+                GOLD_MINE = {
+                    Vector()
+                },
+                WATCH_TOWER = {
+                    -- South
+                    Vector(), 
+                    Vector(),
+                    -- North
+                    Vector(),
+                    Vector()
+                },
+                WOODEN_WALL = {
+                    -- North
+                    Vector(),
+                    Vector(),
+                    Vector()
+                },
+                BARRACKS = {
+                    Vector(),
+                    Vector()
+                },
+                BARRACKS_ADVANCED = {
+                    Vector()
+                },
+                ARMORY = {
+                    Vector()
+                },
+                HEALING_CRYSTAL = {
+                    Vector()
+                },
+                MARKET = {
+                    Vector()
+                }
+            }
+--]=]
+
 ---------------------------------------------------------------------------
 -- Adds all the known base locations.
 ---------------------------------------------------------------------------
@@ -93,6 +135,46 @@ function AI:AddBases()
                 },
                 MARKET = {
                     Vector(4800, 4288, 128)
+                }
+            }
+        },
+
+        {
+            name = "Dire #2 - Middle Right",
+            taken = false,
+            basetype = "base",
+            locations = {
+                TENT_SMALL = {
+                    Vector(6592, 320, 384)
+                },
+                GOLD_MINE = {
+                    Vector(6464, -256, 384)
+                },
+                WATCH_TOWER = {
+                    -- North
+                    Vector(6496, 2272, 384),
+                    Vector(6496, 1696, 384)
+                },
+                WOODEN_WALL = {
+                    -- North
+                    Vector(6496, 2080, 384),
+                    Vector(6496, 1888, 384)
+                },
+                BARRACKS = {
+                    Vector(7040, -64, 384),
+                    Vector(7040, -512, 384)
+                },
+                BARRACKS_ADVANCED = {
+                    Vector(7040, 704, 384)
+                },
+                ARMORY = {
+                    Vector(7040, 320, 384)
+                },
+                HEALING_CRYSTAL = {
+                    Vector(7232, 1280, 384)
+                },
+                MARKET = {
+                    Vector(7360, 1792, 384)
                 }
             }
         }

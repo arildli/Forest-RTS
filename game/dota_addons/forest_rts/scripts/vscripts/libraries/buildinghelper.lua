@@ -1122,6 +1122,10 @@ function BuildingHelper:StartBuilding(builder)
 
     BuildingHelper:print("Initializing Building Entity: "..unitName.." at "..VectorString(location))
 
+    -- Added {
+    print("Initializing Building Entity: "..unitName.." at "..VectorString(location))
+    -- }
+
     -- Mark this work in progress, skip refund if cancelled as the building is already placed
     work.inProgress = true
 

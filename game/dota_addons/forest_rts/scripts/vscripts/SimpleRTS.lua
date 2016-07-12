@@ -391,7 +391,6 @@ function SimpleRTSGameMode:onGameStateChange(keys)
           --elseif IsTeamEmpty(DOTA_TEAM_BADGUYS) then
           --  AI:AddBot(DOTA_TEAM_BADGUYS, "npc_dota_hero_legion_commander")
           --end
-          AI:AddBot(DOTA_TEAM_GOODGUYS, "npc_dota_hero_legion_commander")
         end
 
         -- Create a timer for sending team resource info to players.

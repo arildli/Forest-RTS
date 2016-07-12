@@ -118,7 +118,7 @@ function AI:Init()
     Convars:RegisterCommand("ai.testing", function()
         AI:Print("Enabling cheat mode!")
         BuildingHelper:WarpTen(true)
-        AI:AddBot(DOTA_TEAM_BADGUYS, HEROES[1])
+        AI:AddBot(DOTA_TEAM_BADGUYS, HEROES[4])
         AI:AddBot(DOTA_TEAM_GOODGUYS, HEROES[1])
         AI.speedUpTraining = true
         AI.cheat = true
@@ -296,7 +296,8 @@ function AI:AddBot(teamID, heroname)
     end
     AI.nextHero = heroname
 
-    Tutorial:AddBot("npc_dota_hero_legion_commander","","",GetTeamAsBool(teamID))
+    Tutorial:AddBot(heroname,"","",GetTeamAsBool(teamID))
+    --Tutorial:AddBot("npc_dota_hero_legion_commander","","",GetTeamAsBool(teamID))
     AI:Print("Added bot to team "..teamID.." (DOTA_TEAM_GOODGUYS: "..DOTA_TEAM_GOODGUYS..", DOTA_TEAM_BADGUYS: "..DOTA_TEAM_BADGUYS..", DOTA_TEAM_NEUTRALS: "..DOTA_TEAM_NEUTRALS..")")
     return true
 end
