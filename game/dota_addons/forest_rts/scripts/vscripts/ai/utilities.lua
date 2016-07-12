@@ -370,29 +370,26 @@ end
 --// -----| Training, Construction and Researching |----- \\--
 
 ---------------------------------------------------------------------------
--- Gets all the necessary information and performs all necessary
--- checks to determine if and where a research can be researched.
--- Reseaches on success.
+-- A more general method for a building to cast a channeling ability.
 --
 -- @bot (Bot): The owning bot.
--- @researchConst (UpgradeConst): The const of the upgrade to research.
+-- @abilityName (string): The name of the ability to channel. (STRING, NOT CONST!)
 -- @buildingConst (BuildingConst): The const of the building to use.
--- @return (bool): Whether or not the research could be started.
+-- @return (bool): Whether or not the channeling could start.
 ---------------------------------------------------------------------------
-function AI:Research(bot, researchConst, buildingConst)
+function AI:CastChannelingAbility(bot, abilityName, buildingConst)
     local building = AI:GetBuilding(bot, buildingConst)
     if not building then
-        AI:BotPrint(bot, "Couldn't find building to research "..buildingConst.." at")
+        AI:BotPrint(bot, "Couldn't find building "..buildingConst)
         return false
     elseif building:IsChanneling() then
         AI:BotPrint(bot, "Building already channeling.")
         return false
     end
 
-    local abilityName = defs[researchConst].spell
     local playerID = bot.playerID
     if not AI:CanAfford(bot, abilityName) then
-        AI:BotPrint(bot, "Cannot afford to research "..researchConst)
+        AI:BotPrint(bot, "Cannot afford "..abilityName)
         return false
     end
     if not building:HasAbility(abilityName) then
@@ -402,11 +399,24 @@ function AI:Research(bot, researchConst, buildingConst)
 
     local ability = building:FindAbilityByName(abilityName)
     if ability:GetLevel() == 0 then
-        AI:Failure("Cannot research "..researchConst)
+        AI:Failure("Cannot channel "..abilityName)
         return false
     end
     building:CastAbilityNoTarget(ability, playerID)
     return true
+end
+
+---------------------------------------------------------------------------
+-- Attempts to research an upgrade.
+--
+-- @bot (Bot): The owning bot.
+-- @researchConst (UpgradeConst): The const of the upgrade to research.
+-- @buildingConst (BuildingConst): The const of the building to use.
+-- @return (bool): Whether or not the research could be started.
+---------------------------------------------------------------------------
+function AI:Research(bot, researchConst, buildingConst)
+    local abilityName = defs[researchConst].spell
+    return AI:CastChannelingAbility(bot, abilityName, buildingConst)
 end
 
 ---------------------------------------------------------------------------
@@ -421,33 +431,7 @@ end
 function AI:TrainUnit(bot, unitName)
     local abilityName = GetSpellForEntity(unitName)
     local buildingConst = AI:GetTrainedAt(bot, unitName)
-    local building = AI:GetBuilding(bot, buildingConst)
-    if not building then
-        AI:BotPrint(bot, "Couldn't find building to train "..unitName.." at")
-        return false
-    elseif building:IsChanneling() then
-        AI:BotPrint(bot, "Building already channeling.")
-        return false
-    end
-
-    local playerID = bot.playerID
-    local player = PlayerResource:GetPlayer(playerID)
-    if not AI:CanAfford(bot, abilityName) then
-        AI:BotPrint(bot, "Cannot afford a new "..unitName)
-        return false
-    end
-    if not building:HasAbility(abilityName) then
-        AI:Failure("The building doesn't have "..abilityName)
-        return false
-    end
-
-    local ability = building:FindAbilityByName(abilityName)
-    if ability:GetLevel() == 0 then
-        AI:Failure("Cannot train unit "..unitName)
-        return false
-    end
-    building:CastAbilityNoTarget(ability, playerID)
-    return true
+    return AI:CastChannelingAbility(bot, abilityName, buildingConst)
 end
 
 ---------------------------------------------------------------------------

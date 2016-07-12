@@ -115,7 +115,10 @@ AI.priorities = {
     {pred = HasDoubleBarracks, onFail = ConstructBarracks},
     {pred = HasBasicSiege, onFail = TrainBasicSiege},
     {pred = HasLightArmor, onFail = ResearchLightArmor},
-    {pred = HasDecentForce, onFail = TrainDecentForce}
+    {pred = HasDecentForce, onFail = TrainDecentForce},
+    {pred = HasUpgradedTent, onFail = UpgradeSmallTent},
+    {pred = HasBarracksAdvanced, onFail = ConstructBarracksAdvanced},
+    {pred = HasBasicCasters, onFail = TrainBasicCasters}
 }
 
 ---------------------------------------------------------------------------

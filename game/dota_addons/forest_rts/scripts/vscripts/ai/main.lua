@@ -49,6 +49,14 @@ local HEROTEAM = {
     [HEROES[5]] = DOTA_TEAM_BADGUYS
 }
 
+local MULTIPLIER = {
+    [HEROES[1]] = 1,
+    [HEROES[2]] = 1,
+    [HEROES[3]] = 1.25,
+    [HEROES[4]] = 1.5,
+    [HEROES[5]] = 1.1
+}
+
 local RACES = {}
 RACES[HEROES[1]] = "Commander"
 RACES[HEROES[2]] = "Furion"
@@ -171,12 +179,14 @@ function AI:OnNPCSpawned(keys)
             highHealthThreshold = 80,
             atBaseThreshold = 1200,
             base = nil,
+            multiplier = MULTIPLIER[AI.nextHero],
             miniForce = 5,
             decentForceBasicUnits = 16,
             decentForceLeastTotal = 20,
             mixedMinimumEach = 5,
             basicSiege = 3,
-            heroTeam = HEROTEAM[heroname],
+            basicCasters = 4,
+            heroTeam = HEROTEAM[AI.nextHero],
             race = RACES[AI.nextHero]
         }
         AI.bots[#AI.bots+1] = botStruct

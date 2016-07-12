@@ -130,6 +130,7 @@ entities = {
         CASTER = defs.COMMANDER_SORCERESS,
 
         TENT_SMALL = defs.TENT_SMALL,
+        TENT_LARGE = defs.TENT_LARGE,
         GOLD_MINE = defs.GOLD_MINE,
         WATCH_TOWER = defs.WATCH_TOWER,
         WOODEN_WALL = defs.WOODEN_WALL,
@@ -147,6 +148,7 @@ entities = {
         CASTER = defs.FURION_TORMENTED_SOUL,
 
         TENT_SMALL = defs.TENT_SMALL,
+        TENT_LARGE = defs.TENT_LARGE,
         GOLD_MINE = defs.GOLD_MINE,
         WATCH_TOWER = defs.WATCH_TOWER,
         WOODEN_WALL = defs.WOODEN_WALL,
@@ -163,6 +165,7 @@ entities = {
         SIEGE = defs.GEOMANCER_CATAPULT,
 
         TENT_SMALL = defs.TENT_SMALL,
+        TENT_LARGE = defs.TENT_LARGE,
         GOLD_MINE = defs.GOLD_MINE,
         WATCH_TOWER = defs.WATCH_TOWER,
         WOODEN_WALL = defs.WOODEN_WALL,
@@ -180,6 +183,7 @@ entities = {
         CASTER = defs.KING_OF_THE_DEAD_CASTER,
 
         TENT_SMALL = defs.TENT_SMALL,
+        TENT_LARGE = defs.TENT_LARGE,
         GOLD_MINE = defs.GOLD_MINE,
         WATCH_TOWER = defs.WATCH_TOWER,
         WOODEN_WALL = defs.WOODEN_WALL,
@@ -197,6 +201,7 @@ entities = {
         CASTER = defs.WARLORD_ELDER,
 
         TENT_SMALL = defs.TENT_SMALL,
+        TENT_LARGE = defs.TENT_LARGE,
         GOLD_MINE = defs.GOLD_MINE,
         WATCH_TOWER = defs.WATCH_TOWER,
         WOODEN_WALL = defs.WOODEN_WALL,

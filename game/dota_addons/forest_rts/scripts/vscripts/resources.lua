@@ -105,89 +105,89 @@ end
 -- harvesting system.
 ---------------------------------------------------------------------------
 function Resources:InitHarvester(unit)
-   if not unit then
-      print("Resources:InitHarvester: unit was nil!")
-   end
+    if not unit then
+        print("Resources:InitHarvester: unit was nil!")
+    end
 
-   unit.HARVESTER = {}
-   unit.HARVESTER.treeSearchRadius = 1000
-   unit.HARVESTER.deliverSearchRadius = 2000
-   unit.HARVESTER.prevTree = nil
+    unit.HARVESTER = {}
+    unit.HARVESTER.treeSearchRadius = 1000
+    unit.HARVESTER.deliverSearchRadius = 2000
+    unit.HARVESTER.prevTree = nil
 
-   ---------------------------------------------------------------------------
-   -- Updates the last tree location so that the worker can return to it
-   -- after delivering the lumber to search for other trees to cut.
-   ---------------------------------------------------------------------------
-   function unit:SetLastTree(tree)
-      unit.HARVESTER.prevTree = tree:GetAbsOrigin()
-   end
+    ---------------------------------------------------------------------------
+    -- Updates the last tree location so that the worker can return to it
+    -- after delivering the lumber to search for other trees to cut.
+    ---------------------------------------------------------------------------
+    function unit:SetLastTree(tree)
+        unit.HARVESTER.prevTree = tree:GetAbsOrigin()
+    end
 
-   ---------------------------------------------------------------------------
-   -- Returns the worker to the previous tree being cut to search for more
-   -- trees.
-   ---------------------------------------------------------------------------
-   function unit:ReturnToHarvest()
-      local newHarvestLocation
-      if unit.HARVESTER.prevTree then
-     newHarvestLocation = unit.HARVESTER.prevTree:GetCenter()
-     unit.HARVESTER.prevTree = nil
-      else
-     newHarvestLocation = unit:GetAbsOrigin()
-      end
-      local ownerID = unit:GetOwner():GetPlayerID()
-      unit.HARVESTER.newTree = FindEmptyTree(unit, newHarvestLocation, unit.HARVESTER.treeSearchRadius)
-      if unit.HARVESTER.newTree then
-     local harvestAbility
-     if unit:IsRealHero() then
-        harvestAbility = unit:FindAbilityByName("srts_harvest_lumber")
-     else
-        harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker")
-     end
-     if harvestAbility then
-        unit:CastAbilityOnTarget(unit.HARVESTER.newTree, harvestAbility, ownerID)
-     end
-      else
-     print("unit:ReturnToHarvest: (Note) couldn't find new tree to harvest!")
-      end
-   end
-
-   ---------------------------------------------------------------------------
-   -- Returns the carried lumber to the nearest Tent or Market if possible.
-   ---------------------------------------------------------------------------
-   function unit:DeliverLumber()
-      local owner = unit:GetOwnerPlayer()
-      local ownerID = owner:GetPlayerID()
-      local ownerHero = GetPlayerHero(ownerID)
-      local unitPosition = unit:GetAbsOrigin()
-      local closestDeliveryPoint = nil
-      local shortestDeliveryDistance = 100000
-      local returnAbility = unit:FindAbilityByName("srts_transfer_lumber")
-      if not returnAbility then
-     print("unit:DeliverLumber: unit did not have transfer ability!")
-      end
-
-      for _,building in pairs(ownerHero:GetBuildings()) do
-      --for _,building in pairs(ownerHero.structures) do
-     if building:IsNull() then
-        print("Removed building for being null!")
-        ownerHero:RemoveBuilding(building)
-     else
-        --print(building:GetUnitName().." isValidDeliveryPoint: "..tostring(Resources:IsValidDeliveryPoint(building)))
-        if building and building:IsAlive() and Resources:IsValidDeliveryPoint(building) then
-           local distanceToBuilding = (unitPosition - building:GetAbsOrigin()):Length()
-           if distanceToBuilding < shortestDeliveryDistance then
-          shortestDeliveryDistance = distanceToBuilding
-          closestDeliveryPoint = building
-           end
+    ---------------------------------------------------------------------------
+    -- Returns the worker to the previous tree being cut to search for more
+    -- trees.
+    ---------------------------------------------------------------------------
+    function unit:ReturnToHarvest()
+        local newHarvestLocation
+        if unit.HARVESTER.prevTree then
+            newHarvestLocation = unit.HARVESTER.prevTree:GetCenter()
+            unit.HARVESTER.prevTree = nil
+        else
+            newHarvestLocation = unit:GetAbsOrigin()
         end
-     end
-      end
-      if not closestDeliveryPoint then
-     print("unit:DeliverLumber: (Warning) No nearby delivery points found!")
-      else
-     unit:CastAbilityOnTarget(closestDeliveryPoint, returnAbility, ownerID)
-      end
-   end
+        local ownerID = unit:GetOwner():GetPlayerID()
+        unit.HARVESTER.newTree = FindEmptyTree(unit, newHarvestLocation, unit.HARVESTER.treeSearchRadius)
+        if unit.HARVESTER.newTree then
+            local harvestAbility
+            if unit:IsRealHero() then
+                harvestAbility = unit:FindAbilityByName("srts_harvest_lumber")
+            else
+                harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker")
+            end
+            if harvestAbility then
+                unit:CastAbilityOnTarget(unit.HARVESTER.newTree, harvestAbility, ownerID)
+            end
+        else
+            print("unit:ReturnToHarvest: (Note) couldn't find new tree to harvest!")
+        end
+    end
+
+    ---------------------------------------------------------------------------
+    -- Returns the carried lumber to the nearest Tent or Market if possible.
+    ---------------------------------------------------------------------------
+    function unit:DeliverLumber()
+        local owner = unit:GetOwnerPlayer()
+        local ownerID = owner:GetPlayerID()
+        local ownerHero = GetPlayerHero(ownerID)
+        local unitPosition = unit:GetAbsOrigin()
+        local closestDeliveryPoint = nil
+        local shortestDeliveryDistance = 100000
+        local returnAbility = unit:FindAbilityByName("srts_transfer_lumber")
+        if not returnAbility then
+            print("unit:DeliverLumber: unit did not have transfer ability!")
+        end
+
+        for _,building in pairs(ownerHero:GetBuildings()) do
+            --for _,building in pairs(ownerHero.structures) do
+            if building:IsNull() then
+                print("Removed building for being null!")
+                ownerHero:RemoveBuilding(building)
+            else
+                --print(building:GetUnitName().." isValidDeliveryPoint: "..tostring(Resources:IsValidDeliveryPoint(building)))
+                if building and building:IsAlive() and Resources:IsValidDeliveryPoint(building) then
+                    local distanceToBuilding = (unitPosition - building:GetAbsOrigin()):Length()
+                    if distanceToBuilding < shortestDeliveryDistance then
+                        shortestDeliveryDistance = distanceToBuilding
+                        closestDeliveryPoint = building
+                    end
+                end
+            end
+        end
+        if not closestDeliveryPoint then
+            print("unit:DeliverLumber: (Warning) No nearby delivery points found!")
+        else
+            unit:CastAbilityOnTarget(closestDeliveryPoint, returnAbility, ownerID)
+        end
+    end
 end
 
 
