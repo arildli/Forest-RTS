@@ -7,6 +7,40 @@ function AI:IdleHeroAction(bot)
 end
 
 ---------------------------------------------------------------------------
+-- Predicates for military checks.
+---------------------------------------------------------------------------
+
+function IsBaseSafe(bot)
+    return (bot.underAttackTimer <= 0)
+end
+
+---------------------------------------------------------------------------
+-- Military actions.
+---------------------------------------------------------------------------
+
+function DefendBase(bot)
+    if bot.state ~= "defending_own_base" then
+        bot.state = "defending_own_base"
+        AI:BotPrint(bot, "Moving to defend own base!")
+    end
+
+    local buildings = AI:GetAllBuildings(bot)
+    local radius = bot.detectEnemyNearBaseRadius
+    for _,building in pairs(buildings) do
+        local location = building:GetAbsOrigin()
+        local nearbyEnemyUnits = FindUnitsInRadius(bot.team, location, nil, radius, 
+            DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_BASIC + DOTA_UNIT_TARGET_HERO, 
+            0, FIND_ANY_ORDER, false)
+        local nearbyEnemiesCount = #nearbyEnemyUnits
+        if nearbyEnemiesCount > 0 then
+            AI:BotPrint(bot, nearbyEnemiesCount.." enemies near a "..building:GetUnitName())
+        end
+    end
+end
+
+
+
+---------------------------------------------------------------------------
 -- Predicates for buildingchecks.
 ---------------------------------------------------------------------------
 function HasTent(bot)
@@ -240,6 +274,7 @@ function TrainBasicCasters(bot)
     TrainCaster(bot)
 end
 
+
 function TrainDecentForce(bot)
     local decentForceBasicMin = bot.decentForceBasicUnits
     local meleeCount = AI:GetCountFor(bot, "MELEE")
@@ -291,3 +326,7 @@ function TrainCaster(bot)
     local unitName = AI:GetCasterName(bot)
     return AI:TrainUnit(bot, unitName)
 end
+
+
+
+

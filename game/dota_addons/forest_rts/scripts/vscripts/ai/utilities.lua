@@ -30,7 +30,6 @@ end
 function AI:GetEntLoc(bot, constant)
     local locations = bot.base.locations[constant]
     local constructionSize = AI:GetConstructionSize(bot, constant)
-    print("Number of building locations for "..constant..": "..#locations)
     for _,loc in pairs(locations) do 
         if AI:IsValidLocation(bot, constructionSize, loc) then
             return loc
@@ -70,6 +69,17 @@ function AI:GetBuilding(bot, constant)
     end
     AI:Failure("Bot doesn't have building with name "..constant.." ("..buildingName..")")
     return nil
+end
+
+---------------------------------------------------------------------------
+-- Returns all the buildings owned by the bot.
+--
+-- @bot (Bot): The bot the building belongs to.
+-- @return (table (Buildings)): A table containing all the 
+--   buildings of the bot.
+---------------------------------------------------------------------------
+function AI:GetAllBuildings(bot)
+    return bot.hero:GetBuildings()
 end
 
 ---------------------------------------------------------------------------
@@ -245,7 +255,9 @@ function AI:HasAtLeast(bot, constant, count)
 end
 
 function AI:HasEntity(bot, constant)
-    return AI:HasAtLeast(bot, constant, 1)
+    local countOfEntity = AI:GetCountFor(bot, constant)
+    return (countOfEntity >= 1)
+    --return AI:HasAtLeast(bot, constant, 1)
 end
 
 function AI:CanAfford(bot, abilityName)

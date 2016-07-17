@@ -363,3 +363,15 @@ end
 
 
 
+---------------------------------------------------------------------------
+-- Run when a building gets attacked.
+---------------------------------------------------------------------------
+function OnBuildingAttacked(event)
+    local building = event.caster
+    local playerID = building:GetOwnerID()
+    local unitEntIndex = building:GetEntityIndex()
+    FireGameEvent("building_attacked", {playerID=playerID, building=unitEntIndex})
+end
+
+
+

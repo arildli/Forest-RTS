@@ -1,3 +1,4 @@
+
 -- Locations blueprint:
 --[=[
             locations = {
@@ -182,25 +183,34 @@ function AI:AddBases()
 end
 
 AI.priorities = {
-    {pred = HasTent, onFail = ConstructTent},
-    {pred = HasGoldMine, onFail = ConstructGoldMine},
-    {pred = Has10Workers, onFail = TrainWorker},
-    {pred = HasBarracks, onFail = ConstructBarracks},
-    {pred = HasMiniForce, onFail = TrainMelee},
-    {pred = HasHealingCrystal, onFail = ConstructHealingCrystal},
-    {pred = HasMarket, onFail = ConstructMarket},
-    {pred = HasBaseDefences, onFail = ConstructBaseDefences},
-    {pred = HasTowerDefenders, onFail = FillTowers},
-    {pred = HasMixedForce, onFail = TrainMixedForce},
-    {pred = HasArmory, onFail = ConstructArmory},
-    {pred = HasLightDamage, onFail = ResearchLightDamage},
-    {pred = HasDoubleBarracks, onFail = ConstructBarracks},
-    {pred = HasBasicSiege, onFail = TrainBasicSiege},
-    {pred = HasLightArmor, onFail = ResearchLightArmor},
-    {pred = HasDecentForce, onFail = TrainDecentForce},
-    {pred = HasUpgradedTent, onFail = UpgradeSmallTent},
-    {pred = HasBarracksAdvanced, onFail = ConstructBarracksAdvanced},
-    {pred = HasBasicCasters, onFail = TrainBasicCasters}
+    base = {
+        general = {
+            {pred = HasTent, onFail = ConstructTent},
+            {pred = HasGoldMine, onFail = ConstructGoldMine},
+            {pred = Has10Workers, onFail = TrainWorker},
+            {pred = HasBarracks, onFail = ConstructBarracks},
+            {pred = HasMiniForce, onFail = TrainMelee},
+            {pred = HasHealingCrystal, onFail = ConstructHealingCrystal},
+            {pred = HasMarket, onFail = ConstructMarket},
+            {pred = HasBaseDefences, onFail = ConstructBaseDefences},
+            {pred = HasTowerDefenders, onFail = FillTowers},
+            {pred = HasMixedForce, onFail = TrainMixedForce},
+            {pred = HasArmory, onFail = ConstructArmory},
+            {pred = HasLightDamage, onFail = ResearchLightDamage},
+            {pred = HasDoubleBarracks, onFail = ConstructBarracks},
+            {pred = HasBasicSiege, onFail = TrainBasicSiege},
+            {pred = HasLightArmor, onFail = ResearchLightArmor},
+            {pred = HasDecentForce, onFail = TrainDecentForce},
+            {pred = HasUpgradedTent, onFail = UpgradeSmallTent},
+            {pred = HasBarracksAdvanced, onFail = ConstructBarracksAdvanced},
+            {pred = HasBasicCasters, onFail = TrainBasicCasters}
+        }
+    },
+    military = {
+        general = {
+            {pred = IsBaseSafe, onFail = DefendBase}
+        }
+    }
 }
 
 ---------------------------------------------------------------------------
@@ -219,6 +229,7 @@ function AI:InitBot(bot)
     ListenToGameEvent("construction_started", Dynamic_Wrap(AI, "OnConstructionStarted"), self)
     ListenToGameEvent("construction_done", Dynamic_Wrap(AI, "OnConstructionFinished"), self)
     ListenToGameEvent("unit_trained", Dynamic_Wrap(AI, "OnUnitTrained"), self)
+    ListenToGameEvent("building_attacked", Dynamic_Wrap(AI, "OnBuildingAttacked"), self)
 
     bot.state = "idle"
     AI:StartThink(bot)
@@ -230,10 +241,14 @@ end
 -- @bot (Bot): A table containing info about the bot.
 ---------------------------------------------------------------------------
 function AI:StartThink(bot)
-    Timers:CreateTimer(function()
-        AI:Think(bot)
+    -- Make sure to wait 100ms before creating the timer, just to make
+    -- sure that the bots don't do their thinking at the same time each sec.
+    Timers:CreateTimer({
+        endTime = 0.1,
+        callback = function()
+            AI:Think(bot)
         return AI.thinkInterval
-    end)
+    end})
 end
 
 ---------------------------------------------------------------------------
@@ -243,9 +258,10 @@ end
 ---------------------------------------------------------------------------
 function AI:Think(bot)
     --AI:BotPrint(bot, "Current state: "..bot.state)
-    if bot.state == "idle" then
+    -- Base priorities
+    if bot.state ~= "busy" then
         --AI:BotPrint(bot, "Looking for stuff to do...")
-        local action = AI:FindActionToPerform(bot)
+        local action = AI:FindBaseActionToPerform(bot)
         if action then
             local result = action.onFail(bot)
             if not result and action.ifFalse then
@@ -253,14 +269,25 @@ function AI:Think(bot)
                     action.ifFalseAction(bot)
                 end
             else
-                --AI:BotPrint(bot, "Couldn't perform action, harvesting lumber.")
                 AI:IdleHeroAction(bot)
             end
         else
-            --AI:BotPrint(bot, "Nothing to do, harvesting lumber.")
             AI:IdleHeroAction(bot)
         end
     end
+
+    if bot.underAttackTimer > 0 then 
+        bot.underAttackTimer = bot.underAttackTimer - 1
+    end
+
+    -- Military priorities
+    if bot.state ~= "busy" then
+        local action = AI:FindMilitaryActionToPerform(bot)
+        if action then
+            local result = action.onFail(bot)
+        end
+    end
+
     AI:ThinkUnits(bot)
 end
 
@@ -301,23 +328,45 @@ function AI:ThinkUnits(bot)
     for k,_ in pairs(selection) do
         selectionSize = selectionSize + 1
     end
-    AI:BotPrint(bot, "Size of current selection: "..selectionSize)
+    --AI:BotPrint(bot, "Size of current selection: "..selectionSize)
 end
 
 ---------------------------------------------------------------------------
--- Attempts to find the action to perform that has the highest priority.
+-- Attempts to find the base related action to perform.
 --
 -- @bot (Bot): The structure holding information about the bot.
 -- @return (table (Action)): A table containing a predicate and onfailure
 --   functions. {pred, onFail}
 ---------------------------------------------------------------------------
-function AI:FindActionToPerform(bot)
-    for k,action in ipairs(AI.priorities) do
+function AI:FindBaseActionToPerform(bot)
+    local basePriorityTable = AI.priorities.base.general
+    -- Better performance than ipairs.
+    for k=1,#basePriorityTable do
+        local action = basePriorityTable[k]
         if not action.pred(bot) then
             return action
         end
     end
     AI:Print("I'm out of actions! :(")
+    return nil
+end
+
+---------------------------------------------------------------------------
+-- Attempts to find the military related action to perform.
+--
+-- @bot (Bot): The structure holding information about the bot.
+-- @return (table (Action)): A table containing a predicate and onfailure
+--   functions. {pred, onFail}
+---------------------------------------------------------------------------
+function AI:FindMilitaryActionToPerform(bot)
+    local militaryPriorityTable = AI.priorities.military.general
+    for k=1,#militaryPriorityTable do
+        local action = militaryPriorityTable[k]
+        if not action.pred(bot) then
+            return action
+        end
+    end
+    --AI:BotPrint(bot, "I'm out of military actions!")
     return nil
 end
 
@@ -349,7 +398,7 @@ function AI:OnConstructionFinished(keys)
     local building = EntIndexToHScript(keys.building)
     local buildingName = building:GetUnitName()
     if buildingName == GetEntityNameFromConstant("TENT_SMALL") then
-        AI:BotPrint(bot, "My Main Tent is finished!")
+        --AI:BotPrint(bot, "My Main Tent is finished!")
     end
     bot.state = "idle"
 end
@@ -370,11 +419,30 @@ function AI:OnUnitTrained(keys)
         state = "idle"
     }
 
+    if AI.cheat then
+        unit:AddAbility("srts_soldier_vision")
+    end
+
     -- Worker
     if IsWorker(unit) then
         Resources:InitHarvester(unit)
         AI:HarvestLumber(bot, unit)
     end
+end
+
+---------------------------------------------------------------------------
+-- Called when a building gets attacked.
+---------------------------------------------------------------------------
+function AI:OnBuildingAttacked(keys)
+    print("AI:OnBuildingAttacked")
+    local playerID = keys.playerID
+    local bot = AI:GetBotByID(playerID)
+    if not bot or bot.playerID ~= playerID then
+        print("Nope, that building did not belong to me!")
+        return
+    end
+    local building = EntIndexToHScript(keys.building)
+    bot.underAttackTimer = bot.underAttackTimerMax
 end
 
 

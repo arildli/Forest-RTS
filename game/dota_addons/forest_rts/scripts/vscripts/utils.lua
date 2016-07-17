@@ -429,47 +429,43 @@ function DeterminePathableTrees()
     --      Flood Fill      --
     --------------------------
 
-     print("DeterminePathableTrees")
+    print("DeterminePathableTrees")
      
-     local world_positions = {}
-     local valid_trees = {}
-     local seen = {}
+    local world_positions = {}
+    local valid_trees = {}
+    local seen = {}
      
-     --Set Q to the empty queue.
-     local Q = {}
+    --Set Q to the empty queue.
+    local Q = {}
 
-     --Add node to the end of Q.
-     table.insert(Q, Vector(-7200, -6600, 0))
-     --table.insert(Q, Vector(0,0,0))
+    --Add node to the end of Q.
+    table.insert(Q, Vector(-7200, -6600, 0))
+    --table.insert(Q, Vector(0,0,0))
      
-     local vecs = {
-            Vector(0,64,0),-- N
-            Vector(64,64,0), -- NE
-            Vector(64,0,0), -- E
-            Vector(64,-64,0), -- SE
-            Vector(0,-64,0), -- S
-            Vector(-64,-64,0), -- SW
-            Vector(-64,0,0), -- W
-            Vector(-64,64,0) -- NW
-     }
+    local vecs = {
+        Vector(0,64,0),-- N
+        Vector(64,64,0), -- NE
+        Vector(64,0,0), -- E
+        Vector(64,-64,0), -- SE
+        Vector(0,-64,0), -- S
+        Vector(-64,-64,0), -- SW
+        Vector(-64,0,0), -- W
+        Vector(-64,64,0) -- NW
+    }
 
-     while #Q > 0 do
-            --Set n equal to the first element of Q and Remove first element from Q.
-            local position = table.remove(Q)
+    while #Q > 0 do
+        --Set n equal to the first element of Q and Remove first element from Q.
+        local position = table.remove(Q)
             
-            --If the color of n is equal to target-color:
-            local blocked = not GridNav:IsTraversable(position) or GridNav:IsBlocked(position)
-            if not blocked then
-         -- EDITED
-         --DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 0, 255, 0, 255, 600)
-         -- DONE
+        --If the color of n is equal to target-color:
+        local blocked = GridNav:IsBlocked(position) or not GridNav:IsTraversable(position)
+        if not blocked then
          
-         table.insert(world_positions, position)
+            table.insert(world_positions, position)
          
-         -- Mark position processed.
-         seen[GridNav:WorldToGridPosX(position.x)..","..GridNav:WorldToGridPosX(position.y)] = 1
-         
-         for k=1,#vecs do
+            -- Mark position processed.
+            seen[GridNav:WorldToGridPosX(position.x)..","..GridNav:WorldToGridPosX(position.y)] = 1
+            for k=1,#vecs do
                 local vec = vecs[k]
                 local xoff = vec.x
                 local yoff = vec.y
@@ -477,34 +473,25 @@ function DeterminePathableTrees()
 
                 -- Add unprocessed nodes
                 if not seen[GridNav:WorldToGridPosX(pos.x)..","..GridNav:WorldToGridPosX(pos.y)] then
-                     table.insert(world_positions, position)
-                     table.insert(Q, pos)
+                    table.insert(world_positions, position)
+                    table.insert(Q, pos)
                 end
-         end
-            else
-         -- EDITED
-         --DebugDrawBox(position, Vector(-32,-32,700), Vector(32,32,700), 255, 0, 0, 255, 600)
-         -- DONE
-
-         local nearbyTree = GridNav:IsNearbyTree(position, 64, true)
-         if nearbyTree then
+            end
+        else
+            local nearbyTree = GridNav:IsNearbyTree(position, 64, true)
+            if nearbyTree then
                 local trees = GridNav:GetAllTreesAroundPoint(position, 1, true)
                 if #trees > 0 then
-                     local t = trees[1]
-                     t.pathable = true
-                     table.insert(valid_trees,t)
+                    local t = trees[1]
+                    t.pathable = true
+                    table.insert(valid_trees,t)
                 end
-         end
             end
-     end
+        end
+    end
 
     print("Number of valid trees: "..#valid_trees)
-     --DEBUG
-     --for k,tree in pairs(valid_trees) do
-     --  DebugDrawCircle(tree:GetAbsOrigin(), Vector(0,255,0), 0, 32, true, 60)
-     --end
 end
-
 
 
 -- Transfer all the lumber from a unit to a hero.

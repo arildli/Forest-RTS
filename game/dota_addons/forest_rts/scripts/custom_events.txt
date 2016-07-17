@@ -38,6 +38,12 @@
 		"building"		"short"
 	}
 
+	"building_attacked"
+	{
+		"playerID"		"short"
+		"building"		"short"
+	}
+
 
 	// Stat collection
     	"stat_collection_part"

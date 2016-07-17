@@ -30,9 +30,6 @@ require("AI/controller")
 require('libraries/keyvalues')
 
 
--- These settings should be set by the user:
-local MAX_PLAYERS_PER_TEAM = 5
-
 local HEROES = {
     "npc_dota_hero_legion_commander",
     "npc_dota_hero_furion",
@@ -41,28 +38,31 @@ local HEROES = {
     "npc_dota_hero_troll_warlord"
 }
 
-local HEROTEAM = {
-    [HEROES[1]] = DOTA_TEAM_GOODGUYS,
-    [HEROES[2]] = DOTA_TEAM_GOODGUYS,
-    [HEROES[3]] = DOTA_TEAM_BADGUYS,
-    [HEROES[4]] = DOTA_TEAM_BADGUYS,
-    [HEROES[5]] = DOTA_TEAM_BADGUYS
+-- These settings should be set by the user:
+local ai_local_settings = {
+    MAX_PLAYERS_PER_TEAM = 5,
+    HEROTEAM = {
+        [HEROES[1]] = DOTA_TEAM_GOODGUYS,
+        [HEROES[2]] = DOTA_TEAM_GOODGUYS,
+        [HEROES[3]] = DOTA_TEAM_BADGUYS,
+        [HEROES[4]] = DOTA_TEAM_BADGUYS,
+        [HEROES[5]] = DOTA_TEAM_BADGUYS
+    },
+    MULTIPLIER = {
+        [HEROES[1]] = 1,
+        [HEROES[2]] = 1,
+        [HEROES[3]] = 1.25,
+        [HEROES[4]] = 1.5,
+        [HEROES[5]] = 1.1
+    },
+    RACES = {
+        [HEROES[1]] = "Commander",
+        [HEROES[2]] = "Furion",
+        [HEROES[3]] = "Geomancer",
+        [HEROES[4]] = "King of the Dead",
+        [HEROES[5]] = "Warlord"
+    }
 }
-
-local MULTIPLIER = {
-    [HEROES[1]] = 1,
-    [HEROES[2]] = 1,
-    [HEROES[3]] = 1.25,
-    [HEROES[4]] = 1.5,
-    [HEROES[5]] = 1.1
-}
-
-local RACES = {}
-RACES[HEROES[1]] = "Commander"
-RACES[HEROES[2]] = "Furion"
-RACES[HEROES[3]] = "Geomancer"
-RACES[HEROES[4]] = "King of the Dead"
-RACES[HEROES[5]] = "Warlord"
 -- End of settings.
 
 
@@ -80,7 +80,9 @@ function AI:Init()
     -- Contains the valid locations for bases and outposts.
     AI.bases = {}                       
     -- The next spawned bot hero should be set to this.
-    AI.nextHero = "npc_dota_hero_legion_commander"     
+    AI.nextHero = {}     
+    AI.nextHeroIndex = 1
+    AI.lastHeroIndex = 1
     AI.thinkInterval = 0.5
 
     AI:PrintSettings()
@@ -168,27 +170,33 @@ function AI:OnNPCSpawned(keys)
         AI.botIDs[playerID] = true
         spawnedUnit:SetRespawnsDisabled(true)
         UTIL_Remove(spawnedUnit)
+        local nextHeroName = AI.nextHero[AI.nextHeroIndex] or "npc_dota_hero_legion_commander"
+        print("NextHeroName: "..nextHeroName)
         local botStruct = {
             playerID = playerID,
             team = spawnedUnit:GetTeam(),
-            hero = CreateHeroForPlayer(AI.nextHero, player),
-            heroname = AI.nextHero,
+            hero = CreateHeroForPlayer(nextHeroName, player),
+            heroname = nextHeroName,
             names = {},
             fleeWhenLowHealth = true,
             lowHealthThreshold = 20,
             highHealthThreshold = 80,
             atBaseThreshold = 1200,
             base = nil,
-            multiplier = MULTIPLIER[AI.nextHero],
+            detectEnemyNearBaseRadius = 900,
+            multiplier = ai_local_settings.MULTIPLIER[nextHeroName],
             miniForce = 5,
             decentForceBasicUnits = 16,
             decentForceLeastTotal = 20,
+            underAttackTimer = 0,
+            underAttackTimerMax = 5 / AI.thinkInterval,
             mixedMinimumEach = 5,
             basicSiege = 3,
             basicCasters = 4,
-            heroTeam = HEROTEAM[AI.nextHero],
-            race = RACES[AI.nextHero]
+            heroTeam = ai_local_settings.HEROTEAM[nextHeroName],
+            race = ai_local_settings.RACES[nextHeroName]
         }
+        AI.nextHeroIndex = AI.nextHeroIndex + 1
         AI.bots[#AI.bots+1] = botStruct
         if AI.cheat then
             local hero = botStruct.hero
@@ -249,7 +257,7 @@ end
 ---------------------------------------------------------------------------
 function AI:IsSpaceForBot(teamID)
     local playerCountForTeam = PlayerResource:GetPlayerCountForTeam(teamID)
-    return (playerCountForTeam < MAX_PLAYERS_PER_TEAM)
+    return (playerCountForTeam < ai_local_settings.MAX_PLAYERS_PER_TEAM)
 end
 
 ---------------------------------------------------------------------------
@@ -294,7 +302,8 @@ function AI:AddBot(teamID, heroname)
     if not heroname then
         heroname = "npc_dota_hero_legion_commander"
     end
-    AI.nextHero = heroname
+    AI.nextHero[AI.lastHeroIndex] = "npc_dota_hero_legion_commander" --heroname
+    AI.lastHeroIndex = AI.lastHeroIndex + 1
 
     Tutorial:AddBot(heroname,"","",GetTeamAsBool(teamID))
     --Tutorial:AddBot("npc_dota_hero_legion_commander","","",GetTeamAsBool(teamID))

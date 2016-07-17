@@ -2591,7 +2591,7 @@
 		// General
 		//--------------------
 		"BaseClass"			"ability_datadriven"
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
 		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_NO"
@@ -2637,24 +2637,9 @@
 		{
 			"ApplyModifier"
 			{
-				"Target"
-				{
-					"Center"	"TARGET"
-					"Type"		"DOTA_UNIT_TARGET_HERO"
-				}
 				"ModifierName"	"modifier_cursed"
-				"Duration"	"%duration_hero"
-			}
-
-			"ApplyModifier"
-			{
-				"Target"
-				{
-					"Center"	"TARGET"
-					"Type"		"DOTA_UNIT_TARGET_BASIC"
-				}
-				"ModifierName"	"modifier_cursed"
-				"Duration"	"%duration_other"
+				"Target"		"TARGET"
+				"Duration"		"%duration_other"
 			}
 		}
 
@@ -2675,6 +2660,32 @@
 				"EffectName"		"particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
 				"EffectAttachType"	"follow_origin"
 			}
+
+			"modifier_curse_autocast"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"ThinkInterval"		"0.5"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/autocast.lua"
+						"Function"		"CurseAutocast"
+						"modifier"		"modifier_cursed"
+					}
+				}
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"spells.lua"
+						"Function"		"ToggleOnAutocast"
+					}
+				}
+			}
 		}
 	}
 
@@ -2691,7 +2702,7 @@
 		// General
 		//--------------------
 		"BaseClass"			"ability_datadriven"
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_ENEMY"
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
 		"SpellImmunityType"		"SPELL_IMMUNITY_ENEMIES_NO"
@@ -2782,6 +2793,32 @@
 				//"EffectName"		"particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
 				//"EffectAttachType"	"follow_origin"
 			}
+
+			"modifier_slow_autocast"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"ThinkInterval"		"0.5"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/autocast.lua"
+						"Function"		"SlowAutocast"
+						"modifier"		"modifier_slowed"
+					}
+				}
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"spells.lua"
+						"Function"		"ToggleOnAutocast"
+					}
+				}
+			}
 		}
 	}
 
@@ -2798,7 +2835,7 @@
 		// General
 		//--------------------
 		"BaseClass"			"ability_datadriven"
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
 		"AbilityTextureName"		"ogre_magi_bloodlust"
@@ -2888,6 +2925,32 @@
 				"EffectName"		"particles/items2_fx/mask_of_madness.vpcf"
 				"EffectAttachType"	"follow_origin"
 			}
+
+			"modifier_frenzy_autocast"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"ThinkInterval"		"0.5"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/autocast.lua"
+						"Function"		"FrenzyAutocast"
+						"modifier"		"modifier_frenzy"
+					}
+				}
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"spells.lua"
+						"Function"		"ToggleOnAutocast"
+					}
+				}
+			}
 		}
 	}
 
@@ -2904,7 +2967,7 @@
 		// General
 		//--------------------
 		"BaseClass"			"ability_datadriven"
-		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
 		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
 		"AbilityTextureName"		"treant_living_armor"
@@ -2993,6 +3056,32 @@
 				"AbilityTextureName"	"treant_living_armor"
 				"EffectName"		"particles/units/heroes/hero_treant/treant_livingarmor.vpcf"
 				"EffectAttachType"	"follow_origin"
+			}
+
+			"modifier_living_armor_autocast"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"ThinkInterval"		"0.5"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"abilities/autocast.lua"
+						"Function"		"LivingArmorAutocast"
+						"modifier"		"modifier_living_armor"
+					}
+				}
+
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"spells.lua"
+						"Function"		"ToggleOnAutocast"
+					}
+				}
 			}
 		}
 	}
@@ -3789,11 +3878,21 @@
 					"MODIFIER_STATE_LOW_ATTACK_PRIORITY" "MODIFIER_STATE_VALUE_ENABLED" // Makes it a secondary target when A-clicking ground
 					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED" // GridNav is blocked
 				}
+				
 				"Properties"
 				{
 					"MODIFIER_PROPERTY_DISABLE_TURNING" "1"
 					"MODIFIER_PROPERTY_IGNORE_CAST_ANGLE" "1"
 					"MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE"	"0.1"
+				}
+
+				"OnAttacked"
+				{
+					"RunScript"
+					{
+						"ScriptFile"		"buildings.lua"
+						"Function"			"OnBuildingAttacked"
+					}
 				}
 			}
 		}		

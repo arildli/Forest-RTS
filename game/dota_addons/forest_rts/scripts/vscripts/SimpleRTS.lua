@@ -72,7 +72,8 @@ function SimpleRTSGameMode:InitGameMode()
     loadModule('libraries/timers')
     loadModule('libraries/selection')
     loadModule('libraries/buildinghelper')
-    loadModule('builder')
+    loadModule('other/builder')
+    loadModule('abilities/autocast')
 
     -- Added EDITED
     --loadModule('ai/independent_utilities')

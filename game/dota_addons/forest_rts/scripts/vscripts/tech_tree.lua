@@ -402,13 +402,13 @@ end
 --- * hero: The hero to work with.
 ---------------------------------------------------------------------------
 function TechTree:RemoveDescriptionSpells(hero)
-   for i=0,6 do
-      local curAbility = hero:GetAbilityByIndex(i)
-      if curAbility then
-     local curAbilityName = curAbility:GetAbilityName()
-     hero:RemoveAbility(curAbilityName)
-      end
-   end
+    for i=0,6 do
+        local curAbility = hero:GetAbilityByIndex(i)
+        if curAbility then
+            local curAbilityName = curAbility:GetAbilityName()
+            hero:RemoveAbility(curAbilityName)
+        end
+    end
 end
 
 
@@ -421,27 +421,27 @@ end
 --- * entity: The entity to add methods to.
 ---------------------------------------------------------------------------
 function TechTree:AddPlayerMethods(entity, owner)
-   local ownerID = owner:GetPlayerID()
-   local ownerHero = GetPlayerHero(ownerID)
+    local ownerID = owner:GetPlayerID()
+    local ownerHero = GetPlayerHero(ownerID)
 
-   entity._ownerPlayer = owner
-   entity._ownerPlayerID = ownerID
-   entity._ownerHero = ownerHero
+    entity._ownerPlayer = owner
+    entity._ownerPlayerID = ownerID
+    entity._ownerHero = ownerHero
       
-   -- Get the player object of the owner.
-   function entity:GetOwnerPlayer()
-      return entity._ownerPlayer or entity:GetOwner()
-   end
+    -- Get the player object of the owner.
+    function entity:GetOwnerPlayer()
+        return entity._ownerPlayer or entity:GetOwner()
+    end
    
-   -- Get the player id of the owner.
-   function entity:GetOwnerID()
-      return entity._ownerPlayerID or entity:GetOwner():GetPlayerID()
-   end
+    -- Get the player id of the owner.
+    function entity:GetOwnerID()
+        return entity._ownerPlayerID or entity:GetOwner():GetPlayerID()
+    end
    
-   -- Get the hero of the owner.
-   function entity:GetOwnerHero()
-      return entity._ownerHero or GetPlayerHero(entity:GetOwner():GetPlayerID())
-   end
+    -- Get the hero of the owner.
+    function entity:GetOwnerHero()
+        return entity._ownerHero or GetPlayerHero(entity:GetOwner():GetPlayerID())
+    end
 end
 
 ---------------------------------------------------------------------------
@@ -496,22 +496,16 @@ end
 --- * spellname: Name of the spell used to create the building.
 ---------------------------------------------------------------------------
 function TechTree:RegisterConstruction(unit, spellname)
-   if not unit then
-      -- Crash
-      print("IsBuilding: "..tostring(IsBuilding))
-      print(unit)
-   end
-
-   unit._finished = false
-   local ownerHero = unit:GetOwnerPlayer()
-   local unitName = unit:GetUnitName()
-   ownerHero:IncUnitCountFor(unitName)
-   local newUnitCount = ownerHero:GetUnitCountFor(unitName)
-   local maxUnitCount = TechTree:GetMaxCountFor(unitName, ownerHero)
-   if maxUnitCount and newUnitCount >= maxUnitCount then
-      ownerHero:SetAbilityLevelFor(spellname, 0)
-      TechTree:UpdateSpellsAllEntities(ownerHero)
-   end
+    unit._finished = false
+    local ownerHero = unit:GetOwnerPlayer()
+    local unitName = unit:GetUnitName()
+    ownerHero:IncUnitCountFor(unitName)
+    local newUnitCount = ownerHero:GetUnitCountFor(unitName)
+    local maxUnitCount = TechTree:GetMaxCountFor(unitName, ownerHero)
+    if maxUnitCount and newUnitCount >= maxUnitCount then
+        ownerHero:SetAbilityLevelFor(spellname, 0)
+        TechTree:UpdateSpellsAllEntities(ownerHero)
+    end
 end
 
 ---------------------------------------------------------------------------
@@ -519,16 +513,16 @@ end
 --- * entity: The entity to learn abilities.
 ---------------------------------------------------------------------------
 function TechTree:AddAbilitiesToEntity(entity)
-   local ownerHero = entity:GetOwnerHero()
-   local heroName = ownerHero:GetUnitName()
-   local entityName = entity:GetUnitName()
-   local abilities = TechTree:GetAbilityPagesForUnit(entity, ownerHero)
-   for pageName,page in pairs(abilities) do
-      --if pageName ~= "HIDDEN" then
-      InitAbilityPage(entity, pageName, page)
-      --end
-   end
-   GoToPage(entity, "PAGE_MAIN")
+    local ownerHero = entity:GetOwnerHero()
+    local heroName = ownerHero:GetUnitName()
+    local entityName = entity:GetUnitName()
+    local abilities = TechTree:GetAbilityPagesForUnit(entity, ownerHero)
+    for pageName,page in pairs(abilities) do
+        --if pageName ~= "HIDDEN" then
+        InitAbilityPage(entity, pageName, page)
+        --end
+    end
+    GoToPage(entity, "PAGE_MAIN")
 end
 
 ---------------------------------------------------------------------------
@@ -634,56 +628,56 @@ end
 --- * ownerHero: The hero of the player.
 ---------------------------------------------------------------------------
 function TechTree:UpdateSpellsAllEntities(ownerHero)
-   -- Update hero.
-   TechTree:UpdateSpellsForHero(ownerHero)
+    -- Update hero.
+    TechTree:UpdateSpellsForHero(ownerHero)
 
-   -- Update entities of hero.
-   for _,building in pairs(ownerHero:GetBuildings()) do
-      if building:IsNull() then
-     ownerHero:RemoveBuilding(building)
-      else
-     TechTree:UpdateSpellsForEntity(building, ownerHero)
-      end
-   end
-   for _,unit in pairs(ownerHero:GetUnits()) do 
-      if unit:IsNull() then
-     ownerHero:RemoveUnit(unit)
-      else
-     TechTree:UpdateSpellsForEntity(unit, ownerHero)
-      end
-   end
+    -- Update entities of hero.
+    for _,building in pairs(ownerHero:GetBuildings()) do
+        if building:IsNull() then
+            ownerHero:RemoveBuilding(building)
+        else
+            TechTree:UpdateSpellsForEntity(building, ownerHero)
+        end
+    end
+    for _,unit in pairs(ownerHero:GetUnits()) do 
+        if unit:IsNull() then
+            ownerHero:RemoveUnit(unit)
+        else
+            TechTree:UpdateSpellsForEntity(unit, ownerHero)
+        end
+    end
 end
 
 ---------------------------------------------------------------------------
 -- Wrapper function for heroes.
 ---------------------------------------------------------------------------
 function TechTree:UpdateSpellsForHero(ownerHero) 
-   TechTree:UpdateSpellsForEntity(ownerHero, ownerHero)
+    TechTree:UpdateSpellsForEntity(ownerHero, ownerHero)
 end
 
 ---------------------------------------------------------------------------
 -- Updates all the spells for the given entity.
 ---------------------------------------------------------------------------
 function TechTree:UpdateSpellsForEntity(entity, ownerHero)
-   if entity:IsRealHero() then
-      ownerHero = entity
-   else
-      ownerHero = ownerHero or entity:GetOwnerHero()
-   end
+    if entity:IsRealHero() then
+        ownerHero = entity
+    else
+        ownerHero = ownerHero or entity:GetOwnerHero()
+    end
 
-   for i=0,6 do
-      local curAbility = entity:GetAbilityByIndex(i)
-      if curAbility and not curAbility:IsNull() then
-     local curAbilityName = curAbility:GetAbilityName()
-     local level = ownerHero:GetAbilityLevelFor(curAbilityName)
+    for i=0,6 do
+        local curAbility = entity:GetAbilityByIndex(i)
+        if curAbility and not curAbility:IsNull() then
+            local curAbilityName = curAbility:GetAbilityName()
+            local level = ownerHero:GetAbilityLevelFor(curAbilityName)
      
-     if not level then
-        curAbility:SetLevel(1)
-     else
-        curAbility:SetLevel(level)
-     end
-      end
-   end
+            if not level then
+                curAbility:SetLevel(1)
+            else
+                curAbility:SetLevel(level)
+            end
+        end
+    end
 end
 
 ---------------------------------------------------------------------------
@@ -697,160 +691,151 @@ end
 --
 ---------------------------------------------------------------------------
 function TechTree:UpdateTechTree(hero, building, action)
-   if hero and TechTree:IsHero(hero) == false then
-      -- Crash
-      print(abc.def)
-      return false
-   end
-   if not building and action == "init" then
-   elseif not building then
-      print("\nTechTree:UpdateTechTree: building was nil!")
-      return false
-   elseif action == nil then
-      print("\nTechTree:UpdateTechTree: action was nil!")
-      return false
-   end
-   if not hero.TT then
-      print("ERROR: hero did have have hero.TT! This most likely means TechTree:InitTechTree(hero) hasn't been called yet!")
-      return false
-   end
+    if hero and TechTree:IsHero(hero) == false then
+        -- Crash
+        print(abc.def)
+        return false
+    end
+    if not building and action == "init" then
+    elseif not building then
+        print("\nTechTree:UpdateTechTree: building was nil!")
+        return false
+    elseif action == nil then
+        print("\nTechTree:UpdateTechTree: action was nil!")
+        return false
+    end
+    if not hero.TT then
+        print("ERROR: hero did have have hero.TT! This most likely means TechTree:InitTechTree(hero) hasn't been called yet!")
+        return false
+    end
 
-   -- Print info.
-   local playerID = hero:GetOwnerID()
-   local needsUpdate = true
+    -- Print info.
+    local playerID = hero:GetOwnerID()
+    local needsUpdate = true
 
-   ---------------------------------------------------------------------------
-   -- Checks if enough of the current req exists and if they're all finished
-   -- if a building.
-   ---------------------------------------------------------------------------
-   local function curReqMet(hero, curReqName)
-      local curReqCount = hero:GetUnitCountFor(curReqName) or 0
-      -- None made so far.
-      if curReqCount <= 0 then
-     return false
-      end
-
-      -- Check if at least one of them is finished if building.
-      for k,unit in pairs(hero:GetBuildings()) do
-     if unit:IsNull() then
-        hero:RemoveBuilding(unit)
-     else
-        local curUnitName = unit:GetUnitName()
-        if curUnitName == curReqName and unit._finished then
-           return true
+    ---------------------------------------------------------------------------
+    -- Checks if enough of the current req exists and if they're all finished
+    -- if a building.
+    ---------------------------------------------------------------------------
+    local function curReqMet(hero, curReqName)
+        local curReqCount = hero:GetUnitCountFor(curReqName) or 0
+        -- None made so far.
+        if curReqCount <= 0 then
+            return false
         end
-     end
-      end
-      -- Return false is no finished unit of that type was found.
-      return false
-   end
+
+        -- Check if at least one of them is finished if building.
+        for k,unit in pairs(hero:GetBuildings()) do
+            if unit:IsNull() then
+                hero:RemoveBuilding(unit)
+            else
+                local curUnitName = unit:GetUnitName()
+                if curUnitName == curReqName and unit._finished then
+                    return true
+                end
+            end
+        end
+        -- Return false is no finished unit of that type was found.
+        return false
+    end
 
 
-   -- Check through all the spells.
-   for i,curSpell in pairs(hero._spells) do
-      local curSpellName = curSpell.spell
+    -- Check through all the spells.
+    for i,curSpell in pairs(hero._spells) do
+        local curSpellName = curSpell.spell
 
-      local curUnitName = curSpell.name or "none"
-      local curUnitCount = "-"
-      local curUnitMax = curSpell.max
+        local curUnitName = curSpell.name or "none"
+        local curUnitCount = "-"
+        local curUnitMax = curSpell.max
 
-      -- Count the number of units or buildings of this type if training or construction spell.
-      if curUnitName then
-     curUnitCount = hero:GetUnitCountFor(curUnitName)
-     if not curUnitCount then
-        hero:SetUnitCountFor(curUnitName, 0)
-        curUnitCount = 0
-     end
-      end
+        -- Count the number of units or buildings of this type if training or construction spell.
+        if curUnitName then
+            curUnitCount = hero:GetUnitCountFor(curUnitName)
+            if not curUnitCount then
+                hero:SetUnitCountFor(curUnitName, 0)
+                curUnitCount = 0
+            end
+        end
 
-      -- Special case max for upgrades.
-      local upgradeAndIsResearched = false
-      local cat = curSpell.category
-      if cat == "upgrade" then
-     local count = hero:GetUnitCountFor(curSpellName)
-     if count >= 1 then
-        hero:SetAbilityLevelFor(curSpellName, 0)
-        upgradeAndIsResearched = true
-     end
-      end
+        -- Special case max for upgrades.
+        local upgradeAndIsResearched = false
+        local cat = curSpell.category
+        if cat == "upgrade" then
+            local count = hero:GetUnitCountFor(curSpellName)
+            if count >= 1 then
+                hero:SetAbilityLevelFor(curSpellName, 0)
+                upgradeAndIsResearched = true
+            end
+        end
 
-      -- Check if all reqs for the spell are met.
-      local unlock = true
-      if (curUnitMax and curUnitCount >= curUnitMax) or upgradeAndIsResearched then
-     unlock = false
-      else
-     if not curSpell["req"] then
-        unlock = true
-     else
-        -- Check requirements table for current spells if it has one.
-        for _,curReqConst in ipairs(curSpell["req"]) do
-           unlock = true
-
-           -- Old way of checking current requirement.
-           if type(curReqConst) == "string" then
-          local curReq = hero.TT.techDef[curReqConst]
-          local curReqName = curReq["name"] or "none"
-          unlock = curReqMet(hero, curReqName)
-          if not unlock then
-             break
-          end
-          --local curReqCount = hero:GetUnitCountFor(curReqName) or 0
-
-          -- If req count not met.
-          --if not curReqCount or curReqCount <= 0 then
-          --   unlock = false
-          --   break
-          --end
-           elseif type(curReqConst) == "table" then   
-          -- New way! Looking at ..., curReq, ... or ..., {curOption1, curOption2}, ...
-          -- Insert the current req or table with choosable reqs into a new one.
-          local curReqTable = {}
-
-          -- Check the reqs in the cur req options table.
-          for _,curOptReqName in ipairs(curReqConst) do
-             local curReq = hero.TT.techDef[curOptReqName]
-             local curReqName = curReq.name
-             unlock = curReqMet(hero, curReqName)
-             if unlock then
-            break
-             end
-             --[=[
-             local curOptReqCount = hero:GetUnitCountFor(curReqName)
-             if curOptReqCount and curOptReqCount > 0 then
-            unlock = true
-            break
-             else
+        -- Check if all reqs for the spell are met.
+        local unlock = true
+        if (curUnitMax and curUnitCount >= curUnitMax) or upgradeAndIsResearched then
             unlock = false
-             end
-             ]=]
-          end
+        else
+            if not curSpell["req"] then
+                unlock = true
+            else
+                -- Check requirements table for current spells if it has one.
+                for _,curReqConst in ipairs(curSpell["req"]) do
+                    unlock = true
 
-          -- Stop if neither of the options for the current req has been met.
-          --if not oneOptionMet then
-          if not unlock then
-             break
-          end
-           end
+                    -- Old way of checking current requirement.
+                    if type(curReqConst) == "string" then
+                        local curReq = hero.TT.techDef[curReqConst]
+                        local curReqName = curReq["name"] or "none"
+                        unlock = curReqMet(hero, curReqName)
+                        if not unlock then
+                            break
+                        end
+                        --local curReqCount = hero:GetUnitCountFor(curReqName) or 0
+
+                        -- If req count not met.
+                        --if not curReqCount or curReqCount <= 0 then
+                        --   unlock = false
+                        --   break
+                        --end
+                    elseif type(curReqConst) == "table" then   
+                        -- New way! Looking at ..., curReq, ... or ..., {curOption1, curOption2}, ...
+                        -- Insert the current req or table with choosable reqs into a new one.
+                        local curReqTable = {}
+
+                        -- Check the reqs in the cur req options table.
+                        for _,curOptReqName in ipairs(curReqConst) do
+                            local curReq = hero.TT.techDef[curOptReqName]
+                            local curReqName = curReq.name
+                            unlock = curReqMet(hero, curReqName)
+                            if unlock then
+                                break
+                            end
+                        end
+
+                        -- Stop if neither of the options for the current req has been met.
+                        --if not oneOptionMet then
+                        if not unlock then
+                            break
+                        end
+                    end
+                end
+            end
         end
-     end
-      end
       
-      -- Set spell level.
-      if unlock == true then
-     hero:SetAbilityLevelFor(curSpellName, 1)
-      elseif unlock == false then
-     hero:SetAbilityLevelFor(curSpellName, 0)
-      else
-     print("TechTree:UpdateTechTree: unlock was neither true nor false!-----------------")
-      end
+        -- Set spell level.
+        if unlock == true then
+            hero:SetAbilityLevelFor(curSpellName, 1)
+        elseif unlock == false then
+            hero:SetAbilityLevelFor(curSpellName, 0)
+        else
+            print("TechTree:UpdateTechTree: unlock was neither true nor false!-----------------")
+        end
 
-      local curSpellLevel = hero:GetAbilityLevelFor(curSpellName)
-   end
+        local curSpellLevel = hero:GetAbilityLevelFor(curSpellName)
+    end
 
-   TechTree:PrintAbilityLevels(hero:GetOwnerPlayer())
-   TechTree:UpdateSpellsAllEntities(hero)
+    TechTree:PrintAbilityLevels(hero:GetOwnerPlayer())
+    TechTree:UpdateSpellsAllEntities(hero)
 
-   print_simple_tech_tree("UpdateTechTree", "\n\tTech tree update done!")
+    print_simple_tech_tree("UpdateTechTree", "\n\tTech tree update done!")
 end
 
 
@@ -868,84 +853,84 @@ end
 --- * player: The player whose ability levels to print.
 ---------------------------------------------------------------------------
 function TechTree:PrintAbilityLevels(player)
-   if DEBUG_SIMPLE_TECH_TREE ~= true then
-      return
-   end
+    if DEBUG_SIMPLE_TECH_TREE ~= true then
+        return
+    end
 
-   local playerID = player:GetPlayerID()
-   local hero = GetPlayerHero(playerID)
+    local playerID = player:GetPlayerID()
+    local hero = GetPlayerHero(playerID)
 
-   local spells = {
-      building = {},
-      unit = {},
-      spell = {}
-   }
+    local spells = {
+        building = {},
+        unit = {},
+        spell = {}
+    }
 
-   for key,curSpell in pairs(hero.TT.techDef) do
-      if key ~= "heropages" and key ~= "heroname" then
-     local category = curSpell.category
-     local found = false
-     if category == "upgrade" then
-        category = "spell"
-     end
-     for _,v in pairs(spells[category] or {}) do
-        if v == curSpell then
-           found = true
-           break
+    for key,curSpell in pairs(hero.TT.techDef) do
+        if key ~= "heropages" and key ~= "heroname" then
+            local category = curSpell.category
+            local found = false
+            if category == "upgrade" then
+                category = "spell"
+            end
+            for _,v in pairs(spells[category] or {}) do
+                if v == curSpell then
+                    found = true
+                    break
+                end
+            end
+            if not found then
+                if category then
+                    table.insert(spells[category], curSpell)
+                else
+                    print("TechTree:PrintAbilityLevels: invalid category found!")
+                end
+            end
         end
-     end
-     if not found then
-        if category then
-           table.insert(spells[category], curSpell)
-        else
-           print("TechTree:PrintAbilityLevels: invalid category found!")
-        end
-     end
-      end
-   end
+    end
 
-   print("---------------------------------------------------------------------------")
-   print("PrintAbilityLevels for player with ID "..playerID..":")
-   print("---------------------------------------------------------------------------")
-   print("")
-   print("                          -----| Buildings |-----                           ")
-   print("")
-   print("            Spell Name             | Level | Count | Name")
-   print("---------------------------------------------------------------------------")
-   for _,curSpell in pairs(spells.building) do
-      local spellLevel = hero:GetAbilityLevelFor(curSpell.spell) or "nil"
-      local unitName = curSpell.name
-      if not unitName or unitName == "none" then unitName = "-" end
-      local unitCount = hero:GetUnitCountFor(unitName) or "-"
-      print(string.format("%35s    %d      %3s     %s", curSpell.spell, spellLevel, unitCount, unitName))
-   end
-   print("---------------------------------------------------------------------------")
-   print("")
-   print("                          -----| Units |-----                           ")
-   print("")
-   print("            Spell Name             | Level | Count | Name")
-   print("---------------------------------------------------------------------------")
-   for _,curSpell in pairs(spells.unit) do
-      local spellLevel = hero:GetAbilityLevelFor(curSpell.spell) or "nil"
-      local unitName = curSpell.name
-      if not unitName or unitName == "none" then unitName = "-" end
-      local unitCount = hero:GetUnitCountFor(unitName) or "-"
-      print(string.format("%35s    %d      %3s     %s", curSpell.spell, spellLevel, unitCount, unitName))
-   end
-   print("---------------------------------------------------------------------------")
-   print("")
-   print("                          -----| Spells |-----                              ")
-   print("")
-   print("            Spell Name             | Level | Count | Name")
-   print("---------------------------------------------------------------------------")
-   for _,curSpell in pairs(spells.spell) do
-      local spellLevel = hero:GetAbilityLevelFor(curSpell.spell) or "nil"
-      local unitName = curSpell.name
-      if not unitName or unitName == "none" then unitName = "-" end
-      local unitCount = hero:GetUnitCountFor(unitName) or "-"
-      print(string.format("%35s    %d      %3s     %s", curSpell.spell, spellLevel, unitCount, unitName))
-   end
-   print("---------------------------------------------------------------------------")
+    print("---------------------------------------------------------------------------")
+    print("PrintAbilityLevels for player with ID "..playerID..":")
+    print("---------------------------------------------------------------------------")
+    print("")
+    print("                          -----| Buildings |-----                           ")
+    print("")
+    print("            Spell Name             | Level | Count | Name")
+    print("---------------------------------------------------------------------------")
+    for _,curSpell in pairs(spells.building) do
+        local spellLevel = hero:GetAbilityLevelFor(curSpell.spell) or "nil"
+        local unitName = curSpell.name
+        if not unitName or unitName == "none" then unitName = "-" end
+        local unitCount = hero:GetUnitCountFor(unitName) or "-"
+        print(string.format("%35s    %d      %3s     %s", curSpell.spell, spellLevel, unitCount, unitName))
+    end
+    print("---------------------------------------------------------------------------")
+    print("")
+    print("                          -----| Units |-----                           ")
+    print("")
+    print("            Spell Name             | Level | Count | Name")
+    print("---------------------------------------------------------------------------")
+    for _,curSpell in pairs(spells.unit) do
+        local spellLevel = hero:GetAbilityLevelFor(curSpell.spell) or "nil"
+        local unitName = curSpell.name
+        if not unitName or unitName == "none" then unitName = "-" end
+        local unitCount = hero:GetUnitCountFor(unitName) or "-"
+        print(string.format("%35s    %d      %3s     %s", curSpell.spell, spellLevel, unitCount, unitName))
+    end
+    print("---------------------------------------------------------------------------")
+    print("")
+    print("                          -----| Spells |-----                              ")
+    print("")
+    print("            Spell Name             | Level | Count | Name")
+    print("---------------------------------------------------------------------------")
+    for _,curSpell in pairs(spells.spell) do
+        local spellLevel = hero:GetAbilityLevelFor(curSpell.spell) or "nil"
+        local unitName = curSpell.name
+        if not unitName or unitName == "none" then unitName = "-" end
+        local unitCount = hero:GetUnitCountFor(unitName) or "-"
+        print(string.format("%35s    %d      %3s     %s", curSpell.spell, spellLevel, unitCount, unitName))
+    end
+    print("---------------------------------------------------------------------------")
 end
 
 
@@ -968,12 +953,12 @@ end
 --- * unit: The unit to check.
 ---------------------------------------------------------------------------
 function TechTree:IsHero(unit)
-   local heroName = unit:GetUnitName()
-   if heroName == COMMANDER or heroName == FURION or heroName == GEOMANCER or heroName == KING_OF_THE_DEAD or heroName == WARLORD then
-      return true
-   else
-      return false
-   end
+    local heroName = unit:GetUnitName()
+    if heroName == COMMANDER or heroName == FURION or heroName == GEOMANCER or heroName == KING_OF_THE_DEAD or heroName == WARLORD then
+        return true
+    else
+        return false
+    end
 end
 
 
@@ -986,8 +971,7 @@ end
 --
 ---------------------------------------------------------------------------
 function print_simple_tech_tree(funcName, text)
-
-   if DEBUG_SIMPLE_TECH_TREE == true then
-      print("AbilityPages:"..funcName.."\t"..text)
-   end
+    if DEBUG_SIMPLE_TECH_TREE == true then
+        print("AbilityPages:"..funcName.."\t"..text)
+    end
 end

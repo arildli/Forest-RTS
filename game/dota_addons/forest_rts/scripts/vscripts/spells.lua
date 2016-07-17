@@ -190,11 +190,9 @@ end
 
 function ApplyUpgradesOnTraining(unit)
     local ownerHero = unit:GetOwnerHero()
-    print("ApplyUpgradesOnTraining")
      
     -- Add upgrade item to newly trained unit if unlocked.
     local function AddUpgradeItem(upgradeItemName)
-        print("Creating item of name "..upgradeItemName)
         local newItem = CreateItem(upgradeItemName, unit, unit)
         unit:AddItem(newItem)
     end
@@ -202,7 +200,6 @@ function ApplyUpgradesOnTraining(unit)
     local upgrades = GetUpgradesForUnit(unit)
     if upgrades then
         for _,upgradeConst in pairs(upgrades) do
-            print("Looking at "..upgradeConst)
             local upgradeItem = GetUpgradeItem(ownerHero, upgradeConst)
             if upgradeItem then
                 AddUpgradeItem(upgradeItem)
@@ -226,16 +223,12 @@ end
 
 
 
-function Autocast(keys)
+function ToggleOnAutocast(keys)
     local caster = keys.caster
-    local attacker = keys.attacker
     local ability = keys.ability
-    local modifier = keys.modifier
 
-    if ability:GetAutoCastState() then
-        if not attacker:HasModifier(modifier) then
-            caster:CastAbilityOnTarget(attacker, ability, caster:GetOwnerID())
-        end
+    if not ability:GetAutoCastState() then
+        ability:ToggleAutoCast()
     end
 end
 
