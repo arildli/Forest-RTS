@@ -36,36 +36,51 @@ function Autocast(ability, caster, modifierName, targetTeam, targetType, findTyp
     end
 end
 
-function AutocastAllyAttack(ability, caster, modifier, modifierBuffed, attacker)
+function AutocastAllyAttack(ability, caster, modifier, attacker)
     if not attacker:IsMagicImmune() and ability:GetAutoCastState() and ability:IsFullyCastable()
       and not caster:IsSilenced() then
-        --print("\tChecking if the ATTACKING ALLY can be BUFFED!")
-        if not attacker:HasModifier(modifier) and not attacker:HasModifier(modifierBuffed) then
-            print("\t\tYUP (Attack)!")
-            attacker:AddNewModifier(caster, nil, modifierBuffed, {})
-            caster:CastAbilityOnTarget(attacker, ability, caster:GetPlayerOwnerID())
+        if attacker._recentlyBuffed then
+            return
+        elseif not attacker:HasModifier(modifier) then
+            attacker._recentlyBuffed = true
+            Timers:CreateTimer({
+                endTime = 1.0,
+                callback = function()
+                    attacker._recentlyBuffed = nil
+            end})
             caster:StartGesture(ACT_DOTA_CAST_ABILITY_1)
+            caster:CastAbilityOnTarget(attacker, ability, caster:GetPlayerOwnerID())
             ability:PayManaCost()
-        else
-            print("\t\tNO, ALLY ALREADY HAS BUFF "..modifier.."!")
         end
     end
 end
 
-function AutocastAllyAttacked(ability, caster, modifier, modifierBuffed, target)
+function AutocastAllyAttackKeys(keys)
+    AutocastAllyAttack(keys.ability, keys.caster, keys.modifier, keys.attacker)
+end
+
+
+function AutocastAllyAttacked(ability, caster, modifier, target)
     if not target:IsMagicImmune() and ability:GetAutoCastState() and ability:IsFullyCastable()
       and not caster:IsSilenced() then
-        --print("\tChecking if the POOR VICTIM can be buffed!")
-        if not target:HasModifier(modifier) and not target:HasModifier(modifierBuffed) then
-            print("\t\tYup (Attacked)!")
-            target:AddNewModifier(caster, nil, modifierBuffed, {})
-            caster:CastAbilityOnTarget(target, ability, caster:GetPlayerOwnerID())
+        if target._recentlyBuffed then
+            return
+        elseif not target:HasModifier(modifier) then
+            target._recentlyBuffed = true
+            Timers:CreateTimer({
+                endTime = 1.0,
+                callback = function()
+                    target._recentlyBuffed = nil
+            end})
             caster:StartGesture(ACT_DOTA_CAST_ABILITY_1)
+            caster:CastAbilityOnTarget(target, ability, caster:GetPlayerOwnerID())
             ability:PayManaCost()
-        else
-            print("\t\tNOPE, VICTIM ALREADY HAS "..modifier)
         end
     end
+end
+
+function AutocastAllyAttackedKeys(keys)
+    AutocastAllyAttacked(keys.ability, keys.caster, keys.modifier, keys.target)
 end
 
 
@@ -77,20 +92,5 @@ end
 
 function SlowAutocast(keys)
     Autocast(keys.ability, keys.caster, keys.modifier, DOTA_UNIT_TARGET_TEAM_ENEMY,
-        "Both", "Any")
-end
-
-
-function FrenzyAutocastAttack(keys)
-    AutocastAllyAttack(keys.ability, keys.caster, keys.modifier, keys.modifier_buffed, keys.attacker)
-end
-
-function FrenzyAutocastAttacked(keys)
-    AutocastAllyAttacked(keys.ability, keys.caster, keys.modifier, keys.modifier_buffed, keys.target)
-end
-
-
-function LivingArmorAutocast(keys)
-    Autocast(keys.ability, keys.caster, keys.modifier, DOTA_UNIT_TARGET_TEAM_FRIENDLY,
         "Both", "Any")
 end

@@ -232,6 +232,11 @@ function ToggleOnAutocast(keys)
     end
 end
 
+function PayManaCost(keys)
+    local ability = keys.ability
+    ability:PayManaCost()
+end
+
 
 
 --// ----- | Economy related |----- \\--

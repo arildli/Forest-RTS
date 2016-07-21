@@ -2860,28 +2860,22 @@
             "01"
             {
                 "var_type"      "FIELD_INTEGER"
-                "duration_hero"     "20"
+                "duration"      "30"
             }
 
             "02"
-            {
-                "var_type"      "FIELD_INTEGER"
-                "duration_other"    "30"
-            }
-
-            "03"
             {
                 "var_type"      "FIELD_FLOAT"
                 "attack_speed_bonus"    "40"
             }
 
-            "04"
+            "03"
             {
                 "var_type"      "FIELD_FLOAT"
                 "extra_damage"      "10"
             }
 
-            "05"
+            "04"
             {
                 "var_type"      "FIELD_INTEGER"
                 "autocast_radius"   "700"
@@ -2895,21 +2889,10 @@
                 "Target"
                 {
                     "Center"    "TARGET"
-                    "Type"      "DOTA_UNIT_TARGET_BASIC"
+                    "Type"      "DOTA_UNIT_TARGET_ALL"
                 }
                 "ModifierName"  "modifier_frenzy"
-                "Duration"  "%duration_other"
-            }
-
-            "ApplyModifier"
-            {
-                "Target"
-                {
-                    "Center"    "TARGET"
-                    "Type"      "DOTA_UNIT_TARGET_HERO"
-                }
-                "ModifierName"  "modifier_frenzy"
-                "Duration"  "%duration_hero"
+                "Duration"      "%duration"
             }
         }
 
@@ -2920,8 +2903,6 @@
                 "Passive"   "0"
                 "IsHidden"  "0"
                 "IsBuff"    "1"
-
-                "Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
             
                 "Properties"
                 {
@@ -2932,21 +2913,6 @@
                 "AbilityTextureName"    "ogre_magi_bloodlust"
                 "EffectName"        "particles/items2_fx/mask_of_madness.vpcf"
                 "EffectAttachType"  "follow_origin"
-            }
-
-            "modifier_frenzy_buffed"
-            {
-                "IsHidden"  "1"
-
-                "ThinkInterval"     "0.5"
-                "OnIntervalThink"
-                {
-                    "RemoveModifier"
-                    {
-                        "ModifierName"  "modifier_frenzy_buffed"
-                        "Target"        "TARGET"
-                    }
-                }
             }
 
             "modifier_frenzy_autocast_aura"
@@ -2979,9 +2945,8 @@
                     "RunScript"
                     {
                         "ScriptFile"    "abilities/autocast.lua"
-                        "Function"      "FrenzyAutocastAttack"
+                        "Function"      "AutocastAllyAttackKeys"
                         "modifier"      "modifier_frenzy"
-                        "modifier_buffed"   "modifier_frenzy_buffed"
                     }
                 }
 
@@ -2990,9 +2955,8 @@
                     "RunScript"
                     {
                         "ScriptFile"    "abilities/autocast.lua"
-                        "Function"      "FrenzyAutocastAttacked"
+                        "Function"      "AutocastAllyAttackedKeys"
                         "modifier"      "modifier_frenzy"
-                        "modifier_buffed"   "modifier_frenzy_buffed"
                     }
                 }
             }
@@ -3037,25 +3001,25 @@
             "01"
             {
                 "var_type"      "FIELD_INTEGER"
-                "duration_hero"     "20"
+                "duration"      "30"
             }
 
             "02"
             {
-                "var_type"      "FIELD_INTEGER"
-                "duration_other"    "30"
+                "var_type"      "FIELD_FLOAT"
+                "armor_bonus"   "4"
             }
 
             "03"
             {
                 "var_type"      "FIELD_FLOAT"
-                "armor_bonus"       "4"
+                "regen_bonus"   "2"
             }
 
             "04"
             {
-                "var_type"      "FIELD_FLOAT"
-                "regen_bonus"       "2"
+                "var_type"      "FIELD_INTEGER"
+                "autocast_radius"   "700"
             }
         }
 
@@ -3066,21 +3030,10 @@
                 "Target"
                 {
                     "Center"    "TARGET"
-                    "Type"      "DOTA_UNIT_TARGET_BASIC"
+                    "Type"      "DOTA_UNIT_TARGET_ALL"
                 }
                 "ModifierName"  "modifier_living_armor"
-                "Duration"  "%duration_other"
-            }
-
-            "ApplyModifier"
-            {
-                "Target"
-                {
-                    "Center"    "TARGET"
-                    "Type"      "DOTA_UNIT_TARGET_HERO"
-                }
-                "ModifierName"  "modifier_living_armor"
-                "Duration"  "%duration_hero"
+                "Duration"      "%duration"
             }
                    
             "FireSound"
@@ -3109,21 +3062,16 @@
                 "EffectAttachType"  "follow_origin"
             }
 
-            "modifier_living_armor_autocast"
+            "modifier_living_armor_autocast_aura"
             {
                 "Passive"   "1"
                 "IsHidden"  "1"
 
-                "ThinkInterval"     "0.5"
-                "OnIntervalThink"
-                {
-                    "RunScript"
-                    {
-                        "ScriptFile"    "abilities/autocast.lua"
-                        "Function"      "LivingArmorAutocast"
-                        "modifier"      "modifier_living_armor"
-                    }
-                }
+                "Aura"          "modifier_living_armor_autocast_combat"
+                "Aura_Radius"   "%autocast_radius"
+                "Aura_Teams"    "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+                "Aura_Types"    "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+                "Aura_Flags"    "DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
 
                 "OnCreated"
                 {
@@ -3131,6 +3079,31 @@
                     {
                         "ScriptFile"    "spells.lua"
                         "Function"      "ToggleOnAutocast"
+                    }
+                }
+            }
+
+            "modifier_living_armor_autocast_combat"
+            {
+                "IsHidden"      "1"
+                "Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
+                //"OnAttack"
+                //{
+                //    "RunScript"
+                //    {
+                //        "ScriptFile"    "abilities/autocast.lua"
+                //        "Function"      "AutocastAllyAttackKeys"
+                //        "modifier"      "modifier_living_armor"
+                //    }
+                //}
+
+                "OnAttacked"
+                {
+                    "RunScript"
+                    {
+                        "ScriptFile"    "abilities/autocast.lua"
+                        "Function"      "AutocastAllyAttackedKeys"
+                        "modifier"      "modifier_living_armor"
                     }
                 }
             }

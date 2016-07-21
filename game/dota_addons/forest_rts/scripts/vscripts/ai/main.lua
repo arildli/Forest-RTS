@@ -223,7 +223,6 @@ function AI:GetBotByID(playerID)
             return bot
         end
     end
-    print("AI:GetBotById: No such bot found!")
     return nil
 end
 
