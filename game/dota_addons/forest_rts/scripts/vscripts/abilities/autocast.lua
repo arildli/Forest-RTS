@@ -29,9 +29,8 @@ function Autocast(ability, caster, modifierName, targetTeam, targetType, findTyp
         end
 
         if target then
-            caster:CastAbilityOnTarget(target, ability, caster:GetPlayerOwnerID())
             caster:StartGesture(ACT_DOTA_CAST_ABILITY_1)
-            ability:PayManaCost()
+            caster:CastAbilityOnTarget(target, ability, caster:GetPlayerOwnerID())
         end
     end
 end
@@ -48,9 +47,8 @@ function AutocastAllyAttack(ability, caster, modifier, attacker)
                 callback = function()
                     attacker._recentlyBuffed = nil
             end})
-            caster:StartGesture(ACT_DOTA_CAST_ABILITY_1)
+            --caster:StartGesture(ACT_DOTA_CAST_ABILITY_1)
             caster:CastAbilityOnTarget(attacker, ability, caster:GetPlayerOwnerID())
-            ability:PayManaCost()
         end
     end
 end
@@ -72,9 +70,8 @@ function AutocastAllyAttacked(ability, caster, modifier, target)
                 callback = function()
                     target._recentlyBuffed = nil
             end})
-            caster:StartGesture(ACT_DOTA_CAST_ABILITY_1)
+            --caster:StartGesture(ACT_DOTA_CAST_ABILITY_1)
             caster:CastAbilityOnTarget(target, ability, caster:GetPlayerOwnerID())
-            ability:PayManaCost()
         end
     end
 end
@@ -83,14 +80,6 @@ function AutocastAllyAttackedKeys(keys)
     AutocastAllyAttacked(keys.ability, keys.caster, keys.modifier, keys.target)
 end
 
-
-function CurseAutocast(keys)
-    Autocast(keys.ability, keys.caster, keys.modifier, DOTA_UNIT_TARGET_TEAM_ENEMY,
-        "Both", "Any")
-end
-
-
-function SlowAutocast(keys)
-    Autocast(keys.ability, keys.caster, keys.modifier, DOTA_UNIT_TARGET_TEAM_ENEMY,
-        "Both", "Any")
+function AutocastEnemyAttackKeys(keys)
+    AutocastAllyAttacked(keys.ability, keys.caster, keys.modifier, keys.attacker)
 end

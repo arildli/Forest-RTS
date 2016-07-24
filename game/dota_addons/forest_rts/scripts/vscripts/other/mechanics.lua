@@ -254,16 +254,14 @@ function IsMultiOrderAbility( ability )
       local ability_table = GameRules.AbilityKV[ability_name]
       
       if not ability_table then
-	 ability_table = GameRules.ItemKV[ability_name]
+	     ability_table = GameRules.ItemKV[ability_name]
       end
       
       if ability_table then
-	 local AbilityMultiOrder = ability_table["AbilityMultiOrder"]
-	 if AbilityMultiOrder and AbilityMultiOrder == 1 then
-	    return true
-	 end
-      else
-	 print("Cant find ability table for "..ability_name)
+	     local AbilityMultiOrder = ability_table["AbilityMultiOrder"]
+	     if AbilityMultiOrder and AbilityMultiOrder == 1 then
+	        return true
+	     end
       end
    end
    return false

@@ -2601,7 +2601,7 @@
         // Casting
         //--------------------
         "AbilityCastRange"      "600"
-        "AbilityCastPoint"      "0.0"
+        "AbilityCastPoint"      "0.3"
 
         // Time     
         //--------------------
@@ -2617,19 +2617,19 @@
             "01"
             {
                 "var_type"      "FIELD_FLOAT"
-                "miss_chance"       "40.0"
+                "miss_chance"   "40.0"
             }
             
             "02"
             {
                 "var_type"      "FIELD_INTEGER"
-                "duration_hero"     "5"
+                "duration"      "15"
             }
-
+            
             "03"
             {
                 "var_type"      "FIELD_INTEGER"
-                "duration_other"    "20"
+                "autocast_radius"   "700"
             }
         }
 
@@ -2637,9 +2637,13 @@
         {
             "ApplyModifier"
             {
+                "Target"
+                {
+                    "Center"    "TARGET"
+                    "Type"      "DOTA_UNIT_TARGET_ALL"
+                }
                 "ModifierName"  "modifier_cursed"
-                "Target"        "TARGET"
-                "Duration"      "%duration_other"
+                "Duration"      "%duration"
             }
         }
 
@@ -2661,21 +2665,16 @@
                 "EffectAttachType"  "follow_origin"
             }
 
-            "modifier_curse_autocast"
+            "modifier_cursed_autocast_aura"
             {
                 "Passive"   "1"
                 "IsHidden"  "1"
 
-                "ThinkInterval"     "0.5"
-                "OnIntervalThink"
-                {
-                    "RunScript"
-                    {
-                        "ScriptFile"    "abilities/autocast.lua"
-                        "Function"      "CurseAutocast"
-                        "modifier"      "modifier_cursed"
-                    }
-                }
+                "Aura"          "modifier_cursed_autocast_combat"
+                "Aura_Radius"   "%autocast_radius"
+                "Aura_Teams"    "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+                "Aura_Types"    "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+                "Aura_Flags"    "DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE"
 
                 "OnCreated"
                 {
@@ -2683,6 +2682,31 @@
                     {
                         "ScriptFile"    "spells.lua"
                         "Function"      "ToggleOnAutocast"
+                    }
+                }
+            }
+
+            "modifier_cursed_autocast_combat"
+            {
+                "IsHidden"      "1"
+                "Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
+                //"OnAttack"
+                //{
+                //    "RunScript"
+                //    {
+                //        "ScriptFile"    "abilities/autocast.lua"
+                //        "Function"      "AutocastAllyAttackKeys"
+                //        "modifier"      "modifier_cursed"
+                //    }
+                //}
+
+                "OnAttacked"
+                {
+                    "RunScript"
+                    {
+                        "ScriptFile"    "abilities/autocast.lua"
+                        "Function"      "AutocastEnemyAttackKeys"
+                        "modifier"      "modifier_cursed"
                     }
                 }
             }
@@ -2698,21 +2722,21 @@
     // Slow - Human Sorceress Ability
     //================================================================================
     "srts_slow"
-    {   
+    {
         // General
         //--------------------
-        "BaseClass"         "ability_datadriven"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
         "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
         "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
-        "SpellImmunityType"     "SPELL_IMMUNITY_ENEMIES_NO"
+        "SpellImmunityType"         "SPELL_IMMUNITY_ENEMIES_NO"
         "AbilityTextureName"        "skywrath_mage_concussive_shot"
         "MaxLevel"          "1"
 
         // Casting
         //--------------------
         "AbilityCastRange"      "625"
-        "AbilityCastPoint"      "0.0"
+        "AbilityCastPoint"      "0.3"
 
         // Time     
         //--------------------
@@ -2728,7 +2752,7 @@
             "01"
             {
                 "var_type"      "FIELD_FLOAT"
-                "attack_slow"       "-40"
+                "attack_slow"   "-40"
             }
 
             "02"
@@ -2740,13 +2764,13 @@
             "03"
             {
                 "var_type"      "FIELD_INTEGER"
-                "duration_hero"     "5"
+                "duration"      "15"
             }
 
             "04"
             {
                 "var_type"      "FIELD_INTEGER"
-                "duration_other"    "20"
+                "autocast_radius"   "700"
             }
         }
 
@@ -2757,21 +2781,10 @@
                 "Target"
                 {
                     "Center"    "TARGET"
-                    "Type"      "DOTA_UNIT_TARGET_HERO"
+                    "Type"      "DOTA_UNIT_TARGET_ALL"
                 }
                 "ModifierName"  "modifier_slowed"
-                "Duration"  "%duration_hero"
-            }
-
-            "ApplyModifier"
-            {
-                "Target"
-                {
-                    "Center"    "TARGET"
-                    "Type"      "DOTA_UNIT_TARGET_BASIC"
-                }
-                "ModifierName"  "modifier_slowed"
-                "Duration"  "%duration_other"
+                "Duration"      "%duration"
             }
         }
 
@@ -2789,26 +2802,21 @@
                     "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"  "%move_slow"
                 }
 
-                "AbilityTextureName"    "skywrath_mage_concussive_shot"
-                //"EffectName"      "particles/units/heroes/hero_pugna/pugna_decrepify.vpcf"
-                //"EffectAttachType"    "follow_origin"
+                "AbilityTextureName"  "skywrath_mage_concussive_shot"
+                "EffectName"          "particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_slow.vpcf"
+                "EffectAttachType"    "follow_origin"
             }
 
-            "modifier_slow_autocast"
+            "modifier_slowed_autocast_aura"
             {
                 "Passive"   "1"
                 "IsHidden"  "1"
 
-                "ThinkInterval"     "0.5"
-                "OnIntervalThink"
-                {
-                    "RunScript"
-                    {
-                        "ScriptFile"    "abilities/autocast.lua"
-                        "Function"      "SlowAutocast"
-                        "modifier"      "modifier_slowed"
-                    }
-                }
+                "Aura"          "modifier_slowed_autocast_combat"
+                "Aura_Radius"   "%autocast_radius"
+                "Aura_Teams"    "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+                "Aura_Types"    "DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_HERO"
+                "Aura_Flags"    "DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE"
 
                 "OnCreated"
                 {
@@ -2816,6 +2824,31 @@
                     {
                         "ScriptFile"    "spells.lua"
                         "Function"      "ToggleOnAutocast"
+                    }
+                }
+            }
+
+            "modifier_slowed_autocast_combat"
+            {
+                "IsHidden"      "1"
+                "Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
+                "OnAttack"
+                {
+                    "RunScript"
+                    {
+                        "ScriptFile"    "abilities/autocast.lua"
+                        "Function"      "AutocastAllyAttackKeys"
+                        "modifier"      "modifier_slowed"
+                    }
+                }
+
+                "OnAttacked"
+                {
+                    "RunScript"
+                    {
+                        "ScriptFile"    "abilities/autocast.lua"
+                        "Function"      "AutocastEnemyAttackKeys"
+                        "modifier"      "modifier_slowed"
                     }
                 }
             }
@@ -2844,7 +2877,7 @@
         // Casting
         //--------------------
         "AbilityCastRange"      "600"
-        "AbilityCastPoint"      "0.0"
+        "AbilityCastPoint"      "0.3"
 
         // Time     
         //--------------------
@@ -2949,16 +2982,6 @@
                         "modifier"      "modifier_frenzy"
                     }
                 }
-
-                "OnAttacked"
-                {
-                    "RunScript"
-                    {
-                        "ScriptFile"    "abilities/autocast.lua"
-                        "Function"      "AutocastAllyAttackedKeys"
-                        "modifier"      "modifier_frenzy"
-                    }
-                }
             }
         }
     }
@@ -2985,7 +3008,7 @@
         // Casting
         //--------------------
         "AbilityCastRange"      "600"
-        "AbilityCastPoint"      "0.0"
+        "AbilityCastPoint"      "0.3"
 
         // Time     
         //--------------------
@@ -3361,11 +3384,6 @@
             }
         }
 
-        "precache"
-        {
-            "particle"  "particles/units/heroes/hero_enchantress/enchantress_natures_attendants_heal_aura.vpcf" 
-        }
-
         // Data driven
         //------------------------------------------------------------------------
         "Modifiers"
@@ -3377,27 +3395,33 @@
                 "IsHidden"  "1"
                 "TextureName"   "enchantress_natures_attendants"
                 
-                "Aura"      "crystal_aura"
+                "Aura"          "crystal_aura"
                 "Aura_Teams"    "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
                 "Aura_Radius"   "%radius"
                 "Aura_Types"    "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
                 
                 "OnCreated"
                 {
-                    "AttachEffect"
+                    "ApplyModifier"
                     {
-                        "EffectName"    "particles/units/heroes/hero_enchantress/enchantress_natures_attendants_heal_aura.vpcf" 
-                        "EffectAttachType"  "follow_origin"
-                        "Target"    "CASTER"
+                        "Target"        "CASTER"
+                        "ModifierName"  "modifier_crystal_aura_effect"
                     }
                 }
+            }
+
+            "modifier_crystal_aura_effect"
+            {
+                "IsHidden"  "1"
+
+                "EffectName"        "particles/radiant_fx/good_barracks_melee001_amb.vpcf" 
+                "EffectAttachType"  "follow_origin"
             }
 
             "crystal_aura"
             {
                 "Properties"
                 {
-                    //"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT" "%health_regen"
                     "MODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE" "%health_regen"
                 }
             }

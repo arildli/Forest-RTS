@@ -95,6 +95,9 @@ function Precache( context )
 	PrecacheResource("particle", "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf", context)
 	PrecacheResource("particle", "particles/dire_fx/fire_barracks.vpcf", context)
 
+    -- Moonwell Overhead Effect
+    PrecacheResource("particle", "particles/radiant_fx/good_barracks_melee001_amb.vpcf", context)
+
 
 
 	-- Props
@@ -168,6 +171,11 @@ function Precache( context )
 	PrecacheResource("model", "models/items/lina/migrant_blaze_belt/migrant_blaze_belt.vmdl", context)
 	PrecacheResource("model", "models/items/lina/migrant_blaze_head/migrant_blaze_head.vmdl", context)
 	PrecacheResource("model", "models/items/lina/migrant_blaze_neck/migrant_blaze_neck.vmdl", context)
+
+    PrecacheResource("particle", "particles/units/heroes/hero_lina/lina_death.vpcf", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_lina/lina_ambient_hand_r.vpcf", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_lina/lina_ambient_hand_l.vpcf", context)
+    PrecacheResource("particle", "particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_slow.vpcf", context)
 
 
 

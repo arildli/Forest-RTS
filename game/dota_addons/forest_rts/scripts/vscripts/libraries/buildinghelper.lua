@@ -960,11 +960,6 @@ function BuildingHelper:PlaceBuilding(player, name, location, construction_size,
     local model_offset = GetUnitKV(name, "ModelOffset") or 0
     local model_location = Vector(location.x, location.y, location.z + model_offset)
 
-
-    -- Added {
-    print("Location: Vector("..location.x..", "..location.y..", "..location.z..")")
-    -- }
-
     -- Spawn the building
     local building = CreateUnitByName(name, model_location, false, playersHero, player, playersHero:GetTeamNumber())
     building:SetControllableByPlayer(playerID, true)
@@ -1121,10 +1116,6 @@ function BuildingHelper:StartBuilding(builder)
     end
 
     BuildingHelper:print("Initializing Building Entity: "..unitName.." at "..VectorString(location))
-
-    -- Added {
-    print("Initializing Building Entity: "..unitName.." at "..VectorString(location))
-    -- }
 
     -- Mark this work in progress, skip refund if cancelled as the building is already placed
     work.inProgress = true

@@ -72,12 +72,12 @@ function SimpleRTSGameMode:InitGameMode()
     loadModule('libraries/timers')
     loadModule('libraries/selection')
     loadModule('libraries/buildinghelper')
-    loadModule('other/builder')
+    loadModule('builder')
     loadModule('abilities/autocast')
 
     -- Added EDITED
-    --loadModule('ai/independent_utilities')
-    loadModule('ai/main')
+    loadModule('ai/independent_utilities')
+    --loadModule('ai/main')
     -- DONE
    
     LinkLuaModifier("modifier_train_unit", "libraries/modifiers/modifier_train_unit", LUA_MODIFIER_MOTION_NONE)
