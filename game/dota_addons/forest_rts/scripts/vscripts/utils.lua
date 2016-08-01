@@ -212,9 +212,9 @@ function GiveCharges(hero, amount, itemName)
         
         if hero:IsRealHero() then
             if hero:HasInventory() and hero:HasRoomForItem(itemName, false, false) then
-        hero:AddItem(newItem)
+                hero:AddItem(newItem)
             else
-        CreateItemOnPositionSync(hero:GetOrigin(), newItem)
+                CreateItemOnPositionSync(hero:GetOrigin(), newItem)
             end
         else
             hero:AddItem(newItem)
@@ -227,8 +227,9 @@ end
 
 -- Give gold to the player.
 function GiveGoldToPlayer(playerID, amount)
-     local currentGold = PlayerResource:GetReliableGold(playerID)
-     PlayerResource:SetGold(playerID, currentGold + amount, true)
+    local currentGold = PlayerResource:GetReliableGold(playerID)
+    PlayerResource:SetGold(playerID, currentGold + amount, true)
+    Stats:AddGold(playerID, amount)
 end
 
 
@@ -245,7 +246,8 @@ function BuyGold(unit, wood, gold)
         local owner = unit:GetOwner()
         local ownerID = owner:GetPlayerID()
         local currentGold = PlayerResource:GetReliableGold(ownerID)
-        PlayerResource:SetGold(ownerID, currentGold + gold, true)
+        playerHero:IncGold(gold)
+        --PlayerResource:SetGold(ownerID, currentGold + gold, true)
         return true
     end
     
@@ -529,6 +531,7 @@ function GiveGold(keys)
     local currentGold = PlayerResource:GetReliableGold(ownerID)
     PopupGoldGain(caster, gold)
     PlayerResource:SetGold(ownerID, currentGold + gold, true)
+    Stats:AddGold(ownerID, gold)
     return true
 end
 

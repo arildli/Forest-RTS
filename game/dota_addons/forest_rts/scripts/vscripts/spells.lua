@@ -140,6 +140,9 @@ function ApplyUpgradeUnits(keys)
     ownerHero:SetAbilityLevelFor(abilityName, 0)
     ownerHero:SetUnitCountFor(abilityName, 1)
     local canGetUpgrade = {}
+    local playerID = caster:GetOwnerID()
+
+    Stats:OnResearchFinished(playerID, abilityName)
 
     local function AddUpgradeBool(itemName, unit)
         print("AddUpgradeBool called!")
@@ -259,18 +262,20 @@ function CanAfford(player, gold, wood)
 end
 
 function GiveResources(player, gold, wood)
-     local playerID = player:GetPlayerID()
-     local hero = GetPlayerHero(playerID)
-     hero:IncLumber(wood)
-     local curGold = PlayerResource:GetReliableGold(playerID)
-     PlayerResource:SetGold(playerID, curGold + gold, true)
+    local playerID = player:GetPlayerID()
+    local hero = GetPlayerHero(playerID)
+    hero:IncLumber(wood)
+    --local curGold = PlayerResource:GetReliableGold(playerID)
+    hero:IncGold(gold)
+    --PlayerResource:SetGold(playerID, curGold + gold, true)
 end
 
 function RefundGoldTooltip(player, gold)
-     local playerID = player:GetPlayerID()
-     local hero = GetPlayerHero(playerID)
-     local curGold = PlayerResource:GetReliableGold(playerID)
-     PlayerResource:SetGold(playerID, curGold + gold, true)
+    local playerID = player:GetPlayerID()
+    local hero = GetPlayerHero(playerID)
+    local curGold = PlayerResource:GetReliableGold(playerID)
+    hero:IncGold(gold)
+    --PlayerResource:SetGold(playerID, curGold + gold, true)
 end
 
 function RefundResourcesSpell(keys)
@@ -291,7 +296,8 @@ function SpendResourcesNew(player, goldCost, lumberCost)
      local playerID = player:GetPlayerID()
      local hero = GetPlayerHero(playerID)
      local curGold = PlayerResource:GetReliableGold(playerID)
-     PlayerResource:SetGold(playerID, curGold - goldCost, true)
+     hero:DecGold(goldCost)
+     --PlayerResource:SetGold(playerID, curGold - goldCost, true)
      hero:DecLumber(lumberCost)
 end
 

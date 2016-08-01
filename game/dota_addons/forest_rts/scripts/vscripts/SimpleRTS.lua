@@ -17,7 +17,6 @@ COLOR_RADIANT_RGB = {52,85,255}
 --"#4789ab"
 COLOR_DIRE = "#b0171b"
 COLOR_DIRE_RGB = {176,23,27}
-stats = {}
 MAX_PLAYERS_PER_TEAM = 5
 MAX_PLAYERS_WITH_BOT = MAX_PLAYERS_PER_TEAM - 1
 
@@ -161,7 +160,7 @@ function SimpleRTSGameMode:InitGameMode()
     GameRules.Blight = {}
 
     -- Initialize the Stats module.
-    --Stats:Init()
+    Stats:Init()
 
     -- Initialize AI.
     if AI then
@@ -179,8 +178,10 @@ function SimpleRTSGameMode:InitGameMode()
             end
         end
 
+        local playerID = cmdPlayer:GetPlayerID()
         --SimpleBot:MultiplyInitialPatrol(5)
-        PlayerResource:SetGold(cmdPlayer:GetPlayerID(), 99999, true)
+        PlayerResource:ModifyGold(playerID, 99999, true, 0)
+        Stats:AddGold(playerID, 99999)
                   
         local newItem = CreateItem("item_blink", playerHero, playerHero)
         playerHero:AddItem(newItem)
@@ -219,16 +220,10 @@ function SimpleRTSGameMode:InitGameMode()
     end, 'Gives the player lumber', FCVAR_CHEAT)
 
 
-    Convars:RegisterCommand('info', function()
+    Convars:RegisterCommand('printstats', function()
+        print("Printing stats:\n----------")
         Stats:PrintStatsAll()
     end, 'Shows stats', FCVAR_CHEAT)
-
-
-    Convars:RegisterCommand('stats', function()
-        print("Stats will be printed:\n")
-        --Stats:PrintStatsAll()
-    end, 'Prints all stats collected so far', FCVAR_CHEAT )
-
 
     Convars:RegisterCommand("Salve", function()
         local cmdPlayer = Convars:GetCommandClient()
@@ -301,7 +296,7 @@ function SimpleRTSGameMode:onHeroPick(keys)
    local playerID = hero:GetPlayerID()
 
    Stats:AddPlayer(hero, player, playerID)
-   Resources:InitHero(hero)
+   Resources:InitHero(hero, START_LUMBER)
    
    -- Initialize Variables for Tracking
    hero.units = {} -- This keeps the handle of all the units of the player, to iterate for unlocking upgrades
@@ -543,113 +538,93 @@ end
 -- On Entity Killed
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onEntityKilled(keys)
-   print("onEntityKilled")
-   local killedUnit = EntIndexToHScript(keys.entindex_killed)
-   local killerEntity
-   if keys.entindex_attacker then
-      killerEntity = EntIndexToHScript(keys.entindex_attacker)
-   end   
-   local killerUnit = killerEntity
-   local killedTeam = killedUnit:GetTeam()
-   local killerTeam = killerUnit:GetTeam()
-   local unitName = killedUnit:GetUnitName()
+    local killedUnit = EntIndexToHScript(keys.entindex_killed)
+    local killerUnit
+    if keys.entindex_attacker then
+        killerUnit = EntIndexToHScript(keys.entindex_attacker)
+    end
+    local killedTeam = killedUnit:GetTeam()
+    local killerTeam = killerUnit:GetTeam()
+    local unitName = killedUnit:GetUnitName()
+
+    -- No need for more processing if killed unit was a soldier or neutral.
+    if SimpleRTSGameMode:IsSoldier(killedUnit) or killedUnit:IsNeutralUnitType() or (not killedUnit:IsRealHero() and not killedUnit._playerOwned) then
+        if killerUnit:IsRealHero() or killerUnit._playerOwned then
+            Stats:OnDeathNeutral(killerUnit:GetOwnerID(), killedUnit)
+        end
+        return
+    end
+
+    --     BH stuff     --
    
-   local killerID = nil
-   if killerUnit._playerOwned or killerUnit:IsRealHero() then
-      print("Killer was neither soldier nor neutral.")
-      killerID = killerUnit:GetOwnerID()
-   else
-      print("killerID not set!")
-      print("Name: "..killerUnit:GetUnitName())
-   end
+    -- Get owner of killed unit if it's owned by a player.
+    local playerHero = nil
+    if killedUnit:IsRealHero() then
+        playerHero = killedUnit
+    elseif killedUnit._ownerPlayer then
+        playerHero = killedUnit:GetOwnerHero()
+    else
+        return
+    end
 
-   -- No need for more processing if a soldier or neutral.
-   if killedUnit:IsRealHero() then
-      print("Killed unit was hero.")
-   elseif SimpleRTSGameMode:IsSoldier(killedUnit) or killedUnit:IsNeutralUnitType() or not killedUnit._playerOwned then
-      Stats:OnDeathNeutral(killerID, killedUnit)
-      print("Killed unit was soldier or neutral, returning.")
-      return
-   end
+    local killedID = killedUnit:GetOwnerID()
+    local killerID
+    if killerUnit:IsRealHero() or killerUnit._playerOwned then
+        killerID = killerUnit:GetOwnerID()
+    end
 
-   local killedID = nil
-   if killedUnit._playerOwned or (not SimpleRTSGameMode:IsSoldier(killerUnit) and not killerUnit:IsNeutralUnitType()) then
-      print("Killed was playerOwned.")
-   else
-      print("killedID not set!")
-      print("Name: "..killedUnit:GetUnitName())
-   end
+    -- Building Killed
+    if IsBuilding(killedUnit) then   
+        if killedUnit._upgraded then
+            print("Returning from 'onEntityKilled' due to unit being upgraded!")
+            return
+        end
 
-   --     BH stuff     --
-   
-   -- Player owner of the unit
-   local playerHero = nil
-   if killedUnit:IsRealHero() then
-      playerHero = killedUnit
-   elseif killedUnit._ownerPlayer then
-      playerHero = killedUnit:GetOwnerHero()
-   else
-      print("Killed unit was neutral...")
-      return
-   end
-
-   -- Building Killed
-   if IsBuilding(killedUnit) then   
-      if killedUnit._upgraded then
-     print("Returning from 'onEntityKilled' due to unit being upgraded!")
-     return
-      end
-      -- Building Helper grid cleanup
-      BuildingHelper:RemoveBuilding(killedUnit, true)
-      local building_name = killedUnit:GetUnitName()
-      -- Substract 1 to the player building tracking table for that name
-      if playerHero.buildings[building_name] then
-     playerHero.buildings[building_name] = playerHero.buildings[building_name] - 1
-      end
+        -- Building Helper grid cleanup
+        BuildingHelper:RemoveBuilding(killedUnit, true)
+        local building_name = killedUnit:GetUnitName()
+        -- Substract 1 to the player building tracking table for that name
+        if playerHero.buildings[building_name] then
+            playerHero.buildings[building_name] = playerHero.buildings[building_name] - 1
+        end
       
-      Stats:OnDeath(killedID, killerID, killedUnit, "building")
-   else
-      Stats:OnDeath(killedID, killerID, killedUnit, "unit")
-   end
+        Stats:OnDeath(killedID, killerID, killedUnit, "building")
+    else
+        Stats:OnDeath(killedID, killerID, killedUnit, "unit")
+    end
 
-   -- Cancel queue of a builder when killed
-   if IsBuilder(killedUnit) then
-      print("Killed unit was builder.")
-   end
-
-   -- Table cleanup
-   if playerHero then
-      -- Remake the tables
-      local table_structures = {}
-      for _,building in pairs(playerHero.structures) do
-     if building and IsValidEntity(building) and building:IsAlive() then
-        --print("Valid building: "..building:GetUnitName())
-        table.insert(table_structures, building)
-     end
-      end
-      playerHero.structures = table_structures
+    -- Table cleanup
+    if playerHero then
+        -- Remake the tables
+        local table_structures = {}
+        for _,building in pairs(playerHero.structures) do
+            if building and IsValidEntity(building) and building:IsAlive() then
+                table.insert(table_structures, building)
+            end
+        end
+        playerHero.structures = table_structures
       
-      local table_units = {}
-      for _,unit in pairs(playerHero.units) do
-     if unit and IsValidEntity(unit) then
-        table.insert(table_units, unit)
-     end
-      end
-      playerHero.units = table_units        
-   end
+        local table_units = {}
+        for _,unit in pairs(playerHero.units) do
+            if unit and IsValidEntity(unit) then
+                table.insert(table_units, unit)
+            end
+        end
+        playerHero.units = table_units        
+    end
 
    --     BH stuff end     --
 
 
-   -- Killed unit was inside a tower.
-   if killedUnit._tower then
-      RemoveUnitFromTower(killedUnit._tower)
-   end
+    -- Killed unit was inside a tower.
+    if killedUnit._tower then
+        RemoveUnitFromTower(killedUnit._tower)
+    end
 
-   -- Killed unit was a tower with a unit inside. Make sure he dies too!
-   if killedUnit._inside then
-      killedUnit._inside:ForceKill(false)
-   end
+    -- Killed unit was a tower with a unit inside. Make sure he dies too!
+    if killedUnit._inside then
+        killedUnit._inside:ForceKill(false)
+    end
 
    if (killedUnit:IsRealHero() == true or StringStartsWith(unitName, "npc_dota_building_main_tent")) then 
       print("Killed unit was hero or main building.")
@@ -718,15 +693,15 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       end
    end
    
-   if not killedUnit:IsRealHero() then
-      TechTree:RegisterIncident(killedUnit, false)
-   end
+    if not killedUnit:IsRealHero() then
+        TechTree:RegisterIncident(killedUnit, false)
+    end
 
-   -- Update worker panel of killed player.
-   local killedHero = killedUnit:GetOwnerHero()
-   if killedHero then
-      UpdateWorkerPanel(killedHero)
-   end
+    -- Update worker panel of killed player.
+    local killedHero = killedUnit:GetOwnerHero()
+    if killedHero then
+        UpdateWorkerPanel(killedHero)
+    end
 end
 
 
@@ -794,40 +769,42 @@ end
 
 -- A tree was cut down
 function SimpleRTSGameMode:OnTreeCut(keys)
-   --DeepPrintTable(keys)
+    --DeepPrintTable(keys)
    
-   local treeX = keys.tree_x
-   local treeY = keys.tree_y
+    local treeX = keys.tree_x
+    local treeY = keys.tree_y
    
-   -- Update the pathable trees nearby
-   local vecs = {
-      Vector(0,64,0),-- N
-      Vector(64,64,0), -- NE
-      Vector(64,0,0), -- E
-      Vector(64,-64,0), -- SE
-      Vector(0,-64,0), -- S
-      Vector(-64,-64,0), -- SW
-      Vector(-64,0,0), -- W
-      Vector(-64,64,0) -- NW
-   }
+    -- Update the pathable trees nearby
+    local vecs = {
+        Vector(0,64,0),-- N
+        Vector(64,64,0), -- NE
+        Vector(64,0,0), -- E
+        Vector(64,-64,0), -- SE
+        Vector(0,-64,0), -- S
+        Vector(-64,-64,0), -- SW
+        Vector(-64,0,0), -- W
+        Vector(-64,64,0) -- NW
+    }
    
-   for k=1,#vecs do
-      local vec = vecs[k]
-      local xoff = vec.x
-      local yoff = vec.y
-      local pos = Vector(treeX + xoff, treeY + yoff, 0)
+    for k=1,#vecs do
+        local vec = vecs[k]
+        local xoff = vec.x
+        local yoff = vec.y
+        local pos = Vector(treeX + xoff, treeY + yoff, 0)
       
-      local nearbyTree = GridNav:IsNearbyTree(pos, 96, true)
-      --local nearbyTree = GridNav:IsNearbyTree(pos, 64, true)
-      if nearbyTree then
-     local trees = GridNav:GetAllTreesAroundPoint(pos, 48, true)
-     --local trees = GridNav:GetAllTreesAroundPoint(pos, 32, true)
-     for _,t in pairs(trees) do
-        --DebugDrawCircle(t:GetAbsOrigin(), Vector(0,255,0), 255, 32, true, 60)
-        t.pathable = true
-     end
-      end
-   end
+        local nearbyTree = GridNav:IsNearbyTree(pos, 96, true)
+        --local nearbyTree = GridNav:IsNearbyTree(pos, 64, true)
+        if nearbyTree then
+            local trees = GridNav:GetAllTreesAroundPoint(pos, 48, true)
+            --local trees = GridNav:GetAllTreesAroundPoint(pos, 32, true)
+            for _,t in pairs(trees) do
+                -- Added {
+                DebugDrawCircle(t:GetAbsOrigin(), Vector(0,255,0), 255, 32, true, 60)
+                -- }
+                t.pathable = true
+            end
+        end
+    end
 end
 
 
@@ -842,9 +819,7 @@ end
 
 ---------------------------------------------------------------------------
 -- Returns the hero for the player with the given ID
---
---  * playerID: The ID of the player
---
+-- * playerID: The ID of the player
 ---------------------------------------------------------------------------
 function GetPlayerHero(playerID)
    return PLAYER_HEROES[playerID]
@@ -854,24 +829,12 @@ end
 
 ---------------------------------------------------------------------------
 -- Returns true if the unit is a neutral soldier
---
---  * unit: The unit to check
---
+-- * unit: The unit to check
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:IsSoldier(unit)
-   if not unit then
-      print("SimpleRTSGameMode:isSoldie: unit was nil!")
-      return
-   end
-   
-   local unitName = unit:GetUnitName()
-   if unitName == "npc_dota_creature_soldier_melee" or
-   unitName == "npc_dota_creature_soldier_ranged" then
-      
-      return true
-   else
-      return false
-   end
+    local unitName = unit:GetUnitName()
+    return unitName == "npc_dota_creature_soldier_melee" or
+        unitName == "npc_dota_creature_soldier_ranged"
 end
 
 
@@ -881,24 +844,6 @@ end
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:Think()
    return THINK_TIME
-end
-
-
-
----------------------------------------------------------------------------
--- Shows a message to all clients
---
---  * msg: The message to print in ALL CAPS
---  * dur: The duration to show the message
---
----------------------------------------------------------------------------
-function SimpleRTSGameMode:ShowCenterMessage(msg, dur)
-   local msg = {
-      message = msg,
-      duration = dur
-   }
-   print("[SimpleRTS] Sending message to all clients.")
-   FireGameEvent("show_center_message", msg)
 end
 
 

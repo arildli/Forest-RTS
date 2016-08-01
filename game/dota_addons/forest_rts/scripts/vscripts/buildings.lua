@@ -126,33 +126,20 @@ function finishUpgrade(keys)
     local newBuildingName = keys.newUnitName
     local building = keys.caster
     local buildingOrigin = building:GetOrigin()
-    --print("Note: "..building:GetUnitName().." finished upgrade!")
     local ownerHero = building:GetOwnerHero()
     local ownerTeam = ownerHero:GetTeamNumber()
     local ownerPlayer = building:GetOwnerPlayer()
     local ownerID = building:GetOwnerID()
-    --local buildingSize = keys.buildingSize
-    --ability:ApplyDataDrivenModifier(caster, building, modifier, {})
-    --BuildingHelper:RemoveBuilding(building, true)
 
     building._upgraded = true
     ownerHero:RemoveBuilding(building)
     local newBuilding = BuildingHelper:UpgradeBuilding(building, newBuildingName)
-
-    --local blockers = BuildingHelper:BlockGridNavSquare(buildingSize, buildingOrigin)
-    --local newBuilding = CreateUnitByName(newBuildingName, buildingOrigin, false, ownerHero, ownerPlayer, ownerTeam)
-    --newBuilding:SetControllableByPlayer(ownerID, true)
-    --newBuilding.blockers = blockers
     newBuilding._finished = true
     ownerHero:IncUnitCountFor(newBuildingName)
     TechTree:AddPlayerMethods(newBuilding, ownerPlayer)
-    --newBuilding:SetBaseHealthRegen(0)
     addRallyFunctions(newBuilding)
     finishConstruction(newBuilding)
 end
-
-
-
 
 
 
@@ -220,6 +207,8 @@ function RefundResources(keys)
         print("Caster is nil!")
     end
 
+    print("-- RefundResources in buildings.lua called!!!")
+
     if caster._canAfford == false then
         --if DEBUG_CONSTRUCT_BUILDING == true then
         print("Caster can afford: false")
@@ -237,10 +226,10 @@ function RefundResources(keys)
 
     local gold = keys.goldCost
     local currentGold = PlayerResource:GetReliableGold(playerID)
-    PlayerResource:SetGold(playerID, currentGold + gold, true)
+    --PlayerResource:SetGold(playerID, currentGold + gold, true)
+    playerHero:IncGold(gold)
     local lumber = keys.lumberCost
     playerHero:IncLumber(keys.lumberCost)
-    --GiveCharges(playerHero, lumber, "item_stack_of_lumber")
 end
 
 
@@ -253,7 +242,7 @@ function RefundResourcesConstruction(keys)
         return
     end
 
-    print("\n\t\tRefundResourcesConstruction called!!!\n")
+    print("-- RefundResourcesConstruction in building.lua called!!!")
 
     if DEBUG_CONSTRUCT_BUILDING == true then
         print("Construction cancelled!")
@@ -279,17 +268,13 @@ function RefundResourcesConstruction(keys)
     end
 end
 
-
-
 ---------------------------------------------------------------------------
 -- Returns true if building, false otherwise.
 --- * building: The unit to check.
 ---------------------------------------------------------------------------
 function IsBuilding(building)
-    return building._building or IsCustomBuilding(building)
+    return IsCustomBuilding(building) or (building._building ~= nil)
 end
-
-
 
 ---------------------------------------------------------------------------
 -- Run when a unit is trained to make sure the unit works properly.
@@ -305,9 +290,6 @@ function OnUnitTrained(keys)
     local owner = caster:GetOwnerPlayer() or caster:GetOwner()
     TechTree:AddPlayerMethods(target, owner)
 
-    --local player = caster:GetOwner()
-    --local playerID = player:GetPlayerID()
-    --local playerHero = GetPlayerHero(playerID)
     local playerHero = caster:GetOwnerHero()
     target:SetOwner(playerHero)
     target:SetHasInventory(true)
@@ -327,26 +309,6 @@ function OnUnitTrained(keys)
 
     local playerID = target:GetOwnerID()
     Stats:OnTrained(playerID, target, "unit")
-
-    -- EDITED render color
-    --[=[
-    local targetTeam = target:GetTeamNumber()
-    print("targetTeam: "..targetTeam)
-    print("Radiant: "..DOTA_TEAM_GOODGUYS)
-    print("Dire: "..DOTA_TEAM_BADGUYS)
-    local teamColor = {}
-    if targetTeam == DOTA_TEAM_GOODGUYS then
-        if not COLOR_RADIANT_RGB then
-            print("Fuck Radiant!")
-        end
-        teamColor = COLOR_RADIANT_RGB
-    elseif targetTeam == DOTA_TEAM_BADGUYS then
-        if not COLOR_DIRE_RGB then
-            print("Fuck Dire!")
-        end
-        teamColor = COLOR_DIRE_RGB
-    end
-    target:SetRenderColor(teamColor[1], teamColor[2], teamColor[3]) ]=]
 
     -- Move to rally point if it exists.
     local rallyPoint = caster:GetRallyPoint()
@@ -375,3 +337,22 @@ end
 
 
 
+    -- EDITED render color
+    --[=[
+    local targetTeam = target:GetTeamNumber()
+    print("targetTeam: "..targetTeam)
+    print("Radiant: "..DOTA_TEAM_GOODGUYS)
+    print("Dire: "..DOTA_TEAM_BADGUYS)
+    local teamColor = {}
+    if targetTeam == DOTA_TEAM_GOODGUYS then
+        if not COLOR_RADIANT_RGB then
+            print("Fuck Radiant!")
+        end
+        teamColor = COLOR_RADIANT_RGB
+    elseif targetTeam == DOTA_TEAM_BADGUYS then
+        if not COLOR_DIRE_RGB then
+            print("Fuck Dire!")
+        end
+        teamColor = COLOR_DIRE_RGB
+    end
+    target:SetRenderColor(teamColor[1], teamColor[2], teamColor[3]) ]=]

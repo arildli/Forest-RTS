@@ -9,7 +9,7 @@ function OnClientCheckIn(args) {
         schemaVersion: args.schemaVersion
     };
 
-    $.Msg('Sending: ', payload);
+    /*$.Msg('Sending: ', payload);*/
 
     $.AsyncWebRequest('http://getdotastats.com/s2/api/s2_check_in.php',
         {

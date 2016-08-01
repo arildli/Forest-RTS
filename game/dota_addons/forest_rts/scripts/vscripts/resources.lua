@@ -1,54 +1,54 @@
 
 if not Resources then
-  Resources = {}
+    Resources = {}
 end
 
 ---------------------------------------------------------------------------
 -- Inits the hero with the necessary properties to work with this 
 -- resource system.
 ---------------------------------------------------------------------------
-function Resources:InitHero(hero)
-  if not hero or hero:IsRealHero() == false then
-    print("Resources:InitHero: hero was either nil or not a hero!")
-    return false
-  end
+function Resources:InitHero(hero, startLumber)
+    if not hero or hero:IsRealHero() == false then
+        print("Resources:InitHero: hero was either nil or not a hero!")
+        return false
+    end
 
-  local playerID = hero:GetOwner():GetPlayerID()
-  if not playerID then
-    print("Resources:InitHero: playerID was nil!")
-    return false
-  end
+    local playerID = hero:GetOwner():GetPlayerID()
+    if not playerID then
+        print("Resources:InitHero: playerID was nil!")
+        return false
+    end
 
-  hero.SRES = {}
-  hero.SRES.lumber = 0
+    hero.SRES = {}
+    hero.SRES.lumber = startLumber or 0
 
-  ---------------------------------------------------------------------------
-  -- Returns the gold count of the hero.
-  ---------------------------------------------------------------------------
-  function hero:GetGold()
-     return PlayerResource:GetGold(hero:GetOwner():GetPlayerID())
-  end
+    ---------------------------------------------------------------------------
+    -- Returns the gold count of the hero.
+    ---------------------------------------------------------------------------
+    function hero:GetGold()
+        return PlayerResource:GetGold(hero:GetOwner():GetPlayerID())
+    end
 
-  ---------------------------------------------------------------------------
-  -- Returns the lumber count of the hero.
-  ---------------------------------------------------------------------------
-  function hero:GetLumber()
-    return hero.SRES.lumber
-  end
+    ---------------------------------------------------------------------------
+    -- Returns the lumber count of the hero.
+    ---------------------------------------------------------------------------
+    function hero:GetLumber()
+        return hero.SRES.lumber
+    end
 
-  ---------------------------------------------------------------------------
-  -- Returns if the hero has more gold than the specified amount.
-  ---------------------------------------------------------------------------
-  function hero:HasEnoughGold(amount)
-     return hero:GetGold() >= amount
-  end
+    ---------------------------------------------------------------------------
+    -- Returns if the hero has more gold than the specified amount.
+    ---------------------------------------------------------------------------
+    function hero:HasEnoughGold(amount)
+        return hero:GetGold() >= amount
+    end
 
-  ---------------------------------------------------------------------------
-  -- Returns if the hero has more lumber than the specified amount.
-  ---------------------------------------------------------------------------
-  function hero:HasEnoughLumber(amount)
-     return hero:GetLumber() >= amount
-  end
+    ---------------------------------------------------------------------------
+    -- Returns if the hero has more lumber than the specified amount.
+    ---------------------------------------------------------------------------
+    function hero:HasEnoughLumber(amount)
+        return hero:GetLumber() >= amount
+    end
 
     ---------------------------------------------------------------------------
     -- Sets the gold count of the hero.
@@ -72,6 +72,7 @@ function Resources:InitHero(hero)
     ---------------------------------------------------------------------------
     function hero:IncGold(amount)
         hero:SetGold(hero:GetGold() + amount)
+        Stats:AddGold(hero:GetOwnerID(), amount)
     end
 
     ---------------------------------------------------------------------------
@@ -80,7 +81,17 @@ function Resources:InitHero(hero)
     function hero:IncLumber(amount)
         hero.SRES.lumber = hero.SRES.lumber + amount
         local player = hero:GetOwner()
+        Stats:AddLumber(hero:GetOwnerID(), amount)
         CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
+    end
+
+    ---------------------------------------------------------------------------
+    -- Decreases the gold of the hero.
+    ---------------------------------------------------------------------------
+    function hero:DecGold(amount)
+        local oldGold = hero:GetGold()
+        hero:SetGold(oldGold - amount)
+        Stats:SpendGold(hero:GetOwnerID(), amount)
     end
 
     ---------------------------------------------------------------------------
@@ -92,8 +103,12 @@ function Resources:InitHero(hero)
             hero.SRES.lumber = 0
         end
         local player = hero:GetOwner()
+        Stats:SpendLumber(hero:GetOwnerID(), amount)
         CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
     end
+
+    Stats:AddGold(playerID, hero:GetGold())
+    Stats:AddLumber(playerID, hero.SRES.lumber)
 end
 
 
@@ -196,13 +211,7 @@ end
 -- Returns true if unit can accept lumber deliveries.
 ---------------------------------------------------------------------------
 function Resources:IsValidDeliveryPoint(building)
-   local buildingName = building:GetUnitName()
-
-   if IsBuilding(building) and UnitHasAbility(building, "srts_ability_delivery_point") then
-      return true
-   else
-      return false
-   end
+   return (IsBuilding(building) and UnitHasAbility(building, "srts_ability_delivery_point"))
 end
 
 
@@ -212,10 +221,7 @@ end
 -- Returns whether or not this unit has been inited.
 ---------------------------------------------------------------------------
 function Resources:HasBeenInit(unit)
-  if not unit.SRES then
-    return false
-  end
-  return true
+    return (unit.SRES ~= nil)
 end
 
 

@@ -47,5 +47,6 @@
         <!-- <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/scripts.xml" /> -->
         <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/selection.xml" />
         <CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/building_helper.xml" />
+        <CustomUIElement type="Hud"                 layoutfile="file://{resources}/layout/custom_game/statcollection.xml" />
     </Panel>
 </root>
