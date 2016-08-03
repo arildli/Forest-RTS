@@ -55,10 +55,45 @@ function BuildPlayersArray()
             if not PlayerResource:IsBroadcaster(playerID) then
 
                 local hero = PlayerResource:GetSelectedHeroEntity(playerID)
+                local stats = Stats:GetPlayer(playerID)
 
                 table.insert(players, {
                     -- steamID32 required in here
                     steamID32 = PlayerResource:GetSteamAccountID(playerID),
+
+                    -- Hero related
+                    hn = GetHeroName(playerID), -- Hero Name
+                    hl = stats.herolevel, -- Hero Level
+
+                    -- Economy
+                    gg = stats.goldGained, -- Gold Gained
+                    gs = stats.goldSpent,  -- Gold Spent
+                    lg = stats.lumberGained, -- Lumber Gained
+                    ls = stats.lumberSpent, -- Lumber Spent
+
+                    -- Units
+                    utt = stats.trainedTotal, -- Units Trained Total
+                    ult = stats.unitsLostTotal, -- Units Lost Total
+                    ukt = stats.unitsKilledTotal, -- Units Killed Total
+                    mt = Stats:GetMeleeTrained(playerID), -- Melee Units Trained
+                    ml = Stats:GetMeleeLost(playerID), -- Melee Units Lost
+                    rt = Stats:GetRangedTrained(playerID), -- Ranged Units Trained
+                    rl = Stats:GetRangedLost(playerID), -- Ranged Units Lost
+                    ct = Stats:GetCasterTrained(playerID), -- Caster Units Trained
+                    cl = Stats:GetCasterLost(playerID), -- Caster Units Lost
+                    st = Stats:GetSiegeTrained(playerID), -- Siege Units Trained
+                    sl = Stats:GetSiegeLost(playerID), -- Siege Units Lost
+
+                    -- Buildings
+                    bct = stats.constructedTotal, -- Buildings Constructed Total
+                    blt = stats.buildingsLostTotal, -- Buildings Lost Total
+                    bdt = stats.buildingsDestroyedTotal, -- Buildings Destroyed Total
+
+                    -- Upgrades
+                    urt = stats.upgradesResearchedTotal, -- Upgrades Researched Total
+                    ula = stats.upgradesResearched["srts_upgrade_light_armor"] or 0, -- Upgrade Light Armor
+                    uld = stats.upgradesResearched["srts_upgrade_light_damage"] or 0 -- Upgrade Light Damage
+
 
                     -- Example functions for generic stats are defined in statcollection/lib/utilities.lua
                     -- Add player values here as someValue = GetSomePlayerValue(),

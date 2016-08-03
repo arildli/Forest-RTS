@@ -309,6 +309,8 @@ function OnUnitTrained(keys)
 
     local playerID = target:GetOwnerID()
     Stats:OnTrained(playerID, target, "unit")
+    Stats:SpendGold(playerID, keys.goldCost)
+    Stats:SpendLumber(playerID, keys.lumberCost)
 
     -- Move to rally point if it exists.
     local rallyPoint = caster:GetRallyPoint()

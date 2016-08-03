@@ -143,6 +143,8 @@ function ApplyUpgradeUnits(keys)
     local playerID = caster:GetOwnerID()
 
     Stats:OnResearchFinished(playerID, abilityName)
+    Stats:SpendGold(playerID, keys.goldCost)
+    Stats:SpendLumber(playerID, keys.lumberCost)
 
     local function AddUpgradeBool(itemName, unit)
         print("AddUpgradeBool called!")

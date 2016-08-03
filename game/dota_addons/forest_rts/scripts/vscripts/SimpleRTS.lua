@@ -574,7 +574,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
     end
 
     -- Building Killed
-    if IsBuilding(killedUnit) then   
+    if IsBuilding(killedUnit) or IsCustomBuilding(killedUnit) then   
         if killedUnit._upgraded then
             print("Returning from 'onEntityKilled' due to unit being upgraded!")
             return

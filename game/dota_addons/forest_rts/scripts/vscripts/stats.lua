@@ -21,7 +21,7 @@ function Stats:AddPlayer(hero, player, playerID)
         unitsLostTotal = 0,
         buildingsLostTotal = 0,
         unitsKilledTotal = 0,
-        buildingDestroyedTotal = 0,
+        buildingsDestroyedTotal = 0,
         upgradesResearchedTotal = 0,
 
         trained = {},
@@ -47,12 +47,10 @@ function Stats:OnLevelUp(playerID, newLevel)
     player.herolevel = newLevel
 end
 
-
-
 function Stats:OnTrained(playerID, unit, enttype)
     local player = Stats:GetPlayer(playerID)
     if not player then return end
-   
+    
     local entName = unit:GetUnitName()
     if enttype == "unit" then
         player.trainedTotal = player.trainedTotal + 1
@@ -65,7 +63,7 @@ end
 
 function Stats:OnDeath(playerID, killerID, unit, enttype)
     local owner = Stats:GetPlayer(playerID)
-    if not player then return end
+    if not owner then return end
     local killer = Stats:GetPlayer(killerID)
 
     local entName = unit:GetUnitName()
@@ -76,7 +74,7 @@ function Stats:OnDeath(playerID, killerID, unit, enttype)
     elseif enttype == "building" then
         owner.buildingsLostTotal = owner.buildingsLostTotal + 1
         owner.buildingsLost[entName] = (owner.buildingsLost[entName] or 0) + 1
-        if killer then killer.buildingsDestroyedTotal = killer.buildingsDestroyedTotal + 1 end
+        if killer and killerID ~= playerID then killer.buildingsDestroyedTotal = killer.buildingsDestroyedTotal + 1 end
     end
 end
 
@@ -103,7 +101,7 @@ end
 
 function Stats:SpendGold(playerID, gold)
     local player = Stats:GetPlayer(playerID)
-    player.lumberSpent = player.lumberSpent - gold
+    player.goldSpent = player.goldSpent + gold
 end
 
 function Stats:AddLumber(playerID, lumber)
@@ -113,7 +111,7 @@ end
 
 function Stats:SpendLumber(playerID, lumber)
     local player = Stats:GetPlayer(playerID)
-    player.lumberSpent = player.lumberSpent - lumber
+    player.lumberSpent = player.lumberSpent + lumber
 end
 
 
@@ -131,9 +129,65 @@ function Stats:PrintStatsAll()
             elseif type(v) == "bool" then
                 print(prefix..k.." = "..tostring(bool))
             elseif type(v) == "table" then
+                print(prefix..k.." = {")
                 PrintTable(v, indent + 1)
+                print(prefix.." }")
             end
         end
     end
     PrintTable(Stats, 0)
+end
+
+
+
+-- Useful when using the collected stats.
+
+function Stats:GetUnitTypeTrained(playerID, unitType)
+    local player = Stats:GetPlayer(playerID)
+    if not player then return nil end
+
+    local unitName = entities[player.heroname][unitType].name
+    return player.trained[unitName] or 0
+end
+
+function Stats:GetMeleeTrained(playerID)
+    return Stats:GetUnitTypeTrained(playerID, "MELEE")
+end
+
+function Stats:GetRangedTrained(playerID)
+    return Stats:GetUnitTypeTrained(playerID, "RANGED")
+end
+
+function Stats:GetCasterTrained(playerID)
+    return Stats:GetUnitTypeTrained(playerID, "CASTER")
+end
+
+function Stats:GetSiegeTrained(playerID)
+    return Stats:GetUnitTypeTrained(playerID, "SIEGE")
+end
+
+
+
+function Stats:GetUnitTypeLost(playerID, unitType)
+    local player = Stats:GetPlayer(playerID)
+    if not player then return nil end
+
+    local unitName = entities[player.heroname][unitType].name
+    return player.unitsLost[unitName] or 0
+end
+
+function Stats:GetMeleeLost(playerID)
+    return Stats:GetUnitTypeLost(playerID, "MELEE")
+end
+
+function Stats:GetRangedLost(playerID)
+    return Stats:GetUnitTypeLost(playerID, "RANGED")
+end
+
+function Stats:GetCasterLost(playerID)
+    return Stats:GetUnitTypeLost(playerID, "CASTER")
+end
+
+function Stats:GetSiegeLost(playerID)
+    return Stats:GetUnitTypeLost(playerID, "SIEGE")
 end
