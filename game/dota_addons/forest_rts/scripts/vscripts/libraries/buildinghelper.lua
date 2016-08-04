@@ -468,6 +468,7 @@ function BuildingHelper:BuildCommand(args)
     end
 
     -- Added {
+    local oldBuilder = builder
     if args.bot and #builders == 0 then
         table.insert(builders, builder)
     end
@@ -479,6 +480,10 @@ function BuildingHelper:BuildCommand(args)
     else
         builder = GetClosestToPosition(builders, location)
     end
+
+    -- Added {
+    if not builder then builder = oldBuilder end
+    -- }
 
     -- Cancel current action
     if not queue then

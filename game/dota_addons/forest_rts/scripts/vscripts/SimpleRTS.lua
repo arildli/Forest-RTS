@@ -799,7 +799,7 @@ function SimpleRTSGameMode:OnTreeCut(keys)
             --local trees = GridNav:GetAllTreesAroundPoint(pos, 32, true)
             for _,t in pairs(trees) do
                 -- Added {
-                DebugDrawCircle(t:GetAbsOrigin(), Vector(0,255,0), 255, 32, true, 60)
+                --DebugDrawCircle(t:GetAbsOrigin(), Vector(0,255,0), 255, 32, true, 60)
                 -- }
                 t.pathable = true
             end

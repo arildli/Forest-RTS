@@ -207,8 +207,6 @@ function RefundResources(keys)
         print("Caster is nil!")
     end
 
-    print("-- RefundResources in buildings.lua called!!!")
-
     if caster._canAfford == false then
         --if DEBUG_CONSTRUCT_BUILDING == true then
         print("Caster can afford: false")
@@ -241,8 +239,6 @@ function RefundResourcesConstruction(keys)
         print("Caster is nil!")
         return
     end
-
-    print("-- RefundResourcesConstruction in building.lua called!!!")
 
     if DEBUG_CONSTRUCT_BUILDING == true then
         print("Construction cancelled!")
