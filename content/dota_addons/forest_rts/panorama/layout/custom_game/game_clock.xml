@@ -1,16 +1,16 @@
 <root>
-  <styles>
-    <include src="file://{resources}/styles/custom_game/game_clock.css" />
-  </styles>
-  <scripts>
-    <include src="file://{resources}/scripts/custom_game/game_clock.js" />
-  </scripts>
-  <script>
-    $.Msg( "Compiled game_clock.xml!" );
-  </script>
-  <Panel hittest="false" class="ClockRoot">
-    <Panel hittest="false" id="ClockPanel">
-      <Label hittest="false" id="ClockTime" text="" html="true" class="TitleFont" />
+    <styles>
+        <include src="file://{resources}/styles/custom_game/game_clock.css" />
+    </styles>
+    <scripts>
+        <include src="file://{resources}/scripts/custom_game/game_clock.js" />
+    </scripts>
+    <script>
+        $.Msg( "Compiled game_clock.xml!" );
+    </script>
+    <Panel hittest="false" class="ClockRoot">
+        <Panel hittest="false" id="ClockPanel">
+            <Label hittest="false" id="ClockTime" text="" html="true" class="TitleFont" />
+        </Panel>
     </Panel>
-  </Panel>
 </root>

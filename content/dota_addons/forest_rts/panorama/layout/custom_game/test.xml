@@ -1,10 +1,10 @@
 <root>
-	<scripts>
-		<include src="file://{resources}/scripts/custom_game/test.js" />
-	</scripts>
-	<script>
-		$.Msg( "Compiled test.xml!" );
-	</script>
-	<Panel style="border: 1px solid red;">
-	</Panel>
+    <scripts>
+        <include src="file://{resources}/scripts/custom_game/test.js" />
+    </scripts>
+    <script>
+        $.Msg( "Compiled test.xml!" );
+    </script>
+    <Panel style="border: 1px solid red;">
+    </Panel>
 </root>

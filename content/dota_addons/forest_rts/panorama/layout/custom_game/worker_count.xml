@@ -1,17 +1,17 @@
 <root>
-  <styles>
-    <include src="file://{resources}/styles/custom_game/worker_count.css" />
-  </styles>
-  <scripts>
-    <include src="file://{resources}/scripts/custom_game/worker_count.js" />
-  </scripts>
-  <script>
-    $.Msg( "Compiled Panorama Resource!" );
-  </script>
-  <Panel hittest="false" class="WorkerCountRoot">
-    <Panel hittest="false" id="WorkerPanel">
-      <Image hittest="false" id="WorkerIcon" src="file://{images}/custom_game/worker_icon.png" />
-      <Label hittest="false" id="WorkerCount" text="" html="true" class="TitleFont" />
+    <styles>
+        <include src="file://{resources}/styles/custom_game/worker_count.css" />
+    </styles>
+    <scripts>
+        <include src="file://{resources}/scripts/custom_game/worker_count.js" />
+    </scripts>
+    <script>
+        $.Msg( "Compiled Panorama Resource!" );
+    </script>
+    <Panel hittest="false" class="WorkerCountRoot">
+        <Panel hittest="false" id="WorkerPanel">
+            <Image hittest="false" id="WorkerIcon" src="file://{images}/custom_game/worker_icon.png" />
+            <Label hittest="false" id="WorkerCount" text="" html="true" class="TitleFont" />
+        </Panel>
     </Panel>
-  </Panel>
 </root>

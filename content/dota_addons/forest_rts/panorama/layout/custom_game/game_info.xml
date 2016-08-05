@@ -1,48 +1,48 @@
 <root>
-  <styles>
-<!--    <include src="file://{resources}/styles/dotastyles.css" /> -->
-    <include src="file://{resources}/styles/custom_game/game_info.css" />
-  </styles>
-  <Panel class="GameInfo">
-    <Panel id="Title">
-      <Label id="TitleName" text="#addon_game_name" />
+    <styles>
+        <!--    <include src="file://{resources}/styles/dotastyles.css" /> -->
+        <include src="file://{resources}/styles/custom_game/game_info.css" />
+    </styles>
+    <Panel class="GameInfo">
+        <Panel id="Title">
+            <Label id="TitleName" text="#addon_game_name" />
+        </Panel>
+        <!-- Description of the game modes -->
+        <Label id="ModeDescHeader" class="Header" html="true" text="#game_info_mode_desc_header" />
+        <Label id="ModeDesc" class="Text" text="game_info_mode_desc" />
+        <Label id="SinglePlayer" class="GameMode Text" html="true" text="#game_info_mode_single_player" />
+        <Label id="Co-Op" class="GameMode Text" html="true" text="#game_info_mode_co-op" />
+        <Label id="PvP" class="GameMode Text" html="true" text="#game_info_mode_pvp" />
+        
+        <!-- Description of how to play -->
+        <Label id="HowToPlay" class="Header" html="true" text="#game_info_htp_header" />
+        <Label id="HTP1" class="Text" html="true" text="#game_info_htp_1"/>
+        <Image id="HowToOpenConstructionMenu" class="Image" src="file://{images}/custom_game/game_info/how_open_construction_menu.png" />
+        <Label id="HTP2" class="Text" html="true" text="#game_info_htp_2"/>
+        <Image id="HowToConstructMainTent" class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_main_tent.png" />
+        <Label id="HTP3" class="Text" html="true" text="#game_info_htp_3"/>
+        <Image id="MainTentUnderConstruction"  class="Image ImageBig" src="file://{images}/custom_game/game_info/main_tent_under_construction.png" />
+        <Label id="HTP4" class="Text" html="true" text="#game_info_htp_4"/>
+        <Image id="MainTentFinished"  class="Image ImageBig" src="file://{images}/custom_game/game_info/main_tent_finished.png" />
+        <Label id="HTP5" class="Text" html="true" text="#game_info_htp_5"/>
+        <Image id="ConstructingWorkers"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_train_workers.png" />
+        <Label id="HTP6" class="Text" html="true" text="#game_info_htp_6"/>
+        <Label id="HTP7" class="Text" html="true" text="#game_info_htp_7"/>
+        <Image id="HowToHarvestATree"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_harvest_a_tree.png" />
+        <Label id="HTP8" class="Text" html="true" text="#game_info_htp_8"/>
+        <Image id="HowToReturnToMainMenu"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_return_to_main_menu.png" />
+        <Label id="HTP9" class="Text" html="true" text="#game_info_htp_9"/>
+        <Image id="HowToHarvestATreeAsHero"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_harvest_a_tree_as_hero.png" />
+        <Label id="HTP10" class="Text" html="true" text="#game_info_htp_10"/>
+        <Image id="HowToConstructGoldMine"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_gold_mine.png" />
+        <Label id="HTP11" class="Text" html="true" text="#game_info_htp_11"/>
+        <Image id="HowToConstructBarracks"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_barracks.png" />
+        <Label id="HTP12" class="Text" html="true" text="#game_info_htp_12"/>
+        <Image id="HowToConstructMarket"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_market.png" />
+        <Label id="HTP13" class="Text" html="true" text="#game_info_htp_13"/>
+        <Image id="MediumSizedArmy"  class="Image ImageBig" src="file://{images}/custom_game/game_info/medium_sized_army.png" />
+        <Label id="HTP14" class="Text" html="true" text="#game_info_htp_14"/>
+        <Image id="ClearingNeutralCamps"  class="Image ImageBig" src="file://{images}/custom_game/game_info/clearing_neutral_camps.png" />
+        <Label id="HTP15" class="Text" html="true" text="#game_info_htp_15"/>
     </Panel>
-    <!-- Description of the game modes -->
-    <Label id="ModeDescHeader" class="Header" html="true" text="#game_info_mode_desc_header" />
-    <Label id="ModeDesc" class="Text" text="game_info_mode_desc" />
-    <Label id="SinglePlayer" class="GameMode Text" html="true" text="#game_info_mode_single_player" />
-    <Label id="Co-Op" class="GameMode Text" html="true" text="#game_info_mode_co-op" />
-    <Label id="PvP" class="GameMode Text" html="true" text="#game_info_mode_pvp" />
-    
-    <!-- Description of how to play -->
-    <Label id="HowToPlay" class="Header" html="true" text="#game_info_htp_header" />
-    <Label id="HTP1" class="Text" html="true" text="#game_info_htp_1"/>
-    <Image id="HowToOpenConstructionMenu" class="Image" src="file://{images}/custom_game/game_info/how_open_construction_menu.png" />
-    <Label id="HTP2" class="Text" html="true" text="#game_info_htp_2"/>
-    <Image id="HowToConstructMainTent" class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_main_tent.png" />
-    <Label id="HTP3" class="Text" html="true" text="#game_info_htp_3"/>
-    <Image id="MainTentUnderConstruction"  class="Image ImageBig" src="file://{images}/custom_game/game_info/main_tent_under_construction.png" />
-    <Label id="HTP4" class="Text" html="true" text="#game_info_htp_4"/>
-    <Image id="MainTentFinished"  class="Image ImageBig" src="file://{images}/custom_game/game_info/main_tent_finished.png" />
-    <Label id="HTP5" class="Text" html="true" text="#game_info_htp_5"/>
-    <Image id="ConstructingWorkers"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_train_workers.png" />
-    <Label id="HTP6" class="Text" html="true" text="#game_info_htp_6"/>
-    <Label id="HTP7" class="Text" html="true" text="#game_info_htp_7"/>
-    <Image id="HowToHarvestATree"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_harvest_a_tree.png" />
-    <Label id="HTP8" class="Text" html="true" text="#game_info_htp_8"/>
-    <Image id="HowToReturnToMainMenu"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_return_to_main_menu.png" />
-    <Label id="HTP9" class="Text" html="true" text="#game_info_htp_9"/>
-    <Image id="HowToHarvestATreeAsHero"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_harvest_a_tree_as_hero.png" />
-    <Label id="HTP10" class="Text" html="true" text="#game_info_htp_10"/>
-    <Image id="HowToConstructGoldMine"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_gold_mine.png" />
-    <Label id="HTP11" class="Text" html="true" text="#game_info_htp_11"/>
-    <Image id="HowToConstructBarracks"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_barracks.png" />
-    <Label id="HTP12" class="Text" html="true" text="#game_info_htp_12"/>
-    <Image id="HowToConstructMarket"  class="Image ImageBig" src="file://{images}/custom_game/game_info/how_to_construct_market.png" />
-    <Label id="HTP13" class="Text" html="true" text="#game_info_htp_13"/>
-    <Image id="MediumSizedArmy"  class="Image ImageBig" src="file://{images}/custom_game/game_info/medium_sized_army.png" />
-    <Label id="HTP14" class="Text" html="true" text="#game_info_htp_14"/>
-    <Image id="ClearingNeutralCamps"  class="Image ImageBig" src="file://{images}/custom_game/game_info/clearing_neutral_camps.png" />
-    <Label id="HTP15" class="Text" html="true" text="#game_info_htp_15"/>
-  </Panel>
 </root>

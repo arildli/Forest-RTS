@@ -5,10 +5,24 @@ if not Stats then
     Stats = {}
 end
 
+--[=[
+To add:
+- | | Time when last player left the game.
+- |x| Current game mode.
+]=]
+
 function Stats:Init()
     Stats.players = {}
-    Stats.game = {}
+    Stats.game = {
+        mode = "Patrols"
+    }
 end
+
+function Stats:SetGameMode(mode)
+    Stats.game.mode = mode
+end
+
+
 
 function Stats:AddPlayer(hero, player, playerID)
     if not Stats.players then Stats:Init() end

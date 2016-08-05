@@ -1,17 +1,17 @@
 <root>
-  <styles>
-    <include src="file://{resources}/styles/custom_game/custom_loading_screen.css"/>
-  </styles>
-  <Panel class="LoadingScreen">
-    <Image id="bg" class="PanelBg" src="file://{images}/custom_game/loading_screen/background_human_base.png"/>
-    <!--
-    <Panel id="ImagePanel">
-      <Image id="bg_spearman" class="PanelImg" src="file://{images}/custom_game/loading_screen/bg_spearman.png"/>
-      <Image id="bg_flame_thrower" class="PanelImg" src="file://{images}/custom_game/loading_screen/bg_flame_thrower.png"/>
+    <styles>
+        <include src="file://{resources}/styles/custom_game/custom_loading_screen.css"/>
+    </styles>
+    <Panel class="LoadingScreen">
+        <Image id="bg" class="PanelBg" src="file://{images}/custom_game/loading_screen/background_human_base.png"/>
+        <!--
+        <Panel id="ImagePanel">
+            <Image id="bg_spearman" class="PanelImg" src="file://{images}/custom_game/loading_screen/bg_spearman.png"/>
+            <Image id="bg_flame_thrower" class="PanelImg" src="file://{images}/custom_game/loading_screen/bg_flame_thrower.png"/>
+        </Panel>
+        -->
+        <Panel id="TitlePanel">
+            <Label id="Title" text="Forest RTS"/>
+        </Panel>
     </Panel>
-    -->
-    <Panel id="TitlePanel">
-      <Label id="Title" text="Forest RTS"/>
-    </Panel>
-  </Panel>
 </root>

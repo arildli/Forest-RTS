@@ -720,6 +720,7 @@ end
 function SimpleRTSGameMode:SinglePlayerMode(botTeam)
    ---print("[SimpleRTS] Single Player Mode:\tPlayer ID: "..localPlayer:GetPlayerID().."\tBot Team: "..botTeam)
    --SimpleRTSGameMode:ShowCenterMessage("#simplerts_single_player_mode", 5)
+   Stats:SetGameMode("Solo")
    SimpleRTSGameMode:spawnSimpleBot(botTeam, 1.1)
 end
 
@@ -733,6 +734,7 @@ function SimpleRTSGameMode:CoOpMode(botTeam, activeTeam, playersOnTeam)
 
    print("[SimpleRTS] Co-Op versus Soldiers Mode:\tTeam: "..activeTeam.."\tBot Team: "..botTeam)
    print("[SimpleRTS] Player on team: "..playersOnTeam)
+   Stats:SetGameMode("Co-Op")
    SimpleRTSGameMode:spawnSimpleBot(botTeam, playersOnTeam*1.1)
 end
 
@@ -742,6 +744,7 @@ end
 -- PvP Mode
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:NormalMode()
+    Stats:SetGameMode("PvP")
 end
 
 

@@ -13,15 +13,6 @@ function ConstructionUtils:new(o)
     return o
 end
 
-
-
-
--- FIKS "TO EDIT" I builder.lua!!!
-
-
-
-
-
 function prepareConstruction(building, abilityName)
     building._interrupted = false
     building._playerOwned = true
@@ -203,20 +194,9 @@ end
 ---------------------------------------------------------------------------
 function RefundResources(keys)
     local caster = keys.caster
-    if not caster then
-        print("Caster is nil!")
-    end
-
     if caster._canAfford == false then
-        --if DEBUG_CONSTRUCT_BUILDING == true then
-        print("Caster can afford: false")
-        --end
         return
     end
-    if DEBUG_CONSTRUCT_BUILDING == true then
-        print("Caster can afford: true")
-    end
-    print("Refunding resources.")
 
     local player = caster:GetOwner()
     local playerID = player:GetPlayerID()
@@ -224,24 +204,18 @@ function RefundResources(keys)
 
     local gold = keys.goldCost
     local currentGold = PlayerResource:GetReliableGold(playerID)
-    --PlayerResource:SetGold(playerID, currentGold + gold, true)
     playerHero:IncGold(gold)
     local lumber = keys.lumberCost
     playerHero:IncLumber(keys.lumberCost)
 end
 
-
-
+---------------------------------------------------------------------------
 -- Refunds the resources spent on the construction of the building.
+---------------------------------------------------------------------------
 function RefundResourcesConstruction(keys)
     local caster = keys.caster
     if not caster then
-        print("Caster is nil!")
         return
-    end
-
-    if DEBUG_CONSTRUCT_BUILDING == true then
-        print("Construction cancelled!")
     end
 
     local player = caster:GetOwner()
@@ -259,10 +233,11 @@ function RefundResourcesConstruction(keys)
 
     caster._wasCancelled = true
     if not keys.keepAlive then
-        print("Killed building after refunding!")
         caster:ForceKill(false)
     end
 end
+
+
 
 ---------------------------------------------------------------------------
 -- Returns true if building, false otherwise.
