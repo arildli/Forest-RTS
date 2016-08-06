@@ -14,7 +14,7 @@ function OnUpdateSelectedUnit( event )
     var selectedEntities = Players.GetSelectedEntities( iPlayerID );
     var mainSelected = Players.GetLocalPlayerPortraitUnit();
 
-    //$.Msg( "Player "+iPlayerID+" Selected Entities ("+(selectedEntities.length)+")" );
+    $.Msg( "Player "+iPlayerID+" Selected Entities ("+(selectedEntities.length)+")" );
     if (selectedEntities.length > 1 && IsMixedBuildingSelectionGroup(selectedEntities) ){
 	$.Msg( "IsMixedBuildingSelectionGroup, proceeding to deselect the buildings and get only the units ")
 

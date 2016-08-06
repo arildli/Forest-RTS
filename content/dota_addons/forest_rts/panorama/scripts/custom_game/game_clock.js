@@ -8,17 +8,17 @@ function UpdateClock() {
     seconds = seconds % 60;
 
     if (minutes == -1) {
-	minutes = "-0";
+        minutes = "-0";
     }
     var clockText = minutes + ":";
     
     if (Math.abs(seconds) < 10) {
-	clockText = clockText+"0";
+        clockText = clockText+"0";
     }
     if (seconds < 0) {
-	clockText = clockText + Math.abs(seconds);
+        clockText = clockText + Math.abs(seconds);
     } else {
-	clockText = clockText + seconds;
+        clockText = clockText + seconds;
     }
 
     CheckHudFlipped();
@@ -32,11 +32,11 @@ function CheckHudFlipped() {
     var clockPanel = $.FindChildInContext("#ClockPanel");
     
     if (Game.IsHUDFlipped()) {
-	clockPanel.RemoveClass("Right");
-	clockPanel.AddClass("Flipped");
+        clockPanel.RemoveClass("Right");
+        clockPanel.AddClass("Flipped");
     } else {
-	clockPanel.AddClass("Right");
-	clockPanel.RemoveClass("Flipped");
+        clockPanel.AddClass("Right");
+        clockPanel.RemoveClass("Flipped");
     }
 }
 

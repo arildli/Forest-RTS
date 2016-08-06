@@ -15,11 +15,11 @@ function CheckHudFlipped() {
     var workerPanel = $.FindChildInContext("#WorkerPanel");
     
     if (Game.IsHUDFlipped()) {
-	workerPanel.RemoveClass("Right");
-	workerPanel.AddClass("Flipped");
+        workerPanel.RemoveClass("Right");
+        workerPanel.AddClass("Flipped");
     } else {
-	workerPanel.AddClass("Right");
-	workerPanel.RemoveClass("Flipped");
+        workerPanel.AddClass("Right");
+        workerPanel.RemoveClass("Flipped");
     }
 }
 

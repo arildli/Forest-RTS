@@ -317,7 +317,7 @@ end
 function TechTree:ReadTechDef(ownerHero)
     if not ownerHero:IsRealHero() then  
         print("ERROR: ownerHero unit must be a hero!")
-        print(nil.nil)  -- No point in continuing.
+        print(nil)  -- No point in continuing.
     end
 
     -- Init TT vars of hero.

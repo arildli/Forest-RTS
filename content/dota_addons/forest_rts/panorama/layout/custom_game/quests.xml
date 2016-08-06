@@ -6,8 +6,8 @@
         <include src="file://{resources}/scripts/custom_game/utils.js"/>
         <include src="file://{resources}/scripts/custom_game/quests.js"/>
     </scripts>
-    <Panel hittest="false" class="QuestsPanel">
-        <Panel hittest="false" id="QuestsPanel">
+    <Panel hittest="false" class="RootQuestsPanel">
+        <Panel hittest="false" id="RootQuestsPanel">
             <Panel id="TitlePanel">
                 <Label hittest="false" id="Title" text="Quests" html="true" class="Text"/>
             </Panel>
