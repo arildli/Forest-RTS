@@ -396,6 +396,13 @@ function SimpleRTSGameMode:onGameStateChange(keys)
                 return 0.5
             end)
 
+        -- Create a timer for sending quest info to players.
+        Timers:CreateTimer(
+            function()
+                SimpleRTSGameMode:SendQuestInfo()
+                return 0.5
+            end)
+
     elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
         print("[SimpleRTS] The game has started.")
 
@@ -507,6 +514,58 @@ function SimpleRTSGameMode:SendTeamResources()
     for teamID,teamData in pairs(resources) do
         CustomGameEventManager:Send_ServerToTeam(teamID, "team_resources", {teamData = teamData})
         --CustomGameEventManager:Send_ServerToTeam(teamID, "team_resources", {teamData = teamData})
+    end
+end
+
+
+
+---------------------------------------------------------------------------
+-- Send Quest Info.
+---------------------------------------------------------------------------
+function SimpleRTSGameMode:SendQuestInfo()
+    local heroes = HeroList:GetAllHeroes()
+    for _,hero in pairs(heroes) do
+        local owner = hero:GetOwner()
+
+        -- Temp testing data
+        local questCount = 1
+        local quest1 = {
+            questTitle = "Main Objective",
+            completed = false,
+            reqs = {
+                {text="Build a base", completed=false},
+                {text="Train troops", completed=true},
+                {text="Kill as many soldiers as possible", completed=false}
+            }
+        }
+        local quest2 = {
+            questTitle = "Pick a hero!",
+            completed = true,
+            reqs = {
+                {text="Pick a hero", completed=false},
+                {text="Click 'Enter Battle'", completed=false}
+            }
+        }
+        local quest3 = {
+            questTitle = "Don't Die!",
+            completed = false,
+            reqs = {
+                {text="Stay alive!", completed=false}
+            }
+        }
+        local myQuests = {
+            questCount = questCount,
+            quests = {
+                quest1,
+                quest2,
+                quest3
+            }
+        }
+        -- 
+
+        if owner then
+            CustomGameEventManager:Send_ServerToPlayer(owner, "quest_update", myQuests)
+        end
     end
 end
 

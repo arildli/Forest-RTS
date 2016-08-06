@@ -1,3 +1,16 @@
+
+
+function SetTextSafe(panel, childName, text) {
+    if (panel === null) {
+        return;
+    }
+    var childPanel = panel.FindChildInLayoutFile(childName);
+    if (childPanel === null) {
+        return;
+    }
+    childPanel.text = text;
+}
+
 //=============================================================================
 //=============================================================================
 function getType(thing) {

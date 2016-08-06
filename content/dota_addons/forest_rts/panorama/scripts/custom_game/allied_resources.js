@@ -66,13 +66,11 @@ function AlliedResources_UpdatePlayerPanel(parentPanel, playerID, playerConfig, 
     var playerPanel = AlliedResources_GetPlayerPanel(parentPanel, playerID);
     // Create player panel if it doesn't exist.
     if (playerPanel === null) {
-        $.Msg("playerPanel was null!");
         playerPanel = $.CreatePanel("Panel", parentPanel, "player"+playerID);
         playerPanel.SetAttributeInt("player_id", playerID);
         playerPanel.BLoadLayout(config.playerXmlName, false, false);
         playerPanel.AddClass("PlayerPanel");
         playerPanel.AddClass(upClass);
-        $.Msg("upClass: " + upClass);
     }
 
     var playerInfo = Game.GetPlayerInfo(playerID);

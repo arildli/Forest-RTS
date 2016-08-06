@@ -1,0 +1,78 @@
+#TopPart
+{
+    width: 275px;
+
+    margin-top: 3px;
+    margin-left: 10px;
+
+    color: gold;
+    font-size: 18px;
+    font-family: Radiance;
+    text-shadow: 0px 0px 3px 1.5 #000000;
+    //border: 1px solid red;
+}
+
+#BottomPart
+{
+    width: 275px;
+    height: 100px;
+
+    margin-top: 25px;
+    margin-left: 10px;
+
+    color: white;
+    font-size: 17px;
+    font-family: Radiance;
+    text-shadow: 0px 0px 3px 1.5 #000000;
+    //border: 1px solid blue;
+}
+
+.1LinesAbove
+{
+    margin-top: 25px;
+}
+
+.2LinesAbove
+{
+    margin-top: 50px;
+}
+
+.3LinesAbove
+{
+    margin-top: 75px;
+}
+
+.4LinesAbove
+{
+    margin-top: 100px;
+}
+
+.5LinesAbove
+{
+    margin-top: 125px;
+}
+.
+.6LinesAbove
+{
+    margin-top: 150px;
+}
+
+.7LinesAbove
+{
+    margin-top: 175px;
+}
+
+.8LinesAbove
+{
+    margin-top: 200px;
+}
+
+.9LinesAbove
+{
+    margin-top: 225px;
+}
+
+.10LinesAbove
+{
+    margin-top: 250px;
+}

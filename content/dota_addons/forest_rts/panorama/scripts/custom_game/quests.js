@@ -1,174 +1,108 @@
 "use strict";
 
-/*
-Copied over from player_resources.
+var config = {"questXmlName": "file://{resources}/layout/custom_game/quests_single.xml"};
+var allQuests = [];
+var questTitleToIndex = {};
 
-var config = {"playerXmlName": "file://{resources}/layout/custom_game/allied_resources_player.xml"};
-var playerResources = [];
-var portraitAdded = [];
-var lastPlayerScore = [];
-
-function GetLocalTeamID() {
-    return Game.GetLocalPlayerInfo().player_team_id;
+function Quests_HasQuest(questObject) {
+    return (questTitleToIndex[questObject.questTitle] !== undefined);
 }
 
-function GetPlayerCountLocalTeam() {
-    return Game.GetTeamDetails(GetLocalTeamID()).team_num_players;    
+function Quests_AddQuest(questObject) {
+    var newIndex = allQuests.length;
+    var questTitle = questObject.questTitle;
+    allQuests[newIndex] = {
+        questTitle : questTitle,
+        completed : questObject.completed,
+        requirements : questObject.reqs
+    };
+    questTitleToIndex[questTitle] = newIndex;
 }
 
-function GetPlayerIDsLocalTeam() {
-    return Game.GetPlayerIDsOnTeam(GetLocalTeamID());
+function Quests_GetQuest(questTitle) {
+    var questIndex = questTitleToIndex[questTitle];
+    if (questIndex !== undefined) {
+        return allQuests[questIndex];
+    }
+    return undefined;
 }
 
-// Checks the player count on the local team and hides
-// the allied resource panel if it's only one on that team.
-function AlliedResources_HideIfSolo() {
-    var playerCountLocalTeam = GetPlayerCountLocalTeam();
-    // Should be if === 1, but 6 for testing.
-    if (playerCountLocalTeam === 1) {
-    $("#AlliedResourcesPanel").AddClass("Hidden");
-    } else {
-    var postFix = "UpTitle";
-    var titlePanel = $("#TitlePanel");
-    for (var i=1; i<6; i=i+1) {
-        titlePanel.RemoveClass(i+postFix);   
-    }
-    var extraSpace = (playerCountLocalTeam-1) + postFix;
-    titlePanel.AddClass(extraSpace);
-
-    AlliedResources_UpdateWholePanel();
-    }
+function Quests_GetQuestPanel(parentPanel, questTitle) {
+    return parentPanel.FindChild(questTitle);
 }
 
-// Returns the panel of a player if it exists.
-function AlliedResources_GetPlayerPanel(parentPanel, playerID) {
-    var playerPanelName = "player" + playerID;
-    return parentPanel.FindChild(playerPanelName);
+function Quests_CreateQuestPanel(parentPanel, questTitle, linesAbove) {
+    var questPanel = $.CreatePanel("Panel", parentPanel, questTitle);
+    questPanel.BLoadLayout(config.questXmlName, false, false);
+    questPanel.AddClass("QuestPanel");
+    if (linesAbove > 0) {
+        var linesAboveClassName = linesAbove + "LinesAbove";
+        $.Msg(linesAboveClassName);
+        questPanel.AddClass(linesAboveClassName);
+    }
+    return questPanel;
 }
 
-// Update the text of an existing panel.
-function AlliedResources_SetTextSafe(panel, childName, text) {
-    if (panel === null) {
-    return;
-    }
-    var childPanel = panel.FindChildInLayoutFile(childName);
-    if (childPanel === null) {
-    return;
-    }
-    childPanel.text = text;
-}
+function Quests_UpdateWholePanel(keys) {
+    var lineHeight = 25;
 
-// Updates the panel of a player if it exists or creates
-// it if it doesn't.
-function AlliedResources_UpdatePlayerPanel(parentPanel, playerID, playerConfig, upClass) {
-    if (!playerConfig) {
-    return;
-    }
-    
-    var postFix = "UpPlayer";
-    var playerPanel = AlliedResources_GetPlayerPanel(parentPanel, playerID);
-    // Create player panel if it doesn't exist.
-    if (playerPanel === null) {
-    $.Msg("playerPanel was null!");
-    playerPanel = $.CreatePanel("Panel", parentPanel, "player"+playerID);
-    playerPanel.SetAttributeInt("player_id", playerID);
-    playerPanel.BLoadLayout(config.playerXmlName, false, false);
-    playerPanel.AddClass("PlayerPanel");
-    playerPanel.AddClass(upClass);
-    $.Msg("upClass: " + upClass);
-    }
+    var parentPanel = $("#QuestPanels");
+    var linesAbove = 0;
 
-    var playerInfo = Game.GetPlayerInfo(playerID);
-    if (playerInfo && !portraitAdded[playerID]) {
-    // Set player portrait.
-    var playerPortrait = playerPanel.FindChildInLayoutFile("PlayerImage");
-    if (playerPortrait) {
-        if (playerInfo.player_selected_hero !== "") {
-        var hero = playerInfo.player_selected_hero;
-        playerPortrait.SetImage("file://{images}/heroes/" + hero + ".png");
-        portraitAdded[playerID] = true;
-        } else {
-        playerPortrait.SetImage("file://{images}/custom_game/unassigned.png");
+    for (var key in keys.quests) {
+        var curQuest = keys.quests[key];
+        var questTitle = curQuest.questTitle;
+        var completed = curQuest.completed;
+        var requirements = curQuest.reqs;
+
+        if (!Quests_HasQuest(curQuest)) {
+            Quests_AddQuest(curQuest);
+            $.Msg("Added new quest!");
         }
+
+        linesAbove += Quests_UpdateQuestPanel(parentPanel, curQuest, linesAbove);
     }
-    
-    var playerName = playerInfo.player_name;
-    if (!playerName) {
-        playerName = "Name not found";
-    }
-    AlliedResources_SetTextSafe(playerPanel, "PlayerName", playerName);
-    }
-    
-    // Update the values in the panel.
-    var playerData = playerResources[playerID];
-    if (playerData) {
-    var playerGold = playerData.gold;
-    var playerLumber = playerData.lumber;
-    var playerWorkers = playerData.workers;
-    
-    // Return if info hasn't changed since last. 
-    var playerScore = lastPlayerScore[playerID];
-    if (playerScore &&
-        playerScore.gold === playerGold &&
-        playerScore.lumber === playerLumber &&
-        playerScore.workers === playerWorkers) {
+}
+
+function Quests_UpdateQuestPanel(parentPanel, questObject, linesAbove) {
+    if (!config) {
+        $.Msg("Error: 'config' is undeclared!");
         return;
     }
-    
-    lastPlayerScore[playerID] = {
-        gold : playerGold,
-        lumber : playerLumber,
-        workers : playerWorkers
-    };
-    AlliedResources_SetTextSafe(playerPanel, "GoldCount", playerGold);
-    AlliedResources_SetTextSafe(playerPanel, "LumberCount", playerLumber);
-    AlliedResources_SetTextSafe(playerPanel, "WorkerCount", playerWorkers);
+
+    var questTitle = questObject.questTitle;
+    var questPanel = Quests_GetQuestPanel(parentPanel, questTitle);
+    if (!questPanel) {
+        $.Msg("Creating new quest panel!");
+        questPanel = Quests_CreateQuestPanel(parentPanel, questTitle, linesAbove);
     }
+
+    var questNamePanel = questPanel.FindChildInLayoutFile("QuestName");
+    if (questNamePanel && questNamePanel.text !== questTitle) {
+        $.Msg("Setting the quest title.");
+        SetTextSafe(questPanel, "QuestName", questTitle);
+    }
+
+    var reqs = questObject.reqs;
+    var reqCount = Object.keys(reqs).length;
+    var reqString = ""
+    for (var i=1; i<=reqCount; i+=1) {
+        var curReq = reqs[i];
+        reqString += "- " + curReq.text + "\n";
+    }
+
+    var questReqPanel = questPanel.FindChildInLayoutFile("QuestReqs");
+    if (questReqPanel && questReqPanel.text !== reqString) {
+        SetTextSafe(questPanel, "QuestReqs", reqString);
+    }
+
+    return reqCount + 1;
 }
 
-function AlliedResources_UpdateWholePanel() {
-    var playerCountTeam = GetPlayerCountLocalTeam();
-    // Should be 1.
-    if (playerCountTeam === 1) {
-    return;
-    }
-
-    var parentPanel = $("#PlayerPanels");
-    // Need to iterate over players on team.
-    var localTeamIDs = GetPlayerIDsLocalTeam();
-    var localPlayerID = Players.GetLocalPlayer();
-    var counter = 1;
-    for (var curID of localTeamIDs) {
-    if (curID === localPlayerID) {
-        continue;
-    }
-    var curMarginClass = counter + "UpPlayer";
-    AlliedResources_UpdatePlayerPanel(parentPanel, curID, config, curMarginClass);
-    counter = counter + 1;
-    }
-}
-
-function AlliedResources_UpdatePlayerData(keys) {
-    playerResources = keys.teamData;
-    
-    AlliedResources_UpdateWholePanel();
-}
-
-// Moves the panels slightly higher up if flipped.
-function CheckHudFlipped() {
-    var topPanel = $.FindChildInContext("#AlliedResourcesPanel");
-    
-    if (Game.IsHUDFlipped()) {
-    topPanel.AddClass("Flipped");
-    } else {
-    topPanel.RemoveClass("Flipped");
-    }
+function Quests_OnServerData(keys) {
+    Quests_UpdateWholePanel(keys);
 }
 
 (function() {
-    GameEvents.Subscribe("team_resources", AlliedResources_UpdatePlayerData);
-
-    CheckHudFlipped();
-    AlliedResources_HideIfSolo();
+    GameEvents.Subscribe("quest_update", Quests_OnServerData);
 })();
-*/
