@@ -12,28 +12,4 @@
             </Panel>
         </Panel>
     </Panel>
-    <!--
-    <Panel hittest="false" class="PlayerWrapper">
-        <Panel hittest="false" id="PlayerMainPanel">
-            <Panel hittest="false" id="TopPanel">
-                <Image hittest="false" id="PlayerImage"/>
-                <Label hittest="false" text="" id="PlayerName"/>
-            </Panel>
-            <Panel hittest="false" id="BotPanel">
-                <Panel hittest="false" id="PlayerGoldPanel">
-                    <Image hittest="false" id="GoldIcon" class="ResourceIcon" src="file://{images}/custom_game/gold_icon.png"/>
-                    <Label hittest="false" text="0" class="ResourceText" id="GoldCount"/>
-                </Panel>
-                <Panel hittest="false" id="PlayerLumberPanel">
-                    <Image hittest="false" id="LumberIcon" class="ResourceIcon" src="file://{images}/custom_game/lumber_icon.png"/>
-                    <Label hittest="false" text="0" class="ResourceText" id="LumberCount"/>
-                </Panel>
-                <Panel hittest="false" id="PlayerWorkerPanel">
-                    <Image hittest="false" id="WorkerIcon" class="ResourceIcon" src="file://{images}/custom_game/worker_icon.png"/>
-                    <Label hittest="false" text="0/10" class="ResourceText" id="WorkerCount"/>
-                </Panel>
-            </Panel>
-        </Panel>
-    </Panel>
-    -->
 </root>

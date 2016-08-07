@@ -37,27 +37,25 @@ function Quests_CreateQuestPanel(parentPanel, questTitle, linesAbove) {
     questPanel.AddClass("QuestPanel");
     if (linesAbove > 0) {
         var linesAboveClassName = linesAbove + "LinesAbove";
-        $.Msg(linesAboveClassName);
         questPanel.AddClass(linesAboveClassName);
     }
     return questPanel;
 }
 
-function Quests_UpdateWholePanel(keys) {
+function Quests_UpdateWholePanel(quests) {
     var lineHeight = 25;
 
     var parentPanel = $("#QuestPanels");
     var linesAbove = 0;
 
-    for (var key in keys.quests) {
-        var curQuest = keys.quests[key];
+    for (var key in quests) {
+        var curQuest = quests[key];
         var questTitle = curQuest.questTitle;
         var completed = curQuest.completed;
         var requirements = curQuest.reqs;
 
         if (!Quests_HasQuest(curQuest)) {
             Quests_AddQuest(curQuest);
-            $.Msg("Added new quest!");
         }
 
         linesAbove += Quests_UpdateQuestPanel(parentPanel, curQuest, linesAbove);
@@ -73,13 +71,11 @@ function Quests_UpdateQuestPanel(parentPanel, questObject, linesAbove) {
     var questTitle = questObject.questTitle;
     var questPanel = Quests_GetQuestPanel(parentPanel, questTitle);
     if (!questPanel) {
-        $.Msg("Creating new quest panel!");
         questPanel = Quests_CreateQuestPanel(parentPanel, questTitle, linesAbove);
     }
 
     var questNamePanel = questPanel.FindChildInLayoutFile("QuestName");
     if (questNamePanel && questNamePanel.text !== questTitle) {
-        $.Msg("Setting the quest title.");
         SetTextSafe(questPanel, "QuestName", questTitle);
     }
 
@@ -88,12 +84,20 @@ function Quests_UpdateQuestPanel(parentPanel, questObject, linesAbove) {
     var reqString = ""
     for (var i=1; i<=reqCount; i+=1) {
         var curReq = reqs[i];
+        $.Msg("curReq: " + curReq.text)
         reqString += "- " + curReq.text + "\n";
     }
+    var panelHeight = reqCount + "Lines";
+    $.Msg(panelHeight)
+    questPanel.AddClass(panelHeight);
 
     var questReqPanel = questPanel.FindChildInLayoutFile("QuestReqs");
     if (questReqPanel && questReqPanel.text !== reqString) {
         SetTextSafe(questPanel, "QuestReqs", reqString);
+    }
+
+    if (questObject.completed && !questPanel.BHasClass("Completed")) {
+        questPanel.AddClass("Completed");
     }
 
     return reqCount + 1;

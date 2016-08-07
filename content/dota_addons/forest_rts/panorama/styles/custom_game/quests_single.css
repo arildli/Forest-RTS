@@ -15,7 +15,7 @@
 #BottomPart
 {
     width: 275px;
-    height: 100px;
+    //height: 100px;
 
     margin-top: 25px;
     margin-left: 10px;
@@ -26,6 +26,58 @@
     text-shadow: 0px 0px 3px 1.5 #000000;
     //border: 1px solid blue;
 }
+
+.Completed
+{
+    background-color: gradient(linear, 255px 10%, 10px 0%, from(transparent), to(green));
+}
+
+
+.1Lines
+{
+    height: 50px;
+}
+
+.2Lines
+{
+    height: 75px;
+}
+
+.3Lines
+{
+    height: 100px;
+}
+
+.4Lines
+{
+    height: 125px;
+}
+
+.5Lines
+{
+    height: 150px;
+}
+
+.6Lines
+{
+    height: 175px;
+}
+
+.7Lines
+{
+    height: 200px;
+}
+
+.8Lines
+{
+    height: 225px;
+}
+
+.9Lines
+{
+    height: 250px;
+}
+
 
 .1LinesAbove
 {

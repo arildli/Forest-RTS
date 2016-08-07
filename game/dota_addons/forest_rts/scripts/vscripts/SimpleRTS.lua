@@ -73,6 +73,7 @@ function SimpleRTSGameMode:InitGameMode()
     loadModule('libraries/buildinghelper')
     loadModule('builder')
     loadModule('abilities/autocast')
+    loadModule('quests')
 
     -- Added EDITED
     loadModule('ai/independent_utilities')
@@ -166,6 +167,9 @@ function SimpleRTSGameMode:InitGameMode()
     if AI then
         AI:Init()
     end
+
+    -- Initialize the Quests module.
+    Quests:Init()
 
     -- Register console commands
     Convars:RegisterCommand('boss', function()
@@ -287,27 +291,31 @@ end
 -- On Hero Pick
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onHeroPick(keys)
-   local currentPlayer = EntIndexToHScript(keys.player)
-   PlayerResource:SetGold(currentPlayer:GetPlayerID(), START_GOLD, true)
-   PlayerResource:SetGold(currentPlayer:GetPlayerID(), 0, false)
+    local currentPlayer = EntIndexToHScript(keys.player)
+    PlayerResource:SetGold(currentPlayer:GetPlayerID(), START_GOLD, true)
+    PlayerResource:SetGold(currentPlayer:GetPlayerID(), 0, false)
 
-   local hero = EntIndexToHScript(keys.heroindex)
-   local player = EntIndexToHScript(keys.player)
-   local playerID = hero:GetPlayerID()
+    local hero = EntIndexToHScript(keys.heroindex)
+    local player = EntIndexToHScript(keys.player)
+    local playerID = hero:GetPlayerID()
 
-   Stats:AddPlayer(hero, player, playerID)
-   Resources:InitHero(hero, START_LUMBER)
+    Stats:AddPlayer(hero, player, playerID)
+    Resources:InitHero(hero, START_LUMBER)
+
+    local mainQuestName = "Main Objective Patrols"
+    Quests:AddPlayer(player)
+    Quests:AddQuest(playerID, mainQuestName)
    
-   -- Initialize Variables for Tracking
-   hero.units = {} -- This keeps the handle of all the units of the player, to iterate for unlocking upgrades
-   hero.structures = {} -- This keeps the handle of the constructed units, to iterate for unlocking upgrades
-   hero.buildings = {} -- This keeps the name and quantity of each building
-   hero.upgrades = {} -- This kees the name of all the upgrades researched
-   hero.lumber = 0 -- Secondary resource of the player
+    -- Initialize Variables for Tracking
+    hero.units = {} -- This keeps the handle of all the units of the player, to iterate for unlocking upgrades
+    hero.structures = {} -- This keeps the handle of the constructed units, to iterate for unlocking upgrades
+    hero.buildings = {} -- This keeps the name and quantity of each building
+    hero.upgrades = {} -- This kees the name of all the upgrades researched
+    hero.lumber = 0 -- Secondary resource of the player
    
-   -- Add the hero to the player units list
-   table.insert(hero.units, hero)
-   hero.state = "idle" --Builder state
+    -- Add the hero to the player units list
+    table.insert(hero.units, hero)
+    hero.state = "idle" --Builder state
 end
 
 
@@ -526,45 +534,11 @@ function SimpleRTSGameMode:SendQuestInfo()
     local heroes = HeroList:GetAllHeroes()
     for _,hero in pairs(heroes) do
         local owner = hero:GetOwner()
-
-        -- Temp testing data
-        local questCount = 1
-        local quest1 = {
-            questTitle = "Main Objective",
-            completed = false,
-            reqs = {
-                {text="Build a base", completed=false},
-                {text="Train troops", completed=true},
-                {text="Kill as many soldiers as possible", completed=false}
-            }
-        }
-        local quest2 = {
-            questTitle = "Pick a hero!",
-            completed = true,
-            reqs = {
-                {text="Pick a hero", completed=false},
-                {text="Click 'Enter Battle'", completed=false}
-            }
-        }
-        local quest3 = {
-            questTitle = "Don't Die!",
-            completed = false,
-            reqs = {
-                {text="Stay alive!", completed=false}
-            }
-        }
-        local myQuests = {
-            questCount = questCount,
-            quests = {
-                quest1,
-                quest2,
-                quest3
-            }
-        }
-        -- 
+        local playerID = owner:GetPlayerID()
+        local quests = Quests:GetAllQuestsForPlayer(playerID)
 
         if owner then
-            CustomGameEventManager:Send_ServerToPlayer(owner, "quest_update", myQuests)
+            CustomGameEventManager:Send_ServerToPlayer(owner, "quest_update", quests)
         end
     end
 end
