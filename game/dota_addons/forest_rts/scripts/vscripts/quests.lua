@@ -45,6 +45,9 @@ end
 ---------------------------------------------------------------------------
 function Quests:GetAllQuestsForPlayer(playerID)
     local playerStruct = Quests:GetPlayer(playerID)
+    if not playerStruct then
+        return nil
+    end
     return playerStruct.quests
 end
 
@@ -85,7 +88,7 @@ function Quests:CreateQuest(title, descriptions, predicates, textOnly)
         }
     end
 
-    Quests:PrintQuest(newQuest)
+    --Quests:PrintQuest(newQuest)
     return newQuest
 end
 
@@ -99,7 +102,7 @@ function Quests:AddQuest(playerID, questName)
     local index = Quests.questTitleToIndex[questName]
     local quest = Quests.quests[index]
     if not quest then
-        PrintQuestFailure("Quests:AddQuest", "'"..questName.."' not found!")
+        PrintQuestFailure("Quests:AddQuest", "'"..(questName or "nil").."' not found!")
         return
     end
     local playerQuestStruct = Quests:GetPlayer(playerID)

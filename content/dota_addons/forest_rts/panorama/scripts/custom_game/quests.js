@@ -84,11 +84,9 @@ function Quests_UpdateQuestPanel(parentPanel, questObject, linesAbove) {
     var reqString = ""
     for (var i=1; i<=reqCount; i+=1) {
         var curReq = reqs[i];
-        $.Msg("curReq: " + curReq.text)
         reqString += "- " + curReq.text + "\n";
     }
     var panelHeight = reqCount + "Lines";
-    $.Msg(panelHeight)
     questPanel.AddClass(panelHeight);
 
     var questReqPanel = questPanel.FindChildInLayoutFile("QuestReqs");

@@ -302,8 +302,13 @@ function SimpleRTSGameMode:onHeroPick(keys)
     Stats:AddPlayer(hero, player, playerID)
     Resources:InitHero(hero, START_LUMBER)
 
-    local mainQuestName = "Main Objective Patrols"
     Quests:AddPlayer(player)
+    local possibleMainQuests = {
+        ["Solo"] = "Main Objective Patrols",
+        ["Co-Op"] = "Main Objective Patrols",
+        ["PvP"] = "Main Objective PvP"
+    }
+    local mainQuestName = possibleMainQuests[self.gameMode]
     Quests:AddQuest(playerID, mainQuestName)
    
     -- Initialize Variables for Tracking
@@ -537,7 +542,7 @@ function SimpleRTSGameMode:SendQuestInfo()
         local playerID = owner:GetPlayerID()
         local quests = Quests:GetAllQuestsForPlayer(playerID)
 
-        if owner then
+        if owner and quests then
             CustomGameEventManager:Send_ServerToPlayer(owner, "quest_update", quests)
         end
     end
