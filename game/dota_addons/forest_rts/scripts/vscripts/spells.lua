@@ -295,7 +295,6 @@ function RefundResourcesID(playerID, gold, lumber)
 end
 
 function SpendResourcesNew(player, goldCost, lumberCost, trackStats)
-    print("SpendResourcesNew called!")
     local playerID = player:GetPlayerID()
     local hero = GetPlayerHero(playerID)
     local curGold = PlayerResource:GetReliableGold(playerID)

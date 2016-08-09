@@ -138,8 +138,8 @@ function AI:AddBases()
                     Vector(4800, 4288, 128)
                 }
             }
-        },
-
+        }
+        --[=[,
         {
             name = "Dire #2 - Middle Right",
             taken = false,
@@ -179,6 +179,7 @@ function AI:AddBases()
                 }
             }
         }
+        ]=]
     }
 end
 

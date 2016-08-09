@@ -314,6 +314,11 @@ function OnUnitTrained(keys)
             end})
     end
 
+    -- Automatically make workers harvest lumber on training.
+    if IsWorker(target) and not IsBot(playerID) then
+        HarvestLumber(target)
+    end
+
     FireGameEvent("unit_trained", {playerID=playerID, unit=target:GetEntityIndex()})
 end
 

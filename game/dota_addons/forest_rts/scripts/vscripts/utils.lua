@@ -274,6 +274,29 @@ end
 
 
 
+function HarvestLumber(unit)
+    if not unit.HARVESTER then
+        Resources:InitHarvester(unit)
+    end
+    local tree = FindEmptyTree(unit, unit:GetAbsOrigin(), unit.HARVESTER.treeSearchRadius)
+    if not tree then
+        print("HarvestLumber: Failed to find tree in radius "..unit.HARVESTER.treeSearchRadius)
+        return
+    end
+
+    local harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker") or
+        unit:FindAbilityByName("srts_harvest_lumber")
+    if harvestAbility then
+        Timers:CreateTimer({
+            endTime = 0.05,
+            callback = function()
+                unit:CastAbilityOnTarget(tree, harvestAbility, playerID)
+            end})
+    end
+end
+
+
+
 -- Transfer all the lumber from a unit to another unit.
 function TransferLumber(keys)
     local caster = keys.caster
@@ -713,11 +736,11 @@ end
 -- Adds a new ability to the unit and skills it.
 ---------------------------------------------------------------------------
 function LearnAbility(unit, abilityName)
-        unit:AddAbility(abilityName)
-        if unit:HasAbility(abilityName) then
-                local ability = unit:FindAbilityByName(abilityName)
-                ability:SetLevel(1)
-        end
+    unit:AddAbility(abilityName)
+    if unit:HasAbility(abilityName) then
+        local ability = unit:FindAbilityByName(abilityName)
+        ability:SetLevel(1)
+    end
 end
 
 
@@ -726,7 +749,7 @@ end
 -- Unlearns and removes an ability from the unit
 ---------------------------------------------------------------------------
 function UnlearnAbility(unit, abilityName)
-        unit:RemoveAbility(abilityName)
+    unit:RemoveAbility(abilityName)
 end
 
 
@@ -737,7 +760,7 @@ end
 --- * unit: The unit to check.
 ---------------------------------------------------------------------------
 function IsWorker(unit)
-     return unit:GetUnitName():find("worker")
+    return unit:GetUnitName():find("worker")
 end
 
 
@@ -746,17 +769,17 @@ end
 -- Updates the worker count panel of the player.
 ---------------------------------------------------------------------------
 function UpdateWorkerPanel(playerHero)
-        local ownerPlayer = playerHero:GetOwnerPlayer()
-        if not ownerPlayer then
-                print("Error: Couldn't get owner of hero!")
-                return
-        end
-        local playerID = playerHero:GetOwnerID()
-        if IsBot(playerID) then
-                return
-        end
-        local curWorkerCount = playerHero:GetWorkerCount()
-        CustomGameEventManager:Send_ServerToPlayer(ownerPlayer, "new_worker_count", {maxWorkerCount=MAX_WORKER_COUNT, newWorkerCount=curWorkerCount})
+    local ownerPlayer = playerHero:GetOwnerPlayer()
+    if not ownerPlayer then
+        print("Error: Couldn't get owner of hero!")
+        return
+    end
+    local playerID = playerHero:GetOwnerID()
+    if IsBot(playerID) then
+        return
+    end
+    local curWorkerCount = playerHero:GetWorkerCount()
+    CustomGameEventManager:Send_ServerToPlayer(ownerPlayer, "new_worker_count", {maxWorkerCount=MAX_WORKER_COUNT, newWorkerCount=curWorkerCount})
 end
 
 
@@ -790,7 +813,7 @@ end
 -- @playerID: The playerID of the player to check.
 ---------------------------------------------------------------------------
 function IsBot(playerID)
-        return (PlayerResource:GetConnectionState(playerID) == 1)
+    return (PlayerResource:GetConnectionState(playerID) == 1)
 end
 
 

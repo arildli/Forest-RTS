@@ -76,8 +76,8 @@ function SimpleRTSGameMode:InitGameMode()
     loadModule('quests')
 
     -- Added EDITED
-    loadModule('ai/independent_utilities')
-    --loadModule('ai/main')
+    --loadModule('ai/independent_utilities')
+    loadModule('ai/main')
     -- DONE
    
     LinkLuaModifier("modifier_train_unit", "libraries/modifiers/modifier_train_unit", LUA_MODIFIER_MOTION_NONE)
@@ -395,11 +395,13 @@ function SimpleRTSGameMode:onGameStateChange(keys)
 
         -- Add player-like bots
         if AI then
-          --if IsTeamEmpty(DOTA_TEAM_GOODGUYS) then
-          --  AI:AddBot(DOTA_TEAM_GOODGUYS, "npc_dota_hero_legion_commander")
-          --elseif IsTeamEmpty(DOTA_TEAM_BADGUYS) then
-          --  AI:AddBot(DOTA_TEAM_BADGUYS, "npc_dota_hero_legion_commander")
-          --end
+            --[=[
+            if IsTeamEmpty(DOTA_TEAM_GOODGUYS) then
+                AI:AddBot(DOTA_TEAM_GOODGUYS, "npc_dota_hero_legion_commander")
+            elseif IsTeamEmpty(DOTA_TEAM_BADGUYS) then
+                AI:AddBot(DOTA_TEAM_BADGUYS, "npc_dota_hero_legion_commander")
+            end
+            ]=]
         end
 
         -- Create a timer for sending team resource info to players.

@@ -315,24 +315,7 @@ function AI:ReturnToBase(bot, unit)
 end
 
 function AI:HarvestLumber(bot, unit)
-    if not unit.HARVESTER then
-        Resources:InitHarvester(unit)
-    end
-    local tree = FindEmptyTree(unit, unit:GetAbsOrigin(), unit.HARVESTER.treeSearchRadius)
-    if not tree then
-        AI:Failure("Failed to find tree in radius "..unit.HARVESTER.treeSearchRadius)
-        return
-    end
-
-    local harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker") or
-        unit:FindAbilityByName("srts_harvest_lumber")
-    if harvestAbility then
-        Timers:CreateTimer({
-            endTime = 0.05,
-            callback = function()
-                unit:CastAbilityOnTarget(tree, harvestAbility, playerID)
-            end})
-    end
+    HarvestLumber(unit)
 end
 
 function AI:EnterTower(bot, unit, tower)

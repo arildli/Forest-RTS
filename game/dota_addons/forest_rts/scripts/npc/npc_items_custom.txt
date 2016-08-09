@@ -1067,9 +1067,9 @@
 			{
 				"Duration"	"%duration"
 				
-				"EffectName"	"particles/items_fx/healing_flask.vpcf"
-				"EffectAttachType"	"follow_origin"
-				"TextureName"		"spellicon_buy_healing_salve"
+				"EffectName"	     "particles/items_fx/healing_flask.vpcf"
+				"EffectAttachType"	 "follow_origin"
+				"TextureName"		 "spellicon_buy_healing_salve"
 
 				"Properties"
 				{
@@ -1080,7 +1080,7 @@
 				{
 					"RemoveModifier"
 					{
-						"Target"	"UNIT"
+						"Target"	    "UNIT"
 						"ModifierName"	"modifier_healing_salve"
 					}
 				}
@@ -1091,15 +1091,15 @@
 		{
 			"ApplyModifier"
 			{
-				"Target"	"TARGET"
+				"Target"	    "TARGET"
 				"ModifierName"	"modifier_healing_salve"
-				"Duration"	"%duration"
+				"Duration"	    "%duration"
 			}
 
 			"FireSound"
 			{
-				"EffectName"	"DOTA_Item.HealingSalve.Activate"
-				"Target"	"CASTER"
+				"EffectName"    "DOTA_Item.HealingSalve.Activate"
+				"Target"	    "CASTER"
 			}
 
 			"SpendCharge"

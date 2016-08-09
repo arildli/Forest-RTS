@@ -132,6 +132,19 @@ function PlaceBuilding(playerID, buildingName, position, angle)
 end
 
 ---------------------------------------------------------------------------
+-- Checks whether the specified player is a bot or not.
+--
+-- @playerID (Int): The playerID of the player to check.
+-- @return (Boolean): Whether or not the player is a bot.
+---------------------------------------------------------------------------
+function PlayerIsBot(playerID)
+    if not AI or not AI:GetBotByID(playerID) then
+        return false
+    end
+    return true
+end
+
+---------------------------------------------------------------------------
 -- Constructs a building the ordinary way.
 --
 -- @worker (Unit): The worker to construct the building.
