@@ -76,15 +76,20 @@ function finishConstruction(building)
     building:RemoveAbility(rotateLeft)
     building:RemoveAbility(cancelConstruction)
 
-    local playerHero = GetPlayerHero(building:GetOwner():GetPlayerID())
+    local playerHero = building:GetOwnerHero() or GetPlayerHero(building:GetOwner():GetPlayerID())
 
     -- Register Trained
     TechTree:RegisterIncident(building, true)
     TechTree:AddAbilitiesToEntity(building)
-    --TechTree:UpdateSpellsForEntity(building, playerHero)
+
+    if not building.gold_cost or not building.lumber_cost then
+        print("Either .gold_cost or .lumber_cost was nil!")
+    end
 
     local playerID = building:GetOwnerID()
     Stats:OnTrained(playerID, building, "building")
+    Stats:SpendGold(playerID, building.gold_cost)
+    Stats:SpendLumber(playerID, building.lumber_cost)
 
     local event = {
         playerID = building:GetOwnerID(),
@@ -96,21 +101,16 @@ end
 
 
 function cancelUpgrade(keys)
-    local building = keys.caster
-    --print("Note: Upgrade cancelled for "..building:GetUnitName())
 end
 
 
 
 function prepareUpgrade(keys)
-    --print("Note: Upgrade started for "..keys.caster:GetUnitName())
 end
 
 
 
 function finishUpgrade(keys)
-    --print("Note: Upgrade finished!")
-
     local caster = keys.caster
     local ability = keys.ability
     local modifier = keys.modifier
@@ -125,10 +125,17 @@ function finishUpgrade(keys)
     building._upgraded = true
     ownerHero:RemoveBuilding(building)
     local newBuilding = BuildingHelper:UpgradeBuilding(building, newBuildingName)
+    newBuilding.gold_cost = keys.goldCost
+    newBuilding.lumber_cost = keys.lumberCost
     newBuilding._finished = true
     ownerHero:IncUnitCountFor(newBuildingName)
     TechTree:AddPlayerMethods(newBuilding, ownerPlayer)
     addRallyFunctions(newBuilding)
+
+    if not newBuilding.gold_cost or not newBuilding.lumber_cost then
+        print("Either .gold_cost or .lumber_cost was nil!")
+    end
+
     finishConstruction(newBuilding)
 end
 
@@ -202,11 +209,11 @@ function RefundResources(keys)
     local playerID = player:GetPlayerID()
     local playerHero = GetPlayerHero(playerID)
 
-    local gold = keys.goldCost
+    local goldCost = keys.goldCost
     local currentGold = PlayerResource:GetReliableGold(playerID)
-    playerHero:IncGold(gold)
-    local lumber = keys.lumberCost
-    playerHero:IncLumber(keys.lumberCost)
+    local lumberCost = keys.lumberCost
+    playerHero:IncGoldNoStats(goldCost)
+    playerHero:IncLumberNoStats(lumberCost)
 end
 
 ---------------------------------------------------------------------------
@@ -228,13 +235,27 @@ function RefundResourcesConstruction(keys)
         print("RefundResourcesConstruction: caster was missing either goldCost or lumberCost!")
         return
     end
-    GiveGold({caster = keys.caster, amount = goldCost})
-    GiveCharges(playerHero, lumberCost, "item_stack_of_lumber")
+    playerHero:IncGoldNoStats(goldCost)
+    playerHero:IncLumberNoStats(lumberCost)
+    --GiveCharges(playerHero, lumberCost, "item_stack_of_lumber")
 
     caster._wasCancelled = true
     if not keys.keepAlive then
         caster:ForceKill(false)
     end
+end
+
+---------------------------------------------------------------------------
+-- Gives gold to a player with a gold popup.
+---------------------------------------------------------------------------
+function GivePlayerGold(keys)
+    local caster = keys.caster
+    local ownerID = caster:GetOwnerID() or caster:GetPlayerOwnerID()
+    local ownerHero = caster:GetOwnerHero()
+    local amount = keys.amount
+
+    ownerHero:IncGold(amount)
+    PopupGoldGain(caster, amount)
 end
 
 

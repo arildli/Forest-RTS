@@ -142,6 +142,7 @@ function ApplyUpgradeUnits(keys)
     local canGetUpgrade = {}
     local playerID = caster:GetOwnerID()
 
+    print("ApplyUpgradeUnits called! Stats")
     Stats:OnResearchFinished(playerID, abilityName)
     Stats:SpendGold(playerID, keys.goldCost)
     Stats:SpendLumber(playerID, keys.lumberCost)
@@ -276,62 +277,65 @@ function RefundGoldTooltip(player, gold)
     local playerID = player:GetPlayerID()
     local hero = GetPlayerHero(playerID)
     local curGold = PlayerResource:GetReliableGold(playerID)
-    hero:IncGold(gold)
-    --PlayerResource:SetGold(playerID, curGold + gold, true)
+    hero:IncGoldNoStats(gold)
 end
 
 function RefundResourcesSpell(keys)
-     RefundResourcesID(keys.caster:GetOwnerID(), keys.goldCost, keys.lumberCost)
+    RefundResourcesID(keys.caster:GetOwnerID(), keys.goldCost, keys.lumberCost)
 end
 
 function RefundResources(player, gold, lumber)
-     RefundResourcesID(player:GetPlayerID(), gold, lumber)
+    RefundResourcesID(player:GetPlayerID(), gold, lumber)
 end
 
 function RefundResourcesID(playerID, gold, lumber)
-     local hero = GetPlayerHero(playerID)
-     hero:IncGold(gold)
-     hero:IncLumber(lumber)   
+    local hero = GetPlayerHero(playerID)
+    hero:IncGoldNoStats(gold)
+    hero:IncLumberNoStats(lumber)   
 end
 
-function SpendResourcesNew(player, goldCost, lumberCost)
-     local playerID = player:GetPlayerID()
-     local hero = GetPlayerHero(playerID)
-     local curGold = PlayerResource:GetReliableGold(playerID)
-     hero:DecGold(goldCost)
-     --PlayerResource:SetGold(playerID, curGold - goldCost, true)
-     hero:DecLumber(lumberCost)
+function SpendResourcesNew(player, goldCost, lumberCost, trackStats)
+    print("SpendResourcesNew called!")
+    local playerID = player:GetPlayerID()
+    local hero = GetPlayerHero(playerID)
+    local curGold = PlayerResource:GetReliableGold(playerID)
+    if trackStats then
+        hero:DecGold(goldCost)
+        hero:DecLumber(lumberCost)
+    else
+        hero:DecGoldNoStats(goldCost)
+        hero:DecLumberNoStats(lumberCost)
+    end
 end
 
 function BuyItem(keys)
-     local shop = keys.caster
-     local ability = keys.ability
-     local itemName = keys.item
-     local goldCost = keys.goldCost or 0
-     local lumberCost = keys.lumberCost or 0
-     local buyRange = 900.0
-     local amount = keys.amount or 1
-     local buyerHero = shop:GetOwnerHero()
-     local buyerPlayer = shop:GetOwnerPlayer()
-     local buyerHeroLocation = buyerHero:GetAbsOrigin()
-     local buyerID = shop:GetOwnerID()
+    local shop = keys.caster
+    local ability = keys.ability
+    local itemName = keys.item
+    local goldCost = keys.goldCost or 0
+    local lumberCost = keys.lumberCost or 0
+    local buyRange = 900.0
+    local amount = keys.amount or 1
+    local buyerHero = shop:GetOwnerHero()
+    local buyerPlayer = shop:GetOwnerPlayer()
+    local buyerHeroLocation = buyerHero:GetAbsOrigin()
+    local buyerID = shop:GetOwnerID()
      
-     shop._canAfford = nil
-     -- We need to give back the gold before checking.
-     RefundGoldTooltip(buyerPlayer, goldCost)
+    shop._canAfford = nil
+    -- We need to give back the gold before checking.
+    RefundGoldTooltip(buyerPlayer, goldCost)
 
-     --if not CheckIfCanAfford({goldCost=goldCost, lumberCost=lumberCost, caster=shop, ability=keys.ability}) then
-     if not CanAfford(buyerPlayer, goldCost, lumberCost) then
-            SendErrorMessage(buyerID, "#error_not_enough_resources")
-            print("Cannot afford, retuning from BuyItem.")
-            return
-     end
+    if not CanAfford(buyerPlayer, goldCost, lumberCost) then
+        SendErrorMessage(buyerID, "#error_not_enough_resources")
+        print("Cannot afford, retuning from BuyItem.")
+        return
+    end
 
-     if shop:GetRangeToUnit(buyerHero) > buyRange then
-            SendErrorMessage(buyerID, "#error_hero_outside_shop_range")
-            return
-     end
+    if shop:GetRangeToUnit(buyerHero) > buyRange then
+        SendErrorMessage(buyerID, "#error_hero_outside_shop_range")
+        return
+    end
 
-     SpendResourcesNew(buyerPlayer, goldCost, lumberCost)
-     GiveCharges(buyerHero, amount, itemName)
+    SpendResourcesNew(buyerPlayer, goldCost, lumberCost, true)
+    GiveCharges(buyerHero, amount, itemName)
 end

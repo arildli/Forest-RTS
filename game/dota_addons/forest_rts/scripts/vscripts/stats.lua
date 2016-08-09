@@ -9,6 +9,7 @@ end
 To add:
 - | | Time when last player left the game.
 - |x| Current game mode.
+- |x| Workers killed and trained.
 ]=]
 
 function Stats:Init()
@@ -109,21 +110,25 @@ end
 
 
 function Stats:AddGold(playerID, gold)
+    print("Stats: "..gold.." GOLD added!")
     local player = Stats:GetPlayer(playerID)
     player.goldGained = player.goldGained + gold
 end
 
 function Stats:SpendGold(playerID, gold)
+    print("Stats: "..gold.." GOLD SPENT!")
     local player = Stats:GetPlayer(playerID)
     player.goldSpent = player.goldSpent + gold
 end
 
 function Stats:AddLumber(playerID, lumber)
+    print("Stats: "..lumber.." LUMBER added!")
     local player = Stats:GetPlayer(playerID)
     player.lumberGained = player.lumberGained + lumber
 end
 
 function Stats:SpendLumber(playerID, lumber)
+    print("Stats: "..lumber.." LUMBER SPENT!")
     local player = Stats:GetPlayer(playerID)
     player.lumberSpent = player.lumberSpent + lumber
 end

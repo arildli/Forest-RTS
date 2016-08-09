@@ -428,22 +428,22 @@
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordUnit"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "prepareUpgrade"
+                "Function"      "prepareUpgrade"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_upgrading_building"
-                "Target"    "CASTER"    
+                "Target"        "CASTER"    
             }
         }
 
@@ -452,7 +452,7 @@
             "RemoveModifier"
             {
                 "ModifierName"  "modifier_upgrading_building"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }   
         }
 
@@ -461,9 +461,9 @@
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "RefundResources"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "RefundResources"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
         }
@@ -473,10 +473,12 @@
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "finishUpgrade"
+                "Function"      "finishUpgrade"
                 "newUnitName"   "npc_dota_building_main_tent_large"
                 "buildingSize"  "%building_size"
-                "modifier"  "modifier_invis"
+                "modifier"      "modifier_invis"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
             }   
         }
     }

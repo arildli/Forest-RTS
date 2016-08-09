@@ -57,7 +57,7 @@ function Resources:InitHero(hero, startLumber)
         PlayerResource:SetGold(hero:GetOwnerID(), 0, false)
         PlayerResource:SetGold(hero:GetOwnerID(), amount, true)
     end
-  
+    
     ---------------------------------------------------------------------------
     -- Sets the lumber count of the hero.
     ---------------------------------------------------------------------------
@@ -66,45 +66,81 @@ function Resources:InitHero(hero, startLumber)
         local player = hero:GetOwner()
         CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(amount) })
     end
-  
+    
     ---------------------------------------------------------------------------
     -- Increases the gold count of the hero.
     ---------------------------------------------------------------------------
-    function hero:IncGold(amount)
+    function hero:IncGold(amount, skipStats)
         hero:SetGold(hero:GetGold() + amount)
-        Stats:AddGold(hero:GetOwnerID(), amount)
+        if not skipStats then
+            Stats:AddGold(hero:GetOwnerID(), amount)
+        end
+    end
+
+    ---------------------------------------------------------------------------
+    -- Increases the gold count of the hero without modifying the stats.
+    ---------------------------------------------------------------------------
+    function hero:IncGoldNoStats(amount)
+        hero:IncGold(amount, true)
     end
 
     ---------------------------------------------------------------------------
     -- Increases the lumber count of the hero.
     ---------------------------------------------------------------------------
-    function hero:IncLumber(amount)
+    function hero:IncLumber(amount, skipStats)
         hero.SRES.lumber = hero.SRES.lumber + amount
         local player = hero:GetOwner()
-        Stats:AddLumber(hero:GetOwnerID(), amount)
+        if not skipStats then
+            Stats:AddLumber(hero:GetOwnerID(), amount)
+        end
         CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
+    end
+
+    ---------------------------------------------------------------------------
+    -- Increases the lumber count of the hero without recording stats for it.
+    ---------------------------------------------------------------------------
+    function hero:IncLumberNoStats(amount)
+        hero:IncLumber(amount, true)
     end
 
     ---------------------------------------------------------------------------
     -- Decreases the gold of the hero.
     ---------------------------------------------------------------------------
-    function hero:DecGold(amount)
+    function hero:DecGold(amount, skipStats)
         local oldGold = hero:GetGold()
         hero:SetGold(oldGold - amount)
-        Stats:SpendGold(hero:GetOwnerID(), amount)
+        if not skipStats then
+            Stats:SpendGold(hero:GetOwnerID(), amount)
+        end
+    end
+
+    ---------------------------------------------------------------------------
+    -- Decreases the gold of the hero without recording stats for it.
+    ---------------------------------------------------------------------------
+    function hero:DecGoldNoStats(amount)
+        hero:DecGold(amount, true)
     end
 
     ---------------------------------------------------------------------------
     -- Decreases the lumber count of the hero.
     ---------------------------------------------------------------------------
-    function hero:DecLumber(amount)
+    function hero:DecLumber(amount, skipStats)
         hero.SRES.lumber = hero.SRES.lumber - amount
         if hero.SRES.lumber < 0 then
             hero.SRES.lumber = 0
         end
         local player = hero:GetOwner()
-        Stats:SpendLumber(hero:GetOwnerID(), amount)
+        if not skipStats then
+            Stats:SpendLumber(hero:GetOwnerID(), amount)
+        end
         CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
+    end
+
+    ---------------------------------------------------------------------------
+    -- Decreases the lumber count of the hero without recording stats for it.
+    ---------------------------------------------------------------------------
+    function hero:DecLumberNoStats(amount)
+        hero:DecLumber(amount, true)
     end
 
     Stats:AddGold(playerID, hero:GetGold())
@@ -182,12 +218,10 @@ function Resources:InitHarvester(unit)
         end
 
         for _,building in pairs(ownerHero:GetBuildings()) do
-            --for _,building in pairs(ownerHero.structures) do
             if building:IsNull() then
                 print("Removed building for being null!")
                 ownerHero:RemoveBuilding(building)
             else
-                --print(building:GetUnitName().." isValidDeliveryPoint: "..tostring(Resources:IsValidDeliveryPoint(building)))
                 if building and building:IsAlive() and Resources:IsValidDeliveryPoint(building) then
                     local distanceToBuilding = (unitPosition - building:GetAbsOrigin()):Length()
                     if distanceToBuilding < shortestDeliveryDistance then
@@ -211,7 +245,7 @@ end
 -- Returns true if unit can accept lumber deliveries.
 ---------------------------------------------------------------------------
 function Resources:IsValidDeliveryPoint(building)
-   return (IsBuilding(building) and UnitHasAbility(building, "srts_ability_delivery_point"))
+    return (IsBuilding(building) and UnitHasAbility(building, "srts_ability_delivery_point"))
 end
 
 
@@ -230,13 +264,13 @@ end
 -- Returns the number of lumber the unit is carrying.
 ---------------------------------------------------------------------------
 function Resources:GetLumberCarried(unit)
-  local lumberStack = GetItemFromInventory(unit, "item_stack_of_lumber")
-  if lumberStack then
-    return lumberStack:GetCurrentCharges()
-  else
-    print("GetLumberCount: unit did not have any lumber!")
-    return 0
-  end
+    local lumberStack = GetItemFromInventory(unit, "item_stack_of_lumber")
+    if lumberStack then
+        return lumberStack:GetCurrentCharges()
+    else
+        print("GetLumberCount: unit did not have any lumber!")
+        return 0
+    end
 end
 
 
@@ -249,23 +283,23 @@ end
 -- Cuts the tree and gives lumber to the caster.
 ---------------------------------------------------------------------------
 function HarvestChop(keys)
-  local caster = keys.caster
-  local target = keys.target
-  local amount = keys.lumber
-  local teamNumber = caster:GetTeamNumber()
+    local caster = keys.caster
+    local target = keys.target
+    local amount = keys.lumber
+    local teamNumber = caster:GetTeamNumber()
 
-  if not caster.HARVESTER then
-     print("caster.HARVESTER was not set!")
-     Resources:InitHarvester(caster)
-  end
+    if not caster.HARVESTER then
+        print("caster.HARVESTER was not set!")
+        Resources:InitHarvester(caster)
+    end
 
-  if target then
-    target:CutDown(teamNumber)
-    --caster:SetLastTree(target)
-    caster:DeliverLumber()
-  end
+    if target then
+        target:CutDown(teamNumber)
+        --caster:SetLastTree(target)
+        caster:DeliverLumber()
+    end
 
-  GiveCharges(caster, amount, "item_stack_of_lumber")
+    GiveCharges(caster, amount, "item_stack_of_lumber")
 end
 
 
@@ -275,22 +309,22 @@ end
 -- if valid target.
 ---------------------------------------------------------------------------
 function Resources:HarvestDeliverLumber(keys)
-  local caster = keys.caster
-  local target = keys.target
-  local owningHero = GetPlayerHero(caster:GetOwner():GetPlayerID())
-  
-  local isNil = IsNil("Resources:HarvestDeliverLumber", {caster, target, owningHero}, 3)
-  if target:IsDeliveryPoint() then
-    local amount = Resources:GetLumberCarried()
-    if amount > 0 then
-      SpendLumber(caster, amount)
-      owningHero:IncLumber(amount)
+    local caster = keys.caster
+    local target = keys.target
+    local owningHero = GetPlayerHero(caster:GetOwner():GetPlayerID())
+    
+    local isNil = IsNil("Resources:HarvestDeliverLumber", {caster, target, owningHero}, 3)
+    if target:IsDeliveryPoint() then
+        local amount = Resources:GetLumberCarried()
+        if amount > 0 then
+            SpendLumber(caster, amount)
+            owningHero:IncLumber(amount)
+        end
+    else
+        -- Needs UI Warning
+        print("Resources:HarvestDeliverLumber: Invalid Target!")
     end
-  else
-    -- Needs UI Warning
-    print("Resources:HarvestDeliverLumber: Invalid Target!")
-  end
-  return isNil
+    return isNil
 end
 
 
@@ -302,55 +336,55 @@ end
 -- Gives lumber to the owner of the harvesting unit.
 function GiveHarvestedLumber(keys)
 
-  local caster = keys.caster
-  local target = keys.target
-  local ability = keys.ability
-  
-  local owner = caster:GetPlayerOwner()
-  local teamNumber = caster:GetTeamNumber()
-  local lumberAmount = keys.lumber
-  --local playerID = owner:GetPlayerID()
-  --local hero = GetPlayerHero(playerID)
-  
-  if target then
-    target:CutDown(teamNumber)
-  end
-  
-  GiveCharges(caster, lumberAmount, "item_stack_of_lumber")
-  
-  ReportLumberChopped(owner, lumberAmount)
+    local caster = keys.caster
+    local target = keys.target
+    local ability = keys.ability
+    
+    local owner = caster:GetPlayerOwner()
+    local teamNumber = caster:GetTeamNumber()
+    local lumberAmount = keys.lumber
+    --local playerID = owner:GetPlayerID()
+    --local hero = GetPlayerHero(playerID)
+    
+    if target then
+        target:CutDown(teamNumber)
+    end
+    
+    GiveCharges(caster, lumberAmount, "item_stack_of_lumber")
+    
+    ReportLumberChopped(owner, lumberAmount)
 end
 
 
 
 -- Gives lumber to the owner of the harvesting unit by spell.
 function GiveHarvestedLumberAlt(keys)
-  local args = {}
-  args["caster"] = keys.caster
-  args["lumber"] = keys.amount
-  GiveHarvestedLumber(args)
+    local args = {}
+    args["caster"] = keys.caster
+    args["lumber"] = keys.amount
+    GiveHarvestedLumber(args)
 end
 
 
 
 -- Increase the amount of lumber chopped for this player.
 function ReportLumberChopped(player, amount)
-  if not player or not amount then
-    print("ReportLumberChopped: player or amount was nil!")
-    return
-  end
+    if not player or not amount then
+        print("ReportLumberChopped: player or amount was nil!")
+        return
+    end
 
-  if not player._lumberGained then
-    player._lumberGained = amount
-  else
-    player._lumberGained = player._lumberGained + amount
-  end
+    if not player._lumberGained then
+        player._lumberGained = amount
+    else
+        player._lumberGained = player._lumberGained + amount
+    end
 end
 
 
 
 function printRes(funcName, message)
-   if DEBUG_RESOURCES then
-      print(funcName..": "..message)
-   end
+    if DEBUG_RESOURCES then
+        print(funcName..": "..message)
+    end
 end

@@ -158,9 +158,7 @@ function SpendResources(unit, goldAmount, lumberAmount)
     end
 
     if SpendLumber(hero, lumberAmount) == true then
-         PlayerResource:SpendGold(playerID, goldAmount, 0)
-        --ReportStat(owner, goldAmount, "goldSpent")
-        --ReportStat(owner, lumberAmount, "lumberSpent")
+        PlayerResource:SpendGold(playerID, goldAmount, 0)
         return true
     else
         print("Lumber required: "..lumberAmount)
@@ -175,11 +173,19 @@ function SpendLumber(hero, amount)
     local lumberCount = hero:GetLumber()
 
     if lumberCount > amount or lumberCount == amount then
-         hero:DecLumber(amount)
+        hero:DecLumberNoStats(amount)
         return true
     else
         return false
     end
+end
+
+
+
+function HasEnoughLumber(hero, amount)
+    local lumber = hero:GetLumber()
+
+    return (lumber >= amount)
 end
 
 
@@ -229,7 +235,6 @@ end
 function GiveGoldToPlayer(playerID, amount)
     local currentGold = PlayerResource:GetReliableGold(playerID)
     PlayerResource:SetGold(playerID, currentGold + amount, true)
-    Stats:AddGold(playerID, amount)
 end
 
 
@@ -242,12 +247,12 @@ function BuyGold(unit, wood, gold)
     end
     
     local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
-    if SpendLumber(playerHero, wood) == true then
+    if HasEnoughLumber(playerHero, wood) then
         local owner = unit:GetOwner()
         local ownerID = owner:GetPlayerID()
         local currentGold = PlayerResource:GetReliableGold(ownerID)
         playerHero:IncGold(gold)
-        --PlayerResource:SetGold(ownerID, currentGold + gold, true)
+        playerHero:DecLumber(wood)
         return true
     end
     
@@ -262,13 +267,8 @@ function BuyGoldFromSpell(keys)
     local wood = keys.wood
     local gold = keys.gold
     
-    if not unit or not wood or not gold then
-        print("BuyGoldFromSpell: unit, wood or gold was nil!")
-        return
-    else
-        if BuyGold(unit, wood, gold) == false then
-            print("Gold could not be bought!")
-        end
+    if not BuyGold(unit, wood, gold) then
+        print("Gold could not be bought!")
     end
 end
 
@@ -518,6 +518,7 @@ end
 
 
 -- Gives gold to the specified player
+--[=[
 function GiveGold(keys)
     if not keys.caster or not keys.amount then
         print("GiveGold: caster or amount was nil!")
@@ -531,9 +532,10 @@ function GiveGold(keys)
     local currentGold = PlayerResource:GetReliableGold(ownerID)
     PopupGoldGain(caster, gold)
     PlayerResource:SetGold(ownerID, currentGold + gold, true)
+    print("GiveGold called!")
     Stats:AddGold(ownerID, gold)
     return true
-end
+end]=]
 
 
 

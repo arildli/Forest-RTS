@@ -129,7 +129,8 @@ function Build( event )
 
     -- A building finished construction
     event:OnConstructionCompleted(function(unit)
-        BuildingHelper:print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
+        --BuildingHelper:print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
+        print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
         
         -- Play construction complete sound
 
@@ -141,7 +142,7 @@ function Build( event )
 
         -- Give the unit their original attack capability
         --unit:SetAttackCapability(unit.original_attack)
-    finishConstruction(unit)
+        finishConstruction(unit)
     -- END
     end)
 
