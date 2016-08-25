@@ -130,7 +130,7 @@ function Build( event )
     -- A building finished construction
     event:OnConstructionCompleted(function(unit)
         --BuildingHelper:print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
-        print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
+        --print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
         
         -- Play construction complete sound
 

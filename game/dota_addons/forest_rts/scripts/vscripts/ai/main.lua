@@ -325,10 +325,12 @@ function AI:print(...)
 end
 
 function AI:BotPrint(bot, ...)
-    if not ... then
-        print("ERROR: ... was nil!")
+    if AI.settings["TESTING"] then
+        if not ... then
+            print("ERROR: ... was nil!")
+        end
+        AI:Print("["..bot.race.." - "..bot.playerID.."] ".. ...)
     end
-    AI:Print("["..bot.race.." - "..bot.playerID.."] ".. ...)
 end
 
 ---------------------------------------------------------------------------
@@ -336,5 +338,7 @@ end
 -- Also prepends '[AI] (ERROR) ' to the front.
 ---------------------------------------------------------------------------
 function AI:Failure(...)
-    print("[AI] (ERROR) ".. ...)
+    if AI.settings["TESTING"] then
+        print("[AI] (ERROR) ".. ...)
+    end
 end

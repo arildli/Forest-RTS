@@ -43,6 +43,7 @@ function BuildGameArray()
     local game = {}
 
     -- Add game values here as game.someValue = GetSomeGameValue()
+    game.gm = Stats.game.mode                                                              -- New
 
     return game
 end
@@ -64,6 +65,7 @@ function BuildPlayersArray()
                     -- Hero related
                     hn = GetHeroName(playerID), -- Hero Name
                     hl = stats.herolevel, -- Hero Level
+                    t = stats.team, -- Team                                                -- New
 
                     -- Economy
                     gg = stats.goldGained, -- Gold Gained
@@ -75,6 +77,10 @@ function BuildPlayersArray()
                     utt = stats.trainedTotal, -- Units Trained Total
                     ult = stats.unitsLostTotal, -- Units Lost Total
                     ukt = stats.unitsKilledTotal, -- Units Killed Total
+                    td = stats.tentsDestroyed, -- Tents Destroyed                          -- New
+                    hk = Stats:GetHeroesKilled(playerID), -- Heroes Killed Total           -- New
+                    wt = Stats:GetWorkerTrained(playerID), -- Worker Units Trained         -- New
+                    wl = Stats:GetWorkerLost(playerID), -- Worker Units Lost               -- New
                     mt = Stats:GetMeleeTrained(playerID), -- Melee Units Trained
                     ml = Stats:GetMeleeLost(playerID), -- Melee Units Lost
                     rt = Stats:GetRangedTrained(playerID), -- Ranged Units Trained

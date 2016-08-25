@@ -7,16 +7,23 @@ end
 
 --[=[
 To add:
-- | | Time when last player left the game.
-- |x| Current game mode.
-- | | Workers killed and trained.
-- | | Neutrals killed by player
+- | | Time when last player left the game
+- |x| Current game mode
+- |x| Workers trained and lost
+- |x| Heroes killed
+- |x| Team name
+- | | Main Tents destroyed
 ]=]
+
+-- Disse er feil:
+-- ls
+-- wt
+-- wl
 
 function Stats:Init()
     Stats.players = {}
     Stats.game = {
-        mode = "Patrols"
+        mode = "Unspecified"
     }
 end
 
@@ -26,17 +33,20 @@ end
 
 
 
-function Stats:AddPlayer(hero, player, playerID)
+function Stats:AddPlayer(hero, player, playerID, team)
     if not Stats.players then Stats:Init() end
     Stats.players[playerID] = {
         heroname = GetHeroConst(hero:GetUnitName()),
         herolevel = hero:GetLevel(),
+        team = team,
 
         trainedTotal = 0,
         constructedTotal = 0,
         unitsLostTotal = 0,
         buildingsLostTotal = 0,
         unitsKilledTotal = 0,
+        heroesKilledTotal = 0,
+        tentsDestroyed = 0,
         buildingsDestroyedTotal = 0,
         upgradesResearchedTotal = 0,
 
@@ -79,8 +89,16 @@ function Stats:OnTrained(playerID, unit, enttype)
     end
 end
 
+function Stats:OnTentDestroyed(killerID)
+    print("Stats: Tent destroyed!")
+    local player = Stats:GetPlayer(killerID)
+    if not player then return end
+
+    player.tentsDestroyed = player.tentsDestroyed + 1
+end
+
 function Stats:OnDeath(playerID, killerID, unit, enttype)
-    --print("Stats: "..unit:GetUnitName().." died!")
+    print("Stats: "..unit:GetUnitName().." died!")
     local owner = Stats:GetPlayer(playerID)
     if not owner then return end
     local killer = Stats:GetPlayer(killerID)
@@ -90,6 +108,7 @@ function Stats:OnDeath(playerID, killerID, unit, enttype)
         owner.unitsLostTotal = owner.unitsLostTotal + 1
         owner.unitsLost[entName] = (owner.unitsLost[entName] or 0) + 1
         if killer then killer.unitsKilledTotal = killer.unitsKilledTotal + 1 end
+        if killer and unit:IsRealHero() then killer.heroesKilledTotal = killer.heroesKilledTotal + 1 end
     elseif enttype == "building" then
         owner.buildingsLostTotal = owner.buildingsLostTotal + 1
         owner.buildingsLost[entName] = (owner.buildingsLost[entName] or 0) + 1
@@ -134,7 +153,7 @@ function Stats:AddLumber(playerID, lumber)
 end
 
 function Stats:SpendLumber(playerID, lumber)
-    --print("Stats: "..lumber.." LUMBER SPENT!")
+    print("Stats: "..lumber.." LUMBER SPENT!")
     local player = Stats:GetPlayer(playerID)
     player.lumberSpent = player.lumberSpent + lumber
 end
@@ -167,12 +186,31 @@ end
 
 -- Useful when using the collected stats.
 
+function Stats:GetHeroesKilled(playerID)
+    local player = Stats:GetPlayer(playerID)
+    if not player then return nil end
+
+    return player.heroesKilledTotal
+end
+
+
+
 function Stats:GetUnitTypeTrained(playerID, unitType)
     local player = Stats:GetPlayer(playerID)
     if not player then return nil end
 
-    local unitName = entities[player.heroname][unitType].name
+    local unitStruct = entities[player.heroname][unitType]
+    -- In case of Meepo
+    if not unitStruct then 
+        print("Stats:GetUnitTypeTrained: unitStruct for "..unitType.." no found!")
+        return 0 
+    end
+    local unitName = unitStruct.name
     return player.trained[unitName] or 0
+end
+
+function Stats:GetWorkerTrained(playedID)
+    return Stats:GetUnitTypeTrained(playerID, "WORKER")
 end
 
 function Stats:GetMeleeTrained(playerID)
@@ -197,8 +235,17 @@ function Stats:GetUnitTypeLost(playerID, unitType)
     local player = Stats:GetPlayer(playerID)
     if not player then return nil end
 
-    local unitName = entities[player.heroname][unitType].name
+    local unitStruct = entities[player.heroname][unitType]
+    -- In case of Meepo
+    if not unitStruct then 
+        return 0 
+    end
+    local unitName = unitStruct.name
     return player.unitsLost[unitName] or 0
+end
+
+function Stats:GetWorkerLost(playedID)
+    return Stats:GetUnitTypeLost(playerID, "WORKER")
 end
 
 function Stats:GetMeleeLost(playerID)

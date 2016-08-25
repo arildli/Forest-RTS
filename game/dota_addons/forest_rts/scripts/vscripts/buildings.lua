@@ -89,6 +89,7 @@ function finishConstruction(building)
     local playerID = building:GetOwnerID()
     Stats:OnTrained(playerID, building, "building")
     Stats:SpendGold(playerID, building.gold_cost)
+    print("SJEKK OM GOLD OG LUMBER COST HAR VERDI!")
     Stats:SpendLumber(playerID, building.lumber_cost)
 
     local event = {
@@ -302,6 +303,7 @@ function OnUnitTrained(keys)
     local playerID = target:GetOwnerID()
     Stats:OnTrained(playerID, target, "unit")
     Stats:SpendGold(playerID, keys.goldCost)
+    print("LumberCost from training unit: "..keys.lumberCost)
     Stats:SpendLumber(playerID, keys.lumberCost)
 
     -- Move to rally point if it exists.

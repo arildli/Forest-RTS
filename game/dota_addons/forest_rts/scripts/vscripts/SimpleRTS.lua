@@ -104,7 +104,7 @@ function SimpleRTSGameMode:InitGameMode()
     GameMode:SetLoseGoldOnDeath(false)
    
     -- Find pathable trees.
-    DeterminePathableTrees()
+    Resources:InitTrees()
    
     print("[SimpleRTS] Gamemode rules are set.")
    
@@ -298,8 +298,9 @@ function SimpleRTSGameMode:onHeroPick(keys)
     local hero = EntIndexToHScript(keys.heroindex)
     local player = EntIndexToHScript(keys.player)
     local playerID = hero:GetPlayerID()
+    local teamName = GetTeamName(hero:GetTeam())
 
-    Stats:AddPlayer(hero, player, playerID)
+    Stats:AddPlayer(hero, player, playerID, teamName)
     Resources:InitHero(hero, START_LUMBER)
 
     Quests:AddPlayer(player)
@@ -590,7 +591,10 @@ function SimpleRTSGameMode:onEntityKilled(keys)
     -- No need for more processing if killed unit was a soldier or neutral.
     if SimpleRTSGameMode:IsSoldier(killedUnit) or killedUnit:IsNeutralUnitType() or (not killedUnit:IsRealHero() and not killedUnit._playerOwned) then
         if killerUnit:IsRealHero() or killerUnit._playerOwned then
-            Stats:OnDeathNeutral(killerUnit:GetOwnerID(), killedUnit)
+            local goldBounty = killedUnit:GetGoldBounty()
+            local killerID = killerUnit:GetOwnerID()
+            Stats:AddGold(killerID, goldBounty)
+            Stats:OnDeathNeutral(killerID, killedUnit)
         end
         return
     end
@@ -675,12 +679,14 @@ function SimpleRTSGameMode:onEntityKilled(keys)
      killedTeamString = "<font color='"..COLOR_RADIANT.."'>Radiant</font>"
      self.scoreDire = self.scoreDire + 1
      if StringStartsWith(unitName, "npc_dota_building_main_tent") then
+        Stats:OnTentDestroyed(killerID)
         GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
      end
       elseif killedTeam == DOTA_TEAM_BADGUYS then
      killedTeamString = "<font color='"..COLOR_DIRE.."'>Dire</font>"
      self.scoreRadiant = self.scoreRadiant + 1
      if StringStartsWith(unitName, "npc_dota_building_main_tent") then
+        Stats:OnTentDestroyed(killerID)
         GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
      end
       end
@@ -758,10 +764,10 @@ end
 -- Single Player Mode
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:SinglePlayerMode(botTeam)
-   ---print("[SimpleRTS] Single Player Mode:\tPlayer ID: "..localPlayer:GetPlayerID().."\tBot Team: "..botTeam)
-   --SimpleRTSGameMode:ShowCenterMessage("#simplerts_single_player_mode", 5)
-   Stats:SetGameMode("Solo")
-   SimpleRTSGameMode:spawnSimpleBot(botTeam, 1.1)
+    ---print("[SimpleRTS] Single Player Mode:\tPlayer ID: "..localPlayer:GetPlayerID().."\tBot Team: "..botTeam)
+    --SimpleRTSGameMode:ShowCenterMessage("#simplerts_single_player_mode", 5)
+    Stats:SetGameMode("Solo")
+    SimpleRTSGameMode:spawnSimpleBot(botTeam, 1.1)
 end
 
 
@@ -770,12 +776,12 @@ end
 -- Co-Op Mode
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:CoOpMode(botTeam, activeTeam, playersOnTeam)
-   --SimpleRTSGameMode:ShowCenterMessage("#simplerts_co-op_mode_text", 5)
+    --SimpleRTSGameMode:ShowCenterMessage("#simplerts_co-op_mode_text", 5)
 
-   print("[SimpleRTS] Co-Op versus Soldiers Mode:\tTeam: "..activeTeam.."\tBot Team: "..botTeam)
-   print("[SimpleRTS] Player on team: "..playersOnTeam)
-   Stats:SetGameMode("Co-Op")
-   SimpleRTSGameMode:spawnSimpleBot(botTeam, playersOnTeam*1.1)
+    print("[SimpleRTS] Co-Op versus Soldiers Mode:\tTeam: "..activeTeam.."\tBot Team: "..botTeam)
+    print("[SimpleRTS] Player on team: "..playersOnTeam)
+    Stats:SetGameMode("Co-Op")
+    SimpleRTSGameMode:spawnSimpleBot(botTeam, playersOnTeam*1.1)
 end
 
 
@@ -801,8 +807,8 @@ end
 -- Spawns a simple bot on the opposite team
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:spawnSimpleBot(botTeam, multiplier)
-   print("[SimpleRTS] Spawning bot at team: "..botTeam.." with multiplier "..multiplier.."!")
-   SimpleBot:Init(botTeam, multiplier)
+    print("[SimpleRTS] Spawning bot at team: "..botTeam.." with multiplier "..multiplier.."!")
+    SimpleBot:Init(botTeam, multiplier)
 end
 
 
@@ -865,7 +871,7 @@ end
 -- * playerID: The ID of the player
 ---------------------------------------------------------------------------
 function GetPlayerHero(playerID)
-   return PLAYER_HEROES[playerID]
+    return PLAYER_HEROES[playerID]
 end
 
 
@@ -886,7 +892,7 @@ end
 -- Think function, unused
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:Think()
-   return THINK_TIME
+    return THINK_TIME
 end
 
 
@@ -901,15 +907,15 @@ end
 
 -- Called whenever a player changes its current selection, it keeps a list of entity indexes
 function SimpleRTSGameMode:OnPlayerSelectedEntities( event )
-   local pID = event.pID
+    local pID = event.pID
    
-   GameRules.SELECTED_UNITS[pID] = event.selected_entities
+    GameRules.SELECTED_UNITS[pID] = event.selected_entities
    
-   -- This is for Building Helper to know which is the currently active builder
-   local mainSelected = GetMainSelectedEntity(pID)
-   if IsValidEntity(mainSelected) and IsBuilder(mainSelected) then
-      local player = PlayerResource:GetPlayer(pID)
-      player.activeBuilder = mainSelected
-   end
+    -- This is for Building Helper to know which is the currently active builder
+    local mainSelected = GetMainSelectedEntity(pID)
+    if IsValidEntity(mainSelected) and IsBuilder(mainSelected) then
+        local player = PlayerResource:GetPlayer(pID)
+        player.activeBuilder = mainSelected
+    end
 end
 

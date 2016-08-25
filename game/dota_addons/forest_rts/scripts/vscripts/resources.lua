@@ -242,6 +242,225 @@ end
 
 
 ---------------------------------------------------------------------------
+-- Initializes the tree system.
+--
+-- Gatherer methods are borrowed from the currently unfinished 
+-- Gatherer library in the DotaCraft repo.
+---------------------------------------------------------------------------
+function Resources:InitTrees()
+    if not Gatherer.AllTrees then
+        Gatherer.AllTrees = Entities:FindAllByClassname("ent_dota_tree")
+        Gatherer.TreeCount = #Gatherer.AllTrees
+        -- Do some shit
+    end
+
+    print("Inside InitTrees():")
+
+    local treeMapFile
+    local status,ret = pcall(function()
+        print("pcall function called ("..GetMapName()..").")
+        treeMapFile = loadModule("tree_maps/"..GetMapName())
+        if treeMapFile then
+            print("Tree map loaded!")
+            Gatherer:LoadTreeMap(treeMapFile)
+            return -- Skip heavy tree algorithms
+        else
+            print("No Tree Map file found for "..GetMapName())
+        end
+    end)
+
+    print("Running HEAVY tree algorithms!")
+
+    Gatherer:DeterminePathableTrees()
+    Gatherer:DetermineForests()
+    if IsInToolsMode() then
+        print("CREATING TREE MAP!")
+        Gatherer:GenerateTreeMap()
+    end
+end
+
+if not Gatherer then
+    Gatherer = class({})
+end
+
+-- Defined on DeterminePathableTrees() and updated on tree_cut
+function CDOTA_MapTree:IsPathable()
+    return self.pathable == true
+end
+
+-- Defined on DetermineForests()
+function CDOTA_MapTree:GetForestID()
+    return self.forestID or 0
+end
+
+function CDOTA_MapTree:GetTreeID()
+    return GetTreeIdForEntityIndex(self:GetEntityIndex())
+end
+
+function GetTreeHandleFromId(treeID)
+    print("type treeID: "..type(treeID))
+    return EntIndexToHScript(GetEntityIndexForTreeId(tonumber(treeID)))
+end
+
+function Gatherer:DetermineForests()
+    self.treeForests = {}
+
+    local num = 0
+    for _,tree in pairs(self.AllTrees) do
+        if not tree.forestID then
+            num = num + 1
+        end
+        Gatherer:MapTreeForest(tree, num)
+    end
+
+    -- Set
+    for _,tree in pairs(self.AllTrees) do
+        local id = tree.forestID
+        self.treeForests[id] = self.treeForests[id] or {}
+        table.insert(self.treeForests[id], tree)
+    end  
+end
+
+-- Recurse on the trees nearby
+function Gatherer:MapTreeForest(tree, ID)
+    if not tree.forestID then
+        tree.forestID = ID
+    end
+
+    local treesNearby = GridNav:GetAllTreesAroundPoint(tree:GetAbsOrigin(), 200, true)
+    for k,v in pairs(treesNearby) do
+        if not v.forestID then
+            Gatherer:MapTreeForest(v, ID)
+        end
+    end
+end
+
+-- Implemented by Noya
+--https://en.wikipedia.org/wiki/Flood_fill
+function Gatherer:DeterminePathableTrees()
+     
+    --------------------------
+    --      Flood Fill      --
+    --------------------------
+
+    print("DeterminePathableTrees")
+     
+    local world_positions = {}
+    local valid_trees = {}
+    local seen = {}
+     
+    --Set Q to the empty queue.
+    local Q = {}
+
+    --Add node to the end of Q.
+    table.insert(Q, Vector(-7200, -6600, 0))
+    --table.insert(Q, Vector(0,0,0))
+     
+    local vecs = {
+        Vector(0,64,0),-- N
+        Vector(64,64,0), -- NE
+        Vector(64,0,0), -- E
+        Vector(64,-64,0), -- SE
+        Vector(0,-64,0), -- S
+        Vector(-64,-64,0), -- SW
+        Vector(-64,0,0), -- W
+        Vector(-64,64,0) -- NW
+    }
+
+    while #Q > 0 do
+        --Set n equal to the first element of Q and Remove first element from Q.
+        local position = table.remove(Q)
+            
+        --If the color of n is equal to target-color:
+        local blocked = GridNav:IsBlocked(position) or not GridNav:IsTraversable(position)
+        if not blocked then
+         
+            table.insert(world_positions, position)
+         
+            -- Mark position processed.
+            seen[GridNav:WorldToGridPosX(position.x)..","..GridNav:WorldToGridPosX(position.y)] = 1
+            for k=1,#vecs do
+                local vec = vecs[k]
+                local xoff = vec.x
+                local yoff = vec.y
+                local pos = Vector(position.x + xoff, position.y + yoff, position.z)
+
+                -- Add unprocessed nodes
+                if not seen[GridNav:WorldToGridPosX(pos.x)..","..GridNav:WorldToGridPosX(pos.y)] then
+                    table.insert(world_positions, position)
+                    table.insert(Q, pos)
+                end
+            end
+        else
+            local nearbyTree = GridNav:IsNearbyTree(position, 64, true)
+            if nearbyTree then
+                local trees = GridNav:GetAllTreesAroundPoint(position, 1, true)
+                if #trees > 0 then
+                    local t = trees[1]
+                    t.pathable = true
+                    table.insert(valid_trees,t)
+                end
+            end
+        end
+    end
+
+    print("Number of valid trees: "..#valid_trees)
+end
+
+-- Puts the saved tree map info on each tree handle
+function Gatherer:LoadTreeMap(treeMapTable)
+    local pathable_count = 0
+    for treeID,values in pairs(treeMapTable) do
+        local tree = GetTreeHandleFromId(treeID)
+        if tree then
+            local bPathable = values.pathable == 1
+            if bPathable then pathable_count = pathable_count + 1 end
+            tree.pathable = bPathable
+            tree.forestID = values.forestID
+        end
+    end
+
+    -- Populate the tree Forests lists
+    for _,tree in pairs(self.AllTrees) do
+        local id = tree.forestID
+        self.treeForests[id] = self.treeForests[id] or {}
+        table.insert(self.treeForests[id], tree)
+    end
+
+    print("Loaded Tree Map for "..GetMapName())
+    print("Pathable count: "..pathable_count.." out of "..self.TreeCount)
+    print(#self.treeForests.." Forests loaded.")
+end
+
+function Gatherer:GenerateTreeMap()
+    local path = "../../dota_addons/".."forest_rts".."/scripts/vscripts/tree_maps/"..GetMapName()..".lua"
+    self.treeMap = io.open(path, 'w')
+    if not self.treeMap then
+        print("Error: Can't open path "..path)
+        return
+    end
+
+    print("Generating Tree Map for "..GetMapName().."...")
+    self.treeMap:write("local trees = {")
+    for forestID,treesInForest in pairs(self.treeForests) do
+        for _,tree in pairs(treesInForest) do
+            local pathable = tree:IsPathable() and 1 or 0
+            local forestID = tree:GetForestID()
+            self.treeMap:write("\n"..string.rep(" ",4)..string.format("%4s",tree:GetTreeID()).." = {pathable = "..pathable..", forestID = "..forestID.."},")
+            --self.treeMap:write("\n"..string.rep(" ",4)..string.format("[%4s]",tree:GetTreeID()).." = {pathable = "..pathable..", forestID = "..forestID.."},")
+        end        
+    end
+    self.treeMap:write("\n}\n")
+    self.treeMap:write("return trees")
+    self.treeMap:close()
+    print("Tree Map generated at "..path)
+end
+
+-- End Gatherer code.
+
+
+
+---------------------------------------------------------------------------
 -- Returns true if unit can accept lumber deliveries.
 ---------------------------------------------------------------------------
 function Resources:IsValidDeliveryPoint(building)
