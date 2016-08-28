@@ -284,6 +284,7 @@ function HarvestLumber(unit)
         return
     end
 
+    local playerID = unit:GetPlayerOwnerID()
     local harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker") or
         unit:FindAbilityByName("srts_harvest_lumber")
     if harvestAbility then
@@ -332,79 +333,78 @@ end
 
 -- Mark the tree occupied.
 function RegisterHarvesterAtTree(keys)
-     local caster = keys.caster
-     local target = keys.target
-     target._harvester = caster
+    local caster = keys.caster
+    local target = keys.target
+    target._harvester = caster
 
-     if not caster.HARVESTER then
-            Resources:InitHarvester(caster)
-     end
+    if not caster.HARVESTER then
+        Resources:InitHarvester(caster)
+    end
 
-     caster.HARVESTER.prevTree = target
+    caster.HARVESTER.prevTree = target
 end
 
 -- Mark the tree free for harvest.
 function UnregisterHarvesterAtTree(keys)
-     local caster = keys.caster
-     local target = keys.target
-     target._harvester = nil
+    local caster = keys.caster
+    local target = keys.target
+    target._harvester = nil
 end
 
 -- Checks if the tree has a worker harvesting it.
 function TreeIsEmpty(tree)
-     if tree._harvester then
-            return false
-     end
-     return true
+    if tree._harvester then
+        return false
+    end
+    return true
 end
 
 -- Try to find a nearby unoccupied tree near the unit.
 function FindEmptyTree(unit, location, radius)
-     local nearbyTrees = GridNav:GetAllTreesAroundPoint(location, radius, true)
+    local nearbyTrees = GridNav:GetAllTreesAroundPoint(location, radius, true)
 
-     -- EDITED
-     --[=[for _,tree in pairs(nearbyTrees) do
-            -- IsTreePathable(tree)
-            local color
-            if IsTreePathable(tree) then
-         color = Vector(35, 231, 38)
-            else
-         color = Vector(238, 2, 2)
-            end
-            DebugDrawCircle(tree:GetCenter(), color, 5, 100, false, 3)
-     end
-     DebugDrawCircle(location, Vector(200, 200, 200), 5, radius, false, 3)
-     ]=]
-     -- DONE
-
-     -- EDITED
-     local pathableTrees = GetAllPathableTreesFromList(location.z, nearbyTrees)
-     -- DONE
-     --local pathableTrees = GetAllPathableTreesFromList(nearbyTrees)
-     if #pathableTrees == 0 then
-            print("FindEmptyTree: No nearby empty trees found!")
-            return nil
-     end
+    -- EDITED
+    local pathableTrees = GetAllPathableTreesFromList(location.z, nearbyTrees)
+    --local pathableTrees = filter(function(tree) return tree:IsPathable() end, nearbyTrees)
+    -- DONE
+    if #pathableTrees == 0 then
+        print("FindEmptyTree: No nearby empty trees found!")
+        return nil
+    end
      
-     local sortedList = SortListByClosest(pathableTrees, location)
-     for _,tree in pairs(sortedList) do
-            if TreeIsEmpty(tree) and IsTreePathable(tree) then
-         return tree
-            end
-     end
+    local sortedList = SortListByClosest(pathableTrees, location)
+    for _,tree in pairs(sortedList) do
+        if TreeIsEmpty(tree) and IsTreePathable(tree) then
+            return tree
+        end
+    end
+end
+
+function DebugShowNearbyTrees(nearbyTrees)
+    for _,tree in pairs(nearbyTrees) do
+        -- IsTreePathable(tree)
+        local color
+        if IsTreePathable(tree) then
+            color = Vector(35, 231, 38)
+        else
+            color = Vector(238, 2, 2)
+        end
+        DebugDrawCircle(tree:GetCenter(), color, 5, 100, false, 3)
+    end
+    DebugDrawCircle(location, Vector(200, 200, 200), 5, radius, false, 3)
 end
 
 -- Checks if the tree is pathable.
 function IsTreePathable( tree )
-     return tree.pathable
+    return tree.pathable
 end
 
 function GetAllPathableTreesFromList( height, list )
-     local pathable_trees = {}
-     for _,tree in pairs(list) do
-            if IsTreePathable(tree) then
-         table.insert(pathable_trees, tree)
-            end
+    local pathable_trees = {}
+    for _,tree in pairs(list) do
+        if tree:IsPathable() then --IsTreePathable(tree) then
+            table.insert(pathable_trees, tree)
+        end
             -- EDITED
             --[=[local treeHeight = tree:GetCenter().z
             if IsTreePathable(tree) and treeHeight == height then
@@ -412,38 +412,38 @@ function GetAllPathableTreesFromList( height, list )
             end
             ]=]
             -- DONE
-     end
-     return pathable_trees
+    end
+    return pathable_trees
 end
 
 function GetClosestEntityToPosition(list, position)
-     local distance = 20000
-     local closest = nil
+    local distance = 20000
+    local closest = nil
      
-     for k,ent in pairs(list) do
-            local this_distance = (position - ent:GetAbsOrigin()):Length()
-            if this_distance < distance then
-         distance = this_distance
-         closest = k
-            end
-     end
+    for k,ent in pairs(list) do
+        local this_distance = (position - ent:GetAbsOrigin()):Length()
+        if this_distance < distance then
+            distance = this_distance
+            closest = k
+        end
+    end
      
-     return closest   
+    return closest   
 end
 
 function SortListByClosest( list, position )
-        local trees = {}
-        for _,v in pairs(list) do
-                trees[#trees+1] = v
-        end
+    local trees = {}
+    for _,v in pairs(list) do
+        trees[#trees+1] = v
+    end
 
-        local sorted_list = {}
-        for _,tree in pairs(list) do
-                local closest_tree = GetClosestEntityToPosition(trees, position)
-                sorted_list[#sorted_list+1] = trees[closest_tree]
-                trees[closest_tree] = nil -- Remove it
-        end
-        return sorted_list
+    local sorted_list = {}
+    for _,tree in pairs(list) do
+        local closest_tree = GetClosestEntityToPosition(trees, position)
+        sorted_list[#sorted_list+1] = trees[closest_tree]
+        trees[closest_tree] = nil -- Remove it
+    end
+    return sorted_list
 end
 
 

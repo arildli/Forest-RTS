@@ -259,7 +259,8 @@ function Resources:InitTrees()
     local treeMapFile
     local status,ret = pcall(function()
         print("pcall function called ("..GetMapName()..").")
-        treeMapFile = loadModule("tree_maps/"..GetMapName())
+        treeMapFile = require("tree_maps/"..GetMapName())
+        if treeMapFile == nil then print("Bloody hell! File is nil!!!") end
         if treeMapFile then
             print("Tree map loaded!")
             Gatherer:LoadTreeMap(treeMapFile)
@@ -269,6 +270,10 @@ function Resources:InitTrees()
         end
     end)
 
+    local shouldGenerateMap = false
+    if not shouldGenerateMap and treeMapFile then
+        return
+    end
     print("Running HEAVY tree algorithms!")
 
     Gatherer:DeterminePathableTrees()
@@ -298,7 +303,6 @@ function CDOTA_MapTree:GetTreeID()
 end
 
 function GetTreeHandleFromId(treeID)
-    print("type treeID: "..type(treeID))
     return EntIndexToHScript(GetEntityIndexForTreeId(tonumber(treeID)))
 end
 
@@ -446,8 +450,8 @@ function Gatherer:GenerateTreeMap()
         for _,tree in pairs(treesInForest) do
             local pathable = tree:IsPathable() and 1 or 0
             local forestID = tree:GetForestID()
-            self.treeMap:write("\n"..string.rep(" ",4)..string.format("%4s",tree:GetTreeID()).." = {pathable = "..pathable..", forestID = "..forestID.."},")
-            --self.treeMap:write("\n"..string.rep(" ",4)..string.format("[%4s]",tree:GetTreeID()).." = {pathable = "..pathable..", forestID = "..forestID.."},")
+            --self.treeMap:write("\n"..string.rep(" ",4)..string.format("%4s",tree:GetTreeID()).." = {pathable = "..pathable..", forestID = "..forestID.."},")
+            self.treeMap:write("\n"..string.rep(" ",4)..string.format("[%4s]",tree:GetTreeID()).." = {pathable = "..pathable..", forestID = "..forestID.."},")
         end        
     end
     self.treeMap:write("\n}\n")

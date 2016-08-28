@@ -153,7 +153,6 @@ function Stats:AddLumber(playerID, lumber)
 end
 
 function Stats:SpendLumber(playerID, lumber)
-    print("Stats: "..lumber.." LUMBER SPENT!")
     local player = Stats:GetPlayer(playerID)
     player.lumberSpent = player.lumberSpent + lumber
 end

@@ -79,8 +79,8 @@ function BuildPlayersArray()
                     ukt = stats.unitsKilledTotal, -- Units Killed Total
                     td = stats.tentsDestroyed, -- Tents Destroyed                          -- New
                     hk = Stats:GetHeroesKilled(playerID), -- Heroes Killed Total           -- New
-                    wt = Stats:GetWorkerTrained(playerID), -- Worker Units Trained         -- New
-                    wl = Stats:GetWorkerLost(playerID), -- Worker Units Lost               -- New
+                    --wt = Stats:GetWorkerTrained(playerID), -- Worker Units Trained         -- New
+                    --wl = Stats:GetWorkerLost(playerID), -- Worker Units Lost               -- New
                     mt = Stats:GetMeleeTrained(playerID), -- Melee Units Trained
                     ml = Stats:GetMeleeLost(playerID), -- Melee Units Lost
                     rt = Stats:GetRangedTrained(playerID), -- Ranged Units Trained
