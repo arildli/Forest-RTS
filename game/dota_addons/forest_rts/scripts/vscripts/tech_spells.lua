@@ -865,6 +865,136 @@ defs = {
 		}
 	},
 
+
+	-- Brewmaster
+	BREWMASTER_WORKER = {
+		name = "npc_dota_creature_brewmaster_worker",
+		spell = "srts_train_brewmaster_worker",
+		category = "unit",
+		trainedAt = "TENT_SMALL",
+		unitType = "worker",
+		upgrades = {
+			"UPGRADE_LIGHT_ARMOR",
+			"UPGRADE_LIGHT_DAMAGE"},
+		max = MAX_WORKER_COUNT,
+		pages = {
+			PAGE_MAIN = {
+				"HARVEST_LUMBER_WORKER",
+				"TRANSFER_LUMBER",
+				"PAGE_MENU_CONSTRUCTION_BASIC",
+				"PAGE_MENU_CONSTRUCTION_ADVANCED",
+				"PAGE_MENU_PROPS",
+				"REPAIR_BUILDING"
+			},
+			PAGE_MENU_CONSTRUCTION_BASIC = {
+				"TENT_SMALL",
+				"GOLD_MINE",
+				"BARRACKS_RADIANT",
+				"WATCH_TOWER",
+				"WOODEN_WALL",
+				"PAGE_MAIN"
+			},
+			PAGE_MENU_CONSTRUCTION_ADVANCED = {
+				"MARKET",
+				"HEALING_CRYSTAL_RADIANT",
+				"ARMORY_RADIANT",
+				"BARRACKS_ADVANCED_RADIANT",
+				"EMPTY_FILLER",
+				"PAGE_MAIN"
+			},
+			PAGE_MENU_PROPS = {
+				"PROP_BARREL",
+				"PROP_CHEST",
+				"PROP_STASH",
+				"PROP_WEAPON_RACK",
+				"PROP_BANNER_RADIANT",
+				"PAGE_MAIN"
+			},
+			HIDDEN = {
+				"UNIT"
+			}
+		}
+	},
+
+	BREWMASTER_BRUISER = {
+		name = "npc_dota_creature_brewmaster_bruiser",
+		spell = "srts_train_brewmaster_bruiser",
+		category = "unit",
+		trainedAt = "BARRACKS_RADIANT",
+		unitType = "melee",
+		upgrades = {
+			"UPGRADE_LIGHT_ARMOR",
+			"UPGRADE_LIGHT_DAMAGE"},
+		pages = {
+			PAGE_MAIN = {
+			},
+			HIDDEN = {
+				"UNIT"
+			}
+		}
+	},
+
+	BREWMASTER_FROSTMAGE = {
+		name = "npc_dota_creature_brewmaster_frostmage",
+		spell = "srts_train_brewmaster_frostmage",
+		category = "unit",
+		trainedAt = "BARRACKS_RADIANT",
+		unitType = "ranged",
+		upgrades = {
+			"UPGRADE_LIGHT_ARMOR",
+			"UPGRADE_LIGHT_DAMAGE"},
+		req = {"MARKET"},
+		pages = {
+			PAGE_MAIN = {
+				"ENVENOMED_SPEARS"
+			},
+			HIDDEN = {
+				"UNIT"
+			}
+		}
+	},
+	
+	BREWMASTER_CATAPULT = {
+		name = "npc_dota_creature_catapult_radiant",
+		spell = "srts_train_catapult_radiant",
+		category = "unit",
+		trainedAt = "BARRACKS_RADIANT",
+		unitType = "siege",
+		upgrades = {
+			"UPGRADE_LIGHT_ARMOR",
+			"UPGRADE_LIGHT_DAMAGE"},
+		req = {"ARMORY_RADIANT"},
+		pages = {
+			PAGE_MAIN = {
+				"SIEGE_DAMAGE"
+			},
+			HIDDEN = {
+				"UNIT"
+			}
+		}
+	},
+
+	--[=[
+	BREWMASTER_TORMENTED_SOUL = {
+		name = "npc_dota_creature_forest_tormented_soul",
+		spell = "srts_train_forest_tormented_soul",
+		category = "unit",
+		trainedAt = "BARRACKS_ADVANCED_RADIANT",
+		unitType = "caster",
+		upgrades = {
+			"UPGRADE_LIGHT_ARMOR",
+			"UPGRADE_LIGHT_DAMAGE"},
+		req = {},
+		pages = {
+			PAGE_MAIN = {
+				"LIVING_ARMOR"
+			},
+			HIDDEN = {
+				"UNIT"
+			}
+		}
+	},]=]
+
 	-- Geomancer
 	GEOMANCER_WORKER = {
 		name = "npc_dota_creature_kobold_worker",

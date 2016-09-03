@@ -214,6 +214,20 @@ function Precache( context )
 
 
 
+    -- Brewmaster
+
+    -- Worker
+    PrecacheResource("model", "models/heroes/brewmaster/brewmaster_earthspirit.vmdl", context)
+
+    -- Bruiser
+    PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_ogre_med/n_creep_ogre_med.vmdl", context)
+
+    -- Frostmage
+    PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_ogre_lrg/n_creep_ogre_lrg.vmdl", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_crystalmaiden/maiden_base_attack.vpcf", context)
+
+
+
 	-- Geomancer
 
 	-- Worker

@@ -9,6 +9,7 @@ end
 -- Hero names --
 COMMANDER = "npc_dota_hero_legion_commander"
 FURION = "npc_dota_hero_furion"
+BREWMASTER = "npc_dota_hero_brewmaster"
 GEOMANCER = "npc_dota_hero_meepo"
 KING_OF_THE_DEAD = "npc_dota_hero_skeleton_king"
 WARLORD = "npc_dota_hero_troll_warlord"
@@ -62,6 +63,7 @@ function IsHeroConst(heroname)
     local cases = {
         COMMANDER = true,
         FURION = true,
+        BREWMASTER = true,
         GEOMANCER = true,
         KING_OF_THE_DEAD = true,
         WARLORD = true
@@ -76,6 +78,7 @@ function GetHeroConst(heroname)
     local cases = {
         [COMMANDER]        = "COMMANDER",
         [FURION]           = "FURION",
+        [BREWMASTER]       = "BREWMASTER",
         [GEOMANCER]        = "GEOMANCER",
         [KING_OF_THE_DEAD] = "KING_OF_THE_DEAD",
         [WARLORD]          = "WARLORD"
@@ -146,6 +149,23 @@ entities = {
         RANGED = defs.FURION_DRYAD,
         SIEGE = defs.FURION_CATAPULT,
         CASTER = defs.FURION_TORMENTED_SOUL,
+
+        TENT_SMALL = defs.TENT_SMALL,
+        TENT_LARGE = defs.TENT_LARGE,
+        GOLD_MINE = defs.GOLD_MINE,
+        WATCH_TOWER = defs.WATCH_TOWER,
+        WOODEN_WALL = defs.WOODEN_WALL,
+        BARRACKS = defs.BARRACKS_RADIANT,
+        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_RADIANT,
+        ARMORY = defs.ARMORY_RADIANT,
+        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_RADIANT,
+        MARKET = defs.MARKET
+    },
+    BREWMASTER = {
+        WORKER = defs.BREWMASTER_WORKER,
+        MELEE = defs.BREWMASTER_BRUISER,
+        RANGED = defs.BREWMASTER_FROSTMAGE,
+        SIEGE = defs.BREWMASTER_CATAPULT,
 
         TENT_SMALL = defs.TENT_SMALL,
         TENT_LARGE = defs.TENT_LARGE,
@@ -420,6 +440,85 @@ tech = {
         }),
         BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(defs.BARRACKS_ADVANCED_RADIANT, {
             defs.FURION_TORMENTED_SOUL,
+            defs.DEMOLISH_BUILDING
+        }),
+        ARMORY_RADIANT = defs.ARMORY_RADIANT,
+        HEALING_CRYSTAL_RADIANT = defs.HEALING_CRYSTAL_RADIANT,
+        WATCH_TOWER = defs.WATCH_TOWER,
+        WOODEN_WALL = defs.WOODEN_WALL,
+        MARKET = defs.MARKET,
+        GOLD_MINE = defs.GOLD_MINE
+    },
+  
+
+    BREWMASTER = {
+        heroname = BREWMASTER,
+        
+        heropages = {
+            PAGE_MAIN = {
+                defs.HARVEST_LUMBER_HERO,
+                defs.TRANSFER_LUMBER,
+                defs.PAGE_MENU_CONSTRUCTION_BASIC,
+                defs.PAGE_MENU_CONSTRUCTION_ADVANCED,
+                defs.PAGE_MENU_PROPS
+            },
+            PAGE_MENU_CONSTRUCTION_BASIC = {
+                defs.TENT_SMALL,
+                defs.GOLD_MINE,
+                defs.BARRACKS_RADIANT,
+                defs.WATCH_TOWER,
+                defs.WOODEN_WALL,
+                defs.PAGE_MAIN
+            },
+            PAGE_MENU_CONSTRUCTION_ADVANCED = {
+                defs.MARKET,
+                defs.HEALING_CRYSTAL_RADIANT,
+                defs.ARMORY_RADIANT,
+                defs.BARRACKS_ADVANCED_RADIANT,
+                defs.EMPTY_FILLER,
+                defs.PAGE_MAIN
+            },
+            PAGE_MENU_PROPS = {
+                 defs.PROP_BARREL,
+                 defs.PROP_CHEST,
+                 defs.PROP_STASH,
+                 defs.PROP_WEAPON_RACK,
+                 defs.PROP_BANNER_RADIANT,
+                 defs.PAGE_MAIN
+            }
+        },
+
+        -- Unit and building spells
+        REGENERATIVE_BARK = defs.REGENERATIVE_BARK,
+        ENVENOMED_SPEARS = defs.ENVENOMED_SPEARS,
+        LIVING_ARMOR = defs.LIVING_ARMOR,
+
+        BREWMASTER_WORKER = defs.BREWMASTER_WORKER,
+        BREWMASTER_BRUISER = defs.BREWMASTER_BRUISER,
+        BREWMASTER_FROSTMAGE = defs.BREWMASTER_FROSTMAGE,
+        BREWMASTER_CATAPULT = defs.BREWMASTER_CATAPULT,
+
+        -- Buildings
+        TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
+            defs.BREWMASTER_WORKER,
+            defs.TENT_LARGE,
+            defs.GLOBAL_SPEED_AURA,
+            defs.DELIVERY_POINT,
+            defs.DEMOLISH_BUILDING
+        }),
+        TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
+            defs.BREWMASTER_WORKER,
+            defs.GLOBAL_SPEED_AURA,
+            defs.DELIVERY_POINT,
+            defs.DEMOLISH_BUILDING
+        }),
+        BARRACKS_RADIANT = CopyWithNewMain(defs.BARRACKS_RADIANT, {
+            defs.BREWMASTER_BRUISER,
+            defs.BREWMASTER_FROSTMAGE,
+            defs.BREWMASTER_CATAPULT,
+            defs.DEMOLISH_BUILDING
+        }),
+        BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(defs.BARRACKS_ADVANCED_RADIANT, {
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_RADIANT = defs.ARMORY_RADIANT,

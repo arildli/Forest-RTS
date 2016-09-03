@@ -175,6 +175,69 @@
 
 
 
+		// Unit1.2
+	//================================================================================
+	// Unit: Brewmaster Bruiser
+	//================================================================================
+	
+	// Level 1	
+	//========================================
+	"npc_dota_creature_brewmaster_bruiser"
+	{
+		"Model"				"models/creeps/neutral_creeps/n_creep_ogre_med/n_creep_ogre_med.vmdl"
+		"BaseClass"			"npc_dota_creature"
+		"SoundSet"			"n_creep_Melee"
+		"ModelScale"			"1.2"
+
+		"BountyXP"			"66"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
+
+		"Ability1"			""
+		"Ability2"			""
+		"Ability3"			""
+		"Ability10"			"srts_ability_units"
+
+		"SelectionGroup"		"Brewmaster_Bruiser"
+
+		"ArmorPhysical"			"1"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"		"27"
+		"AttackDamageMax"		"35"
+		"AttackRate"			"1.6"
+		"AttackAnimationPoint"		"0.38"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"			"150"
+		"ProjectileModel"		""
+		"ProjectileSpeed"		"0"
+
+		"RingRadius"			"60"
+		"HealthBarOffset"		"250"
+		"FormationRank" 		"0"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"340"
+		"MovementTurnRate"		"0.7"
+
+		"StatusHealth"			"765"
+		"StatusHealthRegen"		"0.75"
+		"StatusMana"			"0"
+		"StatusManaRegen"		"0.0"	
+
+		"VisionDaytimeRange"		"800"
+		"VisionNighttimeRange"		"800"	
+
+		"Creature"
+		{
+			//"DisableClumpingBehavior"	"1"
+		}			
+	}
+
+
+
+
+
 	// Unit1.3
 	//================================================================================
 	// Unit: Kobold Spearman
@@ -537,6 +600,69 @@
 					"ItemDef"	"5025"
 				}
 			}
+		}			
+	}
+
+
+
+
+
+	// Unit2.2
+	//================================================================================
+	// Unit: Brewmaster Frostmage
+	//================================================================================
+	
+	// Level 1	
+	//========================================
+	"npc_dota_creature_brewmaster_frostmage"
+	{
+		"Model"				"models/creeps/neutral_creeps/n_creep_ogre_lrg/n_creep_ogre_lrg.vmdl"
+		"BaseClass"			"npc_dota_creature"
+		"SoundSet"			"n_creep_Ranged"
+		"ModelScale"			"1.1"
+
+		"BountyXP"			"49"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
+
+		"Ability1"			""
+		"Ability2"			""
+		"Ability3"			""
+		"Ability10"			"srts_ability_units"
+
+		"SelectionGroup"		"Brewmaster_Frostmage"
+
+		"ArmorPhysical"			"0"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"		"18"
+		"AttackDamageMax"		"26"
+		"AttackRate"			"1.8"
+		"AttackAnimationPoint"		"0.38"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"			"600"
+		"ProjectileModel"		"particles/units/heroes/hero_crystalmaiden/maiden_base_attack.vpcf"
+		"ProjectileSpeed"		"1200"
+
+		"RingRadius"			"40"
+		"HealthBarOffset"		"175"
+		"FormationRank" 		"2"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"350"
+		"MovementTurnRate"		"0.7"
+
+		"StatusHealth"			"290"
+		"StatusHealthRegen"		"0.5"
+		"StatusMana"			"0"
+		"StatusManaRegen"		"0.0"	
+
+		"VisionDaytimeRange"		"800"
+		"VisionNighttimeRange"		"800"	
+
+		"Creature"
+		{
+			//"DisableClumpingBehavior"	"1"
 		}			
 	}
 
@@ -1551,6 +1677,71 @@
 		"MovementTurnRate"		"0.7"
 
 		"StatusHealth"			"200"
+		"StatusHealthRegen"		"0.5"
+		"StatusMana"			"0"
+		"StatusManaRegen"		"0.0"	
+
+		"VisionDaytimeRange"		"800"
+		"VisionNighttimeRange"		"800"		
+
+		"Creature"
+		{
+			//"DisableClumpingBehavior"	"1"
+		}
+	}
+
+
+
+
+
+     	// Unit5.2
+	//================================================================================
+	// Brewmaster Worker
+	//================================================================================
+	
+	"npc_dota_creature_brewmaster_worker"
+	{
+		"Model"				"models/heroes/brewmaster/brewmaster_earthspirit.vmdl"
+		"BaseClass"			"npc_dota_creature"
+		"ModelScale"			"0.9"
+
+		"BountyXP"			"19"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
+		"AbilityLayout"			"6"
+
+		"Ability1"			"srts_harvest_lumber_worker"
+		"Ability2"			"srts_transfer_lumber"
+		"Ability3"			"srts_repair_building"
+		"Ability4"			""
+		"Ability5"			""
+		"Ability6"			""
+		"Ability10"			"srts_ability_units"
+
+		"SelectionGroup"		"Brewmaster_Worker"
+		"UnitLabel"			"builder"
+
+		"ArmorPhysical"			"1"
+
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"		"6"
+		"AttackDamageMax"		"10"
+		"AttackRate"			"1.6"
+		"AttackAnimationPoint"		"0.38"
+		"AttackAcquisitionRange"	"400"
+		"AttackRange"			"125"
+		"ProjectileModel"		""
+		"ProjectileSpeed"		"0"
+
+		"RingRadius"			"40"
+		"HealthBarOffset"		"150"
+		"FormationRank" 		"1"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"340"
+		"MovementTurnRate"		"0.7"
+
+		"StatusHealth"			"225"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	

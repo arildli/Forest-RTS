@@ -313,6 +313,162 @@
     }
 
 
+    // Train1.1.2
+    // Train Brewmaster Bruiser
+    //================================================================================
+    // Train Brewmaster Bruiser
+    //================================================================================
+    "srts_train_brewmaster_bruiser"
+    {
+        // General
+        "AbilityName"           "Brewmaster_Bruiser"
+        "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+        "BaseClass"         "ability_datadriven"
+        "AbilityTextureName"        "spellicon_bruiser_brewmaster"
+        "Maxlevel"          "1"
+
+        "AbilityCastPoint"      "0.1"
+        "AbilityCastRange"      "250"
+        "AbilityCooldown"       "0"
+        "AbilityManaCost"       "0"
+        "AbilityGoldCost"       "265"
+        //  "AbilityUpgradeGoldCost"    "0"
+
+        "AbilityChannelTime"        "12"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "gold_cost" "265"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "lumber_cost"   "10"
+            }
+
+            "03"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "health"    "765"
+            }
+        
+            "04"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "armor"     "1"
+            }
+
+            "05"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "damage"    "31"
+            }
+
+            "06"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "range"     "150"
+            }
+
+            "07"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "training_time" "12"
+            }   
+        }       
+
+        "precache"
+        {
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "CheckIfCanAffordUnit"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+
+
+            "ApplyModifier"
+            {
+                "ModifierName"  "modifier_train_unit"
+                "Target"    "CASTER"
+            }
+        }   
+        
+        "OnChannelFinish"
+        {
+            "RemoveModifier"
+            {
+                "ModifierName"      "modifier_train_unit"
+                "Target"        "CASTER"
+            }   
+        }
+
+        "OnChannelSucceeded"
+        {   
+            "SpawnUnit"
+            {
+                "UnitName"  "npc_dota_creature_brewmaster_bruiser"
+                "Target"    "CASTER"
+                "Duration"  "0"
+                "UnitCount" "1"
+                "UnitLimit" "0"
+                "GrantsGold"    "1"
+                "GrantsXP"  "1"
+                "SpawnRadius"   "10"
+                
+                "OnSpawn"
+                {
+                    "ApplyModifier"
+                    {
+                        "ModifierName"  "modifier_phased"
+                        "Target"    "TARGET"
+                        "Duration"  "0.03"
+                    }
+
+                    "FireSound"
+                    {
+                        "EffectName"    "DOTA_Item.Hand_Of_Midas"
+                        "Target"    "CASTER"
+                    }
+
+                    "RunScript"
+                    {
+                        "Target"    "POINT" 
+                        "ScriptFile"    "scripts/vscripts/buildings.lua"
+                        "Function"  "OnUnitTrained"
+                        "goldCost"  "%gold_cost"
+                        "lumberCost"    "%lumber_cost"
+                    }
+                }
+            }   
+        }
+
+        "OnChannelInterrupted"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "RefundResources"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }                           
+        }
+    }
+
+
 
     // Train1.1.3
     // Train Kobold Spearman
@@ -1057,6 +1213,164 @@
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_forest_ranged_1"
+                "Target"    "CASTER"
+                "Duration"  "0"
+                "UnitCount" "1"
+                "UnitLimit" "0"
+                "GrantsGold"    "1"
+                "GrantsXP"  "1"
+                "SpawnRadius"   "10"
+                
+                "OnSpawn"
+                {
+                    "ApplyModifier"
+                    {
+                        "ModifierName"  "modifier_phased"
+                        "Target"    "TARGET"
+                        "Duration"  "0.03"
+                    }
+
+                    "FireSound"
+                    {
+                        "EffectName"    "DOTA_Item.Hand_Of_Midas"
+                        "Target"    "CASTER"
+                    }
+
+                    "RunScript"
+                    {
+                        "Target"    "POINT" 
+                        "ScriptFile"    "scripts/vscripts/buildings.lua"
+                        "Function"  "OnUnitTrained"
+                        "goldCost"  "%gold_cost"
+                        "lumberCost"    "%lumber_cost"
+                    }
+                }
+            }   
+        }
+
+        "OnChannelInterrupted"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "RefundResources"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }                           
+        }
+    }
+
+
+
+        // Train1.2.2
+    // Train Brewmaster Frostmage
+    //================================================================================
+    // Train Brewmaster Frostmage
+    //================================================================================
+    "srts_train_brewmaster_frostmage"
+    {
+        // General
+        "AbilityName"           "Forest_Dryad"
+        "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "BaseClass"         "ability_datadriven"
+        "AbilityTextureName"        "spellicon_frostmage_brewmaster"
+        "Maxlevel"          "1"
+
+        "AbilityCastPoint"      "0.1"
+        "AbilityCastRange"      "250"
+        "AbilityCooldown"       "0"
+        "AbilityManaCost"       "0"
+        //  "AbilityCooldown"       "5 5 5 5"
+        "AbilityGoldCost"       "195"
+        //  "AbilityUpgradeGoldCost"    "0"
+
+        "AbilityChannelTime"        "11"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "gold_cost" "195"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "lumber_cost"   "10"
+            }
+
+            "03"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "health"    "290"
+            }
+        
+            "04"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "armor"     "0"
+            }
+
+            "05"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "damage"    "22"
+            }
+
+            "06"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "range"     "600"
+            }
+
+            "07"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "training_time" "11"
+            }   
+        }       
+
+
+        "precache"
+        {
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "CheckIfCanAffordUnit"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+
+
+            "ApplyModifier"
+            {
+                "ModifierName"  "modifier_train_unit"
+                "Target"    "CASTER"
+            }
+        }   
+        
+        "OnChannelFinish"
+        {
+            "RemoveModifier"
+            {
+                "ModifierName"      "modifier_train_unit"
+                "Target"        "CASTER"
+            }   
+        }
+
+        "OnChannelSucceeded"
+        {   
+            "SpawnUnit"
+            {
+                "UnitName"  "npc_dota_creature_brewmaster_frostmage"
                 "Target"    "CASTER"
                 "Duration"  "0"
                 "UnitCount" "1"
@@ -2646,6 +2960,162 @@
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_forest_worker"
+                "Target"    "CASTER"
+                "Duration"  "0"
+                "UnitCount" "1"
+                "UnitLimit" "0"
+                "GrantsGold"    "1"
+                "GrantsXP"  "1"
+                "SpawnRadius"   "10"
+                
+                "OnSpawn"
+                {
+                    "ApplyModifier"
+                    {
+                        "ModifierName"  "modifier_phased"
+                        "Target"    "TARGET"
+                        "Duration"  "0.03"
+                    }
+
+                    "FireSound"
+                    {
+                        "EffectName"    "DOTA_Item.Hand_Of_Midas"
+                        "Target"    "CASTER"
+                    }
+
+                    "RunScript"
+                    {
+                        "Target"    "POINT" 
+                        "ScriptFile"    "scripts/vscripts/buildings.lua"
+                        "Function"  "OnUnitTrained"
+                        "goldCost"  "%gold_cost"
+                        "lumberCost"    "%lumber_cost"
+                    }
+                }
+            }   
+        }
+
+        "OnChannelInterrupted"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "RefundResources"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }                           
+        }
+    }
+
+
+
+
+        // Train1.3.3
+    //================================================================================
+    // Train brewmaster Worker
+    //================================================================================
+    "srts_train_brewmaster_worker"
+    {
+        // General
+        "AbilityName"           "Worker"
+        "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+        "BaseClass"         "ability_datadriven"
+        "AbilityTextureName"        "spellicon_worker_brewmaster"
+        "Maxlevel"          "1"
+
+        "AbilityCastPoint"      "0.1"
+        "AbilityCastRange"      "250"
+        "AbilityCooldown"       "0"
+        "AbilityManaCost"       "0"
+        "AbilityGoldCost"       "75"
+        //  "AbilityUpgradeGoldCost"    "0"
+
+        "AbilityChannelTime"        "9"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "gold_cost" "75"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "lumber_cost"   "0"
+            }
+
+            "03"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "health"    "225"
+            }
+        
+            "04"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "armor"     "1"
+            }
+
+            "05"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "damage"    "8"
+            }
+
+            "06"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "range"     "125"
+            }
+
+            "07"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "training_time" "9"
+            }   
+        }       
+
+        "precache"
+        {
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "CheckIfCanAffordUnit"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+
+            "ApplyModifier"
+            {
+                "ModifierName"  "modifier_train_unit"
+                "Target"    "CASTER"
+            }
+        }   
+        
+        "OnChannelFinish"
+        {
+            "RemoveModifier"
+            {
+                "ModifierName"      "modifier_train_unit"
+                "Target"        "CASTER"
+            }   
+        }
+
+        "OnChannelSucceeded"
+        {   
+            "SpawnUnit"
+            {
+                "UnitName"  "npc_dota_creature_brewmaster_worker"
                 "Target"    "CASTER"
                 "Duration"  "0"
                 "UnitCount" "1"

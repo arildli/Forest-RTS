@@ -3,266 +3,319 @@
 // the specified key-value combinations. Use override_hero <hero_to_override> for this.
 "DOTAHeroes"
 {
-	//================================================================================
-	// HERO: Commander
-	//================================================================================
-	"npc_dota_hero_legion_commander"
-	{
-		"override_hero"		"npc_dota_hero_legion_commander"
-		"ModelScale"		"0.9"	
-		"AbilityLayout"		"6"	
+    //================================================================================
+    // HERO: Commander
+    //================================================================================
+    "npc_dota_hero_legion_commander"
+    {
+        "override_hero"     "npc_dota_hero_legion_commander"
+        "ModelScale"        "0.9"   
+        "AbilityLayout"     "6" 
 
-		"Ability1"		"srts_hero_desc_commander_melee"
-		"Ability2"		"srts_hero_desc_commander_ranged"
-		"Ability3"		"srts_hero_desc_commander_caster"
-		"Ability4"		""
-		"Ability5"		""
-		"Ability6"		""
-		"Ability10"		"srts_ability_units"
-		//		"Ability11"		"srts_hero_attack_speed_aura"
+        "Ability1"      "srts_hero_desc_commander_melee"
+        "Ability2"      "srts_hero_desc_commander_ranged"
+        "Ability3"      "srts_hero_desc_commander_caster"
+        "Ability4"      ""
+        "Ability5"      ""
+        "Ability6"      ""
+        "Ability10"     "srts_ability_units"
+        //      "Ability11"     "srts_hero_attack_speed_aura"
 
-		"UnitLabel"		"builder"
-		"MovementSpeed"		"360"
-		"FormationRank" 	"0"
+        "UnitLabel"     "builder"
+        "MovementSpeed"     "360"
+        "FormationRank"     "0"
 
-		// Attributes - Strength
-		//------------------------------------------------------------------------
-		"AttributePrimary"		"DOTA_ATTRIBUTE_STRENGTH"
-		"AttributeBaseStrength"		"25"
-		"AttributeStrengthGain"		"5.0"
-		"AttributeBaseIntelligence"	"20"
-		"AttributeIntelligenceGain"	"2.0"
-		"AttributeBaseAgility"		"20"
-		"AttributeAgilityGain"		"3.5"
+        // Attributes - Strength
+        //------------------------------------------------------------------------
+        "AttributePrimary"      "DOTA_ATTRIBUTE_STRENGTH"
+        "AttributeBaseStrength"     "25"
+        "AttributeStrengthGain"     "5.0"
+        "AttributeBaseIntelligence" "20"
+        "AttributeIntelligenceGain" "2.0"
+        "AttributeBaseAgility"      "20"
+        "AttributeAgilityGain"      "3.5"
 
-		// Attack - Melee
-		//------------------------------------------------------------------------
-		"AttackDamageMin"		"25"
-		"AttackDamageMax"		"35"
-		"AttackRate"			"1.5"
-		"AttackAnimationPoint"		"0.25"
-		"AttackAcquisitionRange"	"800"
-		"AttackRange"			"128"
+        // Attack - Melee
+        //------------------------------------------------------------------------
+        "AttackDamageMin"       "25"
+        "AttackDamageMax"       "35"
+        "AttackRate"            "1.5"
+        "AttackAnimationPoint"      "0.25"
+        "AttackAcquisitionRange"    "800"
+        "AttackRange"           "128"
 
-		// Armor
-		//------------------------------------------------------------------------
-		"ArmorPhysical"			"2"
-		"MagicalResistance"		"25"
+        // Armor
+        //------------------------------------------------------------------------
+        "ArmorPhysical"         "2"
+        "MagicalResistance"     "25"
 
-		// Status
-		//------------------------------------------------------------------------
-		"StatusHealthRegen"		"1.2"
-	}
-
-
-
-	//================================================================================
-	// HERO: Furion
-	//================================================================================
-	"npc_dota_hero_furion"
-	{
-		"override_hero"		"npc_dota_hero_furion"
-		"ModelScale"		"0.9"
-		"AbilityLayout"		"6"
-
-		"Ability1"		"srts_hero_desc_furion_melee"
-		"Ability2"		"srts_hero_desc_furion_ranged"
-		"Ability3"		"srts_hero_desc_furion_caster"
-		"Ability4"		""
-		"Ability5"		""
-		"Ability6"		""
-		"Ability10"		"srts_ability_units"
-		//		"Ability11"		"srts_hero_attack_speed_aura"
-
-		"UnitLabel"		"builder"
-		"MovementSpeed"		"360"
-		"FormationRank" 	"0"
-
-		// Attributes - Intelligence
-		//------------------------------------------------------------------------
-		"AttributePrimary"		"DOTA_ATTRIBUTE_AGILITY"
-		"AttributeBaseStrength"		"20"
-		"AttributeStrengthGain"		"4.5"
-		"AttributeBaseIntelligence"	"25"
-		"AttributeIntelligenceGain"	"2.0"
-		"AttributeBaseAgility"		"20"
-		"AttributeAgilityGain"		"3.5"
-
-		// Attack - Ranged
-		//------------------------------------------------------------------------
-		"AttackDamageMin"		"20"
-		"AttackDamageMax"		"30"
-		"AttackRate"			"1.5"
-		"AttackAnimationPoint"		"0.25"
-		"AttackAcquisitionRange"	"800"
-		"AttackRange"			"600"
-
-		// Armor
-		//------------------------------------------------------------------------
-		"ArmorPhysical"			"0"
-		"MagicalResistance"		"25"
-
-		// Status
-		//------------------------------------------------------------------------
-		"StatusHealthRegen"		"1.0"
-	}
+        // Status
+        //------------------------------------------------------------------------
+        "StatusHealthRegen"     "1.2"
+    }
 
 
 
-	//================================================================================
-	// HERO: Geomancer
-	//================================================================================
-	"npc_dota_hero_meepo"
-	{
-		"override_hero"		"npc_dota_hero_meepo"
-		"ModelScale"		"0.9"
-		"AbilityLayout"		"6"
+    //================================================================================
+    // HERO: Furion
+    //================================================================================
+    "npc_dota_hero_furion"
+    {
+        "override_hero"     "npc_dota_hero_furion"
+        "ModelScale"        "0.9"
+        "AbilityLayout"     "6"
 
-		"Ability1"		"srts_hero_desc_meepo_melee"
-		"Ability2"		"srts_hero_desc_meepo_ranged"
-		"Ability3"		""
-		"Ability4"		""
-		"Ability5"		""
-		"Ability6"		""
-		"Ability10"		"srts_ability_units"
-		//		"Ability11"		"srts_hero_attack_speed_aura"
+        "Ability1"      "srts_hero_desc_furion_melee"
+        "Ability2"      "srts_hero_desc_furion_ranged"
+        "Ability3"      "srts_hero_desc_furion_caster"
+        "Ability4"      ""
+        "Ability5"      ""
+        "Ability6"      ""
+        "Ability10"     "srts_ability_units"
+        //      "Ability11"     "srts_hero_attack_speed_aura"
 
-		"UnitLabel"		"builder"
-		"MovementSpeed"		"360"
-		"FormationRank" 	"0"
+        "UnitLabel"     "builder"
+        "MovementSpeed"     "360"
+        "FormationRank"     "0"
 
-		// Attributes - Strength
-		//------------------------------------------------------------------------
-		"AttributePrimary"		"DOTA_ATTRIBUTE_STRENGTH"
-		"AttributeBaseStrength"		"25"
-		"AttributeStrengthGain"		"5.0"
-		"AttributeBaseIntelligence"	"20"
-		"AttributeIntelligenceGain"	"2.0"
-		"AttributeBaseAgility"		"20"
-		"AttributeAgilityGain"		"3.5"
+        // Attributes - Intelligence
+        //------------------------------------------------------------------------
+        "AttributePrimary"      "DOTA_ATTRIBUTE_AGILITY"
+        "AttributeBaseStrength"     "20"
+        "AttributeStrengthGain"     "4.5"
+        "AttributeBaseIntelligence" "25"
+        "AttributeIntelligenceGain" "2.0"
+        "AttributeBaseAgility"      "20"
+        "AttributeAgilityGain"      "3.5"
 
-		// Attack - Melee
-		//------------------------------------------------------------------------
-		"AttackDamageMin"		"25"
-		"AttackDamageMax"		"35"
-		"AttackRate"			"1.5"
-		"AttackAnimationPoint"		"0.25"
-		"AttackAcquisitionRange"	"800"
-		"AttackRange"			"128"
+        // Attack - Ranged
+        //------------------------------------------------------------------------
+        "AttackDamageMin"       "20"
+        "AttackDamageMax"       "30"
+        "AttackRate"            "1.5"
+        "AttackAnimationPoint"      "0.25"
+        "AttackAcquisitionRange"    "800"
+        "AttackRange"           "600"
 
-		// Armor
-		//------------------------------------------------------------------------
-		"ArmorPhysical"			"2"
-		"MagicalResistance"		"25"
+        // Armor
+        //------------------------------------------------------------------------
+        "ArmorPhysical"         "0"
+        "MagicalResistance"     "25"
 
-		// Status
-		//------------------------------------------------------------------------
-		"StatusHealthRegen"		"1.2"
-	}
-
-
-
-	//================================================================================
-	// HERO: King of the Dead
-	//================================================================================
-	"npc_dota_hero_skeleton_king"
-	{
-		"override_hero"		"npc_dota_hero_skeleton_king"
-		"ModelScale"		"0.9"
-		"AbilityLayout"		"6"
-
-		"Ability1"		"srts_hero_desc_skeleton_king_melee"
-		"Ability2"		"srts_hero_desc_skeleton_king_ranged"
-		"Ability3"		"srts_hero_desc_skeleton_king_caster"
-		"Ability4"		""
-		"Ability5"		""
-		"Ability6"		""
-		"Ability10"		"srts_ability_units"
-		//		"Ability11"		"srts_hero_attack_speed_aura"
-
-		"UnitLabel"		"builder"
-		"MovementSpeed"		"360"
-		"FormationRank" 	"0"
-
-		// Attributes - Strength
-		//------------------------------------------------------------------------
-		"AttributePrimary"		"DOTA_ATTRIBUTE_STRENGTH"
-		"AttributeBaseStrength"		"25"
-		"AttributeStrengthGain"		"5.0"
-		"AttributeBaseIntelligence"	"20"
-		"AttributeIntelligenceGain"	"2.0"
-		"AttributeBaseAgility"		"20"
-		"AttributeAgilityGain"		"3.5"
-
-		// Attack - Melee
-		//------------------------------------------------------------------------
-		"AttackDamageMin"		"25"
-		"AttackDamageMax"		"35"
-		"AttackRate"			"1.5"
-		"AttackAnimationPoint"		"0.25"
-		"AttackAcquisitionRange"	"800"
-		"AttackRange"			"128"
-
-		// Armor
-		//------------------------------------------------------------------------
-		"ArmorPhysical"			"2"
-		"MagicalResistance"		"25"
-
-		// Status
-		//------------------------------------------------------------------------
-		"StatusHealthRegen"		"1.2"
-	}
+        // Status
+        //------------------------------------------------------------------------
+        "StatusHealthRegen"     "1.0"
+    }
 
 
 
-	//================================================================================
-	// HERO: Troll Warlord
-	//================================================================================
-	"npc_dota_hero_troll_warlord"
-	{
-		"override_hero"		"npc_dota_hero_troll_warlord"
-		"ModelScale"		"0.9"
-		"AbilityLayout"		"6"
+    //================================================================================
+    // HERO: Brewmaster
+    //================================================================================
+    "npc_dota_hero_brewmaster"
+    {
+        "override_hero"     "npc_dota_hero_brewmaster"
+        "ModelScale"        "0.9"   
+        "AbilityLayout"     "6" 
 
-		"Ability1"		"srts_hero_desc_troll_warlord_melee"
-		"Ability2"		"srts_hero_desc_troll_warlord_ranged"
-		"Ability3"		"srts_hero_desc_troll_warlord_caster"
-		"Ability4"		""
-		"Ability5"		""
-		"Ability6"		""
-		"Ability10"		"srts_ability_units"
-		//		"Ability11"		"srts_hero_attack_speed_aura"
+        "Ability1"      "srts_hero_desc_brewmaster_melee"
+        "Ability2"      "srts_hero_desc_brewmaster_ranged"
+        "Ability3"      "srts_hero_desc_brewmaster_caster"
+        "Ability4"      ""
+        "Ability5"      ""
+        "Ability6"      ""
+        "Ability10"     "srts_ability_units"
+        //      "Ability11"     "srts_hero_attack_speed_aura"
 
-		"UnitLabel"		"builder"
-		"MovementSpeed"		"360"
-		"FormationRank" 	"0"
+        "UnitLabel"     "builder"
+        "MovementSpeed"     "360"
+        "FormationRank"     "0"
 
-		// Attributes - Agility
-		//------------------------------------------------------------------------
-		"AttributePrimary"		"DOTA_ATTRIBUTE_AGILITY"
-		"AttributeBaseStrength"		"20"
-		"AttributeStrengthGain"		"4.5"
-		"AttributeBaseIntelligence"	"20"
-		"AttributeIntelligenceGain"	"2.0"
-		"AttributeBaseAgility"		"25"
-		"AttributeAgilityGain"		"3.5"
+        // Attributes - Strength
+        //------------------------------------------------------------------------
+        "AttributePrimary"      "DOTA_ATTRIBUTE_STRENGTH"
+        "AttributeBaseStrength"     "28"
+        "AttributeStrengthGain"     "5.5"
+        "AttributeBaseIntelligence" "20"
+        "AttributeIntelligenceGain" "2.0"
+        "AttributeBaseAgility"      "16"
+        "AttributeAgilityGain"      "2.8"
 
-		// Attack - Ranged
-		//------------------------------------------------------------------------
-		"AttackDamageMin"		"20"
-		"AttackDamageMax"		"30"
-		"AttackRate"			"1.5"
-		"AttackAnimationPoint"		"0.25"
-		"AttackAcquisitionRange"	"800"
-		"AttackRange"			"600"
+        // Attack - Melee
+        //------------------------------------------------------------------------
+        "AttackDamageMin"       "25"
+        "AttackDamageMax"       "35"
+        "AttackRate"            "1.5"
+        "AttackAnimationPoint"      "0.25"
+        "AttackAcquisitionRange"    "800"
+        "AttackRange"           "128"
 
-		// Armor
-		//------------------------------------------------------------------------
-		"ArmorPhysical"			"2"
-		"MagicalResistance"		"25"
+        // Armor
+        //------------------------------------------------------------------------
+        "ArmorPhysical"         "2"
+        "MagicalResistance"     "25"
 
-		// Status
-		//------------------------------------------------------------------------
-		"StatusHealthRegen"		"1.0"
-	}
+        // Status
+        //------------------------------------------------------------------------
+        "StatusHealthRegen"     "1.2"
+    }
+
+
+
+    //================================================================================
+    // HERO: Geomancer
+    //================================================================================
+    "npc_dota_hero_meepo"
+    {
+        "override_hero"     "npc_dota_hero_meepo"
+        "ModelScale"        "0.9"
+        "AbilityLayout"     "6"
+
+        "Ability1"      "srts_hero_desc_meepo_melee"
+        "Ability2"      "srts_hero_desc_meepo_ranged"
+        "Ability3"      ""
+        "Ability4"      ""
+        "Ability5"      ""
+        "Ability6"      ""
+        "Ability10"     "srts_ability_units"
+        //      "Ability11"     "srts_hero_attack_speed_aura"
+
+        "UnitLabel"     "builder"
+        "MovementSpeed"     "360"
+        "FormationRank"     "0"
+
+        // Attributes - Strength
+        //------------------------------------------------------------------------
+        "AttributePrimary"      "DOTA_ATTRIBUTE_STRENGTH"
+        "AttributeBaseStrength"     "25"
+        "AttributeStrengthGain"     "5.0"
+        "AttributeBaseIntelligence" "20"
+        "AttributeIntelligenceGain" "2.0"
+        "AttributeBaseAgility"      "20"
+        "AttributeAgilityGain"      "3.5"
+
+        // Attack - Melee
+        //------------------------------------------------------------------------
+        "AttackDamageMin"       "25"
+        "AttackDamageMax"       "35"
+        "AttackRate"            "1.5"
+        "AttackAnimationPoint"      "0.25"
+        "AttackAcquisitionRange"    "800"
+        "AttackRange"           "128"
+
+        // Armor
+        //------------------------------------------------------------------------
+        "ArmorPhysical"         "2"
+        "MagicalResistance"     "25"
+
+        // Status
+        //------------------------------------------------------------------------
+        "StatusHealthRegen"     "1.2"
+    }
+
+
+
+    //================================================================================
+    // HERO: King of the Dead
+    //================================================================================
+    "npc_dota_hero_skeleton_king"
+    {
+        "override_hero"     "npc_dota_hero_skeleton_king"
+        "ModelScale"        "0.9"
+        "AbilityLayout"     "6"
+
+        "Ability1"      "srts_hero_desc_skeleton_king_melee"
+        "Ability2"      "srts_hero_desc_skeleton_king_ranged"
+        "Ability3"      "srts_hero_desc_skeleton_king_caster"
+        "Ability4"      ""
+        "Ability5"      ""
+        "Ability6"      ""
+        "Ability10"     "srts_ability_units"
+        //      "Ability11"     "srts_hero_attack_speed_aura"
+
+        "UnitLabel"     "builder"
+        "MovementSpeed"     "360"
+        "FormationRank"     "0"
+
+        // Attributes - Strength
+        //------------------------------------------------------------------------
+        "AttributePrimary"      "DOTA_ATTRIBUTE_STRENGTH"
+        "AttributeBaseStrength"     "25"
+        "AttributeStrengthGain"     "5.0"
+        "AttributeBaseIntelligence" "20"
+        "AttributeIntelligenceGain" "2.0"
+        "AttributeBaseAgility"      "20"
+        "AttributeAgilityGain"      "3.5"
+
+        // Attack - Melee
+        //------------------------------------------------------------------------
+        "AttackDamageMin"       "25"
+        "AttackDamageMax"       "35"
+        "AttackRate"            "1.5"
+        "AttackAnimationPoint"      "0.25"
+        "AttackAcquisitionRange"    "800"
+        "AttackRange"           "128"
+
+        // Armor
+        //------------------------------------------------------------------------
+        "ArmorPhysical"         "2"
+        "MagicalResistance"     "25"
+
+        // Status
+        //------------------------------------------------------------------------
+        "StatusHealthRegen"     "1.2"
+    }
+
+
+
+    //================================================================================
+    // HERO: Troll Warlord
+    //================================================================================
+    "npc_dota_hero_troll_warlord"
+    {
+        "override_hero"     "npc_dota_hero_troll_warlord"
+        "ModelScale"        "0.9"
+        "AbilityLayout"     "6"
+
+        "Ability1"      "srts_hero_desc_troll_warlord_melee"
+        "Ability2"      "srts_hero_desc_troll_warlord_ranged"
+        "Ability3"      "srts_hero_desc_troll_warlord_caster"
+        "Ability4"      ""
+        "Ability5"      ""
+        "Ability6"      ""
+        "Ability10"     "srts_ability_units"
+        //      "Ability11"     "srts_hero_attack_speed_aura"
+
+        "UnitLabel"     "builder"
+        "MovementSpeed"     "360"
+        "FormationRank"     "0"
+
+        // Attributes - Agility
+        //------------------------------------------------------------------------
+        "AttributePrimary"      "DOTA_ATTRIBUTE_AGILITY"
+        "AttributeBaseStrength"     "20"
+        "AttributeStrengthGain"     "4.5"
+        "AttributeBaseIntelligence" "20"
+        "AttributeIntelligenceGain" "2.0"
+        "AttributeBaseAgility"      "25"
+        "AttributeAgilityGain"      "3.5"
+
+        // Attack - Ranged
+        //------------------------------------------------------------------------
+        "AttackDamageMin"       "20"
+        "AttackDamageMax"       "30"
+        "AttackRate"            "1.5"
+        "AttackAnimationPoint"      "0.25"
+        "AttackAcquisitionRange"    "800"
+        "AttackRange"           "600"
+
+        // Armor
+        //------------------------------------------------------------------------
+        "ArmorPhysical"         "2"
+        "MagicalResistance"     "25"
+
+        // Status
+        //------------------------------------------------------------------------
+        "StatusHealthRegen"     "1.0"
+    }
 }

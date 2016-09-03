@@ -3202,6 +3202,27 @@
 
 
 
+        // Spell9.2.1
+    // Brewmaster Bruiser
+    "srts_hero_desc_brewmaster_melee"
+        {
+    //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "BaseClass"         "ability_datadriven"    
+        "AbilityTextureName"        "spellicon_bruiser_brewmaster"
+    }      
+
+    // Spell9.2.2
+    // Brewmaster Frostmage
+    "srts_hero_desc_brewmaster_ranged"
+        {
+    //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "BaseClass"         "ability_datadriven"    
+        "AbilityTextureName"        "spellicon_frostmage_brewmaster"
+    } 
+
+
+
+
     // Spell9.3.1
     // Geomancer Spearman
     "srts_hero_desc_meepo_melee"

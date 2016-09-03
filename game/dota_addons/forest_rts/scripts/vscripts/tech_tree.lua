@@ -62,12 +62,14 @@ function TechTree:InitTechTree(hero)
     ---------------------------------------------------------------------------
     function hero:GetWorkerCount()
         local heroName = hero:GetUnitName()
-        local workerTable = 
+        local workerConst = GetHeroConst(heroName).."_WORKER"
+        local workerTable = tech[heroName][workerConst]
+        --[=[
         tech[heroName]["COMMANDER_WORKER"] or
         tech[heroName]["FURION_WORKER"] or
         tech[heroName]["GEOMANCER_WORKER"] or
         tech[heroName]["KING_OF_THE_DEAD_WORKER"] or
-        tech[heroName]["WARLORD_WORKER"]
+        tech[heroName]["WARLORD_WORKER"]]=]
         local workerName = workerTable["name"]
         return hero:GetUnitCountFor(workerName)
     end
@@ -924,11 +926,14 @@ end
 ---------------------------------------------------------------------------
 function TechTree:IsHero(unit)
     local heroName = unit:GetUnitName()
-    if heroName == COMMANDER or heroName == FURION or heroName == GEOMANCER or heroName == KING_OF_THE_DEAD or heroName == WARLORD then
+    --[=[
+    if heroName == COMMANDER or heroName == FURION or heroName == BREWMASTER or heroName == GEOMANCER or heroName == KING_OF_THE_DEAD or heroName == WARLORD then
         return true
     else
         return false
-    end
+    end]=]
+
+    return GetHeroConst(heroName)
 end
 
 
