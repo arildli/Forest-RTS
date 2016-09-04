@@ -74,6 +74,7 @@ function SimpleRTSGameMode:InitGameMode()
     loadModule('builder')
     loadModule('abilities/autocast')
     loadModule('quests')
+    loadModule('neutral_bases')
 
     -- Added EDITED
     --loadModule('ai/independent_utilities')
@@ -170,6 +171,9 @@ function SimpleRTSGameMode:InitGameMode()
 
     -- Initialize the Quests module.
     Quests:Init()
+
+    -- Initialize the Neutrals module.
+    Neutrals:Init()
 
     -- Register console commands
     Convars:RegisterCommand('boss', function()

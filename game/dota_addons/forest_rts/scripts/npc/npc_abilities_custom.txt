@@ -3010,6 +3010,12 @@
                 "ModifierName"  "modifier_frenzy"
                 "Duration"      "%duration"
             }
+
+            "FireSound"
+            {
+                "EffectName" "Hero_OgreMagi.Bloodlust.Cast"
+                "Target"     "CASTER"
+            }
         }
 
         "Modifiers"
@@ -3029,6 +3035,15 @@
                 "AbilityTextureName"    "ogre_magi_bloodlust"
                 "EffectName"            "particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf"
                 "EffectAttachType"      "follow_origin"
+
+                "OnCreated"
+                {
+                    "FireSound"
+                    {
+                        "EffectName" "Hero_OgreMagi.Bloodlust.Target"
+                        "Target"     "TARGET"
+                    }
+                }
             }
 
             "modifier_frenzy_autocast_aura"

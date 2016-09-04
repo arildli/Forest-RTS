@@ -177,12 +177,6 @@ function GetUpgradesForUnit(unit)
     local unitName = unit:GetUnitName()
     local unitStruct = defs[unitName] or FindUnitStructByName(unitName)
     return unitStruct.upgrades
-    --[=[
-    if not defs[unitName] then
-        print(unitName.." WAS NOT IN DEFS!!!")
-        return FindUnitStructByName(unitName).upgrades
-    end
-    return defs[unitName].upgrades]=]
 end
 
 function GetUpgradeItem(hero, upgradeSpellName)
