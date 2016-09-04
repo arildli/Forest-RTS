@@ -225,6 +225,7 @@ function Precache( context )
     -- Frostmage
     PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_ogre_lrg/n_creep_ogre_lrg.vmdl", context)
     PrecacheResource("particle", "particles/units/heroes/hero_crystalmaiden/maiden_base_attack.vpcf", context)
+    PrecacheResource("particle", "particles/status_fx/status_effect_frost_lich.vpcf", context)
 
 
 
@@ -292,6 +293,8 @@ function Precache( context )
 	PrecacheResource("particle", "particles/units/heroes/hero_witchdoctor/witchdoctor_base_attack.vpcf", context)
 	PrecacheResource("particle", "particles/items2_fx/mask_of_madness.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_troll_warlord/troll_warlord_base_attack.vpcf", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_cast.vpcf", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf", context)
 
 
 	print("Precache done!")

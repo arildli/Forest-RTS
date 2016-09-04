@@ -254,11 +254,8 @@ function Resources:InitTrees()
         -- Do some shit
     end
 
-    print("Inside InitTrees():")
-
     local treeMapFile
     local status,ret = pcall(function()
-        print("pcall function called ("..GetMapName()..").")
         treeMapFile = require("tree_maps/"..GetMapName())
         if treeMapFile == nil then print("Bloody hell! File is nil!!!") end
         if treeMapFile then

@@ -2443,6 +2443,85 @@
 
 
 
+        // Spell8.6
+    //================================================================================
+    // Chilling Attacks - Brewmaster Frostmage Passive
+    //================================================================================
+    "srts_chilling_attacks"
+    {
+        // General
+        //--------------------
+        "BaseClass"         "ability_datadriven"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityTextureName"        "lich_frost_nova"
+        "MaxLevel"          "1"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "move_slow_percent"  "-10"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "attack_slow_percent"  "-10"
+            }
+        
+            "03"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "duration"  "2"
+            }
+        }
+
+        "Modifiers"
+        {
+            "modifier_chilling_attack"
+            {   
+                "Passive"   "1"
+                "IsHidden"  "1"
+
+                "OnAttackLanded"
+                {   
+                    "ApplyModifier"
+                    {
+                        "Target"
+                        {
+                            "Center"    "TARGET"
+                            "Type"      "DOTA_UNIT_TARGET_ALL"
+                        }
+                        "ModifierName"  "modifier_chilled"
+                        "Duration"      "%duration"
+                    }
+                }
+            }
+
+            "modifier_chilled"
+            {
+                "Passive"   "0"
+                "IsDebuff"  "1"
+                "IsHidden"  "0"
+                "TextureName"   "lich_frost_nova"
+
+                "Properties"
+                {
+                    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"  "%move_slow_percent"
+                    "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"  "%attack_slow_percent"
+                }
+
+                "StatusEffectName"     "particles/status_fx/status_effect_frost_lich.vpcf"
+                "StatusEffectPriority" "10"
+            }
+        }
+    }
+
+
+
+
+
     // Spell8.7
     //================================================================================
     // Burning Arrows - Skeleton Archer Passive
@@ -2948,8 +3027,8 @@
                 }
 
                 "AbilityTextureName"    "ogre_magi_bloodlust"
-                "EffectName"        "particles/items2_fx/mask_of_madness.vpcf"
-                "EffectAttachType"  "follow_origin"
+                "EffectName"            "particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf"
+                "EffectAttachType"      "follow_origin"
             }
 
             "modifier_frenzy_autocast_aura"

@@ -148,6 +148,10 @@ function HasDecentForce(bot)
     local rangedCount = AI:GetCountFor(bot, "RANGED")
     local casterCount = AI:GetCountFor(bot, "CASTER")
     local siegeCount = AI:GetCountFor(bot, "SIEGE")
+
+    AI:BotPrint(bot, "Basic: "..tostring(meleeCount + rangedCount >= bot.decentForceBasicUnits*bot.multiplier).." ("..meleeCount + rangedCount.."/"..bot.decentForceBasicUnits*bot.multiplier..")")
+    AI:BotPrint(bot, "Full: "..tostring(meleeCount + rangedCount + casterCount + siegeCount >= bot.decentForceLeastTotal*bot.multiplier).." ("..meleeCount + rangedCount + casterCount + siegeCount.."/"..bot.decentForceLeastTotal*bot.multiplier..")")
+
     return (meleeCount + rangedCount >= bot.decentForceBasicUnits*bot.multiplier) and
            (meleeCount + rangedCount + casterCount + siegeCount >= bot.decentForceLeastTotal*bot.multiplier)
 end
@@ -256,10 +260,10 @@ end
 
 function TrainMixedForce(bot)
     local towerUnitCount = AI:GetTowerUnitsCount(bot)
-    if not AI:HasAtLeast(bot, "MELEE", bot.mixedMinimumEach) then
+    if not AI:HasAtLeast(bot, "MELEE", bot.mixedMinimumEach*bot.multiplier) then
         TrainMelee(bot)
         return false
-    elseif not AI:HasAtLeast(bot, "RANGED", bot.mixedMinimumEach + towerUnitCount) then
+    elseif not AI:HasAtLeast(bot, "RANGED", bot.mixedMinimumEach*bot.multiplier + towerUnitCount) then
         TrainRanged(bot)
         return false
     end
@@ -276,7 +280,7 @@ end
 
 
 function TrainDecentForce(bot)
-    local decentForceBasicMin = bot.decentForceBasicUnits
+    local decentForceBasicMin = bot.decentForceBasicUnits*bot.multiplier
     local meleeCount = AI:GetCountFor(bot, "MELEE")
     local rangedCount = AI:GetCountFor(bot, "RANGED")
     local siegeCount = AI:GetCountFor(bot, "SIEGE")
@@ -292,7 +296,7 @@ function TrainDecentForce(bot)
     if siegeCount < bot.basicSiege then
         AI:TrainSiege(bot)
     end
-    if totalCount < bot.decentForceLeastTotal then
+    if totalCount < bot.decentForceLeastTotal*bot.multiplier then
         TrainMelee(bot)
     end
     return true

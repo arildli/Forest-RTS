@@ -2,20 +2,26 @@
 MAX_WORKER_COUNT = 10
 
 function InsertKeysDefs()
-	for key,entry in pairs(defs) do
-		local curName = entry.name
-		if curName then
-			defs[curName] = entry
-		end
-		local curSpell = entry.spell
-		if curSpell then
-			defs[curSpell] = entry
+	function InsertKeysTable(tabl)
+		for key,entry in pairs(tabl) do
+			local curName = entry.name
+			if curName then
+				tabl[curName] = entry
+			end
+			local curSpell = entry.spell
+			if curSpell then
+				tabl[curSpell] = entry
+			end
 		end
 	end
+
+	InsertKeysTable(defs)
+	InsertKeysTable(defs2)
 end
 
 function GetSpellForEntity(entName)
-	return defs[entName].spell
+	local entry = defs[entName] or defs2[entName]
+	return entry.spell
 end
 
 function FindUnitStructByName(unitName)
@@ -33,11 +39,14 @@ function GetConstructionSpellForBuilding(buildingName)
 end
 
 function GetEntityNameFromConstant(constant)
-	return defs[constant].name
+	local entry = defs[constant] or defs2[constant]
+	return entry.name
 end
 
 function GetEntitySpellFromConstant(constant)
-	return defs[constant].spell
+	local entry = defs[constant] or defs2[constant]
+	return entry.spell
+	--return defs[constant].spell
 end
 
 function GetEntityFieldFromConstant(constant, heroTeam, field)
@@ -48,14 +57,14 @@ function GetEntityFieldFromConstant(constant, heroTeam, field)
 		suffix = "_DIRE"
 	end
 	local key = constant .. suffix
-	local entityTable = defs[constant] or defs[key]
+	local entityTable = defs[constant] or defs[key] or defs2[constant] or defs2[key]
 	if entityTable then
 		return entityTable[field]
 	end
 	return nil
 end
 
-
+defs2 = {}
 
 -- Spell definitions --
 defs = {
@@ -232,6 +241,11 @@ defs = {
 		category = "spell"
 	},
 
+	CHILLING_ATTACKS = {
+		spell = "srts_chilling_attacks",
+		category = "spell"
+	},
+
 	BURNING_ARROWS = {
 		spell = "srts_burning_arrows",
 		category = "spell"
@@ -267,12 +281,11 @@ defs = {
 		 category = "spell"
 	},
 
-
-
 	-- Buildings 
 	TENT_SMALL = {
 		name = "npc_dota_building_main_tent_small",
 		spell = "srts_construct_main_building",
+		constant = "TENT_SMALL",
 		category = "building",
 		max = 1,
 		pages = {
@@ -288,6 +301,7 @@ defs = {
 	TENT_LARGE = {
 		name = "npc_dota_building_main_tent_large",
 		spell = "srts_upgrade_main_building",
+		constant = "TENT_LARGE",
 		category = "building",
 		max = 1,
 		from = "TENT_SMALL",
@@ -304,6 +318,7 @@ defs = {
 	WATCH_TOWER = {
 		name = "npc_dota_building_watch_tower",
 		spell = "srts_construct_watch_tower",
+		constant = "WATCH_TOWER",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -321,6 +336,7 @@ defs = {
 	WOODEN_WALL = {
 		name = "npc_dota_building_wooden_wall",
 		spell = "srts_construct_wooden_wall",
+		constant = "WOODEN_WALL",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -336,6 +352,7 @@ defs = {
 	MARKET = {
 		name = "npc_dota_building_market",
 		spell = "srts_construct_market",
+		constant = "MARKET",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -354,6 +371,7 @@ defs = {
 	GOLD_MINE = {
 		name = "npc_dota_building_gold_mine",
 		spell = "srts_construct_gold_mine",
+		constant = "GOLD_MINE",
 		category = "building",
 		max = 1,
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
@@ -372,6 +390,7 @@ defs = {
 	BARRACKS_RADIANT = {
 		name = "npc_dota_building_barracks_radiant",
 		spell = "srts_construct_barracks_radiant",
+		constant = "BARRACKS_RADIANT",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -387,6 +406,7 @@ defs = {
 	BARRACKS_ADVANCED_RADIANT = {
 		name = "npc_dota_building_barracks_advanced_radiant",
 		spell = "srts_construct_barracks_advanced_radiant",
+		constant = "BARRACKS_ADVANCED_RADIANT",
 		category = "building",
 		req = {"TENT_LARGE"},
 		pages = {
@@ -402,6 +422,7 @@ defs = {
 	ARMORY_RADIANT = {
 		name = "npc_dota_building_armory",
 		spell = "srts_construct_armory_radiant",
+		constant = "ARMORY_RADIANT",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_RADIANT"},
 		max = 1,
@@ -420,6 +441,7 @@ defs = {
 	HEALING_CRYSTAL_RADIANT = {
 		name = "npc_dota_building_crystal_radiant",
 		spell = "srts_construct_crystal_radiant",
+		constant = "HEALING_CRYSTAL_RADIANT",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_RADIANT"},
 		pages = {
@@ -437,6 +459,7 @@ defs = {
 	BARRACKS_DIRE = {
 		name = "npc_dota_building_barracks_dire",
 		spell = "srts_construct_barracks_dire",
+		constant = "BARRACKS_DIRE",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -452,6 +475,7 @@ defs = {
 	BARRACKS_ADVANCED_DIRE = {
 		name = "npc_dota_building_barracks_advanced_dire",
 		spell = "srts_construct_barracks_advanced_dire",
+		constant = "BARRACKS_ADVANCED_DIRE",
 		category = "building",
 		req = {"TENT_LARGE"},
 		pages = {
@@ -467,6 +491,7 @@ defs = {
 	ARMORY_DIRE = {
 		name = "npc_dota_building_armory",
 		spell = "srts_construct_armory_dire",
+		constant = "ARMORY_DIRE",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_DIRE"},
 		max = 1,
@@ -485,6 +510,7 @@ defs = {
 	HEALING_CRYSTAL_DIRE = {
 		name = "npc_dota_building_crystal_dire",
 		spell = "srts_construct_crystal_dire",
+		constant = "HEALING_CRYSTAL_DIRE",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}, "BARRACKS_DIRE"},
 		pages = {
@@ -504,6 +530,7 @@ defs = {
 	PROP_BARREL = {
 		name = "npc_dota_building_prop_barrel",
 		spell = "srts_construct_prop_barrel",
+		constant = "PROP_BARREL",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -520,6 +547,7 @@ defs = {
 	PROP_CHEST = {
 		name = "npc_dota_building_prop_chest",
 		spell = "srts_construct_prop_chest",
+		constant = "PROP_CHEST",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -536,6 +564,7 @@ defs = {
 	PROP_STASH = {
 		name = "npc_dota_building_prop_stash",
 		spell = "srts_construct_prop_stash",
+		constant = "PROP_STASH",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -552,6 +581,7 @@ defs = {
 	PROP_WEAPON_RACK = {
 		name = "npc_dota_building_prop_weapon_rack",
 		spell = "srts_construct_prop_weapon_rack",
+		constant = "PROP_WEAPON_RACK",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -568,6 +598,7 @@ defs = {
 	PROP_BANNER_RADIANT = {
 		name = "npc_dota_building_prop_banner_radiant",
 		spell = "srts_construct_prop_banner_radiant",
+		constant = "PROP_BANNER_RADIANT",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -584,6 +615,7 @@ defs = {
 	PROP_BANNER_DIRE = {
 		name = "npc_dota_building_prop_banner_dire",
 		spell = "srts_construct_prop_banner_dire",
+		constant = "PROP_BANNER_DIRE",
 		category = "building",
 		req = {{"TENT_SMALL", "TENT_LARGE"}},
 		pages = {
@@ -865,7 +897,6 @@ defs = {
 		}
 	},
 
-
 	-- Brewmaster
 	BREWMASTER_WORKER = {
 		name = "npc_dota_creature_brewmaster_worker",
@@ -916,7 +947,7 @@ defs = {
 		}
 	},
 
-	BREWMASTER_BRUISER = {
+	BREWMASTER_WARRIOR = {
 		name = "npc_dota_creature_brewmaster_bruiser",
 		spell = "srts_train_brewmaster_bruiser",
 		category = "unit",
@@ -946,7 +977,7 @@ defs = {
 		req = {"MARKET"},
 		pages = {
 			PAGE_MAIN = {
-				"ENVENOMED_SPEARS"
+				"CHILLING_ATTACKS"
 			},
 			HIDDEN = {
 				"UNIT"

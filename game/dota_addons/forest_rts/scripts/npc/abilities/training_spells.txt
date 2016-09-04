@@ -333,7 +333,7 @@
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "265"
+        "AbilityGoldCost"       "235"
         //  "AbilityUpgradeGoldCost"    "0"
 
         "AbilityChannelTime"        "12"
@@ -343,7 +343,7 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "265"
+                "gold_cost" "235"
             }
 
             "02"
@@ -355,7 +355,7 @@
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
-                "health"    "765"
+                "health"    "825"
             }
         
             "04"
@@ -1305,7 +1305,7 @@
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
-                "health"    "290"
+                "health"    "310"
             }
         
             "04"
@@ -1317,7 +1317,7 @@
             "05"
             {
                 "var_type"  "FIELD_INTEGER"
-                "damage"    "22"
+                "damage"    "28"
             }
 
             "06"

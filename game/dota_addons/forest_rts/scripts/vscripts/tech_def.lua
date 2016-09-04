@@ -163,7 +163,7 @@ entities = {
     },
     BREWMASTER = {
         WORKER = defs.BREWMASTER_WORKER,
-        MELEE = defs.BREWMASTER_BRUISER,
+        MELEE = defs.BREWMASTER_WARRIOR,
         RANGED = defs.BREWMASTER_FROSTMAGE,
         SIEGE = defs.BREWMASTER_CATAPULT,
 
@@ -489,12 +489,10 @@ tech = {
         },
 
         -- Unit and building spells
-        REGENERATIVE_BARK = defs.REGENERATIVE_BARK,
-        ENVENOMED_SPEARS = defs.ENVENOMED_SPEARS,
-        LIVING_ARMOR = defs.LIVING_ARMOR,
+        CHILLING_ATTACKS = defs.CHILLING_ATTACKS,
 
         BREWMASTER_WORKER = defs.BREWMASTER_WORKER,
-        BREWMASTER_BRUISER = defs.BREWMASTER_BRUISER,
+        BREWMASTER_BRUISER = defs.BREWMASTER_WARRIOR,
         BREWMASTER_FROSTMAGE = defs.BREWMASTER_FROSTMAGE,
         BREWMASTER_CATAPULT = defs.BREWMASTER_CATAPULT,
 
@@ -513,7 +511,7 @@ tech = {
             defs.DEMOLISH_BUILDING
         }),
         BARRACKS_RADIANT = CopyWithNewMain(defs.BARRACKS_RADIANT, {
-            defs.BREWMASTER_BRUISER,
+            defs.BREWMASTER_WARRIOR,
             defs.BREWMASTER_FROSTMAGE,
             defs.BREWMASTER_CATAPULT,
             defs.DEMOLISH_BUILDING

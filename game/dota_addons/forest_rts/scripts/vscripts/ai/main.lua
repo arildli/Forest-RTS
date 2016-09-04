@@ -170,6 +170,7 @@ function AI:OnNPCSpawned(keys)
         AI.botIDs[playerID] = true
         spawnedUnit:SetRespawnsDisabled(true)
         UTIL_Remove(spawnedUnit)
+        if not AI.nextHero[AI.nextHeroIndex] then print("NIL!") end
         local nextHeroName = AI.nextHero[AI.nextHeroIndex] or "npc_dota_hero_legion_commander"
         print("NextHeroName: "..nextHeroName)
         local botStruct = {
@@ -299,9 +300,11 @@ function AI:AddBot(teamID, heroname)
     end
     AI:Print("Max player count neutrals: "..tostring(PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_NEUTRALS)))
     if not heroname then
+        print("AI:AddBot: heroname was nil! Defaulting to commander.")
         heroname = "npc_dota_hero_legion_commander"
     end
-    AI.nextHero[AI.lastHeroIndex] = "npc_dota_hero_legion_commander" --heroname
+    --AI.nextHero[AI.lastHeroIndex] = "npc_dota_hero_legion_commander" --heroname
+    AI.nextHero[AI.lastHeroIndex] = heroname --heroname
     AI.lastHeroIndex = AI.lastHeroIndex + 1
 
     Tutorial:AddBot(heroname,"","",GetTeamAsBool(teamID))

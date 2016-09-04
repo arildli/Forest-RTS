@@ -345,6 +345,7 @@ function AI:FindBaseActionToPerform(bot)
     for k=1,#basePriorityTable do
         local action = basePriorityTable[k]
         if not action.pred(bot) then
+            AI:BotPrint(bot, "Cur action index: "..k)
             return action
         end
     end

@@ -98,7 +98,6 @@ function Stats:OnTentDestroyed(killerID)
 end
 
 function Stats:OnDeath(playerID, killerID, unit, enttype)
-    print("Stats: "..unit:GetUnitName().." died!")
     local owner = Stats:GetPlayer(playerID)
     if not owner then return end
     local killer = Stats:GetPlayer(killerID)

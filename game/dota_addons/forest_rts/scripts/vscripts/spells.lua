@@ -142,13 +142,11 @@ function ApplyUpgradeUnits(keys)
     local canGetUpgrade = {}
     local playerID = caster:GetOwnerID()
 
-    print("ApplyUpgradeUnits called! Stats")
     Stats:OnResearchFinished(playerID, abilityName)
     Stats:SpendGold(playerID, keys.goldCost)
     Stats:SpendLumber(playerID, keys.lumberCost)
 
     local function AddUpgradeBool(itemName, unit)
-        print("AddUpgradeBool called!")
         local unitName = unit:GetUnitName()
         local upgrades = GetUpgradesForUnit(unit)
         for _,upgradeConst in pairs(upgrades) do
@@ -177,7 +175,14 @@ end
 
 function GetUpgradesForUnit(unit)
     local unitName = unit:GetUnitName()
-    return defs[unitName].upgrades
+    local unitStruct = defs[unitName] or FindUnitStructByName(unitName)
+    return unitStruct.upgrades
+    --[=[
+    if not defs[unitName] then
+        print(unitName.." WAS NOT IN DEFS!!!")
+        return FindUnitStructByName(unitName).upgrades
+    end
+    return defs[unitName].upgrades]=]
 end
 
 function GetUpgradeItem(hero, upgradeSpellName)

@@ -347,13 +347,15 @@ function AI:SpendResources(bot, gold, lumber)
 end
 
 function AI:ConstructBuildingWrapper(bot, constant)
-    local buildingName = AI:GetNameFromConst(bot, constant)
+    --local buildingName = AI:GetNameFromConst(bot, constant)
     local location = AI:GetEntLoc(bot, constant, bot.heroTeam)
     if not location then
         AI:Failure("Failed to find valid location for "..constant.."!")
         return false
     end
-    local result = AI:ConstructBuilding(bot, buildingName, location)
+    local correctConstant = GetUnitStructFor(constant, bot.heroname).constant
+    local result = AI:ConstructBuilding(bot, correctConstant, location)    
+    --local result = AI:ConstructBuilding(bot, buildingName, location)
     if result and constant ~= "TENT_SMALL" then
         bot.state = "constructing"
     end
@@ -447,7 +449,7 @@ end
 -- Attempts to construct a building for the specified bot the 
 -- traditional way.
 --
--- @buildingName (String): The name of the building to place.
+-- @buildingName (String/BuildingConstant): The name of the building to place.
 -- @position (Vector): The position to construct the building at.
 -- @worker (Optional) (unit): The unit to construct with (hero if nil)
 -- @return (boolean): Whether or not the construction could be initiated.
