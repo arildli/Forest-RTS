@@ -172,9 +172,6 @@ function SimpleRTSGameMode:InitGameMode()
     -- Initialize the Quests module.
     Quests:Init()
 
-    -- Initialize the Neutrals module.
-    Neutrals:Init()
-
     -- Register console commands
     Convars:RegisterCommand('boss', function()
         local cmdPlayer = Convars:GetCommandClient()
@@ -425,6 +422,9 @@ function SimpleRTSGameMode:onGameStateChange(keys)
 
     elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
         print("[SimpleRTS] The game has started.")
+
+        -- Initialize the Neutrals module.
+        Neutrals:Init()
 
         if self.gameMode == "Solo" then
             SimpleRTSGameMode:SinglePlayerMode(self.botTeam)

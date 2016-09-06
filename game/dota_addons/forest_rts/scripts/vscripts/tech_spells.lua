@@ -629,6 +629,21 @@ defs = {
 		}
 	},
 
+	PROP_BANNER_OWNER = {
+		name = "npc_dota_building_prop_banner_owner",
+		spell = "srts_construct_prop_banner_dire",
+		constant = "PROP_BANNER_OWNER",
+		category = "building",
+		req = {{"TENT_SMALL", "TENT_LARGE"}},
+		pages = {
+			PAGE_MAIN = {
+			},
+			HIDDEN = {
+				"PROP",
+				"BUILDING"
+			}
+		}
+	},
 
 
 	-- Units

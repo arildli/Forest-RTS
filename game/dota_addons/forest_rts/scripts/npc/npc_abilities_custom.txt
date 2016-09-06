@@ -3957,6 +3957,7 @@
         }
     }
 
+
     "dummy_tree"
     {
         "BaseClass"         "ability_datadriven"
@@ -4020,6 +4021,28 @@
         //-------------------------------------------------------------------------------------------------------------
         "AbilitySpecial"
         {
+        }
+    }
+
+    "srts_invulnerable"
+    {
+        "BaseClass"         "ability_datadriven"
+        "MaxLevel"          "1"
+        "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+
+        "Modifiers"
+        {
+            "modifier_invulnerable"
+            {
+                "Passive"   "1"
+                "Hidden"    "0"
+                "Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT"
+                "States"
+                {
+                    "MODIFIER_STATE_INVULNERABLE"       "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_NO_HEALTH_BAR"      "MODIFIER_STATE_VALUE_ENABLED"
+                }
+            }
         }
     }
 

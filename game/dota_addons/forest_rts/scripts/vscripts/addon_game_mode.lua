@@ -113,6 +113,8 @@ function Precache( context )
 	PrecacheResource("model", "models/props_teams/banner_radiant.vmdl", context)
 	   -- Banner Dire
 	PrecacheResource("model", "models/props_teams/banner_dire_small.vmdl", context)
+       -- Banner Tintable
+    PrecacheResource("model", "models/props_teams/banner_tintable.vmdl", context)
 
 
 

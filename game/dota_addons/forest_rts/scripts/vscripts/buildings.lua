@@ -329,7 +329,7 @@ end
 ---------------------------------------------------------------------------
 function OnBuildingAttacked(event)
     local building = event.caster
-    local playerID = building:GetOwnerID()
+    local playerID = building:GetPlayerOwnerID()
     local unitEntIndex = building:GetEntityIndex()
     FireGameEvent("building_attacked", {playerID=playerID, building=unitEntIndex})
 end
