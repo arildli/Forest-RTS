@@ -54,7 +54,7 @@ function CastEnterTower(keys)
     local abilityName = "srts_enter_tower"
     local ability = GetAbilityByName(tower, abilityName)
     if ability then
-        tower:CastAbilityOnTarget(unit, ability, tower:GetOwnerID())
+        tower:CastAbilityOnTarget(unit, ability, tower:GetPlayerOwnerID())
         local towerAbs = tower:GetAbsOrigin()
         -- For some reason the timer is needed for make the unit bother to execute the order!
         Timers:CreateTimer({
@@ -240,6 +240,14 @@ end
 function PayManaCost(keys)
     local ability = keys.ability
     ability:PayManaCost()
+end
+
+function GiveVisionUnitOnly(keys)
+    caster = keys.caster
+    target = keys.target
+    
+    AddFOWViewer(DOTA_TEAM_GOODGUYS, target:GetAbsOrigin(), 10, 0.01, false)
+    AddFOWViewer(DOTA_TEAM_BADGUYS, target:GetAbsOrigin(), 10, 0.01, false)
 end
 
 

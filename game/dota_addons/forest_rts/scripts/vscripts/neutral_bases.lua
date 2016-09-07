@@ -29,17 +29,25 @@ function Neutrals:Init()
     
     local middleCamp = Neutrals:CreateCamp(Vector(-230, -1536, 384), "Middle Lumber Camp")
     -- Right-Top tower
-    Neutrals:CreateBuilding("npc_dota_building_watch_tower", Vector(736, -480, 384), true, middleCamp)
-    Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(960, -448, 255), true, middleCamp)
+    local curVector = Vector(736, -480, 384)
+    Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
+    local bannerRightTop = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(960, -448, 255), true, middleCamp)
+    Neutrals:MakeGloballyVisible(bannerRightTop)
     -- Right-Bottom tower
-    Neutrals:CreateBuilding("npc_dota_building_watch_tower", Vector(864, -1504, 384), true, middleCamp)
+    curVector = Vector(864, -1504, 384)
+    Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
+    local bannerBottom = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(832, -1664, 384), true, middleCamp)
+    Neutrals:RotateLeft(bannerBottom, 5)  
+    Neutrals:MakeGloballyVisible(bannerBottom)
     -- Left tower
-    Neutrals:CreateBuilding("npc_dota_building_watch_tower", Vector(-1120, -1312, 384), true, middleCamp)
+    curVector = Vector(-1120, -1312, 384)
+    Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
     local bannerLeft = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(-1280, -1344, 384), true, middleCamp)
     Neutrals:RotateLeft(bannerLeft, 3)
+    Neutrals:MakeGloballyVisible(bannerLeft)
     -- Market
-    Neutrals:CreateBuilding("npc_dota_building_market", Vector(-320, -1536, 384), true, middleCamp)
-
+    local market = Neutrals:CreateBuilding("npc_dota_building_market", Vector(-320, -1536, 384), true, middleCamp)
+    Neutrals:RotateLeft(market, 3)
 
     Neutrals:Print("Initialized")
 end
@@ -54,6 +62,56 @@ function Neutrals:RotateLeft(building, times)
     for i=0,times do
         RotateLeft({caster = building})
     end
+end
+
+---------------------------------------------------------------------------
+-- Makes a building visible to both teams.
+--
+-- @building (Building): The building to make visible.
+---------------------------------------------------------------------------
+function Neutrals:MakeGloballyVisible(building)
+    building:AddAbility("can_be_seen_global")
+    building:FindAbilityByName("can_be_seen_global"):SetLevel(1)
+end
+
+---------------------------------------------------------------------------
+-- Creates a tower and adds a unit into it if specified.
+--
+-- @location (Vector): The location to place the tower.
+-- @invulnerable (Boolean): Whether or not to make the tower invulnerable.
+-- @camp (Optional) (Camp): The camp object to add it to if specified.
+-- @towerUnit (Optional) (String): The name of the unit to put into the tower.
+-- @return (Building): The newly created tower.
+---------------------------------------------------------------------------
+function Neutrals:CreateTower(location, invulnerable, camp, towerUnit)
+    local tower = Neutrals:CreateBuilding("npc_dota_building_watch_tower", location, invulnerable, camp)
+    if not towerUnit then
+        return tower
+    end
+
+    local towerUnit = Neutrals:SpawnUnit(towerUnit, location, camp)
+    local keys = {
+        unitIndex = towerUnit:GetEntityIndex(),
+        towerIndex = tower:GetEntityIndex()
+    }
+
+    --[=[
+    local keys = {
+        caster = towerUnit,
+        target = tower,
+        ability = "srts_enter_tower",
+        modifier = "modifier_inside_tower_buff"
+    }
+    EnterTower(keys)]=]
+
+    Timers:CreateTimer({
+        endTime = 0.05,
+        callback = function()
+            CastEnterTower(keys)
+        end}
+    )
+    --CastEnterTower(keys)
+    return tower
 end
 
 ---------------------------------------------------------------------------
@@ -141,9 +199,14 @@ function Neutrals:CreateBuilding(buildingName, location, invulnerable, camp, ang
 
     if invulnerable then
         Neutrals:Print("Adding invulnerability to buildings!")
-        building:AddAbility("srts_invulnerable")
+        building:AddAbility("invulnerable")
+        building:FindAbilityByName("invulnerable"):SetLevel(1)
+        Neutrals:MakeGloballyVisible(building)
     end
     building._playerOwned = true
+
+    building:AddAbility("srts_enter_tower")
+    building:FindAbilityByName("srts_enter_tower"):SetLevel(1)
 
     -- Return the created building
     return building

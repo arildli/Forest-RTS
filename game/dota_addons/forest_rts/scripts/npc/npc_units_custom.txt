@@ -1350,6 +1350,88 @@
 
 
 
+	// Unit3.3
+	//================================================================================
+	// Unit: Neutral Archer
+	//================================================================================
+	
+	// Level 1	
+	//========================================
+	"npc_dota_creature_neutral_archer"
+	{
+		"Model"					"models/heroes/windrunner/windrunner.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"n_creep_Ranged"
+		"ModelScale"			"1.0"
+
+		"BountyXP"				"25"
+		"BountyGoldMin"			"17"
+		"BountyGoldMax"			"17"
+
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
+
+		"SelectionGroup"		"Neutral_Archer"
+		"ArmorPhysical"			"0"
+
+		//"DisableClumpingBehavior"	"1"
+
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"		"12"
+		"AttackDamageMax"		"16"
+		"AttackRate"			"1.6"
+		"AttackAnimationPoint"		"0.38"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"			"500"
+		"ProjectileModel"		"particles/units/heroes/hero_windrunner/windrunner_base_attack.vpcf"
+		"ProjectileSpeed"		"1200"
+
+		"RingRadius"			"40"
+		"HealthBarOffset"		"150"
+		"FormationRank" 		"2"
+
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"350"
+		"MovementTurnRate"		"0.7"
+
+		"StatusHealth"			"230"
+		"StatusHealthRegen"		"0.5"
+		"StatusMana"			"0"
+		"StatusManaRegen"		"0.0"	
+
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
+
+		"Creature"
+		{
+			//"DisableClumpingBehavior"	"1"
+
+			"AttachWearables"
+			{
+				"Wearable1"
+				{
+					"ItemDef"	"4520"
+				}
+				"Wearable2"
+				{
+					"ItemDef"	"4180"
+				}	
+				"Wearable3"
+				{
+					"ItemDef"	"4522"
+				}
+				"Wearable4"
+				{	
+					"ItemDef"	"4548"
+				}
+			}
+		}				
+	}
+
+
+
 
 
 //-- // Common // --// Unit4

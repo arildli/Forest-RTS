@@ -301,6 +301,20 @@ function Precache( context )
     PrecacheResource("particle", "particles/units/heroes/hero_ogre_magi/ogre_magi_bloodlust_buff.vpcf", context)
 
 
+
+    -- Neutral
+
+    -- Archer
+    PrecacheResource("model", "models/heroes/windrunner/windrunner.vmdl", context)
+
+    PrecacheResource("model", "models/items/windrunner/zkbackreimp/zkbackreimp.vmdl", context)
+    PrecacheResource("model", "models/items/windrunner/naturebow.vmdl", context)
+    PrecacheResource("model", "models/items/windrunner/zkpads/zkpads.vmdl", context)
+    PrecacheResource("model", "models/items/windrunner/zarukina_protector_hair/zarukina_protector_hair.vmdl", context)
+    
+    PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_base_attack.vpcf", context)
+
+
 	print("Precache done!")
 end
 
