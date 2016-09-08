@@ -247,7 +247,7 @@ entities[FURION] = entities["FURION"]
 entities[GEOMANCER] = entities["GEOMANCER"]
 entities[KING_OF_THE_DEAD] = entities["KING_OF_THE_DEAD"]
 entities[WARLORD] = entities["WARLORD"]
-
+entities[BREWMASTER] = entities["BREWMASTER"]
 
 -- Tech tree definitions --
 tech = {

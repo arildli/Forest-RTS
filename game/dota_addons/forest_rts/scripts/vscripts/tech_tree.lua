@@ -428,6 +428,7 @@ function TechTree:GetAbilityPagesForUnit(unit, ownerHero)
     local unitName = unit:GetUnitName()
 
     local unitStruct = ownerHero.TT.techDef[unitName]
+    --local unitStruct = ownerHero.TT.techDef[unitName] or defs[unitName] or FindUnitStructByName(unitName)
 
     --[[
     local count = 0
@@ -914,7 +915,7 @@ end
 --- * ownerHero: The hero of the caller.
 ---------------------------------------------------------------------------
 function TechTree:GetMaxCountFor(name, ownerHero)
-    local unitStruct = ownerHero.TT.techDef[name] or defs[name]
+    local unitStruct = ownerHero.TT.techDef[name] or defs[name] or FindUnitStructByName(name)
     return unitStruct.max
 end
 

@@ -491,7 +491,8 @@ function SimpleBot:CreatePatrolUnit(team, count, unitName, location, pathNumber,
    local troopCount = math.ceil(count * multiplier)
    local arrayLength = #group
    for i=arrayLength+1, arrayLength+troopCount do
-      local newUnit = CreateUnitByName(unitName, location, true, nil, nil, team)
+      --local newUnit = CreateUnitByName(unitName, location, true, nil, nil, team)
+      local newUnit = CreateUnitByName(unitName, location, true, nil, nil, DOTA_TEAM_NEUTRALS)
       table.insert(group, i, newUnit)
       newUnit.SB = {}
       newUnit.SB.group = group

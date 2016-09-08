@@ -31,17 +31,27 @@ function Neutrals:Init()
     -- Right-Top tower
     local curVector = Vector(736, -480, 384)
     Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
+    Neutrals:SpawnUnit("npc_dota_creature_neutral_brute", Vector(576, -64, 384), middleCamp)
+    Neutrals:SpawnUnit("npc_dota_creature_neutral_brute", Vector(576, -384, 384), middleCamp)
     local bannerRightTop = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(960, -448, 255), true, middleCamp)
     Neutrals:MakeGloballyVisible(bannerRightTop)
     -- Right-Bottom tower
     curVector = Vector(864, -1504, 384)
     Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
+    local curUnit = Neutrals:SpawnUnit("npc_dota_creature_neutral_brute", Vector(384, -1728, 384), middleCamp)
+    Neutrals:RotateLeft(curUnit, 5)
+    curUnit = Neutrals:SpawnUnit("npc_dota_creature_neutral_brute", Vector(704, -1728, 384), middleCamp)
+    Neutrals:RotateLeft(curUnit, 5)
     local bannerBottom = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(832, -1664, 384), true, middleCamp)
     Neutrals:RotateLeft(bannerBottom, 5)  
     Neutrals:MakeGloballyVisible(bannerBottom)
     -- Left tower
     curVector = Vector(-1120, -1312, 384)
     Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
+    local curUnit = Neutrals:SpawnUnit("npc_dota_creature_neutral_brute", Vector(-896, -896, 384), middleCamp)
+    Neutrals:RotateLeft(curUnit, 3)
+    curUnit = Neutrals:SpawnUnit("npc_dota_creature_neutral_brute", Vector(-896, -1216, 384), middleCamp)
+    Neutrals:RotateLeft(curUnit, 3)
     local bannerLeft = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(-1280, -1344, 384), true, middleCamp)
     Neutrals:RotateLeft(bannerLeft, 3)
     Neutrals:MakeGloballyVisible(bannerLeft)
@@ -95,22 +105,12 @@ function Neutrals:CreateTower(location, invulnerable, camp, towerUnit)
         towerIndex = tower:GetEntityIndex()
     }
 
-    --[=[
-    local keys = {
-        caster = towerUnit,
-        target = tower,
-        ability = "srts_enter_tower",
-        modifier = "modifier_inside_tower_buff"
-    }
-    EnterTower(keys)]=]
-
     Timers:CreateTimer({
         endTime = 0.05,
         callback = function()
             CastEnterTower(keys)
         end}
     )
-    --CastEnterTower(keys)
     return tower
 end
 

@@ -314,6 +314,13 @@ function Precache( context )
     
     PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_base_attack.vpcf", context)
 
+    -- Brute
+    PrecacheResource("model", "models/items/beastmaster/red_talon_arms/red_talon_arms.vmdl", context)
+    PrecacheResource("model", "models/items/beastmaster/red_talon_belt/red_talon_belt.vmdl", context)
+    PrecacheResource("model", "models/items/beastmaster/red_talon_head/red_talon_head.vmdl", context)
+    PrecacheResource("model", "models/items/beastmaster/red_talon_shoulder/red_talon_shoulder.vmdl", context)
+    PrecacheResource("model", "models/items/beastmaster/red_talon_weapon/red_talon_weapon.vmdl", context)
+
 
 	print("Precache done!")
 end

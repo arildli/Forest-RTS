@@ -1379,9 +1379,9 @@
 		//"DisableClumpingBehavior"	"1"
 
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"		"12"
-		"AttackDamageMax"		"16"
-		"AttackRate"			"1.6"
+		"AttackDamageMin"		"20"
+		"AttackDamageMax"		"28"
+		"AttackRate"			"1.3"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
 		"AttackRange"			"500"
@@ -1396,7 +1396,7 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"230"
+		"StatusHealth"			"375"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"	
@@ -1425,6 +1425,90 @@
 				"Wearable4"
 				{	
 					"ItemDef"	"4548"
+				}
+			}
+		}				
+	}
+
+
+
+		// Unit3.4
+	//================================================================================
+	// Unit: Neutral Brute
+	//================================================================================
+	
+	// Level 1	
+	//========================================
+	"npc_dota_creature_neutral_brute"
+	{
+		"Model"					"models/heroes/beastmaster/beastmaster.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"n_creep_Ranged"
+		"ModelScale"			"0.9"
+
+		"BountyXP"				"50"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
+
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
+
+		"SelectionGroup"		"Neutral_Brute"
+		"ArmorPhysical"			"3"
+
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"		"23"
+		"AttackDamageMax"		"31"
+		"AttackRate"			"1.15"
+		"AttackAnimationPoint"		"0.38"
+		"AttackAcquisitionRange"	"400"
+		"AttackRange"			"125"
+		"ProjectileModel"		""
+		"ProjectileSpeed"		"0"
+
+		"RingRadius"			"40"
+		"HealthBarOffset"		"150"
+		"FormationRank" 		"0"
+
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"350"
+		"MovementTurnRate"		"0.7"
+
+		"StatusHealth"			"675"
+		"StatusHealthRegen"		"1.0"
+		"StatusMana"			"0"
+		"StatusManaRegen"		"0.0"	
+
+		"VisionDaytimeRange"		"800"
+		"VisionNighttimeRange"		"800"
+
+		"Creature"
+		{
+			//"DisableClumpingBehavior"	"1"
+
+			"AttachWearables"
+			{
+				"Wearable1"
+				{
+					"ItemDef"	"4648"
+				}
+				"Wearable2"
+				{
+					"ItemDef"	"4656"
+				}	
+				"Wearable3"
+				{
+					"ItemDef"	"4657"
+				}
+				"Wearable4"
+				{	
+					"ItemDef"	"4658"
+				}
+				"Wearable5"
+				{
+					"ItemDef"	"4659"
 				}
 			}
 		}				

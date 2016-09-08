@@ -558,14 +558,16 @@ function GiveVisionOfUnit(keys)
     local caster = keys.caster
     local target = keys.target
     
+    --[=[
     local team = caster:GetTeam()
     if team == DOTA_TEAM_GOODGUYS then
         team = DOTA_TEAM_BADGUYS
     elseif team == DOTA_TEAM_BADGUYS then
         team = DOTA_TEAM_GOODGUYS
-    end
+    end]=]
     
-    AddFOWViewer(team, caster:GetAbsOrigin(), 500, 0.75, true)
+    AddFOWViewer(DOTA_TEAM_GOODGUYS, caster:GetAbsOrigin(), 500, 0.75, true)
+    AddFOWViewer(DOTA_TEAM_BADGUYS, caster:GetAbsOrigin(), 500, 0.75, true)
 end
 
 
