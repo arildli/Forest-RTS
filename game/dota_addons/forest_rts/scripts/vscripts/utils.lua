@@ -19,12 +19,12 @@ function RotateLeft(keys)
         print("RotateLeft: caster was nil!")
         return
     end
-    
+
     local currentFW = building:GetForwardVector()
     local x = SRing(currentFW.x)
     local y = SRing(currentFW.y)
     local z = 0.0
-    
+
     if x == 1.0 and y == 0.0 then
         x = 0.7
         y = 0.7
@@ -50,7 +50,7 @@ function RotateLeft(keys)
         x = 1.0
         y = 0.0
     end
-    
+
     building:SetForwardVector(Vector(x, y, z))
     currentFW = building:GetForwardVector()
     --print("X: "..SRing(currentFW.x)..", Y: "..SRing(currentFW.y)..", Z: "..currentFW.z)
@@ -65,12 +65,12 @@ function RotateRight(keys)
         print("RotateLeft: caster was nil!")
         return
     end
-    
+
     local currentFW = building:GetForwardVector()
     local x = SRing(currentFW.x)
     local y = SRing(currentFW.y)
     local z = 0.0
-    
+
     if x == 1.0 and y == 0.0 then
         x = 0.7
         y = -0.7
@@ -96,7 +96,7 @@ function RotateRight(keys)
         x = 1.0
         y = 0.0
     end
-    
+
     building:SetForwardVector(Vector(x, y, z))
     currentFW = building:GetForwardVector()
     --print("X: "..SRing(currentFW.x)..", Y: "..SRing(currentFW.y)..", Z: "..currentFW.z)
@@ -125,7 +125,7 @@ end
 
 
 
---     -----| Economy |----- 
+--     -----| Economy |-----
 
 
 
@@ -138,7 +138,7 @@ function SpendResources(unit, goldAmount, lumberAmount)
         print("SpendResources: unit, goldAmount or lumberAmount unspecified!")
         return false
     end
-    
+
     local owner = unit:GetOwner()
     local playerID = owner:GetPlayerID()
     if not playerID then
@@ -151,7 +151,7 @@ function SpendResources(unit, goldAmount, lumberAmount)
         return false
     end
     local currentGold = PlayerResource:GetGold(playerID)
-    
+
     if currentGold < goldAmount then
         print("Gold required: "..goldAmount..", Current gold: "..currentGold)
         return false
@@ -192,14 +192,14 @@ end
 
 -- Gives "amount" number of charges to "itemName" of "hero"
 function GiveCharges(hero, amount, itemName)
-    
+
     if not hero or not amount or not itemName then
         return false
     end
     if amount == 0 then
         return true
     end
-    
+
     if hero:HasItemInInventory(itemName) then
         local item = GetItemFromInventory(hero, itemName)
         local currentCharges = item:GetCurrentCharges()
@@ -212,10 +212,10 @@ function GiveCharges(hero, amount, itemName)
         if not newItem then
             return false
         end
-        
+
         newItem:SetCurrentCharges(amount)
         --print("Charges of new item: "..newItem:GetCurrentCharges())
-        
+
         if hero:IsRealHero() then
             if hero:HasInventory() and hero:HasRoomForItem(itemName, false, false) then
                 hero:AddItem(newItem)
@@ -245,7 +245,7 @@ function BuyGold(unit, wood, gold)
         print("BuyGold: unit, wood or gold was nil!")
         return false
     end
-    
+
     local playerHero = GetPlayerHero(unit:GetOwner():GetPlayerID())
     if HasEnoughLumber(playerHero, wood) then
         local owner = unit:GetOwner()
@@ -255,7 +255,7 @@ function BuyGold(unit, wood, gold)
         playerHero:DecLumber(wood)
         return true
     end
-    
+
     return false
 end
 
@@ -266,7 +266,7 @@ function BuyGoldFromSpell(keys)
     local unit = keys.caster
     local wood = keys.wood
     local gold = keys.gold
-    
+
     if not BuyGold(unit, wood, gold) then
         print("Gold could not be bought!")
     end
@@ -286,7 +286,8 @@ function HarvestLumber(unit)
 
     local playerID = unit:GetPlayerOwnerID()
     local harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_worker") or
-        unit:FindAbilityByName("srts_harvest_lumber")
+        unit:FindAbilityByName("srts_harvest_lumber") or
+        unit:FindAbilityByName("srts_harvest_lumber_no_cut")
     if harvestAbility then
         Timers:CreateTimer({
             endTime = 0.05,
@@ -309,18 +310,24 @@ function TransferLumber(keys)
         print("TransferLumber: caster, target or hero was nil!")
         return false
     end
-    
-    if Resources:IsValidDeliveryPoint(target) then 
+
+    if Resources:IsValidDeliveryPoint(target) then
     --if target:GetUnitName() == MARKET or target:GetUnitName() == "npc_dota_building_main_tent_small" then
         local lumberCount = GetLumberCount(caster)
         if lumberCount > 0 then
-             local lumberItem = GetItemFromInventory(caster, "item_stack_of_lumber")
-             if lumberItem then
-            PopupLumber(caster, lumberCount)
-            caster:RemoveItem(lumberItem)
-             end
-             hero:IncLumber(lumberCount)
-             caster:ReturnToHarvest()
+            local lumberItem = GetItemFromInventory(caster, "item_stack_of_lumber")
+            if lumberItem then
+                PopupLumber(caster, lumberCount)
+                caster:RemoveItem(lumberItem)
+            end
+
+            -- Neutral workers
+            if keys.neutral then
+                print("RUNNING NEUTRAL CODE!")
+            end
+
+            hero:IncLumber(lumberCount)
+            caster:ReturnToHarvest()
         else
             --print("TransferLumber: caster did not have any lumber!")
         end
@@ -371,7 +378,7 @@ function FindEmptyTree(unit, location, radius)
         print("FindEmptyTree: No nearby empty trees found!")
         return nil
     end
-     
+
     local sortedList = SortListByClosest(pathableTrees, location)
     for _,tree in pairs(sortedList) do
         if TreeIsEmpty(tree) and IsTreePathable(tree) then
@@ -419,7 +426,7 @@ end
 function GetClosestEntityToPosition(list, position)
     local distance = 20000
     local closest = nil
-     
+
     for k,ent in pairs(list) do
         local this_distance = (position - ent:GetAbsOrigin()):Length()
         if this_distance < distance then
@@ -427,8 +434,8 @@ function GetClosestEntityToPosition(list, position)
             closest = k
         end
     end
-     
-    return closest   
+
+    return closest
 end
 
 function SortListByClosest( list, position )
@@ -457,7 +464,7 @@ function TransferLumberHero(keys)
         print("TransferLumber: caster or target was nil!")
         return false
     end
-    
+
     local lumberCount = GetLumberCount(caster)
     if lumberCount > 0 then
         SpendLumber(caster, lumberCount)
@@ -476,7 +483,7 @@ function GiveGold(keys)
         print("GiveGold: caster or amount was nil!")
         return false
     end
-    
+
     local gold = keys.amount
     local caster = keys.caster
     local owner = caster:GetOwner()
@@ -493,11 +500,11 @@ end]=]
 
 -- Returns a handle to the first occurence of the item if the hero has it
 function GetItemFromInventory(hero, itemName)
-    
+
     if not hero or not itemName then
         return nil
     end
-    
+
     if hero:HasItemInInventory(itemName) then
         for i=0, 5 do
             local currentItem = hero:GetItemInSlot(i)
@@ -557,7 +564,7 @@ end
 function GiveVisionOfUnit(keys)
     local caster = keys.caster
     local target = keys.target
-    
+
     --[=[
     local team = caster:GetTeam()
     if team == DOTA_TEAM_GOODGUYS then
@@ -565,7 +572,7 @@ function GiveVisionOfUnit(keys)
     elseif team == DOTA_TEAM_BADGUYS then
         team = DOTA_TEAM_GOODGUYS
     end]=]
-    
+
     AddFOWViewer(DOTA_TEAM_GOODGUYS, caster:GetAbsOrigin(), 500, 0.75, true)
     AddFOWViewer(DOTA_TEAM_BADGUYS, caster:GetAbsOrigin(), 500, 0.75, true)
 end
@@ -578,14 +585,14 @@ end
 function GiveVisionOfHero(keys)
     local caster = keys.caster
     local target = keys.target
-    
+
     local team = caster:GetTeam()
     if team == DOTA_TEAM_GOODGUYS then
         team = DOTA_TEAM_BADGUYS
     elseif team == DOTA_TEAM_BADGUYS then
         team = DOTA_TEAM_GOODGUYS
     end
-    
+
     AddFOWViewer(team, caster:GetAbsOrigin(), 3000, 0.75, true)
 end
 
@@ -613,7 +620,7 @@ end
 --  * abilityName: The ability to look for
 --
 ---------------------------------------------------------------------------
-function UnitHasAbility(unit, abilityName)  
+function UnitHasAbility(unit, abilityName)
     for i=0, 6 do
         local ability = unit:GetAbilityByIndex(i)
         if ability and ability:GetAbilityName() == abilityName then
@@ -640,7 +647,7 @@ end
 --- * unit: The unit to check.
 ---------------------------------------------------------------------------
 function IsRanged(unit)
-     return unit:GetAttackRange() > 150 and 
+     return unit:GetAttackRange() > 150 and
             unit:GetUnitName() ~= "npc_dota_creature_kobold_guard_1"
 end
 
@@ -780,17 +787,17 @@ function ReportStat(player, amount, statName)
         print("ReportStat: player, amount or statName was nil!")
         return
     end
-    
+
     if not player._stats then
         player._stats = {}
     end
-    
+
     if not player._stats[statName] then
         player._stats[statName] = amount
     else
         player._stats[statName] = player._stats[statName] + amount
     end
-    
+
     if DEBUG_UTILS == true then
         print("Stat: "..statName.."\tValue: "..player._stats[statName])
     end

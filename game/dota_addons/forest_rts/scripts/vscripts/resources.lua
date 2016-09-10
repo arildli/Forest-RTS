@@ -4,7 +4,7 @@ if not Resources then
 end
 
 ---------------------------------------------------------------------------
--- Inits the hero with the necessary properties to work with this 
+-- Inits the hero with the necessary properties to work with this
 -- resource system.
 ---------------------------------------------------------------------------
 function Resources:InitHero(hero, startLumber)
@@ -57,7 +57,7 @@ function Resources:InitHero(hero, startLumber)
         PlayerResource:SetGold(hero:GetOwnerID(), 0, false)
         PlayerResource:SetGold(hero:GetOwnerID(), amount, true)
     end
-    
+
     ---------------------------------------------------------------------------
     -- Sets the lumber count of the hero.
     ---------------------------------------------------------------------------
@@ -66,7 +66,7 @@ function Resources:InitHero(hero, startLumber)
         local player = hero:GetOwner()
         CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(amount) })
     end
-    
+
     ---------------------------------------------------------------------------
     -- Increases the gold count of the hero.
     ---------------------------------------------------------------------------
@@ -244,7 +244,7 @@ end
 ---------------------------------------------------------------------------
 -- Initializes the tree system.
 --
--- Gatherer methods are borrowed from the currently unfinished 
+-- Gatherer methods are borrowed from the currently unfinished
 -- Gatherer library in the DotaCraft repo.
 ---------------------------------------------------------------------------
 function Resources:InitTrees()
@@ -319,7 +319,7 @@ function Gatherer:DetermineForests()
         local id = tree.forestID
         self.treeForests[id] = self.treeForests[id] or {}
         table.insert(self.treeForests[id], tree)
-    end  
+    end
 end
 
 -- Recurse on the trees nearby
@@ -339,24 +339,24 @@ end
 -- Implemented by Noya
 --https://en.wikipedia.org/wiki/Flood_fill
 function Gatherer:DeterminePathableTrees()
-     
+
     --------------------------
     --      Flood Fill      --
     --------------------------
 
     print("DeterminePathableTrees")
-     
+
     local world_positions = {}
     local valid_trees = {}
     local seen = {}
-     
+
     --Set Q to the empty queue.
     local Q = {}
 
     --Add node to the end of Q.
     table.insert(Q, Vector(-7200, -6600, 0))
     --table.insert(Q, Vector(0,0,0))
-     
+
     local vecs = {
         Vector(0,64,0),-- N
         Vector(64,64,0), -- NE
@@ -371,13 +371,13 @@ function Gatherer:DeterminePathableTrees()
     while #Q > 0 do
         --Set n equal to the first element of Q and Remove first element from Q.
         local position = table.remove(Q)
-            
+
         --If the color of n is equal to target-color:
         local blocked = GridNav:IsBlocked(position) or not GridNav:IsTraversable(position)
         if not blocked then
-         
+
             table.insert(world_positions, position)
-         
+
             -- Mark position processed.
             seen[GridNav:WorldToGridPosX(position.x)..","..GridNav:WorldToGridPosX(position.y)] = 1
             for k=1,#vecs do
@@ -449,7 +449,7 @@ function Gatherer:GenerateTreeMap()
             local forestID = tree:GetForestID()
             --self.treeMap:write("\n"..string.rep(" ",4)..string.format("%4s",tree:GetTreeID()).." = {pathable = "..pathable..", forestID = "..forestID.."},")
             self.treeMap:write("\n"..string.rep(" ",4)..string.format("[%4s]",tree:GetTreeID()).." = {pathable = "..pathable..", forestID = "..forestID.."},")
-        end        
+        end
     end
     self.treeMap:write("\n}\n")
     self.treeMap:write("return trees")
@@ -513,7 +513,7 @@ function HarvestChop(keys)
         Resources:InitHarvester(caster)
     end
 
-    if target then
+    if target and not keys.nocut then
         target:CutDown(teamNumber)
         --caster:SetLastTree(target)
         caster:DeliverLumber()
@@ -532,7 +532,7 @@ function Resources:HarvestDeliverLumber(keys)
     local caster = keys.caster
     local target = keys.target
     local owningHero = GetPlayerHero(caster:GetOwner():GetPlayerID())
-    
+
     local isNil = IsNil("Resources:HarvestDeliverLumber", {caster, target, owningHero}, 3)
     if target:IsDeliveryPoint() then
         local amount = Resources:GetLumberCarried()
@@ -559,19 +559,19 @@ function GiveHarvestedLumber(keys)
     local caster = keys.caster
     local target = keys.target
     local ability = keys.ability
-    
+
     local owner = caster:GetPlayerOwner()
     local teamNumber = caster:GetTeamNumber()
     local lumberAmount = keys.lumber
     --local playerID = owner:GetPlayerID()
     --local hero = GetPlayerHero(playerID)
-    
+
     if target then
         target:CutDown(teamNumber)
     end
-    
+
     GiveCharges(caster, lumberAmount, "item_stack_of_lumber")
-    
+
     ReportLumberChopped(owner, lumberAmount)
 end
 

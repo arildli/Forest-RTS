@@ -11,7 +11,7 @@
 //-- // Kill // --// Spell1
 
 
-        
+
     // Spell1.1
     // Kills the unit
     //================================================================================
@@ -23,7 +23,7 @@
         //------------------------------------------------------------------------
         "AbilityName"           "Kill"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"   
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
         "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "necrolyte_death_pulse"
 
@@ -64,7 +64,7 @@
                 //"EffectName"  "Hero_Techies.Suicide"
                 "EffectName"    "DOTA_Item.Dagon.Activate"
                 "Target"    "CASTER"
-            }   
+            }
         }
 
         "AbilitySpecial"
@@ -91,7 +91,7 @@
     //================================================================================
     // Upgrade Light Armor
     //================================================================================
-    
+
     "srts_upgrade_light_armor"
     {
         // General
@@ -131,7 +131,7 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "upgrade_time"  "60"
-            }   
+            }
         }
 
         "Modifiers"
@@ -148,17 +148,17 @@
                     //{
                     //  "ModifierName"      "upgrading_animation"
                     //  "Target"        "CASTER"
-                    //} 
+                    //}
                 }
-            }   
+            }
 
             //"upgrading_animation"
             //{
             //  "IsHidden"      "1"
             //  "Duration"      "0.9"
             //  "OverrideAnimation" "ACT_DOTA_ATTACK"
-            //} 
-        }           
+            //}
+        }
 
         "OnSpellStart"
         {
@@ -177,19 +177,19 @@
                 "ModifierName"  "modifier_upgrading"
                 "Target"    "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_upgrading"
                 "Target"        "CASTER"
-            }   
+            }
         }
 
         "OnChannelSucceeded"
-        {   
+        {
             "RunScript"
             {
                 "Target"    "POINT"
@@ -197,7 +197,7 @@
                 "Function"  "ApplyUpgradeUnits"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -209,7 +209,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -219,7 +219,7 @@
     //================================================================================
     // Upgrade Light Damage
     //================================================================================
-    
+
     "srts_upgrade_light_damage"
     {
         // General
@@ -260,7 +260,7 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "upgrade_time"  "60"
-            }   
+            }
         }
 
         "Modifiers"
@@ -277,17 +277,17 @@
                     //{
                     //  "ModifierName"      "upgrading_animation"
                     //  "Target"        "CASTER"
-                    //} 
+                    //}
                 }
-            }   
+            }
 
             //"upgrading_animation"
             //{
             //  "IsHidden"      "1"
             //  "Duration"      "0.9"
             //  "OverrideAnimation" "ACT_DOTA_ATTACK"
-            //} 
-        }           
+            //}
+        }
 
         "OnSpellStart"
         {
@@ -306,19 +306,19 @@
                 "ModifierName"  "modifier_upgrading"
                 "Target"    "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_upgrading"
                 "Target"        "CASTER"
-            }   
+            }
         }
 
         "OnChannelSucceeded"
-        {   
+        {
             "RunScript"
             {
                 "Target"    "POINT"
@@ -326,7 +326,7 @@
                 "Function"  "ApplyUpgradeUnits"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -338,7 +338,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -348,7 +348,7 @@
 
 //-- // Harvest Lumber // --// Spell4
 
-     
+
 
     // Spell4.1
     //================================================================================
@@ -360,7 +360,7 @@
         // General
         //------------------------------------------------------------------------
         "AbilityName"           "Harvest"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"  
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
         "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_TREE"
         "AbilityTextureName"        "spellicon_harvest_tree_worker"
         "BaseClass"         "ability_datadriven"
@@ -389,7 +389,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "channel_time"  "45"
             }
-            
+
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -399,7 +399,7 @@
 
         "OnSpellStart"
         {
-        
+
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_harvesting_lumber"
@@ -411,7 +411,7 @@
                 "ScriptFile"    "scripts/vscripts/utils.lus"
                 "Function"  "RegisterHarvesterAtTree"
                 "Target"    "TARGET"
-            }                   
+            }
         }
 
         "OnChannelFinish"
@@ -427,7 +427,7 @@
                 "ScriptFile"    "scripts/vscripts/utils.lua"
                 "Function"  "UnregisterHarvesterAtTree"
                 "Target"    "TARGET"
-            }                       
+            }
         }
 
         "OnChannelSucceeded"
@@ -441,13 +441,13 @@
                 "channelTime"   "%channel_time"
                 "lumber"    "%lumber"
             }
-    
+
             "FireSound"
             {
                 "EffectName"    "DOTA_Item.Hand_Of_Midas"
                 "Target"    "CASTER"
             }
-        }   
+        }
 
         "Modifiers"
         {
@@ -462,8 +462,8 @@
                     {
                         "ModifierName"      "channeling_animation"
                         "Target"        "CASTER"
-                    }   
-    
+                    }
+
                     "FireEffect"
                     {
                         //"EffectName"      "particles/units/heroes/hero_furion/furion_wrath_of_nature.vpcf"
@@ -471,20 +471,18 @@
                         "EffectAttachType"  "follow_origin"
                         //  "EffectAttachType"  "attach_hitloc"
                         "Target"        "CASTER"
-                    }   
+                    }
                 }
-            }   
+            }
 
             "channeling_animation"
             {
                 "IsHidden"      "1"
                 "Duration"      "0.9"
                 "OverrideAnimation" "ACT_DOTA_ATTACK"
-            }   
-        }           
+            }
+        }
     }
-
-
 
 
 
@@ -498,7 +496,7 @@
         // General
         //------------------------------------------------------------------------
         "AbilityName"           "Harvest Worker"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"  
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
         "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_TREE"
         "AbilityTextureName"        "spellicon_harvest_tree_worker"
         "BaseClass"         "ability_datadriven"
@@ -526,7 +524,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "channel_time"  "50"
             }
-            
+
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -536,7 +534,7 @@
 
         "OnSpellStart"
         {
-        
+
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_harvesting_lumber"
@@ -548,7 +546,7 @@
                 "ScriptFile"    "scripts/vscripts/utils.lus"
                 "Function"  "RegisterHarvesterAtTree"
                 "Target"    "TARGET"
-            }       
+            }
         }
 
         "OnChannelFinish"
@@ -564,7 +562,7 @@
                 "ScriptFile"    "scripts/vscripts/utils.lua"
                 "Function"  "UnregisterHarvesterAtTree"
                 "Target"    "TARGET"
-            }                       
+            }
         }
 
         "OnChannelSucceeded"
@@ -578,13 +576,13 @@
                 "channelTime"   "%channel_time"
                 "lumber"    "%lumber"
             }
-    
+
             "FireSound"
             {
                 "EffectName"    "DOTA_Item.Hand_Of_Midas"
                 "Target"    "CASTER"
             }
-        }   
+        }
 
         "Modifiers"
         {
@@ -599,8 +597,8 @@
                     {
                         "ModifierName"      "channeling_animation"
                         "Target"        "CASTER"
-                    }   
-    
+                    }
+
                     "FireEffect"
                     {
                         //"EffectName"      "particles/units/heroes/hero_furion/furion_wrath_of_nature.vpcf"
@@ -608,18 +606,154 @@
                         "EffectAttachType"  "follow_origin"
                         //  "EffectAttachType"  "attach_hitloc"
                         "Target"        "CASTER"
-                    }   
+                    }
                 }
-            }   
+            }
 
             "channeling_animation"
             {
                 "IsHidden"      "1"
                 "Duration"      "0.9"
                 "OverrideAnimation" "ACT_DOTA_ATTACK"
-            }   
-        }           
-    }   
+            }
+        }
+    }
+
+
+
+    // Spell4.3
+    //================================================================================
+    // Harvest Lumber No Cut
+    //================================================================================
+
+    "srts_harvest_lumber_no_cut"
+    {
+        // General
+        //------------------------------------------------------------------------
+        "AbilityName"           "Harvest No Cut"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+        "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_TREE"
+        "AbilityTextureName"        "spellicon_harvest_tree_worker"
+        "BaseClass"         "ability_datadriven"
+        "Maxlevel"          "1"
+
+        // Casting
+        "AbilityCastPoint"      "0.1"
+        "AbilityCastRange"      "150"
+        "AbilityCooldown"       "0"
+        "AbilityManacost"       "0"
+
+        "AbilityCastAnimation"      "ACT_DOTA_ATTACK"
+        "AbilityChannelTime"        "50"
+
+        "precache"
+        {
+            "particle"      "particles/units/heroes/hero_furion/furion_wrath_of_nature.vpcf"
+            "particle"      "particles/units/heroes/hero_spirit_breaker/spirit_breaker_charge_tree.vpcf"
+        }
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "channel_time"  "50"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "lumber"    "10"
+            }
+        }
+
+        "OnSpellStart"
+        {
+
+            "ApplyModifier"
+            {
+                "ModifierName"  "modifier_harvesting_lumber"
+                "Target"    "CASTER"
+            }
+
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/utils.lus"
+                "Function"  "RegisterHarvesterAtTree"
+                "Target"    "TARGET"
+            }
+        }
+
+        "OnChannelFinish"
+        {
+            "RemoveModifier"
+            {
+                "ModifierName"  "modifier_harvesting_lumber"
+                "Target"    "CASTER"
+            }
+
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/utils.lua"
+                "Function"  "UnregisterHarvesterAtTree"
+                "Target"    "TARGET"
+            }
+        }
+
+        "OnChannelSucceeded"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/resources.lua"
+                //      "Function"  "GiveHarvestedLumber"
+                "Function"  "HarvestChop"
+                "Target"    "CASTER"
+                "channelTime"   "%channel_time"
+                "lumber"    "%lumber"
+                "nocut"     "true"
+            }
+
+            "FireSound"
+            {
+                "EffectName"    "DOTA_Item.Hand_Of_Midas"
+                "Target"    "CASTER"
+            }
+        }
+
+        "Modifiers"
+        {
+            "modifier_harvesting_lumber"
+            {
+                "IsDebuff"  "0"
+                "ThinkInterval" "1.0"
+
+                "OnIntervalThink"
+                {
+                    "ApplyModifier"
+                    {
+                        "ModifierName"      "channeling_animation"
+                        "Target"        "CASTER"
+                    }
+
+                    "FireEffect"
+                    {
+                        //"EffectName"      "particles/units/heroes/hero_furion/furion_wrath_of_nature.vpcf"
+                        "EffectName"        "particles/units/heroes/hero_spirit_breaker/spirit_breaker_charge_tree.vpcf"
+                        "EffectAttachType"  "follow_origin"
+                        //  "EffectAttachType"  "attach_hitloc"
+                        "Target"        "CASTER"
+                    }
+                }
+            }
+
+            "channeling_animation"
+            {
+                "IsHidden"      "1"
+                "Duration"      "0.9"
+                "OverrideAnimation" "ACT_DOTA_ATTACK"
+            }
+        }
+    }
 
 
 
@@ -628,7 +762,7 @@
 
 
 
-    
+
     // Spell6.1
     //================================================================================
     // Empty Spell
@@ -674,7 +808,7 @@
                 "ScriptFile"    "scripts/vscripts/ability_pages.lua"
                 "Function"  "GoToPageFunction"
                 "pageNumber"    "PAGE_MAIN"
-            }   
+            }
         }
     }
 
@@ -708,7 +842,7 @@
                 "ScriptFile"    "scripts/vscripts/ability_pages.lua"
                 "Function"  "GoToPageFunction"
                 "pageNumber"    "PAGE_MENU_CONSTRUCTION_BASIC"
-            }   
+            }
         }
     }
 
@@ -742,7 +876,7 @@
                 "ScriptFile"    "scripts/vscripts/ability_pages.lua"
                 "Function"  "GoToPageFunction"
                 "pageNumber"    "PAGE_MENU_CONSTRUCTION_ADVANCED"
-            }   
+            }
         }
     }
 
@@ -776,7 +910,7 @@
                 "ScriptFile"    "scripts/vscripts/ability_pages.lua"
                 "Function"  "GoToPageFunction"
                 "pageNumber"    "PAGE_MENU_PROPS"
-            }   
+            }
         }
     }
 
@@ -833,14 +967,14 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "0"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "10"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
@@ -854,8 +988,8 @@
             {
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -903,14 +1037,14 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "0"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "10"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
@@ -924,8 +1058,8 @@
             {
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -973,14 +1107,14 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "0"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "10"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
@@ -994,8 +1128,8 @@
             {
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -1043,14 +1177,14 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "0"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "10"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
@@ -1064,8 +1198,8 @@
             {
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -1113,14 +1247,14 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "0"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "10"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
@@ -1134,8 +1268,8 @@
             {
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -1183,14 +1317,14 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "0"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "10"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
@@ -1204,8 +1338,8 @@
             {
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -1218,7 +1352,7 @@
 
 
 
-     
+
     // Spell7.1
     //================================================================================
     // Repair Building
@@ -1228,7 +1362,7 @@
         // General
         //------------------------------------------------------------------------
         "AbilityName"           "Repair"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"   
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
         "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_BASIC"
         "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
         "AbilityTextureName"        "omniknight_degen_aura"
@@ -1276,13 +1410,13 @@
             {
                 "ModifierName"  "modifier_repairing_building_animation"
                 "Target"    "CASTER"
-            }       
+            }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_repairing_building"
                 "Target"    "TARGET"
-            }       
+            }
         }
 
         "OnChannelFinish"
@@ -1291,13 +1425,13 @@
             {
                 "ModifierName"  "modifier_repairing_building_animation"
                 "Target"    "CASTER"
-            }                       
+            }
 
             "RemoveModifier"
             {
                 "ModifierName"  "modifier_repairing_building"
                 "Target"    "TARGET"
-            }                       
+            }
         }
 
         "OnChannelSucceeded"
@@ -1310,13 +1444,13 @@
             //  "channelTime"   "%channel_time"
             //  "lumber"    "%lumber"
             //}
-    
+
             //"FireSound"
             //{
             //  "EffectName"    "DOTA_Item.Hand_Of_Midas"
             //  "Target"    "CASTER"
             //}
-        }   
+        }
 
         "Modifiers"
         {
@@ -1329,7 +1463,7 @@
                 {
                     "MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"   "%regen"
                 }
-            }   
+            }
 
             "modifier_repairing_building_animation"
             {
@@ -1343,17 +1477,17 @@
                     {
                         "ModifierName"      "channeling_animation"
                         "Target"        "CASTER"
-                    }       
+                    }
                 }
-            }   
+            }
 
             "channeling_animation"
             {
                 "IsHidden"      "1"
                 "Duration"      "0.9"
                 "OverrideAnimation" "ACT_DOTA_ATTACK"
-            }   
-        }           
+            }
+        }
     }
 
 
@@ -1399,13 +1533,13 @@
         {
             "RunScript"
             {
-                "Target"    "POINT" 
+                "Target"    "POINT"
                 "ScriptFile"    "scripts/vscripts/utils.lua"
                 "Function"  "BuyGoldFromSpell"
                 "wood"      "%lumber_cost"
                 "gold"      "%gold_gained"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -1422,7 +1556,7 @@
         // General
         //------------------------------------------------------------------------
         "AbilityName"           "Transfer Lumber"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"  
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
         "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_BASIC"
         "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
         "AbilityTextureName"        "spellicon_deliver_lumber_worker"
@@ -1443,11 +1577,47 @@
         {
             "RunScript"
             {
-                "Target"    "POINT" 
+                "Target"    "POINT"
                 "ScriptFile"    "scripts/vscripts/utils.lua"
                 "Function"  "TransferLumber"
-            }   
-        }   
+            }
+        }
+    }
+
+
+
+    "srts_transfer_lumber_neutral"
+    {
+        // General
+        //------------------------------------------------------------------------
+        "AbilityName"           "Transfer Lumber"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+        "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_BASIC"
+        "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+        "AbilityTextureName"        "spellicon_deliver_lumber_worker"
+        "BaseClass"         "ability_datadriven"
+        "Maxlevel"          "1"
+
+        // Casting
+        "AbilityCastPoint"      "0.1"
+        "AbilityCastRange"      "128"
+        "AbilityCooldown"       "0"
+        "AbilityManacost"       "0"
+
+        "AbilitySpecial"
+        {
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "Target"    "POINT"
+                "ScriptFile"    "scripts/vscripts/utils.lua"
+                "Function"  "TransferLumber"
+                "neutral"   "true"
+            }
+        }
     }
 
 
@@ -1467,7 +1637,7 @@
         "AbilityTextureName"        "abaddon_aphotic_shield"
         "BaseClass"         "ability_datadriven"
         "Maxlevel"          "1"
-        
+
         // Casting
         "AbilityCastPoint"      "0"
         "AbilityCooldown"       "0"
@@ -1480,8 +1650,8 @@
                 "Target"    "CASTER"
                 "ScriptFile"    "scripts/vscripts/utils.lua"
                 "Function"  "RotateRight"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -1501,7 +1671,7 @@
         "AbilityTextureName"        "abaddon_aphotic_shield"
         "BaseClass"         "ability_datadriven"
         "Maxlevel"          "1"
-        
+
         // Casting
         "AbilityCastPoint"      "0"
         "AbilityCooldown"       "0"
@@ -1514,8 +1684,8 @@
                 "Target"    "CASTER"
                 "ScriptFile"    "scripts/vscripts/utils.lua"
                 "Function"  "RotateLeft"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -1532,7 +1702,7 @@
         // General
         //------------------------------------------------------------------------
         "AbilityName"           "Periodic Mine Gold"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE" 
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "AbilityTextureName"        "alchemist_goblins_greed"
         "BaseClass"         "ability_datadriven"
         "Maxlevel"          "1"
@@ -1555,7 +1725,7 @@
             //  "period"    "1.0"
             //}
         }
-        
+
         "OnSpellStart"
         {
             "ApplyModifier"
@@ -1576,7 +1746,7 @@
                 "ThinkInterval" "1.0"
 
                 "OnIntervalThink"
-                {   
+                {
                     //"FireEffect"
                     //{
                     //}
@@ -1592,10 +1762,10 @@
 
                 "OnCreated"
                 {
-    
-                }    
-            }   
-        }   
+
+                }
+            }
+        }
     }
 
 
@@ -1632,7 +1802,7 @@
                     }
                 }
             }
-        }   
+        }
     }
 
 
@@ -1667,7 +1837,7 @@
                     }
                 }
             }
-        }   
+        }
     }
 
 
@@ -1693,7 +1863,7 @@
             {
                 "Passive"   "1"
                 "IsHidden"  "1"
-                "Attributes"    "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT" 
+                "Attributes"    "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT"
 
                 "States"
                 {
@@ -1711,7 +1881,7 @@
                     "MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE"  "0.1"
                 }
             }
-        }   
+        }
     }
 
     // Spell7.9
@@ -1733,9 +1903,9 @@
             {
                 "Passive"   "1"
                 "IsHidden"  "1"
-                "Attributes"    "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT" 
+                "Attributes"    "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT"
             }
-        }   
+        }
     }
 
 
@@ -1753,7 +1923,7 @@
         "AbilityName"           "Empty Filler"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "BaseClass"         "ability_datadriven"
-        "Maxlevel"          "1" 
+        "Maxlevel"          "1"
     }
 
 
@@ -1785,7 +1955,7 @@
                     "MODIFIER_PROPERTY_DISABLE_AUTOATTACK"  "0"
                 }
             }
-        }   
+        }
     }
 
 
@@ -1841,8 +2011,8 @@
                 "Passive"   "1"
                 "IsHidden"  "1"
             }
-        }   
-    }   
+        }
+    }
 
 
 
@@ -1873,24 +2043,24 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "bonus_evasion" "50"
-            }   
+            }
 
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
                 "bonus_vision"  "300"
-            }   
+            }
         }
 
         "OnSpellStart"
-        {   
+        {
             "RunScript"
             {
-                "Target"    "POINT" 
+                "Target"    "POINT"
                 "ScriptFile"    "scripts/vscripts/spells.lua"
                 "Function"  "EnterTower"
                 "modifier"  "modifier_inside_tower_buff"
-            }   
+            }
 
             "RemoveModifier"
             {
@@ -1904,7 +2074,7 @@
             "modifier_inside_tower_buff"
             {
                 "Passive"       "1"
-                "Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT" 
+                "Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT"
                 "TextureName"       "spellicon_enter_tower"
                 "States"
                 {
@@ -1922,8 +2092,8 @@
                         "ScriptFile"    "scripts/vscripts/spells.lua"
                         "Function"  "RemoveIfBuilding"
                         "modifier"  "modifier_inside_tower_buff"
-                    }   
-                }   
+                    }
+                }
 
                 "Properties"
                 {
@@ -1932,8 +2102,8 @@
                     "MODIFIER_PROPERTY_BONUS_DAY_VISION"    "%bonus_vision"
                     "MODIFIER_PROPERTY_BONUS_NIGHT_VISION"  "%bonus_vision"
                 }
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -1957,10 +2127,10 @@
         "AbilityCastPoint"      "0.1"
 
         "OnSpellStart"
-        {   
+        {
             "RunScript"
             {
-                "Target"    "POINT" 
+                "Target"    "POINT"
                 "ScriptFile"    "scripts/vscripts/spells.lua"
                 "Function"  "LeaveTower"
                 "modifier"  "modifier_inside_tower_buff"
@@ -1993,7 +2163,7 @@
                 "bonus_range"   "175"
             }
         }
-        
+
         "Modifiers"
         {
             "modifier_sniper_rifle"
@@ -2002,7 +2172,7 @@
                 "IsBuff"        "1"
                 "IsHidden"      "1"
                 "TextureName"       "sniper_take_aim"
-                
+
                 "Properties"
                 {
                     "MODIFIER_PROPERTY_ATTACK_RANGE_BONUS"  "%bonus_range"
@@ -2046,9 +2216,9 @@
 
     // Spell7.18
     //================================================================================
-    // 
+    //
     //================================================================================
-    
+
 
 
 
@@ -2060,7 +2230,7 @@
 
 
 
-    // Spell8.1     
+    // Spell8.1
     //================================================================================
     // Regenerative Bark - Treant Warrior Passive
     //================================================================================
@@ -2080,7 +2250,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health_regen"  "1"
             }
-        }   
+        }
 
         "Modifiers"
         {
@@ -2124,7 +2294,7 @@
                 "bonus_range"   "25"
             }
         }
-        
+
         "Modifiers"
         {
             "modifier_long_weapon"
@@ -2133,7 +2303,7 @@
                 "IsBuff"        "1"
                 "IsHidden"      "1"
                 "TextureName"       "mirana_arrow"
-                
+
                 "Properties"
                 {
                     "MODIFIER_PROPERTY_ATTACK_RANGE_BONUS"  "%bonus_range"
@@ -2167,7 +2337,7 @@
                 "bonus_attack_speed"    "10"
             }
         }
-        
+
         "Modifiers"
         {
             "modifier_hatred"
@@ -2176,7 +2346,7 @@
                 "IsBuff"        "1"
                 "IsHidden"      "1"
                 "TextureName"       "troll_warlord_whirling_axes_ranged"
-                
+
                 "Properties"
                 {
                     "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"  "%bonus_attack_speed"
@@ -2209,14 +2379,14 @@
                 "var_type"  "FIELD_INTEGER"
                 "crit_bonus"    "200"
             }
-        
+
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
                 "crit_chance"   "10"
             }
         }
-        
+
         "Modifiers"
         {
             "modifier_critical_strike"
@@ -2246,7 +2416,7 @@
                     }
                 }
             }
-            
+
             "modifier_critical_strike_hit"
             {
                 "IsHidden"      "1"
@@ -2292,7 +2462,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "proc_bonus"    "150"
             }
-        
+
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -2329,7 +2499,7 @@
                     }
                 }
             }
-            
+
             "modifier_headshot_proc"
             {
                 "IsHidden"      "1"
@@ -2376,7 +2546,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "slow_percent"  "-5"
             }
-        
+
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -2393,12 +2563,12 @@
         "Modifiers"
         {
             "modifier_envenomed_spears"
-            {   
+            {
                 "Passive"   "1"
                 "IsHidden"  "1"
 
                 "OnAttackLanded"
-                {   
+                {
                     "ApplyModifier"
                     {
                         "Target"
@@ -2469,7 +2639,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "attack_slow_percent"  "-10"
             }
-        
+
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -2480,12 +2650,12 @@
         "Modifiers"
         {
             "modifier_chilling_attack"
-            {   
+            {
                 "Passive"   "1"
                 "IsHidden"  "1"
 
                 "OnAttackLanded"
-                {   
+                {
                     "ApplyModifier"
                     {
                         "Target"
@@ -2548,7 +2718,7 @@
         "Modifiers"
         {
             "modifier_flaming_arrows"
-            {   
+            {
                 "Passive"   "1"
                 "IsHidden"  "1"
 
@@ -2581,8 +2751,8 @@
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "AbilityTextureName"        "warlock_golem_flaming_fists"
         "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
-        "MaxLevel"          "1" 
-        
+        "MaxLevel"          "1"
+
         "AbilitySpecial"
         {
             "01"
@@ -2597,16 +2767,16 @@
                 "duration"  "3"
             }
         }
-        
+
         "Modifiers"
-        {           
+        {
             "modifier_ignite"
-            {   
+            {
                 "Passive"   "1"
                 "IsHidden"  "1"
 
                 "OnAttackLanded"
-                {   
+                {
                     "ApplyModifier"
                     {
                         "Target"
@@ -2670,7 +2840,7 @@
     // Curse - Skeleton Mage Ability
     //================================================================================
     "srts_curse"
-    {   
+    {
         // General
         //--------------------
         "BaseClass"         "ability_datadriven"
@@ -2686,7 +2856,7 @@
         "AbilityCastRange"      "600"
         "AbilityCastPoint"      "0.3"
 
-        // Time     
+        // Time
         //--------------------
         "AbilityCooldown"       "0.5"
 
@@ -2702,13 +2872,13 @@
                 "var_type"      "FIELD_FLOAT"
                 "miss_chance"   "40.0"
             }
-            
+
             "02"
             {
                 "var_type"      "FIELD_INTEGER"
                 "duration"      "15"
             }
-            
+
             "03"
             {
                 "var_type"      "FIELD_INTEGER"
@@ -2737,7 +2907,7 @@
                 "Passive"   "0"
                 "IsHidden"  "0"
                 "IsDebuff"  "1"
-            
+
                 "Properties"
                 {
                     "MODIFIER_PROPERTY_MISS_PERCENTAGE" "%miss_chance"
@@ -2821,7 +2991,7 @@
         "AbilityCastRange"      "625"
         "AbilityCastPoint"      "0.3"
 
-        // Time     
+        // Time
         //--------------------
         "AbilityCooldown"       "0.5"
 
@@ -2843,7 +3013,7 @@
                 "var_type"      "FIELD_FLOAT"
                 "move_slow"     "-35"
             }
-            
+
             "03"
             {
                 "var_type"      "FIELD_INTEGER"
@@ -2878,7 +3048,7 @@
                 "Passive"   "0"
                 "IsHidden"  "0"
                 "IsDebuff"  "1"
-            
+
                 "Properties"
                 {
                     "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"  "%attack_slow"
@@ -2947,7 +3117,7 @@
     // Frenzy - Troll Elder Ability
     //================================================================================
     "srts_frenzy"
-    {   
+    {
         // General
         //--------------------
         "BaseClass"         "ability_datadriven"
@@ -2962,7 +3132,7 @@
         "AbilityCastRange"      "600"
         "AbilityCastPoint"      "0.3"
 
-        // Time     
+        // Time
         //--------------------
         "AbilityCooldown"       "0.5"
 
@@ -2972,7 +3142,7 @@
 
         // Special
         "AbilitySpecial"
-        {           
+        {
             "01"
             {
                 "var_type"      "FIELD_INTEGER"
@@ -3025,7 +3195,7 @@
                 "Passive"   "0"
                 "IsHidden"  "0"
                 "IsBuff"    "1"
-            
+
                 "Properties"
                 {
                     "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"  "%attack_speed_bonus"
@@ -3093,7 +3263,7 @@
     // Living Armor - Forest Tormented Soul Ability
     //================================================================================
     "srts_living_armor"
-    {   
+    {
         // General
         //--------------------
         "BaseClass"         "ability_datadriven"
@@ -3108,7 +3278,7 @@
         "AbilityCastRange"      "600"
         "AbilityCastPoint"      "0.3"
 
-        // Time     
+        // Time
         //--------------------
         "AbilityCooldown"       "0.5"
 
@@ -3118,7 +3288,7 @@
 
         // Special
         "AbilitySpecial"
-        {           
+        {
             "01"
             {
                 "var_type"      "FIELD_INTEGER"
@@ -3156,7 +3326,7 @@
                 "ModifierName"  "modifier_living_armor"
                 "Duration"      "%duration"
             }
-                   
+
             "FireSound"
             {
                 "EffectName"    "DOTA_Item.Buckler.Activate"
@@ -3171,7 +3341,7 @@
                 "Passive"   "0"
                 "IsHidden"  "0"
                 "IsBuff"    "1"
-            
+
                 "Properties"
                 {
                     "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"    "%armor_bonus"
@@ -3244,18 +3414,18 @@
     "srts_hero_desc_commander_melee"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_footman"
-    }  
+    }
 
     // Spell9.1.2
     // Commander Gunner
     "srts_hero_desc_commander_ranged"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_gunner"
-    }  
+    }
 
     // Spell9.1.3
     // Commander Mage
@@ -3272,27 +3442,27 @@
     "srts_hero_desc_furion_melee"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_treant"
-    }  
+    }
 
     // Spell9.2.2
     // Furion Dryad
     "srts_hero_desc_furion_ranged"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_dryad"
-    } 
+    }
 
     // Spell9.2.3
     // Furion Tormented Soul
     "srts_hero_desc_furion_caster"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_tormented_soul"
-    } 
+    }
 
 
 
@@ -3301,18 +3471,18 @@
     "srts_hero_desc_brewmaster_melee"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_bruiser_brewmaster"
-    }      
+    }
 
     // Spell9.2.2
     // Brewmaster Frostmage
     "srts_hero_desc_brewmaster_ranged"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_frostmage_brewmaster"
-    } 
+    }
 
 
 
@@ -3322,18 +3492,18 @@
     "srts_hero_desc_meepo_melee"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_spearman"
-    }  
+    }
 
     // Spell9.3.2
     // Geomancer Flame Thrower
     "srts_hero_desc_meepo_ranged"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_flame_thrower"
-    }  
+    }
 
 
 
@@ -3342,18 +3512,18 @@
     "srts_hero_desc_skeleton_king_melee"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_skeleton_warrior"
-    }  
+    }
 
     // Spell9.4.2
     // King of the Dead Skeleton Archer
     "srts_hero_desc_skeleton_king_ranged"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_skeleton_archer"
-    } 
+    }
 
     // Spell9.4.3
     // King of the Dead Skeleton Mage
@@ -3361,7 +3531,7 @@
     {
         "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_skeleton_mage"
-    } 
+    }
 
 
 
@@ -3370,21 +3540,21 @@
     "srts_hero_desc_troll_warlord_melee"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_fighter"
-    }  
+    }
 
     // Spell9.5.2
     // Troll Axe Thrower
     "srts_hero_desc_troll_warlord_ranged"
         {
     //  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "BaseClass"         "ability_datadriven"    
+        "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_axe_thrower"
-    }  
+    }
 
     // Spell9.5.3
-    // Troll 
+    // Troll
     "srts_hero_desc_troll_warlord_caster"
     {
         "BaseClass"         "ability_datadriven"
@@ -3484,7 +3654,7 @@
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
         "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
         "AbilityTextureName"        "enchantress_natures_attendants"
-        
+
         // Special
         //------------------------------------------------------------------------
         "AbilitySpecial"
@@ -3513,12 +3683,12 @@
                 "IsBuff"    "1"
                 "IsHidden"  "1"
                 "TextureName"   "enchantress_natures_attendants"
-                
+
                 "Aura"          "crystal_aura"
                 "Aura_Teams"    "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
                 "Aura_Radius"   "%radius"
                 "Aura_Types"    "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-                
+
                 "OnCreated"
                 {
                     "ApplyModifier"
@@ -3533,7 +3703,7 @@
             {
                 "IsHidden"  "1"
 
-                "EffectName"        "particles/radiant_fx/good_barracks_melee001_amb.vpcf" 
+                "EffectName"        "particles/radiant_fx/good_barracks_melee001_amb.vpcf"
                 "EffectAttachType"  "follow_origin"
             }
 
@@ -3556,7 +3726,7 @@
         "BaseClass"         "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "AbilityTextureName"        "enchantress_natures_attendants"
-        
+
         "Modifiers"
         {
             "modifier_ignited"
@@ -3592,7 +3762,7 @@
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "AbilityTextureName"        "enchantress_natures_attendants"
         "MaxLevel"          "10"
-        
+
         // Special
         //------------------------------------------------------------------------
         "AbilitySpecial"
@@ -3607,7 +3777,7 @@
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
-                "radius"    "900"               
+                "radius"    "900"
             }
 
             "03"
@@ -3625,7 +3795,7 @@
                 "IsBuff"    "1"
                 //              "IsHidden"  "1"
                 "TextureName"   "invoker_ghost_walk"
-            
+
                 "OnAttackLanded"
                 {
                     "RunScript"
@@ -3634,8 +3804,8 @@
                         "Function"  "AbilityTestPrint"
                         "text"      "OnAttackLandedHero"
                     }
-                }   
-    
+                }
+
                 "OnCreated"
                 {
                     "RunScript"
@@ -3663,8 +3833,8 @@
                                 "Function"  "HeroAttackSpeedAura"
                                 "modifier"  "modifier_hero_attack_speed_aura_unit_datadriven"
                             }
-                        }   
-                    }   
+                        }
+                    }
                 }
 
                 "ThinkInterval" "%think_interval"
@@ -3695,15 +3865,15 @@
                                 "Function"  "HeroAttackSpeedAura"
                                 "modifier"  "modifier_hero_attack_speed_aura_unit_datadriven"
                             }
-                        }   
+                        }
                     }
                 }
-            
+
                 "Properties"
                 {
                     "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"  "%bonus_attack_speed"
-                }   
-            }   
+                }
+            }
 
             "modifier_hero_attack_speed_aura_unit_datadriven"
             {
@@ -3718,7 +3888,7 @@
                         "Function"  "AbilityTestPrint"
                         "text"      "OnAttackLandedUnit"
                     }
-                }   
+                }
 
                 "Properties"
                 {
@@ -3740,7 +3910,7 @@
         "BaseClass"         "ability_datadriven"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "AbilityTextureName"        "enchantress_natures_attendants"
-        
+
         // Special
         //------------------------------------------------------------------------
         "AbilitySpecial"
@@ -3754,7 +3924,7 @@
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
-                "radius"    "900"               
+                "radius"    "900"
             }
         }
     }
@@ -3770,7 +3940,7 @@
         //------------------------------------------------------------------------
         "AbilityName"           "Demolish Building"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"   
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
         "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "necrolyte_death_pulse"
 
@@ -3811,7 +3981,7 @@
                 //"EffectName"  "Hero_Techies.Suicide"
                 "EffectName"    "DOTA_Item.Dagon.Activate"
                 "Target"    "CASTER"
-            }   
+            }
         }
 
         "AbilitySpecial"
@@ -3870,15 +4040,15 @@
         {
             "RunScript"
             {
-                "Target"    "POINT" 
+                "Target"    "POINT"
                 "ScriptFile"    "scripts/vscripts/spells.lua"
                 "Function"  "BuyItem"
                 "item"      "item_healing_salve"
                 "amount"    "4"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -3891,7 +4061,7 @@
         "BaseClass"                     "ability_datadriven"
         "MaxLevel"              "1"
         "AbilityTextureName"            "spellicon_ability_prop"
-        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE"     
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
         "Modifiers"
         {
@@ -3899,7 +4069,7 @@
             {
                 "Passive"       "1"
                 "IsHidden"      "1"
-                "Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT" 
+                "Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT"
                 "States"
                 {
                     "MODIFIER_STATE_NO_HEALTH_BAR"      "MODIFIER_STATE_VALUE_ENABLED"
@@ -3964,7 +4134,7 @@
 
 //-- // Buildinghelper Library Spells // --// Lib1
 
-        
+
 
 
 
@@ -3987,13 +4157,13 @@
                 "ModifierName"  "bh_dummy"
             }
         }
-        
+
         "Modifiers"
         {
             "bh_dummy"
             {
                 "Passive"         "1"
-                "IsHidden"        "1"    
+                "IsHidden"        "1"
                 "States"
                 {
                     "MODIFIER_STATE_UNSELECTABLE"           "MODIFIER_STATE_VALUE_ENABLED"
@@ -4010,7 +4180,7 @@
     {
         "BaseClass"         "ability_datadriven"
             "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        
+
         "Modifiers"
             {
             "dummy_modifier"
@@ -4034,7 +4204,7 @@
                 }
             }
         }
-     
+
      // this ability is optional.
     "building"
     {
@@ -4054,7 +4224,7 @@
         // Item Info
         //-------------------------------------------------------------------------------------------------------------
         "AbilityManaCost"               "0"
-        
+
         "OnSpellStart"
         {
             "RunScript"
@@ -4065,7 +4235,7 @@
             }
         }
 
-        // Special  
+        // Special
         //-------------------------------------------------------------------------------------------------------------
         "AbilitySpecial"
         {
@@ -4078,14 +4248,14 @@
         "MaxLevel"                      "1"
 
         "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-        
+
         "Modifiers"
         {
             "modifier_building"
             {
                 "Passive"           "1"
                 "IsHidden"          "1"
-                "Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT" 
+                "Attributes"        "MODIFIER_ATTRIBUTE_IGNORE_INVULNERABLE | MODIFIER_ATTRIBUTE_PERMANENT"
                 "States"
                 {
                     "MODIFIER_STATE_MAGIC_IMMUNE" "MODIFIER_STATE_VALUE_ENABLED" // Makes most abilities don't affect this. Use custom damage
@@ -4094,7 +4264,7 @@
                     "MODIFIER_STATE_LOW_ATTACK_PRIORITY" "MODIFIER_STATE_VALUE_ENABLED" // Makes it a secondary target when A-clicking ground
                     "MODIFIER_STATE_NO_UNIT_COLLISION"  "MODIFIER_STATE_VALUE_ENABLED" // GridNav is blocked
                 }
-                
+
                 "Properties"
                 {
                     "MODIFIER_PROPERTY_DISABLE_TURNING" "1"
@@ -4111,23 +4281,23 @@
                     }
                 }
             }
-        }       
+        }
     }
 
     "ability_building_queue"
     {
         "BaseClass"                     "ability_datadriven"
         "MaxLevel"                      "1"
-    
+
         "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-    
+
         "Modifiers"
         {
             "modifier_building_queue"
             {
                 "Passive"           "1"
                 "IsHidden"          "1"
-        
+
                 "ThinkInterval"  "0.03"
                 "OnIntervalThink"
                 {
@@ -4148,9 +4318,9 @@
         "AbilityCooldown"               "0"
         "AbilityCastRange"              "100"
         "MaxLevel"                      "1"
-    
+
         "AbilityManaCost"               "0"
-    
+
         "OnSpellStart"
         {
             "RunScript"
@@ -4161,7 +4331,7 @@
             }
         }
     }
-    
+
     "move_to_point_150"
     {
         "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_POINT"
@@ -4170,9 +4340,9 @@
         "AbilityCooldown"               "0"
         "AbilityCastRange"              "150"
         "MaxLevel"                      "1"
-    
+
         "AbilityManaCost"               "0"
-    
+
         "OnSpellStart"
         {
             "RunScript"
@@ -4183,7 +4353,7 @@
             }
         }
     }
-    
+
     "move_to_point_200"
     {
         "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_POINT"
@@ -4192,9 +4362,9 @@
         "AbilityCooldown"               "0"
         "AbilityCastRange"              "200"
         "MaxLevel"                      "1"
-    
+
         "AbilityManaCost"               "0"
-    
+
         "OnSpellStart"
         {
             "RunScript"
@@ -4205,7 +4375,7 @@
             }
         }
     }
-    
+
     "move_to_point_250"
     {
         "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_POINT"
@@ -4214,9 +4384,9 @@
         "AbilityCooldown"               "0"
         "AbilityCastRange"              "250"
         "MaxLevel"                      "1"
-    
+
         "AbilityManaCost"               "0"
-    
+
         "OnSpellStart"
         {
             "RunScript"
@@ -4227,7 +4397,7 @@
             }
         }
     }
-    
+
     "move_to_point_300"
     {
         "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_POINT"
@@ -4236,9 +4406,9 @@
         "AbilityCooldown"               "0"
         "AbilityCastRange"              "300"
         "MaxLevel"                      "1"
-    
+
         "AbilityManaCost"               "0"
-    
+
         "OnSpellStart"
         {
             "RunScript"

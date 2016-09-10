@@ -130,7 +130,7 @@ defs = {
 		spell = "srts_global_speed_aura",
 		category = "spell"
 	},
-	
+
 	CRYSTAL_AURA = {
 		spell = "srts_crystal_aura",
 		category = "spell"
@@ -173,12 +173,12 @@ defs = {
 		spell = "srts_menu_main",
 		category = "spell"
 	},
-	
+
 	PAGE_MENU_CONSTRUCTION_BASIC = {
 		spell = "srts_menu_construction_1",
 		category = "spell"
 	},
-	
+
 	PAGE_MENU_CONSTRUCTION_ADVANCED = {
 		spell = "srts_menu_construction_2",
 		category = "spell"
@@ -294,8 +294,8 @@ defs = {
 }
 
 buildefs = {
-	
-	-- Buildings 
+
+	-- Buildings
 	TENT_SMALL = {
 		name = "npc_dota_building_main_tent_small",
 		spell = "srts_construct_main_building",
@@ -346,7 +346,7 @@ buildefs = {
 			}
 		}
 	},
-	
+
 	WOODEN_WALL = {
 		name = "npc_dota_building_wooden_wall",
 		spell = "srts_construct_wooden_wall",
@@ -362,7 +362,7 @@ buildefs = {
 			}
 		}
 	},
-	
+
 	MARKET = {
 		name = "npc_dota_building_market",
 		spell = "srts_construct_market",
@@ -380,7 +380,7 @@ buildefs = {
 				"BUILDING"
 			}
 		}
-	}, 
+	},
 
 	GOLD_MINE = {
 		name = "npc_dota_building_gold_mine",
@@ -661,7 +661,7 @@ buildefs = {
 }
 
 unitdefs = {
-	
+
 	-- Units
 	COMMON_TRAIN_WORKER = {
 		name = "npc_dota_creature_worker",
@@ -887,7 +887,7 @@ unitdefs = {
 			}
 		}
 	},
-	
+
 	FURION_CATAPULT = {
 		name = "npc_dota_creature_catapult_radiant",
 		spell = "srts_train_catapult_radiant",
@@ -1015,7 +1015,7 @@ unitdefs = {
 			}
 		}
 	},
-	
+
 	BREWMASTER_CATAPULT = {
 		name = "npc_dota_creature_catapult_radiant",
 		spell = "srts_train_catapult_radiant",
@@ -1343,7 +1343,7 @@ unitdefs = {
 			}
 		}
 	},
-	
+
 	WARLORD_FIGHTER = {
 		name = "npc_dota_creature_troll_guard_1",
 		spell = "srts_train_troll_fighter",

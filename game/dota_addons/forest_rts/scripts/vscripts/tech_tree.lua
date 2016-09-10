@@ -317,7 +317,7 @@ end
 --- * ownerhero: The hero of a player.
 ---------------------------------------------------------------------------
 function TechTree:ReadTechDef(ownerHero)
-    if not ownerHero:IsRealHero() then  
+    if not ownerHero:IsRealHero() then
         print("ERROR: ownerHero unit must be a hero!")
         print(nil)  -- No point in continuing.
     end
@@ -388,7 +388,7 @@ end
 
 
 ---------------------------------------------------------------------------
--- Adds useful methods to the newly training unit or 
+-- Adds useful methods to the newly training unit or
 -- constructed building.
 --- * entity: The entity to add methods to.
 ---------------------------------------------------------------------------
@@ -399,17 +399,17 @@ function TechTree:AddPlayerMethods(entity, owner)
     entity._ownerPlayer = owner
     entity._ownerPlayerID = ownerID
     entity._ownerHero = ownerHero
-      
+
     -- Get the player object of the owner.
     function entity:GetOwnerPlayer()
         return entity._ownerPlayer or entity:GetOwner()
     end
-   
+
     -- Get the player id of the owner.
     function entity:GetOwnerID()
         return entity._ownerPlayerID or entity:GetOwner():GetPlayerID()
     end
-   
+
     -- Get the hero of the owner.
     function entity:GetOwnerHero()
         return entity._ownerHero or GetPlayerHero(entity:GetOwner():GetPlayerID())
@@ -422,12 +422,13 @@ end
 --- * ownerHero: The hero of the owning player.
 ---------------------------------------------------------------------------
 function TechTree:GetAbilityPagesForUnit(unit, ownerHero)
-    if unit:IsRealHero() then 
-        return unit.TT.techDef.heropages 
+    if unit:IsRealHero() then
+        return unit.TT.techDef.heropages
     end
     local unitName = unit:GetUnitName()
 
-    local unitStruct = ownerHero.TT.techDef[unitName]
+    local unitStruct = ownerHero.TT.techDef[unitName] or
+        GetUnitStructFromTech(unitName, ownerHero:GetUnitName())
     --local unitStruct = ownerHero.TT.techDef[unitName] or defs[unitName] or unitdefs[unitName] or buildefs[unitName] or FindUnitStructByName(unitName)
 
     --[[
@@ -577,7 +578,7 @@ function TechTree:RegisterIncident(unit, state, upgrade)
     if maxUnitCount then
         if (oldUnitCount >= maxUnitCount and newUnitCount < maxUnitCount) or
             (oldUnitCount < maxUnitCount and newUnitCount >= maxUnitCount) or
-            
+
             wasUnfinished then
             needsUpdate = true
         end
@@ -613,7 +614,7 @@ function TechTree:UpdateSpellsAllEntities(ownerHero)
             TechTree:UpdateSpellsForEntity(building, ownerHero)
         end
     end
-    for _,unit in pairs(ownerHero:GetUnits()) do 
+    for _,unit in pairs(ownerHero:GetUnits()) do
         if unit:IsNull() then
             ownerHero:RemoveUnit(unit)
         else
@@ -625,7 +626,7 @@ end
 ---------------------------------------------------------------------------
 -- Wrapper function for heroes.
 ---------------------------------------------------------------------------
-function TechTree:UpdateSpellsForHero(ownerHero) 
+function TechTree:UpdateSpellsForHero(ownerHero)
     TechTree:UpdateSpellsForEntity(ownerHero, ownerHero)
 end
 
@@ -644,7 +645,7 @@ function TechTree:UpdateSpellsForEntity(entity, ownerHero)
         if curAbility and not curAbility:IsNull() then
             local curAbilityName = curAbility:GetAbilityName()
             local level = ownerHero:GetAbilityLevelFor(curAbilityName)
-     
+
             if not level then
                 curAbility:SetLevel(1)
             else
@@ -769,7 +770,7 @@ function TechTree:UpdateTechTree(hero, building, action)
                         --   unlock = false
                         --   break
                         --end
-                    elseif type(curReqConst) == "table" then   
+                    elseif type(curReqConst) == "table" then
                         -- New way! Looking at ..., curReq, ... or ..., {curOption1, curOption2}, ...
                         -- Insert the current req or table with choosable reqs into a new one.
                         local curReqTable = {}
@@ -793,7 +794,7 @@ function TechTree:UpdateTechTree(hero, building, action)
                 end
             end
         end
-      
+
         -- Set spell level.
         if unlock == true then
             hero:SetAbilityLevelFor(curSpellName, 1)

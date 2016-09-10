@@ -4,7 +4,7 @@
 "DOTAUnits"
 {
 	//"Version"	"1"
-	
+
 
 
 //-- // Melee Mercenaries // --// Unit1
@@ -18,7 +18,7 @@
 	// Unit: Human Guard
 	//================================================================================
 
-	// Level 1	
+	// Level 1
 	//========================================
 	"npc_dota_creature_human_guard_1"
 	{
@@ -61,10 +61,10 @@
 		"StatusHealth"			"495"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -79,13 +79,13 @@
 				"Wearable2"
 				{
 					"ItemDef"	"4114"
-				}	
+				}
 				"Wearable3"
 				{
 					"ItemDef"	"4115"
 				}
 				"Wearable4"
-				{	
+				{
 					"ItemDef"	"4116"
 				}
 				"Wearable5"
@@ -97,7 +97,7 @@
 					"ItemDef"	"4154"
 				}
 			}
-		}				
+		}
 	}
 
 
@@ -108,8 +108,8 @@
 	//================================================================================
 	// Unit: Treant Warrior
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_treant_warrior_1"
 	{
@@ -152,10 +152,10 @@
 		"StatusHealth"			"450"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -166,9 +166,9 @@
 				"Wearable1"
 				{
 					"ItemDef"	"4337"
-				}	
+				}
 			}
-		}			
+		}
 	}
 
 
@@ -179,8 +179,8 @@
 	//================================================================================
 	// Unit: Brewmaster Bruiser
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_brewmaster_bruiser"
 	{
@@ -223,15 +223,15 @@
 		"StatusHealth"			"825"
 		"StatusHealthRegen"		"0.75"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}			
+		}
 	}
 
 
@@ -242,8 +242,8 @@
 	//================================================================================
 	// Unit: Kobold Spearman
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_kobold_guard_1"
 	{
@@ -286,10 +286,10 @@
 		"StatusHealth"			"345"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"				
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -305,8 +305,8 @@
 	//================================================================================
 	// Unit: Skeleton Warrior
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_skeleton_warrior_1"
 	{
@@ -349,15 +349,15 @@
 		"StatusHealth"			"270"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}			
+		}
 	}
 
 
@@ -368,8 +368,8 @@
 	//================================================================================
 	// Unit: Troll Fighter
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_troll_guard_1"
 	{
@@ -412,10 +412,10 @@
 		"StatusHealth"			"415"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"				
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -431,14 +431,14 @@
 
 
 
-     
+
 
 	// Unit2.1
 	//================================================================================
 	// Unit: Human Gunner
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_human_ranged_1"
 	{
@@ -481,10 +481,10 @@
 		"StatusHealth"			"270"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -513,7 +513,7 @@
 					"ItemDef"	"4698"
 				}
 			}
-		}			
+		}
 	}
 
 
@@ -524,8 +524,8 @@
 	//================================================================================
 	// Unit: Dryad
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_forest_ranged_1"
 	{
@@ -568,10 +568,10 @@
 		"StatusHealth"			"240"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -600,7 +600,7 @@
 					"ItemDef"	"5025"
 				}
 			}
-		}			
+		}
 	}
 
 
@@ -611,8 +611,8 @@
 	//================================================================================
 	// Unit: Brewmaster Frostmage
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_brewmaster_frostmage"
 	{
@@ -655,15 +655,15 @@
 		"StatusHealth"			"310"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}			
+		}
 	}
 
 
@@ -674,8 +674,8 @@
 	//================================================================================
 	// Unit: Kobold Flame Thrower
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_kobold_ranged_1"
 	{
@@ -718,15 +718,15 @@
 		"StatusHealth"			"210"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}			
+		}
 	}
 
 
@@ -737,8 +737,8 @@
 	//================================================================================
 	// Unit: Skeleton Archer
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_skeleton_ranged_1"
 	{
@@ -782,10 +782,10 @@
 		"StatusHealth"			"205"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -818,7 +818,7 @@
 					"ItemDef"	"56"
 				}
 			}
-		}			
+		}
 	}
 
 
@@ -829,8 +829,8 @@
 	//================================================================================
 	// Unit: Troll Axe Thrower
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_troll_ranged_1"
 	{
@@ -873,10 +873,10 @@
 		"StatusHealth"			"220"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"				
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -892,14 +892,14 @@
 
 
 
-     
+
 
 	// Unit2.6
 	//================================================================================
 	// Unit: Skeleton Mage / Skeleton Caster
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_skeleton_caster"
 	{
@@ -942,10 +942,10 @@
 		"StatusHealth"			"245"
 		"StatusHealthRegen"		"1.0"
 		"StatusMana"			"200"
-		"StatusManaRegen"		"1.0"	
+		"StatusManaRegen"		"1.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -978,7 +978,7 @@
 					"ItemDef"	"6001"
 				}
 			}
-		}			
+		}
 	}
 
 
@@ -989,8 +989,8 @@
 	//================================================================================
 	// Unit: Human Sorceress
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_human_sorceress"
 	{
@@ -1033,10 +1033,10 @@
 		"StatusHealth"			"255"
 		"StatusHealthRegen"		"1.0"
 		"StatusMana"			"200"
-		"StatusManaRegen"		"1.0"	
+		"StatusManaRegen"		"1.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -1061,7 +1061,7 @@
 					"ItemDef"	"8121"
 				}
 			}
-		}			
+		}
 	}
 
 
@@ -1072,8 +1072,8 @@
 	//================================================================================
 	// Unit: Troll Elder
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_troll_elder"
 	{
@@ -1116,15 +1116,15 @@
 		"StatusHealth"			"240"
 		"StatusHealthRegen"		"1.0"
 		"StatusMana"			"200"
-		"StatusManaRegen"		"1.0"	
+		"StatusManaRegen"		"1.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}			
+		}
 	}
 
 
@@ -1135,8 +1135,8 @@
 	//================================================================================
 	// Unit: Forest Tormented Soul
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_forest_tormented_soul"
 	{
@@ -1179,10 +1179,10 @@
 		"StatusHealth"			"275"
 		"StatusHealthRegen"		"1.0"
 		"StatusMana"			"200"
-		"StatusManaRegen"		"1.0"	
+		"StatusManaRegen"		"1.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -1207,7 +1207,7 @@
 					"ItemDef"	"4993"
 				}
 			}
-		}			
+		}
 	}
 
 
@@ -1224,8 +1224,8 @@
 	//================================================================================
 	// Unit: Soldier Melee
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_soldier_melee"
 	{
@@ -1271,7 +1271,7 @@
 		"StatusHealth"			"350"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
 		"VisionNighttimeRange"		"800"
@@ -1279,8 +1279,8 @@
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}				
-	} 
+		}
+	}
 
 
 
@@ -1290,8 +1290,8 @@
 	//================================================================================
 	// Unit: Soldier Ranged
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_soldier_ranged"
 	{
@@ -1337,7 +1337,7 @@
 		"StatusHealth"			"230"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
 		"VisionNighttimeRange"		"800"
@@ -1345,7 +1345,7 @@
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}				
+		}
 	}
 
 
@@ -1354,8 +1354,8 @@
 	//================================================================================
 	// Unit: Neutral Archer
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_neutral_archer"
 	{
@@ -1383,8 +1383,8 @@
 		"AttackDamageMax"		"28"
 		"AttackRate"			"1.3"
 		"AttackAnimationPoint"		"0.38"
-		"AttackAcquisitionRange"	"600"
-		"AttackRange"			"500"
+		"AttackAcquisitionRange"	"700"
+		"AttackRange"			"700"
 		"ProjectileModel"		"particles/units/heroes/hero_windrunner/windrunner_base_attack.vpcf"
 		"ProjectileSpeed"		"1200"
 
@@ -1399,7 +1399,7 @@
 		"StatusHealth"			"375"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"	"800"
 		"VisionNighttimeRange"	"800"
@@ -1417,17 +1417,17 @@
 				"Wearable2"
 				{
 					"ItemDef"	"4180"
-				}	
+				}
 				"Wearable3"
 				{
 					"ItemDef"	"4522"
 				}
 				"Wearable4"
-				{	
+				{
 					"ItemDef"	"4548"
 				}
 			}
-		}				
+		}
 	}
 
 
@@ -1436,8 +1436,8 @@
 	//================================================================================
 	// Unit: Neutral Brute
 	//================================================================================
-	
-	// Level 1	
+
+	// Level 1
 	//========================================
 	"npc_dota_creature_neutral_brute"
 	{
@@ -1476,10 +1476,10 @@
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
-		"StatusHealth"			"675"
+		"StatusHealth"			"725"
 		"StatusHealthRegen"		"1.0"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
 		"VisionNighttimeRange"		"800"
@@ -1497,13 +1497,13 @@
 				"Wearable2"
 				{
 					"ItemDef"	"4656"
-				}	
+				}
 				"Wearable3"
 				{
 					"ItemDef"	"4657"
 				}
 				"Wearable4"
-				{	
+				{
 					"ItemDef"	"4658"
 				}
 				"Wearable5"
@@ -1511,8 +1511,78 @@
 					"ItemDef"	"4659"
 				}
 			}
-		}				
+		}
 	}
+
+
+
+    // Unit4.4
+    //================================================================================
+    // Neutral Worker
+    //================================================================================
+    "npc_dota_creature_neutral_worker"
+    {
+        "Model"				"models/heroes/beastmaster/beastmaster.vmdl"
+        "BaseClass"			"npc_dota_creature"
+        "ModelScale"			"0.7"
+
+        "BountyXP"			"19"
+        "BountyGoldMin"			"0"
+        "BountyGoldMax"			"0"
+        "AbilityLayout"			"6"
+
+        "Ability1"			"srts_harvest_lumber_no_cut"
+        "Ability2"			"srts_transfer_lumber_neutral"
+        "Ability3"			""
+        "Ability4"			""
+        "Ability5"			""
+        "Ability6"			""
+        "Ability10"			"srts_ability_units"
+
+        "SelectionGroup"		"Neutral_Worker"
+        "UnitLabel"			"builder"
+
+        "ArmorPhysical"			"1"
+
+        "AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+        "AttackDamageMin"		"6"
+        "AttackDamageMax"		"10"
+        "AttackRate"			"1.6"
+        "AttackAnimationPoint"		"0.38"
+        "AttackAcquisitionRange"	"400"
+        "AttackRange"			"125"
+        "ProjectileModel"		""
+        "ProjectileSpeed"		"0"
+
+        "RingRadius"			"40"
+        "HealthBarOffset"		"150"
+        "FormationRank" 		"1"
+
+        "MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+        "MovementSpeed"			"340"
+        "MovementTurnRate"		"0.7"
+
+        "StatusHealth"			"200"
+        "StatusHealthRegen"		"0.5"
+        "StatusMana"			"0"
+        "StatusManaRegen"		"0.0"
+
+        "VisionDaytimeRange"		"800"
+        "VisionNighttimeRange"		"800"
+
+        "Creature"
+        {
+            //"DisableClumpingBehavior"	"1"
+
+            "AttachWearables"
+            {
+                "Wearable1"
+                {
+                    "ItemDef"	"313"
+                }
+            }
+        }
+    }
 
 
 
@@ -1528,7 +1598,7 @@
 	//================================================================================
 	// Worker
 	//================================================================================
-	
+
 	"npc_dota_creature_worker"
 	{
 		"Model"				"models/creeps/neutral_creeps/n_creep_ogre_med/n_creep_ogre_med.vmdl"
@@ -1575,15 +1645,15 @@
 		"StatusHealth"			"200"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}	
+		}
 	}
 
 
@@ -1594,7 +1664,7 @@
 	//================================================================================
 	// Catapult Radiant
 	//================================================================================
-	
+
 	"npc_dota_creature_catapult_radiant"
 	{
 		"Model"				"models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl"
@@ -1638,7 +1708,7 @@
 		"StatusHealth"			"340"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"900"
 		"VisionNighttimeRange"		"900"
@@ -1646,7 +1716,7 @@
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}	
+		}
 	}
 
 
@@ -1657,7 +1727,7 @@
 	//================================================================================
 	// Catapult Dire
 	//================================================================================
-	
+
 	"npc_dota_creature_catapult_dire"
 	{
 		"Model"				"models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl"
@@ -1701,10 +1771,10 @@
 		"StatusHealth"			"340"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"900"
-		"VisionNighttimeRange"		"900"	
+		"VisionNighttimeRange"		"900"
 
 		"Creature"
 		{
@@ -1726,7 +1796,7 @@
 	//================================================================================
 	// Human Worker
 	//================================================================================
-	
+
 	"npc_dota_creature_human_worker"
 	{
 		"Model"				"models/heroes/beastmaster/beastmaster.vmdl"
@@ -1772,7 +1842,7 @@
 		"StatusHealth"			"200"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
 		"VisionNighttimeRange"		"800"
@@ -1788,7 +1858,7 @@
 					"ItemDef"	"313"
 				}
 			}
-		}		
+		}
 	}
 
 
@@ -1799,7 +1869,7 @@
 	//================================================================================
 	// Forest Worker
 	//================================================================================
-	
+
 	"npc_dota_creature_forest_worker"
 	{
 		"Model"				"models/items/furion/treant/father_treant/father_treant.vmdl"
@@ -1845,10 +1915,10 @@
 		"StatusHealth"			"200"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"		
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -1864,7 +1934,7 @@
 	//================================================================================
 	// Brewmaster Worker
 	//================================================================================
-	
+
 	"npc_dota_creature_brewmaster_worker"
 	{
 		"Model"				"models/heroes/brewmaster/brewmaster_earthspirit.vmdl"
@@ -1910,10 +1980,10 @@
 		"StatusHealth"			"225"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"		
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
@@ -1929,7 +1999,7 @@
 	//================================================================================
 	// Kobold Worker
 	//================================================================================
-	
+
 	"npc_dota_creature_kobold_worker"
 	{
 		"Model"				"models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl"
@@ -1975,15 +2045,15 @@
 		"StatusHealth"			"200"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}	
+		}
 	}
 
 
@@ -1994,7 +2064,7 @@
 	//================================================================================
 	// Skeleton Worker
 	//================================================================================
-	
+
 	"npc_dota_creature_skeleton_worker"
 	{
 		"Model"				"models/heroes/undying/undying_minion.vmdl"
@@ -2040,7 +2110,7 @@
 		"StatusHealth"			"200"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
 		"VisionNighttimeRange"		"800"
@@ -2048,7 +2118,7 @@
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}		
+		}
 	}
 
 
@@ -2059,7 +2129,7 @@
 	//================================================================================
 	// Troll Worker
 	//================================================================================
-	
+
 	"npc_dota_creature_troll_worker"
 	{
 		"Model"				"models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_high_priest.vmdl"
@@ -2105,15 +2175,15 @@
 		"StatusHealth"			"200"
 		"StatusHealthRegen"		"0.5"
 		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"	
+		"StatusManaRegen"		"0.0"
 
 		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"	
+		"VisionNighttimeRange"		"800"
 
 		"Creature"
 		{
 			//"DisableClumpingBehavior"	"1"
-		}	
+		}
 	}
 
 
@@ -2169,10 +2239,10 @@
 		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
 		"Level"						"1"
 		"UnitLabel"					"healing_ward"
-		
+
 		// Abilities
 		//----------------------------------------------------------------
-		
+
 		"Ability1"					"bh_dummy_unit"			// Ability 1.
 		"Ability2"					""			// Ability 2.
 		"Ability3"					""			// Ability 3.
@@ -2239,7 +2309,7 @@
 		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
 		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_SOFT"
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
-		
+
 		// Vision
 		//----------------------------------------------------------------
 		"VisionDaytimeRange"		"0"		// Range of vision during day light.

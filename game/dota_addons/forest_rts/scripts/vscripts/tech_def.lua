@@ -16,7 +16,7 @@ WARLORD = "npc_dota_hero_troll_warlord"
 
 ---------------------------------------------------------------------------
 -- Returns a copied version of the table.
--- 
+--
 -- Taken from http://lua-users.org/wiki/CopyTable
 ---------------------------------------------------------------------------
 function deepcopy(orig)
@@ -35,7 +35,7 @@ function deepcopy(orig)
 end
 
 ---------------------------------------------------------------------------
--- Returns a copied version of the table with the 
+-- Returns a copied version of the table with the
 -- PAGE_MAIN set to a new value.
 ---------------------------------------------------------------------------
 function CopyWithNewMain(originalTable, pageMainTable)
@@ -104,6 +104,27 @@ function GetConstFor(unitName, heroname)
 end
 
 ---------------------------------------------------------------------------
+-- Returns the struct for a specific unit from 'tech'.
+---------------------------------------------------------------------------
+function GetUnitStructFromTech(unitName, heroname)
+    local unitStruct = tech[heroname][unitName]
+    if unitStruct then
+        return unitStruct
+    end
+
+    print("Note: Didn't find '"..unitName.."' by constant, searching through entries...")
+    for key,entry in pairs(tech[heroname]) do
+        if key ~= "heroname" and key ~= "heropages" then
+            if entry.name == unitName then
+                unitStruct = entry
+                print("Found '"..unitStruct.name.."' though search.")
+                return unitStruct
+            end
+        end
+    end
+end
+
+---------------------------------------------------------------------------
 -- Returns the struct for a specific unit.
 ---------------------------------------------------------------------------
 function GetUnitStructFor(unitType, heroname)
@@ -122,7 +143,7 @@ end
 
 
 
--- Apparently the entities table fucks up the tech table, so it 
+-- Apparently the entities table fucks up the tech table, so it
 -- has to go elsewhere...
 entities = {
     COMMANDER = {
@@ -278,7 +299,7 @@ tech = {
         UPGRADE_LIGHT_DAMAGE = defs.UPGRADE_LIGHT_DAMAGE,
         DEMOLISH_BUILDING = defs.DEMOLISH_BUILDING,
         BUY_HEALING_SALVE = defs.BUY_HEALING_SALVE,
-        
+
         PROP_BARREL = buildefs.PROP_BARREL,
         PROP_CHEST = buildefs.PROP_CHEST,
         PROP_STASH = buildefs.PROP_STASH,
@@ -326,12 +347,12 @@ tech = {
                  defs.PAGE_MAIN
             }
         },
-        
+
         -- Unit and building spells
         HEADSHOT = defs.HEADSHOT,
         SNIPER_RIFLE = defs.SNIPER_RIFLE,
         SLOW = defs.SLOW,
-        
+
         COMMANDER_WORKER = unitdefs.COMMANDER_WORKER,
         COMMANDER_FOOTMAN = unitdefs.COMMANDER_FOOTMAN,
         COMMANDER_GUNNER = unitdefs.COMMANDER_GUNNER,
@@ -369,11 +390,11 @@ tech = {
         MARKET = buildefs.MARKET,
         GOLD_MINE = buildefs.GOLD_MINE
     },
-  
+
 
     FURION = {
         heroname = FURION,
-        
+
         heropages = {
             PAGE_MAIN = {
                 defs.HARVEST_LUMBER_HERO,
@@ -450,11 +471,11 @@ tech = {
         MARKET = buildefs.MARKET,
         GOLD_MINE = buildefs.GOLD_MINE
     },
-  
+
 
     BREWMASTER = {
         heroname = BREWMASTER,
-        
+
         heropages = {
             PAGE_MAIN = {
                 defs.HARVEST_LUMBER_HERO,
@@ -606,11 +627,11 @@ tech = {
         MARKET = buildefs.MARKET,
         GOLD_MINE = buildefs.GOLD_MINE
     },
-  
+
 
     KING_OF_THE_DEAD = {
         heroname = KING_OF_THE_DEAD,
-        
+
         heropages = {
             PAGE_MAIN = {
                 defs.HARVEST_LUMBER_HERO,
@@ -687,7 +708,7 @@ tech = {
         MARKET = buildefs.MARKET,
         GOLD_MINE = buildefs.GOLD_MINE
     },
-  
+
 
     WARLORD = {
         heroname = WARLORD,
@@ -771,4 +792,3 @@ tech = {
 
 -- Improve the tech table for easier usage.
 AddCommonAbilities()
-

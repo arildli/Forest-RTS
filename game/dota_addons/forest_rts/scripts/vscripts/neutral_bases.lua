@@ -26,7 +26,7 @@ end
 
 function Neutrals:Init()
     Neutrals.camps = {}
-    
+
     local middleCamp = Neutrals:CreateCamp(Vector(-230, -1536, 384), "Middle Lumber Camp")
     -- Right-Top tower
     local curVector = Vector(736, -480, 384)
@@ -43,7 +43,7 @@ function Neutrals:Init()
     curUnit = Neutrals:SpawnUnit("npc_dota_creature_neutral_brute", Vector(704, -1728, 384), middleCamp)
     Neutrals:RotateLeft(curUnit, 5)
     local bannerBottom = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(832, -1664, 384), true, middleCamp)
-    Neutrals:RotateLeft(bannerBottom, 5)  
+    Neutrals:RotateLeft(bannerBottom, 5)
     Neutrals:MakeGloballyVisible(bannerBottom)
     -- Left tower
     curVector = Vector(-1120, -1312, 384)
@@ -58,6 +58,15 @@ function Neutrals:Init()
     -- Market
     local market = Neutrals:CreateBuilding("npc_dota_building_market", Vector(-320, -1536, 384), true, middleCamp)
     Neutrals:RotateLeft(market, 3)
+    -- Workers
+    local workers = {
+        Neutrals:SpawnUnit("npc_dota_creature_neutral_worker", Vector(256, -1024, 384), middleCamp, true),
+        Neutrals:SpawnUnit("npc_dota_creature_neutral_worker", Vector(64, -1216, 384), middleCamp, true)
+    }
+    for _,unit in pairs(workers) do
+        print("Sending him off to work!")
+        HarvestLumber(unit)
+    end
 
     Neutrals:Print("Initialized")
 end
@@ -139,11 +148,19 @@ end
 -- @location (Vector): The location where the unit will be spawned.
 -- @camp (Optional) (Camp): The unit will be connected to this camp
 --   if specified.
+-- @invulnerable (Optional) (Boolean): Can be set to invulnerable
+--   if specified.
 -- @return (Unit): The newly spawned unit.
 ---------------------------------------------------------------------------
-function Neutrals:SpawnUnit(unitName, location, camp)
+function Neutrals:SpawnUnit(unitName, location, camp, invulnerable)
     local newUnit = CreateUnitByName(unitName, location, true, nil, nil, DOTA_TEAM_NEUTRALS)
     newUnit._camp = camp
+
+    if invulnerable then
+        newUnit:AddAbility("invulnerable")
+        newUnit:FindAbilityByName("invulnerable"):SetLevel(1)
+    end
+
     return newUnit
 end
 
