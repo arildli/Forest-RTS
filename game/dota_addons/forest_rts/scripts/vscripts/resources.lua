@@ -203,6 +203,19 @@ function Resources:InitHarvester(unit)
     end
 
     ---------------------------------------------------------------------------
+    -- Neutral version of the function.
+    ---------------------------------------------------------------------------
+    function unit:ReturnToHarvestNeutral()
+        if not unit.HARVESTER.prevTree then
+            print("Error (ReturnToHarvestNeutral): 'unit.HARVESTER.prevTree' not set!")
+            return false
+        end
+        print("Returning to harvest...")
+        local harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_no_cut")
+        unit:CastAbilityOnTarget(unit.HARVESTER.prevTree, harvestAbility, 0)
+    end
+
+    ---------------------------------------------------------------------------
     -- Returns the carried lumber to the nearest Tent or Market if possible.
     ---------------------------------------------------------------------------
     function unit:DeliverLumber()
@@ -236,6 +249,31 @@ function Resources:InitHarvester(unit)
         else
             unit:CastAbilityOnTarget(closestDeliveryPoint, returnAbility, ownerID)
         end
+    end
+
+    ---------------------------------------------------------------------------
+    -- The version used by neutral units.
+    ---------------------------------------------------------------------------
+    function unit:DeliverLumberNeutral()
+        if not unit._deliveryPoint then
+            print("Error (DeliverLumberNeutral): Unit did NOT have delivery point!")
+            return
+        end
+
+        local lumberCount = 10
+        PopupLumber(unit, lumberCount)
+
+        if unit._currentOwner then
+            local curOwner = unit._currentOwner
+            local curOwnerID = curOwner:GetOwnerPlayerID()
+            local ownerHero = GetPlayerHero(curOwnerID)
+            print("Transferring "..lumberCount.." lumber to player with ID "..curOwnerID)
+            ownerHero:IncLumber(lumberCount)
+        else
+            print("Nope, lumber going to waste!")
+        end
+
+        unit:ReturnToHarvestNeutral()
     end
 end
 
@@ -513,13 +551,17 @@ function HarvestChop(keys)
         Resources:InitHarvester(caster)
     end
 
-    if target and not keys.nocut then
-        target:CutDown(teamNumber)
-        --caster:SetLastTree(target)
-        caster:DeliverLumber()
+    if target then
+        if keys.nocut then
+            caster:DeliverLumberNeutral()
+            caster:SetLastTree(target)
+        else
+            target:CutDown(teamNumber)
+            GiveCharges(caster, amount, "item_stack_of_lumber")
+            --caster:SetLastTree(target)
+            caster:DeliverLumber()
+        end
     end
-
-    GiveCharges(caster, amount, "item_stack_of_lumber")
 end
 
 

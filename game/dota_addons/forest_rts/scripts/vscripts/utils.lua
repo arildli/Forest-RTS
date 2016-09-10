@@ -500,8 +500,8 @@ end]=]
 
 -- Returns a handle to the first occurence of the item if the hero has it
 function GetItemFromInventory(hero, itemName)
-
     if not hero or not itemName then
+        print("GetItemFromInventory: hero or itemName was nil!")
         return nil
     end
 
@@ -509,10 +509,11 @@ function GetItemFromInventory(hero, itemName)
         for i=0, 5 do
             local currentItem = hero:GetItemInSlot(i)
             if currentItem and currentItem:GetAbilityName() == itemName then
-        return currentItem
+                return currentItem
             end
         end
     else
+        print("GetItemFromInventory: Nope, unit did NOT have "..itemName)
         return nil
     end
 end

@@ -34,7 +34,7 @@ function EnterTower(keys)
      local newUnitOrigin = Vector(towerOrigin.x, towerOrigin.y, towerOrigin.z + 200)
      target:SetOrigin(newUnitOrigin)
      ability:ApplyDataDrivenModifier(caster, target, modifier, {})
-     
+
      target._tower = caster
      caster._inside = target
 
@@ -95,7 +95,7 @@ function RemoveUnitFromTower(tower)
      FlipTowerSpell(tower)
 end
 
-function RemoveIfBuilding(keys) 
+function RemoveIfBuilding(keys)
      local caster = keys.caster
      local modifier = keys.modifier
      if IsBuilding(caster) then
@@ -114,7 +114,7 @@ function HeroAttackSpeedAura(keys)
      local duration = ability.GetLevelSpecialValueFor("think_interval", ability_level)
      local casterOwner = caster:GetPlayerOwner()
      local targetOwner = target:GetPlayerOwner()
-     
+
      print("Come on!")
 
      if casterOwner == targetOwner then
@@ -195,13 +195,13 @@ end
 
 function ApplyUpgradesOnTraining(unit)
     local ownerHero = unit:GetOwnerHero()
-     
+
     -- Add upgrade item to newly trained unit if unlocked.
     local function AddUpgradeItem(upgradeItemName)
         local newItem = CreateItem(upgradeItemName, unit, unit)
         unit:AddItem(newItem)
     end
-     
+
     local upgrades = GetUpgradesForUnit(unit)
     if upgrades then
         for _,upgradeConst in pairs(upgrades) do
@@ -245,7 +245,7 @@ end
 function GiveVisionUnitOnly(keys)
     caster = keys.caster
     target = keys.target
-    
+
     AddFOWViewer(DOTA_TEAM_GOODGUYS, target:GetAbsOrigin(), 10, 0.01, false)
     AddFOWViewer(DOTA_TEAM_BADGUYS, target:GetAbsOrigin(), 10, 0.01, false)
 end
@@ -298,7 +298,7 @@ end
 function RefundResourcesID(playerID, gold, lumber)
     local hero = GetPlayerHero(playerID)
     hero:IncGoldNoStats(gold)
-    hero:IncLumberNoStats(lumber)   
+    hero:IncLumberNoStats(lumber)
 end
 
 function SpendResourcesNew(player, goldCost, lumberCost, trackStats)
@@ -326,7 +326,7 @@ function BuyItem(keys)
     local buyerPlayer = shop:GetOwnerPlayer()
     local buyerHeroLocation = buyerHero:GetAbsOrigin()
     local buyerID = shop:GetOwnerID()
-     
+
     shop._canAfford = nil
     -- We need to give back the gold before checking.
     RefundGoldTooltip(buyerPlayer, goldCost)

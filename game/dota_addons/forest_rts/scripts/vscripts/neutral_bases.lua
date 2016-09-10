@@ -60,13 +60,9 @@ function Neutrals:Init()
     Neutrals:RotateLeft(market, 3)
     -- Workers
     local workers = {
-        Neutrals:SpawnUnit("npc_dota_creature_neutral_worker", Vector(256, -1024, 384), middleCamp, true),
-        Neutrals:SpawnUnit("npc_dota_creature_neutral_worker", Vector(64, -1216, 384), middleCamp, true)
+        Neutrals:SpawnWorker(Vector(256, -1024, 384), market, middleCamp, true),
+        Neutrals:SpawnWorker(Vector(64, -1216, 384), market, middleCamp, true)
     }
-    for _,unit in pairs(workers) do
-        print("Sending him off to work!")
-        HarvestLumber(unit)
-    end
 
     Neutrals:Print("Initialized")
 end
@@ -139,6 +135,25 @@ function Neutrals:CreateCamp(location, campName)
     Neutrals.camps[#Neutrals.camps+1] = camp
 
     Neutrals:Print("Created new camp with id "..campName or #Neutrals.camps)
+end
+
+---------------------------------------------------------------------------
+-- Spawns and returns a new neutral unit.
+--
+-- @location (Vector): The location where the unit will be spawned.
+-- @market (Building): The building to deliver resources to.
+-- @camp (Optional) (Camp): The unit will be connected to this camp
+--   if specified.
+-- @invulnerable (Optional) (Boolean): Can be set to invulnerable
+--   if specified.
+-- @return (Unit): The newly spawned unit.
+---------------------------------------------------------------------------
+function Neutrals:SpawnWorker(location, market, camp, invulnerable)
+    local newUnit = Neutrals:SpawnUnit("npc_dota_creature_neutral_worker", location, camp, invulnerable)
+    newUnit._deliveryPoint = market
+    HarvestLumber(newUnit)
+
+    Neutrals:MakeGloballyVisible(newUnit)
 end
 
 ---------------------------------------------------------------------------

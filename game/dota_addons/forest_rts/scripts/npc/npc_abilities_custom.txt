@@ -634,8 +634,8 @@
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
         "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_TREE"
         "AbilityTextureName"        "spellicon_harvest_tree_worker"
-        "BaseClass"         "ability_datadriven"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         // Casting
         "AbilityCastPoint"      "0.1"
@@ -644,7 +644,7 @@
         "AbilityManacost"       "0"
 
         "AbilityCastAnimation"      "ACT_DOTA_ATTACK"
-        "AbilityChannelTime"        "50"
+        "AbilityChannelTime"        "10"
 
         "precache"
         {
@@ -672,7 +672,7 @@
 
             "ApplyModifier"
             {
-                "ModifierName"  "modifier_harvesting_lumber"
+                "ModifierName"  "modifier_harvesting_lumber_no_cut"
                 "Target"    "CASTER"
             }
 
@@ -688,15 +688,8 @@
         {
             "RemoveModifier"
             {
-                "ModifierName"  "modifier_harvesting_lumber"
+                "ModifierName"  "modifier_harvesting_lumber_no_cut"
                 "Target"    "CASTER"
-            }
-
-            "RunScript"
-            {
-                "ScriptFile"    "scripts/vscripts/utils.lua"
-                "Function"  "UnregisterHarvesterAtTree"
-                "Target"    "TARGET"
             }
         }
 
@@ -710,7 +703,7 @@
                 "Target"    "CASTER"
                 "channelTime"   "%channel_time"
                 "lumber"    "%lumber"
-                "nocut"     "true"
+                "nocut"     "1"
             }
 
             "FireSound"
@@ -722,7 +715,7 @@
 
         "Modifiers"
         {
-            "modifier_harvesting_lumber"
+            "modifier_harvesting_lumber_no_cut"
             {
                 "IsDebuff"  "0"
                 "ThinkInterval" "1.0"
@@ -731,7 +724,7 @@
                 {
                     "ApplyModifier"
                     {
-                        "ModifierName"      "channeling_animation"
+                        "ModifierName"      "channeling_animation_neutral"
                         "Target"        "CASTER"
                     }
 
@@ -740,13 +733,13 @@
                         //"EffectName"      "particles/units/heroes/hero_furion/furion_wrath_of_nature.vpcf"
                         "EffectName"        "particles/units/heroes/hero_spirit_breaker/spirit_breaker_charge_tree.vpcf"
                         "EffectAttachType"  "follow_origin"
-                        //  "EffectAttachType"  "attach_hitloc"
+                        //"EffectAttachType"  "attach_hitloc"
                         "Target"        "CASTER"
                     }
                 }
             }
 
-            "channeling_animation"
+            "channeling_animation_neutral"
             {
                 "IsHidden"      "1"
                 "Duration"      "0.9"
@@ -1580,42 +1573,6 @@
                 "Target"    "POINT"
                 "ScriptFile"    "scripts/vscripts/utils.lua"
                 "Function"  "TransferLumber"
-            }
-        }
-    }
-
-
-
-    "srts_transfer_lumber_neutral"
-    {
-        // General
-        //------------------------------------------------------------------------
-        "AbilityName"           "Transfer Lumber"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-        "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_BASIC"
-        "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-        "AbilityTextureName"        "spellicon_deliver_lumber_worker"
-        "BaseClass"         "ability_datadriven"
-        "Maxlevel"          "1"
-
-        // Casting
-        "AbilityCastPoint"      "0.1"
-        "AbilityCastRange"      "128"
-        "AbilityCooldown"       "0"
-        "AbilityManacost"       "0"
-
-        "AbilitySpecial"
-        {
-        }
-
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "Target"    "POINT"
-                "ScriptFile"    "scripts/vscripts/utils.lua"
-                "Function"  "TransferLumber"
-                "neutral"   "true"
             }
         }
     }
