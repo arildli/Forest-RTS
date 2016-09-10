@@ -16,11 +16,12 @@ function InsertKeysDefs()
 	end
 
 	InsertKeysTable(defs)
-	InsertKeysTable(defs2)
+	InsertKeysTable(unitdefs)
+	InsertKeysTable(buildefs)
 end
 
 function GetSpellForEntity(entName)
-	local entry = defs[entName] or defs2[entName]
+	local entry = defs[entName] or unitdefs[entName] or buildefs[entName]
 	return entry.spell
 end
 
@@ -30,6 +31,17 @@ function FindUnitStructByName(unitName)
 			return struct
 		end
 	end
+	for k,struct in pairs(unitdefs) do
+		if struct.name == unitName then
+			return struct
+		end
+	end
+	for k,struct in pairs(buildefs) do
+		if struct.name == unitName then
+			return struct
+		end
+	end
+
 	return nil
 end
 
@@ -39,12 +51,12 @@ function GetConstructionSpellForBuilding(buildingName)
 end
 
 function GetEntityNameFromConstant(constant)
-	local entry = defs[constant] or defs2[constant]
+	local entry = defs[constant] or unitdefs[constant] or buildefs[constant]
 	return entry.name
 end
 
 function GetEntitySpellFromConstant(constant)
-	local entry = defs[constant] or defs2[constant]
+	local entry = defs[constant] or unitdefs[constant] or buildefs[constant]
 	return entry.spell
 	--return defs[constant].spell
 end
@@ -57,14 +69,13 @@ function GetEntityFieldFromConstant(constant, heroTeam, field)
 		suffix = "_DIRE"
 	end
 	local key = constant .. suffix
-	local entityTable = defs[constant] or defs[key] or defs2[constant] or defs2[key]
+	local entityTable = defs[constant] or defs[key] or unitdefs[constant] or unitdefs[key] or buildefs[constant] or buildefs[key]
 	if entityTable then
 		return entityTable[field]
 	end
 	return nil
 end
 
-defs2 = {}
 
 -- Spell definitions --
 defs = {
@@ -279,8 +290,11 @@ defs = {
 	LIVING_ARMOR = {
 		 spell = "srts_living_armor",
 		 category = "spell"
-	},
+	}
+}
 
+buildefs = {
+	
 	-- Buildings 
 	TENT_SMALL = {
 		name = "npc_dota_building_main_tent_small",
@@ -643,9 +657,11 @@ defs = {
 				"BUILDING"
 			}
 		}
-	},
+	}
+}
 
-
+unitdefs = {
+	
 	-- Units
 	COMMON_TRAIN_WORKER = {
 		name = "npc_dota_creature_worker",

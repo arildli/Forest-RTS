@@ -126,110 +126,110 @@ end
 -- has to go elsewhere...
 entities = {
     COMMANDER = {
-        WORKER = defs.COMMANDER_WORKER,
-        MELEE = defs.COMMANDER_FOOTMAN,
-        RANGED = defs.COMMANDER_GUNNER,
-        SIEGE = defs.COMMANDER_CATAPULT,
-        CASTER = defs.COMMANDER_SORCERESS,
+        WORKER = unitdefs.COMMANDER_WORKER,
+        MELEE = unitdefs.COMMANDER_FOOTMAN,
+        RANGED = unitdefs.COMMANDER_GUNNER,
+        SIEGE = unitdefs.COMMANDER_CATAPULT,
+        CASTER = unitdefs.COMMANDER_SORCERESS,
 
-        TENT_SMALL = defs.TENT_SMALL,
-        TENT_LARGE = defs.TENT_LARGE,
-        GOLD_MINE = defs.GOLD_MINE,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        BARRACKS = defs.BARRACKS_RADIANT,
-        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_RADIANT,
-        ARMORY = defs.ARMORY_RADIANT,
-        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_RADIANT,
-        MARKET = defs.MARKET
+        TENT_SMALL = buildefs.TENT_SMALL,
+        TENT_LARGE = buildefs.TENT_LARGE,
+        GOLD_MINE = buildefs.GOLD_MINE,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        BARRACKS = buildefs.BARRACKS_RADIANT,
+        BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_RADIANT,
+        ARMORY = buildefs.ARMORY_RADIANT,
+        HEALING_CRYSTAL = buildefs.HEALING_CRYSTAL_RADIANT,
+        MARKET = buildefs.MARKET
     },
     FURION = {
-        WORKER = defs.FURION_WORKER,
-        MELEE = defs.FURION_WARRIOR,
-        RANGED = defs.FURION_DRYAD,
-        SIEGE = defs.FURION_CATAPULT,
-        CASTER = defs.FURION_TORMENTED_SOUL,
+        WORKER = unitdefs.FURION_WORKER,
+        MELEE = unitdefs.FURION_WARRIOR,
+        RANGED = unitdefs.FURION_DRYAD,
+        SIEGE = unitdefs.FURION_CATAPULT,
+        CASTER = unitdefs.FURION_TORMENTED_SOUL,
 
-        TENT_SMALL = defs.TENT_SMALL,
-        TENT_LARGE = defs.TENT_LARGE,
-        GOLD_MINE = defs.GOLD_MINE,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        BARRACKS = defs.BARRACKS_RADIANT,
-        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_RADIANT,
-        ARMORY = defs.ARMORY_RADIANT,
-        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_RADIANT,
-        MARKET = defs.MARKET
+        TENT_SMALL = buildefs.TENT_SMALL,
+        TENT_LARGE = buildefs.TENT_LARGE,
+        GOLD_MINE = buildefs.GOLD_MINE,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        BARRACKS = buildefs.BARRACKS_RADIANT,
+        BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_RADIANT,
+        ARMORY = buildefs.ARMORY_RADIANT,
+        HEALING_CRYSTAL = buildefs.HEALING_CRYSTAL_RADIANT,
+        MARKET = buildefs.MARKET
     },
     BREWMASTER = {
-        WORKER = defs.BREWMASTER_WORKER,
-        MELEE = defs.BREWMASTER_WARRIOR,
-        RANGED = defs.BREWMASTER_FROSTMAGE,
-        SIEGE = defs.BREWMASTER_CATAPULT,
+        WORKER = unitdefs.BREWMASTER_WORKER,
+        MELEE = unitdefs.BREWMASTER_WARRIOR,
+        RANGED = unitdefs.BREWMASTER_FROSTMAGE,
+        SIEGE = unitdefs.BREWMASTER_CATAPULT,
 
-        TENT_SMALL = defs.TENT_SMALL,
-        TENT_LARGE = defs.TENT_LARGE,
-        GOLD_MINE = defs.GOLD_MINE,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        BARRACKS = defs.BARRACKS_RADIANT,
-        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_RADIANT,
-        ARMORY = defs.ARMORY_RADIANT,
-        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_RADIANT,
-        MARKET = defs.MARKET
+        TENT_SMALL = buildefs.TENT_SMALL,
+        TENT_LARGE = buildefs.TENT_LARGE,
+        GOLD_MINE = buildefs.GOLD_MINE,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        BARRACKS = buildefs.BARRACKS_RADIANT,
+        BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_RADIANT,
+        ARMORY = buildefs.ARMORY_RADIANT,
+        HEALING_CRYSTAL = buildefs.HEALING_CRYSTAL_RADIANT,
+        MARKET = buildefs.MARKET
     },
     GEOMANCER = {
-        WORKER = defs.GEOMANCER_WORKER,
-        MELEE = defs.GEOMANCER_SPEARMAN,
-        RANGED = defs.GEOMANCER_FLAME_THROWER,
-        SIEGE = defs.GEOMANCER_CATAPULT,
+        WORKER = unitdefs.GEOMANCER_WORKER,
+        MELEE = unitdefs.GEOMANCER_SPEARMAN,
+        RANGED = unitdefs.GEOMANCER_FLAME_THROWER,
+        SIEGE = unitdefs.GEOMANCER_CATAPULT,
 
-        TENT_SMALL = defs.TENT_SMALL,
-        TENT_LARGE = defs.TENT_LARGE,
-        GOLD_MINE = defs.GOLD_MINE,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        BARRACKS = defs.BARRACKS_DIRE,
-        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_DIRE,
-        ARMORY = defs.ARMORY_DIRE,
-        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_DIRE,
-        MARKET = defs.MARKET
+        TENT_SMALL = buildefs.TENT_SMALL,
+        TENT_LARGE = buildefs.TENT_LARGE,
+        GOLD_MINE = buildefs.GOLD_MINE,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        BARRACKS = buildefs.BARRACKS_DIRE,
+        BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_DIRE,
+        ARMORY = buildefs.ARMORY_DIRE,
+        HEALING_CRYSTAL = buildefs.HEALING_CRYSTAL_DIRE,
+        MARKET = buildefs.MARKET
     },
     KING_OF_THE_DEAD = {
-        WORKER = defs.KING_OF_THE_DEAD_WORKER,
-        MELEE = defs.KING_OF_THE_DEAD_WARRIOR,
-        RANGED = defs.KING_OF_THE_DEAD_ARCHER,
-        SIEGE = defs.KING_OF_THE_DEAD_CATAPULT,
-        CASTER = defs.KING_OF_THE_DEAD_CASTER,
+        WORKER = unitdefs.KING_OF_THE_DEAD_WORKER,
+        MELEE = unitdefs.KING_OF_THE_DEAD_WARRIOR,
+        RANGED = unitdefs.KING_OF_THE_DEAD_ARCHER,
+        SIEGE = unitdefs.KING_OF_THE_DEAD_CATAPULT,
+        CASTER = unitdefs.KING_OF_THE_DEAD_CASTER,
 
-        TENT_SMALL = defs.TENT_SMALL,
-        TENT_LARGE = defs.TENT_LARGE,
-        GOLD_MINE = defs.GOLD_MINE,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        BARRACKS = defs.BARRACKS_DIRE,
-        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_DIRE,
-        ARMORY = defs.ARMORY_DIRE,
-        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_DIRE,
-        MARKET = defs.MARKET
+        TENT_SMALL = buildefs.TENT_SMALL,
+        TENT_LARGE = buildefs.TENT_LARGE,
+        GOLD_MINE = buildefs.GOLD_MINE,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        BARRACKS = buildefs.BARRACKS_DIRE,
+        BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_DIRE,
+        ARMORY = buildefs.ARMORY_DIRE,
+        HEALING_CRYSTAL = buildefs.HEALING_CRYSTAL_DIRE,
+        MARKET = buildefs.MARKET
     },
     WARLORD = {
-        WORKER = defs.WARLORD_WORKER,
-        MELEE = defs.WARLORD_FIGHTER,
-        RANGED = defs.WARLORD_AXE_THROWER,
-        SIEGE = defs.WARLORD_CATAPULT,
-        CASTER = defs.WARLORD_ELDER,
+        WORKER = unitdefs.WARLORD_WORKER,
+        MELEE = unitdefs.WARLORD_FIGHTER,
+        RANGED = unitdefs.WARLORD_AXE_THROWER,
+        SIEGE = unitdefs.WARLORD_CATAPULT,
+        CASTER = unitdefs.WARLORD_ELDER,
 
-        TENT_SMALL = defs.TENT_SMALL,
-        TENT_LARGE = defs.TENT_LARGE,
-        GOLD_MINE = defs.GOLD_MINE,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        BARRACKS = defs.BARRACKS_DIRE,
-        BARRACKS_ADVANCED = defs.BARRACKS_ADVANCED_DIRE,
-        ARMORY = defs.ARMORY_DIRE,
-        HEALING_CRYSTAL = defs.HEALING_CRYSTAL_DIRE,
-        MARKET = defs.MARKET
+        TENT_SMALL = buildefs.TENT_SMALL,
+        TENT_LARGE = buildefs.TENT_LARGE,
+        GOLD_MINE = buildefs.GOLD_MINE,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        BARRACKS = buildefs.BARRACKS_DIRE,
+        BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_DIRE,
+        ARMORY = buildefs.ARMORY_DIRE,
+        HEALING_CRYSTAL = buildefs.HEALING_CRYSTAL_DIRE,
+        MARKET = buildefs.MARKET
     }
 }
 
@@ -258,7 +258,7 @@ tech = {
         BUILDING = defs.BUILDING,
         TOWER = defs.TOWER,
         UNIT = defs.UNIT,
-        PROP = defs.PROP,
+        PROP = buildefs.PROP,
         ENTER_TOWER = defs.ENTER_TOWER,
         LEAVE_BUILDING = defs.LEAVE_BUILDING,
         REPAIR_BUILDING = defs.REPAIR_BUILDING,
@@ -279,13 +279,13 @@ tech = {
         DEMOLISH_BUILDING = defs.DEMOLISH_BUILDING,
         BUY_HEALING_SALVE = defs.BUY_HEALING_SALVE,
         
-        PROP_BARREL = defs.PROP_BARREL,
-        PROP_CHEST = defs.PROP_CHEST,
-        PROP_STASH = defs.PROP_STASH,
-        PROP_WEAPON_RACK = defs.PROP_WEAPON_RACK,
-        PROP_BANNER_RADIANT = defs.PROP_BANNER_RADIANT,
-        PROP_BANNER_DIRE = defs.PROP_BANNER_DIRE,
-        PROP_BANNER_OWNER = defs.PROP_BANNER_OWNER
+        PROP_BARREL = buildefs.PROP_BARREL,
+        PROP_CHEST = buildefs.PROP_CHEST,
+        PROP_STASH = buildefs.PROP_STASH,
+        PROP_WEAPON_RACK = buildefs.PROP_WEAPON_RACK,
+        PROP_BANNER_RADIANT = buildefs.PROP_BANNER_RADIANT,
+        PROP_BANNER_DIRE = buildefs.PROP_BANNER_DIRE,
+        PROP_BANNER_OWNER = buildefs.PROP_BANNER_OWNER
     },
 
 
@@ -302,27 +302,27 @@ tech = {
                 defs.PAGE_MENU_PROPS
             },
             PAGE_MENU_CONSTRUCTION_BASIC = {
-                defs.TENT_SMALL,
-                defs.GOLD_MINE,
-                defs.BARRACKS_RADIANT,
-                defs.WATCH_TOWER,
-                defs.WOODEN_WALL,
+                buildefs.TENT_SMALL,
+                buildefs.GOLD_MINE,
+                buildefs.BARRACKS_RADIANT,
+                buildefs.WATCH_TOWER,
+                buildefs.WOODEN_WALL,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
-                defs.MARKET,
-                defs.HEALING_CRYSTAL_RADIANT,
-                defs.ARMORY_RADIANT,
-                defs.BARRACKS_ADVANCED_RADIANT,
+                buildefs.MARKET,
+                buildefs.HEALING_CRYSTAL_RADIANT,
+                buildefs.ARMORY_RADIANT,
+                buildefs.BARRACKS_ADVANCED_RADIANT,
                 defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
-                 defs.PROP_BARREL,
-                 defs.PROP_CHEST,
-                 defs.PROP_STASH,
-                 defs.PROP_WEAPON_RACK,
-                 defs.PROP_BANNER_RADIANT,
+                 buildefs.PROP_BARREL,
+                 buildefs.PROP_CHEST,
+                 buildefs.PROP_STASH,
+                 buildefs.PROP_WEAPON_RACK,
+                 buildefs.PROP_BANNER_RADIANT,
                  defs.PAGE_MAIN
             }
         },
@@ -332,42 +332,42 @@ tech = {
         SNIPER_RIFLE = defs.SNIPER_RIFLE,
         SLOW = defs.SLOW,
         
-        COMMANDER_WORKER = defs.COMMANDER_WORKER,
-        COMMANDER_FOOTMAN = defs.COMMANDER_FOOTMAN,
-        COMMANDER_GUNNER = defs.COMMANDER_GUNNER,
-        COMMANDER_CATAPULT = defs.COMMANDER_CATAPULT,
-        COMMANDER_SORCERESS = defs.COMMANDER_SORCERESS,
+        COMMANDER_WORKER = unitdefs.COMMANDER_WORKER,
+        COMMANDER_FOOTMAN = unitdefs.COMMANDER_FOOTMAN,
+        COMMANDER_GUNNER = unitdefs.COMMANDER_GUNNER,
+        COMMANDER_CATAPULT = unitdefs.COMMANDER_CATAPULT,
+        COMMANDER_SORCERESS = unitdefs.COMMANDER_SORCERESS,
 
         -- Buildings
-        TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-            defs.COMMANDER_WORKER,
-            defs.TENT_LARGE,
+        TENT_SMALL = CopyWithNewMain(buildefs.TENT_SMALL, {
+            unitdefs.COMMANDER_WORKER,
+            buildefs.TENT_LARGE,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-            defs.COMMANDER_WORKER,
+        TENT_LARGE = CopyWithNewMain(buildefs.TENT_LARGE, {
+            unitdefs.COMMANDER_WORKER,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_RADIANT = CopyWithNewMain(defs.BARRACKS_RADIANT, {
-            defs.COMMANDER_FOOTMAN,
-            defs.COMMANDER_GUNNER,
-            defs.COMMANDER_CATAPULT,
+        BARRACKS_RADIANT = CopyWithNewMain(buildefs.BARRACKS_RADIANT, {
+            unitdefs.COMMANDER_FOOTMAN,
+            unitdefs.COMMANDER_GUNNER,
+            unitdefs.COMMANDER_CATAPULT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(defs.BARRACKS_ADVANCED_RADIANT, {
-            defs.COMMANDER_SORCERESS,
+        BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_RADIANT, {
+            unitdefs.COMMANDER_SORCERESS,
             defs.DEMOLISH_BUILDING
         }),
-        ARMORY_RADIANT = defs.ARMORY_RADIANT,
-        HEALING_CRYSTAL_RADIANT = defs.HEALING_CRYSTAL_RADIANT,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        MARKET = defs.MARKET,
-        GOLD_MINE = defs.GOLD_MINE
+        ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
+        HEALING_CRYSTAL_RADIANT = buildefs.HEALING_CRYSTAL_RADIANT,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        MARKET = buildefs.MARKET,
+        GOLD_MINE = buildefs.GOLD_MINE
     },
   
 
@@ -383,27 +383,27 @@ tech = {
                 defs.PAGE_MENU_PROPS
             },
             PAGE_MENU_CONSTRUCTION_BASIC = {
-                defs.TENT_SMALL,
-                defs.GOLD_MINE,
-                defs.BARRACKS_RADIANT,
-                defs.WATCH_TOWER,
-                defs.WOODEN_WALL,
+                buildefs.TENT_SMALL,
+                buildefs.GOLD_MINE,
+                buildefs.BARRACKS_RADIANT,
+                buildefs.WATCH_TOWER,
+                buildefs.WOODEN_WALL,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
-                defs.MARKET,
-                defs.HEALING_CRYSTAL_RADIANT,
-                defs.ARMORY_RADIANT,
-                defs.BARRACKS_ADVANCED_RADIANT,
+                buildefs.MARKET,
+                buildefs.HEALING_CRYSTAL_RADIANT,
+                buildefs.ARMORY_RADIANT,
+                buildefs.BARRACKS_ADVANCED_RADIANT,
                 defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
-                 defs.PROP_BARREL,
-                 defs.PROP_CHEST,
-                 defs.PROP_STASH,
-                 defs.PROP_WEAPON_RACK,
-                 defs.PROP_BANNER_RADIANT,
+                 buildefs.PROP_BARREL,
+                 buildefs.PROP_CHEST,
+                 buildefs.PROP_STASH,
+                 buildefs.PROP_WEAPON_RACK,
+                 buildefs.PROP_BANNER_RADIANT,
                  defs.PAGE_MAIN
             }
         },
@@ -413,42 +413,42 @@ tech = {
         ENVENOMED_SPEARS = defs.ENVENOMED_SPEARS,
         LIVING_ARMOR = defs.LIVING_ARMOR,
 
-        FURION_WORKER = defs.FURION_WORKER,
-        FURION_WARRIOR = defs.FURION_WARRIOR,
-        FURION_DRYAD = defs.FURION_DRYAD,
-        FURION_CATAPULT = defs.FURION_CATAPULT,
-        FURION_TORMENTED_SOUL = defs.FURION_TORMENTED_SOUL,
+        FURION_WORKER = unitdefs.FURION_WORKER,
+        FURION_WARRIOR = unitdefs.FURION_WARRIOR,
+        FURION_DRYAD = unitdefs.FURION_DRYAD,
+        FURION_CATAPULT = unitdefs.FURION_CATAPULT,
+        FURION_TORMENTED_SOUL = unitdefs.FURION_TORMENTED_SOUL,
 
         -- Buildings
-        TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-            defs.FURION_WORKER,
-            defs.TENT_LARGE,
+        TENT_SMALL = CopyWithNewMain(buildefs.TENT_SMALL, {
+            unitdefs.FURION_WORKER,
+            buildefs.TENT_LARGE,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-            defs.FURION_WORKER,
+        TENT_LARGE = CopyWithNewMain(buildefs.TENT_LARGE, {
+            unitdefs.FURION_WORKER,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_RADIANT = CopyWithNewMain(defs.BARRACKS_RADIANT, {
-            defs.FURION_WARRIOR,
-            defs.FURION_DRYAD,
-            defs.FURION_CATAPULT,
+        BARRACKS_RADIANT = CopyWithNewMain(buildefs.BARRACKS_RADIANT, {
+            unitdefs.FURION_WARRIOR,
+            unitdefs.FURION_DRYAD,
+            unitdefs.FURION_CATAPULT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(defs.BARRACKS_ADVANCED_RADIANT, {
-            defs.FURION_TORMENTED_SOUL,
+        BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_RADIANT, {
+            unitdefs.FURION_TORMENTED_SOUL,
             defs.DEMOLISH_BUILDING
         }),
-        ARMORY_RADIANT = defs.ARMORY_RADIANT,
-        HEALING_CRYSTAL_RADIANT = defs.HEALING_CRYSTAL_RADIANT,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        MARKET = defs.MARKET,
-        GOLD_MINE = defs.GOLD_MINE
+        ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
+        HEALING_CRYSTAL_RADIANT = buildefs.HEALING_CRYSTAL_RADIANT,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        MARKET = buildefs.MARKET,
+        GOLD_MINE = buildefs.GOLD_MINE
     },
   
 
@@ -464,27 +464,27 @@ tech = {
                 defs.PAGE_MENU_PROPS
             },
             PAGE_MENU_CONSTRUCTION_BASIC = {
-                defs.TENT_SMALL,
-                defs.GOLD_MINE,
-                defs.BARRACKS_RADIANT,
-                defs.WATCH_TOWER,
-                defs.WOODEN_WALL,
+                buildefs.TENT_SMALL,
+                buildefs.GOLD_MINE,
+                buildefs.BARRACKS_RADIANT,
+                buildefs.WATCH_TOWER,
+                buildefs.WOODEN_WALL,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
-                defs.MARKET,
-                defs.HEALING_CRYSTAL_RADIANT,
-                defs.ARMORY_RADIANT,
-                defs.BARRACKS_ADVANCED_RADIANT,
+                buildefs.MARKET,
+                buildefs.HEALING_CRYSTAL_RADIANT,
+                buildefs.ARMORY_RADIANT,
+                buildefs.BARRACKS_ADVANCED_RADIANT,
                 defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
-                 defs.PROP_BARREL,
-                 defs.PROP_CHEST,
-                 defs.PROP_STASH,
-                 defs.PROP_WEAPON_RACK,
-                 defs.PROP_BANNER_RADIANT,
+                 buildefs.PROP_BARREL,
+                 buildefs.PROP_CHEST,
+                 buildefs.PROP_STASH,
+                 buildefs.PROP_WEAPON_RACK,
+                 buildefs.PROP_BANNER_RADIANT,
                  defs.PAGE_MAIN
             }
         },
@@ -492,40 +492,40 @@ tech = {
         -- Unit and building spells
         CHILLING_ATTACKS = defs.CHILLING_ATTACKS,
 
-        BREWMASTER_WORKER = defs.BREWMASTER_WORKER,
-        BREWMASTER_BRUISER = defs.BREWMASTER_WARRIOR,
-        BREWMASTER_FROSTMAGE = defs.BREWMASTER_FROSTMAGE,
-        BREWMASTER_CATAPULT = defs.BREWMASTER_CATAPULT,
+        BREWMASTER_WORKER = unitdefs.BREWMASTER_WORKER,
+        BREWMASTER_BRUISER = unitdefs.BREWMASTER_WARRIOR,
+        BREWMASTER_FROSTMAGE = unitdefs.BREWMASTER_FROSTMAGE,
+        BREWMASTER_CATAPULT = unitdefs.BREWMASTER_CATAPULT,
 
         -- Buildings
-        TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-            defs.BREWMASTER_WORKER,
-            defs.TENT_LARGE,
+        TENT_SMALL = CopyWithNewMain(buildefs.TENT_SMALL, {
+            unitdefs.BREWMASTER_WORKER,
+            buildefs.TENT_LARGE,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-            defs.BREWMASTER_WORKER,
+        TENT_LARGE = CopyWithNewMain(buildefs.TENT_LARGE, {
+            unitdefs.BREWMASTER_WORKER,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_RADIANT = CopyWithNewMain(defs.BARRACKS_RADIANT, {
-            defs.BREWMASTER_WARRIOR,
-            defs.BREWMASTER_FROSTMAGE,
-            defs.BREWMASTER_CATAPULT,
+        BARRACKS_RADIANT = CopyWithNewMain(buildefs.BARRACKS_RADIANT, {
+            unitdefs.BREWMASTER_WARRIOR,
+            unitdefs.BREWMASTER_FROSTMAGE,
+            unitdefs.BREWMASTER_CATAPULT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(defs.BARRACKS_ADVANCED_RADIANT, {
+        BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_RADIANT, {
             defs.DEMOLISH_BUILDING
         }),
-        ARMORY_RADIANT = defs.ARMORY_RADIANT,
-        HEALING_CRYSTAL_RADIANT = defs.HEALING_CRYSTAL_RADIANT,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        MARKET = defs.MARKET,
-        GOLD_MINE = defs.GOLD_MINE
+        ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
+        HEALING_CRYSTAL_RADIANT = buildefs.HEALING_CRYSTAL_RADIANT,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        MARKET = buildefs.MARKET,
+        GOLD_MINE = buildefs.GOLD_MINE
     },
 
 
@@ -542,27 +542,27 @@ tech = {
                 defs.PAGE_MENU_PROPS
             },
             PAGE_MENU_CONSTRUCTION_BASIC = {
-                defs.TENT_SMALL,
-                defs.GOLD_MINE,
-                defs.BARRACKS_DIRE,
-                defs.WATCH_TOWER,
-                defs.WOODEN_WALL,
+                buildefs.TENT_SMALL,
+                buildefs.GOLD_MINE,
+                buildefs.BARRACKS_DIRE,
+                buildefs.WATCH_TOWER,
+                buildefs.WOODEN_WALL,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
-                defs.MARKET,
-                defs.HEALING_CRYSTAL_DIRE,
-                defs.ARMORY_DIRE,
-                defs.BARRACKS_ADVANCED_DIRE,
+                buildefs.MARKET,
+                buildefs.HEALING_CRYSTAL_DIRE,
+                buildefs.ARMORY_DIRE,
+                buildefs.BARRACKS_ADVANCED_DIRE,
                 defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
-                defs.PROP_BARREL,
-                defs.PROP_CHEST,
-                defs.PROP_STASH,
-                defs.PROP_WEAPON_RACK,
-                defs.PROP_BANNER_DIRE,
+                buildefs.PROP_BARREL,
+                buildefs.PROP_CHEST,
+                buildefs.PROP_STASH,
+                buildefs.PROP_WEAPON_RACK,
+                buildefs.PROP_BANNER_DIRE,
                 defs.PAGE_MAIN
             }
         },
@@ -571,40 +571,40 @@ tech = {
         LONG_WEAPON = defs.LONG_WEAPON,
         IGNITE = defs.IGNITE,
 
-        GEOMANCER_WORKER = defs.GEOMANCER_WORKER,
-        GEOMANCER_SPEARMAN = defs.GEOMANCER_SPEARMAN,
-        GEOMANCER_FLAME_THROWER = defs.GEOMANCER_FLAME_THROWER,
-        GEOMANCER_CATAPULT = defs.GEOMANCER_CATAPULT,
+        GEOMANCER_WORKER = unitdefs.GEOMANCER_WORKER,
+        GEOMANCER_SPEARMAN = unitdefs.GEOMANCER_SPEARMAN,
+        GEOMANCER_FLAME_THROWER = unitdefs.GEOMANCER_FLAME_THROWER,
+        GEOMANCER_CATAPULT = unitdefs.GEOMANCER_CATAPULT,
 
         -- Buildings
-        TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-            defs.GEOMANCER_WORKER,
-            defs.TENT_LARGE,
+        TENT_SMALL = CopyWithNewMain(buildefs.TENT_SMALL, {
+            unitdefs.GEOMANCER_WORKER,
+            buildefs.TENT_LARGE,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-            defs.GEOMANCER_WORKER,
+        TENT_LARGE = CopyWithNewMain(buildefs.TENT_LARGE, {
+            unitdefs.GEOMANCER_WORKER,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_DIRE = CopyWithNewMain(defs.BARRACKS_DIRE, {
-            defs.GEOMANCER_SPEARMAN,
-            defs.GEOMANCER_FLAME_THROWER,
-            defs.GEOMANCER_CATAPULT,
+        BARRACKS_DIRE = CopyWithNewMain(buildefs.BARRACKS_DIRE, {
+            unitdefs.GEOMANCER_SPEARMAN,
+            unitdefs.GEOMANCER_FLAME_THROWER,
+            unitdefs.GEOMANCER_CATAPULT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_ADVANCED_DIRE = CopyWithNewMain(defs.BARRACKS_ADVANCED_DIRE, {
+        BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
             defs.DEMOLISH_BUILDING
         }),
-        ARMORY_DIRE = defs.ARMORY_DIRE,
-        HEALING_CRYSTAL_DIRE = defs.HEALING_CRYSTAL_DIRE,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        MARKET = defs.MARKET,
-        GOLD_MINE = defs.GOLD_MINE
+        ARMORY_DIRE = buildefs.ARMORY_DIRE,
+        HEALING_CRYSTAL_DIRE = buildefs.HEALING_CRYSTAL_DIRE,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        MARKET = buildefs.MARKET,
+        GOLD_MINE = buildefs.GOLD_MINE
     },
   
 
@@ -620,27 +620,27 @@ tech = {
                 defs.PAGE_MENU_PROPS
             },
             PAGE_MENU_CONSTRUCTION_BASIC = {
-                defs.TENT_SMALL,
-                defs.GOLD_MINE,
-                defs.BARRACKS_DIRE,
-                defs.WATCH_TOWER,
-                defs.WOODEN_WALL,
+                buildefs.TENT_SMALL,
+                buildefs.GOLD_MINE,
+                buildefs.BARRACKS_DIRE,
+                buildefs.WATCH_TOWER,
+                buildefs.WOODEN_WALL,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
-                defs.MARKET,
-                defs.HEALING_CRYSTAL_DIRE,
-                defs.ARMORY_DIRE,
-                defs.BARRACKS_ADVANCED_DIRE,
+                buildefs.MARKET,
+                buildefs.HEALING_CRYSTAL_DIRE,
+                buildefs.ARMORY_DIRE,
+                buildefs.BARRACKS_ADVANCED_DIRE,
                 defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
-                defs.PROP_BARREL,
-                defs.PROP_CHEST,
-                defs.PROP_STASH,
-                defs.PROP_WEAPON_RACK,
-                defs.PROP_BANNER_DIRE,
+                buildefs.PROP_BARREL,
+                buildefs.PROP_CHEST,
+                buildefs.PROP_STASH,
+                buildefs.PROP_WEAPON_RACK,
+                buildefs.PROP_BANNER_DIRE,
                 defs.PAGE_MAIN
             }
         },
@@ -650,42 +650,42 @@ tech = {
         BURNING_ARROWS = defs.BURNING_ARROWS,
         CURSE = defs.CURSE,
 
-        KING_OF_THE_DEAD_WORKER = defs.KING_OF_THE_DEAD_WORKER,
-        KING_OF_THE_DEAD_WARRIOR = defs.KING_OF_THE_DEAD_WARRIOR,
-        KING_OF_THE_DEAD_ARCHER = defs.KING_OF_THE_DEAD_ARCHER,
-        KING_OF_THE_DEAD_CATAPULT = defs.KING_OF_THE_DEAD_CATAPULT,
-        KING_OF_THE_DEAD_CASTER = defs.KING_OF_THE_DEAD_CASTER,
+        KING_OF_THE_DEAD_WORKER = unitdefs.KING_OF_THE_DEAD_WORKER,
+        KING_OF_THE_DEAD_WARRIOR = unitdefs.KING_OF_THE_DEAD_WARRIOR,
+        KING_OF_THE_DEAD_ARCHER = unitdefs.KING_OF_THE_DEAD_ARCHER,
+        KING_OF_THE_DEAD_CATAPULT = unitdefs.KING_OF_THE_DEAD_CATAPULT,
+        KING_OF_THE_DEAD_CASTER = unitdefs.KING_OF_THE_DEAD_CASTER,
 
         -- Buildings
-        TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-            defs.KING_OF_THE_DEAD_WORKER,
-            defs.TENT_LARGE,
+        TENT_SMALL = CopyWithNewMain(buildefs.TENT_SMALL, {
+            unitdefs.KING_OF_THE_DEAD_WORKER,
+            buildefs.TENT_LARGE,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-            defs.KING_OF_THE_DEAD_WORKER,
+        TENT_LARGE = CopyWithNewMain(buildefs.TENT_LARGE, {
+            unitdefs.KING_OF_THE_DEAD_WORKER,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_DIRE = CopyWithNewMain(defs.BARRACKS_DIRE, {
-            defs.KING_OF_THE_DEAD_WARRIOR,
-            defs.KING_OF_THE_DEAD_ARCHER,
-            defs.KING_OF_THE_DEAD_CATAPULT,
+        BARRACKS_DIRE = CopyWithNewMain(buildefs.BARRACKS_DIRE, {
+            unitdefs.KING_OF_THE_DEAD_WARRIOR,
+            unitdefs.KING_OF_THE_DEAD_ARCHER,
+            unitdefs.KING_OF_THE_DEAD_CATAPULT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_ADVANCED_DIRE = CopyWithNewMain(defs.BARRACKS_ADVANCED_DIRE, {
-            defs.KING_OF_THE_DEAD_CASTER,
+        BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
+            unitdefs.KING_OF_THE_DEAD_CASTER,
             defs.DEMOLISH_BUILDING
         }),
-        ARMORY_DIRE = defs.ARMORY_DIRE,
-        HEALING_CRYSTAL_DIRE = defs.HEALING_CRYSTAL_DIRE,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        MARKET = defs.MARKET,
-        GOLD_MINE = defs.GOLD_MINE
+        ARMORY_DIRE = buildefs.ARMORY_DIRE,
+        HEALING_CRYSTAL_DIRE = buildefs.HEALING_CRYSTAL_DIRE,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        MARKET = buildefs.MARKET,
+        GOLD_MINE = buildefs.GOLD_MINE
     },
   
 
@@ -701,27 +701,27 @@ tech = {
                 defs.PAGE_MENU_PROPS
             },
             PAGE_MENU_CONSTRUCTION_BASIC = {
-                defs.TENT_SMALL,
-                defs.GOLD_MINE,
-                defs.BARRACKS_DIRE,
-                defs.WATCH_TOWER,
-                defs.WOODEN_WALL,
+                buildefs.TENT_SMALL,
+                buildefs.GOLD_MINE,
+                buildefs.BARRACKS_DIRE,
+                buildefs.WATCH_TOWER,
+                buildefs.WOODEN_WALL,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
-                defs.MARKET,
-                defs.HEALING_CRYSTAL_DIRE,
-                defs.ARMORY_DIRE,
-                defs.BARRACKS_ADVANCED_DIRE,
+                buildefs.MARKET,
+                buildefs.HEALING_CRYSTAL_DIRE,
+                buildefs.ARMORY_DIRE,
+                buildefs.BARRACKS_ADVANCED_DIRE,
                 defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
-                 defs.PROP_BARREL,
-                 defs.PROP_CHEST,
-                 defs.PROP_STASH,
-                 defs.PROP_WEAPON_RACK,
-                 defs.PROP_BANNER_DIRE,
+                 buildefs.PROP_BARREL,
+                 buildefs.PROP_CHEST,
+                 buildefs.PROP_STASH,
+                 buildefs.PROP_WEAPON_RACK,
+                 buildefs.PROP_BANNER_DIRE,
                  defs.PAGE_MAIN
             }
         },
@@ -730,42 +730,42 @@ tech = {
         HATRED = defs.HATRED,
         FRENZY = defs.FRENZY,
 
-        WARLORD_WORKER = defs.WARLORD_WORKER,
-        WARLORD_FIGHTER = defs.WARLORD_FIGHTER,
-        WARLORD_AXE_THROWER = defs.WARLORD_AXE_THROWER,
-        WARLORD_CATAPULT = defs.WARLORD_CATAPULT,
-        WARLORD_ELDER = defs.WARLORD_ELDER,
+        WARLORD_WORKER = unitdefs.WARLORD_WORKER,
+        WARLORD_FIGHTER = unitdefs.WARLORD_FIGHTER,
+        WARLORD_AXE_THROWER = unitdefs.WARLORD_AXE_THROWER,
+        WARLORD_CATAPULT = unitdefs.WARLORD_CATAPULT,
+        WARLORD_ELDER = unitdefs.WARLORD_ELDER,
 
         -- Buildings
-        TENT_SMALL = CopyWithNewMain(defs.TENT_SMALL, {
-            defs.WARLORD_WORKER,
-            defs.TENT_LARGE,
+        TENT_SMALL = CopyWithNewMain(buildefs.TENT_SMALL, {
+            unitdefs.WARLORD_WORKER,
+            buildefs.TENT_LARGE,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        TENT_LARGE = CopyWithNewMain(defs.TENT_LARGE, {
-            defs.WARLORD_WORKER,
+        TENT_LARGE = CopyWithNewMain(buildefs.TENT_LARGE, {
+            unitdefs.WARLORD_WORKER,
             defs.GLOBAL_SPEED_AURA,
             defs.DELIVERY_POINT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_DIRE = CopyWithNewMain(defs.BARRACKS_DIRE, {
-            defs.WARLORD_FIGHTER,
-            defs.WARLORD_AXE_THROWER,
-            defs.WARLORD_CATAPULT,
+        BARRACKS_DIRE = CopyWithNewMain(buildefs.BARRACKS_DIRE, {
+            unitdefs.WARLORD_FIGHTER,
+            unitdefs.WARLORD_AXE_THROWER,
+            unitdefs.WARLORD_CATAPULT,
             defs.DEMOLISH_BUILDING
         }),
-        BARRACKS_ADVANCED_DIRE = CopyWithNewMain(defs.BARRACKS_ADVANCED_DIRE, {
-            defs.WARLORD_ELDER,
+        BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
+            unitdefs.WARLORD_ELDER,
             defs.DEMOLISH_BUILDING
         }),
-        ARMORY_DIRE = defs.ARMORY_DIRE,
-        HEALING_CRYSTAL_DIRE = defs.HEALING_CRYSTAL_DIRE,
-        WATCH_TOWER = defs.WATCH_TOWER,
-        WOODEN_WALL = defs.WOODEN_WALL,
-        MARKET = defs.MARKET,
-        GOLD_MINE = defs.GOLD_MINE
+        ARMORY_DIRE = buildefs.ARMORY_DIRE,
+        HEALING_CRYSTAL_DIRE = buildefs.HEALING_CRYSTAL_DIRE,
+        WATCH_TOWER = buildefs.WATCH_TOWER,
+        WOODEN_WALL = buildefs.WOODEN_WALL,
+        MARKET = buildefs.MARKET,
+        GOLD_MINE = buildefs.GOLD_MINE
     }
 }
 

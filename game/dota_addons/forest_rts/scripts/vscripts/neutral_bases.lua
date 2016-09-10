@@ -164,7 +164,6 @@ function Neutrals:CreateBuilding(buildingName, location, invulnerable, camp, ang
     local pathing_size = pathing_size or BuildingHelper:GetBlockPathingSize(buildingName)
     BuildingHelper:SnapToGrid(construction_size, location)
 
-    print("Neutrals:CreateBuilding:")
     -- Spawn point obstructions before placing the building
     local gridNavBlockers = BuildingHelper:BlockGridSquares(construction_size, pathing_size, location)
 
@@ -198,7 +197,6 @@ function Neutrals:CreateBuilding(buildingName, location, invulnerable, camp, ang
     end
 
     if invulnerable then
-        Neutrals:Print("Adding invulnerability to buildings!")
         building:AddAbility("invulnerable")
         building:FindAbilityByName("invulnerable"):SetLevel(1)
         Neutrals:MakeGloballyVisible(building)

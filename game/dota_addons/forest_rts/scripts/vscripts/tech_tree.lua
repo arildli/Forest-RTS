@@ -428,7 +428,7 @@ function TechTree:GetAbilityPagesForUnit(unit, ownerHero)
     local unitName = unit:GetUnitName()
 
     local unitStruct = ownerHero.TT.techDef[unitName]
-    --local unitStruct = ownerHero.TT.techDef[unitName] or defs[unitName] or FindUnitStructByName(unitName)
+    --local unitStruct = ownerHero.TT.techDef[unitName] or defs[unitName] or unitdefs[unitName] or buildefs[unitName] or FindUnitStructByName(unitName)
 
     --[[
     local count = 0
@@ -553,7 +553,8 @@ function TechTree:RegisterIncident(unit, state, upgrade)
             local upgradedFromConst = ownerHero.TT.techDef[unitName].from
             if upgradedFromConst then
                 print("upgradedFromConst: "..upgradedFromConst)
-                local upgradedFrom = defs[upgradedFromConst].name
+                local struct = defs[upgradedFromConst] or unitdefs[upgradedFromConst] or buildefs[upgradedFromConst]
+                local upgradedFrom = struct.name
                 print("Decremented unit count for "..upgradedFrom)
                 print("Old unit count for "..upgradedFrom..": "..ownerHero:GetUnitCountFor(upgradedFrom))
                 ownerHero:DecUnitCountFor(upgradedFrom)
@@ -915,7 +916,7 @@ end
 --- * ownerHero: The hero of the caller.
 ---------------------------------------------------------------------------
 function TechTree:GetMaxCountFor(name, ownerHero)
-    local unitStruct = ownerHero.TT.techDef[name] or defs[name] or FindUnitStructByName(name)
+    local unitStruct = ownerHero.TT.techDef[name] or defs[name] or unitdefs[name] or buildefs[name] or FindUnitStructByName(name)
     return unitStruct.max
 end
 
