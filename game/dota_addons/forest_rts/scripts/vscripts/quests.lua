@@ -56,9 +56,9 @@ end
 --
 -- @title (String): The name of the quest to create.
 -- @descriptions (array (String)): An array of quest descriptions.
--- @predicates (array (Function)): An array of predicates for the 
+-- @predicates (array (Function)): An array of predicates for the
 --   requirements.
--- @textOnly (Boolean): If set, quest is only used for the descriptions. 
+-- @textOnly (Boolean): If set, quest is only used for the descriptions.
 --   predicates can be an empty table in that case.
 -- @returns: The newly created quest.
 ---------------------------------------------------------------------------
@@ -67,7 +67,7 @@ function Quests:CreateQuest(title, descriptions, predicates, textOnly)
         PrintQuestFailure("Quests:CreateQuest", "'title', 'descriptions' or 'predicates' were nil!")
         return
     elseif not textOnly and #descriptions ~= #predicates then
-        PrintQuestFailure("Quests:CreateQuest", 
+        PrintQuestFailure("Quests:CreateQuest",
             "'descriptions' and 'predicates' have different lengths!")
         return nil
     end
@@ -117,25 +117,32 @@ function Quests:CreateInitialQuests()
     Quests.quests = {
         Quests:CreateQuest("How To Play",
             {
-            "Find a proper base location",
-            "Construct a Main Tent",
-            "Train workers to harvest lumber",
-            "Build a base",
-            "Train an army",
-            "Kill enemy soldiers"
+                "Find a proper base location",
+                "Construct a Main Tent",
+                "Train workers to harvest lumber",
+                "Build a base",
+                "Train an army",
+                "Kill enemy soldiers"
             }, {}, true
         ),
         Quests:CreateQuest("Rules",
             {
-            "1 point for each hero kill",
-            "1 point for each Main Tent destroyed",
-            "Be the first to reach the goal"
+                "1 point for each hero kill",
+                "1 point for each Main Tent destroyed",
+                "Be the first to reach the goal"
+            }, {}, true
+        ),
+        Quests:CreateQuest("Middle Lumber Camp",
+            {
+                "Kill all brutes in middle base",
+                "This will grant extra lumber income"
             }, {}, true
         )
     }
 
     Quests.questTitleToIndex["Main Objective Patrols"] = 1
     Quests.questTitleToIndex["Main Objective PvP"] = 2
+    Quests.questTitleToIndex["Middle Lumber Camp"] = 3
 end
 
 function Quests:PrintQuest(quest)

@@ -312,6 +312,7 @@ function SimpleRTSGameMode:onHeroPick(keys)
     }
     local mainQuestName = possibleMainQuests[self.gameMode]
     Quests:AddQuest(playerID, mainQuestName)
+    Quests:AddQuest(playerID, "Middle Lumber Camp")
 
     -- Initialize Variables for Tracking
     hero.units = {} -- This keeps the handle of all the units of the player, to iterate for unlocking upgrades

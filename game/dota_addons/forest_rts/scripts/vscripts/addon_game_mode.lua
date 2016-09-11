@@ -168,7 +168,7 @@ function Precache( context )
 
 	-- Sorceress
 	PrecacheResource("model", "models/heroes/lina/lina.vmdl", context)
-	
+
 	PrecacheResource("model", "models/items/lina/migrant_blaze_arms/migrant_blaze_arms.vmdl", context)
 	PrecacheResource("model", "models/items/lina/migrant_blaze_belt/migrant_blaze_belt.vmdl", context)
 	PrecacheResource("model", "models/items/lina/migrant_blaze_head/migrant_blaze_head.vmdl", context)
@@ -209,7 +209,7 @@ function Precache( context )
 	PrecacheResource("model", "models/items/leshrac/horns_thornsofsundering/horns_thornsofsundering.vmdl", context)
 	PrecacheResource("model", "models/items/leshrac/pauldronsofsundering/pauldronsofsundering.vmdl", context)
 	PrecacheResource("model", "models/items/leshrac/tailofsundering/tailofsundering.vmdl", context)
-	
+
 	PrecacheResource("particle", "particles/units/heroes/hero_leshrac/leshrac_base_attack.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_treant/treant_livingarmor.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_treant/treant_livingarmor_regen.vpcf", context)
@@ -272,7 +272,7 @@ function Precache( context )
 	PrecacheResource("model", "models/items/pugna/oblivion_headmaster_helm/oblivion_headmaster_helm.vmdl", context)
 	PrecacheResource("model", "models/items/pugna/oblivion_headmaster_shoulders/oblivion_headmaster_shoulders.vmdl", context)
 	PrecacheResource("model", "models/items/pugna/oblivion_headmaster_wand/oblivion_headmaster_wand.vmdl", context)
-	
+
 	PrecacheResource("particle", "particles/units/heroes/hero_pugna/pugna_decrepify.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_pugna/pugna_base_attack.vpcf", context)
 
@@ -288,7 +288,7 @@ function Precache( context )
 
 	-- Axe Thrower
 	PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_troll_dark_a/n_creep_troll_dark_a.vmdl", context)
-	
+
 	-- Troll Elder
 	PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_troll_dark_b/n_creep_troll_dark_b.vmdl", context)
     PrecacheResource("soundfile", "sounds/weapons/hero/ogre_magi/bloodlust_cast.vsnd", context)
@@ -307,11 +307,16 @@ function Precache( context )
     -- Archer
     PrecacheResource("model", "models/heroes/windrunner/windrunner.vmdl", context)
 
-    PrecacheResource("model", "models/items/windrunner/zkbackreimp/zkbackreimp.vmdl", context)
-    PrecacheResource("model", "models/items/windrunner/naturebow.vmdl", context)
-    PrecacheResource("model", "models/items/windrunner/zkpads/zkpads.vmdl", context)
-    PrecacheResource("model", "models/items/windrunner/zarukina_protector_hair/zarukina_protector_hair.vmdl", context)
-    
+    PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_back/deadly_feather_swing_back.vmdl", context)
+    PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_head/deadly_feather_swing_head.vmdl", context)
+    PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_offhand/deadly_feather_swing_offhand.vmdl", context)
+    PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_shoulder/deadly_feather_swing_shoulder.vmdl", context)
+    PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_weapon/deadly_feather_swing_weapon.vmdl", context)
+    --PrecacheResource("model", "models/items/windrunner/zkbackreimp/zkbackreimp.vmdl", context)
+    --PrecacheResource("model", "models/items/windrunner/naturebow.vmdl", context)
+    --PrecacheResource("model", "models/items/windrunner/zkpads/zkpads.vmdl", context)
+    --PrecacheResource("model", "models/items/windrunner/zarukina_protector_hair/zarukina_protector_hair.vmdl", context)
+
     PrecacheResource("particle", "particles/units/heroes/hero_windrunner/windrunner_base_attack.vpcf", context)
 
     -- Brute
@@ -334,9 +339,9 @@ end
 
 --[[
 
-God måte å organisere denne filen på:
+God mï¿½te ï¿½ organisere denne filen pï¿½:
 
-RequireFiles = 
+RequireFiles =
 {
     "internal/util",
     "gamemode",
@@ -371,7 +376,7 @@ RequireFiles =
     "",
 }
 
-Resources = 
+Resources =
 {
     -- ****** particle_folder ******
     ["particle_folder"] = "",
