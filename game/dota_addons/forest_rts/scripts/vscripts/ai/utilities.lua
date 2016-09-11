@@ -30,7 +30,7 @@ end
 function AI:GetEntLoc(bot, constant)
     local locations = bot.base.locations[constant]
     local constructionSize = AI:GetConstructionSize(bot, constant)
-    for _,loc in pairs(locations) do 
+    for _,loc in pairs(locations) do
         if AI:IsValidLocation(bot, constructionSize, loc) then
             return loc
         end
@@ -75,7 +75,7 @@ end
 -- Returns all the buildings owned by the bot.
 --
 -- @bot (Bot): The bot the building belongs to.
--- @return (table (Buildings)): A table containing all the 
+-- @return (table (Buildings)): A table containing all the
 --   buildings of the bot.
 ---------------------------------------------------------------------------
 function AI:GetAllBuildings(bot)
@@ -190,7 +190,7 @@ end
 ---------------------------------------------------------------------------
 -- Converts a name in form of a string to the related constant.
 --
--- @bot (Bot): The requesting bot. 
+-- @bot (Bot): The requesting bot.
 -- @unitName (string): The name to convert.
 -- @return (UnitConstant/BuildingConstant): The related constant.
 ---------------------------------------------------------------------------
@@ -354,7 +354,7 @@ function AI:ConstructBuildingWrapper(bot, constant)
         return false
     end
     local correctConstant = GetUnitStructFor(constant, bot.heroname).constant
-    local result = AI:ConstructBuilding(bot, correctConstant, location)    
+    local result = AI:ConstructBuilding(bot, correctConstant, location)
     --local result = AI:ConstructBuilding(bot, buildingName, location)
     if result and constant ~= "TENT_SMALL" then
         bot.state = "constructing"
@@ -412,7 +412,7 @@ end
 -- @return (bool): Whether or not the research could be started.
 ---------------------------------------------------------------------------
 function AI:Research(bot, researchConst, buildingConst)
-    local abilityName = defs[researchConst].spell
+    local abilityName = GetSpellForEntity(researchConst)
     return AI:CastChannelingAbility(bot, abilityName, buildingConst)
 end
 
@@ -446,7 +446,7 @@ function AI:PlaceBuilding(playerID, buildingName, position, angle)
 end
 
 ---------------------------------------------------------------------------
--- Attempts to construct a building for the specified bot the 
+-- Attempts to construct a building for the specified bot the
 -- traditional way.
 --
 -- @buildingName (String/BuildingConstant): The name of the building to place.
@@ -476,12 +476,12 @@ function AI:ConstructBuilding(bot, buildingName, position, worker)
     end
     AI:SpendResourcesConstruction(bot, abilityName)
 
-    -- Make sure to temporarily learn and unlearn the ability if 
+    -- Make sure to temporarily learn and unlearn the ability if
     -- the worker doesn't have it, but has its requirements met.
     local hadAbility = worker:HasAbility(abilityName)
     if not hadAbility then
         LearnAbility(worker, abilityName)
-    end   
+    end
     local ability = GetAbilityByName(worker, abilityName)
 
     ConstructBuilding(worker, ability, position)

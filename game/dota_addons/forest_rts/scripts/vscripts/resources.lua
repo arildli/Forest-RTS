@@ -2,6 +2,7 @@
 if not Resources then
     Resources = {}
 end
+HIGHEST_PLAYER_ID = 23
 
 ---------------------------------------------------------------------------
 -- Inits the hero with the necessary properties to work with this
@@ -263,12 +264,16 @@ function Resources:InitHarvester(unit)
         local lumberCount = 10
         PopupLumber(unit, lumberCount)
 
-        if unit._currentOwner then
-            local curOwner = unit._currentOwner
-            local curOwnerID = curOwner:GetOwnerPlayerID()
-            local ownerHero = GetPlayerHero(curOwnerID)
-            print("Transferring "..lumberCount.." lumber to player with ID "..curOwnerID)
-            ownerHero:IncLumber(lumberCount)
+        local curTeam = unit:GetTeamNumber()
+        if unit.curTeam ~= DOTA_TEAM_NEUTRALS then
+            print("Transferring "..lumberCount.." lumber to team "..curTeam)
+            for i=0, HIGHEST_PLAYER_ID do
+                local curPlayerHero = PlayerResource:GetSelectedHeroEntity(i)
+                if curPlayerHero and curPlayerHero:GetTeam() == curTeam then
+                    print("\tPlayer "..i.." received "..lumberCount.." lumber!")
+                    curPlayerHero:IncLumber(lumberCount)
+                end
+            end
         else
             print("Nope, lumber going to waste!")
         end
