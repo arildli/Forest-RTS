@@ -211,8 +211,10 @@ function Resources:InitHarvester(unit)
             print("Error (ReturnToHarvestNeutral): 'unit.HARVESTER.prevTree' not set!")
             return false
         end
-        print("Returning to harvest...")
         local harvestAbility = unit:FindAbilityByName("srts_harvest_lumber_no_cut")
+        if not unit.HARVESTER.prevTree:IsStanding() then
+            unit.HARVESTER.prevTree:GrowBack()
+        end
         unit:CastAbilityOnTarget(unit.HARVESTER.prevTree, harvestAbility, 0)
     end
 
@@ -266,11 +268,10 @@ function Resources:InitHarvester(unit)
 
         local curTeam = unit:GetTeamNumber()
         if unit.curTeam ~= DOTA_TEAM_NEUTRALS then
-            print("Transferring "..lumberCount.." lumber to team "..curTeam)
             for i=0, HIGHEST_PLAYER_ID do
                 local curPlayerHero = PlayerResource:GetSelectedHeroEntity(i)
                 if curPlayerHero and curPlayerHero:GetTeam() == curTeam then
-                    print("\tPlayer "..i.." received "..lumberCount.." lumber!")
+                    --print("\tPlayer "..i.." received "..lumberCount.." lumber!")
                     curPlayerHero:IncLumber(lumberCount)
                 end
             end

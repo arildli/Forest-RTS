@@ -57,7 +57,7 @@ end
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:InitGameMode()
     print("[SimpleRTS] Gamemode is initialising.")
-   
+
     -- Load the rest of the modules that requires that the game modes are set
     loadModule('settings')
     loadModule('utils')
@@ -80,7 +80,7 @@ function SimpleRTSGameMode:InitGameMode()
     --loadModule('ai/independent_utilities')
     loadModule('ai/main')
     -- DONE
-   
+
     LinkLuaModifier("modifier_train_unit", "libraries/modifiers/modifier_train_unit", LUA_MODIFIER_MOTION_NONE)
 
     -- Setup rules
@@ -95,7 +95,7 @@ function SimpleRTSGameMode:InitGameMode()
     GameRules:SetTreeRegrowTime(TREE_REGROW_TIME_SECONDS)
     GameRules:GetGameModeEntity():SetLoseGoldOnDeath(LOSE_GOLD_ON_DEATH)
     GameRules:GetGameModeEntity():SetCameraDistanceOverride(1300)
-   
+
     -- Setup game mode rules
     GameMode = GameRules:GetGameModeEntity()
     GameMode:SetBuybackEnabled(BUYBACK_ENABLED)
@@ -103,12 +103,12 @@ function SimpleRTSGameMode:InitGameMode()
     GameMode:SetTopBarTeamValuesOverride(true)
     GameMode:SetTopBarTeamValuesVisible(true)
     GameMode:SetLoseGoldOnDeath(false)
-   
+
     -- Find pathable trees.
     Resources:InitTrees()
-   
+
     print("[SimpleRTS] Gamemode rules are set.")
-   
+
     -- Init self
     SimpleRTS = self
     self.scoreDire = 0
@@ -127,18 +127,18 @@ function SimpleRTSGameMode:InitGameMode()
             SetTeamCustomHealthbarColor(team, color[1], color[2], color[3])
         end
     end
-   
+
     -- Filters
     GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( SimpleRTSGameMode, "FilterExecuteOrder" ), self )
 
-    -- Event Hooks 
+    -- Event Hooks
     ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(SimpleRTSGameMode, 'onHeroPick'), self)
     ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(SimpleRTSGameMode, 'onGameStateChange'), self)
     ListenToGameEvent('npc_spawned', Dynamic_Wrap(SimpleRTSGameMode, 'onNPCSpawned'), self)
     ListenToGameEvent('entity_killed', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityKilled'), self)
     ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityLevel'), self)
     ListenToGameEvent('tree_cut', Dynamic_Wrap(SimpleRTSGameMode, 'OnTreeCut'), self)
-   
+
     -- Register Listener
     CustomGameEventManager:RegisterListener("update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
     CustomGameEventManager:RegisterListener("set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
@@ -147,7 +147,7 @@ function SimpleRTSGameMode:InitGameMode()
 
     -- Register Think
     GameMode:SetContextThink("SimpleRTSThink", Dynamic_Wrap(SimpleRTSGameMode, 'Think'), THINK_TIME)
-   
+
     -- Full units file to get the custom values
     GameRules.AbilityKV = LoadKeyValues("scripts/npc/npc_abilities_custom.txt")
     GameRules.UnitKV = LoadKeyValues("scripts/npc/npc_units_custom.txt")
@@ -157,7 +157,7 @@ function SimpleRTSGameMode:InitGameMode()
 
     -- Store and update selected units of each pID
     GameRules.SELECTED_UNITS = {}
-   
+
     -- Keeps the blighted gridnav positions
     GameRules.Blight = {}
 
@@ -187,7 +187,7 @@ function SimpleRTSGameMode:InitGameMode()
         --SimpleBot:MultiplyInitialPatrol(5)
         PlayerResource:ModifyGold(playerID, 99999, true, 0)
         Stats:AddGold(playerID, 99999)
-                  
+
         local newItem = CreateItem("item_blink", playerHero, playerHero)
         playerHero:AddItem(newItem)
         newItem = CreateItem("item_heart", playerHero, playerHero)
@@ -243,16 +243,16 @@ function SimpleRTSGameMode:InitGameMode()
             playerHero:AddItem(salves)
         end
     end, "Gives the hero 10 healing salves", FCVAR_CHEAT )
-   
+
 
     Convars:RegisterCommand('debug', function()
         DEBUG = true
         SimpleBot:MultiplyInitialPatrol(5)
         VICTORY_SCORE = 25
     end, 'Enables standard debug mode for lower construction time', FCVAR_CHEAT)
-   
-   
-    Convars:RegisterCommand('unitCount', function()   
+
+
+    Convars:RegisterCommand('unitCount', function()
         local cmdPlayer = Convars:GetCommandClient()
         local playerHero
         if cmdPlayer then
@@ -261,17 +261,17 @@ function SimpleRTSGameMode:InitGameMode()
                 playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
             end
         end
-                  
+
         playerHero:PrintUnitCount()
     end, 'Print the unitCount table of the hero of the caller', FCVAR_CHEAT)
-   
+
 
     Convars:RegisterCommand('start', function()
-                  
-    end, 'Start game', FCVAR_CHEAT)
-   
 
-    Convars:RegisterCommand('test_endgame', function()    
+    end, 'Start game', FCVAR_CHEAT)
+
+
+    Convars:RegisterCommand('test_endgame', function()
         GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
         --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
         GameRules:Defeated()
@@ -312,14 +312,14 @@ function SimpleRTSGameMode:onHeroPick(keys)
     }
     local mainQuestName = possibleMainQuests[self.gameMode]
     Quests:AddQuest(playerID, mainQuestName)
-   
+
     -- Initialize Variables for Tracking
     hero.units = {} -- This keeps the handle of all the units of the player, to iterate for unlocking upgrades
     hero.structures = {} -- This keeps the handle of the constructed units, to iterate for unlocking upgrades
     hero.buildings = {} -- This keeps the name and quantity of each building
     hero.upgrades = {} -- This kees the name of all the upgrades researched
     hero.lumber = 0 -- Secondary resource of the player
-   
+
     -- Add the hero to the player units list
     table.insert(hero.units, hero)
     hero.state = "idle" --Builder state
@@ -449,14 +449,14 @@ function SimpleRTSGameMode:onGameStart(keys)
     local radiantCount = 0
     local direCount = 0
 
-    for i=0, HIGHEST_PLAYER_INDEX do  
+    for i=0, HIGHEST_PLAYER_INDEX do
         local currentPlayer = PlayerResource:GetPlayer(i)
         if currentPlayer then
             if not PlayerResource:HasSelectedHero(currentPlayer:GetPlayerID()) then
                 PlayerResource:SetHasRepicked(i)
                 currentPlayer:MakeRandomHeroSelection()
             end
-     
+
             local playerTeam = PlayerResource:GetTeam(currentPlayer:GetPlayerID())
             if playerTeam == DOTA_TEAM_GOODGUYS then
                 radiantCount = radiantCount + 1
@@ -516,7 +516,7 @@ end
 ---------------------------------------------------------------------------
 -- Send Team Resources.
 ---------------------------------------------------------------------------
-function SimpleRTSGameMode:SendTeamResources() 
+function SimpleRTSGameMode:SendTeamResources()
     local resources = {}
     for i=0, HIGHEST_PLAYER_INDEX do
         local curPlayerHero = GetPlayerHero(i)
@@ -527,10 +527,10 @@ function SimpleRTSGameMode:SendTeamResources()
                 gold = curPlayerHero:GetGold() or 0,
                 lumber = curPlayerHero:GetLumber() or 0,
                 workers = curPlayerHero:GetWorkerCount() or 0
-            }  
+            }
         end
     end
-   
+
     for teamID,teamData in pairs(resources) do
         CustomGameEventManager:Send_ServerToTeam(teamID, "team_resources", {teamData = teamData})
         --CustomGameEventManager:Send_ServerToTeam(teamID, "team_resources", {teamData = teamData})
@@ -604,7 +604,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
     end
 
     --     BH stuff     --
-   
+
     -- Get owner of killed unit if it's owned by a player.
     local playerHero = nil
     if killedUnit:IsRealHero() then
@@ -622,7 +622,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
     end
 
     -- Building Killed
-    if IsBuilding(killedUnit) or IsCustomBuilding(killedUnit) then   
+    if IsBuilding(killedUnit) or IsCustomBuilding(killedUnit) then
         if killedUnit._upgraded then
             print("Returning from 'onEntityKilled' due to unit being upgraded!")
             return
@@ -635,7 +635,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
         if playerHero.buildings[building_name] then
             playerHero.buildings[building_name] = playerHero.buildings[building_name] - 1
         end
-      
+
         Stats:OnDeath(killedID, killerID, killedUnit, "building")
     else
         Stats:OnDeath(killedID, killerID, killedUnit, "unit")
@@ -651,14 +651,14 @@ function SimpleRTSGameMode:onEntityKilled(keys)
             end
         end
         playerHero.structures = table_structures
-      
+
         local table_units = {}
         for _,unit in pairs(playerHero.units) do
             if unit and IsValidEntity(unit) then
                 table.insert(table_units, unit)
             end
         end
-        playerHero.units = table_units        
+        playerHero.units = table_units
     end
 
    --     BH stuff end     --
@@ -674,9 +674,9 @@ function SimpleRTSGameMode:onEntityKilled(keys)
         killedUnit._inside:ForceKill(false)
     end
 
-   if (killedUnit:IsRealHero() == true or StringStartsWith(unitName, "npc_dota_building_main_tent")) then 
+   if (killedUnit:IsRealHero() == true or StringStartsWith(unitName, "npc_dota_building_main_tent")) then
       print("Killed unit was hero or main building.")
-      --if not killedUnit._wasCancelled then 
+      --if not killedUnit._wasCancelled then
       local killedTeamString
       local scoreMessage
       if killedTeam == DOTA_TEAM_GOODGUYS then
@@ -696,9 +696,9 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       end
       print("Updating scores: "..self.scoreRadiant.." and "..self.scoreDire)
       CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
-      
+
       print("Radiant: "..self.scoreRadiant.."\tDire: "..self.scoreDire)
-      
+
       local gameMode = self.gameMode
       -- In this case, the losing condition is reaching 0 points.
       if gameMode == "Solo" or gameMode == "Co-Op" then
@@ -742,7 +742,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
      end
       end
    end
-   
+
     if not killedUnit:IsRealHero() then
         TechTree:RegisterIncident(killedUnit, false)
     end
@@ -823,10 +823,10 @@ end
 -- A tree was cut down
 function SimpleRTSGameMode:OnTreeCut(keys)
     --DeepPrintTable(keys)
-   
+
     local treeX = keys.tree_x
     local treeY = keys.tree_y
-   
+
     -- Update the pathable trees nearby
     local vecs = {
         Vector(0,64,0),-- N
@@ -838,13 +838,13 @@ function SimpleRTSGameMode:OnTreeCut(keys)
         Vector(-64,0,0), -- W
         Vector(-64,64,0) -- NW
     }
-   
+
     for k=1,#vecs do
         local vec = vecs[k]
         local xoff = vec.x
         local yoff = vec.y
         local pos = Vector(treeX + xoff, treeY + yoff, 0)
-      
+
         local nearbyTree = GridNav:IsNearbyTree(pos, 96, true)
         --local nearbyTree = GridNav:IsNearbyTree(pos, 64, true)
         if nearbyTree then
@@ -912,9 +912,9 @@ end
 -- Called whenever a player changes its current selection, it keeps a list of entity indexes
 function SimpleRTSGameMode:OnPlayerSelectedEntities( event )
     local pID = event.pID
-   
+
     GameRules.SELECTED_UNITS[pID] = event.selected_entities
-   
+
     -- This is for Building Helper to know which is the currently active builder
     local mainSelected = GetMainSelectedEntity(pID)
     if IsValidEntity(mainSelected) and IsBuilder(mainSelected) then
@@ -922,4 +922,3 @@ function SimpleRTSGameMode:OnPlayerSelectedEntities( event )
         player.activeBuilder = mainSelected
     end
 end
-

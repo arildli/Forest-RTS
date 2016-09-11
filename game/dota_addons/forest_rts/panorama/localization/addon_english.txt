@@ -2,7 +2,7 @@
 {
 	"Language"		"English"
 	"Tokens"
-	{	
+	{
 		"addon_game_name"				"Forest RTS"
 
 		// Game info tab
@@ -12,7 +12,7 @@
 		"game_info_mode_single_player"			"* <span class='bold'>Single Player:</span> This mode will be chosen if there's only one player in the game. You will have to construct a base and kill as many patrols as possible."
 		"game_info_mode_co-op"				"* <span class='bold'>Co-Op:</span> This mode will be chosen if there are more than one player and all players are on the same team. More players on the team means equally stronger patrols. Mostly the same as single player mode."
 		"game_info_mode_pvp"				"* <span class='bold'>PvP:</span> This mode will be chosen if there are players present on both teams. The goal here is to be the first team to get a certain amount of points from killing enemy players or their main buildings."
-		
+
 		//   How to play tab
 		"game_info_htp_header"				"How to play:"
 		"game_info_htp_1"				"Find a suitable location for a base and construct a Main Tent from the first construction menu. The construction menu can be opened by using the spell with the blue icon."
@@ -23,21 +23,21 @@
 		"game_info_htp_6"				"If you click somewhere while a Main Tent or Barracks is selected, a new rally point will be set. Every time that building trains a new unit, it will walk towards the current rally point if you have one set."
 		"game_info_htp_7"				"Once a worker has finished training, you can select it and use its first spell on a tree to cut it down. This will take a while, but once finished it will return the lumber to the nearest Main Tent or Market, and the resource will then be ready to use. Most times the worker will then try to find a new tree to cut, but this doesn't always work. In those cases you will have to order it to cut down another tree manually to get it started again."
 		"game_info_htp_8"				"You can also use your hero to harvest lumber. First you will have to go back to the main menu by using the last spell (Purification)."
-		"game_info_htp_9"				"Once there you will find a spell that is quite similar to that of the worker. The only difference is that the hero uses slightly less time to cut down a tree, so this is something you should do in the very beginning when you don't have much resources or workers." 
+		"game_info_htp_9"				"Once there you will find a spell that is quite similar to that of the worker. The only difference is that the hero uses slightly less time to cut down a tree, so this is something you should do in the very beginning when you don't have much resources or workers."
 		"game_info_htp_10"				"When you have trained the 5 workers and have gathered at least 10 lumber, you should spend them on a Gold Mine. This building is your main source of gold and should therefore be built as soon as possible. It is found in the same menu as the Main Tent. You can either choose to use a worker or your hero to construct it, both units can construct buildings in the same way. Because you can only have one Gold Mine at a time, you can see that the spell is greyed out in the same way as the Main Tent after the construction has started. If your Gold Mine gets destroyed or you choose to cancel the construction, you should be able to construct a new one."
 		"game_info_htp_11"				"After gaining enough workers and resources, you can construct a Barracks to train troops. Intially you can only train melee units, but once you have constructed the necessary buildings, the ranged unit and the catapult unit gets unlocked as well. The buildings required for those two units are respectively a Market and an Armory, both found in the advanced construction menu (The second chen spell in the main menu)."
 		"game_info_htp_12"				"Sooner or later your supply of trees close to the Main Tent will be exhausted. They will eventually grow back, but in the meantime you should build Markets around the map where the workers or your hero can return their lumber. You can also use the ability found in the Market to sell lumber. This can be quite useful either if you need a sudden boost of gold or if you are just collecting much more lumber than you actually need. Either way, lumber is therefore still worth collecting even if you just spend some of it on buildings, units or upgrades."
 		"game_info_htp_13"				"Here is an example of a small army inside a weakly defended base, where the workers have gone outside in search of more wood. As seen on the picture, there are more buildings to be constructed than the ones mentioned above. They can all be found in one of the construction menus and should be used for what they are worth. For example, the Watch Tower is both useful for getting vision of an area (like a ward), but can also be equipped with a ranged unit to serve as a basic base defence tool together with the wooden wall."
 		"game_info_htp_14"				"What to do next is up to you. You can choose to expand your base and train a larger army before attacking, you can skip one or more of the previous steps if you wish to rush your opponent, turtle up if you're playing against others and prefer to play defensively or maybe clear some neutral camps for extra gold and experience for your hero."
 		"game_info_htp_15"				"That is pretty much the basics of the mod, but there are still more features to explore. Keep in mind that this mod is still work in progress, so there will be bugs and unbalances. If you find such things in the mod, feel free to post a comment about it on the workshop page of the mod. All feedback is highly appreciated!"
-	
+
 		// Error Messages
 		"error_invalid_build_position"			"You Can't Build There"
 		"error_not_enough_gold"				"Not Enough Gold"
 		"error_not_enough_lumber"			"Not Enough Lumber"
 		"error_not_enough_resources"			"Not Enough Resources"
 		"error_full_health"				"Already On Full Health"
-		"error_queue_full"				"Queue Is Full"	
+		"error_queue_full"				"Queue Is Full"
 
 		"error_target_must_be_unit"			"Target Must Be A Regular Unit"
 		"error_target_must_be_ranged_unit"		"Target Must Be A Ranged Unit"

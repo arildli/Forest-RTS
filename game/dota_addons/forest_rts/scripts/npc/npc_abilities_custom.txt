@@ -644,7 +644,7 @@
         "AbilityManacost"       "0"
 
         "AbilityCastAnimation"      "ACT_DOTA_ATTACK"
-        "AbilityChannelTime"        "10"
+        "AbilityChannelTime"        "50"
 
         "precache"
         {
