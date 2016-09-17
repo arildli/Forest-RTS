@@ -19,7 +19,9 @@
     -- Left bot guard: Vector(-896, -1216, 384)
     -- Banner: Vector(-1280, -1344, 384) (Rotate 180 deg)
 
-
+-- If you want to use this module, make sure to rewrite the 'Neutrals:RotateLeft'
+-- method and change the values in the block below!
+-- (That is: team colors, team names, unit names etc.)
 
 if not Neutrals then
     Neutrals = {}
@@ -27,17 +29,21 @@ if not Neutrals then
     -- If more than two main teams are used, add them using the DOTA_TEAM_xxx constants.
     Neutrals.TEAM_COLORS = {
         [DOTA_TEAM_GOODGUYS] = {52,85,255},
-        [DOTA_TEAM_BADGUYS] = {176,23,27}
+        [DOTA_TEAM_BADGUYS] = {176,23,27},
+        [DOTA_TEAM_NEUTRALS] = {128,72,53}
     }
     Neutrals.TEAM_COLORS_HEX = {
         [DOTA_TEAM_GOODGUYS] = "#3455ff",
-        [DOTA_TEAM_BADGUYS] = "#b0171b"
+        [DOTA_TEAM_BADGUYS] = "#b0171b",
+        [DOTA_TEAM_NEUTRALS] = "#804835"
     }
     Neutrals.TEAM_NAMES = {
         [DOTA_TEAM_GOODGUYS] = "The Radiant",
-        [DOTA_TEAM_BADGUYS] = "The Dire"
+        [DOTA_TEAM_BADGUYS] = "The Dire",
+        [DOTA_TEAM_NEUTRALS] = "The Neutrals"
     }
 
+    Neutrals.BRUTE = "npc_dota_creature_neutral_brute"
     Neutrals.WORKER_NAME = "npc_dota_creature_neutral_worker"
     Neutrals.WATCH_TOWER_NAME = "npc_dota_building_watch_tower"
     Neutrals.BANNER_NAME = "npc_dota_building_prop_banner_owner"
@@ -53,16 +59,16 @@ function Neutrals:Init()
     -- Right-Top tower
     local curVector = Vector(736, -480, 384)
     Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
-    Neutrals:SpawnGuard("npc_dota_creature_neutral_brute", Vector(576, -64, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false)
-    Neutrals:SpawnGuard("npc_dota_creature_neutral_brute", Vector(576, -384, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false)
+    Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(576, -64, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false)
+    Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(576, -384, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false)
     local bannerRightTop = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(960, -448, 255), true, middleCamp)
     Neutrals:MakeGloballyVisible(bannerRightTop)
     -- Right-Bottom tower
     curVector = Vector(864, -1504, 384)
     Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
-    local curUnit = Neutrals:SpawnGuard("npc_dota_creature_neutral_brute", Vector(384, -1728, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 5)
+    local curUnit = Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(384, -1728, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 5)
     --Neutrals:RotateLeft(curUnit, 5)
-    curUnit = Neutrals:SpawnGuard("npc_dota_creature_neutral_brute", Vector(704, -1728, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 5)
+    curUnit = Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(704, -1728, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 5)
     --Neutrals:RotateLeft(curUnit, 5)
     local bannerBottom = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(832, -1664, 384), true, middleCamp)
     Neutrals:RotateLeft(bannerBottom, 5)
@@ -70,16 +76,16 @@ function Neutrals:Init()
     -- Left tower
     curVector = Vector(-1120, -1312, 384)
     Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
-    local curUnit = Neutrals:SpawnGuard("npc_dota_creature_neutral_brute", Vector(-896, -896, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 3)
+    local curUnit = Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(-896, -896, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 3)
     --Neutrals:RotateLeft(curUnit, 3)
-    curUnit = Neutrals:SpawnGuard("npc_dota_creature_neutral_brute", Vector(-896, -1216, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 3)
+    curUnit = Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(-896, -1216, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 3)
     --Neutrals:RotateLeft(curUnit, 3)
     local bannerLeft = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(-1280, -1344, 384), true, middleCamp)
     Neutrals:RotateLeft(bannerLeft, 3)
     Neutrals:MakeGloballyVisible(bannerLeft)
     -- Market
     local market = Neutrals:CreateBuilding("npc_dota_building_market", Vector(-320, -1536, 384), true, middleCamp)
-    local curUnit = Neutrals:SpawnGuard("npc_dota_creature_neutral_brute", Vector(-256, -1280, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 5)
+    local curUnit = Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(-256, -1280, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 5)
     --Neutrals:RotateLeft(curUnit, 5)
     Neutrals:RotateLeft(market, 3)
     -- Workers
@@ -87,6 +93,18 @@ function Neutrals:Init()
         Neutrals:SpawnWorker(Vector(256, -1024, 384), market, middleCamp, true, true),
         Neutrals:SpawnWorker(Vector(64, -1216, 384), market, middleCamp, true, true)
     }
+
+    Convars:RegisterCommand('neutrals_middle_radiant', function()
+        Neutrals:SwitchOwnerOfCamp(Neutrals.camps["Middle Lumber Camp"], DOTA_TEAM_GOODGUYS)
+    end, 'Give command of the middle lumber camp to the radiant', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('neutrals_middle_dire', function()
+        Neutrals:SwitchOwnerOfCamp(Neutrals.camps["Middle Lumber Camp"], DOTA_TEAM_BADGUYS)
+    end, 'Give command of the middle lumber camp to the dire', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('neutrals_middle_neutrals', function()
+        Neutrals:SwitchOwnerOfCamp(Neutrals.camps["Middle Lumber Camp"], DOTA_TEAM_NEUTRALS)
+    end, 'Give command of the middle lumber camp to the neutrals', FCVAR_CHEAT)
 
     Neutrals:Print("Initialized")
 end
@@ -108,11 +126,19 @@ function Neutrals:OnUnitKilled(event)
         Neutrals:Print("Neutral unit killed, but not part of camp. Returning...")
         return
     end
-
     camp.guardsLeft = camp.guardsLeft - 1
-    Neutrals:RegisterAsDead(entKilled, camp, killerID)
+
+    --print("killerTeam: ")
+    local killerTeam = PlayerResource:GetTeam(killerID)
+    -- Units belonging to the neutral team does not have a owning player,
+    -- therefore -1.
+    if killerID == -1 then
+        killerTeam = DOTA_TEAM_NEUTRALS
+    end
+    Neutrals:RegisterAsDead(entKilled, camp, killerTeam)
 
     local guardsLeft = camp.guardsLeft
+    --Neutrals:Print("Guards left: "..guardsLeft)
     if guardsLeft <= 0 then
         local newOwnerTeam = Neutrals:GetNewOwnerTeam(camp)
         Neutrals:SwitchOwnerOfCamp(camp, newOwnerTeam)
@@ -245,7 +271,6 @@ function Neutrals:SpawnUnit(unitName, location, camp, owningTeam, transferable, 
     local newUnit = CreateUnitByName(unitName, location, true, nil, nil, owningTeam)
     newUnit._camp = camp
     newUnit._neutrals = true
-    newUnit._camp = camp
 
     if transferable then
         Neutrals:MakeTransferable(newUnit, camp, "unit", leftRotations)
@@ -380,19 +405,32 @@ function Neutrals:MakeTransferable(entity, camp, type, leftRotations)
 end
 
 ---------------------------------------------------------------------------
+-- Makes the unit non-transferable, making sure that the entity neither
+-- respawns nor changes owner.
+--
+-- @entity (Unit/Building): The unit or building to make untransferable.
+-- @camp (Camp): The camp the entity belongs to.
+---------------------------------------------------------------------------
+function Neutrals:RemoveTransferable(entity, camp)
+    if camp.transferable[entity] then
+        camp.transferable[entity] = nil
+    end
+end
+
+---------------------------------------------------------------------------
 -- Registers the entity as dead so it can be respawned later.
 --
 -- @entity (Unit/Building): The unit or building to update the info for.
 -- @camp (Camp): The camp the entity belongs to.
--- @killerID (Int): The playerID of the player owning the killer.
+-- @killerTeam (Int): The team of the player owning the killer.
 ---------------------------------------------------------------------------
-function Neutrals:RegisterAsDead(entity, camp, killerID)
+function Neutrals:RegisterAsDead(entity, camp, killerTeam)
     local entStruct = camp.transferable[entity]
     if entStruct then
         entStruct.status = "dead"
-        entStruct.killerID = killerID
+        entStruct.killerTeam = killerTeam
     end
-    local killerTeam = PlayerResource:GetTeam(killerID)
+
     camp.transferPoints[killerTeam] = (camp.transferPoints[killerTeam] or 0) + 1
 end
 
@@ -424,19 +462,30 @@ function Neutrals:SwitchOwnerOfCamp(camp, newOwnerTeam)
     local entries = camp.transferable
     camp.transferPoints = {}
 
+    local count = 0
     for index,entry in pairs(entries) do
+        count = count + 1
         if entry.status == "alive" then
-            Neutrals:SwitchOwner(entry.entity, newOwnerTeam)
+            if entry.name == Neutrals.BRUTE then
+                Neutrals:SwitchOwner(entry.entity, newOwnerTeam)
+            else
+                Neutrals:SwitchOwner(entry.entity, newOwnerTeam)
+            end
         else
             local leftRotations = entry.leftRotations
+            --Neutrals:Print("\tRespawning "..entry.name.."!")
             Neutrals:SpawnGuard(entry.name, entry.spawn, camp, newOwnerTeam, false, false, leftRotations)
         end
     end
+    Neutrals:Print("GuardsLeft in converted camp: "..camp.guardsLeft)
 
     local newOwnerColor = self.TEAM_COLORS_HEX[newOwnerTeam]
     local notificationString = "<font color='"..newOwnerColor.."'>"..self.TEAM_NAMES[newOwnerTeam].."</font>".." has taken the "..camp.name
+    -- Timed message on top.
     Notifications:ClearTopFromAll()
     Notifications:TopToAll({text=notificationString, duration=5.0})
+    -- Message on left side, stays for a while.
+    GameRules:SendCustomMessage(notificationString, 0, 0)
 end
 
 ---------------------------------------------------------------------------

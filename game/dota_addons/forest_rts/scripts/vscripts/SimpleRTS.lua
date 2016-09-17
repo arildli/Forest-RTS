@@ -276,6 +276,26 @@ function SimpleRTSGameMode:InitGameMode()
         --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
         GameRules:Defeated()
     end, 'Ends the game.', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('spawn_patrol_army', function()
+        local cmdPlayer = Convars:GetCommandClient()
+        local playerHero
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID ~= nil and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+            end
+        end
+
+        local unitName = "npc_dota_creature_soldier_melee"
+        local location = playerHero:GetAbsOrigin()
+        local count = 30
+
+        --function SimpleBot:SpawnSoldiers(DOTA_TEAM_NEUTRALS, 20, 20, playerHero:GetAbsOrigin(), pathNumber, groupNumber, multiplier)
+        for i=0,count do
+            CreateUnitByName(unitName, location, true, nil, nil, DOTA_TEAM_NEUTRALS)
+        end
+    end, 'Spawns a lot of patrol units at the hero location', FCVAR_CHEAT)
 end
 
 
