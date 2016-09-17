@@ -106,19 +106,18 @@ end
 ---------------------------------------------------------------------------
 -- Returns the struct for a specific unit from 'tech'.
 ---------------------------------------------------------------------------
-function GetUnitStructFromTech(unitName, heroname)
-    local unitStruct = tech[heroname][unitName]
+function GetStructFromTech(entryName, heroname)
+    local unitStruct = tech[heroname][entryName]
     if unitStruct then
         return unitStruct
     end
 
-    print("Note: Didn't find '"..unitName.."' by constant, searching through entries...")
+    print("Note: Didn't find '"..entryName.."' by constant, searching through entries...")
     for key,entry in pairs(tech[heroname]) do
         if key ~= "heroname" and key ~= "heropages" then
-            if entry.name == unitName then
-                unitStruct = entry
-                print("Found '"..unitStruct.name.."' though search.")
-                return unitStruct
+            if entry.name and entry.name == entryName or entry.spell and entry.spell == entryName then
+                print("Found '"..(entry.name or entry.spell).."' though search.")
+                return entry
             end
         end
     end
@@ -297,6 +296,7 @@ tech = {
         PAGE_MENU_PROPS = defs.PAGE_MENU_PROPS,
         UPGRADE_LIGHT_ARMOR = defs.UPGRADE_LIGHT_ARMOR,
         UPGRADE_LIGHT_DAMAGE = defs.UPGRADE_LIGHT_DAMAGE,
+        UPGRADE_ADEPT_TRAINING = defs.UPGRADE_ADEPT_TRAINING,
         DEMOLISH_BUILDING = defs.DEMOLISH_BUILDING,
         BUY_HEALING_SALVE = defs.BUY_HEALING_SALVE,
 
@@ -381,6 +381,7 @@ tech = {
         }),
         BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_RADIANT, {
             unitdefs.COMMANDER_SORCERESS,
+            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
@@ -462,6 +463,7 @@ tech = {
         }),
         BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_RADIANT, {
             unitdefs.FURION_TORMENTED_SOUL,
+            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
@@ -539,6 +541,7 @@ tech = {
             defs.DEMOLISH_BUILDING
         }),
         BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_RADIANT, {
+            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
@@ -618,6 +621,7 @@ tech = {
             defs.DEMOLISH_BUILDING
         }),
         BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
+            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_DIRE = buildefs.ARMORY_DIRE,
@@ -699,6 +703,7 @@ tech = {
         }),
         BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
             unitdefs.KING_OF_THE_DEAD_CASTER,
+            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_DIRE = buildefs.ARMORY_DIRE,
@@ -779,6 +784,7 @@ tech = {
         }),
         BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
             unitdefs.WARLORD_ELDER,
+            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_DIRE = buildefs.ARMORY_DIRE,

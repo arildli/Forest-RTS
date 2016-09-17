@@ -56,11 +56,11 @@ function addRallyFunctions(building)
 end
 
 
-function finishConstruction(building)  
+function finishConstruction(building)
     if not building:IsAlive() or building._interrupted == true then
         return
     end
-    
+
     local interrupted = "nil"
     if building._interrupted == true then
         interrupted = "true"
@@ -158,6 +158,7 @@ function CheckIfCanAffordUnit(keys)
     local caster = keys.caster
     local playerID = caster:GetOwner():GetPlayerID()
     GiveGoldToPlayer(playerID, goldCost)
+
     return CheckIfCanAfford(keys)
 end
 
@@ -187,7 +188,7 @@ function CheckIfCanAfford(keys)
                 endTime = 0.05,
                 callback = function() ability:EndChannel(false)
             end})
-            
+
         end
 
         return true
@@ -278,7 +279,7 @@ function OnUnitTrained(keys)
     if target:GetUnitName() == "bh_dummy_unit" then
         return
     end
-    
+
     local owner = caster:GetOwnerPlayer() or caster:GetOwner()
     TechTree:AddPlayerMethods(target, owner)
 

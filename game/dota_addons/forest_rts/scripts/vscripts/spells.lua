@@ -136,7 +136,8 @@ function ApplyUpgradeUnits(keys)
     local ability = keys.ability
     local abilityName = ability:GetAbilityName()
     local ownerHero = caster:GetOwnerHero()
-    local itemName = ownerHero.TT.techDef[abilityName].item
+    local itemStruct = ownerHero.TT.techDef[abilityName] or GetStructFromTech(abilityName, ownerHero:GetUnitName())
+    local itemName = itemStruct.item
     ownerHero:SetAbilityLevelFor(abilityName, 0)
     ownerHero:SetUnitCountFor(abilityName, 1)
     local canGetUpgrade = {}
@@ -180,10 +181,14 @@ function GetUpgradesForUnit(unit)
 end
 
 function GetUpgradeItem(hero, upgradeSpellName)
-    upgradeSpellName = hero.TT.techDef[upgradeSpellName].spell
+    --local upgradeSpellStruct = hero.TT.techDef[upgradeSpellName]
+    local heroName = hero:GetUnitName()
+    local upgradeSpellStruct = GetStructFromTech(upgradeSpellName, heroName)
+    upgradeSpellName = upgradeSpellStruct.spell
     local upgradeLevel = hero:GetUnitCountFor(upgradeSpellName)
     if upgradeLevel > 0 then
-        return hero.TT.techDef[upgradeSpellName].item
+        --return hero.TT.techDef[upgradeSpellName].item
+        return GetStructFromTech(upgradeSpellName, heroName).item
     else
         return nil
     end
@@ -211,19 +216,6 @@ function ApplyUpgradesOnTraining(unit)
             end
         end
     end
-
-    -- Combine
-    --[[
-    if not IsWorker(unit) then
-        local armorUpgradeItem = UpgradeItem("srts_upgrade_light_armor")
-        if armorUpgradeItem then
-            AddUpgradeItem(armorUpgradeItem)
-        end
-        local damageUpgradeItem = UpgradeItem("srts_upgrade_light_damage")
-        if damageUpgradeItem then
-            AddUpgradeItem(damageUpgradeItem)
-        end
-    end]]
 end
 
 

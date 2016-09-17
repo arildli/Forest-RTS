@@ -428,7 +428,7 @@ function TechTree:GetAbilityPagesForUnit(unit, ownerHero)
     local unitName = unit:GetUnitName()
 
     local unitStruct = ownerHero.TT.techDef[unitName] or
-        GetUnitStructFromTech(unitName, ownerHero:GetUnitName())
+        GetStructFromTech(unitName, ownerHero:GetUnitName())
     --local unitStruct = ownerHero.TT.techDef[unitName] or defs[unitName] or unitdefs[unitName] or buildefs[unitName] or FindUnitStructByName(unitName)
 
     --[[

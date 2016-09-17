@@ -216,6 +216,16 @@ defs = {
 		 max = 1
 	},
 
+    UPGRADE_ADEPT_TRAINING = {
+		 spell = "srts_upgrade_adept_training",
+		 category = "upgrade",
+		 constant = "UPGRADE_ADEPT_TRAINING",
+		 --items = {"item_upgrade_light_damage",
+		 --"item_upgrade_medium_damage"},
+		 item = "item_upgrade_adept_training",
+		 max = 1
+	},
+
 	-- Unit spells
 	REGENERATIVE_BARK = {
 		spell = "srts_regenerative_bark",
@@ -788,7 +798,8 @@ unitdefs = {
 		unitType = "caster",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
-			"UPGRADE_LIGHT_DAMAGE"},
+			"UPGRADE_LIGHT_DAMAGE",
+            "UPGRADE_ADEPT_TRAINING"},
 		pages = {
 			PAGE_MAIN = {
 	 			"SLOW"
@@ -916,7 +927,8 @@ unitdefs = {
 		unitType = "caster",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
-			"UPGRADE_LIGHT_DAMAGE"},
+			"UPGRADE_LIGHT_DAMAGE",
+            "UPGRADE_ADEPT_TRAINING"},
 		req = {},
 		pages = {
 			PAGE_MAIN = {
@@ -1045,7 +1057,8 @@ unitdefs = {
 		unitType = "caster",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
-			"UPGRADE_LIGHT_DAMAGE"},
+			"UPGRADE_LIGHT_DAMAGE",
+            "UPGRADE_ADEPT_TRAINING"},
 		req = {},
 		pages = {
 			PAGE_MAIN = {
@@ -1283,7 +1296,8 @@ unitdefs = {
 		unitType = "caster",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
-			"UPGRADE_LIGHT_DAMAGE"},
+			"UPGRADE_LIGHT_DAMAGE",
+            "UPGRADE_ADEPT_TRAINING"},
 		pages = {
 			PAGE_MAIN = {
 				"CURSE"
@@ -1411,7 +1425,8 @@ unitdefs = {
 		unitType = "caster",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
-			"UPGRADE_LIGHT_DAMAGE"},
+			"UPGRADE_LIGHT_DAMAGE",
+            "UPGRADE_ADEPT_TRAINING"},
 		req = {},
 		pages = {
 			PAGE_MAIN = {
