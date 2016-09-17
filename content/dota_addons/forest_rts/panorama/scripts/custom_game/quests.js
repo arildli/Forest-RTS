@@ -101,6 +101,21 @@ function Quests_UpdateQuestPanel(parentPanel, questObject, linesAbove) {
     return reqCount + 1;
 }
 
+function Quests_QuestTitleClicked() {
+    var parentPanel = $("#QuestPanels");
+    if (!parentPanel) {
+        $.Msg("(Quests_QuestTitleClicked) Didn't find parentPanel for some reason...");
+    }
+    parentPanel.shown = !parentPanel.shown
+    if (parentPanel.shown) {
+        parentPanel.RemoveClass("Hidden");
+        parentPanel.RemoveClass("LeftShiftedTitle");
+    } else {
+        parentPanel.AddClass("Hidden");
+        parentPanel.AddClass("LeftShiftedTitle");
+    }
+}
+
 function Quests_OnServerData(keys) {
     Quests_UpdateWholePanel(keys);
 }

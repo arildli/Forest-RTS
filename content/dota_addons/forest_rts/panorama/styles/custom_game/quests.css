@@ -48,7 +48,7 @@
 
 #QuestPanels
 {
-    height: 270px; // The game messages will always stay under this. 
+    height: 270px; // The game messages will always stay under this.
     width: RES_PANEL_WIDTH;
 
     horizontal-align: left;

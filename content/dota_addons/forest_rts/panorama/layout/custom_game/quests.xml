@@ -6,9 +6,14 @@
         <include src="file://{resources}/scripts/custom_game/utils.js"/>
         <include src="file://{resources}/scripts/custom_game/quests.js"/>
     </scripts>
+    <script>
+        function QuestTitleClicked() {
+            Quests_QuestTitleClicked();
+        }
+    </script>
     <Panel hittest="false" class="RootQuestsPanel">
         <Panel hittest="false" id="RootQuestsPanel">
-            <Panel id="TitlePanel">
+            <Panel id="TitlePanel" onmouseactivate="QuestTitleClicked();">
                 <Label hittest="false" id="Title" text="Quests" html="true" class="Text"/>
             </Panel>
             <Panel hittest="false" id="QuestPanels">
