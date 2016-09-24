@@ -443,19 +443,13 @@
             "01"
             {
                 "var_type"	"FIELD_FLOAT"
-                "health_bonus_percent"	"20"
+                "health_bonus_percent"	"15"
             }
 
             "02"
             {
-                "var_type"	"FIELD_INTEGER"
-                "mana_bonus"	"100"
-            }
-
-            "03"
-            {
                 "var_type"	"FIELD_FLOAT"
-                "mana_regen_bonus_percent"	"30"
+                "mana_regen_bonus_percent"	"50"
             }
         }
 
@@ -467,10 +461,18 @@
                 "IsHidden"	"0"
                 "Properties"
                 {
-                    "MODIFIER_PROPERTY_EXTRA_HEALTH_PERCENTAGE"  "%health_bonus_percent"
-                    "MODIFIER_PROPERTY_EXTRA_MANA_BONUS"         "%mana_bonus"
                     "MODIFIER_PROPERTY_MANA_REGEN_PERCENTAGE"	 "%mana_regen_bonus_percent"
-                    "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS_UNIQUE"	"10"
+                }
+
+                "OnCreated"
+                {
+                    "RunScript"
+                    {
+                        "ScriptFile"    "scripts/vscripts/spells.lua"
+                        "Function"      "IncreaseHealth"
+                        "type"          "percent"
+                        "bonus"         "%health_bonus_percent"
+                    }
                 }
             }
         }

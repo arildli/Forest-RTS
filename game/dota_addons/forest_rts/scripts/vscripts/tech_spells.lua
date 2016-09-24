@@ -1016,7 +1016,8 @@ unitdefs = {
 		unitType = "ranged",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
-			"UPGRADE_LIGHT_DAMAGE"},
+			"UPGRADE_LIGHT_DAMAGE",
+            "UPGRADE_ADEPT_TRAINING"},
 		req = {"MARKET"},
 		pages = {
 			PAGE_MAIN = {
@@ -1147,7 +1148,8 @@ unitdefs = {
 		unitType = "ranged",
 		upgrades = {
 			"UPGRADE_LIGHT_ARMOR",
-			"UPGRADE_LIGHT_DAMAGE"},
+			"UPGRADE_LIGHT_DAMAGE",
+            "UPGRADE_ADEPT_TRAINING"},
 		req = {"MARKET"},
 		pages = {
 			PAGE_MAIN = {

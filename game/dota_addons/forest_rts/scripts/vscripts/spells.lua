@@ -242,6 +242,18 @@ function GiveVisionUnitOnly(keys)
     AddFOWViewer(DOTA_TEAM_BADGUYS, target:GetAbsOrigin(), 10, 0.01, false)
 end
 
+function IncreaseHealth(keys)
+    local entity = keys.target
+    local bonus = keys.bonus
+    local newHealth = entity:GetBaseMaxHealth()
+    if keys.type == "percent" then
+        newHealth = newHealth + newHealth * (bonus / 100)
+    else
+        newHealth = newHealth + bonus
+    end
+    entity:SetBaseMaxHealth(newHealth)
+end
+
 
 
 --// ----- | Economy related |----- \\--
