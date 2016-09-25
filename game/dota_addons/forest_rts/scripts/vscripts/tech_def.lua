@@ -381,7 +381,6 @@ tech = {
         }),
         BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_RADIANT, {
             unitdefs.COMMANDER_SORCERESS,
-            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
@@ -463,7 +462,6 @@ tech = {
         }),
         BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_RADIANT, {
             unitdefs.FURION_TORMENTED_SOUL,
-            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
@@ -541,7 +539,6 @@ tech = {
             defs.DEMOLISH_BUILDING
         }),
         BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_RADIANT, {
-            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
@@ -621,7 +618,6 @@ tech = {
             defs.DEMOLISH_BUILDING
         }),
         BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
-            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_DIRE = buildefs.ARMORY_DIRE,
@@ -703,7 +699,6 @@ tech = {
         }),
         BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
             unitdefs.KING_OF_THE_DEAD_CASTER,
-            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_DIRE = buildefs.ARMORY_DIRE,
@@ -784,7 +779,6 @@ tech = {
         }),
         BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
             unitdefs.WARLORD_ELDER,
-            defs.UPGRADE_ADEPT_TRAINING,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_DIRE = buildefs.ARMORY_DIRE,

@@ -25,24 +25,28 @@ function GetSpellForEntity(entName)
 	return entry.spell
 end
 
-function FindUnitStructByName(unitName)
-	for k,struct in pairs(defs) do
-		if struct.name == unitName then
+function FindStructByName(name)
+    for k,struct in pairs(defs) do
+		if struct.name == name or struct.spell == name then
 			return struct
 		end
 	end
 	for k,struct in pairs(unitdefs) do
-		if struct.name == unitName then
+		if struct.name == name or struct.spell == name then
 			return struct
 		end
 	end
 	for k,struct in pairs(buildefs) do
-		if struct.name == unitName then
+		if struct.name == name or struct.spell == name then
 			return struct
 		end
 	end
 
 	return nil
+end
+
+function FindUnitStructByName(unitName)
+    return FindStructByName(unitName)
 end
 
 
@@ -220,6 +224,7 @@ defs = {
 		 spell = "srts_upgrade_adept_training",
 		 category = "upgrade",
 		 constant = "UPGRADE_ADEPT_TRAINING",
+         req = {{"BARRACKS_ADVANCED_RADIANT", "BARRACKS_ADVANCED_DIRE"}},
 		 --items = {"item_upgrade_light_damage",
 		 --"item_upgrade_medium_damage"},
 		 item = "item_upgrade_adept_training",
@@ -454,6 +459,7 @@ buildefs = {
 			 PAGE_MAIN = {
 				"UPGRADE_LIGHT_DAMAGE",
 				"UPGRADE_LIGHT_ARMOR",
+                "UPGRADE_ADEPT_TRAINING",
 				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
@@ -523,6 +529,7 @@ buildefs = {
 			PAGE_MAIN = {
 				"UPGRADE_LIGHT_DAMAGE",
 				"UPGRADE_LIGHT_ARMOR",
+                "UPGRADE_ADEPT_TRAINING",
 				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {

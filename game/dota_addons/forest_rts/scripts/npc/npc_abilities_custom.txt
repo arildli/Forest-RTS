@@ -364,7 +364,7 @@
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "175"
+        "AbilityGoldCost"       "125"
 
         "AbilityChannelTime"    "60"
         //"AbilityChannelTime"  "3"
@@ -374,13 +374,13 @@
             "01"
             {
                 "var_type"      "FIELD_INTEGER"
-                "gold_cost"     "175"
+                "gold_cost"     "125"
             }
 
             "02"
             {
                 "var_type"      "FIELD_INTEGER"
-                "lumber_cost"   "75"
+                "lumber_cost"   "25"
             }
 
             "03"
@@ -4110,7 +4110,7 @@
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "120"
+                "gold_cost" "90"
             }
 
             "03"

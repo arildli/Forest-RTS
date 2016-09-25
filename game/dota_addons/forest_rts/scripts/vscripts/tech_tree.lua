@@ -776,12 +776,15 @@ function TechTree:UpdateTechTree(hero, building, action)
                         local curReqTable = {}
 
                         -- Check the reqs in the cur req options table.
-                        for _,curOptReqName in ipairs(curReqConst) do
-                            local curReq = hero.TT.techDef[curOptReqName]
-                            local curReqName = curReq.name
-                            unlock = curReqMet(hero, curReqName)
-                            if unlock then
-                                break
+                        for key,curOptReqName in ipairs(curReqConst) do
+                            --local curReq = hero.TT.techDef[curOptReqName] or FindStructByName(curOptReqName)
+                            local curReq = GetStructFromTech(curOptReqName, hero:GetUnitName())
+                            if curReq then
+                                local curReqName = curReq.name
+                                unlock = curReqMet(hero, curReqName)
+                                if unlock then
+                                    break
+                                end
                             end
                         end
 
