@@ -7,23 +7,25 @@
     //================================================================================
     "srts_train_human_footman"
     {
-        // General
-        "AbilityName"           "Human_Footman"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_footman"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "120"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
-        "AbilityChannelTime"        "9"
+        // Unit dependent values - non-default
+        "AbilityName"           "Human_Footman"
+        "AbilityTextureName"    "spellicon_footman"
+        "AbilityChannelTime"    "9"
+        "AbilityGoldCost"       "120"
+
+        //"AbilityMultiOrder"				"1"
 
         "AbilitySpecial"
         {
@@ -44,7 +46,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "495"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -67,43 +69,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "9"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
-
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_human_guard_1"
@@ -114,7 +130,173 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
+                "OnSpawn"
+                {
+                    "ApplyModifier"
+                    {
+                        "ModifierName"  "modifier_phased"
+                        "Target"        "TARGET"
+                        "Duration"      "0.03"
+                    }
+
+                    "FireSound"
+                    {
+                        "EffectName"    "DOTA_Item.Hand_Of_Midas"
+                        "Target"        "CASTER"
+                    }
+
+                    "RunScript"
+                    {
+                        "Target"        "POINT"
+                        "ScriptFile"    "scripts/vscripts/buildings.lua"
+                        "Function"      "OnUnitTrained"
+                        "goldCost"      "%gold_cost"
+                        "lumberCost"    "%lumber_cost"
+                    }
+                }
+            }
+        }
+
+        "OnChannelInterrupted"
+        {
+            //"RunScript"
+            //{
+            //    "ScriptFile"    "scripts/vscripts/buildings.lua"
+            //    "Function"      "RefundResources"
+            //    "Target"        "CASTER"
+            //    "goldCost"      "%gold_cost"
+            //    "lumberCost"    "%lumber_cost"
+            //}
+        }
+    }
+
+
+    // Old - not in use!
+    "srts_train_human_footman2"
+    {
+        // General
+        "AbilityName"           "Human_Footman"
+        "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+        "BaseClass"         "ability_datadriven"
+        "AbilityTextureName"        "spellicon_footman"
+        "Maxlevel"          "1"
+
+        "AbilityCastPoint"      "0.1"
+        "AbilityCastRange"      "250"
+        "AbilityCooldown"       "0"
+        "AbilityManaCost"       "0"
+        "AbilityGoldCost"       "120"
+        "AbilityUpgradeGoldCost"    "0"
+
+        "AbilityChannelTime"        "9"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "gold_cost" "120"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "lumber_cost"   "0"
+            }
+
+            "03"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "health"    "495"
+            }
+
+            "04"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "armor"     "4"
+            }
+
+            "05"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "damage"    "13"
+            }
+
+            "06"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "range"     "125"
+            }
+
+            "07"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "training_time" "9"
+            }
+        }
+
+        "precache"
+        {
+        }
+
+        "OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+
+            "ApplyModifier"
+            {
+                "ModifierName"  "modifier_train_unit"
+                "Target"        "CASTER"
+            }
+        }
+
+        "OnChannelFinish"
+        {
+            "RemoveModifier"
+            {
+                "ModifierName"      "modifier_train_unit"
+                "Target"            "CASTER"
+            }
+		}
+
+        "OnChannelSucceeded"
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
+            "SpawnUnit"
+            {
+                "UnitName"  "npc_dota_creature_human_guard_1"
+                "Target"    "CASTER"
+                "Duration"  "0"
+                "UnitCount" "1"
+                "UnitLimit" "0"
+                "GrantsGold"    "1"
+                "GrantsXP"  "1"
+                "SpawnRadius"   "10"
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -132,14 +314,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -151,7 +333,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -164,23 +346,25 @@
     //================================================================================
     "srts_train_forest_warrior"
     {
-        // General
-        "AbilityName"           "Forest_Warrior"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_treant"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "105"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
-        "AbilityChannelTime"        "8"
+        // Unit dependent values - non-default
+        "AbilityName"           "Forest_Warrior"
+        "AbilityTextureName"    "spellicon_treant"
+        "AbilityChannelTime"    "8"
+        "AbilityGoldCost"       "105"
+
+        //"AbilityMultiOrder"				"1"
 
         "AbilitySpecial"
         {
@@ -201,7 +385,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "450"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -224,43 +408,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
-
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_treant_warrior_1"
@@ -271,7 +469,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -289,14 +487,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -308,7 +506,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -320,23 +518,25 @@
     //================================================================================
     "srts_train_brewmaster_bruiser"
     {
-        // General
-        "AbilityName"           "Brewmaster_Bruiser"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_bruiser_brewmaster"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "235"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
-        "AbilityChannelTime"        "12"
+        // Unit dependent values - non-default
+        "AbilityName"           "Brewmaster_Bruiser"
+        "AbilityTextureName"    "spellicon_bruiser_brewmaster"
+        "AbilityChannelTime"    "12"
+        "AbilityGoldCost"       "235"
+
+        //"AbilityMultiOrder"				"1"
 
         "AbilitySpecial"
         {
@@ -357,7 +557,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "825"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -380,43 +580,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "12"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
-
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_brewmaster_bruiser"
@@ -427,7 +641,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -445,14 +659,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -464,7 +678,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -477,23 +691,25 @@
     //================================================================================
     "srts_train_kobold_spearman"
     {
-        // General
-        "AbilityName"           "Kobold_Spearman"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_spearman"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "85"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
-        "AbilityChannelTime"        "7"
+        // Unit dependent values - non-default
+        "AbilityName"           "Kobold_Spearman"
+        "AbilityTextureName"        "spellicon_spearman"
+        "AbilityChannelTime"    "7"
+        "AbilityGoldCost"       "85"
+
+        //"AbilityMultiOrder"				"1"
 
         "AbilitySpecial"
         {
@@ -514,7 +730,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "345"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -537,43 +753,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "7"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
-
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_kobold_guard_1"
@@ -584,7 +814,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -602,14 +832,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -621,7 +851,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -634,23 +864,25 @@
     //================================================================================
     "srts_train_skeleton_warrior"
     {
-        // General
-        "AbilityName"           "Skeleton_Warrior"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_skeleton_warrior"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "65"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
-        "AbilityChannelTime"        "5"
+        // Unit dependent values - non-default
+        "AbilityName"           "Skeleton_Warrior"
+        "AbilityTextureName"        "spellicon_skeleton_warrior"
+        "AbilityChannelTime"    "5"
+        "AbilityGoldCost"       "65"
+
+        //"AbilityMultiOrder"				"1"
 
         "AbilitySpecial"
         {
@@ -671,7 +903,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "270"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -694,43 +926,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "5"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
-
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_skeleton_warrior_1"
@@ -741,7 +987,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -759,14 +1005,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -778,7 +1024,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -791,23 +1037,25 @@
     //================================================================================
     "srts_train_troll_fighter"
     {
-        // General
-        "AbilityName"           "Troll_Fighter"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_fighter"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "95"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
-        "AbilityChannelTime"        "8"
+        // Unit dependent values - non-default
+        "AbilityName"           "Troll_Fighter"
+        "AbilityTextureName"        "spellicon_fighter"
+        "AbilityChannelTime"    "8"
+        "AbilityGoldCost"       "95"
+
+        //"AbilityMultiOrder"				"1"
 
         "AbilitySpecial"
         {
@@ -828,7 +1076,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "415"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -851,43 +1099,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
-
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_troll_guard_1"
@@ -898,7 +1160,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -916,14 +1178,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -935,7 +1197,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -954,22 +1216,21 @@
     //================================================================================
     "srts_train_human_gunner"
     {
-        // General
-        "AbilityName"           "Human_Gunner"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_gunner"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "125"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Human_Gunner"
+        "AbilityTextureName"        "spellicon_gunner"
+        "AbilityGoldCost"       "125"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -991,7 +1252,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "270"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -1014,8 +1275,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -1023,35 +1284,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
-
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_human_ranged_1"
@@ -1062,7 +1337,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -1080,14 +1355,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -1099,7 +1374,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -1112,22 +1387,21 @@
     //================================================================================
     "srts_train_forest_dryad"
     {
-        // General
-        "AbilityName"           "Forest_Dryad"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_dryad"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "125"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Forest_Dryad"
+        "AbilityTextureName"        "spellicon_dryad"
+        "AbilityGoldCost"       "125"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -1149,7 +1423,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "250"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -1172,8 +1446,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -1181,35 +1455,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
-
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_forest_ranged_1"
@@ -1220,7 +1508,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -1238,14 +1526,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -1257,7 +1545,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -1270,22 +1558,21 @@
     //================================================================================
     "srts_train_brewmaster_frostmage"
     {
-        // General
-        "AbilityName"           "Forest_Dryad"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_frostmage_brewmaster"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "195"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Forest_Dryad"
+        "AbilityTextureName"        "spellicon_frostmage_brewmaster"
+        "AbilityGoldCost"       "195"
         "AbilityChannelTime"        "11"
 
         "AbilitySpecial"
@@ -1307,7 +1594,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "310"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -1330,8 +1617,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "11"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -1339,35 +1626,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
-
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_brewmaster_frostmage"
@@ -1378,7 +1679,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -1396,14 +1697,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -1415,7 +1716,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -1430,22 +1731,21 @@
     //================================================================================
     "srts_train_kobold_flame_thrower"
     {
-        // General
-        "AbilityName"           "Kobold_Flame_Thrower"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_flame_thrower"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "105"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Kobold_Flame_Thrower"
+        "AbilityTextureName"        "spellicon_flame_thrower"
+        "AbilityGoldCost"       "105"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -1467,7 +1767,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "210"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -1490,8 +1790,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "7"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -1499,34 +1799,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_kobold_ranged_1"
@@ -1537,7 +1852,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -1555,14 +1870,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -1574,7 +1889,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -1587,22 +1902,21 @@
     //================================================================================
     "srts_train_skeleton_archer"
     {
-        // General
-        "AbilityName"           "Skeleton_Archer"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_skeleton_archer"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "95"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Skeleton_Archer"
+        "AbilityTextureName"        "spellicon_skeleton_archer"
+        "AbilityGoldCost"       "95"
         "AbilityChannelTime"        "7"
 
         "AbilitySpecial"
@@ -1624,7 +1938,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "205"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -1647,8 +1961,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "7"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -1656,34 +1970,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_skeleton_ranged_1"
@@ -1694,7 +2023,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -1712,14 +2041,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -1731,7 +2060,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -1744,22 +2073,21 @@
     //================================================================================
     "srts_train_troll_axe_thrower"
     {
-        // General
-        "AbilityName"           "Troll_Axe_Thrower"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_axe_thrower"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "115"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Troll_Axe_Thrower"
+        "AbilityTextureName"        "spellicon_axe_thrower"
+        "AbilityGoldCost"       "115"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -1781,7 +2109,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "220"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -1804,8 +2132,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -1813,34 +2141,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_troll_ranged_1"
@@ -1851,7 +2194,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -1869,14 +2212,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -1888,14 +2231,13 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
 
 
 //-- // Caster Units // --//
-
 
 
         // Train1.2.6
@@ -1905,22 +2247,21 @@
     //================================================================================
     "srts_train_skeleton_caster"
     {
-        // General
-        "AbilityName"           "Skeleton_Caster"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_skeleton_mage"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "110"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Skeleton_Caster"
+        "AbilityTextureName"        "spellicon_skeleton_mage"
+        "AbilityGoldCost"       "110"
         "AbilityChannelTime"        "7"
 
         "AbilitySpecial"
@@ -1942,7 +2283,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "245"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -1965,8 +2306,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "7"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -1974,34 +2315,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_skeleton_caster"
@@ -2012,7 +2368,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -2030,14 +2386,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -2049,7 +2405,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -2064,22 +2420,21 @@
     //================================================================================
     "srts_train_human_sorceress"
     {
-        // General
-        "AbilityName"           "Human_Sorceress"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_sorceress"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "120"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Human_Sorceress"
+        "AbilityTextureName"        "spellicon_sorceress"
+        "AbilityGoldCost"       "120"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -2101,7 +2456,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "255"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -2124,8 +2479,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -2133,34 +2488,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_human_sorceress"
@@ -2171,7 +2541,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -2189,14 +2559,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -2208,7 +2578,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -2223,22 +2593,21 @@
     //================================================================================
     "srts_train_troll_elder"
     {
-        // General
-        "AbilityName"           "Troll_Elder"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_elder"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "115"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Troll_Elder"
+        "AbilityTextureName"        "spellicon_elder"
+        "AbilityGoldCost"       "115"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -2260,7 +2629,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "240"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -2283,8 +2652,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -2292,34 +2661,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_troll_elder"
@@ -2330,7 +2714,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -2348,14 +2732,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -2367,7 +2751,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -2382,22 +2766,21 @@
     //================================================================================
     "srts_train_forest_tormented_soul"
     {
-        // General
-        "AbilityName"           "Forest_Tormented_Soul"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_tormented_soul"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "125"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Forest_Tormented_Soul"
+        "AbilityTextureName"        "spellicon_tormented_soul"
+        "AbilityGoldCost"       "125"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -2419,7 +2802,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "275"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -2442,8 +2825,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -2451,34 +2834,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_forest_tormented_soul"
@@ -2489,7 +2887,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -2507,14 +2905,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -2526,7 +2924,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -2547,22 +2945,21 @@
     //================================================================================
     "srts_train_worker"
     {
-        // General
-        "AbilityName"           "Worker"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_worker_ogre"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "75"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Worker"
+        "AbilityTextureName"        "spellicon_worker_ogre"
+        "AbilityGoldCost"       "75"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -2584,7 +2981,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "200"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -2607,42 +3004,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_worker"
@@ -2653,7 +3065,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -2671,14 +3083,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -2690,7 +3102,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -2704,22 +3116,21 @@
     //================================================================================
     "srts_train_human_worker"
     {
-        // General
-        "AbilityName"           "Worker"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_worker_human"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "75"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Worker"
+        "AbilityTextureName"        "spellicon_worker_human"
+        "AbilityGoldCost"       "75"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -2741,7 +3152,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "200"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -2764,42 +3175,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_human_worker"
@@ -2810,7 +3236,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -2828,14 +3254,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -2847,7 +3273,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -2861,22 +3287,21 @@
     //================================================================================
     "srts_train_forest_worker"
     {
-        // General
-        "AbilityName"           "Worker"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_worker_forest"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "75"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Worker"
+        "AbilityTextureName"        "spellicon_worker_forest"
+        "AbilityGoldCost"       "75"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -2898,7 +3323,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "200"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -2921,42 +3346,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_forest_worker"
@@ -2967,7 +3407,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -2985,14 +3425,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -3004,7 +3444,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -3017,22 +3457,21 @@
     //================================================================================
     "srts_train_brewmaster_worker"
     {
-        // General
-        "AbilityName"           "Worker"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_worker_brewmaster"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "75"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Worker"
+        "AbilityTextureName"        "spellicon_worker_brewmaster"
+        "AbilityGoldCost"       "75"
         "AbilityChannelTime"        "9"
 
         "AbilitySpecial"
@@ -3054,7 +3493,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "225"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -3077,42 +3516,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "9"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_brewmaster_worker"
@@ -3123,7 +3577,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -3141,14 +3595,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -3160,7 +3614,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -3174,22 +3628,21 @@
     //================================================================================
     "srts_train_kobold_worker"
     {
-        // General
-        "AbilityName"           "Worker"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_worker_kobold"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "75"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Worker"
+        "AbilityTextureName"        "spellicon_worker_kobold"
+        "AbilityGoldCost"       "75"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -3211,7 +3664,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "200"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -3234,42 +3687,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_kobold_worker"
@@ -3280,7 +3748,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -3298,14 +3766,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -3317,7 +3785,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -3331,22 +3799,21 @@
     //================================================================================
     "srts_train_skeleton_worker"
     {
-        // General
-        "AbilityName"           "Worker"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_worker_skeleton"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "75"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Worker"
+        "AbilityTextureName"        "spellicon_worker_skeleton"
+        "AbilityGoldCost"       "75"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -3368,7 +3835,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "200"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -3391,42 +3858,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_skeleton_worker"
@@ -3437,7 +3919,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -3455,14 +3937,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -3474,7 +3956,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -3488,22 +3970,21 @@
     //================================================================================
     "srts_train_troll_worker"
     {
-        // General
-        "AbilityName"           "Worker"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_worker_troll"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        "AbilityGoldCost"       "75"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Worker"
+        "AbilityTextureName"        "spellicon_worker_troll"
+        "AbilityGoldCost"       "75"
         "AbilityChannelTime"        "8"
 
         "AbilitySpecial"
@@ -3525,7 +4006,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "200"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -3548,42 +4029,57 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "8"
-            }   
-        }       
+            }
+        }
 
         "precache"
         {
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_troll_worker"
@@ -3594,7 +4090,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -3612,14 +4108,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -3631,7 +4127,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -3650,22 +4146,21 @@
     //================================================================================
     "srts_train_catapult_radiant"
     {
-        // General
-        "AbilityName"           "Catapult_Radiant"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_catapult_radiant"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "225"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Catapult_Radiant"
+        "AbilityTextureName"        "spellicon_catapult_radiant"
+        "AbilityGoldCost"       "225"
         "AbilityChannelTime"        "10"
 
         "AbilitySpecial"
@@ -3687,7 +4182,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "340"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -3710,8 +4205,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "10"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -3719,34 +4214,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_catapult_radiant"
@@ -3757,7 +4267,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -3775,14 +4285,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -3794,7 +4304,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 
@@ -3809,22 +4319,21 @@
     //================================================================================
     "srts_train_catapult_dire"
     {
-        // General
-        "AbilityName"           "Catapult_Dire"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "BaseClass"         "ability_datadriven"
-        "AbilityTextureName"        "spellicon_catapult_dire"
-        "Maxlevel"          "1"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         "AbilityCastPoint"      "0.1"
         "AbilityCastRange"      "250"
         "AbilityCooldown"       "0"
         "AbilityManaCost"       "0"
-        //  "AbilityCooldown"       "5 5 5 5"
-        "AbilityGoldCost"       "225"
-        //  "AbilityUpgradeGoldCost"    "0"
+        "AbilityUpgradeGoldCost"    "0"
 
+        "AbilityName"           "Catapult_Dire"
+        "AbilityTextureName"        "spellicon_catapult_dire"
+        "AbilityGoldCost"       "225"
         "AbilityChannelTime"        "10"
 
         "AbilitySpecial"
@@ -3846,7 +4355,7 @@
                 "var_type"  "FIELD_INTEGER"
                 "health"    "340"
             }
-        
+
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -3869,8 +4378,8 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "10"
-            }   
-        }       
+            }
+        }
 
 
         "precache"
@@ -3878,34 +4387,49 @@
         }
 
         "OnSpellStart"
-        {
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+				"Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+			}
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "Function"      "CheckIfCanAffordRemoveThis"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
 
             "ApplyModifier"
             {
                 "ModifierName"  "modifier_train_unit"
-                "Target"    "CASTER"
+                "Target"        "CASTER"
             }
-        }   
-        
+        }
+
         "OnChannelFinish"
         {
             "RemoveModifier"
             {
                 "ModifierName"      "modifier_train_unit"
-                "Target"        "CASTER"
-            }   
-        }
+                "Target"            "CASTER"
+            }
+		}
 
         "OnChannelSucceeded"
-        {   
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "SpawnUnit"
             {
                 "UnitName"  "npc_dota_creature_catapult_dire"
@@ -3916,7 +4440,7 @@
                 "GrantsGold"    "1"
                 "GrantsXP"  "1"
                 "SpawnRadius"   "10"
-                
+
                 "OnSpawn"
                 {
                     "ApplyModifier"
@@ -3934,14 +4458,14 @@
 
                     "RunScript"
                     {
-                        "Target"    "POINT" 
+                        "Target"    "POINT"
                         "ScriptFile"    "scripts/vscripts/buildings.lua"
                         "Function"  "OnUnitTrained"
                         "goldCost"  "%gold_cost"
                         "lumberCost"    "%lumber_cost"
                     }
                 }
-            }   
+            }
         }
 
         "OnChannelInterrupted"
@@ -3953,7 +4477,7 @@
                 "Target"    "CASTER"
                 "goldCost"  "%gold_cost"
                 "lumberCost"    "%lumber_cost"
-            }                           
+            }
         }
     }
 }

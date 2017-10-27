@@ -95,12 +95,52 @@ function RemoveUnitFromTower(tower)
      FlipTowerSpell(tower)
 end
 
+function StopChannelIfNotBuilding(keys)
+    local caster = keys.caster
+    local target = keys.target
+    local ability = keys.ability
+    if not IsBuilding(target) then
+        SendErrorMessage(caster:GetPlayerOwnerID(), "#error_target_must_be_building")
+        Timers:CreateTimer({
+            endTime = 0.05,
+            callback = function() ability:EndChannel(false)
+        end})
+    else print("Okey, building")
+    end
+end
+
 function RemoveIfBuilding(keys)
      local caster = keys.caster
      local modifier = keys.modifier
      if IsBuilding(caster) then
             caster:RemoveModifierByName(modifier)
      end
+end
+
+function AbilityTestPrint(keys)
+    if keys.text then
+        print(keys.text)
+    else
+        print("------------------ TESTING ABILITY ----------------")
+    end
+end
+
+function RefundChargeIfBuilding(keys)
+    local caster = keys.caster
+    local target = keys.target
+    local modifier = keys.modifier
+
+    if IsBuilding(target) then
+        target:RemoveModifierByName(modifier)
+        SendErrorMessage(target:GetPlayerOwnerID(), "#error_target_must_be_unit")
+        local itemName = keys.item
+        local item = GetItemFromInventory(caster, itemName)
+        local currentCharges = item:GetCurrentCharges()
+        item:SetCurrentCharges(currentCharges + 1)
+    else
+        print("NOOOOOOOOOOOOOOOOOOOOOOOOO building")
+    end
+
 end
 
 
@@ -292,6 +332,7 @@ function RefundGoldTooltip(player, gold)
 end
 
 function RefundResourcesSpell(keys)
+    print("Refunding resources for the spell...")
     RefundResourcesID(keys.caster:GetOwnerID(), keys.goldCost, keys.lumberCost)
 end
 

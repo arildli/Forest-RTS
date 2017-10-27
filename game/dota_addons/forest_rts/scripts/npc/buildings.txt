@@ -39,14 +39,14 @@
         "HasInventory"                  "1"
 
         // BuildingHelper
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
         "AttachPoint"                   "attach_fx"
         //"ModelRotation"               "0"
         //"ModelOffset"                 "0"
-        // BuildingHelper End       
+        // BuildingHelper End
 
         // Abilities
         //------------------------------------------------------------------------
@@ -60,7 +60,7 @@
         "Ability8"                      ""
         "Ability10"                     "ability_building"
         "Ability11"                     "ability_building_queue"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"            "DOTA_UNIT_CAP_NO_ATTACK"
@@ -94,7 +94,7 @@
         // Status
         //----------------------------------------------------------------
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -107,7 +107,7 @@
         // Bots
         //----------------------------------------------------------------
         //  "AttackDesire"              "1.5"       // How much bots want to attack them vs other non-hero things
-    } 
+    }
 
 
         // Building1.1
@@ -137,14 +137,14 @@
         // BuildingHelper
         "ConstructionSize"              "3"
         "BlockPathingSize"              "3"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
         "AttachPoint"                   "attach_fx"
         //"ModelRotation"                   "0"
         //"ModelOffset"                     "0"
-        // BuildingHelper End       
+        // BuildingHelper End
 
         // Abilities
         //------------------------------------------------------------------------
@@ -163,7 +163,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -198,7 +198,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "550"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -216,7 +216,7 @@
         // Bots
         //----------------------------------------------------------------
         //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things
-    } 
+    }
 
 
 
@@ -247,14 +247,14 @@
         // BuildingHelper
         "ConstructionSize"              "2"
         "BlockPathingSize"              "2"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
         "AttachPoint"                   "attach_fx"
         //"ModelRotation"                   "0"
         //"ModelOffset"                     "0"
-        // BuildingHelper End   
+        // BuildingHelper End
 
         // Abilities
         //------------------------------------------------------------------------
@@ -273,7 +273,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -308,7 +308,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "525"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -357,7 +357,7 @@
         // BuildingHelper
         "ConstructionSize"              "2"
         "BlockPathingSize"              "2"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
@@ -383,7 +383,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -418,7 +418,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "525"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -468,14 +468,14 @@
         // BuildingHelper
         "ConstructionSize"              "4"
         "BlockPathingSize"              "4"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
         "AttachPoint"                   "attach_fx"
         //"ModelRotation"                   "0"
         //"ModelOffset"                     "0"
-        // BuildingHelper End       
+        // BuildingHelper End
 
         // Abilities
         //------------------------------------------------------------------------
@@ -494,7 +494,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "15"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -529,7 +529,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "1050"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -578,7 +578,7 @@
         // BuildingHelper
         "ConstructionSize"              "4"
         "BlockPathingSize"              "4"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
@@ -604,7 +604,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "20"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -639,7 +639,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "1600"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -665,7 +665,7 @@
     //================================================================================
     // Barracks Radiant
     //================================================================================
-    
+
     "npc_dota_building_barracks_radiant"
     {
         // General
@@ -674,7 +674,7 @@
         //"Model"                       "models/props_structures/good_barracks_melee001.vmdl"
         "Model"                     "models/barracks_radiant/barracks_radiant.vmdl"
         "ModelScale"                    "0.8"
-        "AbilityLayout"                 "6"     
+        "AbilityLayout"                 "6"
 
         "SoundSet"                  "Creep_Good_Melee"
         "MinimapIcon"                   "minimap_tower90"
@@ -688,7 +688,7 @@
         // BuildingHelper
         "ConstructionSize"              "4"
         "BlockPathingSize"              "4"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
@@ -714,7 +714,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -749,7 +749,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "950"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -766,7 +766,7 @@
 
         // Bots
         //----------------------------------------------------------------
-        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things   
+        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things
     }
 
 
@@ -775,7 +775,7 @@
     //================================================================================
     // Barracks Advanced Radiant
     //================================================================================
-    
+
     "npc_dota_building_barracks_advanced_radiant"
     {
         // General
@@ -784,7 +784,7 @@
         //"Model"                       "models/props_structures/good_barracks_melee001.vmdl"
         "Model"                     "models/barracks_ranged_radiant/barracks_ranged_radiant.vmdl"
         "ModelScale"                    "0.8"
-        "AbilityLayout"                 "6"     
+        "AbilityLayout"                 "6"
 
         "SoundSet"                  "Creep_Good_Melee"
         "MinimapIcon"                   "minimap_tower90"
@@ -798,7 +798,7 @@
         // BuildingHelper
         "ConstructionSize"              "4"
         "BlockPathingSize"              "4"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
@@ -824,7 +824,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -859,7 +859,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "1025"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -876,7 +876,7 @@
 
         // Bots
         //----------------------------------------------------------------
-        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things   
+        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things
     }
 
 
@@ -885,7 +885,7 @@
     //================================================================================
     // Barracks Dire
     //================================================================================
-    
+
     "npc_dota_building_barracks_dire"
     {
         // General
@@ -894,7 +894,7 @@
         //"Model"                       "models/props_structures/bad_barracks001_melee.vmdl"
         "Model"                     "models/barracks_dire/barracks_dire.vmdl"
         "ModelScale"                    "0.8"
-        "AbilityLayout"                 "6"     
+        "AbilityLayout"                 "6"
 
         "SoundSet"                  "Creep_Good_Melee"
         "MinimapIcon"                   "minimap_tower90"
@@ -908,7 +908,7 @@
         // BuildingHelper
         "ConstructionSize"              "4"
         "BlockPathingSize"              "4"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
@@ -934,7 +934,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -969,7 +969,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "950"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -986,7 +986,7 @@
 
         // Bots
         //----------------------------------------------------------------
-        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things   
+        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things
     }
 
 
@@ -995,7 +995,7 @@
     //================================================================================
     // Barracks Advanced Dire
     //================================================================================
-    
+
     "npc_dota_building_barracks_advanced_dire"
     {
         // General
@@ -1004,7 +1004,7 @@
         //"Model"                       "models/props_structures/bad_barracks001_melee.vmdl"
         "Model"                     "models/barracks_ranged_dire/barracks_ranged_dire.vmdl"
         "ModelScale"                    "0.8"
-        "AbilityLayout"                 "6"     
+        "AbilityLayout"                 "6"
 
         "SoundSet"                  "Creep_Good_Melee"
         "MinimapIcon"                   "minimap_tower90"
@@ -1018,7 +1018,7 @@
         // BuildingHelper
         "ConstructionSize"              "4"
         "BlockPathingSize"              "4"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
@@ -1044,7 +1044,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -1079,7 +1079,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "1025"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -1096,7 +1096,7 @@
 
         // Bots
         //----------------------------------------------------------------
-        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things   
+        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things
     }
 
 
@@ -1105,7 +1105,7 @@
     //================================================================================
     // Market
     //================================================================================
-    
+
     "npc_dota_building_market"
     {
         // General
@@ -1114,7 +1114,7 @@
         //"Model"                       "models/props_structures/sideshop_radiant002.vmdl"
         "Model"                     "models/market/market.vmdl"
         "ModelScale"                    "0.8"
-        "AbilityLayout"                 "6"     
+        "AbilityLayout"                 "6"
 
         "SoundSet"                  "Creep_Good_Melee"
         "MinimapIcon"                   "minimap_tower90"
@@ -1128,7 +1128,7 @@
         // BuildingHelper
         "ConstructionSize"              "4"
         "BlockPathingSize"              "4"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
@@ -1154,7 +1154,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -1189,7 +1189,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "700"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -1206,7 +1206,7 @@
 
         // Bots
         //----------------------------------------------------------------
-        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things   
+        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things
     }
 
 
@@ -1215,7 +1215,7 @@
     //================================================================================
     // Armory
     //================================================================================
-    
+
     "npc_dota_building_armory"
     {
         // General
@@ -1224,7 +1224,7 @@
         //"Model"                       "models/props_structures/tent_dk_med.vmdl"
         "Model"                     "models/armory/armory.vmdl"
         "ModelScale"                    "1.1"
-        "AbilityLayout"                 "6"     
+        "AbilityLayout"                 "6"
 
         "SoundSet"                  "Creep_Good_Melee"
         "MinimapIcon"                   "minimap_tower90"
@@ -1238,7 +1238,7 @@
         // BuildingHelper
         "ConstructionSize"              "4"
         "BlockPathingSize"              "4"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
@@ -1264,7 +1264,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -1299,7 +1299,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "850"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -1316,7 +1316,7 @@
 
         // Bots
         //----------------------------------------------------------------
-        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things   
+        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things
     }
 
 
@@ -1325,7 +1325,7 @@
     //================================================================================
     // Gold Mine
     //================================================================================
-    
+
     "npc_dota_building_gold_mine"
     {
         // General
@@ -1333,7 +1333,7 @@
         "BaseClass"                 "npc_dota_creature"
         "Model"                     "models/mine/mine.vmdl"
         "ModelScale"                    "0.55"
-        "AbilityLayout"                 "6"     
+        "AbilityLayout"                 "6"
 
         "SoundSet"                  "Creep_Good_Melee"
         "MinimapIcon"                   "minimap_tower90"
@@ -1347,7 +1347,7 @@
         // BuildingHelper
         "ConstructionSize"              "4"
         "BlockPathingSize"              "4"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
@@ -1373,7 +1373,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "10"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -1408,7 +1408,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "750"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -1425,8 +1425,8 @@
 
         // Bots
         //----------------------------------------------------------------
-        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things   
-    }   
+        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things
+    }
 
 
 
@@ -1457,7 +1457,7 @@
         // BuildingHelper
         "ConstructionSize"              "3"
         "BlockPathingSize"              "3"
-                                
+
         "DisableTurning"                "1"
         "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
         "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
@@ -1483,7 +1483,7 @@
         //------------------------------------------------------------------------
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        
+
         // Attack
         //------------------------------------------------------------------------
         "AttackCapabilities"                "DOTA_UNIT_CAP_NO_ATTACK"
@@ -1518,7 +1518,7 @@
         //----------------------------------------------------------------
         "StatusHealth"                  "575"
         "StatusHealthRegen"             "0"
-        "StatusMana"                    "0"
+        "StatusMana"                    "100"
         "StatusManaRegen"               "0"
 
         // Team
@@ -1536,5 +1536,5 @@
         // Bots
         //----------------------------------------------------------------
         //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things
-    } 
+    }
 }

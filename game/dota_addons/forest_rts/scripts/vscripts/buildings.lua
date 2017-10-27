@@ -148,17 +148,51 @@ end
 
 
 
+---------------------------------------------------------------------------
+-- Newer version of the "CheckIfCanAfford" functions, returning only a
+-- boolean and printing an error message if resources are lacking.
+-- Unit edition of CheckIfCanAfford().
+---------------------------------------------------------------------------
+function CanAffordTable(keys)
+    local ability = keys.ability
+    local caster = keys.caster
+    local goldCost = keys.goldCost or ability:GetSpecialValueFor("gold_cost")
+    local lumberCost = keys.lumberCost or ability:GetSpecialValueFor("lumber_cost")
+
+    local ownerID = caster:GetOwnerID()
+    local ownerHero = GetPlayerHero(ownerID)
+    local currentGold = ownerHero:GetGold()--PlayerResource:GetGold(playerID)
+    local currentLumber = ownerHero:GetLumber()
+
+    if currentGold < goldCost then
+        SendErrorMessage(ownerID, "#error_not_enough_gold")
+        return false
+    elseif currentLumber < lumberCost then
+        SendErrorMessage(ownerID, "#error_not_enough_lumber")
+        return false
+    end
+
+    return true
+end
+
+function CheckIfCanAffordRemoveThis(keys)
+    -- Remove the call on this from the training_spells file!
+    return
+end
 
 ---------------------------------------------------------------------------
 -- Refunds the gold cost before charging it again.
 -- Unit edition of CheckIfCanAfford().
 ---------------------------------------------------------------------------
 function CheckIfCanAffordUnit(keys)
+    -- No longer in use.
+    --[=[
     local goldCost = keys.goldCost
     local caster = keys.caster
     local playerID = caster:GetOwner():GetPlayerID()
     GiveGoldToPlayer(playerID, goldCost)
-
+    ]=]
+    keys.goldCost = 0
     return CheckIfCanAfford(keys)
 end
 
@@ -176,6 +210,7 @@ function CheckIfCanAfford(keys)
     local lumberCost = keys.lumberCost
 
     if SpendResources(caster, goldCost, lumberCost) == false then
+        SendErrorMessage(caster:GetPlayerOwnerID(), "#error_not_enough_resources")
         caster._canAfford = false
         caster:Stop()
         return false
@@ -183,7 +218,7 @@ function CheckIfCanAfford(keys)
         caster._canAfford = true
 
         -- Finish channeling ASAP if cheat.
-        if AI and AI.speedUpTraining then
+        if AI and AI.speedUpTraining and ability then
             Timers:CreateTimer({
                 endTime = 0.05,
                 callback = function() ability:EndChannel(false)
@@ -266,7 +301,7 @@ end
 --- * building: The unit to check.
 ---------------------------------------------------------------------------
 function IsBuilding(building)
-    return IsCustomBuilding(building) or (building._building ~= nil)
+    return IsCustomBuilding(building) or building._building
 end
 
 ---------------------------------------------------------------------------

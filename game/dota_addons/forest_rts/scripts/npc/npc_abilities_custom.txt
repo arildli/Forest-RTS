@@ -1521,8 +1521,8 @@
         {
             "RunScript"
             {
-                "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfBuilding"
+                "ScriptFile"    "scripts/vscripts/spells.lua"
+                "Function"  "StopChannelIfNotBuilding"
                 "Target"    "TARGET"
             }
 

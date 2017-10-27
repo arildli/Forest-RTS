@@ -41,6 +41,7 @@
 
 		"error_target_must_be_unit"			"Target Must Be A Regular Unit"
 		"error_target_must_be_ranged_unit"		"Target Must Be A Ranged Unit"
+        "error_target_must_be_building"      "Target Must Be A Building"
 		"error_hero_outside_shop_range"			"Hero Is Outside Shop Range"
 
 		"addonname"					"Forest RTS"

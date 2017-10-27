@@ -200,6 +200,7 @@ function SimpleRTSGameMode:InitGameMode()
         playerHero:AddItem(newItem)
         playerHero:IncLumber(1000)
         BuildingHelper:WarpTen(true)
+        GameRules.WarpTenUnits = true
         if not AI then
             AI = {}
         end
@@ -223,6 +224,20 @@ function SimpleRTSGameMode:InitGameMode()
             end
         end
     end, 'Gives the player lumber', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('lumberg', function()
+        local cmdPlayer = Convars:GetCommandClient()
+        local playerHero
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+                playerHero:IncLumber(1000)
+                playerHero:IncGold(10000)
+            end
+        end
+        BuildingHelper:WarpTen(true)
+    end, 'Gives the player lumber and gold', FCVAR_CHEAT)
 
 
     Convars:RegisterCommand('printstats', function()

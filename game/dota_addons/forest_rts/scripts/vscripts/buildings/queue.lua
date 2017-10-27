@@ -1,15 +1,34 @@
 --[[
 	Creates an item on the buildings inventory to consume the queue.
+
+    Originally created by the BuildingHelper library team, but modified by me.
 ]]
 function EnqueueUnit( event )
 	local caster = event.caster
 	local ability = event.ability
 	local pID = caster:GetPlayerOwner():GetPlayerID()
 
+    --print("ENQUEUE UNIT...")
+
 	-- Initialize queue
 	if not caster.queue then
 		caster.queue = {}
+        --print("Creating queue for building...")
 	end
+
+    -- Added in mod
+    local goldCost = ability:GetSpecialValueFor("gold_cost")
+    local lumberCost = ability:GetSpecialValueFor("lumber_cost")
+    -- Gold already payed, therefore the gold cost is set to 0 in the call.
+    if not CanAffordTable({ability=ability, caster=caster, goldCost=0, lumberCost=lumberCost}) then
+        -- Lumber has not been payed yet, therefore we do not refund it either.
+        local refundTable = {caster=caster, goldCost=goldCost, lumberCost=0}
+        RefundResourcesSpell(refundTable)
+        return
+    end
+    -- Pay lumber, gold is already payed.
+    SpendResourcesNew(caster:GetPlayerOwner(), 0, lumberCost, true)
+    -- End
 
 	-- Queue up to 6 units max
 	if #caster.queue < 6 then
@@ -17,6 +36,8 @@ function EnqueueUnit( event )
 		local item_name = "item_"..ability_name
 		local item = CreateItem(item_name, caster, caster)
 		caster:AddItem(item)
+
+        --print("Added item "..item_name.." to building!")
 
 		-- RemakeQueue
 		caster.queue = {}
@@ -28,7 +49,14 @@ function EnqueueUnit( event )
 		end
 	else
 		-- Refund with message
- 		PlayerResource:ModifyGold(pID, gold_cost, false, 0)
+ 		--PlayerResource:ModifyGold(pID, gold_cost, false, 0)
+        -- Added in mod
+        print("Calling from EnqueueUnit:")
+        --local goldCost = ability:GetSpecialValueFor("gold_cost")
+        --local lumberCost = ability:GetSpecialValueFor("lumber_cost")
+        local refundTable = {caster=caster, goldCost=goldCost, lumberCost=lumberCost}
+        RefundResourcesSpell(refundTable)
+        -- End
 		SendErrorMessage(caster:GetPlayerOwnerID(), "#error_queue_full")
 	end
 end
@@ -50,7 +78,7 @@ function DequeueUnit( event )
 	local train_ability = caster:FindAbilityByName(train_ability_name)
 	local gold_cost = train_ability:GetGoldCost( train_ability:GetLevel() )
 
-	print("Start dequeue")
+	print("DEQUEUE UNIT!")
 
 	for itemSlot = 0, 5, 1 do
        	local item = caster:GetItemInSlot( itemSlot )
@@ -65,10 +93,15 @@ function DequeueUnit( event )
 	            table.remove(caster.queue, queue_element)
 
 	            caster:RemoveItem(item)
-	            
+
 	            -- Refund ability cost
-	            PlayerResource:ModifyGold(pID, gold_cost, false, 0)
-				print("Refund ",gold_cost)
+                print("Calling from DequeueUnit:")
+                local goldCost = train_ability:GetSpecialValueFor("gold_cost")
+                local lumberCost = train_ability:GetSpecialValueFor("lumber_cost")
+                local refundTable = {caster=event.caster, goldCost=goldCost, lumberCost=lumberCost}
+                RefundResourcesSpell(refundTable)
+	            --PlayerResource:ModifyGold(pID, gold_cost, false, 0)
+				--print("Refund ",gold_cost)
 
 				-- Set not channeling if the cancelled item was the first slot
 				if itemSlot == 0 then
@@ -81,7 +114,7 @@ function DequeueUnit( event )
 					caster:SetMana(0)
 					caster:SetBaseManaRegen(0)
 				else
-					print("Removed unit in queue slot",itemSlot)					
+					--print("Removed unit in queue slot",itemSlot)
 				end
 				ReorderItems(caster)
 				break
@@ -95,10 +128,12 @@ function NextQueue( event )
 	local caster = event.caster
 	local ability = event.ability
 	ability:SetChanneling(false)
-	--print("Move next!")
+
+	print("NEXT QUEUE...")
 
 	-- Dequeue
 	--DeepPrintTable(event)
+    -- Added
 	local hAbility = EntIndexToHScript(ability:GetEntityIndex())
 
 	for itemSlot = 0, 5, 1 do
@@ -113,7 +148,7 @@ function NextQueue( event )
 
         		local train_ability = caster:FindAbilityByName(train_ability_name)
 
-        		print("Q")
+        		--print("Q")
         		DeepPrintTable(caster.queue)
         		local queue_element = getIndex(caster.queue, item:GetEntityIndex())
         		if IsValidEntity(item) then
@@ -141,7 +176,7 @@ function AdvanceQueue( event )
 	end
 
 	if caster and IsValidEntity(caster) and not IsChanneling( caster ) and not caster:HasModifier("modifier_construction") then
-		
+
 		-- RemakeQueue
 		caster.queue = {}
 
@@ -154,19 +189,28 @@ function AdvanceQueue( event )
 
 				local item_name = tostring(item:GetAbilityName())
 				if not IsChanneling( caster ) then
+                    --print("\tWas not already channeling")
 
 					-- Items that contain "train" "revive" or "research" will start a channel of an ability with the same name without the item_ affix
 					if string.find(item_name, "train_") or string.find(item_name, "_revive") or string.find(item_name, "research_") then
-						-- Find the name of the tied ability-item: 
+						-- Find the name of the tied ability-item:
 						--	ability = human_train_footman
 						-- 	item = item_human_train_footman
 						local train_ability_name = string.gsub(item_name, "item_", "")
 
 						local ability_to_channel = caster:FindAbilityByName(train_ability_name)
 
+                        -- Added
+                        if ability_to_channel and ability_to_channel:GetLevel() == 0 then
+                            -- print("\n\nTemporarily stopping the training of this unit due to spell being level 0.!\n\n")
+                            ability_to_channel:EndChannel(false)
+							ReorderItems(caster)
+                            return
+                        end
+                        -- Added end
 
 						ability_to_channel:SetChanneling(true)
-						print("->"..ability_to_channel:GetAbilityName()," started channel")
+						--print("->"..ability_to_channel:GetAbilityName()," started channel")
 
 						-- Fake mana channel bar
 						local channel_time = ability_to_channel:GetChannelTime()
@@ -174,7 +218,7 @@ function AdvanceQueue( event )
 						caster:SetBaseManaRegen(caster:GetMaxMana()/channel_time)
 
 						-- Cheats
-						if GameRules.WarpTen then
+						if GameRules.WarpTenUnits then
 							ability_to_channel:EndChannel(false)
 							ReorderItems(caster)
 							return
@@ -197,7 +241,7 @@ function AdvanceQueue( event )
 
 					-- Items that contain "research_" will start a channel of an ability with the same name  without the item_ affix
 					elseif string.find(item_name, "research_") then
-						-- Find the name of the tied ability-item: 
+						-- Find the name of the tied ability-item:
 						--	ability = human_research_defend
 						-- 	item = item_human_research_defend
 						local research_ability_name = string.gsub(item_name, "item_", "")
@@ -205,7 +249,7 @@ function AdvanceQueue( event )
 						local ability_to_channel = caster:FindAbilityByName(research_ability_name)
 						if ability_to_channel then
 							ability_to_channel:SetChanneling(true)
-							print("->"..ability_to_channel:GetAbilityName()," started channel")
+							--print("->"..ability_to_channel:GetAbilityName()," started channel")
 
 							-- Fake mana channel bar
 							local channel_time = ability_to_channel:GetChannelTime()
@@ -213,7 +257,7 @@ function AdvanceQueue( event )
 							caster:SetBaseManaRegen(caster:GetMaxMana()/channel_time)
 
 							-- Cheats
-							if GameRules.WarpTen then
+							if GameRules.WarpTenUnits then
 								ability_to_channel:EndChannel(false)
 								ReorderItems(caster)
 								return
@@ -221,14 +265,14 @@ function AdvanceQueue( event )
 
 							-- After the channeling time, check if it was cancelled or spawn it
 							-- EndChannel(false) runs whatever is in the OnChannelSucceded of the function
-							Timers:CreateTimer(ability_to_channel:GetChannelTime(), 
+							Timers:CreateTimer(ability_to_channel:GetChannelTime(),
 							function()
 								--print("===Queue Table====")
 								--DeepPrintTable(caster.queue)
 								if IsValidEntity(item) then
 									ability_to_channel:EndChannel(false)
 									ReorderItems(caster)
-									print("Research complete!")
+									--print("Research complete!")
 								else
 									--print("This Research was interrupted")
 								end
@@ -243,10 +287,10 @@ end
 
 -- Auxiliar function that goes through every ability and item, checking for any ability being channelled
 function IsChanneling ( unit )
-	
+
 	for abilitySlot=0,15 do
 		local ability = unit:GetAbilityByIndex(abilitySlot)
-		if ability ~= nil and ability:IsChanneling() then 
+		if ability ~= nil and ability:IsChanneling() then
 			return true
 		end
 	end
