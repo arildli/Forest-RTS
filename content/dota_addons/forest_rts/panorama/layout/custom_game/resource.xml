@@ -9,13 +9,15 @@
         $.Msg( "Compiled resource.xml!" );
     </script>
     <Panel hittest="false" class='ResourcePanel'>
-        <Panel id="LumberPanel">
-            <Label id="LumberText" text="" html="true" class="TitleFont" />
-            <Image hittest="false" id="LumberIcon" src="file://{images}/custom_game/lumber_icon.png" />
-        </Panel>
-        <Panel id="GoldPanel">
-            <Label id="GoldText" text="" html="true" class="TitleFont" />
-            <Image hittest="false" id="GoldIcon" src="file://{images}/custom_game/gold_icon.png" />
+        <Panel id="Resources">
+            <Panel id="LumberPanel">
+                <Label id="LumberText" text="" html="true" class="TitleFont" />
+                <Image hittest="false" id="LumberIcon" src="file://{images}/custom_game/lumber_icon.png" />
+            </Panel>
+            <Panel id="GoldPanel">
+                <Label id="GoldText" text="" html="true" class="TitleFont" />
+                <Image hittest="false" id="GoldIcon" src="file://{images}/custom_game/gold_icon.png" />
+            </Panel>
         </Panel>
     </Panel>
 </root>

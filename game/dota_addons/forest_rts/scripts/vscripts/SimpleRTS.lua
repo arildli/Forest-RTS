@@ -1,6 +1,5 @@
 --  CustomGameEventManager:Send_ServerToPlayer(player, "player_lumber_changed", { lumber = math.floor(hero:GetLumber()) })
 
-
 -- Variables
 GENERIC_ABILITIES = {}
 PLAYER_HEROES = {}
@@ -171,6 +170,11 @@ function SimpleRTSGameMode:InitGameMode()
 
     -- Initialize the Quests module.
     Quests:Init()
+
+    Convars:RegisterCommand('rtests', function()
+        print("[Forest RTS] Running unit tests...")
+        --lu.LuaUnit.run()
+    end, 'Runs unit tests', FCVAR_CHEAT)
 
     -- Register console commands
     Convars:RegisterCommand('boss', function()

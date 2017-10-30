@@ -78,7 +78,7 @@ function DequeueUnit( event )
 	local train_ability = caster:FindAbilityByName(train_ability_name)
 	local gold_cost = train_ability:GetGoldCost( train_ability:GetLevel() )
 
-	print("DEQUEUE UNIT!")
+	--print("DEQUEUE UNIT!")
 
 	for itemSlot = 0, 5, 1 do
        	local item = caster:GetItemInSlot( itemSlot )
@@ -95,7 +95,7 @@ function DequeueUnit( event )
 	            caster:RemoveItem(item)
 
 	            -- Refund ability cost
-                print("Calling from DequeueUnit:")
+                --print("Calling from DequeueUnit:")
                 local goldCost = train_ability:GetSpecialValueFor("gold_cost")
                 local lumberCost = train_ability:GetSpecialValueFor("lumber_cost")
                 local refundTable = {caster=event.caster, goldCost=goldCost, lumberCost=lumberCost}
@@ -108,7 +108,7 @@ function DequeueUnit( event )
 
 					train_ability:SetChanneling(false)
 					train_ability:EndChannel(true)
-					print("Cancel current channel")
+					--print("Cancel current channel")
 
 					-- Fake mana channel bar
 					caster:SetMana(0)
@@ -129,7 +129,7 @@ function NextQueue( event )
 	local ability = event.ability
 	ability:SetChanneling(false)
 
-	print("NEXT QUEUE...")
+	--print("NEXT QUEUE...")
 
 	-- Dequeue
 	--DeepPrintTable(event)

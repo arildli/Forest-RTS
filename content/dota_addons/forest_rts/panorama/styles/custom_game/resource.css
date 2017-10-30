@@ -1,11 +1,28 @@
+@define RES_MARGIN_BOT: 150px;
+
 .ResourcePanel
 {
     width: 100%;
     height: 100%;
+
+    vertical-align: bottom;
+    //horizontal-align: right;
+    border: 1px solid red;
 }
 
-.Hidden 
-{ 
+#Resources
+{
+    width: 25.75%;
+    height: 21%;
+
+    vertical-align: bottom;
+    border: 1px solid green;
+
+    background-color: gradient( linear, 10px 0%, 100px 5%, from(black), to(transparent) );
+}
+
+.Hidden
+{
     visibility: collapse;
     opacity: 0;
 }
@@ -14,11 +31,13 @@
 {
     width: 100px;
     height: 30px;
-    
-    vertical-align: bottom;
-    background-color: gradient(linear, 25px 100%, 5px 0%, from(transparent), to(grey));
 
-    margin-bottom: 155px;
+    vertical-align: bottom;
+    //background-color: gradient(linear, 25px 100%, 5px 0%, from(transparent), to(grey));
+    background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
+
+    //margin-bottom: 155px;
+    margin-bottom: RES_MARGIN_BOT;
     margin-right: 10px;
     margin-left: 10px;
 }
@@ -29,9 +48,10 @@
     height: 30px;
 
     vertical-align: bottom;
-    background-color: gradient(linear, 25px 100%, 25px 0%, from(grey), to(transparent));
+    //background-color: gradient(linear, 25px 100%, 25px 0%, from(grey), to(transparent));
+    background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
 
-    margin-bottom: 155px;
+    margin-bottom: RES_MARGIN_BOT;
     margin-right: 110px;
     margin-left: 110px;
 }
@@ -44,7 +64,7 @@
     font-weight: bold;
     text-align: center;
     text-shadow: 0px 0px 3px 3.0 #000000;
-    
+
     font-family: Radiance;
     margin-left: 38px;
     margin-top: 0px;
@@ -58,18 +78,18 @@
     font-weight: bold;
     text-align: center;
     text-shadow: 0px 0px 3px 3.0 #000000;
-    
+
     font-family: Radiance;
     margin-left: 38px;
     margin-top: 0px;
 }
 
 
-#LumberIcon 
-{	
-    width: 30px; 
-    height: 22px; 
-    background-image: url("s2r://panorama/images/custom_game/lumber_icon.png"); 
+#LumberIcon
+{
+    width: 30px;
+    height: 22px;
+    background-image: url("s2r://panorama/images/custom_game/lumber_icon.png");
     background-size: 100% 100%;
 }
 

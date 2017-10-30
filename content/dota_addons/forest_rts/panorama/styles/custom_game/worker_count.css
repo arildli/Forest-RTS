@@ -11,11 +11,13 @@
 
     vertical-align: bottom;
     //background-color: black;
-    border-radius: 2px;    
+    border-radius: 2px;
 
     margin-right: 70px;
     margin-left: 80px;
     margin-bottom: 110px;
+
+    //border: 1px solid red;
 }
 
 #WorkerCount
