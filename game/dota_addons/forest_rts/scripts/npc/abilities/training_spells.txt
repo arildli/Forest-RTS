@@ -4480,4 +4480,538 @@
             }
         }
     }
+
+
+
+//-- // Upgrade Spells // --// Spell3
+
+
+
+
+    // Spell5.3.2
+    //================================================================================
+    // Build Main Tent Large
+    //================================================================================
+
+    "srts_upgrade_main_building"
+    {
+
+        // General
+        //------------------------------------------------------------------------
+        "AbilityName"           "Upgrade Main Tent"
+        "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityTextureName"        "spellicon_large_tent"
+        "BaseClass"         "ability_datadriven"
+        "Maxlevel"          "1"
+        "AbilityCastPoint"              "0.1"
+
+        // BuildingHelper info
+        "Building"                  "1" //bool
+        "BuildingSize"                  "4"
+        "AbilityCastRange"              "200"
+        "UpdateHealth"                  "1" //bool
+        "Scale"                     "1" //bool
+        "PlayerCanControl"              "1" //bool
+
+        "UnitName"                  "npc_dota_building_main_tent_small"
+        "AbilityCooldown"               "0"
+        "AbilityGoldCost"               "320"
+        "BuildTime"                 "60"
+        // End of BuildingHelper info
+        "AbilityChannelTime"                "60"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "gold_cost" "320"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "lumber_cost"   "175"
+            }
+
+            "03"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "build_time"    "60"
+            }
+
+            "04"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "building_size" "4"
+            }
+        }
+
+        "Modifiers"
+        {
+            "modifier_upgrading_building"
+            {
+                "IsDebuff"  "0"
+                //"IsHidden"    "1"
+
+                "EffectName"        "particles/econ/items/effigies/status_fx_effigies/gold_effigy_ambient_radiant_lvl2.vpcf"
+                "EffectAttachType"  "follow_overhead"
+                "EffectRadius"      "300"
+            }
+
+            "modifier_invis"
+            {
+                "Hidden"    "1"
+
+                "States"
+                {
+                    "MODIFIER_STATE_INVISIBLE"  "MODIFIER_STATE_VALUE_ENABLED"
+                }
+            }
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"      "CheckIfCanAffordUnit"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"      "prepareUpgrade"
+            }
+
+            "ApplyModifier"
+            {
+                "ModifierName"  "modifier_upgrading_building"
+                "Target"        "CASTER"
+            }
+        }
+
+        "OnChannelFinish"
+        {
+            "RemoveModifier"
+            {
+                "ModifierName"  "modifier_upgrading_building"
+                "Target"        "CASTER"
+            }
+        }
+
+        "OnChannelInterrupted"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"      "RefundResources"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+
+        "OnChannelSucceeded"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"      "finishUpgrade"
+                "newUnitName"   "npc_dota_building_main_tent_large"
+                "buildingSize"  "%building_size"
+                "modifier"      "modifier_invis"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+    }
+
+
+    
+    // Spell3.1.1
+    //================================================================================
+    // Upgrade Light Armor
+    //================================================================================
+
+    "srts_upgrade_light_armor"
+    {
+        // General
+        "AbilityName"           "Upgrade_light_armor"
+        "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+        "BaseClass"         "ability_datadriven"
+        "AbilityTextureName"        "spellicon_light_armor"
+        "Maxlevel"          "1"
+
+        "AbilityCastPoint"      "0.1"
+        "AbilityCastRange"      "250"
+        "AbilityCooldown"       "0"
+        "AbilityManaCost"       "0"
+        "AbilityGoldCost"       "175"
+        //  "AbilityUpgradeGoldCost"    "0"
+
+        "AbilityChannelTime"        "60"
+        //"AbilityChannelTime"      "3"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "gold_cost" "175"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "lumber_cost"   "75"
+            }
+
+            "03"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "upgrade_time"  "60"
+            }
+        }
+
+        "Modifiers"
+        {
+            "modifier_upgrading"
+            {
+                "IsHidden"  "1"
+                "IsDebuff"  "0"
+                "ThinkInterval" "1.0"
+
+                "OnIntervalThink"
+                {
+                    //"ApplyModifier"
+                    //{
+                    //  "ModifierName"      "upgrading_animation"
+                    //  "Target"        "CASTER"
+                    //}
+                }
+            }
+
+            //"upgrading_animation"
+            //{
+            //  "IsHidden"      "1"
+            //  "Duration"      "0.9"
+            //  "OverrideAnimation" "ACT_DOTA_ATTACK"
+            //}
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "CheckIfCanAffordUnit"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+
+
+            "ApplyModifier"
+            {
+                "ModifierName"  "modifier_upgrading"
+                "Target"    "CASTER"
+            }
+        }
+
+        "OnChannelFinish"
+        {
+            "RemoveModifier"
+            {
+                "ModifierName"      "modifier_upgrading"
+                "Target"        "CASTER"
+            }
+        }
+
+        "OnChannelSucceeded"
+        {
+            "RunScript"
+            {
+                "Target"    "POINT"
+                "ScriptFile"    "scripts/vscripts/spells"
+                "Function"  "ApplyUpgradeUnits"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+
+        "OnChannelInterrupted"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "RefundResources"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+    }
+
+
+
+    // Spell3.2.1
+    //================================================================================
+    // Upgrade Light Damage
+    //================================================================================
+
+    "srts_upgrade_light_damage"
+    {
+        // General
+        "AbilityName"           "Upgrade_light_damage"
+        "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+        "BaseClass"         "ability_datadriven"
+        //      "AbilityTextureName"        "spellicon_light_damage"
+        "AbilityTextureName"        "spellicon_light_damage"
+        "Maxlevel"          "1"
+
+        "AbilityCastPoint"      "0.1"
+        "AbilityCastRange"      "250"
+        "AbilityCooldown"       "0"
+        "AbilityManaCost"       "0"
+        "AbilityGoldCost"       "175"
+        //  "AbilityUpgradeGoldCost"    "0"
+
+        "AbilityChannelTime"        "60"
+        //"AbilityChannelTime"      "3"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "gold_cost" "175"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "lumber_cost"   "75"
+            }
+
+            "03"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "upgrade_time"  "60"
+            }
+        }
+
+        "Modifiers"
+        {
+            "modifier_upgrading"
+            {
+                "IsHidden"  "1"
+                "IsDebuff"  "0"
+                "ThinkInterval" "1.0"
+
+                "OnIntervalThink"
+                {
+                    //"ApplyModifier"
+                    //{
+                    //  "ModifierName"      "upgrading_animation"
+                    //  "Target"        "CASTER"
+                    //}
+                }
+            }
+
+            //"upgrading_animation"
+            //{
+            //  "IsHidden"      "1"
+            //  "Duration"      "0.9"
+            //  "OverrideAnimation" "ACT_DOTA_ATTACK"
+            //}
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "CheckIfCanAffordUnit"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+
+
+            "ApplyModifier"
+            {
+                "ModifierName"  "modifier_upgrading"
+                "Target"    "CASTER"
+            }
+        }
+
+        "OnChannelFinish"
+        {
+            "RemoveModifier"
+            {
+                "ModifierName"      "modifier_upgrading"
+                "Target"        "CASTER"
+            }
+        }
+
+        "OnChannelSucceeded"
+        {
+            "RunScript"
+            {
+                "Target"    "POINT"
+                "ScriptFile"    "scripts/vscripts/spells"
+                "Function"  "ApplyUpgradeUnits"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+
+        "OnChannelInterrupted"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "RefundResources"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+    }
+
+
+
+    // Spell3.2.1
+    //================================================================================
+    // Upgrade Adept Training
+    //================================================================================
+
+    "srts_upgrade_adept_training"
+    {
+        // General
+        "AbilityName"           "Upgrade_adept_training"
+        "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+
+        "BaseClass"             "ability_datadriven"
+        "AbilityTextureName"    "spellicon_adept_training"
+        "Maxlevel"              "1"
+
+        "AbilityCastPoint"      "0.1"
+        "AbilityCastRange"      "250"
+        "AbilityCooldown"       "0"
+        "AbilityManaCost"       "0"
+        "AbilityGoldCost"       "125"
+
+        "AbilityChannelTime"    "60"
+        //"AbilityChannelTime"  "3"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"      "FIELD_INTEGER"
+                "gold_cost"     "125"
+            }
+
+            "02"
+            {
+                "var_type"      "FIELD_INTEGER"
+                "lumber_cost"   "25"
+            }
+
+            "03"
+            {
+                "var_type"      "FIELD_INTEGER"
+                "upgrade_time"  "60"
+            }
+        }
+
+        "Modifiers"
+        {
+            "modifier_upgrading"
+            {
+                "IsHidden"      "1"
+                "IsDebuff"      "0"
+                "ThinkInterval" "1.0"
+
+                "OnIntervalThink"
+                {
+                    //"ApplyModifier"
+                    //{
+                    //  "ModifierName"      "upgrading_animation"
+                    //  "Target"        "CASTER"
+                    //}
+                }
+            }
+
+            //"upgrading_animation"
+            //{
+            //  "IsHidden"      "1"
+            //  "Duration"      "0.9"
+            //  "OverrideAnimation" "ACT_DOTA_ATTACK"
+            //}
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"      "CheckIfCanAffordUnit"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+
+
+            "ApplyModifier"
+            {
+                "ModifierName"  "modifier_upgrading"
+                "Target"        "CASTER"
+            }
+        }
+
+        "OnChannelFinish"
+        {
+            "RemoveModifier"
+            {
+                "ModifierName"  "modifier_upgrading"
+                "Target"        "CASTER"
+            }
+        }
+
+        "OnChannelSucceeded"
+        {
+            "RunScript"
+            {
+                "Target"        "POINT"
+                "ScriptFile"    "scripts/vscripts/spells"
+                "Function"      "ApplyUpgradeUnits"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+
+        "OnChannelInterrupted"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"      "RefundResources"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+    }
 }

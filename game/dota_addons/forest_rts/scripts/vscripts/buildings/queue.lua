@@ -240,7 +240,9 @@ function AdvanceQueue( event )
 						end)
 
 					-- Items that contain "research_" will start a channel of an ability with the same name  without the item_ affix
-					elseif string.find(item_name, "research_") then
+					--elseif string.find(item_name, "research_") then
+                    -- Added
+                    elseif string.find(item_name, "upgrade_") then
 						-- Find the name of the tied ability-item:
 						--	ability = human_research_defend
 						-- 	item = item_human_research_defend

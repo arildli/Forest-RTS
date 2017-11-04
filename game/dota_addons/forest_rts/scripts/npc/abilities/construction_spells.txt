@@ -44,14 +44,14 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "25"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "15"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
@@ -66,8 +66,8 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
-        }   
+            }
+        }
     }
 
         // Spell5.2.1
@@ -77,7 +77,7 @@
 
     "srts_construct_crystal_radiant"
     {
-    
+
         // General
         //------------------------------------------------------------------------
         "AbilityName"           "Construct Moonwell"
@@ -94,7 +94,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_crystal_radiant"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "100"
@@ -114,31 +114,31 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "40"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "15"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
                 "scale"     "0.8"
             }
-            
+
             "05"
             {
                 "var_type"  "FIELD_FLOAT"
                 "health_regen"  "1"
-            }       
+            }
 
             "06"
             {
                 "var_type"  "FIELD_FLOAT"
                 "radius"    "900"
-            }       
+            }
         }
 
         "precache"
@@ -153,8 +153,8 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -168,7 +168,7 @@
 
     "srts_construct_crystal_dire"
     {
-    
+
         // General
         //------------------------------------------------------------------------
         "AbilityName"           "Construct Unholy Spire"
@@ -185,7 +185,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_crystal_dire"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "100"
@@ -205,31 +205,31 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "40"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "15"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
                 "scale"     "0.6"
             }
-            
+
             "05"
             {
                 "var_type"  "FIELD_FLOAT"
                 "health_regen"  "1"
-            }       
+            }
 
             "06"
             {
                 "var_type"  "FIELD_FLOAT"
                 "radius"    "900"
-            }       
+            }
         }
 
         "precache"
@@ -244,8 +244,8 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -264,7 +264,7 @@
         "AbilityGoldCost"           "0"
         "BuildTime"                 "6"
 
-    
+
         // General
         //------------------------------------------------------------------------
         "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
@@ -280,7 +280,7 @@
         "UpdateHealth"              "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"          "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_main_tent_small"
         "AbilityCooldown"           "0"
         // End of BuildingHelper info
@@ -297,19 +297,19 @@
             {
                 "var_type"      "FIELD_INTEGER"
                 "lumber_cost"   "0"
-            }   
+            }
 
             "03"
             {
                 "var_type"      "FIELD_INTEGER"
                 "build_time"    "6"
             }
-            
+
             //"04"
-            //{ 
+            //{
             //  "var_type"      "FIELD_FLOAT"
             //  "scale"         "1.05"
-            //} 
+            //}
         }
 
         "OnSpellStart"
@@ -323,7 +323,7 @@
 
             //"RunScript"
             //{
-            //  "Target"    "POINT" 
+            //  "Target"    "POINT"
             //  "ScriptFile"    "scripts/vscripts/buildings.lua"
             //  "Function"  "attemptConstruction"
             //  "buildingName"  "npc_dota_building_main_tent_small"
@@ -332,154 +332,7 @@
             //  "buildTime" "%build_time"
             //  "scale"     "%scale"
             //  "spellName" "srts_construct_main_building"
-            //} 
-        }   
-    }
-
-
-
-
-
-    // Spell5.3.2
-    //================================================================================
-    // Build Main Tent Large
-    //================================================================================
-
-    "srts_upgrade_main_building"
-    {
-    
-        // General
-        //------------------------------------------------------------------------
-        "AbilityName"           "Upgrade Main Tent"
-        "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
-        "AbilityTextureName"        "spellicon_large_tent"
-        "BaseClass"         "ability_datadriven"
-        "Maxlevel"          "1"
-        "AbilityCastPoint"              "0.1"
-
-        // BuildingHelper info
-        "Building"                  "1" //bool
-        "BuildingSize"                  "4"
-        "AbilityCastRange"              "200"
-        "UpdateHealth"                  "1" //bool
-        "Scale"                     "1" //bool
-        "PlayerCanControl"              "1" //bool
-    
-        "UnitName"                  "npc_dota_building_main_tent_small"
-        "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "320"
-        "BuildTime"                 "60"
-        // End of BuildingHelper info
-        "AbilityChannelTime"                "60"
-
-        "AbilitySpecial"
-        {
-            "01"
-            {
-                "var_type"  "FIELD_INTEGER"
-                "gold_cost" "320"
-            }
-
-            "02"
-            {
-                "var_type"  "FIELD_INTEGER"
-                "lumber_cost"   "175"
-            }   
-
-            "03"
-            {
-                "var_type"  "FIELD_INTEGER"
-                "build_time"    "60"
-            }   
-
-            "04"
-            {
-                "var_type"  "FIELD_INTEGER"
-                "building_size" "4"
-            }
-        }
-
-        "Modifiers"
-        {
-            "modifier_upgrading_building"
-            {
-                "IsDebuff"  "0"
-                //"IsHidden"    "1"
-
-                "EffectName"        "particles/econ/items/effigies/status_fx_effigies/gold_effigy_ambient_radiant_lvl2.vpcf"
-                "EffectAttachType"  "follow_overhead"
-                "EffectRadius"      "300"
-            }
-
-            "modifier_invis"
-            {
-                "Hidden"    "1"
-                
-                "States"
-                {
-                    "MODIFIER_STATE_INVISIBLE"  "MODIFIER_STATE_VALUE_ENABLED"
-                }   
-            }   
-        }
-
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"      "CheckIfCanAffordUnit"
-                "Target"        "CASTER"
-                "goldCost"      "%gold_cost"
-                "lumberCost"    "%lumber_cost"
-            }
-
-            "RunScript"
-            {
-                "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"      "prepareUpgrade"
-            }
-
-            "ApplyModifier"
-            {
-                "ModifierName"  "modifier_upgrading_building"
-                "Target"        "CASTER"    
-            }
-        }
-
-        "OnChannelFinish"   
-        {
-            "RemoveModifier"
-            {
-                "ModifierName"  "modifier_upgrading_building"
-                "Target"        "CASTER"
-            }   
-        }
-
-        "OnChannelInterrupted"
-        {
-            "RunScript"
-            {
-                "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"      "RefundResources"
-                "Target"        "CASTER"
-                "goldCost"      "%gold_cost"
-                "lumberCost"    "%lumber_cost"
-            }
-        }
-
-        "OnChannelSucceeded"
-        {
-            "RunScript"
-            {
-                "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"      "finishUpgrade"
-                "newUnitName"   "npc_dota_building_main_tent_large"
-                "buildingSize"  "%building_size"
-                "modifier"      "modifier_invis"
-                "goldCost"      "%gold_cost"
-                "lumberCost"    "%lumber_cost"
-            }   
+            //}
         }
     }
 
@@ -510,7 +363,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_barracks_radiant"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "140"
@@ -530,19 +383,19 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "50"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "20"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
                 "scale"     "0.8"
-            }   
+            }
         }
 
         "OnSpellStart"
@@ -552,7 +405,7 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
+            }
         }
     }
 
@@ -583,7 +436,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_barracks_advanced_radiant"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "125"
@@ -603,19 +456,19 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "75"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "20"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
                 "scale"     "0.8"
-            }   
+            }
         }
 
         "OnSpellStart"
@@ -625,7 +478,7 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
+            }
         }
     }
 
@@ -656,7 +509,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_barracks_dire"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "140"
@@ -683,12 +536,12 @@
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "20"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
                 "scale"     "0.8"
-            }       
+            }
         }
 
         "OnSpellStart"
@@ -698,7 +551,7 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
+            }
         }
     }
 
@@ -729,7 +582,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_barracks_advanced_dire"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "125"
@@ -749,19 +602,19 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "75"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "20"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
                 "scale"     "0.8"
-            }   
+            }
         }
 
         "OnSpellStart"
@@ -771,7 +624,7 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
+            }
         }
     }
 
@@ -785,7 +638,7 @@
     //================================================================================
 
     "srts_construct_market"
-    {   
+    {
         // General
         //------------------------------------------------------------------------
         "AbilityName"           "Construct Market"
@@ -802,7 +655,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_market"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "50"
@@ -829,12 +682,12 @@
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "20"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
                 "scale"     "0.8"
-            }       
+            }
 
             "05"
             {
@@ -847,12 +700,12 @@
                 "var_type"  "FIELD_INTEGER"
                 "rotation_y"    "-1"
             }
-            
+
             "07"
             {
                 "var_type"  "FIELD_INTEGER"
                 "rotation_z"    "0"
-            }       
+            }
         }
 
         "OnSpellStart"
@@ -862,8 +715,8 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -893,7 +746,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_armory"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "150"
@@ -920,30 +773,30 @@
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "25"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
                 "scale"     "1.1"
-            }       
+            }
 
             "05"
             {
                 "var_type"  "FIELD_INTEGER"
                 "rotation_x"    "0"
             }
-            
+
             "06"
             {
                 "var_type"  "FIELD_INTEGER"
                 "rotation_y"    "-1"
             }
-            
+
             "07"
             {
                 "var_type"  "FIELD_INTEGER"
                 "rotation_z"    "0"
-            }       
+            }
         }
 
         "OnSpellStart"
@@ -953,8 +806,8 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -984,7 +837,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_armory"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "150"
@@ -1011,30 +864,30 @@
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "25"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
                 "scale"     "1.1"
-            }       
+            }
 
             "05"
             {
                 "var_type"  "FIELD_INTEGER"
                 "rotation_x"    "0"
             }
-            
+
             "06"
             {
                 "var_type"  "FIELD_INTEGER"
                 "rotation_y"    "-1"
             }
-            
+
             "07"
             {
                 "var_type"  "FIELD_INTEGER"
                 "rotation_z"    "0"
-            }       
+            }
         }
 
         "OnSpellStart"
@@ -1044,8 +897,8 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
-        }   
+            }
+        }
     }
 
 
@@ -1075,7 +928,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_gold_mine"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "0"
@@ -1102,26 +955,26 @@
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "10"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
                 //      "scale"     "0.65"
                 "scale"     "0.55"
-            }       
+            }
 
             "05"
             {
                 "var_type"  "FIELD_INTEGER"
                 "rotation_x"    "0"
             }
-            
+
             "06"
             {
                 "var_type"  "FIELD_INTEGER"
                 "rotation_y"    "-1"
             }
-            
+
             "07"
             {
                 "var_type"  "FIELD_INTEGER"
@@ -1132,7 +985,7 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "amount"    "5"
-            }       
+            }
         }
 
         "OnSpellStart"
@@ -1142,14 +995,14 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
-        }   
+            }
+        }
     }
 
 
 
 
-     
+
     // Spell5.8
     //================================================================================
     // Build Wooden Wall
@@ -1157,7 +1010,7 @@
 
     "srts_construct_wooden_wall"
     {
-    
+
         // General
         //------------------------------------------------------------------------
         "AbilityName"           "Construct Wooden Wall"
@@ -1174,7 +1027,7 @@
         "UpdateHealth"                  "1" //bool
         "Scale"                     "1" //bool
         "PlayerCanControl"              "1" //bool
-    
+
         "UnitName"                  "npc_dota_building_wooden_wall"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "15"
@@ -1194,14 +1047,14 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "lumber_cost"   "10"
-            }   
+            }
 
             "03"
             {
                 "var_type"  "FIELD_INTEGER"
                 "build_time"    "10"
             }
-            
+
             "04"
             {
                 "var_type"  "FIELD_FLOAT"
@@ -1216,7 +1069,7 @@
                 "ScriptFile"    "builder.lua"
                 "Function"  "Build"
                 "LumberCost"    "%lumber_cost"
-            }   
-        }   
+            }
+        }
     }
 }
