@@ -47,11 +47,21 @@ end
 
 function addRallyFunctions(building)
     function building:SetRallyPoint(pos)
+        building._rallyUnit = nil
         building._rallyPoint = Vector(pos["0"], pos["1"], pos["2"])
+    end
+
+    function building:SetRallyUnit(unit)
+        building._rallyUnit = unit
+        building._rallyPoint = nil
     end
 
     function building:GetRallyPoint()
         return building._rallyPoint
+    end
+
+    function building:GetRallyUnit()
+        return building._rallyUnit
     end
 end
 
@@ -342,11 +352,20 @@ function OnUnitTrained(keys)
 
     -- Move to rally point if it exists.
     local rallyPoint = caster:GetRallyPoint()
+    local rallyUnit = caster:GetRallyUnit()
     if rallyPoint then
         Timers:CreateTimer({
             endTime = 0.1,
             callback = function()
-            target:MoveToPosition(rallyPoint)
+                target:MoveToPosition(rallyPoint)
+            end})
+    elseif rallyUnit then
+        Timers:CreateTimer({
+            endTime = 0.1,
+            callback = function()
+                if rallyUnit and not rallyUnit:IsNull() and rallyUnit:IsAlive() then
+                    target:MoveToNPC(rallyUnit)
+                end
             end})
     end
 

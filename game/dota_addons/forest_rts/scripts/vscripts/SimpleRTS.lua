@@ -315,6 +315,8 @@ function SimpleRTSGameMode:InitGameMode()
             CreateUnitByName(unitName, location, true, nil, nil, DOTA_TEAM_NEUTRALS)
         end
     end, 'Spawns a lot of patrol units at the hero location', FCVAR_CHEAT)
+
+    print("[SimpleRTS] Init function complete!")
 end
 
 
@@ -393,8 +395,11 @@ end
 function SimpleRTSGameMode:onGameStateChange(keys)
     local newState = GameRules:State_Get()
 
+    print("\nEntering new state...\n")
+
     -- Selection state
     if newState == DOTA_GAMERULES_STATE_HERO_SELECTION then
+        print("Entering hero selection!")
         self.radiantCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS)
         self.direCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
         self.totalCount = self.radiantCount + self.direCount
@@ -523,7 +528,15 @@ function SimpleRTSGameMode:onRallyPointSet(keys)
     local building = EntIndexToHScript(keys.mainSelected)
     local buildingName = building:GetUnitName()
     if buildingName:find("tent") or buildingName:find("barracks") then
-        building:SetRallyPoint(rallyPos)
+        local rallyTargetIndex = keys.clickTarget;
+        if rallyTargetIndex then
+            print("rallyTargetIndex: " .. rallyTargetIndex)
+            local rallyTarget = EntIndexToHScript(rallyTargetIndex)
+            print("rallyTarget name: " .. rallyTarget:GetUnitName())
+            building:SetRallyUnit(rallyTarget)
+        else
+            building:SetRallyPoint(rallyPos)
+        end
         print("Rally point set!")
         Notifications:ClearTop(player)
         Notifications:Top(player, {text="Rally point set!", duration=3})

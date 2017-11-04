@@ -27,6 +27,19 @@
     opacity: 0;
 }
 
+#ResourcesTitle
+{
+    margin-left: 75px;
+    margin-right: 75px;
+
+    color: white;
+    font-size: 25px;
+    font-family: Radiance;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0px 0px 3px 3.0 #000000;
+}
+
 #LumberPanel
 {
     width: 100px;
@@ -34,7 +47,7 @@
 
     vertical-align: bottom;
     //background-color: gradient(linear, 25px 100%, 5px 0%, from(transparent), to(grey));
-    background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
+    //background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
 
     //margin-bottom: 155px;
     margin-bottom: RES_MARGIN_BOT;
@@ -49,7 +62,7 @@
 
     vertical-align: bottom;
     //background-color: gradient(linear, 25px 100%, 25px 0%, from(grey), to(transparent));
-    background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
+    //background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
 
     margin-bottom: RES_MARGIN_BOT;
     margin-right: 110px;
@@ -106,7 +119,17 @@
     horizontal-align: right;
 }
 
+.RightShadow
+{
+    background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( grey )) );
+}
+
 .Flipped
 {
     horizontal-align: left;
+}
+
+.FlippedShadow
+{
+    //background-color: gradient( linear, 255px 0%, 10px 0%, from( black )), to( transparent ) );
 }

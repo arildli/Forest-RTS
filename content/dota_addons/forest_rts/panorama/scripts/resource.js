@@ -27,6 +27,7 @@ function UpdatePlayerGold() {
 // Moves the clock panel to the correct side of the screen
 // if the HUD is flipped.
 function CheckHudFlipped() {
+    var resourcesTitlePanel = $.FindChildInContext("#ResourcesTitlePanel");
     var resourcesPanel = $.FindChildInContext("#Resources");
     var lumberPanel = $.FindChildInContext("#LumberPanel");
     var goldPanel = $.FindChildInContext("#GoldPanel");
@@ -35,16 +36,24 @@ function CheckHudFlipped() {
     	lumberPanel.RemoveClass("Right");
     	goldPanel.RemoveClass("Right");
         resourcesPanel.RemoveClass("Right");
+        resourcesTitlePanel.RemoveClass("Right");
+        resourcesTitlePanel.RemoveClass("RightShadow");
     	lumberPanel.AddClass("Flipped");
     	goldPanel.AddClass("Flipped");
         resourcesPanel.AddClass("Flipped");
+        resourcesTitlePanel.AddClass("Flipped");
+        resourcesTitlePanel.AddClass("FlippedShadow");
     } else {
     	lumberPanel.AddClass("Right");
     	goldPanel.AddClass("Right");
         resourcesPanel.AddClass("Right");
+        resourcesTitlePanel.AddClass("Right");
+        resourcesTitlePanel.AddClass("RightShadow");
     	lumberPanel.RemoveClass("Flipped");
     	goldPanel.RemoveClass("Flipped");
         resourcesPanel.RemoveClass("Flipped");
+        resourcesTitlePanel.RemoveClass("Flipped");
+        resourcesTitlePanel.RemoveClass("FlippedShadow");
     }
 }
 

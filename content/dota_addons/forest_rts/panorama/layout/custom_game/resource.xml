@@ -1,15 +1,21 @@
 <root>
     <styles>
         <include src="file://{resources}/styles/custom_game/resource.css" />
+        <include src="file://{resources}/styles/custom_game/worker_count.css" />
     </styles>
     <scripts>
         <include src="file://{resources}/scripts/resource.js" />
+        <include src="file://{resources}/scripts/custom_game/worker_count.js" />
     </scripts>
     <script>
         $.Msg( "Compiled resource.xml!" );
     </script>
     <Panel hittest="false" class='ResourcePanel'>
         <Panel id="Resources">
+            <Panel id="ResourcesTitlePanel">
+                <Label id="ResourcesTitle" text="Resources" html="true" class="TitleFont" />
+            </Panel>
+            <!--<Label id="ResourcesTitle" text="Resources" html="true" class="TitleFont" />-->
             <Panel id="LumberPanel">
                 <Label id="LumberText" text="" html="true" class="TitleFont" />
                 <Image hittest="false" id="LumberIcon" src="file://{images}/custom_game/lumber_icon.png" />
@@ -17,6 +23,12 @@
             <Panel id="GoldPanel">
                 <Label id="GoldText" text="" html="true" class="TitleFont" />
                 <Image hittest="false" id="GoldIcon" src="file://{images}/custom_game/gold_icon.png" />
+            </Panel>
+        </Panel>
+        <Panel hittest="false" class="WorkerCountRoot">
+            <Panel hittest="false" id="WorkerPanel">
+                <Image hittest="false" id="WorkerIcon" src="file://{images}/custom_game/worker_icon.png" />
+                <Label hittest="false" id="WorkerCount" text="" html="true" class="TitleFont" />
             </Panel>
         </Panel>
     </Panel>

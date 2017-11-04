@@ -30,10 +30,10 @@ function OnRightButtonPressed()
 
     var iPlayerID = Players.GetLocalPlayer()
     var selectedEntities = Players.GetSelectedEntities( iPlayerID )
-    var mainSelected = Players.GetLocalPlayerPortraitUnit() 
+    var mainSelected = Players.GetLocalPlayerPortraitUnit()
     var targetIndex = GetMouseTarget()
     var pressedShift = GameUI.IsShiftDown()
-    
+
     // Added {
     var cursor = GameUI.GetCursorPosition();
     // }
@@ -48,6 +48,7 @@ function OnRightButtonPressed()
         // Repair rightclick
         if (right_click_repair && IsCustomBuilding(targetIndex) && Entities.GetHealthPercent(targetIndex) < 100 && IsAlliedUnit(targetIndex, mainSelected)) {
             GameEvents.SendCustomGameEventToServer( "building_helper_repair_command", {targetIndex: targetIndex, queue: pressedShift})
+            $.Msg("Repairing target...");
             return true
         }
     }
@@ -60,7 +61,13 @@ function OnRightButtonPressed()
         for (var e of selectedEntities)
         {
             if (IsCustomBuilding(e) && Entities.IsControllableByPlayer(e, iPlayerID)) {
-                GameEvents.SendCustomGameEventToServer("set_rally_point", {pID: iPlayerID, mainSelected: e, clickPos: clickPos});
+                var mouseTarget = GetMouseTarget();
+                $.Msg(mouseTarget);
+                if (mouseTarget != 0) {
+                    GameEvents.SendCustomGameEventToServer("set_rally_point", {pID: iPlayerID, mainSelected: e, clickPos: clickPos, clickTarget: mouseTarget});
+                } else {
+                    GameEvents.SendCustomGameEventToServer("set_rally_point", {pID: iPlayerID, mainSelected: e, clickPos: clickPos});
+                }
             }
         }
     }
@@ -128,17 +135,16 @@ GameUI.SetMouseCallback( function( eventName, arg ) {
     {
         // Builder Clicks
         if (IsBuilder(mainSelected))
-            if (LEFT_CLICK) 
+            if (LEFT_CLICK)
                 return (state == "active") ? SendBuildCommand() : OnLeftButtonPressed()
-            else if (RIGHT_CLICK) 
+            else if (RIGHT_CLICK)
                 return OnRightButtonPressed()
 
-        if (LEFT_CLICK) 
+        if (LEFT_CLICK)
             return OnLeftButtonPressed()
-        else if (RIGHT_CLICK) 
-            return OnRightButtonPressed() 
-        
+        else if (RIGHT_CLICK)
+            return OnRightButtonPressed()
+
     }
     return CONTINUE_PROCESSING_EVENT
 } )
-

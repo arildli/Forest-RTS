@@ -22,6 +22,7 @@ require('libraries/notifications')
 function Precache( context )
 	print("Precache starting...")
 
+
 	-- BuildingHelper Precaches
 	PrecacheItemByNameSync("item_apply_modifiers", context)
 	-- Model ghost and grid particles
@@ -49,6 +50,7 @@ function Precache( context )
 	PrecacheResource("model", "models/creeps/lane_creeps/creep_radiant_melee/radiant_melee.vmdl", context)
 	PrecacheResource("model", "models/creeps/lane_creeps/creep_radiant_ranged/radiant_ranged.vmdl", context)
 
+
 	-- Hero items
 	PrecacheResource("model", "models/items/dragon_knight/shield_timedragon.vmdl", context)
 
@@ -74,8 +76,12 @@ function Precache( context )
 	PrecacheResource("model", "models/props_structures/good_statue008.vmdl", context)
 	   -- Unholy Spire
 	PrecacheResource("model", "models/props_structures/bad_column001.vmdl", context)
+    --[=[
+    --]=]
 	   -- Gold Mine
 	PrecacheResource("model", "models/mine/mine.vmdl", context)
+
+
 
 
 	-- Midas Particle
@@ -115,7 +121,6 @@ function Precache( context )
 	PrecacheResource("model", "models/props_teams/banner_dire_small.vmdl", context)
        -- Banner Tintable
     PrecacheResource("model", "models/props_teams/banner_tintable.vmdl", context)
-
 
 
 
@@ -326,7 +331,6 @@ function Precache( context )
     PrecacheResource("model", "models/items/beastmaster/red_talon_shoulder/red_talon_shoulder.vmdl", context)
     PrecacheResource("model", "models/items/beastmaster/red_talon_weapon/red_talon_weapon.vmdl", context)
 
-
 	print("Precache done!")
 end
 
@@ -339,7 +343,6 @@ end
 
 --[[
 
-God m�te � organisere denne filen p�:
 
 RequireFiles =
 {
