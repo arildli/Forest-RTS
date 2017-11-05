@@ -13,7 +13,7 @@ function SetWorkerCount(keys) {
 // if the HUD is flipped.
 function CheckHudFlipped() {
     var workerPanel = $.FindChildInContext("#WorkerPanel");
-    
+
     if (Game.IsHUDFlipped()) {
         workerPanel.RemoveClass("Right");
         workerPanel.AddClass("Flipped");

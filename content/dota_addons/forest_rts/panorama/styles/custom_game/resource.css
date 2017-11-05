@@ -7,18 +7,18 @@
 
     vertical-align: bottom;
     //horizontal-align: right;
-    border: 1px solid red;
+    //border: 1px solid red;
 }
 
 #Resources
 {
-    width: 25.75%;
+    width: 20%;
     height: 21%;
 
     vertical-align: bottom;
-    border: 1px solid green;
+    //border: 1px solid green;
 
-    background-color: gradient( linear, 10px 0%, 100px 5%, from(black), to(transparent) );
+    //background-color: gradient( linear, 10px 0%, 100px 5%, from(black), to(transparent) );
 }
 
 .Hidden
@@ -29,8 +29,8 @@
 
 #ResourcesTitle
 {
-    margin-left: 75px;
-    margin-right: 75px;
+    margin-left: 65px;
+    margin-right: 65px;
 
     color: white;
     font-size: 25px;
@@ -121,7 +121,8 @@
 
 .RightShadow
 {
-    background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( grey )) );
+    background-color: gradient( linear, 0px 10%, 10px 10%, from(transparent), to(black))) );
+
 }
 
 .Flipped
@@ -131,5 +132,5 @@
 
 .FlippedShadow
 {
-    //background-color: gradient( linear, 255px 0%, 10px 0%, from( black )), to( transparent ) );
+    background-color: gradient( linear, 10px 10%, 10px 10%, from(transparent), to(black));
 }
