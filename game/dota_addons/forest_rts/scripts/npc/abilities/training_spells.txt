@@ -4546,6 +4546,12 @@
                 "var_type"  "FIELD_INTEGER"
                 "building_size" "4"
             }
+
+            "05"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "training_time" "60"
+            }
         }
 
         "Modifiers"
@@ -4575,12 +4581,20 @@
         {
             "RunScript"
             {
-                "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"      "CheckIfCanAffordUnit"
-                "Target"        "CASTER"
+                "ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+                "Function"		"EnqueueUnit"
                 "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
+
+            //"RunScript"
+            //{
+            //    "ScriptFile"    "scripts/vscripts/buildings.lua"
+            //    "Function"      "CheckIfCanAffordUnit"
+            //    "Target"        "CASTER"
+            //    "goldCost"      "%gold_cost"
+            //    "lumberCost"    "%lumber_cost"
+            //}
 
             "RunScript"
             {
@@ -4618,6 +4632,13 @@
 
         "OnChannelSucceeded"
         {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "RunScript"
             {
                 "ScriptFile"    "scripts/vscripts/buildings.lua"
@@ -4632,7 +4653,7 @@
     }
 
 
-    
+
     // Spell3.1.1
     //================================================================================
     // Upgrade Light Armor
@@ -4678,6 +4699,12 @@
                 "var_type"  "FIELD_INTEGER"
                 "upgrade_time"  "60"
             }
+
+            "04"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "training_time" "60"
+            }
         }
 
         "Modifiers"
@@ -4710,12 +4737,20 @@
         {
             "RunScript"
             {
-                "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+                "Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
+
+            //"RunScript"
+            //{
+            //    "ScriptFile"    "scripts/vscripts/buildings.lua"
+            //    "Function"  "CheckIfCanAffordUnit"
+            //    "Target"    "CASTER"
+            //    "goldCost"  "%gold_cost"
+            //    "lumberCost"    "%lumber_cost"
+            //}
 
 
             "ApplyModifier"
@@ -4736,6 +4771,13 @@
 
         "OnChannelSucceeded"
         {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "RunScript"
             {
                 "Target"    "POINT"
@@ -4807,6 +4849,12 @@
                 "var_type"  "FIELD_INTEGER"
                 "upgrade_time"  "60"
             }
+
+            "04"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "training_time" "60"
+            }
         }
 
         "Modifiers"
@@ -4839,12 +4887,20 @@
         {
             "RunScript"
             {
-                "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"  "CheckIfCanAffordUnit"
-                "Target"    "CASTER"
-                "goldCost"  "%gold_cost"
+                "ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+                "Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
+
+            //"RunScript"
+            //{
+            //    "ScriptFile"    "scripts/vscripts/buildings.lua"
+            //    "Function"  "CheckIfCanAffordUnit"
+            //    "Target"    "CASTER"
+            //    "goldCost"  "%gold_cost"
+            //    "lumberCost"    "%lumber_cost"
+            //}
 
 
             "ApplyModifier"
@@ -4865,6 +4921,13 @@
 
         "OnChannelSucceeded"
         {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "RunScript"
             {
                 "Target"    "POINT"
@@ -4900,7 +4963,7 @@
         // General
         "AbilityName"           "Upgrade_adept_training"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
         "BaseClass"             "ability_datadriven"
         "AbilityTextureName"    "spellicon_adept_training"
@@ -4934,6 +4997,12 @@
                 "var_type"      "FIELD_INTEGER"
                 "upgrade_time"  "60"
             }
+
+            "04"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "training_time" "60"
+            }
         }
 
         "Modifiers"
@@ -4966,12 +5035,20 @@
         {
             "RunScript"
             {
-                "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"      "CheckIfCanAffordUnit"
-                "Target"        "CASTER"
+                "ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+                "Function"		"EnqueueUnit"
                 "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
+
+            //"RunScript"
+            //{
+            //    "ScriptFile"    "scripts/vscripts/buildings.lua"
+            //    "Function"      "CheckIfCanAffordUnit"
+            //    "Target"        "CASTER"
+            //    "goldCost"      "%gold_cost"
+            //    "lumberCost"    "%lumber_cost"
+            //}
 
 
             "ApplyModifier"
@@ -4992,6 +5069,13 @@
 
         "OnChannelSucceeded"
         {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
             "RunScript"
             {
                 "Target"        "POINT"

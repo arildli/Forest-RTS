@@ -1,0 +1,1393 @@
+"DOTAAbilities"
+{
+    // Training items start
+    "item_srts_train_human_footman"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_footman"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_forest_warrior"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_treant"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_brewmaster_bruiser"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_bruiser_brewmaster"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_kobold_spearman"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_spearman"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_skeleton_warrior"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_skeleton_warrior"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_troll_fighter"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_fighter"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+
+    "item_srts_train_human_gunner"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_gunner"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_forest_dryad"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_dryad"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_brewmaster_frostmage"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_frostmage_brewmaster"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_kobold_flame_thrower"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_flame_thrower"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_skeleton_archer"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_skeleton_archer"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_troll_axe_thrower"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_axe_thrower"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+
+    "item_srts_train_human_sorceress"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_sorceress"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_forest_tormented_soul"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_tormented_soul"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_skeleton_caster"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_skeleton_mage"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_troll_elder"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_elder"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+
+    "item_srts_train_worker"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_worker"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_human_worker"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_worker_human"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_forest_worker"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_worker_forest"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_brewmaster_worker"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_worker_brewmaster"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_kobold_worker"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_worker_kobold"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_skeleton_worker"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_worker_skeleton"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_troll_worker"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_worker_troll"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+
+    "item_srts_train_catapult_radiant"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_catapult_radiant"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_train_catapult_dire"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_catapult_dire"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+
+
+    // Training items research
+
+
+
+    "item_srts_upgrade_light_armor"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "item_light_armor"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_upgrade_light_damage"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "item_light_damage"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_upgrade_adept_training"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "item_adept_training"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+    "item_srts_upgrade_main_building"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_large_tent"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
+
+    // Training items end
+
+
+	// Item3
+	//================================================================================
+	// Orb of Poison
+	//================================================================================
+	"item_orb_of_poison"
+	{
+		// General
+		//--------------------------------------------------------------------------------
+		"ID"				"1301"
+		"BaseClass"			"item_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// ItemInfo
+		//--------------------------------------------------------------------------------
+		"AbilityTextureName"		"item_orb_of_poison"
+    		"ItemQuality"  			"common"
+
+		"ItemShopTags"			"common;poison;orb;slow;dot"
+		"ItemAliases"			"orb_of_venom;orb_of_poison"
+    		"ItemCost"     			"175"
+    		"ItemKillable" 			"1"
+    		"ItemSellable" 			"1"
+    		"ItemPurchasable" 		"1"
+    		"ItemDroppable" 		"1"
+    		"ItemShareability" 		"ITEM_FULLY_SHAREABLE"
+    		"ItemStackable" 		"0"
+    		"ItemPermanent" 		"1"
+    		"ItemDisassembleRule" 		"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+    		"SideShop"     			"1"
+    		"SecretShop"   			"0"
+
+		"ItemDeclarations"		"DECLARE_PURCHASES_TO_SPECTATORS"
+
+		// Sounds
+		//--------------------------------------------------------------------------------
+		"UIPickupSound"			"Item.PickUpRingShop"
+		"UIDropSound"			"Item.DropRecipeShop"
+		"WorldDropSound"		"Item.DropGemWorld"
+
+		"Modifiers"
+		{
+			"modifier_orb_of_poison"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"Orb"
+				{
+					"Priority"		"DOTA_ORB_PRIORITY_ABILITY"
+					"ProjectileModel"	"particles/units/heroes/hero_venomancer/venomancer_base_attack.vpcf"
+				}
+
+				"OnOrbImpact"
+				{
+					"ApplyModifier"
+					{
+						"Target"	"TARGET"
+						"ModifierName"	"orb_of_poison_effect"
+						"Duration"	"%effect_duration"
+					}
+				}
+			}
+
+			"orb_of_poison_effect"
+			{
+				"IsDebuff"	"1"
+				"Duration"	"%effect_duration"
+				"TextureName"	"item_orb_of_poison"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"	"%slow_percent"
+				}
+
+				"ThinkInterval"	"1"
+
+				"OnIntervalThink"
+				{
+					"Damage"
+					{
+						"Target"	"TARGET"
+						"Type"		"DAMAGE_TYPE_MAGICAL"
+						"Damage"	"%damage_per_second"
+					}
+				}
+			}
+		}
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"effect_duration"	"4"
+			}
+
+			"02"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"slow_percent"		"-10"
+			}
+
+			"03"
+			{
+				"var_type"		"FIELD_INTEGER"
+				"damage_per_second"	"5"
+			}
+		}
+	}
+
+
+
+
+
+	// Item4.1
+	//================================================================================
+	// Lumber
+	//================================================================================
+	"item_stack_of_lumber"
+	{
+		// General
+		//--------------------------------------------------------------------------------
+		"ID"				"1101"
+		"BaseClass"			"item_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// ItemInfo
+		//--------------------------------------------------------------------------------
+		"AbilityTextureName"		"item_stack_of_lumber"
+		"ItemQuality"  			"common"
+
+		"ItemShopTags"			""
+		"ItemAliases"			"stack_of_lumber;lumber;logs"
+    		"ItemCost"     			"0"
+    		"ItemKillable" 			"1"
+    		"ItemSellable" 			"0"
+    		"ItemPurchasable" 		"0"
+    		"ItemDroppable" 		"1"
+    		"ItemShareability" 		"ITEM_FULLY_SHAREABLE"
+    		"ItemStackable" 		"1"
+    		"ItemPermanent" 		"0"
+    		"ItemDisassembleRule" 		"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+		"ItemInitialCharges"		"1"
+
+    		"SideShop"     			"0"
+    		"SecretShop"   			"0"
+
+		// Sounds
+		//--------------------------------------------------------------------------------
+		"UIPickupSound"			"Item.PickUpRingShop"
+		"UIDropSound"			"Item.DropRecipeShop"
+		"WorldDropSound"		"Item.DropGemWorld"
+
+	}
+
+
+
+
+
+	// Item4.2
+	//================================================================================
+	// Bundle Of Lumber
+	//================================================================================
+	"item_bundle_of_lumber"
+	{
+		// General
+		//--------------------------------------------------------------------------------
+		"ID"				"1102"
+		"BaseClass"			"item_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// ItemInfo
+		//--------------------------------------------------------------------------------
+		"AbilityTextureName"		"item_stack_of_lumber"
+    		"ItemQuality"  			"common"
+
+		"ItemShopTags"			""
+		"ItemAliases"			"stack_of_lumber;lumber;logs"
+    		"ItemCost"     			"0"
+    		"ItemKillable" 			"1"
+    		"ItemSellable" 			"0"
+    		"ItemPurchasable" 		"0"
+    		"ItemDroppable" 		"1"
+    		"ItemShareability" 		"ITEM_FULLY_SHAREABLE"
+    		"ItemStackable" 		"1"
+    		"ItemPermanent" 		"0"
+    		"ItemDisassembleRule" 		"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+		"ItemInitialCharges"		"1"
+
+    		"SideShop"     			"0"
+    		"SecretShop"   			"0"
+
+		// Sounds
+		//--------------------------------------------------------------------------------
+		"UIPickupSound"			"Item.PickUpRingShop"
+		"UIDropSound"			"Item.DropRecipeShop"
+		"WorldDropSound"		"Item.DropGemWorld"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"amount"	"1000"
+			}
+		}
+
+		"ItemCastOnPickup"		"1"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"scripts/vscripts/resources.lua"
+				"Function"	"GiveHarvestedLumberAlt"
+				"amount"	"%amount"
+			}
+		}
+	}
+
+
+
+
+
+	// Item5.1
+	//================================================================================
+	// Light Weapon
+	//================================================================================
+	"item_light_weapon"
+	{
+		// General
+		//--------------------------------------------------------------------------------
+		"ID"				"1401"
+		"Model"				"models/props_gameplay/recipe.mdl"
+		"BaseClass"			"item_datadriven"
+
+		"AbilityTextureName"		"item_light_damage"
+    		"ItemQuality"  			"common"
+
+		"ItemShopTags"			"common"
+    		"ItemKillable" 			"0"
+    		"ItemSellable" 			"0"
+    		"ItemPurchasable" 		"0"
+    		"ItemDroppable" 		"0"
+    		"ItemShareability" 		"ITEM_NOT_SHAREABLE"
+    		"ItemStackable" 		"0"
+    		"ItemPermanent" 		"1"
+    		"ItemDisassembleRule" 		"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+    		"SideShop"     			"0"
+    		"SecretShop"   			"0"
+
+		// Modifiers
+		//--------------------------------------------------------------------------------
+		"Modifiers"
+    		{
+			"light_damage_aura"
+			{
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE"	"%damage_bonus"
+				}
+        		}
+		}
+
+		// Variables
+		//--------------------------------------------------------------------------------
+    		"AbilitySpecial"
+    		{
+			"01"
+			{
+
+				"var_type"	"FIELD_INTEGER"
+            			"damage_bonus"	"10"
+        		}
+    		}
+	}
+
+
+
+
+
+	// -----| Upgrade items |----- //
+
+
+
+
+
+	// Upgrade1.1
+	//================================================================================
+	// Upgrade Light Armor
+	//================================================================================
+
+	// Item1.1
+	"item_upgrade_light_armor"
+	{
+		"ID"				"1401"
+		"BaseClass"			"item_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemBaseLevel"			"1"
+
+		"AbilityTextureName" 		"item_light_armor"
+    		"ItemQuality"  			"common"
+
+		"ItemShopTags"			"common"
+    		"ItemCost"     			"0"
+    		"ItemKillable" 			"0"
+    		"ItemSellable" 			"0"
+    		"ItemPurchasable" 		"0"
+    		"ItemDroppable" 		"0"
+    		"ItemShareability" 		"ITEM_NOT_SHAREABLE"
+    		"ItemStackable" 		"0"
+    		"ItemPermanent" 		"1"
+		"ItemDisplayCharges"		"0"
+    		"ItemDisassembleRule" 		"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+    		"SideShop"     			"0"
+    		"SecretShop"   			"0"
+
+    		"AbilitySpecial"
+    		{
+			"01"
+			{
+
+				"var_type"	"FIELD_INTEGER"
+            			"armor_bonus"	"2"
+        		}
+    		}
+
+    		"Modifiers"
+    		{
+			"modifier_light_armor"
+			{
+				"Passive"	"1"
+				"IsHidden"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS_UNIQUE"	"%armor_bonus"
+				}
+			}
+		}
+	}
+
+
+
+	// Upgrade2.1
+	//================================================================================
+	// Upgrade Light Damage
+	//================================================================================
+
+	// Item2.1
+	"item_upgrade_light_damage"
+	{
+		"ID"				"1411"
+		"BaseClass"			"item_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"ItemBaseLevel"			"1"
+
+		"AbilityTextureName" 		"item_light_damage"
+    		"ItemQuality"  			"common"
+
+		"ItemShopTags"			"common"
+    		"ItemCost"     			"0"
+    		"ItemKillable" 			"0"
+    		"ItemSellable" 			"0"
+    		"ItemPurchasable" 		"0"
+    		"ItemDroppable" 		"0"
+    		"ItemShareability" 		"ITEM_NOT_SHAREABLE"
+    		"ItemStackable" 		"0"
+    		"ItemPermanent" 		"1"
+		"ItemDisplayCharges"		"0"
+    		"ItemDisassembleRule" 		"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+    		"SideShop"     			"0"
+    		"SecretShop"   			"0"
+
+    		"AbilitySpecial"
+    		{
+			"01"
+			{
+
+				"var_type"	"FIELD_INTEGER"
+            			"damage_bonus"	"15"
+        		}
+    		}
+
+    		"Modifiers"
+    		{
+			"modifier_light_damage"
+			{
+				"Passive"	"1"
+				"IsHidden"	"0"
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_DAMAGEOUTGOING_PERCENTAGE"	"%damage_bonus"
+				}
+			}
+		}
+	}
+
+
+
+	// Upgrade3.1
+    //================================================================================
+	// Research Adept Training
+	//================================================================================
+
+    // Item1.3
+    "item_upgrade_adept_training"
+    {
+        "ID"				    "1421"
+        "BaseClass"			    "item_datadriven"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+        "ItemBaseLevel"			"1"
+
+        "AbilityTextureName" 	"item_adept_training"
+        "ItemQuality"  		    "common"
+
+        "ItemShopTags"			"common"
+        "ItemCost"     	        "0"
+        "ItemKillable" 			"0"
+        "ItemSellable" 			"0"
+        "ItemPurchasable" 		"0"
+        "ItemDroppable" 		"0"
+        "ItemShareability" 		"ITEM_NOT_SHAREABLE"
+        "ItemStackable" 		"0"
+        "ItemPermanent" 		"1"
+        "ItemDisplayCharges"    "0"
+        "ItemDisassembleRule" 	"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+        "SideShop"     			"0"
+        "SecretShop"   			"0"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"	"FIELD_FLOAT"
+                "health_bonus_percent"	"15"
+            }
+
+            "02"
+            {
+                "var_type"	"FIELD_FLOAT"
+                "mana_regen_bonus_percent"	"50"
+            }
+        }
+
+        "Modifiers"
+        {
+            "modifier_adept_training"
+            {
+                "Passive"	"1"
+                "IsHidden"	"0"
+                "Properties"
+                {
+                    "MODIFIER_PROPERTY_MANA_REGEN_PERCENTAGE"	 "%mana_regen_bonus_percent"
+                }
+
+                "OnCreated"
+                {
+                    "RunScript"
+                    {
+                        "ScriptFile"    "scripts/vscripts/spells.lua"
+                        "Function"      "IncreaseHealth"
+                        "type"          "percent"
+                        "bonus"         "%health_bonus_percent"
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+	//================================================================================
+	// Healing Salve
+	//================================================================================
+	"item_healing_salve"
+	{
+		// General
+		//--------------------------------------------------------------------------------
+		"ID"				"2101"
+		"BaseClass"			"item_datadriven"
+		"AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"AbilityUnitTargetTeam"		"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		// Kun for units???
+		"AbilityUnitTargetType"		"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+		"AbilityTextureName"		"item_healing_salve"
+		"AbilityCooldown"		"0"
+		"AbilityManaCost"		"0"
+		"AbilityCastRange"		"500"
+
+		"Model"                         "models/props_gameplay/salve.vmdl" //Green
+	    	"Effect"                        "particles/generic_gameplay/dropped_item.vpcf"
+
+		"ItemShareability"              "ITEM_FULLY_SHAREABLE_STACKING"
+		"ItemShopTags"			"flask"
+		"ItemQuality"                   "common"
+		"ItemPermanent"                 "0"
+	    	"ItemStackable"                 "1"
+		"ItemKillable"                  "1"
+		"ItemSellable"                  "1"
+		"ItemDroppable"                 "1"
+		"ItemInitialCharges"            "4"
+	    	"ItemAlertable"                 "1"
+
+	    	// Shops
+	    	"ItemCost"                      "160"
+		//		"StockMax"                  	"3"
+		//		"StockTime"                 	"60"
+		//		"StockInitial"			"2"
+		//	    	"RequiresTier"              	"1"
+
+    		"SideShop"     			"0"
+    		"SecretShop"   			"0"
+
+		// Sounds
+		//--------------------------------------------------------------------------------
+		"UIPickupSound"			"Item.PickUpRingShop"
+		"UIDropSound"			"Item.DropRecipeShop"
+		"WorldDropSound"		"Item.DropGemWorld"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"cast_range"	"500"
+			}
+
+			"02"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"total_health_regen"	"360"
+			}
+
+			"03"
+			{
+				"var_type"	"FIELD_INTEGER"
+				"duration"	"45"
+			}
+
+			"04"
+			{
+				"var_type"	"FIELD_FLOAT"
+				"health_per_second"	"8"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_healing_salve"
+			{
+				"Duration"	"%duration"
+
+				"EffectName"	     "particles/items_fx/healing_flask.vpcf"
+				"EffectAttachType"	 "follow_origin"
+				"TextureName"		 "spellicon_buy_healing_salve"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT"	"%health_per_second"
+				}
+
+				"OnTakeDamage"
+				{
+					"RemoveModifier"
+					{
+						"Target"	    "UNIT"
+						"ModifierName"	"modifier_healing_salve"
+					}
+				}
+			}
+		}
+
+		"OnSpellStart"
+		{
+			"ApplyModifier"
+			{
+				"Target"	    "TARGET"
+				"ModifierName"	"modifier_healing_salve"
+				"Duration"	    "%duration"
+			}
+
+            "RunScript"
+            {
+                "ScriptFile"	"spells.lua"
+                "Function"		"RefundChargeIfBuilding"
+                "item"          "item_healing_salve"
+                "modifier"      "modifier_healing_salve"
+            }
+
+			"FireSound"
+			{
+				"EffectName"    "DOTA_Item.HealingSalve.Activate"
+				"Target"	    "CASTER"
+			}
+
+			"SpendCharge"
+			{}
+		}
+	}
+
+
+
+
+
+	// -----| BuildingHelper stuff |----- //
+
+
+
+
+
+	"item_apply_modifiers"
+	{
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"BaseClass"						"item_datadriven"
+
+		"precache"
+		{
+			"particle"  "particles/econ/events/ti5/radiant_fountain_regen_lvl2_ti5.vpcf"
+		}
+
+		"Modifiers"
+		{
+			"modifier_construction"
+			{
+				"IsHidden"				"1"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"        "particles/econ/events/ti5/radiant_fountain_regen_lvl2_ti5.vpcf"
+						"EffectAttachType"  "follow_origin"
+						"Target"            "TARGET"
+						"ControlPoints"
+						{
+							"01"			"0 250 0"
+						}
+					}
+				}
+			}
+
+			"modifier_builder_hidden"
+			{
+				"IsHidden"				"1"
+
+				"States"
+				{
+					"MODIFIER_STATE_NO_UNIT_COLLISION"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_ROOTED"			"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_DISARMED"		"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NOT_ON_MINIMAP"	"MODIFIER_STATE_VALUE_ENABLED"
+					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
+					//"MODIFIER_STATE_COMMAND_RESTRICTED"	"MODIFIER_STATE_VALUE_ENABLED" //Builder can send build orders while inside the building
+					//"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED" //Builder is selectable while inside the building
+				}
+			}
+
+			"modifier_onfire"
+			{
+				"IsHidden"			"1"
+				"OnCreated"
+				{
+					"AttachEffect"
+					{
+						"EffectName"        "particles/dire_fx/fire_barracks.vpcf"
+						"EffectAttachType"  "follow_origin"
+						"Target"            "TARGET"
+						"ControlPointEntities"
+						{
+							"TARGET"	"attach_fx"
+						}
+					}
+				}
+			}
+		}
+	}
+
+	"item_building_cancel"
+	{
+		"BaseClass"             		"item_datadriven"
+		"AbilityTextureName"			"item_cancel"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+		"AbilityCastPoint"				"0"
+
+		"ItemDroppable" 				"0"
+		"ItemPurchasable" 				"0"
+		"ItemSellable"					"0"
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"builder.lua"
+				"Function"		"CancelBuilding"
+			}
+		}
+	}
+}
