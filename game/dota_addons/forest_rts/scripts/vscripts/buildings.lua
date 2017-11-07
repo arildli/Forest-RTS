@@ -133,6 +133,7 @@ function finishUpgrade(keys)
     local ownerID = building:GetOwnerID()
 
     building._upgraded = true
+    RemoveAndRefundItems(caster)
     ownerHero:RemoveBuilding(building)
     local newBuilding = BuildingHelper:UpgradeBuilding(building, newBuildingName)
     newBuilding.gold_cost = keys.goldCost
@@ -147,6 +148,22 @@ function finishUpgrade(keys)
     end
 
     finishConstruction(newBuilding)
+end
+
+function RemoveAndRefundItems(entity, itemName)
+    -- Dequeue all training or research items before removal.
+    local hero = entity:GetOwnerHero()
+    if not hero then return end
+    for itemSlot = 5, 0, -1 do
+        local item = entity:GetItemInSlot( itemSlot )
+        if item ~= nil then
+            local current_item = EntIndexToHScript(item:GetEntityIndex())
+            if not itemName or (itemName and current_item:GetAbilityName() == itemName) then
+                current_item:CastAbility()
+                print("Casting ability of item: " .. current_item:GetAbilityName())
+            end
+        end
+    end
 end
 
 

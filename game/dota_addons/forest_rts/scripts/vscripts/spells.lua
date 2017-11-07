@@ -206,8 +206,10 @@ function ApplyUpgradeUnits(keys)
             AddUpgradeBool(itemName, unit)
         end
         if canGetUpgrade[unitName] then
-            local newItem = CreateItem(itemName, unit, unit)
-            unit:AddItem(newItem)
+            if not unit:HasItemInInventory(itemName) then
+                local newItem = CreateItem(itemName, unit, unit)
+                unit:AddItem(newItem)
+            end
         end
     end
 

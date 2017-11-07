@@ -4500,7 +4500,8 @@
         //------------------------------------------------------------------------
         "AbilityName"           "Upgrade Main Tent"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
         "AbilityTextureName"        "spellicon_large_tent"
         "BaseClass"         "ability_datadriven"
         "Maxlevel"          "1"
@@ -4518,8 +4519,10 @@
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "320"
         "BuildTime"                 "60"
+        //"BuildTime"                 "3"
         // End of BuildingHelper info
         "AbilityChannelTime"                "60"
+        //"AbilityChannelTime"                "3"
 
         "AbilitySpecial"
         {
@@ -4551,6 +4554,7 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "60"
+                //"training_time" "3"
             }
         }
 
@@ -4618,18 +4622,6 @@
             }
         }
 
-        "OnChannelInterrupted"
-        {
-            "RunScript"
-            {
-                "ScriptFile"    "scripts/vscripts/buildings.lua"
-                "Function"      "RefundResources"
-                "Target"        "CASTER"
-                "goldCost"      "%gold_cost"
-                "lumberCost"    "%lumber_cost"
-            }
-        }
-
         "OnChannelSucceeded"
         {
             // Consume the first item in the queue
@@ -4650,6 +4642,18 @@
                 "lumberCost"    "%lumber_cost"
             }
         }
+
+        "OnChannelInterrupted"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"      "RefundResources"
+                "Target"        "CASTER"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
     }
 
 
@@ -4664,7 +4668,7 @@
         // General
         "AbilityName"           "Upgrade_light_armor"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
         "BaseClass"         "ability_datadriven"
         "AbilityTextureName"        "spellicon_light_armor"
@@ -4704,6 +4708,7 @@
             {
                 "var_type"  "FIELD_INTEGER"
                 "training_time" "60"
+                //"training_time" "3"
             }
         }
 
@@ -4813,7 +4818,7 @@
         // General
         "AbilityName"           "Upgrade_light_damage"
         "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
 
         "BaseClass"         "ability_datadriven"
         //      "AbilityTextureName"        "spellicon_light_damage"
