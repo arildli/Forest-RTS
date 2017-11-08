@@ -152,6 +152,10 @@ end
 
 function RemoveAndRefundItems(entity, itemName)
     -- Dequeue all training or research items before removal.
+    -- The function is called from an ability, which means entity is not a building.
+    if entity and entity.ability and entity.caster then
+        entity = entity.caster
+    end
     local hero = entity:GetOwnerHero()
     if not hero then return end
     for itemSlot = 5, 0, -1 do
@@ -160,7 +164,7 @@ function RemoveAndRefundItems(entity, itemName)
             local current_item = EntIndexToHScript(item:GetEntityIndex())
             if not itemName or (itemName and current_item:GetAbilityName() == itemName) then
                 current_item:CastAbility()
-                print("Casting ability of item: " .. current_item:GetAbilityName())
+                --print("Casting ability of item: " .. current_item:GetAbilityName())
             end
         end
     end

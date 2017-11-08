@@ -84,8 +84,6 @@
 
 
 
-
-
 //-- // Harvest Lumber // --// Spell4
 
 
@@ -3656,6 +3654,12 @@
 
         "OnSpellStart"
         {
+            "RunScript"
+            {
+                "ScriptFile"	"scripts/vscripts/buildings.lua"
+                "Function"		"RemoveAndRefundItems"
+            }
+
             "Damage"
             {
                 "Target"    "CASTER"

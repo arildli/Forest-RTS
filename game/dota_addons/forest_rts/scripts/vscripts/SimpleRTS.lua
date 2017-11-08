@@ -681,6 +681,10 @@ function SimpleRTSGameMode:onEntityKilled(keys)
             return
         end
 
+        -- Refund the cost of all queued units and researches.
+        print("A BUILDING WAS KILLED!")
+        RemoveAndRefundItems(killedUnit)
+
         -- Building Helper grid cleanup
         BuildingHelper:RemoveBuilding(killedUnit, true)
         local building_name = killedUnit:GetUnitName()

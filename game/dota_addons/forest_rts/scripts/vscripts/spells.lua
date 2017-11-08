@@ -178,6 +178,12 @@ function ApplyUpgradeUnits(keys)
     local ownerHero = caster:GetOwnerHero()
     local itemStruct = ownerHero.TT.techDef[abilityName] or GetStructFromTech(abilityName, ownerHero:GetUnitName())
     local itemName = itemStruct.item
+
+    -- Avoid teching the same tech multiple times, so we'll refund any duplicate
+    -- upgrades waiting.
+    print("APPLYING UPGRADE TO UNITS!")
+    RemoveAndRefundItems(caster, itemName)
+
     ownerHero:SetAbilityLevelFor(abilityName, 0)
     ownerHero:SetUnitCountFor(abilityName, 1)
     local canGetUpgrade = {}

@@ -4521,8 +4521,8 @@
         "BuildTime"                 "60"
         //"BuildTime"                 "3"
         // End of BuildingHelper info
-        "AbilityChannelTime"                "60"
-        //"AbilityChannelTime"                "3"
+        //"AbilityChannelTime"                "60"
+        "AbilityChannelTime"                "3"
 
         "AbilitySpecial"
         {
@@ -4553,8 +4553,8 @@
             "05"
             {
                 "var_type"  "FIELD_INTEGER"
-                "training_time" "60"
-                //"training_time" "3"
+                //"training_time" "60"
+                "training_time" "3"
             }
         }
 
@@ -4681,8 +4681,8 @@
         "AbilityGoldCost"       "175"
         //  "AbilityUpgradeGoldCost"    "0"
 
-        "AbilityChannelTime"        "60"
-        //"AbilityChannelTime"      "3"
+        //"AbilityChannelTime"        "60"
+        "AbilityChannelTime"      "3"
 
         "AbilitySpecial"
         {
@@ -4707,8 +4707,8 @@
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
-                "training_time" "60"
-                //"training_time" "3"
+                //"training_time" "60"
+                "training_time" "3"
             }
         }
 
@@ -4832,8 +4832,8 @@
         "AbilityGoldCost"       "175"
         //  "AbilityUpgradeGoldCost"    "0"
 
-        "AbilityChannelTime"        "60"
-        //"AbilityChannelTime"      "3"
+        //"AbilityChannelTime"        "60"
+        "AbilityChannelTime"      "3"
 
         "AbilitySpecial"
         {
@@ -4858,7 +4858,8 @@
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
-                "training_time" "60"
+                //"training_time" "60"
+                "training_time" "3"
             }
         }
 
@@ -4980,8 +4981,8 @@
         "AbilityManaCost"       "0"
         "AbilityGoldCost"       "125"
 
-        "AbilityChannelTime"    "60"
-        //"AbilityChannelTime"  "3"
+        //"AbilityChannelTime"    "60"
+        "AbilityChannelTime"  "3"
 
         "AbilitySpecial"
         {
@@ -5006,7 +5007,8 @@
             "04"
             {
                 "var_type"  "FIELD_INTEGER"
-                "training_time" "60"
+                //"training_time" "60"
+                "training_time" "3"
             }
         }
 
