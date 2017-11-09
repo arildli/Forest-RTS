@@ -179,7 +179,15 @@ function RemoveAndRefundItems(entity, itemName)
             local current_item = EntIndexToHScript(item:GetEntityIndex())
             if not itemName or (itemName and current_item:GetAbilityName() == itemName) then
                 print("\t\tCasting ability:")
-                current_item:CastAbility()
+                if not entity:IsAlive() then
+                    print("OWNER IS DEAD!")
+                    local dummy = CreateDummyUnit(hero:GetOwnerPlayer())
+                    current_item = CreateItem(itemName, dummy, dummy)
+                    current_item:CastAbility()
+                    UTIL_Remove(dummy)
+                else
+                    current_item:CastAbility()
+                end
                 --print("Casting ability of item: " .. current_item:GetAbilityName())
             end
         end

@@ -144,6 +144,17 @@ function RefundChargeIfBuilding(keys)
 end
 
 
+function CreateDummyUnit(player, location)
+    local playerID = player:GetPlayerID()
+    local playerHero = GetPlayerHero(playerID)
+    local dummy = CreateUnitByName("npc_bh_dummy", location or Vector(0,0,0), false, playerHero, player, playerHero:GetTeam())
+    dummy:AddEffects(EF_NODRAW)
+    if not location then
+        dummy:AddNewModifier(dummy, nil, "modifier_out_of_world", {})
+    end
+    return dummy
+end
+
 
 function HeroAttackSpeedAura(keys)
      local caster = keys.caster
