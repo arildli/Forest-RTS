@@ -150,19 +150,35 @@ function finishUpgrade(keys)
     finishConstruction(newBuilding)
 end
 
+function RemoveAndRefundItemsByAbility(entity, abilityName)
+    if type(abilityName) == "table" then
+        abilityName = abilityName:GetAbilityName()
+    end
+    abilityName = "item_" .. abilityName
+    return RemoveAndRefundItems(entity, abilityName)
+end
+
 function RemoveAndRefundItems(entity, itemName)
     -- Dequeue all training or research items before removal.
     -- The function is called from an ability, which means entity is not a building.
+    print("Entering 'RemoveAndRefundItems'!")
     if entity and entity.ability and entity.caster then
+        print("\tCalled from spell, getting .caster and .itemName!")
         entity = entity.caster
+        if not itemName then
+            itemName = entity.itemName
+        end
     end
     local hero = entity:GetOwnerHero()
-    if not hero then return end
+    if not hero then printf("HERO NOT FOUND! RETURNING..."); return end
+    print("Hero found, continuing.")
     for itemSlot = 5, 0, -1 do
         local item = entity:GetItemInSlot( itemSlot )
         if item ~= nil then
+            print("\tItem found in slot "..itemSlot.."!")
             local current_item = EntIndexToHScript(item:GetEntityIndex())
             if not itemName or (itemName and current_item:GetAbilityName() == itemName) then
+                print("\t\tCasting ability:")
                 current_item:CastAbility()
                 --print("Casting ability of item: " .. current_item:GetAbilityName())
             end

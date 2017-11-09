@@ -181,8 +181,7 @@ function ApplyUpgradeUnits(keys)
 
     -- Avoid teching the same tech multiple times, so we'll refund any duplicate
     -- upgrades waiting.
-    print("APPLYING UPGRADE TO UNITS!")
-    RemoveAndRefundItems(caster, itemName)
+    RemoveAndRefundItemsByAbility(caster, ability)
 
     ownerHero:SetAbilityLevelFor(abilityName, 0)
     ownerHero:SetUnitCountFor(abilityName, 1)
