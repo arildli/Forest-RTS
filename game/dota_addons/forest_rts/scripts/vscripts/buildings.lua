@@ -158,12 +158,10 @@ function RemoveAndRefundItemsByAbility(entity, abilityName)
     return RemoveAndRefundItems(entity, abilityName)
 end
 
+-- Dequeue all training or research items before removal.
 function RemoveAndRefundItems(entity, itemName)
-    -- Dequeue all training or research items before removal.
     -- The function is called from an ability, which means entity is not a building.
-    print("Entering 'RemoveAndRefundItems'!")
     if entity and entity.ability and entity.caster then
-        print("\tCalled from spell, getting .caster and .itemName!")
         entity = entity.caster
         if not itemName then
             itemName = entity.itemName
@@ -171,20 +169,13 @@ function RemoveAndRefundItems(entity, itemName)
     end
     local hero = entity:GetOwnerHero()
     if not hero then printf("HERO NOT FOUND! RETURNING..."); return end
-    print("Hero found, continuing.")
     for itemSlot = 5, 0, -1 do
         local item = entity:GetItemInSlot( itemSlot )
         if item ~= nil then
-            print("\tItem found in slot "..itemSlot.."!")
             local current_item = EntIndexToHScript(item:GetEntityIndex())
             if not itemName or (itemName and current_item:GetAbilityName() == itemName) then
-                print("\t\tCasting ability:")
                 if not entity:IsAlive() then
-                    print("OWNER IS DEAD!")
-                    local dummy = CreateDummyUnit(hero:GetOwnerPlayer())
-                    current_item = CreateItem(itemName, dummy, dummy)
-                    current_item:CastAbility()
-                    UTIL_Remove(dummy)
+                    RefundItemManually(entity, current_item)
                 else
                     current_item:CastAbility()
                 end
@@ -192,6 +183,17 @@ function RemoveAndRefundItems(entity, itemName)
             end
         end
     end
+end
+
+function RefundItemManually(unit, item)
+    local itemAbilityName = item:GetAbilityName()
+    local trainAbilityName = string.gsub(itemAbilityName, "item_", "")
+    local trainAbility = unit:FindAbilityByName(trainAbilityName)
+
+    local goldCost = trainAbility:GetSpecialValueFor("gold_cost")
+    local lumberCost = trainAbility:GetSpecialValueFor("lumber_cost")
+    local refundTable = {caster=unit, goldCost=goldCost, lumberCost=lumberCost}
+    RefundResourcesSpell(refundTable)
 end
 
 
