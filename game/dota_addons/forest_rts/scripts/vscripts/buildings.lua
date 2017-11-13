@@ -147,6 +147,7 @@ function finishUpgrade(keys)
         print("Either .gold_cost or .lumber_cost was nil!")
     end
 
+    DisplayResearchComplete(ownerID, "Large Tent")
     finishConstruction(newBuilding)
 end
 
@@ -230,11 +231,6 @@ function CanAffordTable(keys)
     end
 
     return true
-end
-
-function CheckIfCanAffordRemoveThis(keys)
-    -- Remove the call on this from the training_spells file!
-    return
 end
 
 ---------------------------------------------------------------------------

@@ -44,6 +44,8 @@
         "error_target_must_be_building"      "Target Must Be A Building"
 		"error_hero_outside_shop_range"			"Hero Is Outside Shop Range"
 
+        "note_research_finished"            "has finished researching!"
+
 		"addonname"					"Forest RTS"
 
 		"note_30_sec_start_patrols"			"An enemy patrol group will spawn in 30 seconds!"
