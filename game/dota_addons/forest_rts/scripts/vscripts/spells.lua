@@ -194,7 +194,7 @@ function ApplyUpgradeUnits(keys)
     -- upgrades waiting.
     RemoveAndRefundItemsByAbility(caster, ability)
 
-    print("ApplyUpgradeUnits")
+    print("ApplyUpgradeUnits, itemName: "..itemName)
 
     ownerHero:SetAbilityLevelFor(abilityName, 0)
     ownerHero:SetUnitCountFor(abilityName, 1)
@@ -231,8 +231,9 @@ function ApplyUpgradeUnits(keys)
         end
     end
 
-    DisplayResearchComplete(playerID, itemName)
-
+    local researchName = itemStruct.techname or "Research"
+    DisplayResearchComplete(playerID, researchName)
+    
     TechTree:UpdateTechTree(ownerHero, ownerHero, true)
 end
 
@@ -282,8 +283,7 @@ end
 
 function DisplayResearchComplete(playerID, tech, color)
     color = color or COLOR_RESEARCH_COMPLETE or "#009933"
-    local notificationSuffix = "#note_research_finished"
-    local notificationString = "<font color='"..color.."'>"..tech.."</font> "..notificationSuffix
+    local notificationString = "<font color='"..color.."'>"..tech.."</font> ".." Complete!"
     -- Timed message on top.
     Notifications:ClearTop(playerID)
     Notifications:Top(playerID, {text=notificationString, duration=5.0})

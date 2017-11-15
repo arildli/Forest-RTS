@@ -207,6 +207,7 @@ defs = {
 		 --items = {"item_upgrade_light_armor",
 		 --"item_upgrade_medium_armor"},
 		 item = "item_upgrade_light_armor",
+         techname = "Light Armor",
 		 max = 1
 	},
 
@@ -217,6 +218,7 @@ defs = {
 		 --items = {"item_upgrade_light_damage",
 		 --"item_upgrade_medium_damage"},
 		 item = "item_upgrade_light_damage",
+         techname = "Light Damage",
 		 max = 1
 	},
 
@@ -228,6 +230,7 @@ defs = {
 		 --items = {"item_upgrade_light_damage",
 		 --"item_upgrade_medium_damage"},
 		 item = "item_upgrade_adept_training",
+         techname = "Adept Training",
 		 max = 1
 	},
 
@@ -333,6 +336,7 @@ buildefs = {
 		constant = "TENT_LARGE",
 		category = "building",
 		max = 1,
+        techname = "Large Tent",
 		from = "TENT_SMALL",
 		pages = {
 			PAGE_MAIN = {

@@ -147,7 +147,11 @@ function finishUpgrade(keys)
         print("Either .gold_cost or .lumber_cost was nil!")
     end
 
-    DisplayResearchComplete(ownerID, "Large Tent")
+    local abilityName = ability:GetAbilityName()
+    local ownerHeroName = ownerHero:GetUnitName()
+    local buildingStruct = GetStructFromTech(abilityName, ownerHeroName)
+    local researchName = buildingStruct.techname or "Building Upgrade"
+    DisplayResearchComplete(ownerID, researchName)
     finishConstruction(newBuilding)
 end
 
