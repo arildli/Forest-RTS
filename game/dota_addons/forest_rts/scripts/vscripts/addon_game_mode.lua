@@ -331,6 +331,19 @@ function Precache( context )
     PrecacheResource("model", "models/items/beastmaster/red_talon_shoulder/red_talon_shoulder.vmdl", context)
     PrecacheResource("model", "models/items/beastmaster/red_talon_weapon/red_talon_weapon.vmdl", context)
 
+
+
+    -- Barbarians
+
+    -- Scout
+    PrecacheResource("model", "models/heroes/witchdoctor/witchdoctor.vmdl", context)
+    PrecacheResource("model", "models/heroes/witchdoctor/witchdoctor_bag.vmdl", context) --95
+    PrecacheResource("model", "models/heroes/witchdoctor/witchdoctor_belt.vmdl", context) --96
+    PrecacheResource("model", "models/heroes/witchdoctor/witchdoctor_head.vmdl", context) --94
+    PrecacheResource("model", "models/heroes/witchdoctor/witchdoctor_staff.vmdl", context) --97
+
+    PrecacheResource("particle", "particles/units/heroes/hero_witchdoctor/witchdoctor_base_attack.vpcf", context)
+
 	print("Precache done!")
 end
 

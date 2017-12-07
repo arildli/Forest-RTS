@@ -75,6 +75,7 @@ function SimpleRTSGameMode:InitGameMode()
     loadModule('abilities/autocast')
     loadModule('quests')
     loadModule('neutral_bases')
+    loadModule('barbarians')
 
     -- Added EDITED
     --loadModule('ai/independent_utilities')
@@ -171,6 +172,9 @@ function SimpleRTSGameMode:InitGameMode()
 
     -- Initialize the Quests module.
     Quests:Init()
+
+    -- Initialize the Barbarians module.
+    Barbarians:Init()
 
     Convars:RegisterCommand('rtests', function()
         print("[Forest RTS] Running unit tests...")
@@ -626,6 +630,21 @@ function SimpleRTSGameMode:onNPCSpawned(keys)
         TechTree:AddPlayerMethods(spawnedUnit, owner)
         TechTree:InitTechTree(spawnedUnit)
         spawnedUnit._playerOwned = true
+
+        -- FINNER INGEN ITEMS!
+        Timers:CreateTimer(1, function()
+        for itemSlot = 5, 0, -1 do
+            local item = spawnedUnit:GetItemInSlot( itemSlot )
+            if item ~= nil then
+                local current_item = EntIndexToHScript(item:GetEntityIndex())
+                print("Item in slot "..itemSlot..": "..current_item:GetAbilityName())
+                spawnedUnit:RemoveItem(current_item)
+            else
+                print("Nope, slot "..itemSlot.." is empty!")
+            end
+        end
+        end)
+
     else
         spawnedUnit:SetIdleAcquire(true)
     end
