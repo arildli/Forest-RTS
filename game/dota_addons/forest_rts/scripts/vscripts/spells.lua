@@ -233,7 +233,7 @@ function ApplyUpgradeUnits(keys)
 
     local researchName = itemStruct.techname or "Research"
     DisplayResearchComplete(playerID, researchName)
-    
+
     TechTree:UpdateTechTree(ownerHero, ownerHero, true)
 end
 
@@ -287,6 +287,12 @@ function DisplayResearchComplete(playerID, tech, color)
     -- Timed message on top.
     Notifications:ClearTop(playerID)
     Notifications:Top(playerID, {text=notificationString, duration=5.0})
+end
+
+function DisplayMessageToAll(notificationString)
+    -- Timed message on top.
+    Notifications:ClearTopFromAll()
+    Notifications:TopToAll({text=notificationString, duration=5.0})
 end
 
 

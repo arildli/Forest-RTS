@@ -173,9 +173,6 @@ function SimpleRTSGameMode:InitGameMode()
     -- Initialize the Quests module.
     Quests:Init()
 
-    -- Initialize the Barbarians module.
-    Barbarians:Init()
-
     Convars:RegisterCommand('rtests', function()
         print("[Forest RTS] Running unit tests...")
         --lu.LuaUnit.run()
@@ -485,6 +482,9 @@ function SimpleRTSGameMode:onGameStateChange(keys)
         end
     -- Game start
     elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        if self.gameMode == "Solo" or self.gameMode == "Co-Op" then
+            Barbarians:Start()
+        end
     end
 end
 
@@ -848,7 +848,9 @@ function SimpleRTSGameMode:SinglePlayerMode(botTeam)
     ---print("[SimpleRTS] Single Player Mode:\tPlayer ID: "..localPlayer:GetPlayerID().."\tBot Team: "..botTeam)
     --SimpleRTSGameMode:ShowCenterMessage("#simplerts_single_player_mode", 5)
     Stats:SetGameMode("Solo")
-    SimpleRTSGameMode:spawnSimpleBot(botTeam, 1.1)
+    --SimpleRTSGameMode:spawnSimpleBot(botTeam, 1.1)
+    -- Initialize the Barbarians module.
+    Barbarians:Init()
 end
 
 
@@ -862,7 +864,9 @@ function SimpleRTSGameMode:CoOpMode(botTeam, activeTeam, playersOnTeam)
     print("[SimpleRTS] Co-Op versus Soldiers Mode:\tTeam: "..activeTeam.."\tBot Team: "..botTeam)
     print("[SimpleRTS] Player on team: "..playersOnTeam)
     Stats:SetGameMode("Co-Op")
-    SimpleRTSGameMode:spawnSimpleBot(botTeam, playersOnTeam*1.1)
+    --SimpleRTSGameMode:spawnSimpleBot(botTeam, playersOnTeam*1.1)
+    -- Initialize the Barbarians module.
+    Barbarians:Init()
 end
 
 

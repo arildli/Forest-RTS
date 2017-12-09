@@ -51,7 +51,7 @@ function EnqueueUnit( event )
 		-- Refund with message
  		--PlayerResource:ModifyGold(pID, gold_cost, false, 0)
         -- Added in mod
-        print("Calling from EnqueueUnit:")
+        --print("Calling from EnqueueUnit:")
         --local goldCost = ability:GetSpecialValueFor("gold_cost")
         --local lumberCost = ability:GetSpecialValueFor("lumber_cost")
         local refundTable = {caster=caster, goldCost=goldCost, lumberCost=lumberCost}
@@ -149,10 +149,10 @@ function NextQueue( event )
         		local train_ability = caster:FindAbilityByName(train_ability_name)
 
         		--print("Q")
-        		DeepPrintTable(caster.queue)
+        		--DeepPrintTable(caster.queue)
         		local queue_element = getIndex(caster.queue, item:GetEntityIndex())
         		if IsValidEntity(item) then
-	        		print(item:GetEntityIndex().." in queue at "..queue_element)
+	        		--print(item:GetEntityIndex().." in queue at "..queue_element)
 		            table.remove(caster.queue, queue_element)
 	            	caster:RemoveItem(item)
 	            end
