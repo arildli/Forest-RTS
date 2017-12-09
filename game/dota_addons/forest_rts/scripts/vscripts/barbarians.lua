@@ -4,7 +4,9 @@ if not Barbarians then
     -- Globals and constants for the module.
     Barbarians = {
         SCOUT = "npc_dota_creature_barbarian_scout",
+        AXE_FIGHTER = "npc_dota_creature_barbarian_axe_fighter",
         RAIDER = "npc_dota_creature_barbarian_raider",
+        CATAPULT = "npc_dota_creature_catapult_radiant",
 
         camps = {},
         spawnRate = 60,
@@ -16,10 +18,17 @@ if not Barbarians then
     Barbarians.waves = {
         {{name=Barbarians.SCOUT, count=1}},
         {{name=Barbarians.SCOUT, count=2}},
-        {{name=Barbarians.RAIDER, count=2}},
+        {{name=Barbarians.AXE_FIGHTER, count=2}},
         {
-            {name=Barbarians.RAIDER, count=2},
+            {name=Barbarians.AXE_FIGHTER, count=3},
             {name=Barbarians.SCOUT, count=2}
+        },
+        {
+            {name=Barbarians.AXE_FIGHTER, count=5}
+        },
+        {
+            {name=Barbarians.RAIDER, count=3},
+            {name=Barbarians.CATAPULT, count=1}
         }
     }
 end
@@ -68,11 +77,18 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo)
     -- Prints information about the camp.
     ---------------------------------------------------------------------------
     function camp:Print()
+        local curWave = camp.waveNumber
         print("Camp: ")
         print("----------")
-        print("\twaveNumber: "..camp.waveNumber)
+        print("\twaveNumber: "..curWave)
         print("\tmaxWave: "..#Barbarians.waves)
         print("\tspawnPoint: "..tostring(camp.spawnPoint))
+        print("\tunits wave "..curWave..":")
+        for _,entry in pairs(Barbarians.waves[curWave]) do
+            local unitName = entry.name
+            local count = entry.count
+            print("\t\tUnit: "..unitName.." (count: "..count..")")
+        end
         print()
     end
 

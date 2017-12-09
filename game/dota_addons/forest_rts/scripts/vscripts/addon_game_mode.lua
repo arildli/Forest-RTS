@@ -344,7 +344,14 @@ function Precache( context )
 
     PrecacheResource("particle", "particles/units/heroes/hero_witchdoctor/witchdoctor_base_attack.vpcf", context)
 
-    -- Warrior
+    -- Axe Fighter
+    PrecacheResource("model", "models/items/beastmaster/fotw_arms/fotw_arms.vmdl", context) -- 6250
+    PrecacheResource("model", "models/items/beastmaster/fotw_belt/fotw_belt.vmdl", context) -- 6255
+    PrecacheResource("model", "models/items/beastmaster/fotw_head/fotw_head.vmdl", context) -- 6254
+    PrecacheResource("model", "models/items/beastmaster/fotw_shoulders/fotw_shoulders.vmdl", context) -- 6253
+    PrecacheResource("model", "models/items/beastmaster/fotw_weapon/fotw_weapon.vmdl", context) -- 6252
+
+    -- Raider
     PrecacheResource("model", "models/heroes/tuskarr/tuskarr.vmdl", context)
     PrecacheResource("model", "models/items/tuskarr/frostiron_raider_axe/frostiron_raider_axe.vmdl", context) -- 5009
     PrecacheResource("model", "models/items/tuskarr/frostiron_raider_back/frostiron_raider_back.vmdl", context) -- 5010
