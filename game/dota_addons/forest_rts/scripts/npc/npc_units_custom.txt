@@ -1693,7 +1693,7 @@
         "SoundSet"				"n_creep_Ranged"
         "ModelScale"			"0.9"
 
-        "BountyXP"				"50"
+        "BountyXP"				"40"
         "BountyGoldMin"			"0"
         "BountyGoldMax"			"0"
 
@@ -1706,8 +1706,8 @@
         "ArmorPhysical"			"0"
 
         "AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"		"12"
-		"AttackDamageMax"		"16"
+		"AttackDamageMin"		"10"
+		"AttackDamageMax"		"14"
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"500"
@@ -1752,6 +1752,94 @@
                 "Wearable4"
                 {
                     "ItemDef"	"97"
+                }
+            }
+        }
+    }
+
+
+
+        // Unit3.7
+    //================================================================================
+    // Unit: Barbarian Raider
+    //================================================================================
+
+    // Level 1
+    //========================================
+    "npc_dota_creature_barbarian_raider"
+    {
+        "Model"					"models/heroes/tuskarr/tuskarr.vmdl"
+        "BaseClass"				"npc_dota_creature"
+        "SoundSet"				"n_creep_Ranged"
+        "ModelScale"			"0.9"
+
+        "BountyXP"				"60"
+        "BountyGoldMin"			"0"
+        "BountyGoldMax"			"0"
+
+        "Ability1"				""
+        "Ability2"				""
+        "Ability3"				""
+        "Ability10"				"srts_ability_units"
+
+        "SelectionGroup"		"Barbarian_Raider"
+        "ArmorPhysical"			"2"
+
+        "AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"		"16"
+		"AttackDamageMax"		"20"
+		"AttackRate"			"1.25"
+		"AttackAnimationPoint"		"0.38"
+		"AttackAcquisitionRange"	"400"
+		"AttackRange"			"125"
+		"ProjectileModel"		""
+		"ProjectileSpeed"		"0"
+
+        "RingRadius"			"40"
+        "HealthBarOffset"		"150"
+        "FormationRank" 		"0"
+
+        "MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+        "MovementSpeed"			"350"
+        "MovementTurnRate"		"0.7"
+
+        "StatusHealth"			"475"
+        "StatusHealthRegen"		"1.0"
+        "StatusMana"			"0"
+        "StatusManaRegen"		"0.0"
+
+        "VisionDaytimeRange"		"800"
+        "VisionNighttimeRange"		"800"
+
+        "Creature"
+        {
+            //"DisableClumpingBehavior"	"1"
+
+            "AttachWearables"
+            {
+                "Wearable1"
+                {
+                    "ItemDef"	"5009"
+                }
+                "Wearable2"
+                {
+                    "ItemDef"	"5010"
+                }
+                "Wearable3"
+                {
+                    "ItemDef"	"5011"
+                }
+                "Wearable4"
+                {
+                    "ItemDef"	"5012"
+                }
+                "Wearable5"
+                {
+                    "ItemDef"	"5013"
+                }
+                "Wearable6"
+                {
+                    "ItemDef"	"5014"
                 }
             }
         }

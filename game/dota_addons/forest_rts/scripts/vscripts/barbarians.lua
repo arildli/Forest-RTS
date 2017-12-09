@@ -4,8 +4,10 @@ if not Barbarians then
     -- Globals and constants for the module.
     Barbarians = {
         SCOUT = "npc_dota_creature_barbarian_scout",
+        RAIDER = "npc_dota_creature_barbarian_raider",
 
         camps = {},
+        spawnRate = 60,
         spawnPoints = {
             Vector(6944, -7264, 512)
         }
@@ -14,7 +16,11 @@ if not Barbarians then
     Barbarians.waves = {
         {{name=Barbarians.SCOUT, count=1}},
         {{name=Barbarians.SCOUT, count=2}},
-        {{name=Barbarians.SCOUT, count=3}}
+        {{name=Barbarians.RAIDER, count=2}},
+        {
+            {name=Barbarians.RAIDER, count=2},
+            {name=Barbarians.SCOUT, count=2}
+        }
     }
 end
 
@@ -22,7 +28,7 @@ end
 -- Initialize the Barbarians module.
 ---------------------------------------------------------------------------
 function Barbarians:Init()
-    Barbarians:CreateCamp(Barbarians.spawnPoints[1])
+    Barbarians:CreateCamp(Barbarians.spawnPoints[1], true, nil)
 
     Convars:RegisterCommand('bnext', function()
         print("[Barbarians] Spawning the next wave...")
@@ -39,20 +45,24 @@ end
 -- Creates and returns a new camp object.
 --
 -- @spawnPoint (Vector): The location where new units will be spawned.
+-- @allPlayers (Optional) (Boolean): Specifies whether the camp will spawn
+--   units to attack all the players or not.
 -- @buildingsInfo (Optional) (Table {buildingName:String, location:Vector}):
---   What buildings the camp will have and where they will be placed.
+--   What buildings the camp will have and where they will be placed
 -- @return (BarbCamp): The newly created camp object.
 ---------------------------------------------------------------------------
-function Barbarians:CreateCamp(spawnPoint, buildingsInfo)
+function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo)
     spawnPoint = spawnPoint or Barbarians.spawnPoints[1]
+    allPlayers = allPlayers or false
     buildingsInfo = buildingsInfo or {}
 
     local camp = {
         waveNumber = 1,
-        spawnPoint = spawnPoint
+        spawnPoint = spawnPoint,
+        allPlayers = allPlayers
     }
 
-    Barbarians.camps[#Barbarians.camps] = camp
+    Barbarians.camps[#Barbarians.camps+1] = camp
 
     ---------------------------------------------------------------------------
     -- Prints information about the camp.
@@ -88,7 +98,62 @@ function Barbarians:CreateCamp(spawnPoint, buildingsInfo)
             Barbarians:RotateLeft(newUnit, leftRotations)
         end
 
+        function newUnit:AttackTarget()
+            local targetPlayerHero = GetPlayerHero(targetID)
+            if targetPlayerHero then
+                print("Moving to attack hero of player "..targetID.."!")
+                newUnit:MoveToTargetToAttack(targetPlayerHero)
+            end
+        end
+
         return newUnit
+    end
+
+    ---------------------------------------------------------------------------
+    -- Spawns the a wave of units for a specific player.
+    --
+    -- @waveNumber (Int): The index of the wave to use.
+    -- @playerID (Int): The ID of the player to send the units to.
+    -- @return (Table {Units}): A table of the newly spawned units.
+    ---------------------------------------------------------------------------
+    function camp:SpawnWave(waveNumber, playerID)
+        local unitsSpawned = {}
+
+        for _,entry in pairs(Barbarians.waves[waveNumber]) do
+            local unitName = entry.name
+            local count = entry.count
+
+            print("\tunitName: "..unitName..", count: "..count)
+            for i=1,count do
+                local newUnit = camp:SpawnUnit(unitName, spawnPoint)
+                newUnit.targetID = playerID
+                unitsSpawned[#unitsSpawned+1] = newUnit
+            end
+        end
+
+        return unitsSpawned
+    end
+
+    ---------------------------------------------------------------------------
+    -- Spawns the a wave of units for all the players by calling
+    -- camp:SpawnWave for each one. Check the description there for more
+    -- information.
+    ---------------------------------------------------------------------------
+    function camp:SpawnWaveAllPlayers(waveNumber)
+        local unitsSpawned = {}
+
+        for playerID=0, PlayerResource:GetPlayerCount() do
+            local curPlayer = PlayerResource:GetPlayer(playerID)
+            if curPlayer then
+                print("[Barbarians] Spawning wave number "..waveNumber.." for player "..playerID)
+                local newlySpawnedGroup = camp:SpawnWave(waveNumber, playerID)
+                for _,unit in pairs(newlySpawnedGroup) do
+                    unitsSpawned[#unitsSpawned+1] = unit
+                end
+            end
+        end
+
+        return unitsSpawned
     end
 
     ---------------------------------------------------------------------------
@@ -96,27 +161,31 @@ function Barbarians:CreateCamp(spawnPoint, buildingsInfo)
     ---------------------------------------------------------------------------
     function camp:NextWave()
         local spawnPoint = camp.spawnPoint
+        local allPlayers = camp.allPlayers
         local maxWave = #Barbarians.waves
         local curWave = camp.waveNumber
+        local spawnedUnits = {}
 
         if curWave >= maxWave then
             curWave = maxWave
         end
 
         print("[Barbarians] Spawning wave "..curWave)
-        for _,entry in pairs(Barbarians.waves[curWave]) do
-            local unitName = entry.name
-            local count = entry.count
-
-            print("\tunitName: "..unitName..", count: "..count)
-            for i=1,count do
-                camp:SpawnUnit(unitName, spawnPoint)
-            end
+        if allPlayers then
+            spawnedUnits = camp:SpawnWaveAllPlayers(curWave)
+        else
+            -- Temporarily using playerID 0.
+            spawnedUnits = camp:SpawnWave(curWave, 0)
         end
 
         if curWave < maxWave then
             print("\tIncreasing curWave ("..curWave..") by 1!")
             camp.waveNumber = curWave + 1
+        end
+
+        -- Attack the players.
+        for _,unit in pairs(spawnedUnits) do
+            unit:AttackTarget()
         end
     end
 

@@ -344,6 +344,15 @@ function Precache( context )
 
     PrecacheResource("particle", "particles/units/heroes/hero_witchdoctor/witchdoctor_base_attack.vpcf", context)
 
+    -- Warrior
+    PrecacheResource("model", "models/heroes/tuskarr/tuskarr.vmdl", context)
+    PrecacheResource("model", "models/items/tuskarr/frostiron_raider_axe/frostiron_raider_axe.vmdl", context) -- 5009
+    PrecacheResource("model", "models/items/tuskarr/frostiron_raider_back/frostiron_raider_back.vmdl", context) -- 5010
+    PrecacheResource("model", "models/items/tuskarr/frostiron_raider_cape/frostiron_raider_cape.vmdl", context) -- 5011
+    PrecacheResource("model", "models/items/tuskarr/frostiron_raider_fist/frostiron_raider_fist.vmdl", context) -- 5012
+    PrecacheResource("model", "models/items/tuskarr/frostiron_raider_helm/frostiron_raider_helm.vmdl", context) -- 5013
+    PrecacheResource("model", "models/items/tuskarr/frostiron_raider_tusks/frostiron_raider_tusks.vmdl", context) -- 5014
+
 	print("Precache done!")
 end
 
