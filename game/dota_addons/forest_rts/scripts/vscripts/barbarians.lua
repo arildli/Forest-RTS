@@ -7,12 +7,13 @@ if not Barbarians then
         AXE_FIGHTER = "npc_dota_creature_barbarian_axe_fighter",
         RAIDER = "npc_dota_creature_barbarian_raider",
         CATAPULT = "npc_dota_creature_catapult_radiant",
+        ARCHER = "npc_dota_creature_barbarian_archer",
 
         camps = {},
         mainCamp = nil,
         attackUpdateInterval = 1,
         defaultSpawnStart = 120,
-        defaultSpawnRate = 60,
+        defaultSpawnRate = 50,
         spawnPoints = {
             Vector(6944, -7264, 512)
         },
@@ -31,8 +32,25 @@ if not Barbarians then
             {name=Barbarians.AXE_FIGHTER, count=5}
         },
         {
-            {name=Barbarians.RAIDER, count=3},
+            {name=Barbarians.AXE_FIGHTER, count=4},
+            {name=Barbarians.ARCHER, count=3}
+        },
+        {
+            {name=Barbarians.RAIDER, count=4},
             {name=Barbarians.CATAPULT, count=1}
+        },
+        {
+            {name=Barbarians.AXE_FIGHTER, count=6},
+            {name=Barbarians.ARCHER, count=4}
+        },
+        {
+            {name=Barbarians.AXE_FIGHTER, count=3},
+            {name=Barbarians.RAIDER, count=3},
+            {name=Barbarians.ARCHER, count=4}
+        },
+        {
+            {name=Barbarians.RAIDER, count=5},
+            {name=Barbarians.ARCHER, count=5}
         }
     }
 end

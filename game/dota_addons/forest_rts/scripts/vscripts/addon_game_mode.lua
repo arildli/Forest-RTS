@@ -360,6 +360,13 @@ function Precache( context )
     PrecacheResource("model", "models/items/tuskarr/frostiron_raider_helm/frostiron_raider_helm.vmdl", context) -- 5013
     PrecacheResource("model", "models/items/tuskarr/frostiron_raider_tusks/frostiron_raider_tusks.vmdl", context) -- 5014
 
+    -- Archer
+    PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_back/deadly_feather_swing_back.vmdl", context) -- 8257
+    PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_head/deadly_feather_swing_head.vmdl", context) -- 8252
+    PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_offhand/deadly_feather_swing_offhand.vmdl", context) -- 8261
+    PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_shoulder/deadly_feather_swing_shoulder.vmdl", context) -- 8263
+    PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_weapon/deadly_feather_swing_weapon.vmdl", context) -- 8254
+
 	print("Precache done!")
 end
 
