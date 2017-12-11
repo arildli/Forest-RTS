@@ -13,7 +13,7 @@ if not Barbarians then
         mainCamp = nil,
         attackUpdateInterval = 1,
         defaultSpawnStart = 120,
-        defaultSpawnRate = 50,
+        defaultSpawnRate = 60,
         spawnPoints = {
             Vector(6944, -7264, 512)
         },
@@ -23,7 +23,7 @@ if not Barbarians then
     Barbarians.waves = {
         {{name=Barbarians.SCOUT, count=1}},
         {{name=Barbarians.SCOUT, count=2}},
-        {{name=Barbarians.AXE_FIGHTER, count=2}},
+        {{name=Barbarians.AXE_FIGHTER, count=3}},
         {
             {name=Barbarians.AXE_FIGHTER, count=3},
             {name=Barbarians.SCOUT, count=2}
@@ -36,21 +36,21 @@ if not Barbarians then
             {name=Barbarians.ARCHER, count=3}
         },
         {
-            {name=Barbarians.RAIDER, count=4},
+            {name=Barbarians.RAIDER, count=5},
             {name=Barbarians.CATAPULT, count=1}
         },
         {
             {name=Barbarians.AXE_FIGHTER, count=6},
-            {name=Barbarians.ARCHER, count=4}
-        },
-        {
-            {name=Barbarians.AXE_FIGHTER, count=3},
-            {name=Barbarians.RAIDER, count=3},
-            {name=Barbarians.ARCHER, count=4}
-        },
-        {
-            {name=Barbarians.RAIDER, count=5},
             {name=Barbarians.ARCHER, count=5}
+        },
+        {
+            {name=Barbarians.AXE_FIGHTER, count=4},
+            {name=Barbarians.RAIDER, count=4},
+            {name=Barbarians.ARCHER, count=4}
+        },
+        {
+            {name=Barbarians.RAIDER, count=6},
+            {name=Barbarians.ARCHER, count=6}
         }
     }
 end
@@ -191,7 +191,9 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate,
 
             if attackTarget and not attackTarget:IsNull() and attackTarget:IsAlive() then
                 local targetLocation = attackTarget:GetAbsOrigin()
-                newUnit:MoveToPositionAggressive(targetLocation)
+                if newUnit and not newUnit:IsNull() and newUnit:IsAlive() then
+                    newUnit:MoveToPositionAggressive(targetLocation)
+                end
                 --newUnit:MoveToTargetToAttack(attackTarget)
             else
                 print("[Barbarians] Nope, target not found!")

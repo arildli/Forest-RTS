@@ -467,6 +467,15 @@ function SimpleRTSGameMode:onGameStateChange(keys)
                 return 0.5
             end)
 
+        -- Regularly update the player scores in fighting barbarians.
+        if self.gameMode == "Solo" or self.gameMode == "Co-Op" then
+            Timers:CreateTimer(
+                function()
+                    CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
+                    return 1.0
+            end)
+        end
+
     elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
         print("[SimpleRTS] The game has started.")
 
@@ -665,6 +674,14 @@ function SimpleRTSGameMode:onEntityKilled(keys)
     local killerTeam = killerUnit:GetTeam()
     local unitName = killedUnit:GetUnitName()
 
+    if SimpleRTSGameMode:IsBarbarian(killedUnit) then
+        print("Killed a barb!")
+        self.scoreRadiant = self.scoreRadiant + 1
+        self.scoreDire = self.scoreDire + 1
+        --CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
+        return
+    end
+
     -- No need for more processing if killed unit was a soldier or neutral.
     if SimpleRTSGameMode:IsSoldier(killedUnit) or killedUnit:IsNeutralUnitType() or (not killedUnit:IsRealHero() and not killedUnit._playerOwned) then
         if killerUnit:IsRealHero() or killerUnit._playerOwned then
@@ -757,19 +774,19 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       local killedTeamString
       local scoreMessage
       if killedTeam == DOTA_TEAM_GOODGUYS then
-     killedTeamString = "<font color='"..COLOR_RADIANT.."'>Radiant</font>"
-     self.scoreDire = self.scoreDire + 1
-     if StringStartsWith(unitName, "npc_dota_building_main_tent") then
-        Stats:OnTentDestroyed(killerID)
-        GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
-     end
+         killedTeamString = "<font color='"..COLOR_RADIANT.."'>Radiant</font>"
+         self.scoreDire = self.scoreDire + 1
+         if StringStartsWith(unitName, "npc_dota_building_main_tent") then
+            Stats:OnTentDestroyed(killerID)
+            GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
+         end
       elseif killedTeam == DOTA_TEAM_BADGUYS then
-     killedTeamString = "<font color='"..COLOR_DIRE.."'>Dire</font>"
-     self.scoreRadiant = self.scoreRadiant + 1
-     if StringStartsWith(unitName, "npc_dota_building_main_tent") then
-        Stats:OnTentDestroyed(killerID)
-        GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
-     end
+         killedTeamString = "<font color='"..COLOR_DIRE.."'>Dire</font>"
+         self.scoreRadiant = self.scoreRadiant + 1
+         if StringStartsWith(unitName, "npc_dota_building_main_tent") then
+            Stats:OnTentDestroyed(killerID)
+            GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
+         end
       end
       print("Updating scores: "..self.scoreRadiant.." and "..self.scoreDire)
       CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
@@ -779,44 +796,44 @@ function SimpleRTSGameMode:onEntityKilled(keys)
       local gameMode = self.gameMode
       -- In this case, the losing condition is reaching 0 points.
       if gameMode == "Solo" or gameMode == "Co-Op" then
-     -- Get lives left.
-     local livesLeft
-     if self.botTeam == DOTA_TEAM_GOODGUYS then
-        livesLeft = VICTORY_SCORE - self.scoreRadiant
-     elseif self.botTeam == DOTA_TEAM_BADGUYS then
-        livesLeft = VICTORY_SCORE - self.scoreDire
-     end
+         -- Get lives left.
+         local livesLeft
+         if self.botTeam == DOTA_TEAM_GOODGUYS then
+            livesLeft = VICTORY_SCORE - self.scoreRadiant
+         elseif self.botTeam == DOTA_TEAM_BADGUYS then
+            livesLeft = VICTORY_SCORE - self.scoreDire
+         end
 
-     print("LivesLeft: "..livesLeft.."\tVICTORY_SCORE: "..VICTORY_SCORE)
+         print("LivesLeft: "..livesLeft.."\tVICTORY_SCORE: "..VICTORY_SCORE)
 
-     -- Check if loss.
-     if livesLeft <= 0 then
-        if self.botTeam == DOTA_TEAM_GOODGUYS then
-           GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
-           GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
-           GameRules:Defeated()
-        elseif self.botTeam == DOTA_TEAM_BADGUYS then
-           GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-           GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
-           GameRules:Defeated()
-        end
-     end
+         -- Check if loss.
+         if livesLeft <= 0 then
+            if self.botTeam == DOTA_TEAM_GOODGUYS then
+               GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+               GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
+               GameRules:Defeated()
+            elseif self.botTeam == DOTA_TEAM_BADGUYS then
+               GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+               GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+               GameRules:Defeated()
+            end
+         end
 
-     -- Send lives left to players.
-     CustomGameEventManager:Send_ServerToAllClients("update_score", {score = livesLeft})
+         -- Send lives left to players.
+         CustomGameEventManager:Send_ServerToAllClients("update_score", {score = livesLeft})
       elseif gameMode == "PvP" then
-     -- Check if enough kills have been made
-     if self.scoreRadiant >= VICTORY_SCORE then
-        print("#simplerts_radiant_victory")
-        GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
-        --GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
-        GameRules:Defeated()
-     elseif self.scoreDire >= VICTORY_SCORE then
-        print("#simplerts_dire_victory")
-        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-        --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
-        GameRules:Defeated()
-     end
+         -- Check if enough kills have been made
+         if self.scoreRadiant >= VICTORY_SCORE then
+            print("#simplerts_radiant_victory")
+            GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+            --GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
+            GameRules:Defeated()
+         elseif self.scoreDire >= VICTORY_SCORE then
+            print("#simplerts_dire_victory")
+            GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+            --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+            GameRules:Defeated()
+         end
       end
    end
 
@@ -969,6 +986,17 @@ function SimpleRTSGameMode:IsSoldier(unit)
     local unitName = unit:GetUnitName()
     return unitName == "npc_dota_creature_soldier_melee" or
         unitName == "npc_dota_creature_soldier_ranged"
+end
+
+
+
+---------------------------------------------------------------------------
+-- Returns true if the unit is a barbarian unit
+-- * unit: The unit to check
+---------------------------------------------------------------------------
+function SimpleRTSGameMode:IsBarbarian(unit)
+    local unitName = unit:GetUnitName()
+    return string.find(unitName, "barbarian")
 end
 
 

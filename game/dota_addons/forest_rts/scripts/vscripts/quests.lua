@@ -122,7 +122,7 @@ function Quests:CreateInitialQuests()
                 "Train workers to harvest lumber",
                 "Build a base",
                 "Train an army",
-                "Kill enemy soldiers"
+                "Survive through waves of attacking barbarians"
             }, {}, true
         ),
         Quests:CreateQuest("Rules",
