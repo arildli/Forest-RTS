@@ -119,6 +119,7 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate,
 
     local camp = {
         waveNumber = 1,
+        maxWave = #Barbarians.waves,
         spawnPoint = spawnPoint,
         allPlayers = allPlayers,
         spawnRate = spawnRate,
@@ -212,10 +213,20 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate,
     ---------------------------------------------------------------------------
     function camp:SpawnWave(waveNumber, playerID)
         local unitsSpawned = {}
+        local maxWave = camp.maxWave
+        local curWave = waveNumber
+        local extraSpawns = 0
+        if waveNumber > maxWave then
+            print("waveNumber was larger than maxWave, setting to maxWave!")
+            extraSpawns = waveNumber - maxWave
+            waveNumber = maxWave
+        end
+
+        print("waveNumber: "..waveNumber.."\ncurWave: "..curWave.."\nmaxWave: "..maxWave.."\nextraSpawns: "..extraSpawns)
 
         for _,entry in pairs(Barbarians.waves[waveNumber]) do
             local unitName = entry.name
-            local count = entry.count
+            local count = entry.count + extraSpawns
 
             print("\tunitName: "..unitName..", count: "..count)
             for i=1,count do
@@ -260,8 +271,10 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate,
         local curWave = camp.waveNumber
         local spawnedUnits = {}
 
-        if curWave >= maxWave then
-            curWave = maxWave
+        if curWave == maxWave + 1 then
+            local textColor = "#b0171b"
+            local notificationString = "End of normal waves, adding more units instead!"
+            DisplayMessageToAll(notificationString)
         end
 
         if allPlayers then
@@ -271,9 +284,7 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate,
             spawnedUnits = camp:SpawnWave(curWave, 0)
         end
 
-        if curWave < maxWave then
-            camp.waveNumber = curWave + 1
-        end
+        camp.waveNumber = curWave + 1
 
         -- Attack the players, and do it regularly in case it moves.
         Timers:CreateTimer(0, function()
