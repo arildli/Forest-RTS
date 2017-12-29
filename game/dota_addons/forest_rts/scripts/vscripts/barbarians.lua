@@ -22,17 +22,17 @@ if not Barbarians then
 
     Barbarians.waves = {
         {{name=Barbarians.SCOUT, count=1}},
-        {{name=Barbarians.SCOUT, count=2}},
-        {{name=Barbarians.AXE_FIGHTER, count=3}},
-        {
-            {name=Barbarians.AXE_FIGHTER, count=3},
-            {name=Barbarians.SCOUT, count=2}
-        },
-        {
-            {name=Barbarians.AXE_FIGHTER, count=5}
-        },
+        {{name=Barbarians.SCOUT, count=3}},
+        {{name=Barbarians.AXE_FIGHTER, count=4}},
         {
             {name=Barbarians.AXE_FIGHTER, count=4},
+            {name=Barbarians.SCOUT, count=3}
+        },
+        {
+            {name=Barbarians.AXE_FIGHTER, count=6}
+        },
+        {
+            {name=Barbarians.AXE_FIGHTER, count=5},
             {name=Barbarians.ARCHER, count=3}
         },
         {
@@ -48,6 +48,7 @@ if not Barbarians then
             {name=Barbarians.RAIDER, count=4},
             {name=Barbarians.ARCHER, count=4}
         },
+        -- Wave 10
         {
             {name=Barbarians.RAIDER, count=6},
             {name=Barbarians.ARCHER, count=6}
@@ -216,10 +217,17 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate,
         local maxWave = camp.maxWave
         local curWave = waveNumber
         local extraSpawns = 0
+        local spawnRate = camp.spawnRate
         if waveNumber > maxWave then
             print("waveNumber was larger than maxWave, setting to maxWave!")
             extraSpawns = waveNumber - maxWave
             waveNumber = maxWave
+        end
+
+        if waveNumber == 1 then
+            textColor = "#b0171b"
+            local notificationString = "A wave of <font color='"..textColor.."'>".."Barbarians".."</font> will spawn every "..spawnRate.." seconds!"
+            DisplayMessageToAll(notificationString)
         end
 
         print("waveNumber: "..waveNumber.."\ncurWave: "..curWave.."\nmaxWave: "..maxWave.."\nextraSpawns: "..extraSpawns)

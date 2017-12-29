@@ -467,13 +467,14 @@ function SimpleRTSGameMode:onGameStateChange(keys)
                 return 0.5
             end)
 
-        -- Regularly update the player scores in fighting barbarians.
+        -- Regularly update the player scores if fighting barbarians.
         if self.gameMode == "Solo" or self.gameMode == "Co-Op" then
+            --[=[
             Timers:CreateTimer(
                 function()
                     CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
                     return 1.0
-            end)
+            end)]=]
         end
 
     elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
