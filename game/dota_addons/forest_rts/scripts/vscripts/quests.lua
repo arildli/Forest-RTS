@@ -118,11 +118,10 @@ function Quests:CreateInitialQuests()
         Quests:CreateQuest("How To Play",
             {
                 "Find a proper base location",
-                "Construct a Main Tent",
-                "Train workers to harvest lumber",
+                "Construct a Main Tent and then workers",
                 "Build a base",
                 "Train an army",
-                "Survive through waves of attacking barbarians"
+                "Kill enemy players or Barbarians"
             }, {}, true
         ),
         Quests:CreateQuest("Rules",

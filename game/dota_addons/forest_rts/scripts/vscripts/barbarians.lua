@@ -12,8 +12,18 @@ if not Barbarians then
         camps = {},
         mainCamp = nil,
         attackUpdateInterval = 1,
+        -- How long to wait after game start before spawning the first wave.
         defaultSpawnStart = 120,
+        -- How often to initially spawn new waves. Will increase over time.
         defaultSpawnRate = 60,
+        -- The spawn rate will should never exceed this value.
+        defaultSpawnRateCap = 90,
+        -- Extra time added between some of the waves for better recovery chances.
+        defaultSpawnBreak = 60,
+        -- How much to increase the spawnRate value with when having an extra break.
+        defaultSpawnIncrement = 5,
+        -- How often to add extra break time and increase the spawnRate value.
+        defaultSpawnIncrementPeriod = 5,
         spawnPoints = {
             Vector(6944, -7264, 512)
         },
@@ -62,7 +72,7 @@ end
 function Barbarians:Init()
     print("[Barbarians] Initializing module...")
 
-    Barbarians.mainCamp = Barbarians:CreateCamp(Barbarians.spawnPoints[1], true, nil, nil, nil)
+    Barbarians.mainCamp = Barbarians:CreateCamp(Barbarians.spawnPoints[1], true)
 
     --CustomGameEventManager:RegisterListener("construction_done", Dynamic_Wrap(Barbarians, "OnBuildingConstructed"))
     ListenToGameEvent("construction_done", Dynamic_Wrap(Barbarians, "OnBuildingConstructed"), self)
@@ -84,7 +94,6 @@ end
 function Barbarians:Start()
     local mainCamp = Barbarians.mainCamp
     local spawnStart = mainCamp.spawnStart
-    local spawnRate = mainCamp.spawnRate
     print("Starting wave spawn in "..spawnStart.." seconds!")
     textColor = "#b0171b"
     local notificationString = "<font color='"..textColor.."'>".."Barbarians".."</font> will start spawning in "..spawnStart.." seconds!"
@@ -92,7 +101,7 @@ function Barbarians:Start()
 
     -- Spawn the waves regularly.
     Timers:CreateTimer(spawnStart, function()
-        mainCamp:NextWave()
+        local spawnRate = mainCamp:NextWave()
         return spawnRate
     end)
 end
@@ -105,26 +114,44 @@ end
 --   units to attack all the players or not.
 -- @buildingsInfo (Optional) (Table {buildingName:String, location:Vector}):
 --   What buildings the camp will have and where they will be placed
+-- @spawnStart (Optional) (Int): When to start spawning the waves. If unset,
+--   a default value is used instead.
 -- @spawnRate (Optional) (Int): How often to spawn new waves. If unset,
 --   a default value is used instead.
--- @spawnStart (Optional) (Int): When to start spawning the waves. If unset,
+-- @spawnRateCap (Optional) (Int): The maximum time between wave spawn, excluding
+--   breaks (Highest allowed spawnRate). If unset, a default value is used instead.
+-- @spawnBreak (Optional) (Int): Extra time added between some of the waves. If unset,
+--   a default value is used instead.
+-- @spawnIncrement (Optional) (Int): How much to increase the spawnRate with
+--   when adding a new spawnBreak. If unset, a default value is used instead.
+-- @spawnIncrementPeriod (Optional) (Int): How often to increase spawnRate. If unset,
 --   a default value is used instead.
 -- @return (BarbCamp): The newly created camp object.
 ---------------------------------------------------------------------------
-function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate, spawnStart)
+function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnStart,
+        spawnRate, spawnRateCap, spawnBreak, spawnIncrement, spawnIncrementPeriod)
     spawnPoint = spawnPoint or Barbarians.spawnPoints[1]
     allPlayers = allPlayers or false
     buildingsInfo = buildingsInfo or {}
-    spawnRate = spawnRate or Barbarians.defaultSpawnRate
     spawnStart = spawnStart or Barbarians.defaultSpawnStart
+
+    spawnRate = spawnRate or Barbarians.defaultSpawnRate
+    spawnRateCap = spawnRateCap or Barbarians.defaultSpawnRateCap
+    spawnBreak = spawnBreak or Barbarians.defaultSpawnBreak
+    spawnIncrement = spawnIncrement or Barbarians.defaultSpawnIncrement
+    spawnIncrementPeriod = spawnIncrementPeriod or Barbarians.defaultSpawnIncrementPeriod
 
     local camp = {
         waveNumber = 1,
         maxWave = #Barbarians.waves,
         spawnPoint = spawnPoint,
         allPlayers = allPlayers,
+        spawnStart = spawnStart,
         spawnRate = spawnRate,
-        spawnStart = spawnStart
+        spawnRateCap = spawnRateCap,
+        spawnBreak = spawnBreak,
+        spawnIncrement = spawnIncrement,
+        spawnIncrementPeriod = spawnIncrementPeriod
     }
 
     Barbarians.camps[#Barbarians.camps+1] = camp
@@ -136,10 +163,19 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate,
         local curWave = camp.waveNumber
         print("Camp: ")
         print("----------")
-        print("\twaveNumber: "..curWave)
+        print("\tcurWave: "..curWave)
         print("\tmaxWave: "..#Barbarians.waves)
         print("\tspawnPoint: "..tostring(camp.spawnPoint))
+        print("\tspawnStart: "..tostring(camp.spawnStart))
+        print("\tspawnRate: "..tostring(camp.spawnRate))
+        print("\tspawnRateCap: "..tostring(camp.spawnRateCap))
+        print("\tspawnBreak: "..tostring(camp.spawnBreak))
+        print("\tspawnIncrement: "..tostring(camp.spawnIncrement))
+        print("\tspawnIncrementPeriod: "..tostring(camp.spawnIncrementPeriod))
         print("\tunits wave "..curWave..":")
+        if curWave > camp.maxWave then
+            curWave = camp.maxWave
+        end
         for _,entry in pairs(Barbarians.waves[curWave]) do
             local unitName = entry.name
             local count = entry.count
@@ -226,11 +262,12 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate,
 
         if waveNumber == 1 then
             textColor = "#b0171b"
-            local notificationString = "A wave of <font color='"..textColor.."'>".."Barbarians".."</font> will spawn every "..spawnRate.." seconds!"
+            local notificationString = "A wave of <font color='"..textColor.."'>".."Barbarians".."</font> will spawn every "..spawnRate.." seconds, increasing over time!"
             DisplayMessageToAll(notificationString)
         end
 
-        print("waveNumber: "..waveNumber.."\ncurWave: "..curWave.."\nmaxWave: "..maxWave.."\nextraSpawns: "..extraSpawns)
+        camp:Print()
+        --print("waveNumber: "..waveNumber.."\ncurWave: "..curWave.."\nmaxWave: "..maxWave.."\nextraSpawns: "..extraSpawns)
 
         for _,entry in pairs(Barbarians.waves[waveNumber]) do
             local unitName = entry.name
@@ -271,18 +308,43 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate,
 
     ---------------------------------------------------------------------------
     -- Spawns the next wave of units for the camp.
+    --
+    -- @return (Int): The number of seconds to wait before spawning the next wave.
     ---------------------------------------------------------------------------
     function camp:NextWave()
         local spawnPoint = camp.spawnPoint
         local allPlayers = camp.allPlayers
         local maxWave = #Barbarians.waves
         local curWave = camp.waveNumber
+        local spawnRate = camp.spawnRate
+        local spawnRateCap = camp.spawnRateCap
+        local spawnBreak = camp.spawnBreak
+        local spawnIncrement = camp.spawnIncrement
+        local spawnIncrementPeriod = camp.spawnIncrementPeriod
         local spawnedUnits = {}
 
+        -- Notify the players when spawning the first wave.
         if curWave == maxWave + 1 then
             local textColor = "#b0171b"
             local notificationString = "End of normal waves, adding more units instead!"
             DisplayMessageToAll(notificationString)
+        end
+
+        -- Increase the time between each wave periodically to make the waves
+        -- more manageable late game.
+        if curWave % spawnIncrementPeriod == 0 then
+            print("[Barbarians] Extra break before next wave...")
+            camp.spawnRate = spawnRate + spawnIncrement
+            if camp.spawnRate > spawnRateCap then
+                camp.spawnRate = spawnRate
+            end
+            print("[Barbarians] New spawnRate: "..spawnRate)
+
+            -- Add some extra time before next wave to make recovery or
+            -- hunting other objectives more manageable, like capturing
+            -- the middle lumber camp or clearing creep camps.
+            spawnRate = spawnRate + spawnBreak
+            print("\t...with break: "..spawnRate)
         end
 
         if allPlayers then
@@ -301,6 +363,8 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnRate,
             end
             return Barbarians.attackUpdateInterval
         end)
+
+        return spawnRate
     end
 
     return camp

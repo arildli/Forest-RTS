@@ -676,7 +676,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
     local unitName = killedUnit:GetUnitName()
 
     if SimpleRTSGameMode:IsBarbarian(killedUnit) then
-        print("Killed a barb!")
+        --print("Killed a barb!")
         self.scoreRadiant = self.scoreRadiant + 1
         self.scoreDire = self.scoreDire + 1
         --CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
