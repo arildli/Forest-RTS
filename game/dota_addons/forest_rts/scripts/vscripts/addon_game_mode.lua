@@ -219,6 +219,9 @@ function Precache( context )
 	PrecacheResource("particle", "particles/units/heroes/hero_treant/treant_livingarmor.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_treant/treant_livingarmor_regen.vpcf", context)
 
+    -- Skirmisher
+    PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_centaur_med/n_creep_centaur_med.vmdl", context)
+
 
 
     -- Brewmaster

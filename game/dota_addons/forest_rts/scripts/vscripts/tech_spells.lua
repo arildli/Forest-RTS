@@ -951,6 +951,26 @@ unitdefs = {
 		}
 	},
 
+    FURION_SKIRMISHER = {
+        name = "npc_dota_creature_forest_skirmisher",
+        spell = "srts_train_forest_skirmisher",
+        category = "unit",
+        trainedAt = "BARRACKS_ADVANCED_RADIANT",
+        unitType = "cavalry",
+        upgrades = {
+            "UPGRADE_LIGHT_ARMOR",
+			"UPGRADE_LIGHT_DAMAGE"
+        },
+        req = {},
+        pages = {
+            PAGE_MAIN = {
+			},
+			HIDDEN = {
+				"UNIT"
+			}
+        }
+    },
+
 	-- Brewmaster
 	BREWMASTER_WORKER = {
 		name = "npc_dota_creature_brewmaster_worker",

@@ -348,6 +348,29 @@
         }
     }
 
+    "item_srts_train_forest_skirmisher"
+    {
+        "BaseClass"             		"item_datadriven"
+        //"AbilityTextureName"			"spellicon_footman"
+        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+        "AbilityCastPoint"				"0"
+
+        "ItemDroppable" 				"0"
+        "ItemPurchasable" 				"0"
+        "ItemSellable"					"0"
+
+        "AbilityTextureName"            "spellicon_skirmisher"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings/queue.lua"
+                "Function"      "DequeueUnit"
+            }
+        }
+    }
+
     "item_srts_train_troll_elder"
     {
         "BaseClass"             		"item_datadriven"

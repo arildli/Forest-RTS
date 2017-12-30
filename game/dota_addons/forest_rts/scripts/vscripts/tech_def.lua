@@ -169,6 +169,7 @@ entities = {
         RANGED = unitdefs.FURION_DRYAD,
         SIEGE = unitdefs.FURION_CATAPULT,
         CASTER = unitdefs.FURION_TORMENTED_SOUL,
+        CAVALRY = unitdefs.FURION_SKIRMISHER,
 
         TENT_SMALL = buildefs.TENT_SMALL,
         TENT_LARGE = buildefs.TENT_LARGE,
@@ -439,6 +440,7 @@ tech = {
         FURION_DRYAD = unitdefs.FURION_DRYAD,
         FURION_CATAPULT = unitdefs.FURION_CATAPULT,
         FURION_TORMENTED_SOUL = unitdefs.FURION_TORMENTED_SOUL,
+        FURION_SKIRMISHER = unitdefs.FURION_SKIRMISHER,
 
         -- Buildings
         TENT_SMALL = CopyWithNewMain(buildefs.TENT_SMALL, {
@@ -462,6 +464,7 @@ tech = {
         }),
         BARRACKS_ADVANCED_RADIANT = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_RADIANT, {
             unitdefs.FURION_TORMENTED_SOUL,
+            unitdefs.FURION_SKIRMISHER,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
