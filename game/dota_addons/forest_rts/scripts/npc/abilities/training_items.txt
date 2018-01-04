@@ -351,7 +351,7 @@
     "item_srts_train_forest_skirmisher"
     {
         "BaseClass"             		"item_datadriven"
-        //"AbilityTextureName"			"spellicon_footman"
+        //"AbilityTextureName"			"spellicon_skirmisher"
         "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
         "AbilityCastPoint"				"0"
 

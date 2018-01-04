@@ -118,7 +118,8 @@ function Quests:CreateInitialQuests()
         Quests:CreateQuest("How To Play",
             {
                 "Find a proper base location",
-                "Construct a Main Tent and then workers",
+                "Construct a Main Tent",
+                "Train workers to harvest lumber",
                 "Build a base",
                 "Train an army",
                 "Kill enemy players or Barbarians"
@@ -131,10 +132,11 @@ function Quests:CreateInitialQuests()
                 "Be the first to reach the goal"
             }, {}, true
         ),
-        Quests:CreateQuest("Middle Lumber Camp",
+        Quests:CreateQuest("Single Player/Co-Op",
             {
-                "Kill all brutes in middle base",
-                "This will grant extra lumber income"
+                "Defend against waves of barbarians",
+                "They get stronger as time progresses",
+                "Capture the middle camp for extra lumber"
             }, {}, true
         )
     }
