@@ -345,6 +345,16 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnStart
             -- the middle lumber camp or clearing creep camps.
             spawnRate = spawnRate + spawnBreak
             print("\t...with break: "..spawnRate)
+
+            if curWave ~= maxWave + 1 then
+                print("[Barbarians] Displaying new spawn rate to players...")
+                local newSpawnRate = camp.spawnRate
+                local nextWaveSpawn = newSpawnRate + spawnBreak
+                local textColor = "#3455ff"
+                local notificationString = "Waves will now spawn every <font color='"..textColor.."'>"..newSpawnRate.."</font> seconds! "
+                notificationString = notificationString .. "Next wave spawns in <font color='"..textColor.."'>"..nextWaveSpawn.."</font> seconds."
+                DisplayMessageToAll(notificationString, 8)
+            end
         end
 
         if allPlayers then

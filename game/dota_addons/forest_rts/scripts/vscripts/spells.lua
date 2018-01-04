@@ -289,10 +289,10 @@ function DisplayResearchComplete(playerID, tech, color)
     Notifications:Top(playerID, {text=notificationString, duration=5.0})
 end
 
-function DisplayMessageToAll(notificationString)
+function DisplayMessageToAll(notificationString, duration)
     -- Timed message on top.
     Notifications:ClearTopFromAll()
-    Notifications:TopToAll({text=notificationString, duration=5.0})
+    Notifications:TopToAll({text=notificationString, duration=duration or 5.0})
 end
 
 
