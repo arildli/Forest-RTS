@@ -1,8 +1,6 @@
 "use strict"
 var right_click_repair = CustomNetTables.GetTableValue("building_settings", "right_click_repair").value;
 
-$.Msg("Using clicks.js!")
-
 function GetMouseTarget()
 {
     var mouseEntities = GameUI.FindScreenEntities( GameUI.GetCursorPosition() )
@@ -26,11 +24,9 @@ function GetMouseTarget()
 // Handle Right Button events
 function OnRightButtonPressed()
 {
-    //$.Msg("OnRightButtonPressed!")
-
     var iPlayerID = Players.GetLocalPlayer()
     var selectedEntities = Players.GetSelectedEntities( iPlayerID )
-    var mainSelected = Players.GetLocalPlayerPortraitUnit()
+    var mainSelected = Players.GetLocalPlayerPortraitUnit() 
     var targetIndex = GetMouseTarget()
     var pressedShift = GameUI.IsShiftDown()
 
@@ -42,13 +38,11 @@ function OnRightButtonPressed()
     if ( IsBuilder( mainSelected ) )
     {
         // Cancel BH
-        //$.Msg("SendCancelCommand from OnRightButtonPressed!")
         if (!pressedShift) SendCancelCommand()
 
         // Repair rightclick
         if (right_click_repair && IsCustomBuilding(targetIndex) && Entities.GetHealthPercent(targetIndex) < 100 && IsAlliedUnit(targetIndex, mainSelected)) {
             GameEvents.SendCustomGameEventToServer( "building_helper_repair_command", {targetIndex: targetIndex, queue: pressedShift})
-            $.Msg("Repairing target...");
             return true
         }
     }
@@ -95,7 +89,7 @@ function OnLeftButtonPressed() {
         output += property + ": " + cursor[property] + ";\n";
     }
     $.Msg(output);*/
-
+    
     return false
 }
 
@@ -108,7 +102,6 @@ function IsTower(entIndex) {
 function IsCustomBuilding(entIndex) {
     return (Entities.GetAbilityByName( entIndex, "ability_building") != -1)
 }
-
 
 function IsBuilder(entIndex) {
     var tableValue = CustomNetTables.GetTableValue( "builders", entIndex.toString())
@@ -135,16 +128,16 @@ GameUI.SetMouseCallback( function( eventName, arg ) {
     {
         // Builder Clicks
         if (IsBuilder(mainSelected))
-            if (LEFT_CLICK)
+            if (LEFT_CLICK) 
                 return (state == "active") ? SendBuildCommand() : OnLeftButtonPressed()
-            else if (RIGHT_CLICK)
+            else if (RIGHT_CLICK) 
                 return OnRightButtonPressed()
 
-        if (LEFT_CLICK)
+        if (LEFT_CLICK) 
             return OnLeftButtonPressed()
-        else if (RIGHT_CLICK)
-            return OnRightButtonPressed()
-
+        else if (RIGHT_CLICK) 
+            return OnRightButtonPressed() 
+        
     }
     return CONTINUE_PROCESSING_EVENT
 } )

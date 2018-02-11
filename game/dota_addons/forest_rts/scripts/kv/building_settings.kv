@@ -3,7 +3,7 @@
     // Particle settings
     "GRID_ALPHA"                "30"  //Defines the transparency of the base green/red squares in Panorama
     "ALT_GRID_ALPHA"            "90"  //Defines the transparency of the alt grid white/red squares in Panorama
-    "ALT_GRID_SQUARES"          "8"   //Defines how many small squares to create to each side of the building construction size
+    "ALT_GRID_SQUARES"          "4"   //Defines how many small squares to create to each side of the building construction size
     "RANGE_OVERLAY_ALPHA"       "30"  //Defines the transparency of the range overlay showed when placing a building with attack capabilities
     "MODEL_ALPHA"               "100" //Defines the transparency of both the ghost model in Panorama and Building Placed in Lua
     "RECOLOR_GHOST_MODEL"       "false" //Recolor the ghost model green when valid or just default color
@@ -23,11 +23,20 @@
     // Min Height buildings are able to be placed, leave it empty for none. If a value is defined, all building placements strictly below this number will be invalid
     "HEIGHT_RESTRICTION"        ""
 
+    // Should buildings be immune to magic damage? Should also be careful with healing abilities targeting them.
+    "MAGIC_IMMUNE_BUILDINGS"    "true"
+
+    // Should buildings be deniable from 100% HP?
+    "DENIABLE_BUILDINGS"        "false"
+
     // Should we disable building turnrate by default? Defining a "DisableTurning" kv on the unit will still override the global setting
-    "DISABLE_BUILDING_TURNING" "true"
+    "DISABLE_BUILDING_TURNING"  "true"
+
+    // Path of the builder callbacks, can be changed to somewhere else within vscripts
+    "BUILD_PATH"                "builder"
 
     // Should we try to tie allied building rightclick to a "RepairAbility" usage ?
-    "RIGHT_CLICK_REPAIR"        "true"
+    "RIGHT_CLICK_REPAIR"        "false"
 
     // Path of the repair callbacks, can be changed to somewhere else within vscripts
     "REPAIR_PATH"               "repair"
@@ -44,5 +53,5 @@
     }
 
     // Turn this off to hide the console print messages
-    "TESTING"                   "false"
+    "TESTING"                   "true"
 }

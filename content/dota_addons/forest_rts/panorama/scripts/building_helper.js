@@ -10,6 +10,7 @@ var overlay_size = 0;
 var range = 0;
 var pressedShift = false;
 var altDown = false;
+var invalid = false;
 var requires;
 var modelParticle;
 var propParticle;
@@ -59,8 +60,6 @@ if (! Root.loaded)
     Root.loaded = true;
 }
 
-$.Msg("building_helper.js running!")
-
 function StartBuildingHelper( params )
 {
     if (params !== undefined)
@@ -80,7 +79,7 @@ function StartBuildingHelper( params )
 
         requires = GetRequiredGridType(entindex)
         distance_to_gold_mine = HasGoldMineDistanceRestriction(entindex)
-        
+
         // If we chose to not recolor the ghost model, set it white
         var ghost_color = [0, 255, 0]
         if (!recolor_ghost)
@@ -90,22 +89,27 @@ function StartBuildingHelper( params )
 
         if (modelParticle !== undefined) {
             Particles.DestroyParticleEffect(modelParticle, true)
+            Particles.ReleaseParticleIndex(modelParticle)
         }
         if (propParticle !== undefined) {
             Particles.DestroyParticleEffect(propParticle, true)
+            Particles.ReleaseParticleIndex(propParticle)
         }
         if (gridParticles !== undefined) {
             for (var i in gridParticles) {
                 Particles.DestroyParticleEffect(gridParticles[i], true)
+                Particles.ReleaseParticleIndex(gridParticles[i])
             }
         }
         if (overlayParticles !== undefined) {
             for (var i in overlayParticles) {
                 Particles.DestroyParticleEffect(overlayParticles[i], true)
+                Particles.ReleaseParticleIndex(overlayParticles[i])
             }
         }
         if (rangeOverlay !== undefined) {
             Particles.DestroyParticleEffect(rangeOverlay, true)
+            Particles.ReleaseParticleIndex(rangeOverlay)
         }
 
         // Building Ghost
@@ -134,20 +138,20 @@ function StartBuildingHelper( params )
             Particles.SetParticleControl(propParticle, 3, [model_alpha,0,0])
             Particles.SetParticleControl(propParticle, 4, [propScale,0,0])
         }
-            
+
         rangeOverlayActive = false;
         overlayParticles = [];
     }
 
     if (state == 'active')
-    {   
+    {
         $.Schedule(frame_rate, StartBuildingHelper);
 
         // Get all the visible entities
         var entities = Entities.GetAllEntitiesByClassname('npc_dota_building')
         var hero_entities = Entities.GetAllHeroEntities()
         var creature_entities = Entities.GetAllEntitiesByClassname('npc_dota_creature')
-        var dummy_entities = Entities.GetAllEntitiesByName('npc_dota_thinker')
+        var dummy_entities = Entities.GetAllEntitiesByName('npc_dota_base')
         var building_entities = Entities.GetAllBuildingEntities()
         entities = entities.concat(hero_entities)
         entities = entities.concat(building_entities)
@@ -158,10 +162,10 @@ function StartBuildingHelper( params )
         entityGrid = []
         for (var i = 0; i < entities.length; i++)
         {
-            if (!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i])) continue
+            if (!Entities.IsAlive(entities[i]) || Entities.IsOutOfGame(entities[i]) || !HasModifier(entities[i], "modifier_building")) continue
             var entPos = Entities.GetAbsOrigin( entities[i] )
             var squares = GetConstructionSize(entities[i])
-            
+
             if (squares > 0)
             {
                 // Block squares centered on the origin
@@ -170,13 +174,13 @@ function StartBuildingHelper( params )
             else
             {
                 // Put tree dummies on a separate table to skip trees
-                if (Entities.GetUnitName(entities[i]) == 'npc_dota_thinker')
+                if (Entities.GetUnitName(entities[i]) == 'npc_dota_units_base')
                 {
-                    if (Entities.GetAbilityByName(entities[i], "dummy_tree") != -1)
+                    if (HasModifier(entities[i], "modifier_tree_cut"))
                         cutTrees[entPos] = entities[i]
                 }
                 // Block 2x2 squares if its an enemy unit
-                else if (Entities.GetTeamNumber(entities[i]) != Entities.GetTeamNumber(builderIndex))
+                else if (Entities.GetTeamNumber(entities[i]) != Entities.GetTeamNumber(builderIndex) && !HasModifier(entities[i], "modifier_out_of_world"))
                 {
                     BlockGridSquares(entPos, 2, GRID_TYPES["BLOCKED"])
                 }
@@ -197,7 +201,7 @@ function StartBuildingHelper( params )
                         //$.Msg("Setting ",specialGrid[gridType].Radius," grid radius with ",gridType.toUpperCase()," [",GRID_TYPES[gridType.toUpperCase()],"]")
                         BlockGridInRadius(entPos, Number(specialGrid[gridType].Radius), GRID_TYPES[gridType.toUpperCase()])
                     }
-                }              
+                }
             }
         }
 
@@ -216,18 +220,18 @@ function StartBuildingHelper( params )
                     var treePos = Entities.GetAbsOrigin(tree_entities[i])
                     // Block the grid if the tree isn't chopped
                     if (cutTrees[treePos] === undefined)
-                        BlockGridSquares(treePos, 2, "TREE")                    
+                        BlockGridSquares(treePos, 2, "TREE")
                 }
             }
         }
 
         var mPos = GameUI.GetCursorPosition();
         var GamePos = Game.ScreenXYToWorld(mPos[0], mPos[1]);
-        if ( GamePos !== null ) 
+        if ( GamePos !== null )
         {
             SnapToGrid(GamePos, size)
 
-            var invalid;
+            invalid = false
             var color = [0,255,0]
             var part = 0
             var halfSide = (size/2)*64
@@ -251,8 +255,8 @@ function StartBuildingHelper( params )
                         return
 
                     var gridParticle = gridParticles[part]
-                    Particles.SetParticleControl(gridParticle, 0, pos)     
-                    part++; 
+                    Particles.SetParticleControl(gridParticle, 0, pos)
+                    part++;
 
                     // Grid color turns red when over invalid position
                     color = [0,255,0]
@@ -262,7 +266,7 @@ function StartBuildingHelper( params )
                         invalid = true
                     }
 
-                    Particles.SetParticleControl(gridParticle, 2, color)   
+                    Particles.SetParticleControl(gridParticle, 2, color)
                 }
             }
 
@@ -301,11 +305,11 @@ function StartBuildingHelper( params )
 
                         color = [255,255,255] //White on empty positions
                         var overlayParticle = overlayParticles[part2]
-                        Particles.SetParticleControl(overlayParticle, 0, pos2)     
+                        Particles.SetParticleControl(overlayParticle, 0, pos2)
                         part2++;
 
                         if (IsBlocked(pos2) || TooCloseToGoldmine(pos2))
-                            color = [255,0,0]                        
+                            color = [255,0,0]
 
                         Particles.SetParticleControl(overlayParticle, 2, color)
                     }
@@ -318,6 +322,7 @@ function StartBuildingHelper( params )
                 {
                     for (var i in overlayParticles) {
                         Particles.DestroyParticleEffect(overlayParticles[i], true)
+                        Particles.ReleaseParticleIndex(overlayParticles[i])
                     }
                     overlayParticles = [];
                 }
@@ -331,6 +336,7 @@ function StartBuildingHelper( params )
                 if (rangeOverlayActive && rangeOverlay !== undefined)
                 {
                     Particles.DestroyParticleEffect(rangeOverlay, true)
+                    Particles.ReleaseParticleIndex(rangeOverlay)
                     rangeOverlayActive = false
                 }
             }
@@ -343,7 +349,7 @@ function StartBuildingHelper( params )
                     Particles.SetParticleControl(rangeOverlay, 2, [255,255,255])
                     Particles.SetParticleControl(rangeOverlay, 3, [range_overlay_alpha,0,0])
                     rangeOverlayActive = true
-                }              
+                }
             }
 
             if (rangeOverlay !== undefined)
@@ -380,25 +386,36 @@ function EndBuildingHelper()
     state = 'disabled'
     if (modelParticle !== undefined){
          Particles.DestroyParticleEffect(modelParticle, true)
+         Particles.ReleaseParticleIndex(modelParticle)
     }
     if (propParticle !== undefined){
          Particles.DestroyParticleEffect(propParticle, true)
+         Particles.ReleaseParticleIndex(propParticle)
     }
     if (rangeOverlay !== undefined){
         Particles.DestroyParticleEffect(rangeOverlay, true)
+        Particles.ReleaseParticleIndex(rangeOverlay)
     }
     for (var i in gridParticles) {
         Particles.DestroyParticleEffect(gridParticles[i], true)
+        Particles.ReleaseParticleIndex(gridParticles[i])
     }
     for (var i in overlayParticles) {
         Particles.DestroyParticleEffect(overlayParticles[i], true)
+        Particles.ReleaseParticleIndex(overlayParticles[i])
     }
 }
 
 function SendBuildCommand( params )
 {
+    if (invalid)
+    {
+        CreateErrorMessage({message:"#error_invalid_build_position"})
+        return true
+    }
+
     pressedShift = GameUI.IsShiftDown();
-    var mainSelected = Players.GetLocalPlayerPortraitUnit(); 
+    var mainSelected = Players.GetLocalPlayerPortraitUnit();
 
     var mPos = GameUI.GetCursorPosition();
     var GamePos = Game.ScreenXYToWorld(mPos[0], mPos[1]);
@@ -420,12 +437,26 @@ function SendCancelCommand( params )
     GameEvents.SendCustomGameEventToServer( "building_helper_cancel_command", {} );
 }
 
+function CreateErrorMessage(msg)
+{
+    var reason = msg.reason || 80;
+    if (msg.message){
+        GameEvents.SendEventClientSide("dota_hud_error_message", {"splitscreenplayer":0,"reason":reason ,"message":msg.message} );
+    }
+    else{
+        GameEvents.SendEventClientSide("dota_hud_error_message", {"splitscreenplayer":0,"reason":reason} );
+    }
+}
+
 function RegisterGNV(msg){
     var GridNav = [];
     var squareX = msg.squareX
     var squareY = msg.squareY
     var boundX = msg.boundX
     var boundY = msg.boundY
+
+    $.Msg("Length / size of GNV event message (msg): "+msg.gnv.length)
+
     $.Msg("Registering GNV ["+squareX+","+squareY+"] ","Min Bounds: X="+boundX+", Y="+boundY)
 
     var arr = [];
@@ -455,24 +486,44 @@ function RegisterGNV(msg){
     Root.boundX = boundX
     Root.boundY = boundY
 
+    $.Msg("squareX: "+squareX+", squareY: "+squareY + ", boundX: "+boundX+", boundY: "+boundY+"!")
+
     // ASCII Art
     /*
+    for (var i = 0; i<squareY; i++) {
+        var a = [];
+
+        var freeAtY = 0;
+
+        for (var j = 0; j<squareX; j++){
+            a.push((GridNav[i][j] == 1 ) ? '=' : '.');
+
+            if (GridNav[i][j] !== 1) freeAtY += 1
+        }
+
+        //$.Msg(freeAtY+" free squares at line "+i+" ("+(i*64)+") ")
+        //$.Msg(a.join(''))
+    }*/
+
+    // Original
     for (var i = 0; i<squareY; i++) {
         var a = [];
         for (var j = 0; j<squareX; j++){
             a.push((GridNav[i][j] == 1 ) ? '=' : '.');
         }
 
-        $.Msg(a.join(''))
-    }*/
+        //$.Msg(a.join(''))
+    }
+
 
     // Debug Prints
+    /*
     var tab = {"0":0, "1":0, "2":0, "3":0};
     for (i=0; i<arr.length; i++)
     {
         tab[arr[i].toString()]++;
     }
-    $.Msg("Free: ",tab["1"]," Blocked: ",tab["2"])
+    $.Msg("Free: ",tab["1"]," Blocked: ",tab["2"])*/
 }
 
 // Ask the server for the Terrain grid
@@ -480,7 +531,7 @@ function RequestGNV () {
     GameEvents.SendCustomGameEventToServer( "gnv_request", {} )
 }
 
-(function () {    
+(function () {
     RequestGNV()
 
     GameEvents.Subscribe( "building_helper_enable", StartBuildingHelper);
@@ -493,12 +544,12 @@ function RequestGNV () {
 
 function SnapToGrid(vec, size) {
     // Buildings are centered differently when the size is odd.
-    if (size % 2 != 0) 
+    if (size % 2 != 0)
     {
         vec[0] = SnapToGrid32(vec[0])
         vec[1] = SnapToGrid32(vec[1])
-    } 
-    else 
+    }
+    else
     {
         vec[0] = SnapToGrid64(vec[0])
         vec[1] = SnapToGrid64(vec[1])
@@ -607,11 +658,11 @@ function BlockGridInRadius (position, radius, gridType) {
     boundingRect["topBorderY"] = position[1]+radius
     boundingRect["bottomBorderY"] = position[1]-radius
 
-    for (var x=boundingRect["leftBorderX"]+32; x <= boundingRect["rightBorderX"]-32; x+=64)
+    for (var x=boundingRect["leftBorderX"]+32; x <= boundingRect["rightBorderX"]+32; x+=64)
     {
-        for (var y=boundingRect["topBorderY"]-32; y >= boundingRect["bottomBorderY"]+32; y-=64)
+        for (var y=boundingRect["topBorderY"]+32; y >= boundingRect["bottomBorderY"]+32; y-=64)
         {
-            if (Length2D(position, [x,y,0]) <= radius)
+            if (Length2D(position, [x,y]) <= radius)
             {
                 BlockEntityGrid([x,y,0], gridType)
             }
@@ -629,13 +680,13 @@ function WorldToGridPosY(y){
 
 function GetConstructionSize(entIndex) {
     var entName = Entities.GetUnitName(entIndex)
-    var table = CustomNetTables.GetTableValue( "construction_size", entName)
+    var table = CustomNetTables.GetTableValue("construction_size", entName)
     return table ? table.size : 0
 }
 
 function GetRequiredGridType(entIndex) {
     var entName = Entities.GetUnitName(entIndex)
-    var table = CustomNetTables.GetTableValue( "construction_size", entName)
+    var table = CustomNetTables.GetTableValue("construction_size", entName)
     if (table && table.requires !== undefined)
     {
         var types = table.requires.split(" ")
@@ -652,14 +703,19 @@ function GetRequiredGridType(entIndex) {
 
 function GetCustomGrid(entIndex) {
     var entName = Entities.GetUnitName(entIndex)
-    var table = CustomNetTables.GetTableValue( "construction_size", entName)
+    var table = CustomNetTables.GetTableValue("construction_size", entName)
     if (table && table.grid !== undefined)
-        return table.grid
+    {
+        var gridType = table.grid
+        for (var type in gridType)
+            if (HasModifier(entIndex, "modifier_grid_"+type.toLowerCase()))
+                return table.grid
+    }
 }
 
 function HasGoldMineDistanceRestriction(entIndex) {
     var entName = Entities.GetUnitName(entIndex)
-    var table = CustomNetTables.GetTableValue( "construction_size", entName)
+    var table = CustomNetTables.GetTableValue("construction_size", entName)
     return table ? table.distance_to_gold_mine : 0
 }
 
@@ -690,3 +746,12 @@ function Length2D(v1, v2) {
 function PrintGridCoords(x,y) {
     $.Msg('(',x,',',y,') = [',WorldToGridPosX(x),',',WorldToGridPosY(y),']')
 }
+
+function HasModifier(entIndex, modifierName) {
+    var nBuffs = Entities.GetNumBuffs(entIndex)
+    for (var i = 0; i < nBuffs; i++) {
+        if (Buffs.GetName(entIndex, Entities.GetBuff(entIndex, i)) == modifierName)
+            return true
+    };
+    return false
+};

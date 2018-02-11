@@ -4,18 +4,18 @@ function Build( event )
     local ability = event.ability
     local ability_name = ability:GetAbilityName()
     local building_name = ability:GetAbilityKeyValues()['UnitName']
-    local gold_cost = ability:GetGoldCost(1) or 0
+    local gold_cost = ability:GetGoldCost(1)
     local hero = caster:IsRealHero() and caster or caster:GetOwner()
     local playerID = hero:GetPlayerID()
 
-    -- EDITED
+    -- Added {
     local player = caster:GetOwnerPlayer()
     local lumber_cost = event.LumberCost or 0
-    -- DONE
+    -- }
 
     -- If the ability has an AbilityGoldCost, it's impossible to not have enough gold the first time it's cast
     -- Always refund the gold here, as the building hasn't been placed yet
-    PlayerResource:ModifyGold(playerID, gold_cost, false, 0)
+    hero:ModifyGold(gold_cost, false, 0)
 
     -- Makes a building dummy and starts panorama ghosting
     BuildingHelper:AddBuilding(event)
@@ -23,21 +23,20 @@ function Build( event )
     -- Additional checks to confirm a valid building position can be performed here
     event:OnPreConstruction(function(vPos)
 
-    -- Check for minimum height if defined
-    if not BuildingHelper:MeetsHeightCondition(vPos) then
-        BuildingHelper:print("Failed placement of " .. building_name .." - Placement is below the min height required")
-        SendErrorMessage(playerID, "#error_invalid_build_position")
-        return false
-    end
+        -- Check for minimum height if defined
+        if not BuildingHelper:MeetsHeightCondition(vPos) then
+            BuildingHelper:print("Failed placement of " .. building_name .." - Placement is below the min height required")
+            SendErrorMessage(playerID, "#error_invalid_build_position")
+            return false
+        end
 
         -- If not enough resources to queue, stop
-    -- EDITED
-        --if PlayerResource:GetGold(playerID) < gold_cost then
-    if not CanAfford(player, gold_cost, lumber_cost) then
-       -- DONE
+        -- Added {
+            --if PlayerResource:GetGold(playerID) < gold_cost then
+        if not CanAfford(player, gold_cost, lumber_cost) then
+        -- }
             BuildingHelper:print("Failed placement of " .. building_name .." - Not enough gold!")
-            SendErrorMessage(playerID, "#error_not_enough_resources")
-            --SendErrorMessage(playerID, "#error_not_enough_gold")
+            SendErrorMessage(playerID, "#error_not_enough_gold")
             return false
         end
 
@@ -51,7 +50,7 @@ function Build( event )
         -- Added {
         SpendResourcesNew(player, gold_cost, lumber_cost)
         -- }
-                 
+
         -- Play a sound
         EmitSoundOnClient("DOTA_Item.ObserverWard.Activate", PlayerResource:GetPlayer(playerID))
     end)
@@ -60,8 +59,6 @@ function Build( event )
     event:OnConstructionFailed(function()
         local playerTable = BuildingHelper:GetPlayerTable(playerID)
         local building_name = playerTable.activeBuilding
-
-        SendErrorMessage(playerID, "Cannot build there!")
 
         BuildingHelper:print("Failed placement of " .. building_name)
     end)
@@ -73,10 +70,10 @@ function Build( event )
 
         -- Refund resources for this cancelled work
         if work.refund then
-            -- EDITED
+            -- Added {
             RefundResourcesID(playerID, gold_cost, lumber_cost)
-            -- DONE
             --hero:ModifyGold(gold_cost, false, 0)
+            -- }
         end
     end)
 
@@ -96,18 +93,20 @@ function Build( event )
             end
         end
 
-    -- EDITED
+        -- Added (EDITED)
+        --[=[
         -- Units can't attack while building
-        --unit.original_attack = unit:GetAttackCapability()
-        --unit:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
+        unit.original_attack = unit:GetAttackCapability()
+        unit:SetAttackCapability(DOTA_UNIT_CAP_NO_ATTACK)
 
         -- Give item to cancel
-        --unit.item_building_cancel = CreateItem("item_building_cancel", hero, hero)
-        --if unit.item_building_cancel then 
-        --    unit:AddItem(unit.item_building_cancel)
-        --    unit.gold_cost = gold_cost
-        --end
-    -- END
+        unit.item_building_cancel = CreateItem("item_building_cancel", hero, hero)
+        if unit.item_building_cancel then
+            unit:AddItem(unit.item_building_cancel)
+            unit.gold_cost = gold_cost
+        end
+        --]=]
+        -- }
 
         -- FindClearSpace for the builder
         FindClearSpaceForUnit(caster, caster:GetAbsOrigin(), true)
@@ -129,21 +128,22 @@ function Build( event )
 
     -- A building finished construction
     event:OnConstructionCompleted(function(unit)
-        --BuildingHelper:print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
-        --print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
-        
+        BuildingHelper:print("Completed construction of " .. unit:GetUnitName() .. " " .. unit:GetEntityIndex())
+
         -- Play construction complete sound
 
-    -- EDITED        
+        -- Added {
         -- Remove the item
-        --if unit.item_building_cancel then
-        --    UTIL_Remove(unit.item_building_cancel)
-        --end
+        --[=[
+        if unit.item_building_cancel then
+            UTIL_Remove(unit.item_building_cancel)
+        end
 
         -- Give the unit their original attack capability
-        --unit:SetAttackCapability(unit.original_attack)
+        unit:SetAttackCapability(unit.original_attack)
+        ]=]
         finishConstruction(unit)
-    -- END
+        -- }
     end)
 
     -- These callbacks will only fire when the state between below half health/above half health changes.
@@ -153,7 +153,7 @@ function Build( event )
     end)
 
     event:OnAboveHalfHealth(function(unit)
-        BuildingHelper:print(unit:GetUnitName().. " is above half health.")        
+        BuildingHelper:print(unit:GetUnitName().. " is above half health.")
     end)
 end
 
@@ -165,13 +165,10 @@ function CancelBuilding( keys )
 
     BuildingHelper:print("CancelBuilding "..building:GetUnitName().." "..building:GetEntityIndex())
 
-    --RefundResourcesID(playerID, building.gold_cost, building.lumber_cost)
-    
     -- Refund here
-    --if building.gold_cost then
-    --    hero:ModifyGold(building.gold_cost, false, 0)
-    --end
-    RefundResourcesID(playerID, building.gold_cost, building.lumber_cost)
+    if building.gold_cost then
+        hero:ModifyGold(building.gold_cost, false, 0)
+    end
 
     -- Eject builder
     local builder = building.builder_inside
