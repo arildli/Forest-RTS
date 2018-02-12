@@ -2083,6 +2083,89 @@
 
 
 
+        // Unit3.7
+    //================================================================================
+    // Unit: Barbarian Warchief
+    //================================================================================
+
+    // Level 1
+    //========================================
+    "npc_dota_creature_barbarian_warchief"
+    {
+        "Model"					"models/heroes/beastmaster/beastmaster.vmdl"
+        "BaseClass"				"npc_dota_creature"
+        "SoundSet"				"n_creep_Ranged"
+        "ModelScale"			"1.5"
+
+        "BountyXP"				"150"
+        "BountyGoldMin"			"0"
+        "BountyGoldMax"			"0"
+
+        "Ability1"				"srts_soldier_vision"
+        "Ability2"				""
+        "Ability3"				""
+        "Ability10"				"srts_ability_units"
+
+        "SelectionGroup"		"Barbarian_Warchief"
+        "ArmorPhysical"			"2"
+
+        "AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
+        "AttackDamageMin"		"52"
+        "AttackDamageMax"		"58"
+        "AttackRate"			"1.05"
+        "AttackAnimationPoint"		"0.38"
+        "AttackAcquisitionRange"	"400"
+        "AttackRange"			"125"
+        "ProjectileModel"		""
+        "ProjectileSpeed"		"0"
+
+        "RingRadius"			"60"
+        "HealthBarOffset"		"250"
+        "FormationRank" 		"0"
+
+        "MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+        "MovementSpeed"			"350"
+        "MovementTurnRate"		"0.7"
+
+        "StatusHealth"			"1500"
+        "StatusHealthRegen"		"3.0"
+        "StatusMana"			"0"
+        "StatusManaRegen"		"0.0"
+
+        "VisionDaytimeRange"		"800"
+        "VisionNighttimeRange"		"800"
+
+        "Creature"
+        {
+            //"DisableClumpingBehavior"	"1"
+
+            "AttachWearables"
+            {
+                "Wearable1"
+                {
+                    "ItemDef"	"6250"
+                }
+                "Wearable2"
+                {
+                    "ItemDef"	"6252"
+                }
+                "Wearable3"
+                {
+                    "ItemDef"	"6253"
+                }
+                "Wearable4"
+                {
+                    "ItemDef"	"6254"
+                }
+                "Wearable5"
+                {
+                    "ItemDef"	"6255"
+                }
+            }
+        }
+    }
+
+
 
 
 

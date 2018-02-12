@@ -8,6 +8,7 @@ if not Barbarians then
         RAIDER = "npc_dota_creature_barbarian_raider",
         CATAPULT = "npc_dota_creature_catapult_radiant",
         ARCHER = "npc_dota_creature_barbarian_archer",
+        WARCHIEF = "npc_dota_creature_barbarian_warchief",
 
         camps = {},
         mainCamp = nil,
@@ -60,8 +61,12 @@ if not Barbarians then
         },
         -- Wave 10
         {
+            {name=Barbarians.WARCHIEF, count=3, boss=true}
+        },
+        {
             {name=Barbarians.RAIDER, count=6},
-            {name=Barbarians.ARCHER, count=6}
+            {name=Barbarians.ARCHER, count=6},
+            {name=Barbarians.CATAPULT, count=1}
         }
     }
 end
@@ -179,7 +184,8 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnStart
         for _,entry in pairs(Barbarians.waves[curWave]) do
             local unitName = entry.name
             local count = entry.count
-            print("\t\tUnit: "..unitName.." (count: "..count..")")
+            local boss = entry.boss or false
+            print("\t\tUnit: "..unitName.." (count: "..count.."), boss level: "..tostring(boss))
         end
         print()
     end
