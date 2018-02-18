@@ -284,6 +284,14 @@ function Precache( context )
 	PrecacheResource("particle", "particles/units/heroes/hero_pugna/pugna_decrepify.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_pugna/pugna_base_attack.vpcf", context)
 
+    -- Bane Elemental
+    PrecacheResource("model", "models/heroes/bane/bane.vmdl", context)
+    PrecacheResource("model", "models/heroes/bane/bane_head.vmdl", context)
+    PrecacheResource("model", "models/heroes/bane/bane_shoulders.vmdl", context)
+
+    PrecacheResource("particle", "particles/units/heroes/hero_bane/bane_projectile.vpcf", context)
+
+
 
 
 	-- Warlord
