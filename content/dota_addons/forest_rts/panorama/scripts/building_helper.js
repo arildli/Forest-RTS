@@ -532,6 +532,7 @@ function RequestGNV () {
 }
 
 (function () {
+    $.Msg("[BuildingHelper] Requesting GNV...")
     RequestGNV()
 
     GameEvents.Subscribe( "building_helper_enable", StartBuildingHelper);

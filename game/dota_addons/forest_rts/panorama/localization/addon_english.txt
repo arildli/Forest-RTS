@@ -1,5 +1,6 @@
 "addon"
 {
+
 	"Language"		"English"
 	"Tokens"
 	{
@@ -52,10 +53,10 @@
 		"note_30_sec_start_pvp"				"Score points by killing enemy heroes and their main buildings!"
 		"simplerts_single_player_mode"			"Enemy patrol spawned!"
 
-		"PointsToWin"					"+{d:points_to_win} more"
+		//"PointsToWin"					"+{d:points_to_win} more"
 		"PointsToWin_Victory"				"Victory!"
 
-		"RecentScore"					"+{d:score}"
+		//"RecentScore"					"+{d:score}"
 
 		"Unassigned"      				"Unassigned Team"
 		"Spectator"       				"Spectator Team"

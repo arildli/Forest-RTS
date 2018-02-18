@@ -1,21 +1,21 @@
 // Defines scripts to set selection redirects
 
-var DESELECT_BUILDINGS = false; // Get only the units when units&buildings are on the same list
+var DESELECT_BUILDINGS = true; // Get only the units when units&buildings are on the same list
 var SELECT_ONLY_BUILDINGS = false; // Get only the buildings when units&buildings are on the same list
 var DISPLAY_RANGE_PARTICLE = false; // Uses the main selected entity to update a particle showing attack range
 var rangedParticle
 
 function SelectionFilter( entityList ) {
-    
+
     if (DESELECT_BUILDINGS) {
         if (entityList.length > 1 && IsMixedBuildingSelectionGroup(entityList) ){
-            $.Schedule(1/60, DeselectBuildings) 
+            $.Schedule(1/60, DeselectBuildings)
         }
     }
 
     else if (SELECT_ONLY_BUILDINGS) {
         if (entityList.length > 1 && IsMixedBuildingSelectionGroup(entityList) ){
-            $.Schedule(1/60, SelectOnlyBuildings)   
+            $.Schedule(1/60, SelectOnlyBuildings)
         }
     }
 
@@ -49,7 +49,7 @@ function SelectionFilter( entityList ) {
 function DeselectBuildings() {
     var iPlayerID = Players.GetLocalPlayer();
     var selectedEntities = Players.GetSelectedEntities( iPlayerID );
-    
+
     skip = true;
     var first = FirstNonBuildingEntityFromSelection(selectedEntities)
     GameUI.SelectUnit(first, false); // Overrides the selection group
@@ -98,7 +98,7 @@ function IsMixedBuildingSelectionGroup ( entityList ) {
 function SelectOnlyBuildings() {
     var iPlayerID = Players.GetLocalPlayer();
     var selectedEntities = Players.GetSelectedEntities( iPlayerID );
-    
+
     skip = true;
     var first = FirstBuildingEntityFromSelection(selectedEntities)
     GameUI.SelectUnit(first, false); // Overrides the selection group

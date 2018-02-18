@@ -335,6 +335,7 @@ end
 -- On Hero Pick
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onHeroPick(keys)
+    print("Entering 'onHeroPick'")
     local currentPlayer = EntIndexToHScript(keys.player)
     PlayerResource:SetGold(currentPlayer:GetPlayerID(), START_GOLD, true)
     PlayerResource:SetGold(currentPlayer:GetPlayerID(), 0, false)
@@ -342,7 +343,12 @@ function SimpleRTSGameMode:onHeroPick(keys)
     local hero = EntIndexToHScript(keys.heroindex)
     local player = EntIndexToHScript(keys.player)
     local playerID = hero:GetPlayerID()
+
+    print("Getting the team name of player: ")
+
     local teamName = GetTeamName(hero:GetTeam())
+
+    print("Team name of last picked hero: "..teamName)
 
     Stats:AddPlayer(hero, player, playerID, teamName)
     Resources:InitHero(hero, START_LUMBER)
@@ -401,7 +407,14 @@ function SimpleRTSGameMode:onGameStateChange(keys)
 
     -- Selection state
     if newState == DOTA_GAMERULES_STATE_HERO_SELECTION then
-        print("Entering hero selection!")
+        print("newState == DOTA_GAMERULES_STATE_HERO_SELECTION")
+
+        print("[SimpleRTS] GetWorldMinX: "..tostring(GetWorldMinX()))
+        print("[SimpleRTS] GetWorldMaxX: "..tostring(GetWorldMaxX()))
+        print("[SimpleRTS] GetWorldMinY: "..tostring(GetWorldMinY()))
+        print("[SimpleRTS] GetWorldMaxY: "..tostring(GetWorldMaxY()))
+        print("[SimpleRTS] IsInToolsMode: "..tostring(IsInToolsMode()))
+
         self.radiantCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS)
         self.direCount = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS)
         self.totalCount = self.radiantCount + self.direCount
@@ -476,9 +489,15 @@ function SimpleRTSGameMode:onGameStateChange(keys)
                     return 1.0
             end)]=]
         end
+    elseif newState == DOTA_GAMERULES_STATE_STRATEGY_TIME then
+        print("newState == DOTA_GAMERULES_STATE_STRATEGY_TIME")
+
+    elseif newState == DOTA_GAMERULES_STATE_TEAM_SHOWCASE then
+        print("newState == DOTA_GAMERULES_STATE_TEAM_SHOWCASE")
 
     elseif newState == DOTA_GAMERULES_STATE_PRE_GAME then
         print("[SimpleRTS] The game has started.")
+        print("newState == DOTA_GAMERULES_STATE_PRE_GAME")
 
         -- Initialize the Neutrals module.
         Neutrals:Init()
@@ -492,6 +511,7 @@ function SimpleRTSGameMode:onGameStateChange(keys)
         end
     -- Game start
     elseif newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+        print("newState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS")
         if self.gameMode == "Solo" or self.gameMode == "Co-Op" then
             Barbarians:Start()
         end

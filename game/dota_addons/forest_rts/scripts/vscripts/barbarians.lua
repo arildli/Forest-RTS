@@ -51,7 +51,7 @@ if not Barbarians then
             {name=Barbarians.CATAPULT, count=1}
         },
         {
-            {name=Barbarians.AXE_FIGHTER, count=6},
+            {name=Barbarians.AXE_FIGHTER, count=5},
             {name=Barbarians.ARCHER, count=5}
         },
         {
@@ -64,8 +64,8 @@ if not Barbarians then
             {name=Barbarians.WARCHIEF, count=3, boss=true}
         },
         {
-            {name=Barbarians.RAIDER, count=6},
-            {name=Barbarians.ARCHER, count=6},
+            {name=Barbarians.RAIDER, count=5},
+            {name=Barbarians.ARCHER, count=5},
             {name=Barbarians.CATAPULT, count=1}
         }
     }

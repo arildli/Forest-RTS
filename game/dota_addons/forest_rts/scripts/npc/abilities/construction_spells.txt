@@ -27,8 +27,8 @@
 
         "UnitName"                  "npc_dota_building_watch_tower"
         "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "25"
-        "AbilityLumberCost"             "25"
+        "AbilityGoldCost"               "30"
+        "AbilityLumberCost"             "20"
         "BuildTime"                 "15"
         // End of BuildingHelper info
 
@@ -37,13 +37,13 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "25"
+                "gold_cost" "30"
             }
 
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
-                "lumber_cost"   "25"
+                "lumber_cost"   "20"
             }
 
             "03"
@@ -366,8 +366,8 @@
 
         "UnitName"                  "npc_dota_building_barracks_radiant"
         "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "140"
-        "AbilityLumberCost"             "50"
+        "AbilityGoldCost"               "120"
+        "AbilityLumberCost"             "40"
         "BuildTime"                 "20"
         // End of BuildingHelper info
 
@@ -376,13 +376,13 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "140"
+                "gold_cost" "120"
             }
 
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
-                "lumber_cost"   "50"
+                "lumber_cost"   "40"
             }
 
             "03"
@@ -440,7 +440,7 @@
         "UnitName"                  "npc_dota_building_barracks_advanced_radiant"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "125"
-        "AbilityLumberCost"             "75"
+        "AbilityLumberCost"             "60"
         "BuildTime"                 "20"
         // End of BuildingHelper info
 
@@ -455,7 +455,7 @@
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
-                "lumber_cost"   "75"
+                "lumber_cost"   "60"
             }
 
             "03"
@@ -512,8 +512,8 @@
 
         "UnitName"                  "npc_dota_building_barracks_dire"
         "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "140"
-        "AbilityLumberCost"             "50"
+        "AbilityGoldCost"               "120"
+        "AbilityLumberCost"             "40"
         "BuildTime"                 "20"
         // End of BuildingHelper info
 
@@ -522,13 +522,13 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "140"
+                "gold_cost" "120"
             }
 
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
-                "lumber_cost"   "50"
+                "lumber_cost"   "40"
             }
 
             "03"
@@ -586,7 +586,7 @@
         "UnitName"                  "npc_dota_building_barracks_advanced_dire"
         "AbilityCooldown"               "0"
         "AbilityGoldCost"               "125"
-        "AbilityLumberCost"             "75"
+        "AbilityLumberCost"             "60"
         "BuildTime"                 "20"
         // End of BuildingHelper info
 
@@ -601,7 +601,7 @@
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
-                "lumber_cost"   "75"
+                "lumber_cost"   "60"
             }
 
             "03"
