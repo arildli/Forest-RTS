@@ -1341,6 +1341,24 @@ unitdefs = {
 		}
 	},
 
+    KING_OF_THE_DEAD_BANE_ELEMENTAL = {
+		name = "npc_dota_creature_skeleton_bane_elemental",
+		spell = "srts_train_skeleton_bane_elemental",
+		category = "unit",
+		trainedAt = "BARRACKS_ADVANCED_DIRE",
+		unitType = "cavalry",
+		upgrades = {
+			"UPGRADE_LIGHT_ARMOR",
+			"UPGRADE_LIGHT_DAMAGE"},
+		pages = {
+			PAGE_MAIN = {
+			},
+			HIDDEN = {
+				"UNIT"
+			}
+		}
+	},
+
 	-- Warlord
 	WARLORD_WORKER = {
 		name = "npc_dota_creature_troll_worker",

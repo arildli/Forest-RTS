@@ -2941,6 +2941,168 @@
 
 
 
+    //================================================================================
+    // Train Forest Skirmisher
+    //================================================================================
+    "srts_train_skeleton_bane_elemental"
+    {
+        "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityBehavior"		"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
+
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
+
+        "AbilityCastPoint"      "0.1"
+        "AbilityCastRange"      "250"
+        "AbilityCooldown"       "0"
+        "AbilityManaCost"       "0"
+        "AbilityUpgradeGoldCost"    "0"
+
+        "AbilityName"           "Skeleton_Bane_Elemental"
+        "AbilityTextureName"    "spellicon_skeleton_bane_elemental"
+        "AbilityGoldCost"       "160"
+        "AbilityChannelTime"    "12"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "gold_cost" "160"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "lumber_cost"   "15"
+            }
+
+            "03"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "health"    "380"
+            }
+
+            "04"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "armor"     "2"
+            }
+
+            "05"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "damage"    "23"
+            }
+
+            "06"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "range"     "500"
+            }
+
+            "07"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "training_time" "12"
+            }
+        }
+
+
+        "precache"
+        {
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"	"scripts/vscripts/buildings/queue.lua"
+                "Function"		"EnqueueUnit"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+
+            "ApplyModifier"
+            {
+                "ModifierName"  "modifier_train_unit"
+                "Target"        "CASTER"
+            }
+        }
+
+        "OnChannelFinish"
+        {
+            "RemoveModifier"
+            {
+                "ModifierName"      "modifier_train_unit"
+                "Target"            "CASTER"
+            }
+        }
+
+        "OnChannelSucceeded"
+        {
+            // Consume the first item in the queue
+            "RunScript"
+            {
+                "ScriptFile"   	"buildings/queue.lua"
+                "Function"      "NextQueue"
+            }
+
+            "SpawnUnit"
+            {
+                "UnitName"  "npc_dota_creature_skeleton_bane_elemental"
+                "Target"    "CASTER"
+                "Duration"  "0"
+                "UnitCount" "1"
+                "UnitLimit" "0"
+                "GrantsGold"    "1"
+                "GrantsXP"  "1"
+                "SpawnRadius"   "10"
+
+                "OnSpawn"
+                {
+                    "ApplyModifier"
+                    {
+                        "ModifierName"  "modifier_phased"
+                        "Target"    "TARGET"
+                        "Duration"  "0.03"
+                    }
+
+                    "FireSound"
+                    {
+                        "EffectName"    "DOTA_Item.Hand_Of_Midas"
+                        "Target"    "CASTER"
+                    }
+
+                    "RunScript"
+                    {
+                        "Target"    "POINT"
+                        "ScriptFile"    "scripts/vscripts/buildings.lua"
+                        "Function"  "OnUnitTrained"
+                        "goldCost"  "%gold_cost"
+                        "lumberCost"    "%lumber_cost"
+                    }
+                }
+            }
+        }
+
+        "OnChannelInterrupted"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "scripts/vscripts/buildings.lua"
+                "Function"  "RefundResources"
+                "Target"    "CASTER"
+                "goldCost"  "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+    }
+
+
+
+
+
 //-- // Worker // --// Train3
 
 

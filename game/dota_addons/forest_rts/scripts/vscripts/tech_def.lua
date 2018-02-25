@@ -222,6 +222,7 @@ entities = {
         RANGED = unitdefs.KING_OF_THE_DEAD_ARCHER,
         SIEGE = unitdefs.KING_OF_THE_DEAD_CATAPULT,
         CASTER = unitdefs.KING_OF_THE_DEAD_CASTER,
+        CAVALRY = unitdefs.KING_OF_THE_DEAD_BANE_ELEMENTAL,
 
         TENT_SMALL = buildefs.TENT_SMALL,
         TENT_LARGE = buildefs.TENT_LARGE,
@@ -679,6 +680,7 @@ tech = {
         KING_OF_THE_DEAD_ARCHER = unitdefs.KING_OF_THE_DEAD_ARCHER,
         KING_OF_THE_DEAD_CATAPULT = unitdefs.KING_OF_THE_DEAD_CATAPULT,
         KING_OF_THE_DEAD_CASTER = unitdefs.KING_OF_THE_DEAD_CASTER,
+        KING_OF_THE_DEAD_BANE_ELEMENTAL = unitdefs.KING_OF_THE_DEAD_BANE_ELEMENTAL,
 
         -- Buildings
         TENT_SMALL = CopyWithNewMain(buildefs.TENT_SMALL, {
@@ -702,6 +704,7 @@ tech = {
         }),
         BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
             unitdefs.KING_OF_THE_DEAD_CASTER,
+            unitdefs.KING_OF_THE_DEAD_BANE_ELEMENTAL,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_DIRE = buildefs.ARMORY_DIRE,

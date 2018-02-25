@@ -1306,7 +1306,7 @@
 
 		"SelectionGroup"		"Skeleton_Bane_Elemental"
 
-		"ArmorPhysical"			"3"
+		"ArmorPhysical"			"2"
 
         "AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"20"
@@ -1314,7 +1314,7 @@
 		"AttackRate"			"1.4"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"700"
-		"AttackRange"			"700"
+		"AttackRange"			"500"
 		"ProjectileModel"		"particles/units/heroes/hero_bane/bane_projectile.vpcf"
 		"ProjectileSpeed"		"1200"
 
