@@ -380,6 +380,15 @@ function OnUnitTrained(keys)
     target:SetHasInventory(true)
     target._playerOwned = true
 
+    local playerID = target:GetOwnerID()
+    Stats:OnTrained(playerID, target, "unit")
+    Stats:SpendGold(playerID, keys.goldCost)
+    Stats:SpendLumber(playerID, keys.lumberCost)
+
+    if keys.merc then
+        return
+    end
+
     -- Register Trained
     TechTree:RegisterIncident(target, true)
     TechTree:AddAbilitiesToEntity(target)
@@ -391,11 +400,6 @@ function OnUnitTrained(keys)
 
     -- Apply current upgrades.
     ApplyUpgradesOnTraining(target)
-
-    local playerID = target:GetOwnerID()
-    Stats:OnTrained(playerID, target, "unit")
-    Stats:SpendGold(playerID, keys.goldCost)
-    Stats:SpendLumber(playerID, keys.lumberCost)
 
     -- Move to rally point if it exists.
     local rallyPoint = caster:GetRallyPoint()

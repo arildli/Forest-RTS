@@ -1,53 +1,52 @@
 "dota_shops"
 {
+    "pinned"
+    {
+
+    }
+
 	"consumables"
 	{
 	}
-		
+
 	"attributes"
 	{
-		"item"		"item_orb_of_poison"
+
 	}
-	
+
 	"weapons_armor"
 	{
-		"item"		"item_light_armor"
-		"item"		"item_medium_armor"
-		"item"		"item_heavy_armor"	
 	}
-	
+
 	"misc"
-	{	
-		"item"		"item_light_damage"
-		"item"		"item_medium_damage"
-		"item"		"item_heavy_damage"
+	{
 	}
 
 	"basics"
 	{
 
 	}
-	
+
 	"support"
 	{
-	
+
 	}
-	
+
 	"magics"
 	{
 
 	}
-	
+
 	"defense"
 	{
 
 	}
-	
+
 	"weapons"
 	{
 
 	}
-	
+
 	"artifacts"
 	{
 
@@ -55,7 +54,7 @@
 
 	"sideshop1"
 	{
-
+        "item"		"item_srts_spawn_barbarian_scout"
 	}
 
 	"sideshop2"
@@ -67,4 +66,4 @@
 	{
 
 	}
-}	
+}

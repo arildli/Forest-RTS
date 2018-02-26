@@ -628,6 +628,131 @@
 
 
 
+    // Spawning items (Mercenaries)
+
+
+
+    //================================================================================
+	// Spawn Barbarian Scout
+	//================================================================================
+	"item_srts_spawn_barbarian_scout"
+	{
+		"BaseClass"			"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		// ItemInfo
+		//--------------------------------------------------------------------------------
+		"AbilityTextureName"	"item_stack_of_lumber"
+    	"ItemQuality"  			"common"
+
+		"ItemShopTags"			"Mercenary"
+		//"ItemAliases"			"stack_of_lumber;lumber;logs"
+    	"ItemKillable" 			"1"
+    	"ItemSellable" 			"0"
+    	"ItemPurchasable" 		"1"
+    	"ItemDroppable" 		"0"
+    	"ItemShareability" 		"ITEM_FULLY_SHAREABLE"
+    	"ItemStackable" 		"1"
+    	"ItemPermanent" 		"0"
+    	"ItemDisassembleRule" 	"DOTA_ITEM_DISASSEMBLE_NEVER"
+
+		"ItemInitialCharges"	"1"
+
+    	"SideShop"     			"1"
+    	"SecretShop"   			"0"
+
+		// Sounds
+		//--------------------------------------------------------------------------------
+		"UIPickupSound"			"Item.PickUpRingShop"
+		"UIDropSound"			"Item.DropRecipeShop"
+		"WorldDropSound"		"Item.DropGemWorld"
+
+        "ItemCost"     			"80"
+
+		"AbilitySpecial"
+		{
+            "01"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "gold_cost" "80"
+            }
+
+            "02"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "lumber_cost"   "0"
+            }
+
+            "03"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "health"    "255"
+            }
+
+            "04"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "armor"     "0"
+            }
+
+            "05"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "damage"    "12"
+            }
+
+            "06"
+            {
+                "var_type"  "FIELD_INTEGER"
+                "range"     "500"
+            }
+		}
+
+		"ItemCastOnPickup"		"1"
+		"OnSpellStart"
+		{
+            "SpawnUnit"
+            {
+                "UnitName"  "npc_dota_creature_barbarian_scout"
+                "Target"    "CASTER"
+                "Duration"  "0"
+                "UnitCount" "1"
+                "UnitLimit" "0"
+                "GrantsGold"    "1"
+                "GrantsXP"  "1"
+                "SpawnRadius"   "10"
+
+                "OnSpawn"
+                {
+                    "ApplyModifier"
+                    {
+                        "ModifierName"  "modifier_phased"
+                        "Target"        "TARGET"
+                        "Duration"      "0.03"
+                    }
+
+                    "FireSound"
+                    {
+                        "EffectName"    "DOTA_Item.Hand_Of_Midas"
+                        "Target"        "CASTER"
+                    }
+
+                    "RunScript"
+                    {
+                        "Target"        "POINT"
+                        "ScriptFile"    "scripts/vscripts/buildings.lua"
+                        "Function"      "OnUnitTrained"
+                        "goldCost"      "%gold_cost"
+                        "lumberCost"    "%lumber_cost"
+                        "merc"          "1"
+                    }
+                }
+            }
+		}
+	}
+
+
+
     // Training items research
 
 
@@ -726,6 +851,7 @@
 
 
     // Training items end
+
 
 
 	// Item3
