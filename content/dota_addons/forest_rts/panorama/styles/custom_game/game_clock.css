@@ -10,12 +10,12 @@
     height: 30px;
 
     vertical-align: bottom;
-    background-color: black;
+    background-color: rgba(10, 10, 10, 0.7);
     border-radius: 2px;
 
-    margin-right: 50px;
-    margin-left: 10px;
-    margin-bottom: 65px;
+    margin-right: 5px;
+    margin-left: 115px;
+    margin-bottom: 15px;
 }
 
 #ClockTime

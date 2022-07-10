@@ -38,26 +38,24 @@ function CheckHudFlipped() {
         resourcesPanel.RemoveClass("Right");
         resourcesPanel.RemoveClass("RightShadow");
         resourcesTitlePanel.RemoveClass("Right");
-        //resourcesTitlePanel.RemoveClass("RightShadow");
+        resourcesTitlePanel.RemoveClass("RightShadow");
     	lumberPanel.AddClass("Flipped");
     	goldPanel.AddClass("Flipped");
         resourcesPanel.AddClass("Flipped");
         resourcesPanel.AddClass("FlippedShadow");
         resourcesTitlePanel.AddClass("Flipped");
-        //resourcesTitlePanel.AddClass("FlippedShadow");
     } else {
     	lumberPanel.AddClass("Right");
     	goldPanel.AddClass("Right");
         resourcesPanel.AddClass("Right");
         resourcesPanel.AddClass("RightShadow");
         resourcesTitlePanel.AddClass("Right");
-        //resourcesTitlePanel.AddClass("RightShadow");
+        resourcesTitlePanel.AddClass("RightShadow");
     	lumberPanel.RemoveClass("Flipped");
     	goldPanel.RemoveClass("Flipped");
         resourcesPanel.RemoveClass("Flipped");
         resourcesPanel.RemoveClass("FlippedShadow");
         resourcesTitlePanel.RemoveClass("Flipped");
-        //resourcesTitlePanel.RemoveClass("FlippedShadow");
     }
 }
 

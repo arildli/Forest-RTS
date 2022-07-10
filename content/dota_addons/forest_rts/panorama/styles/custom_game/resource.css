@@ -1,4 +1,4 @@
-@define RES_MARGIN_BOT: 150px;
+@define RES_MARGIN_BOT: 120px;
 
 .ResourcePanel
 {
@@ -6,19 +6,20 @@
     height: 100%;
 
     vertical-align: bottom;
-    //horizontal-align: right;
-    //border: 1px solid red;
 }
 
 #Resources
 {
-    width: 25%;
-    height: 21%;
+    width: 21%;
+    height: 19%;
 
     vertical-align: bottom;
+    background-color: rgba(10, 10, 10, 0.7);
+    
+    border: 1px solid black;
     //border: 1px solid green;
-
-    //background-color: gradient( linear, 10px 0%, 100px 5%, from(black), to(transparent) );
+    //background-color: gradient( linear, 10px 0%, 250px 5%, from(black), to(transparent) );
+    //background-color: gradient( linear, 10px 0%, 400px 5%, from(transparent), to(black) );
 }
 
 .Hidden
@@ -29,8 +30,9 @@
 
 #ResourcesTitle
 {
-    margin-left: 65px;
-    margin-right: 65px;
+    margin-top: 5px;
+    margin-left: 85px;
+    margin-right: 85px;
 
     color: white;
     font-size: 25px;
@@ -42,6 +44,8 @@
 
 #LumberPanel
 {
+    //border: 1px solid red;
+
     width: 100px;
     height: 30px;
 
@@ -49,10 +53,9 @@
     //background-color: gradient(linear, 25px 100%, 5px 0%, from(transparent), to(grey));
     //background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
 
-    //margin-bottom: 155px;
     margin-bottom: RES_MARGIN_BOT;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 25px;
+    margin-left: 25px;
 }
 
 #GoldPanel
@@ -66,8 +69,8 @@
     //border: 1px solid red;
 
     margin-bottom: RES_MARGIN_BOT;
-    margin-right: 110px;
-    margin-left: 110px;
+    margin-right: 160px;
+    margin-left: 130px;
 }
 
 #LumberText
@@ -120,18 +123,7 @@
     horizontal-align: right;
 }
 
-.RightShadow
-{
-    background-color: gradient( linear, 0px 10%, 10px 10%, from(transparent), to(black))) );
-
-}
-
 .Flipped
 {
     horizontal-align: left;
-}
-
-.FlippedShadow
-{
-    background-color: gradient( linear, 10px 10%, 10px 10%, from(transparent), to(black));
 }

@@ -18,3 +18,4 @@ settings.kv
 game/dota_addons/forest_rts/scripts/vscripts/notes.txt
 game/dota_addons/forest_rts/scripts/vscripts/Changes.txt
 game/dota_addons/forest_rts/scripts/vscripts/notes_2.txt
+content/dota_addons/forest_rts/panorama/node_modules/*

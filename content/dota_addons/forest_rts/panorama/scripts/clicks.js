@@ -56,7 +56,7 @@ function OnRightButtonPressed()
         {
             if (IsCustomBuilding(e) && Entities.IsControllableByPlayer(e, iPlayerID)) {
                 var mouseTarget = GetMouseTarget();
-                $.Msg(mouseTarget);
+
                 if (mouseTarget != 0) {
                     GameEvents.SendCustomGameEventToServer("set_rally_point", {pID: iPlayerID, mainSelected: e, clickPos: clickPos, clickTarget: mouseTarget});
                 } else {
