@@ -1,0 +1,18 @@
+<root>
+    <styles>
+        <include src="file://{resources}/styles/custom_game/wave_info.css"/>
+    </styles>
+    <scripts>
+        <include src="file://{resources}/scripts/custom_game/utils.js"/>
+        <include src="file://{resources}/scripts/custom_game/wave_info.js"/>
+    </scripts>
+    <Panel hittest="false" class="WaveInfoRoot">
+        <Panel hittest="false" id="WaveInfoPanel" class="Right" >
+            <Panel id="TitlePanel">
+                <Label hittest="false" id="Title" text="Wave Info:" html="true" class="TitleFont"/>
+                <Label hittest="false" id="WaveNumber" text="" html="true" class="Text InfoLine" />
+                <Label hittest="false" id="NextWaveTimer" text="" html="true" class="Text InfoLine" />
+            </Panel>
+        </Panel>
+    </Panel>
+</root>

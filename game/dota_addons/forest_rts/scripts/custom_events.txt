@@ -44,6 +44,12 @@
 		"building"		"short"
 	}
 
+	"barbarian_wave_spawned"
+	{
+		"waveNumber"	"short"
+		"nextWave"		"short"
+	}
+
 
 	// Stat collection
     	"stat_collection_part"

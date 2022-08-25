@@ -10,15 +10,16 @@ if not Barbarians then
         ARCHER = "npc_dota_creature_barbarian_archer",
         WARCHIEF = "npc_dota_creature_barbarian_warchief",
 
+        currentlyPaused = false,
         camps = {},
         mainCamp = nil,
         attackUpdateInterval = 1,
         -- How long to wait after game start before spawning the first wave.
         defaultSpawnStart = 120,
         -- How often to initially spawn new waves. Will increase over time.
-        defaultSpawnRate = 60,
+        defaultSpawnRate = 65,
         -- The spawn rate will should never exceed this value.
-        defaultSpawnRateCap = 90,
+        defaultSpawnRateCap = 120,
         -- Extra time added between some of the waves for better recovery chances.
         defaultSpawnBreak = 60,
         -- How much to increase the spawnRate value with when having an extra break.
@@ -36,15 +37,15 @@ if not Barbarians then
         {{name=Barbarians.SCOUT, count=3}},
         {{name=Barbarians.AXE_FIGHTER, count=4}},
         {
-            {name=Barbarians.AXE_FIGHTER, count=4},
+            {name=Barbarians.AXE_FIGHTER, count=3},
             {name=Barbarians.SCOUT, count=3}
         },
         {
-            {name=Barbarians.AXE_FIGHTER, count=6}
+            {name=Barbarians.AXE_FIGHTER, count=5}
         },
         {
             {name=Barbarians.AXE_FIGHTER, count=5},
-            {name=Barbarians.ARCHER, count=3}
+            {name=Barbarians.ARCHER, count=2}
         },
         {
             {name=Barbarians.RAIDER, count=5},
@@ -52,12 +53,12 @@ if not Barbarians then
         },
         {
             {name=Barbarians.AXE_FIGHTER, count=5},
-            {name=Barbarians.ARCHER, count=5}
+            {name=Barbarians.ARCHER, count=3}
         },
         {
             {name=Barbarians.AXE_FIGHTER, count=4},
-            {name=Barbarians.RAIDER, count=4},
-            {name=Barbarians.ARCHER, count=4}
+            {name=Barbarians.RAIDER, count=3},
+            {name=Barbarians.ARCHER, count=3}
         },
         -- Wave 10
         {
@@ -65,7 +66,7 @@ if not Barbarians then
         },
         {
             {name=Barbarians.RAIDER, count=5},
-            {name=Barbarians.ARCHER, count=5},
+            {name=Barbarians.ARCHER, count=4},
             {name=Barbarians.CATAPULT, count=1}
         }
     }
@@ -91,6 +92,16 @@ function Barbarians:Init()
         print("[Barbarians] Printing info about camps:")
         Barbarians:PrintAllCamps()
     end, 'Spawn the next barbarian wave', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('bstop', function()
+        print("[Barbarians] Stopping the Barbarian wave spawning")
+        Barbarians.currentlyPaused = true
+    end, 'Spawn the next barbarian wave', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('bstart', function()
+        print("[Barbarians] Continuing the Barbarian wave spawning again")
+        Barbarians.currentlyPaused = false
+    end, 'Spawn the next barbarian wave', FCVAR_CHEAT)
 end
 
 ---------------------------------------------------------------------------
@@ -103,6 +114,15 @@ function Barbarians:Start()
     textColor = "#b0171b"
     local notificationString = "<font color='"..textColor.."'>".."Barbarians".."</font> will start spawning in "..spawnStart.." seconds!"
     DisplayMessageToAll(notificationString)
+
+    local event = {
+        waveNumber = 0,
+        nextWave = spawnStart
+    }
+    FireGameEvent("barbarian_wave_spawned", event)
+
+    print("[Barbarians] Fired game event with values: {" .. "waveNumber: " .. event.waveNumber
+    .. ", nextWave: " .. event.nextWave .. "}")
 
     -- Spawn the waves regularly.
     Timers:CreateTimer(spawnStart, function()
@@ -262,7 +282,7 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnStart
         local spawnRate = camp.spawnRate
         if waveNumber > maxWave then
             print("waveNumber was larger than maxWave, setting to maxWave!")
-            extraSpawns = waveNumber - maxWave
+            extraSpawns = (waveNumber - maxWave) / 2
             waveNumber = maxWave
         end
 
@@ -329,6 +349,11 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnStart
         local spawnIncrementPeriod = camp.spawnIncrementPeriod
         local spawnedUnits = {}
 
+        if Barbarians.currentlyPaused == true then
+            print("[Barbarians] Currently paused, skipping wave...")
+            return
+        end
+
         -- Notify the players when spawning the first wave.
         if curWave == maxWave + 1 then
             local textColor = "#b0171b"
@@ -369,6 +394,15 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnStart
             -- Temporarily using playerID 0.
             spawnedUnits = camp:SpawnWave(curWave, 0)
         end
+
+        local event = {
+            waveNumber = camp.waveNumber,
+            nextWave = spawnRate
+        }
+        FireGameEvent("barbarian_wave_spawned", event)
+
+        print("[Barbarians] Fired game event with values: {" .. "waveNumber: " .. event.waveNumber
+            .. ", nextWave: " .. event.nextWave .. "}")
 
         camp.waveNumber = curWave + 1
 

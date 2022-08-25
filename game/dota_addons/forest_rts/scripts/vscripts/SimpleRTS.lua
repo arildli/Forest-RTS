@@ -139,6 +139,7 @@ function SimpleRTSGameMode:InitGameMode()
     ListenToGameEvent('entity_killed', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityKilled'), self)
     ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityLevel'), self)
     ListenToGameEvent('tree_cut', Dynamic_Wrap(SimpleRTSGameMode, 'OnTreeCut'), self)
+    ListenToGameEvent("barbarian_wave_spawned", Dynamic_Wrap(SimpleRTSGameMode, "SendWaveInfo"), self)
 
     -- Register Listener
     CustomGameEventManager:RegisterListener("update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
@@ -596,7 +597,24 @@ end
 -- Call CastEnterTower.
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:CastEnterTower(keys)
-  CastEnterTower(keys)
+    CastEnterTower(keys)
+end
+
+
+
+---------------------------------------------------------------------------
+-- Send info about the newly spawned Barbarian wave to the players.
+---------------------------------------------------------------------------
+function SimpleRTSGameMode:SendWaveInfo(keys)
+    print("Sending Wave information to the players")
+
+    for i=0, HIGHEST_PLAYER_INDEX do
+        local curPlayerHero = GetPlayerHero(i)
+
+        if curPlayerHero then
+            UpdatePlayerPanel(curPlayerHero, "wave_info", keys)
+        end
+    end
 end
 
 
