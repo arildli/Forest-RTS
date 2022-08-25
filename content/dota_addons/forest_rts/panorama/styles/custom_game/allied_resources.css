@@ -31,7 +31,7 @@
     
     horizontal-align: right;
     vertical-align: bottom;
-    //margin-bottom: 300px;
+    margin-bottom: 300px;
 
     background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
     /*border: 1px solid blue;*/

@@ -16,6 +16,30 @@ require('libraries/notifications')
 
 
 
+hero_names = {
+    "bane",
+    "beastmaster",
+    "brewmaster",
+    "centaur",
+    "clinkz",
+    "dragon_knight",
+    "enchantress",
+    "leshrac",
+    "lina",
+    "meepo",
+    "pugna",
+    "skeletonking",
+    "sniper",
+    "techies",
+    "treant",
+    "tuskarr",
+    "warlord",
+    "windrunner",
+    "witchdoctor"    
+}
+
+
+
 ---------------------------------------------------------------------------
 -- Precache
 ---------------------------------------------------------------------------
@@ -57,25 +81,39 @@ function Precache( context )
 	-- Buildings
 	   -- Tower
 	PrecacheResource("model", "models/props_structures/wooden_sentry_tower001.vmdl", context)
+    PrecacheResource("model", "models/watch_tower/watch_tower.vmdl", context)
 	   -- Wooden Wall
 	PrecacheResource("model", "models/props_debris/spike_fence_fx_b.vmdl", context)
+    PrecacheResource("model", "models/wooden_wall/wooden_wall.vmdl", context)
 	   -- Temporary Mining Crystal
 	PrecacheResource("model", "models/props_structures/good_base_wall006.vmdl", context)
+    --PrecacheResource("model", "models/moonwell/moonwell.vmdl", context)
 	   -- Main Tent
 	--PrecacheResource("model", "models/main_tent/main_tent.vmdl", context)
 	PrecacheResource("model", "models/props_structures/tent_dk_small.vmdl", context)
+    PrecacheResource("model", "models/main_tent/main_tent.vmdl", context)
 	   -- Good Barracks
 	PrecacheResource("model", "models/props_structures/good_barracks_melee001.vmdl", context)
+    PrecacheResource("model", "models/barracks_radiant/barracks_radiant.vmdl", context)
+      -- Good Barracks Ranged
+    PrecacheResource("model", "models/barracks_ranged_radiant/barracks_ranged_radiant.vmdl", context)
 	   -- Evil Barracks
 	PrecacheResource("model", "models/props_structures/bad_barracks001_melee.vmdl", context)
+    PrecacheResource("model", "models/barracks_dire/barracks_dire.vmdl", context)
+      -- Evil Barracks Ranged
+    PrecacheResource("model", "models/barracks_ranged_dire/barracks_ranged_dire.vmdl", context)
 	   -- Market
 	PrecacheResource("model", "models/props_structures/sideshop_radiant002.vmdl", context)
+    PrecacheResource("model", "models/marked/market.vmdl", context)
 	   -- Armory
 	PrecacheResource("model", "models/props_structures/tent_dk_med.vmdl", context)
+    PrecacheResource("model", "models/armory/armory.vmdl", context)
 	   -- Moonwell
 	PrecacheResource("model", "models/props_structures/good_statue008.vmdl", context)
+    PrecacheResource("model", "models/moonwell/moonwell.vmdl", context)
 	   -- Unholy Spire
 	PrecacheResource("model", "models/props_structures/bad_column001.vmdl", context)
+    PrecacheResource("model", "models/unholy_spire/unholy_spire.vmdl", context)
     --[=[
     --]=]
 	   -- Gold Mine
@@ -141,7 +179,7 @@ function Precache( context )
 	PrecacheResource("particle", "particles/base_attacks/ranged_siege_good.vpcf", context)
 	PrecacheResource("particle", "particles/base_attacks/ranged_siege_bad.vpcf", context)
 
-
+    
 
 	-- Commander
 
@@ -190,6 +228,8 @@ function Precache( context )
 
 	-- Worker
 	PrecacheResource("model", "models/items/furion/treant/father_treant/father_treant.vmdl", context)
+
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_treant.vsndevts", context)
 
 	-- Treant Warrior
 	PrecacheResource("model", "models/heroes/furion/treant.vmdl", context)
@@ -377,6 +417,12 @@ function Precache( context )
     PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_offhand/deadly_feather_swing_offhand.vmdl", context) -- 8261
     PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_shoulder/deadly_feather_swing_shoulder.vmdl", context) -- 8263
     PrecacheResource("model", "models/items/windrunner/deadly_feather_swing_weapon/deadly_feather_swing_weapon.vmdl", context) -- 8254
+
+    -- Sound files
+    for _,name in ipairs(hero_names) do
+        local file_name = "soundevents/game_sounds_heroes/game_sounds_" .. name .. ".vsndevts"
+        PrecacheResource("soundfile", file_name, context)
+    end
 
 	print("Precache done!")
 end

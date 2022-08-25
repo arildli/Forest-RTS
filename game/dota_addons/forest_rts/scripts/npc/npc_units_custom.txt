@@ -24,7 +24,8 @@
 	{
 		"Model"				"models/heroes/dragon_knight/dragon_knight.vmdl"
 		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
+		"SoundSet"			"Hero_DragonKnight"
+		"GameSoundsFile"	"soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts"
 		"ModelScale"			"0.8"
 
 		"BountyXP"			"29"
@@ -113,46 +114,47 @@
 	//========================================
 	"npc_dota_creature_treant_warrior_1"
 	{
-		"Model"				"models/heroes/furion/treant.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
-		"ModelScale"			"0.9"
+		"Model"						"models/heroes/furion/treant.vmdl"
+		"BaseClass"					"npc_dota_creature"
+		"SoundSet"					"Hero_Treant"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_treant.vsndevts"
+		"ModelScale"				"0.9"
 
-		"BountyXP"			"26"
-		"BountyGoldMin"			"0"
-		"BountyGoldMax"			"0"
+		"BountyXP"					"26"
+		"BountyGoldMin"				"0"
+		"BountyGoldMax"				"0"
 
-		"Ability1"			"srts_regenerative_bark"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"					"srts_regenerative_bark"
+		"Ability2"					""
+		"Ability3"					""
+		"Ability10"					"srts_ability_units"
 
-		"SelectionGroup"		"Forest_Treant"
+		"SelectionGroup"			"Forest_Treant"
 
-		"ArmorPhysical"			"3"
+		"ArmorPhysical"				"3"
 
 		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
-		"AttackDamageMin"		"15"
-		"AttackDamageMax"		"19"
-		"AttackRate"			"1.2"
+		"AttackDamageMin"			"15"
+		"AttackDamageMax"			"19"
+		"AttackRate"				"1.2"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
-		"AttackRange"			"125"
-		"ProjectileModel"		""
-		"ProjectileSpeed"		"0"
+		"AttackRange"				"125"
+		"ProjectileModel"			""
+		"ProjectileSpeed"			"0"
 
-		"RingRadius"			"40"
-		"HealthBarOffset"		"150"
-		"FormationRank" 		"0"
+		"RingRadius"				"40"
+		"HealthBarOffset"			"150"
+		"FormationRank" 			"0"
 
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
-		"MovementSpeed"			"350"
-		"MovementTurnRate"		"0.7"
+		"MovementSpeed"				"350"
+		"MovementTurnRate"			"0.7"
 
-		"StatusHealth"			"450"
-		"StatusHealthRegen"		"0.5"
-		"StatusMana"			"0"
-		"StatusManaRegen"		"0.0"
+		"StatusHealth"				"450"
+		"StatusHealthRegen"			"0.5"
+		"StatusMana"				"0"
+		"StatusManaRegen"			"0.0"
 
 		"VisionDaytimeRange"		"800"
 		"VisionNighttimeRange"		"800"
@@ -175,7 +177,7 @@
 
 
 
-		// Unit1.2
+	// Unit1.2
 	//================================================================================
 	// Unit: Brewmaster Bruiser
 	//================================================================================
@@ -184,25 +186,26 @@
 	//========================================
 	"npc_dota_creature_brewmaster_bruiser"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_ogre_med/n_creep_ogre_med.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
+		"Model"					"models/creeps/neutral_creeps/n_creep_ogre_med/n_creep_ogre_med.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Brewmaster"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts"
 		"ModelScale"			"1.2"
 
-		"BountyXP"			"66"
+		"BountyXP"				"66"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			""
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Brewmaster_Bruiser"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"27"
 		"AttackDamageMax"		"35"
 		"AttackRate"			"1.5"
@@ -216,7 +219,7 @@
 		"HealthBarOffset"		"250"
 		"FormationRank" 		"0"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
 		"MovementTurnRate"		"0.7"
 
@@ -225,8 +228,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -247,25 +250,26 @@
 	//========================================
 	"npc_dota_creature_kobold_guard_1"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_kobold/kobold_b/n_creep_kobold_b.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
+		"Model"					"models/creeps/neutral_creeps/n_creep_kobold/kobold_b/n_creep_kobold_b.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Meepo"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts"
 		"ModelScale"			"1.0"
 
-		"BountyXP"			"21"
+		"BountyXP"				"21"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			"srts_long_weapon"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_long_weapon"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Kobold_Spearman"
 
 		"ArmorPhysical"			"2"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"12"
 		"AttackDamageMax"		"16"
 		"AttackRate"			"1.2"
@@ -279,7 +283,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"0"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -288,8 +292,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -310,25 +314,26 @@
 	//========================================
 	"npc_dota_creature_skeleton_warrior_1"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
+		"Model"					"models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_SkeletonKing"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_skeletonking.vsndevts"
 		"ModelScale"			"1.2"
 
-		"BountyXP"			"16"
+		"BountyXP"				"16"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			"srts_undead_strength"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_undead_strength"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Undead_Skeleton_Warrior"
 
 		"ArmorPhysical"			"0"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"10"
 		"AttackDamageMax"		"14"
 		"AttackRate"			"1.2"
@@ -342,7 +347,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"0"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -351,8 +356,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -373,25 +378,26 @@
 	//========================================
 	"npc_dota_creature_troll_guard_1"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_berserker.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
+		"Model"					"models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_berserker.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_TrollWarlord"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_warlord.vsndevts"
 		"ModelScale"			"1.0"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			"srts_hatred"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_hatred"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Troll_Fighter"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"14"
 		"AttackDamageMax"		"18"
 		"AttackRate"			"1.2"
@@ -405,7 +411,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"0"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -442,25 +448,26 @@
 	//========================================
 	"npc_dota_creature_human_ranged_1"
 	{
-		"Model"				"models/heroes/sniper/sniper.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/heroes/sniper/sniper.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Sniper"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
 		"ModelScale"			"0.9"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			"srts_headshot"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_headshot"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Human_Gunner"
 
 		"ArmorPhysical"			"0"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"13"
 		"AttackDamageMax"		"17"
 		"AttackRate"			"1.75"
@@ -474,7 +481,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"2"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -483,8 +490,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -529,25 +536,26 @@
 	//========================================
 	"npc_dota_creature_forest_ranged_1"
 	{
-		"Model"				"models/heroes/enchantress/enchantress.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/heroes/enchantress/enchantress.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Enchantress"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_enchantress.vsndevts"
 		"ModelScale"			"0.9"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			"srts_envenomed_spears"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_envenomed_spears"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Forest_Dryad"
 
 		"ArmorPhysical"			"0"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"14"
 		"AttackDamageMax"		"18"
 		"AttackRate"			"1.65"
@@ -561,7 +569,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"2"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -570,8 +578,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -616,25 +624,26 @@
 	//========================================
 	"npc_dota_creature_brewmaster_frostmage"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_ogre_lrg/n_creep_ogre_lrg.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/creeps/neutral_creeps/n_creep_ogre_lrg/n_creep_ogre_lrg.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"n_creep_Ranged"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts"
 		"ModelScale"			"1.1"
 
-		"BountyXP"			"49"
+		"BountyXP"				"49"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			""
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Brewmaster_Frostmage"
 
 		"ArmorPhysical"			"0"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"25"
 		"AttackDamageMax"		"31"
 		"AttackRate"			"1.7"
@@ -648,7 +657,7 @@
 		"HealthBarOffset"		"175"
 		"FormationRank" 		"2"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -657,8 +666,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -679,25 +688,26 @@
 	//========================================
 	"npc_dota_creature_kobold_ranged_1"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_frost.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_frost.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Lina"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_lina.vsndevts"
 		"ModelScale"			"1.0"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			"srts_ignite"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_ignite"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Kobold_Flamethrower"
 
 		"ArmorPhysical"			"0"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"9"
 		"AttackDamageMax"		"13"
 		"AttackRate"			"1.6"
@@ -711,7 +721,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"2"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -720,8 +730,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -742,19 +752,20 @@
 	//========================================
 	"npc_dota_creature_skeleton_ranged_1"
 	{
-		"Model"				"models/heroes/clinkz/clinkz.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/heroes/clinkz/clinkz.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Clinkz"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_clinkz.vsndevts"
 		"ModelScale"			"0.8"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			"srts_burning_arrows"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_burning_arrows"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Undead_Skeleton_Archer"
 
@@ -784,8 +795,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -834,25 +845,26 @@
 	//========================================
 	"npc_dota_creature_troll_ranged_1"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_troll_dark_a/n_creep_troll_dark_a.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/creeps/neutral_creeps/n_creep_troll_dark_a/n_creep_troll_dark_a.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_TrollWarlord"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_warlord.vsndevts"
 		"ModelScale"			"0.8"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			"srts_hatred"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_hatred"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Troll_Axethrower"
 
 		"ArmorPhysical"			"0"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"13"
 		"AttackDamageMax"		"17"
 		"AttackRate"			"1.6"
@@ -866,7 +878,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"2"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -875,8 +887,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -903,25 +915,26 @@
 	//========================================
 	"npc_dota_creature_skeleton_caster"
 	{
-		"Model"				"models/heroes/pugna/pugna.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/heroes/pugna/pugna.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Pugna"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_pugna.vsndevts"
 		"ModelScale"			"0.9"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			""
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Skeleton_Caster"
 
 		"ArmorPhysical"			"0"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"7"
 		"AttackDamageMax"		"9"
 		"AttackRate"			"1.9"
@@ -935,7 +948,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"2"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -944,8 +957,8 @@
 		"StatusMana"			"200"
 		"StatusManaRegen"		"1.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -994,25 +1007,26 @@
 	//========================================
 	"npc_dota_creature_human_sorceress"
 	{
-		"Model"				"models/heroes/lina/lina.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/heroes/lina/lina.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Lina"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_lina.vsndevts"
 		"ModelScale"			"0.9"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			""
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Human_Sorceress"
 
 		"ArmorPhysical"			"0"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"8"
 		"AttackDamageMax"		"10"
 		"AttackRate"			"1.9"
@@ -1026,7 +1040,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"2"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -1035,8 +1049,8 @@
 		"StatusMana"			"200"
 		"StatusManaRegen"		"1.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -1077,25 +1091,26 @@
 	//========================================
 	"npc_dota_creature_troll_elder"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_troll_dark_b/n_creep_troll_dark_b.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/creeps/neutral_creeps/n_creep_troll_dark_b/n_creep_troll_dark_b.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_WitchDoctor"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts"
 		"ModelScale"			"0.8"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			""
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Troll_Elder"
 
 		"ArmorPhysical"			"0"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"7"
 		"AttackDamageMax"		"9"
 		"AttackRate"			"1.9"
@@ -1109,7 +1124,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"2"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -1118,8 +1133,8 @@
 		"StatusMana"			"200"
 		"StatusManaRegen"		"1.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -1140,25 +1155,26 @@
 	//========================================
 	"npc_dota_creature_forest_tormented_soul"
 	{
-		"Model"				"models/heroes/leshrac/leshrac.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/heroes/leshrac/leshrac.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Leshrac"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_leshrac.vsndevts"
 		"ModelScale"			"0.8"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			""
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Forest_Tormented_Soul"
 
 		"ArmorPhysical"			"0"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"8"
 		"AttackDamageMax"		"10"
 		"AttackRate"			"1.8"
@@ -1172,7 +1188,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"2"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -1181,8 +1197,8 @@
 		"StatusMana"			"200"
 		"StatusManaRegen"		"1.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -1228,25 +1244,26 @@
 	//========================================
 	"npc_dota_creature_forest_skirmisher"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_centaur_med/n_creep_centaur_med.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
+		"Model"					"models/creeps/neutral_creeps/n_creep_centaur_med/n_creep_centaur_med.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Centaur"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_centaur.vsndevts"
 		"ModelScale"			"1.0"
 
-		"BountyXP"			"40"
+		"BountyXP"				"40"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			""
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Forest_Skirmisher"
 
 		"ArmorPhysical"			"3"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"21"
 		"AttackDamageMax"		"27"
 		"AttackRate"			"1.35"
@@ -1260,7 +1277,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"0"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"450"
 		"MovementTurnRate"		"0.7"
 
@@ -1269,8 +1286,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -1290,19 +1307,20 @@
 	//========================================
 	"npc_dota_creature_skeleton_bane_elemental"
 	{
-		"Model"				"models/heroes/bane/bane.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/heroes/bane/bane.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Bane"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_bane.vsndevts"
 		"ModelScale"			"1.0"
 
-		"BountyXP"			"40"
+		"BountyXP"				"40"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			""
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Skeleton_Bane_Elemental"
 
@@ -1372,19 +1390,19 @@
 	"npc_dota_creature_soldier_melee"
 	{
 		//	"Model"				"models/creeps/lane_creeps/creep_good_melee/creep_good_melee.vmdl"
-		"Model"				"models/creeps/lane_creeps/creep_radiant_melee/radiant_melee.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
+		"Model"					"models/creeps/lane_creeps/creep_radiant_melee/radiant_melee.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"n_creep_Melee"
 		"ModelScale"			"1.0"
 
-		"BountyXP"			"30"
+		"BountyXP"				"30"
 		"BountyGoldMin"			"15"
 		"BountyGoldMax"			"15"
 
-		"Ability1"			"srts_soldier_vision"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_soldier_vision"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Soldier_Melee"
 
@@ -1392,7 +1410,7 @@
 
 		//"DisableClumpingBehavior"	"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"16"
 		"AttackDamageMax"		"20"
 		"AttackRate"			"1.2"
@@ -1406,7 +1424,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"0"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -1415,8 +1433,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -1438,19 +1456,19 @@
 	"npc_dota_creature_soldier_ranged"
 	{
 		//	"Model"				"models/creeps/lane_creeps/creep_good_ranged/creep_good_ranged.vmdl"
-		"Model"				"models/creeps/lane_creeps/creep_radiant_ranged/radiant_ranged.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Ranged"
+		"Model"					"models/creeps/lane_creeps/creep_radiant_ranged/radiant_ranged.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"n_creep_Ranged"
 		"ModelScale"			"1.o"
 
-		"BountyXP"			"25"
+		"BountyXP"				"25"
 		"BountyGoldMin"			"17"
 		"BountyGoldMax"			"17"
 
-		"Ability1"			"srts_soldier_vision"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_soldier_vision"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Soldier_Ranged"
 
@@ -1458,7 +1476,7 @@
 
 		//"DisableClumpingBehavior"	"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"12"
 		"AttackDamageMax"		"16"
 		"AttackRate"			"1.6"
@@ -1472,7 +1490,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"2"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"350"
 		"MovementTurnRate"		"0.7"
 
@@ -1481,8 +1499,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -1503,7 +1521,8 @@
 	{
 		"Model"					"models/heroes/windrunner/windrunner.vmdl"
 		"BaseClass"				"npc_dota_creature"
-		"SoundSet"				"n_creep_Ranged"
+		"SoundSet"				"Hero_Windrunner"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts"
 		"ModelScale"			"1.0"
 
 		"BountyXP"				"25"
@@ -1594,7 +1613,8 @@
 	{
 		"Model"					"models/heroes/beastmaster/beastmaster.vmdl"
 		"BaseClass"				"npc_dota_creature"
-		"SoundSet"				"n_creep_Ranged"
+		"SoundSet"				"Hero_Beastmaster"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_beastmaster.vsndevts"
 		"ModelScale"			"0.9"
 
 		"BountyXP"				"50"
@@ -1675,6 +1695,8 @@
     {
         "Model"				"models/heroes/beastmaster/beastmaster.vmdl"
         "BaseClass"			"npc_dota_creature"
+		"SoundSet"				"Hero_Beastmaster"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_beastmaster.vsndevts"
         "ModelScale"			"0.7"
 
         "BountyXP"			"19"
@@ -1748,7 +1770,8 @@
 	{
 		"Model"					"models/heroes/beastmaster/beastmaster.vmdl"
 		"BaseClass"				"npc_dota_creature"
-		"SoundSet"				"n_creep_Ranged"
+		"SoundSet"				"Hero_Beastmaster"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_beastmaster.vsndevts"
 		"ModelScale"			"0.9"
 
 		"BountyXP"				"50"
@@ -1832,7 +1855,8 @@
     {
         "Model"					"models/heroes/witchdoctor/witchdoctor.vmdl"
         "BaseClass"				"npc_dota_creature"
-        "SoundSet"				"n_creep_Ranged"
+        "SoundSet"				"Hero_WitchDoctor"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts"
         "ModelScale"			"0.9"
 
         "BountyXP"				"25"
@@ -1861,7 +1885,7 @@
         "HealthBarOffset"		"150"
         "FormationRank" 		"0"
 
-        "MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+        "MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
         "MovementSpeed"			"350"
         "MovementTurnRate"		"0.7"
 
@@ -1870,8 +1894,8 @@
         "StatusMana"			"0"
         "StatusManaRegen"		"0.0"
 
-        "VisionDaytimeRange"		"800"
-        "VisionNighttimeRange"		"800"
+        "VisionDaytimeRange"	"800"
+        "VisionNighttimeRange"	"800"
 
         "Creature"
         {
@@ -1912,7 +1936,8 @@
     {
         "Model"					"models/heroes/beastmaster/beastmaster.vmdl"
         "BaseClass"				"npc_dota_creature"
-        "SoundSet"				"n_creep_Ranged"
+        "SoundSet"				"Hero_Beastmaster"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_beastmaster.vsndevts"
         "ModelScale"			"0.9"
 
         "BountyXP"				"40"
@@ -1996,7 +2021,8 @@
     {
         "Model"					"models/heroes/tuskarr/tuskarr.vmdl"
         "BaseClass"				"npc_dota_creature"
-        "SoundSet"				"n_creep_Ranged"
+        "SoundSet"				"Hero_Tuskarr"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_tuskarr.vsndevts"
         "ModelScale"			"0.9"
 
         "BountyXP"				"60"
@@ -2084,7 +2110,8 @@
     {
         "Model"					"models/heroes/windrunner/windrunner.vmdl"
         "BaseClass"				"npc_dota_creature"
-        "SoundSet"				"n_creep_Ranged"
+        "SoundSet"				"Hero_Windrunner"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts"
         "ModelScale"			"0.9"
 
         "BountyXP"				"50"
@@ -2168,7 +2195,8 @@
     {
         "Model"					"models/heroes/beastmaster/beastmaster.vmdl"
         "BaseClass"				"npc_dota_creature"
-        "SoundSet"				"n_creep_Ranged"
+        "SoundSet"				"Hero_Beastmaster"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_beastmaster.vsndevts"
         "ModelScale"			"1.5"
 
         "BountyXP"				"150"
@@ -2251,37 +2279,37 @@
 
 
 
-     	// Unit4.1
+    // Unit4.1
 	//================================================================================
 	// Worker
 	//================================================================================
 
 	"npc_dota_creature_worker"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_ogre_med/n_creep_ogre_med.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
+		"Model"					"models/creeps/neutral_creeps/n_creep_ogre_med/n_creep_ogre_med.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"n_creep_Melee"
 		"ModelScale"			"0.7"
 
-		"BountyXP"			"19"
+		"BountyXP"				"19"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
-		"Ability1"			"srts_harvest_lumber_worker"
-		"Ability2"			"srts_transfer_lumber"
-		"Ability3"			"srts_repair_building"
-		"Ability4"			""
-		"Ability5"			""
-		"Ability6"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_harvest_lumber_worker"
+		"Ability2"				"srts_transfer_lumber"
+		"Ability3"				"srts_repair_building"
+		"Ability4"				""
+		"Ability5"				""
+		"Ability6"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Common_Worker"
-		"UnitLabel"			"builder"
+		"UnitLabel"				"builder"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"6"
 		"AttackDamageMax"		"10"
 		"AttackRate"			"1.6"
@@ -2295,7 +2323,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"1"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
 		"MovementTurnRate"		"0.7"
 
@@ -2304,8 +2332,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -2324,25 +2352,26 @@
 
 	"npc_dota_creature_catapult_radiant"
 	{
-		"Model"				"models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
+		"Model"					"models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"n_creep_Melee"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"
 		"ModelScale"			"0.7"
 
-		"BountyXP"			"57"
+		"BountyXP"				"57"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			"srts_siege_damage"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_siege_damage"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Radiant_Catapult"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"30"
 		"AttackDamageMax"		"40"
 		"AttackRate"			"3.0"
@@ -2358,7 +2387,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"3"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"320"
 		"MovementTurnRate"		"0.7"
 
@@ -2367,8 +2396,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"900"
-		"VisionNighttimeRange"		"900"
+		"VisionDaytimeRange"	"900"
+		"VisionNighttimeRange"	"900"
 
 		"Creature"
 		{
@@ -2387,25 +2416,26 @@
 
 	"npc_dota_creature_catapult_dire"
 	{
-		"Model"				"models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl"
-		"BaseClass"			"npc_dota_creature"
-		"SoundSet"			"n_creep_Melee"
+		"Model"					"models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"n_creep_Melee"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"
 		"ModelScale"			"0.8"
 
-		"BountyXP"			"57"
+		"BountyXP"				"57"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"			"srts_siege_damage"
-		"Ability2"			""
-		"Ability3"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_siege_damage"
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Dire_Catapult"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
 		"AttackDamageMin"		"30"
 		"AttackDamageMax"		"40"
 		"AttackRate"			"3.0"
@@ -2421,7 +2451,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"3"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"320"
 		"MovementTurnRate"		"0.7"
 
@@ -2430,8 +2460,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"900"
-		"VisionNighttimeRange"		"900"
+		"VisionDaytimeRange"	"900"
+		"VisionNighttimeRange"	"900"
 
 		"Creature"
 		{
@@ -2449,36 +2479,38 @@
 
 
 
-     	// Unit5.1
+    // Unit5.1
 	//================================================================================
 	// Human Worker
 	//================================================================================
 
 	"npc_dota_creature_human_worker"
 	{
-		"Model"				"models/heroes/beastmaster/beastmaster.vmdl"
-		"BaseClass"			"npc_dota_creature"
+		"Model"					"models/heroes/beastmaster/beastmaster.vmdl"
+		"BaseClass"				"npc_dota_creature"
 		"ModelScale"			"0.7"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_beastmaster.vsndevts"
+		"SoundSet"				"Hero_Beastmaster"
 
-		"BountyXP"			"19"
+		"BountyXP"				"19"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
-		"Ability1"			"srts_harvest_lumber_worker"
-		"Ability2"			"srts_transfer_lumber"
-		"Ability3"			"srts_repair_building"
-		"Ability4"			""
-		"Ability5"			""
-		"Ability6"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_harvest_lumber_worker"
+		"Ability2"				"srts_transfer_lumber"
+		"Ability3"				"srts_repair_building"
+		"Ability4"				""
+		"Ability5"				""
+		"Ability6"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Human_Worker"
-		"UnitLabel"			"builder"
+		"UnitLabel"				"builder"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"6"
 		"AttackDamageMax"		"10"
 		"AttackRate"			"1.6"
@@ -2492,7 +2524,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"1"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
 		"MovementTurnRate"		"0.7"
 
@@ -2501,8 +2533,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -2529,29 +2561,31 @@
 
 	"npc_dota_creature_forest_worker"
 	{
-		"Model"				"models/items/furion/treant/father_treant/father_treant.vmdl"
-		"BaseClass"			"npc_dota_creature"
+		"Model"					"models/items/furion/treant/father_treant/father_treant.vmdl"
+		"BaseClass"				"npc_dota_creature"
 		"ModelScale"			"0.9"
+		"SoundSet"				"Hero_Treant"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_treant.vsndevts"
 
-		"BountyXP"			"19"
+		"BountyXP"				"19"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
-		"Ability1"			"srts_harvest_lumber_worker"
-		"Ability2"			"srts_transfer_lumber"
-		"Ability3"			"srts_repair_building"
-		"Ability4"			""
-		"Ability5"			""
-		"Ability6"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_harvest_lumber_worker"
+		"Ability2"				"srts_transfer_lumber"
+		"Ability3"				"srts_repair_building"
+		"Ability4"				""
+		"Ability5"				""
+		"Ability6"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Forest_Worker"
-		"UnitLabel"			"builder"
+		"UnitLabel"				"builder"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"6"
 		"AttackDamageMax"		"10"
 		"AttackRate"			"1.6"
@@ -2565,7 +2599,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"1"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
 		"MovementTurnRate"		"0.7"
 
@@ -2574,8 +2608,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -2594,29 +2628,29 @@
 
 	"npc_dota_creature_brewmaster_worker"
 	{
-		"Model"				"models/heroes/brewmaster/brewmaster_earthspirit.vmdl"
-		"BaseClass"			"npc_dota_creature"
+		"Model"					"models/heroes/brewmaster/brewmaster_earthspirit.vmdl"
+		"BaseClass"				"npc_dota_creature"
 		"ModelScale"			"0.9"
 
-		"BountyXP"			"19"
+		"BountyXP"				"19"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
-		"Ability1"			"srts_harvest_lumber_worker"
-		"Ability2"			"srts_transfer_lumber"
-		"Ability3"			"srts_repair_building"
-		"Ability4"			""
-		"Ability5"			""
-		"Ability6"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_harvest_lumber_worker"
+		"Ability2"				"srts_transfer_lumber"
+		"Ability3"				"srts_repair_building"
+		"Ability4"				""
+		"Ability5"				""
+		"Ability6"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Brewmaster_Worker"
-		"UnitLabel"			"builder"
+		"UnitLabel"				"builder"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"6"
 		"AttackDamageMax"		"10"
 		"AttackRate"			"1.6"
@@ -2630,7 +2664,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"1"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
 		"MovementTurnRate"		"0.7"
 
@@ -2639,8 +2673,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -2659,29 +2693,31 @@
 
 	"npc_dota_creature_kobold_worker"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl"
-		"BaseClass"			"npc_dota_creature"
+		"Model"					"models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Meepo"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts"
 		"ModelScale"			"1.0"
 
-		"BountyXP"			"19"
+		"BountyXP"				"19"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
-		"Ability1"			"srts_harvest_lumber_worker"
-		"Ability2"			"srts_transfer_lumber"
-		"Ability3"			"srts_repair_building"
-		"Ability4"			""
-		"Ability5"			""
-		"Ability6"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_harvest_lumber_worker"
+		"Ability2"				"srts_transfer_lumber"
+		"Ability3"				"srts_repair_building"
+		"Ability4"				""
+		"Ability5"				""
+		"Ability6"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Kobold_Worker"
-		"UnitLabel"			"builder"
+		"UnitLabel"				"builder"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"6"
 		"AttackDamageMax"		"10"
 		"AttackRate"			"1.6"
@@ -2695,7 +2731,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"1"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
 		"MovementTurnRate"		"0.7"
 
@@ -2704,8 +2740,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -2724,29 +2760,29 @@
 
 	"npc_dota_creature_skeleton_worker"
 	{
-		"Model"				"models/heroes/undying/undying_minion.vmdl"
-		"BaseClass"			"npc_dota_creature"
+		"Model"					"models/heroes/undying/undying_minion.vmdl"
+		"BaseClass"				"npc_dota_creature"
 		"ModelScale"			"1.0"
 
-		"BountyXP"			"19"
+		"BountyXP"				"19"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
-		"Ability1"			"srts_harvest_lumber_worker"
-		"Ability2"			"srts_transfer_lumber"
-		"Ability3"			"srts_repair_building"
-		"Ability4"			""
-		"Ability5"			""
-		"Ability6"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_harvest_lumber_worker"
+		"Ability2"				"srts_transfer_lumber"
+		"Ability3"				"srts_repair_building"
+		"Ability4"				""
+		"Ability5"				""
+		"Ability6"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Skeleton_Worker"
-		"UnitLabel"			"builder"
+		"UnitLabel"				"builder"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"6"
 		"AttackDamageMax"		"10"
 		"AttackRate"			"1.6"
@@ -2760,7 +2796,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"1"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
 		"MovementTurnRate"		"0.7"
 
@@ -2769,8 +2805,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
@@ -2782,36 +2818,36 @@
 
 
 
-     	// Unit5.5
+    // Unit5.5
 	//================================================================================
 	// Troll Worker
 	//================================================================================
 
 	"npc_dota_creature_troll_worker"
 	{
-		"Model"				"models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_high_priest.vmdl"
-		"BaseClass"			"npc_dota_creature"
+		"Model"					"models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_high_priest.vmdl"
+		"BaseClass"				"npc_dota_creature"
 		"ModelScale"			"1.0"
 
-		"BountyXP"			"19"
+		"BountyXP"				"19"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 		"AbilityLayout"			"6"
 
-		"Ability1"			"srts_harvest_lumber_worker"
-		"Ability2"			"srts_transfer_lumber"
-		"Ability3"			"srts_repair_building"
-		"Ability4"			""
-		"Ability5"			""
-		"Ability6"			""
-		"Ability10"			"srts_ability_units"
+		"Ability1"				"srts_harvest_lumber_worker"
+		"Ability2"				"srts_transfer_lumber"
+		"Ability3"				"srts_repair_building"
+		"Ability4"				""
+		"Ability5"				""
+		"Ability6"				""
+		"Ability10"				"srts_ability_units"
 
 		"SelectionGroup"		"Troll_Worker"
-		"UnitLabel"			"builder"
+		"UnitLabel"				"builder"
 
 		"ArmorPhysical"			"1"
 
-		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
 		"AttackDamageMin"		"6"
 		"AttackDamageMax"		"10"
 		"AttackRate"			"1.6"
@@ -2825,7 +2861,7 @@
 		"HealthBarOffset"		"150"
 		"FormationRank" 		"1"
 
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
 		"MovementSpeed"			"340"
 		"MovementTurnRate"		"0.7"
 
@@ -2834,8 +2870,8 @@
 		"StatusMana"			"0"
 		"StatusManaRegen"		"0.0"
 
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
 
 		"Creature"
 		{
