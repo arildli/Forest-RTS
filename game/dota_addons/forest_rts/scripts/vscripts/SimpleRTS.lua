@@ -9,6 +9,7 @@ PLAYER_COUNT = 0
 VICTORY_SCORE = 0
 
 COLOR_RESEARCH_COMPLETE = "#009933"
+COLOR_CONSTRUCTION_COMPLETE = "#009933"
 COLOR_RADIANT = "#3455ff"
 COLOR_RADIANT_RGB = {52,85,255}
 --"#3dd296"
@@ -76,6 +77,7 @@ function SimpleRTSGameMode:InitGameMode()
     loadModule('quests')
     loadModule('neutral_bases')
     loadModule('barbarians')
+    loadModule('player_messages')
 
     -- Added EDITED
     --loadModule('ai/independent_utilities')
@@ -174,150 +176,9 @@ function SimpleRTSGameMode:InitGameMode()
     -- Initialize the Quests module.
     Quests:Init()
 
-    Convars:RegisterCommand('rtests', function()
-        print("[Forest RTS] Running unit tests...")
-        --lu.LuaUnit.run()
-    end, 'Runs unit tests', FCVAR_CHEAT)
+    PlayerMessages:Init()
 
-    -- Register console commands
-    Convars:RegisterCommand('boss', function()
-        local cmdPlayer = Convars:GetCommandClient()
-        local playerHero
-        if cmdPlayer then
-            local playerID = cmdPlayer:GetPlayerID()
-            if playerID ~= nil and playerID ~= -1 then
-                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-            end
-        end
-
-        local playerID = cmdPlayer:GetPlayerID()
-        --SimpleBot:MultiplyInitialPatrol(5)
-        PlayerResource:ModifyGold(playerID, 99999, true, 0)
-        Stats:AddGold(playerID, 99999)
-
-        local newItem = CreateItem("item_blink", playerHero, playerHero)
-        playerHero:AddItem(newItem)
-        newItem = CreateItem("item_heart", playerHero, playerHero)
-        playerHero:AddItem(newItem)
-        newItem = CreateItem("item_assault", playerHero, playerHero)
-        playerHero:AddItem(newItem)
-        newItem = CreateItem("item_mjollnir", playerHero, playerHero)
-        playerHero:AddItem(newItem)
-        newItem = CreateItem("item_rapier", playerHero, playerHero)
-        playerHero:AddItem(newItem)
-        playerHero:IncLumber(1000)
-        BuildingHelper:WarpTen(true)
-        GameRules.WarpTenUnits = true
-        if not AI then
-            AI = {}
-        end
-        AI.speedUpTraining = true
-    end, 'Beefs up the hero of the caller, adds resources and reduces construction time', FCVAR_CHEAT )
-
-
-    Convars:RegisterCommand('warpten', function()
-        BuildingHelper:WarpTen(true)
-    end, "Speeds up construction", FCVAR_CHEAT)
-
-
-    Convars:RegisterCommand('lumber', function()
-        local cmdPlayer = Convars:GetCommandClient()
-        local playerHero
-        if cmdPlayer then
-            local playerID = cmdPlayer:GetPlayerID()
-            if playerID and playerID ~= -1 then
-                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-                playerHero:IncLumber(1000)
-            end
-        end
-    end, 'Gives the player lumber', FCVAR_CHEAT)
-
-    Convars:RegisterCommand('lumberg', function()
-        local cmdPlayer = Convars:GetCommandClient()
-        local playerHero
-        if cmdPlayer then
-            local playerID = cmdPlayer:GetPlayerID()
-            if playerID and playerID ~= -1 then
-                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-                playerHero:IncLumber(1000)
-                playerHero:IncGold(10000)
-            end
-        end
-        BuildingHelper:WarpTen(true)
-    end, 'Gives the player lumber and gold', FCVAR_CHEAT)
-
-
-    Convars:RegisterCommand('printstats', function()
-        print("Printing stats:\n----------")
-        Stats:PrintStatsAll()
-    end, 'Shows stats', FCVAR_CHEAT)
-
-    Convars:RegisterCommand("Salve", function()
-        local cmdPlayer = Convars:GetCommandClient()
-        if cmdPlayer then
-            local playerHero
-            local playerID = cmdPlayer:GetPlayerID()
-            if playerID and playerID ~= -1 then
-                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-            end
-
-            local salves = CreateItem("item_healing_salve", playerHero, playerHero)
-            playerHero:AddItem(salves)
-        end
-    end, "Gives the hero 10 healing salves", FCVAR_CHEAT )
-
-
-    Convars:RegisterCommand('debug', function()
-        DEBUG = true
-        SimpleBot:MultiplyInitialPatrol(5)
-        VICTORY_SCORE = 25
-    end, 'Enables standard debug mode for lower construction time', FCVAR_CHEAT)
-
-
-    Convars:RegisterCommand('unitCount', function()
-        local cmdPlayer = Convars:GetCommandClient()
-        local playerHero
-        if cmdPlayer then
-            local playerID = cmdPlayer:GetPlayerID()
-            if playerID ~= nil and playerID ~= -1 then
-                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-            end
-        end
-
-        playerHero:PrintUnitCount()
-    end, 'Print the unitCount table of the hero of the caller', FCVAR_CHEAT)
-
-
-    Convars:RegisterCommand('start', function()
-
-    end, 'Start game', FCVAR_CHEAT)
-
-
-    Convars:RegisterCommand('test_endgame', function()
-        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-        --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
-        GameRules:Defeated()
-    end, 'Ends the game.', FCVAR_CHEAT)
-
-    Convars:RegisterCommand('spawn_patrol_army', function()
-        local cmdPlayer = Convars:GetCommandClient()
-        local playerHero
-        if cmdPlayer then
-            local playerID = cmdPlayer:GetPlayerID()
-            if playerID ~= nil and playerID ~= -1 then
-                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
-            end
-        end
-
-        local unitName = "npc_dota_creature_soldier_melee"
-        local location = playerHero:GetAbsOrigin()
-        local count = 30
-
-        --function SimpleBot:SpawnSoldiers(DOTA_TEAM_NEUTRALS, 20, 20, playerHero:GetAbsOrigin(), pathNumber, groupNumber, multiplier)
-        for i=0,count do
-            CreateUnitByName(unitName, location, true, nil, nil, DOTA_TEAM_NEUTRALS)
-        end
-    end, 'Spawns a lot of patrol units at the hero location', FCVAR_CHEAT)
+    SimpleRTSGameMode:RegisterCheats()
 
     print("[SimpleRTS] Init function complete!")
 end
@@ -995,6 +856,154 @@ function SimpleRTSGameMode:OnTreeCut(keys)
             end
         end
     end
+end
+
+
+function SimpleRTSGameMode:RegisterCheats()
+    Convars:RegisterCommand('rtests', function()
+        print("[Forest RTS] Running unit tests...")
+        --lu.LuaUnit.run()
+    end, 'Runs unit tests', FCVAR_CHEAT)
+
+    -- Register console commands
+    Convars:RegisterCommand('boss', function()
+        local cmdPlayer = Convars:GetCommandClient():GetController()
+        local playerHero
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID ~= nil and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+            end
+        end
+
+        local playerID = cmdPlayer:GetPlayerID()
+        --SimpleBot:MultiplyInitialPatrol(5)
+        PlayerResource:ModifyGold(playerID, 99999, true, 0)
+        Stats:AddGold(playerID, 99999)
+
+        local newItem = CreateItem("item_blink", playerHero, playerHero)
+        playerHero:AddItem(newItem)
+        newItem = CreateItem("item_heart", playerHero, playerHero)
+        playerHero:AddItem(newItem)
+        newItem = CreateItem("item_assault", playerHero, playerHero)
+        playerHero:AddItem(newItem)
+        newItem = CreateItem("item_mjollnir", playerHero, playerHero)
+        playerHero:AddItem(newItem)
+        newItem = CreateItem("item_rapier", playerHero, playerHero)
+        playerHero:AddItem(newItem)
+        playerHero:IncLumber(1000)
+        BuildingHelper:WarpTen(true)
+        GameRules.WarpTenUnits = true
+        if not AI then
+            AI = {}
+        end
+        AI.speedUpTraining = true
+    end, 'Beefs up the hero of the caller, adds resources and reduces construction time', FCVAR_CHEAT )
+
+
+    Convars:RegisterCommand('warpten', function()
+        BuildingHelper:WarpTen(true)
+    end, "Speeds up construction", FCVAR_CHEAT)
+
+
+    Convars:RegisterCommand('lumber', function()
+        local cmdPlayer = Convars:GetCommandClient():GetController()
+        local playerHero
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+                playerHero:IncLumber(1000)
+            end
+        end
+    end, 'Gives the player lumber', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('lumberg', function()
+        local cmdPlayer = Convars:GetCommandClient():GetController()
+        local playerHero
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+                playerHero:IncLumber(1000)
+                playerHero:IncGold(10000)
+            end
+        end
+        BuildingHelper:WarpTen(true)
+    end, 'Gives the player lumber and gold', FCVAR_CHEAT)
+
+
+    Convars:RegisterCommand('printstats', function()
+        print("Printing stats:\n----------")
+        Stats:PrintStatsAll()
+    end, 'Shows stats', FCVAR_CHEAT)
+
+    Convars:RegisterCommand("Salve", function()
+        local cmdPlayer = Convars:GetCommandClient():GetController()
+        if cmdPlayer then
+            local playerHero
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+            end
+
+            local salves = CreateItem("item_healing_salve", playerHero, playerHero)
+            playerHero:AddItem(salves)
+        end
+    end, "Gives the hero 10 healing salves", FCVAR_CHEAT )
+
+
+    Convars:RegisterCommand('debug', function()
+        DEBUG = true
+        SimpleBot:MultiplyInitialPatrol(5)
+        VICTORY_SCORE = 25
+    end, 'Enables standard debug mode for lower construction time', FCVAR_CHEAT)
+
+
+    Convars:RegisterCommand('unitCount', function()
+        local cmdPlayer = Convars:GetCommandClient():GetController()
+        local playerHero
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID ~= nil and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+            end
+        end
+
+        playerHero:PrintUnitCount()
+    end, 'Print the unitCount table of the hero of the caller', FCVAR_CHEAT)
+
+
+    Convars:RegisterCommand('start', function()
+
+    end, 'Start game', FCVAR_CHEAT)
+
+
+    Convars:RegisterCommand('test_endgame', function()
+        GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+        --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+        GameRules:Defeated()
+    end, 'Ends the game.', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('spawn_patrol_army', function()
+        local cmdPlayer = Convars:GetCommandClient():GetController()
+        local playerHero
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID ~= nil and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+            end
+        end
+
+        local unitName = "npc_dota_creature_soldier_melee"
+        local location = playerHero:GetAbsOrigin()
+        local count = 30
+
+        --function SimpleBot:SpawnSoldiers(DOTA_TEAM_NEUTRALS, 20, 20, playerHero:GetAbsOrigin(), pathNumber, groupNumber, multiplier)
+        for i=0,count do
+            CreateUnitByName(unitName, location, true, nil, nil, DOTA_TEAM_NEUTRALS)
+        end
+    end, 'Spawns a lot of patrol units at the hero location', FCVAR_CHEAT)
 end
 
 

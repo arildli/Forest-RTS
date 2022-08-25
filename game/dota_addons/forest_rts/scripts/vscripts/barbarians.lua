@@ -113,7 +113,8 @@ function Barbarians:Start()
     print("Starting wave spawn in "..spawnStart.." seconds!")
     textColor = "#b0171b"
     local notificationString = "<font color='"..textColor.."'>".."Barbarians".."</font> will start spawning in "..spawnStart.." seconds!"
-    DisplayMessageToAll(notificationString)
+    
+    PlayerMessages:DisplayMessageToAll(notificationString)
 
     local event = {
         waveNumber = 0,
@@ -289,7 +290,8 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnStart
         if waveNumber == 1 then
             textColor = "#b0171b"
             local notificationString = "A wave of <font color='"..textColor.."'>".."Barbarians".."</font> will spawn every "..spawnRate.." seconds, increasing over time!"
-            DisplayMessageToAll(notificationString)
+            
+            PlayerMessages:DisplayMessageToAll(notificationString)
         end
 
         camp:Print()
@@ -358,7 +360,8 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnStart
         if curWave == maxWave + 1 then
             local textColor = "#b0171b"
             local notificationString = "End of normal waves, adding more units instead!"
-            DisplayMessageToAll(notificationString)
+            
+            PlayerMessages:DisplayMessageToAll(notificationString)
         end
 
         -- Increase the time between each wave periodically to make the waves
@@ -384,7 +387,8 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnStart
                 local textColor = "#3455ff"
                 local notificationString = "Waves will now spawn every <font color='"..textColor.."'>"..newSpawnRate.."</font> seconds! "
                 notificationString = notificationString .. "Next wave spawns in <font color='"..textColor.."'>"..nextWaveSpawn.."</font> seconds."
-                DisplayMessageToAll(notificationString, 8)
+                
+                PlayerMessages:DisplayMessageToAll(notificationString, 8)
             end
         end
 

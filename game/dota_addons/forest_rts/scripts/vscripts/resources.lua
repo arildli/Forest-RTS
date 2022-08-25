@@ -222,7 +222,7 @@ function Resources:InitHarvester(unit)
     -- Returns the carried lumber to the nearest Tent or Market if possible.
     ---------------------------------------------------------------------------
     function unit:DeliverLumber()
-        local owner = unit:GetOwnerPlayer()
+        local owner = unit:GetPlayerOwner()
         local ownerID = owner:GetPlayerID()
         local ownerHero = GetPlayerHero(ownerID)
         local unitPosition = unit:GetAbsOrigin()

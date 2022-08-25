@@ -9,7 +9,7 @@ function Build( event )
     local playerID = hero:GetPlayerID()
 
     -- Added {
-    local player = caster:GetOwnerPlayer()
+    local player = caster:GetPlayerOwner()
     local lumber_cost = event.LumberCost or 0
     -- }
 

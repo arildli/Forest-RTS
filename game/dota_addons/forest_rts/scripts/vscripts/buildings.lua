@@ -103,8 +103,15 @@ function finishConstruction(building)
 
     local event = {
         playerID = building:GetOwnerID(),
-        building = building:GetEntityIndex()
+        building = building:GetEntityIndex(),
+        buildingName = building:GetUnitName()
     }
+
+    print("[SimpleRTS] Fired 'construction_done' event with values: " .. 
+        "{playerID: " .. event.playerID .. 
+        ", buildingID: ".. event.building .. 
+        ", buildingName" .. event.buildingName .."}")
+
     FireGameEvent("construction_done", event)
 end
 
@@ -129,7 +136,7 @@ function finishUpgrade(keys)
     local buildingOrigin = building:GetOrigin()
     local ownerHero = building:GetOwnerHero()
     local ownerTeam = ownerHero:GetTeamNumber()
-    local ownerPlayer = building:GetOwnerPlayer()
+    local ownerPlayer = building:GetPlayerOwner()
     local ownerID = building:GetOwnerID()
 
     building._upgraded = true
@@ -151,7 +158,9 @@ function finishUpgrade(keys)
     local ownerHeroName = ownerHero:GetUnitName()
     local buildingStruct = GetStructFromTech(abilityName, ownerHeroName)
     local researchName = buildingStruct.techname or "Building Upgrade"
-    DisplayResearchComplete(ownerID, researchName)
+    
+    FireGameEvent("research_done", {playerID = ownerID, researchName = researchName})
+
     finishConstruction(newBuilding)
 end
 
@@ -372,7 +381,7 @@ function OnUnitTrained(keys)
         return
     end
 
-    local owner = caster:GetOwnerPlayer() or caster:GetOwner()
+    local owner = caster:GetPlayerOwner() or caster:GetOwner()
     TechTree:AddPlayerMethods(target, owner)
 
     local playerHero = caster:GetOwnerHero()

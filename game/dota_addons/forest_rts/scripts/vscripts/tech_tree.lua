@@ -401,7 +401,7 @@ function TechTree:AddPlayerMethods(entity, owner)
     entity._ownerHero = ownerHero
 
     -- Get the player object of the owner.
-    function entity:GetOwnerPlayer()
+    function entity:GetPlayerOwner()
         return entity._ownerPlayer or entity:GetOwner()
     end
 
@@ -471,7 +471,7 @@ end
 ---------------------------------------------------------------------------
 function TechTree:RegisterConstruction(unit, spellname)
     unit._finished = false
-    local ownerHero = unit:GetOwnerPlayer()
+    local ownerHero = unit:GetPlayerOwner()
     local unitName = unit:GetUnitName()
     ownerHero:IncUnitCountFor(unitName)
     local newUnitCount = ownerHero:GetUnitCountFor(unitName)
@@ -810,7 +810,7 @@ function TechTree:UpdateTechTree(hero, building, action)
         local curSpellLevel = hero:GetAbilityLevelFor(curSpellName)
     end
 
-    TechTree:PrintAbilityLevels(hero:GetOwnerPlayer())
+    TechTree:PrintAbilityLevels(hero:GetPlayerOwner())
     TechTree:UpdateSpellsAllEntities(hero)
 
     print_simple_tech_tree("UpdateTechTree", "\n\tTech tree update done!")

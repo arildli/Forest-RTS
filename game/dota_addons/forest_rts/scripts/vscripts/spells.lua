@@ -1,5 +1,4 @@
 
-
 --// ----- | Tower related |----- \\--
 
 function FlipTowerSpell(tower)
@@ -232,9 +231,10 @@ function ApplyUpgradeUnits(keys)
     end
 
     local researchName = itemStruct.techname or "Research"
-    DisplayResearchComplete(playerID, researchName)
 
     TechTree:UpdateTechTree(ownerHero, ownerHero, true)
+
+    FireGameEvent("research_done", {playerID = playerID, researchName = researchName})
 end
 
 function GetUpgradesForUnit(unit)
@@ -279,20 +279,6 @@ function ApplyUpgradesOnTraining(unit)
             end
         end
     end
-end
-
-function DisplayResearchComplete(playerID, tech, color)
-    color = color or COLOR_RESEARCH_COMPLETE or "#009933"
-    local notificationString = "<font color='"..color.."'>"..tech.."</font> ".." Complete!"
-    -- Timed message on top.
-    Notifications:ClearTop(playerID)
-    Notifications:Top(playerID, {text=notificationString, duration=5.0})
-end
-
-function DisplayMessageToAll(notificationString, duration)
-    -- Timed message on top.
-    Notifications:ClearTopFromAll()
-    Notifications:TopToAll({text=notificationString, duration=duration or 5.0})
 end
 
 
@@ -406,7 +392,7 @@ function BuyItem(keys)
     local buyRange = 900.0
     local amount = keys.amount or 1
     local buyerHero = shop:GetOwnerHero()
-    local buyerPlayer = shop:GetOwnerPlayer()
+    local buyerPlayer = shop:GetPlayerOwner()
     local buyerHeroLocation = buyerHero:GetAbsOrigin()
     local buyerID = shop:GetOwnerID()
 
