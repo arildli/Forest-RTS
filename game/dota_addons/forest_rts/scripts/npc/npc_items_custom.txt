@@ -509,28 +509,28 @@
 		"AbilityCastRange"		"500"
 
 		"Model"                         "models/props_gameplay/salve.vmdl" //Green
-	    	"Effect"                        "particles/generic_gameplay/dropped_item.vpcf"
+		"Effect"                        "particles/generic_gameplay/dropped_item.vpcf"
 
 		"ItemShareability"              "ITEM_FULLY_SHAREABLE_STACKING"
-		"ItemShopTags"			"flask"
+		"ItemShopTags"					"flask"
 		"ItemQuality"                   "common"
 		"ItemPermanent"                 "0"
-	    	"ItemStackable"                 "1"
+		"ItemStackable"                 "1"
 		"ItemKillable"                  "1"
 		"ItemSellable"                  "1"
 		"ItemDroppable"                 "1"
 		"ItemInitialCharges"            "4"
-	    	"ItemAlertable"                 "1"
+		"ItemAlertable"                 "1"
 
-	    	// Shops
-	    	"ItemCost"                      "160"
+		// Shops
+		"ItemCost"                      "160"
 		//		"StockMax"                  	"3"
 		//		"StockTime"                 	"60"
 		//		"StockInitial"			"2"
 		//	    	"RequiresTier"              	"1"
 
-    		"SideShop"     			"0"
-    		"SecretShop"   			"0"
+		"SideShop"     			"1"
+		"SecretShop"   			"1"
 
 		// Sounds
 		//--------------------------------------------------------------------------------

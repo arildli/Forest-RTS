@@ -1,0 +1,86 @@
+"dota_shops"
+{
+   "consumables"
+	{
+	}
+
+	"attributes"
+	{
+
+	}
+
+	"weapons_armor"
+	{
+	}
+
+	"misc"
+	{
+	}
+
+	"basics"
+	{
+	}
+
+	"support"
+	{
+	}
+
+	"magics"
+	{
+	}
+
+	"defense"
+	{
+	}
+
+	"weapons"
+	{
+	}
+
+	"artifacts"
+	{
+	}
+
+	"sideshop1"
+	{
+	}
+
+	"sideshop2"
+	{
+	}
+
+	"secretshop"
+	{
+	}
+
+    "custom"
+	{
+        "radiant_mercenaries"
+        {
+            "1"
+			{
+                "item"		"item_srts_spawn_mercenary_barbarian_scout_radiant"
+                "item"      "item_srts_spawn_mercenary_barbarian_archer_radiant"
+            }
+        }
+
+        "dire_mercenaries"
+        {
+            "1"
+			{
+                "item"		"item_srts_spawn_mercenary_barbarian_scout_dire"
+                "item"      "item_srts_spawn_mercenary_barbarian_archer_dire"
+            }
+        }
+
+		// Leftover, can likely be removed
+        "mercenary_shop" 
+        {
+            "1"
+			{
+                "item"		"item_srts_spawn_mercenary_barbarian_scout_radiant"
+                "item"      "item_srts_spawn_mercenary_barbarian_archer_radiant"
+            }
+        }
+    }
+}

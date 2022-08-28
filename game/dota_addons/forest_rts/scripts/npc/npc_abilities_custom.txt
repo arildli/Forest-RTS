@@ -1396,22 +1396,18 @@
     {
         // General
         //------------------------------------------------------------------------
-        "AbilityName"           "Periodic Mine Gold"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "AbilityTextureName"        "alchemist_goblins_greed"
-        "BaseClass"         "ability_datadriven"
-        "Maxlevel"          "1"
-
-        // Casting
-        //"AbilityCooldown"     "0"
-        //"AbilityManacost"     "0"
+        "AbilityName"                   "Periodic Mine Gold"
+        "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityTextureName"            "alchemist_goblins_greed"
+        "BaseClass"                     "ability_datadriven"
+        "Maxlevel"                      "1"
 
         "AbilitySpecial"
         {
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "amount"    "5"
+                "amount"    "10"
             }
 
             //"02"
@@ -1438,14 +1434,10 @@
                 "IsDebuff"  "0"
                 "IsHidden"  "1"
             //  "ThinkInterval" "%period"
-                "ThinkInterval" "1.0"
+                "ThinkInterval" "1.5"
 
                 "OnIntervalThink"
                 {
-                    //"FireEffect"
-                    //{
-                    //}
-
                     "RunScript"
                     {
                         "Target"        "CASTER"
@@ -1911,8 +1903,44 @@
 
     // Spell7.18
     //================================================================================
-    //
+    // 
     //================================================================================
+    "srts_scout_vision"
+    {
+        // General
+        //------------------------------------------------------------------------
+        "AbilityName"               "Scout Vision"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityTextureName"        "spellicon_scout_vision"
+        "BaseClass"                 "ability_datadriven"
+        "Maxlevel"                  "1"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"          "FIELD_INTEGER"
+                "extra_vision"      "400"
+            }
+        }
+
+        "Modifiers"
+        {
+            "modifier_scout_vision"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "1"
+                "TextureName"       "spellicon_scout_vision"
+
+                "Properties"
+                {
+                    "MODIFIER_PROPERTY_BONUS_DAY_VISION"    "%extra_vision"
+                    "MODIFIER_PROPERTY_BONUS_NIGHT_VISION"  "%extra_vision"
+                }
+            }
+        }
+    }
 
 
 
@@ -2316,9 +2344,9 @@
     {
         // General
         //--------------------
-        "BaseClass"         "ability_datadriven"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "AbilityTextureName"        "lich_frost_nova"
+        "BaseClass"                     "ability_datadriven"
+        "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityTextureName"            "lich_frost_nova"
         "MaxLevel"          "1"
 
         "AbilitySpecial"

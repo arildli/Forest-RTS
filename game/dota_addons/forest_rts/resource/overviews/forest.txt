@@ -2,7 +2,7 @@ forest
 {
 	material materials/overviews/forest.vmat
 	pos_x -8192
-	pos_y 8192
+	pos_y 8128
 	scale 16.000
 }
 
