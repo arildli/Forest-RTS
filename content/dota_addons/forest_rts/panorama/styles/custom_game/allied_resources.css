@@ -31,7 +31,7 @@
     
     horizontal-align: right;
     vertical-align: bottom;
-    margin-bottom: 300px;
+    //margin-bottom: 300px;
 
     background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
     /*border: 1px solid blue;*/
@@ -57,7 +57,7 @@
     
     horizontal-align: right;
     vertical-align: bottom;
-    margin-bottom: 225px;
+    margin-bottom: 200px;
     
     /*border: 1px solid yellow;*/
 }
@@ -94,21 +94,21 @@
 
 .1UpTitle
 {
-    margin-bottom: 300px;
+    margin-bottom: 275px;
 }
 .2UpTitle
 {
-    margin-bottom: 375px;
+    margin-bottom: 350px;
 }
 .3UpTitle
 {
-    margin-bottom: 450px;
+    margin-bottom: 425px;
 }
 .4UpTitle
 {
-    margin-bottom: 525px;
+    margin-bottom: 500px;
 }
 .5UpTitle
 {
-    margin-bottom: 600px;
+    margin-bottom: 575px;
 }

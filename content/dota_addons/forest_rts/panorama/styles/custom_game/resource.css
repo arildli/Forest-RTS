@@ -11,15 +11,17 @@
 #Resources
 {
     width: 21%;
-    height: 19%;
+    height: 200px;
 
     vertical-align: bottom;
     background-color: rgba(10, 10, 10, 0.7);
     
     border: 1px solid black;
-    //border: 1px solid green;
-    //background-color: gradient( linear, 10px 0%, 250px 5%, from(black), to(transparent) );
-    //background-color: gradient( linear, 10px 0%, 400px 5%, from(transparent), to(black) );
+    /*
+    border: 1px solid green;
+    background-color: gradient( linear, 10px 0%, 250px 5%, from(black), to(transparent) );
+    background-color: gradient( linear, 10px 0%, 400px 5%, from(transparent), to(black) );
+    */
 }
 
 .Hidden
@@ -44,14 +46,16 @@
 
 #LumberPanel
 {
-    //border: 1px solid red;
+    /*border: 1px solid red;*/
 
     width: 100px;
     height: 30px;
 
     vertical-align: bottom;
-    //background-color: gradient(linear, 25px 100%, 5px 0%, from(transparent), to(grey));
-    //background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
+    /*
+    background-color: gradient(linear, 25px 100%, 5px 0%, from(transparent), to(grey));
+    background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
+    */
 
     margin-bottom: RES_MARGIN_BOT;
     margin-right: 25px;
@@ -64,9 +68,11 @@
     height: 30px;
 
     vertical-align: bottom;
-    //background-color: gradient(linear, 25px 100%, 25px 0%, from(grey), to(transparent));
-    //background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
-    //border: 1px solid red;
+    /*
+    background-color: gradient(linear, 25px 100%, 25px 0%, from(grey), to(transparent));
+    background-color: gradient( linear, 10px 0%, 225px 0%, from( transparent ), to( black ) );
+    border: 1px solid red;
+    */
 
     margin-bottom: RES_MARGIN_BOT;
     margin-right: 160px;

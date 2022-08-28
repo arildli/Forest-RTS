@@ -30,6 +30,7 @@ function AlliedResources_HideIfSolo() {
         for (var i=1; i<6; i=i+1) {
             titlePanel.RemoveClass(i+postFix);   
         }
+
         var extraSpace = (playerCountLocalTeam-1) + postFix;
         titlePanel.AddClass(extraSpace);
 
@@ -48,10 +49,12 @@ function AlliedResources_SetTextSafe(panel, childName, text) {
     if (panel === null) {
         return;
     }
+
     var childPanel = panel.FindChildInLayoutFile(childName);
     if (childPanel === null) {
         return;
     }
+
     childPanel.text = text;
 }
 
@@ -91,6 +94,7 @@ function AlliedResources_UpdatePlayerPanel(parentPanel, playerID, playerConfig, 
         if (!playerName) {
             playerName = "Name not found";
         }
+
         AlliedResources_SetTextSafe(playerPanel, "PlayerName", playerName);
     }
     
@@ -115,6 +119,7 @@ function AlliedResources_UpdatePlayerPanel(parentPanel, playerID, playerConfig, 
             lumber : playerLumber,
             workers : playerWorkers
         };
+
         AlliedResources_SetTextSafe(playerPanel, "GoldCount", playerGold);
         AlliedResources_SetTextSafe(playerPanel, "LumberCount", playerLumber);
         AlliedResources_SetTextSafe(playerPanel, "WorkerCount", playerWorkers);
@@ -133,10 +138,12 @@ function AlliedResources_UpdateWholePanel() {
     var localTeamIDs = GetPlayerIDsLocalTeam();
     var localPlayerID = Players.GetLocalPlayer();
     var counter = 1;
+    
     for (var curID of localTeamIDs) {
         if (curID === localPlayerID) {
             continue;
         }
+
         var curMarginClass = counter + "UpPlayer";
         AlliedResources_UpdatePlayerPanel(parentPanel, curID, config, curMarginClass);
         counter = counter + 1;
