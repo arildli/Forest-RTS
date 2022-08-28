@@ -96,11 +96,21 @@ function SimpleRTSGameMode:InitGameMode()
     GameRules:SetPreGameTime(PRE_GAME_TIME)
     GameRules:SetPostGameTime(POST_GAME_TIME)
     GameRules:SetTreeRegrowTime(TREE_REGROW_TIME_SECONDS)
-    GameRules:GetGameModeEntity():SetLoseGoldOnDeath(LOSE_GOLD_ON_DEATH)
-    GameRules:GetGameModeEntity():SetCameraDistanceOverride(1300)
 
     -- Setup game mode rules
     GameMode = GameRules:GetGameModeEntity()
+
+    GameMode:SetLoseGoldOnDeath(LOSE_GOLD_ON_DEATH)
+    GameMode:SetCameraDistanceOverride(1300)
+    
+    GameMode:SetAllowNeutralItemDrops(false)
+    GameMode:SetBuybackEnabled(false)
+    GameMode:SetRecommendedItemsDisabled(true)
+    GameMode:SetNeutralStashEnabled(false)
+    GameMode:SetNeutralStashTeamViewOnlyEnabled(true)
+    GameMode:SetStashPurchasingDisabled(false)
+    GameMode:SetStickyItemDisabled(true)
+
     GameMode:SetBuybackEnabled(BUYBACK_ENABLED)
     GameMode:SetLoseGoldOnDeath(false)
     GameMode:SetTopBarTeamValuesOverride(true)
@@ -541,6 +551,7 @@ function SimpleRTSGameMode:onNPCSpawned(keys)
         spawnedUnit._playerOwned = true
 
         -- FINNER INGEN ITEMS!
+        --[[
         Timers:CreateTimer(1, function()
         for itemSlot = 5, 0, -1 do
             local item = spawnedUnit:GetItemInSlot( itemSlot )
@@ -553,6 +564,7 @@ function SimpleRTSGameMode:onNPCSpawned(keys)
             end
         end
         end)
+        --]]
 
     else
         spawnedUnit:SetIdleAcquire(true)
