@@ -366,7 +366,7 @@
 
         "UnitName"                  "npc_dota_building_barracks_radiant"
         "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "120"
+        "AbilityGoldCost"               "160"
         "AbilityLumberCost"             "40"
         "BuildTime"                 "20"
         // End of BuildingHelper info
@@ -376,7 +376,7 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "120"
+                "gold_cost" "160"
             }
 
             "02"
@@ -439,7 +439,7 @@
 
         "UnitName"                  "npc_dota_building_barracks_advanced_radiant"
         "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "125"
+        "AbilityGoldCost"               "175"
         "AbilityLumberCost"             "60"
         "BuildTime"                 "20"
         // End of BuildingHelper info
@@ -449,7 +449,7 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "125"
+                "gold_cost" "175"
             }
 
             "02"
@@ -512,7 +512,7 @@
 
         "UnitName"                  "npc_dota_building_barracks_dire"
         "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "120"
+        "AbilityGoldCost"               "160"
         "AbilityLumberCost"             "40"
         "BuildTime"                 "20"
         // End of BuildingHelper info
@@ -522,7 +522,7 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "120"
+                "gold_cost" "160"
             }
 
             "02"
@@ -585,7 +585,7 @@
 
         "UnitName"                  "npc_dota_building_barracks_advanced_dire"
         "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "125"
+        "AbilityGoldCost"               "175"
         "AbilityLumberCost"             "60"
         "BuildTime"                 "20"
         // End of BuildingHelper info
@@ -595,7 +595,7 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "125"
+                "gold_cost" "175"
             }
 
             "02"
@@ -658,8 +658,8 @@
 
         "UnitName"                  "npc_dota_building_market"
         "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "50"
-        "AbilityLumberCost"             "25"
+        "AbilityGoldCost"               "75"
+        "AbilityLumberCost"             "10"
         "BuildTime"                 "20"
         // End of BuildingHelper info
 
@@ -668,13 +668,13 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "50"
+                "gold_cost" "75"
             }
 
             "02"
             {
                 "var_type"  "FIELD_INTEGER"
-                "lumber_cost"   "25"
+                "lumber_cost"   "10"
             }
 
             "03"
@@ -749,7 +749,7 @@
 
         "UnitName"                  "npc_dota_building_armory"
         "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "150"
+        "AbilityGoldCost"               "200"
         "AbilityLumberCost"             "60"
         "BuildTime"                 "25"
         // End of BuildingHelper info
@@ -759,7 +759,7 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "150"
+                "gold_cost" "200"
             }
 
             "02"
@@ -840,7 +840,7 @@
 
         "UnitName"                  "npc_dota_building_armory"
         "AbilityCooldown"               "0"
-        "AbilityGoldCost"               "150"
+        "AbilityGoldCost"               "200"
         "AbilityLumberCost"             "60"
         "BuildTime"                 "25"
         // End of BuildingHelper info
@@ -850,7 +850,7 @@
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "150"
+                "gold_cost" "200"
             }
 
             "02"
@@ -984,7 +984,7 @@
             "08"
             {
                 "var_type"  "FIELD_INTEGER"
-                "amount"    "5"
+                "amount"    "10"
             }
         }
 

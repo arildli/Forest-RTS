@@ -1434,7 +1434,7 @@
                 "IsDebuff"  "0"
                 "IsHidden"  "1"
             //  "ThinkInterval" "%period"
-                "ThinkInterval" "1.5"
+                "ThinkInterval" "1.75"
 
                 "OnIntervalThink"
                 {

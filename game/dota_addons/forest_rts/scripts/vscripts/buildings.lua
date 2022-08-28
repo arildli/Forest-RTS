@@ -5,6 +5,8 @@ if ConstructionUtils == nil then
     print("[ConstructionUtils] ConstructionUtils is starting!")
     ConstructionUtils = {}
     ConstructionUtils.__index = ConstructionUtils
+
+    ConstructionUtils.Localization = LoadKeyValues("resource/addon_english.txt")
 end
 
 function ConstructionUtils:new(o)
@@ -101,10 +103,15 @@ function finishConstruction(building)
     Stats:SpendGold(playerID, building.gold_cost)
     Stats:SpendLumber(playerID, building.lumber_cost)
 
+    local localizedBuildingName = ConstructionUtils.Localization["Tokens"][building:GetUnitName()]
+    if localizedBuildingName == nil then
+        buildingName = "<Building>"
+    end
+
     local event = {
         playerID = building:GetOwnerID(),
         building = building:GetEntityIndex(),
-        buildingName = building:GetUnitName()
+        buildingName = localizedBuildingName
     }
 
     print("[SimpleRTS] Fired 'construction_done' event with values: " .. 
