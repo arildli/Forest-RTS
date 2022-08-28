@@ -1,8 +1,7 @@
 "dota_shops"
-{
+{	
     "pinned"
     {
-
     }
 
 	"consumables"
@@ -54,16 +53,13 @@
 
 	"sideshop1"
 	{
-        "item"		"item_srts_spawn_barbarian_scout"
 	}
 
 	"sideshop2"
 	{
-
 	}
 
 	"secretshop"
 	{
-
 	}
 }
