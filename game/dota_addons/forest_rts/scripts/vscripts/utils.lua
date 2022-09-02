@@ -371,17 +371,34 @@ function FindEmptyTree(unit, location, radius)
     local nearbyTrees = GridNav:GetAllTreesAroundPoint(location, radius, true)
 
     -- EDITED
-    local pathableTrees = GetAllPathableTreesFromList(location.z, nearbyTrees)
+    local treesSameZ, treesDifferentZ = GetAllPathableTreesFromList(location.z, nearbyTrees)
     --local pathableTrees = filter(function(tree) return tree:IsPathable() end, nearbyTrees)
     -- DONE
-    if #pathableTrees == 0 then
+    if #treesSameZ == 0 and #treesDifferentZ == 0 then
         print("FindEmptyTree: No nearby empty trees found!")
         return nil
     end
 
-    local sortedList = SortListByClosest(pathableTrees, location)
-    for _,tree in pairs(sortedList) do
+    -- TEMP: REMOVE!
+    --DebugShowNearbyTrees(pathableTrees)
+    --
+
+    local sortedSameZList = SortListByClosest(treesSameZ, location)
+    for _,tree in pairs(sortedSameZList) do
         if TreeIsEmpty(tree) and IsTreePathable(tree) then
+            -- TEMP: REMOVE!
+            print("Found tree on same Z.")
+            --
+            return tree
+        end
+    end
+
+    local sortedDifferentZList = SortListByClosest(treesDifferentZ, location)
+    for _,tree in pairs(sortedDifferentZList) do
+        if TreeIsEmpty(tree) and IsTreePathable(tree) then
+            -- TEMP: REMOVE!
+            print("Found tree on DIFFERENT Z!")
+            --
             return tree
         end
     end
@@ -407,20 +424,26 @@ function IsTreePathable( tree )
 end
 
 function GetAllPathableTreesFromList( height, list )
-    local pathable_trees = {}
+    local pathable_trees_same_z = {}
+    local pathable_trees_different_z = {}
+
     for _,tree in pairs(list) do
-        if tree:IsPathable() then --IsTreePathable(tree) then
-            table.insert(pathable_trees, tree)
+        -- EDITED
+        local terrainPlatformHeight = 128
+        local treeZ = tree:GetCenter().z
+        local heightDifference = treeZ - height
+
+        if IsTreePathable(tree) and heightDifference == 0 then
+            table.insert(pathable_trees_same_z, tree)
+        -- We never want to add trees two levels up, as those trees often are unreachable.
+        -- 128 is the platform height.
+        elseif IsTreePathable(tree) and heightDifference >= -128 and heightDifference <= 128 then
+            table.insert(pathable_trees_different_z, tree)
         end
-            -- EDITED
-            --[=[local treeHeight = tree:GetCenter().z
-            if IsTreePathable(tree) and treeHeight == height then
-         table.insert(pathable_trees, tree)
-            end
-            ]=]
-            -- DONE
+        -- DONE
     end
-    return pathable_trees
+
+    return pathable_trees_same_z, pathable_trees_different_z
 end
 
 function GetClosestEntityToPosition(list, position)

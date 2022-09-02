@@ -68,6 +68,12 @@ function Precache( context )
 	PrecacheResource("particle", "particles/units/heroes/hero_jakiro/jakiro_liquid_fire_debuff.vpcf", context)
 	PrecacheResource("particle", "particles/units/heroes/hero_jakiro/jakiro_liquid_fire_explosion.vpcf", context)
 
+    -- Satyr Spellweaver particles and sounds
+    PrecacheResource("particle", "particles/neutral_fx/satyr_trickster_projectile.vpcf", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_slardar.vsndevts", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_slardar/slardar_amp_damage.vpcf", context)
+    PrecacheResource("particle", "particles/status_fx/status_effect_slardar_amp_damage.vpcf", context)
+
 	-- Soldiers
 	--PrecacheResource("model", "models/creeps/lane_creeps/creep_good_melee/creep_good_melee.vmdl", context)
 	--PrecacheResource("model", "models/creeps/lane_creeps/creep_good_ranged/creep_good_ranged.vmdl", context)
@@ -172,6 +178,8 @@ function Precache( context )
 	-- Worker
 	PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_ogre_med/n_creep_ogre_med.vmdl", context)
 
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_axe.vsndevts", context)
+
 	-- Catapults
 	PrecacheResource("model", "models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl", context)
 	PrecacheResource("model", "models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl", context)
@@ -221,6 +229,9 @@ function Precache( context )
     PrecacheResource("particle", "particles/units/heroes/hero_lina/lina_ambient_hand_r.vpcf", context)
     PrecacheResource("particle", "particles/units/heroes/hero_lina/lina_ambient_hand_l.vpcf", context)
     PrecacheResource("particle", "particles/econ/items/lanaya/lanaya_epit_trap/templar_assassin_epit_trap_slow.vpcf", context)
+
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_treant.vsndevts", context)
 
 
 
@@ -290,6 +301,9 @@ function Precache( context )
 	-- Flame Thrower
 	PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_frost.vmdl", context)
 
+    -- Spellweaver
+    PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_satyr_b/n_creep_satyr_b.vmdl", context)
+
 
 
 	-- King of the Dead
@@ -347,8 +361,7 @@ function Precache( context )
 
 	-- Troll Elder
 	PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_troll_dark_b/n_creep_troll_dark_b.vmdl", context)
-    PrecacheResource("soundfile", "sounds/weapons/hero/ogre_magi/bloodlust_cast.vsnd", context)
-    PrecacheResource("soundfile", "sounds/weapons/hero/ogre_magi/bloodlust_target.vsnd", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_ogre_magi.vsndevts", context)
 
 	PrecacheResource("particle", "particles/units/heroes/hero_witchdoctor/witchdoctor_base_attack.vpcf", context)
 	PrecacheResource("particle", "particles/items2_fx/mask_of_madness.vpcf", context)

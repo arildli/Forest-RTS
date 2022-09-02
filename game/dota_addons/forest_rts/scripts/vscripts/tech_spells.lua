@@ -285,6 +285,11 @@ defs = {
 		category = "spell"
 	},
 
+	WEAKEN_ARMOR = {
+		spell = "srts_weaken_armor",
+		category = "spell"
+	},
+
 	SIEGE_DAMAGE = {
 		 spell = "srts_siege_damage",
 		 category = "spell"
@@ -1205,6 +1210,26 @@ unitdefs = {
 		pages = {
 			PAGE_MAIN = {
 	 			"SIEGE_DAMAGE"
+			},
+			HIDDEN = {
+				"UNIT"
+			}
+		}
+	},
+
+	GEOMANCER_SPELLWEAVER = {
+		name = "npc_dota_creature_kobold_spellweaver",
+		spell = "srts_train_kobold_spellweaver",
+		category = "unit",
+		trainedAt = "BARRACKS_DIRE",
+		unitType = "caster",
+		upgrades = {
+			"UPGRADE_LIGHT_ARMOR",
+			"UPGRADE_LIGHT_DAMAGE",
+            "UPGRADE_ADEPT_TRAINING"},
+		pages = {
+			PAGE_MAIN = {
+				"WEAKEN_ARMOR"
 			},
 			HIDDEN = {
 				"UNIT"

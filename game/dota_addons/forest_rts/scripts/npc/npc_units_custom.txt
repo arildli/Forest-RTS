@@ -708,8 +708,8 @@
 		"ArmorPhysical"			"0"
 
 		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
-		"AttackDamageMin"		"9"
-		"AttackDamageMax"		"13"
+		"AttackDamageMin"		"7"
+		"AttackDamageMax"		"11"
 		"AttackRate"			"1.6"
 		"AttackAnimationPoint"		"0.38"
 		"AttackAcquisitionRange"	"600"
@@ -1222,6 +1222,74 @@
 				{
 					"ItemDef"	"4993"
 				}
+			}
+		}
+	}
+
+
+
+
+
+	// Unit2.10
+	//================================================================================
+	// Unit: Kobold Spellweaver
+	//================================================================================
+
+	// Level 1
+	//========================================
+	"npc_dota_creature_kobold_spellweaver"
+	{
+		"Model"					"models/creeps/neutral_creeps/n_creep_satyr_b/n_creep_satyr_b.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"Hero_Meepo"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts"
+		"ModelScale"			"0.8"
+
+		"BountyXP"				"25"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
+
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
+
+		"SelectionGroup"		"Kobold_Spellweaver"
+
+		"ArmorPhysical"			"0"
+
+		"AttackCapabilities"	"DOTA_UNIT_CAP_RANGED_ATTACK"
+		"AttackDamageMin"		"7"
+		"AttackDamageMax"		"9"
+		"AttackRate"			"1.8"
+		"AttackAnimationPoint"		"0.38"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"			"600"
+		"ProjectileModel"		"particles/neutral_fx/satyr_trickster_projectile.vpcf"
+		"ProjectileSpeed"		"1200"
+
+		"RingRadius"			"40"
+		"HealthBarOffset"		"150"
+		"FormationRank" 		"2"
+
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"350"
+		"MovementTurnRate"		"0.7"
+
+		"StatusHealth"			"225"
+		"StatusHealthRegen"		"1.25"
+		"StatusMana"			"200"
+		"StatusManaRegen"		"1.0"
+
+		"VisionDaytimeRange"	"800"
+		"VisionNighttimeRange"	"800"
+
+		"Creature"
+		{
+			//"DisableClumpingBehavior"	"1"
+
+			"AttachWearables"
+			{
 			}
 		}
 	}
