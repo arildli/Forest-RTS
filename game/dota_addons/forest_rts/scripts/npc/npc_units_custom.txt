@@ -1241,8 +1241,8 @@
 	{
 		"Model"					"models/creeps/neutral_creeps/n_creep_satyr_b/n_creep_satyr_b.vmdl"
 		"BaseClass"				"npc_dota_creature"
-		"SoundSet"				"Hero_Meepo"
-		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts"
+		"SoundSet"				"Hero_Puck"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
 		"ModelScale"			"0.8"
 
 		"BountyXP"				"25"

@@ -71,6 +71,7 @@ function Precache( context )
     -- Satyr Spellweaver particles and sounds
     PrecacheResource("particle", "particles/neutral_fx/satyr_trickster_projectile.vpcf", context)
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_slardar.vsndevts", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_puck.vsndevts", context)
     PrecacheResource("particle", "particles/units/heroes/hero_slardar/slardar_amp_damage.vpcf", context)
     PrecacheResource("particle", "particles/status_fx/status_effect_slardar_amp_damage.vpcf", context)
 
