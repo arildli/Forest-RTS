@@ -386,9 +386,6 @@ function FindEmptyTree(unit, location, radius)
     local sortedSameZList = SortListByClosest(treesSameZ, location)
     for _,tree in pairs(sortedSameZList) do
         if TreeIsEmpty(tree) and IsTreePathable(tree) then
-            -- TEMP: REMOVE!
-            print("Found tree on same Z.")
-            --
             return tree
         end
     end
@@ -396,9 +393,6 @@ function FindEmptyTree(unit, location, radius)
     local sortedDifferentZList = SortListByClosest(treesDifferentZ, location)
     for _,tree in pairs(sortedDifferentZList) do
         if TreeIsEmpty(tree) and IsTreePathable(tree) then
-            -- TEMP: REMOVE!
-            print("Found tree on DIFFERENT Z!")
-            --
             return tree
         end
     end
