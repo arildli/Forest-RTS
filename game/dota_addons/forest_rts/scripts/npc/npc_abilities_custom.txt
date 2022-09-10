@@ -195,10 +195,16 @@
 
                 "OnIntervalThink"
                 {
+                    "RemoveModifier"
+                    {
+                        "ModifierName"      "channeling_animation"
+                        "Target"            "CASTER"
+                    }
+
                     "ApplyModifier"
                     {
                         "ModifierName"      "channeling_animation"
-                        "Target"        "CASTER"
+                        "Target"            "CASTER"
                     }
 
                     "FireEffect"
@@ -243,8 +249,8 @@
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
         "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_TREE"
         "AbilityTextureName"        "spellicon_harvest_tree_worker"
-        "BaseClass"         "ability_datadriven"
-        "Maxlevel"          "1"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         // Casting
         "AbilityCastPoint"      "0.1"
@@ -337,10 +343,16 @@
 
                 "OnIntervalThink"
                 {
+                    "RemoveModifier"
+                    {
+                        "ModifierName"      "channeling_animation"
+                        "Target"            "CASTER"
+                    }
+
                     "ApplyModifier"
                     {
                         "ModifierName"      "channeling_animation"
-                        "Target"        "CASTER"
+                        "Target"            "CASTER"
                     }
 
                     "FireEffect"
@@ -381,18 +393,18 @@
     {
         // General
         //------------------------------------------------------------------------
-        "AbilityName"           "Harvest No Cut"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+        "AbilityName"               "Harvest No Cut"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
         "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_TREE"
         "AbilityTextureName"        "spellicon_harvest_tree_worker"
-        "BaseClass"             "ability_datadriven"
-        "Maxlevel"              "1"
+        "BaseClass"                 "ability_datadriven"
+        "Maxlevel"                  "1"
 
         // Casting
-        "AbilityCastPoint"      "0.1"
-        "AbilityCastRange"      "150"
-        "AbilityCooldown"       "0"
-        "AbilityManacost"       "0"
+        "AbilityCastPoint"          "0.1"
+        "AbilityCastRange"          "150"
+        "AbilityCooldown"           "0"
+        "AbilityManacost"           "0"
 
         "AbilityCastAnimation"      "ACT_DOTA_ATTACK"
         "AbilityChannelTime"        "50"
@@ -467,6 +479,12 @@
 
                 "OnIntervalThink"
                 {
+                    "RemoveModifier"
+                    {
+                        "ModifierName"      "channeling_animation"
+                        "Target"            "CASTER"
+                    }
+                    
                     "ApplyModifier"
                     {
                         "ModifierName"      "channeling_animation_neutral"
@@ -2187,23 +2205,23 @@
     {
         // General
         //--------------------
-        "BaseClass"         "ability_datadriven"
-        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         "AbilityTextureName"        "sniper_headshot"
-        "MaxLevel"          "1"
+        "MaxLevel"                  "1"
 
         "AbilitySpecial"
         {
             "01"
             {
-                "var_type"  "FIELD_INTEGER"
-                "proc_bonus"    "150"
+                "var_type"          "FIELD_INTEGER"
+                "proc_bonus"        "150"
             }
 
             "02"
             {
-                "var_type"  "FIELD_INTEGER"
-                "proc_chance"   "20"
+                "var_type"          "FIELD_INTEGER"
+                "proc_chance"       "20"
             }
         }
 
@@ -2211,15 +2229,15 @@
         {
             "modifier_headshot"
             {
-                "Passive"       "1"
-                "IsHidden"      "1"
+                "Passive"           "1"
+                "IsHidden"          "1"
 
                 "OnAttackStart"
                 {
                     "RemoveModifier"
                     {
                         "ModifierName"  "modifier_headshot_proc"
-                        "Target"    "CASTER"
+                        "Target"        "CASTER"
                     }
 
                     "Random"
@@ -2230,7 +2248,13 @@
                             "ApplyModifier"
                             {
                                 "ModifierName"  "modifier_headshot_proc"
-                                "Target"    "CASTER"
+                                "Target"        "CASTER"
+                            }
+
+                            "FireSound"
+                            {
+                                "EffectName"    "Hero_Sniper.HeadShot"
+                                "Target"        "CASTER"
                             }
                         }
                     }
@@ -3293,6 +3317,121 @@
                         "Function"      "AutocastEnemyAttackKeys"
                         "modifier"      "modifier_weaken_armor"
                     }
+                }
+            }
+        }
+    }
+
+
+
+
+
+    //================================================================================
+    // Arrow to the Knee (Kneeshot) - Barbarian Archer Passive
+    //================================================================================
+    "srts_kneeshot"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityTextureName"        "spellicon_kneeshot"
+        "MaxLevel"                  "1"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"          "FIELD_INTEGER"
+                "proc_bonus"        "200"
+            }
+
+            "02"
+            {
+                "var_type"          "FIELD_INTEGER"
+                "proc_chance"       "15"
+            }
+
+            "03"
+            {
+                "var_type"          "FIELD_FLOAT"
+                "slow_duration"     "1"
+            }
+
+            "04"
+            {
+                "var_type"          "FIELD_INTEGER"
+                "slow_percent"      "-90"
+            }
+        }
+
+        "Modifiers"
+        {
+            "modifier_kneeshot"
+            {
+                "Passive"           "1"
+                "IsHidden"          "1"
+
+                "OnAttackStart"
+                {
+                    "RemoveModifier"
+                    {
+                        "ModifierName"  "modifier_kneeshot_proc"
+                        "Target"        "CASTER"
+                    }
+
+                    "Random"
+                    {
+                        "Chance"        "%proc_chance"
+                        "OnSuccess"
+                        {
+                            "ApplyModifier"
+                            {
+                                "ModifierName"  "modifier_kneeshot_proc"
+                                "Target"        "CASTER"
+                            }
+
+                            "ApplyModifier"
+                            {
+                                "ModifierName"  "modifier_kneeshot_proc_slow"
+                                "Target"        "TARGET"
+                                "Duration"      "%slow_duration"
+                            }
+                        }
+                    }
+                }
+            }
+
+            "modifier_kneeshot_proc"
+            {
+                "IsHidden"      "1"
+
+                "Properties"
+                {
+                    "MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE"    "%proc_bonus"
+                }
+
+                "OnAttackLanded"
+                {
+                    "RemoveModifier"
+                    {
+                        "ModifierName"  "modifier_kneeshot_proc"
+                        "Target"        "CASTER"
+                    }
+                }
+            }
+
+            "modifier_kneeshot_proc_slow"
+            {
+                "Passive"       "0"
+                "IsDebuff"      "1"
+                "IsHidden"      "0"
+                "TextureName"   "spellicon_kneeshot"
+                "Attributes"    "MODIFIER_ATTRIBUTE_MULTIPLE"
+
+                "Properties"
+                {
+                    "MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE"  "%slow_percent"
                 }
             }
         }

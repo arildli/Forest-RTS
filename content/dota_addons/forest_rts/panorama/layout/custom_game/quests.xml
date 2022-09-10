@@ -14,7 +14,7 @@
     <Panel hittest="false" class="RootQuestsPanel">
         <Panel hittest="false" id="RootQuestsPanel">
             <Panel id="TitlePanel" onmouseactivate="QuestTitleClicked();">
-                <Label hittest="false" id="Title" text="Quests" html="true" class="Text"/>
+                <Label hittest="false" id="Title" text="How To Play" html="true" class="Text"/>
             </Panel>
             <Panel hittest="false" id="QuestPanels">
                 <!-- Panels will be added dynamically depending on the players. -->

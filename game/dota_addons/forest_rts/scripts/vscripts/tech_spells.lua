@@ -371,6 +371,23 @@ buildefs = {
 		}
 	},
 
+	GUARD_TOWER = {
+		name = "npc_dota_building_guard_tower",
+		spell = "srts_construct_guard_tower",
+		constant = "GUARD_TOWER",
+		category = "building",
+		req = {{"TENT_SMALL", "TENT_LARGE"}, {"ARMORY_RADIANT", "ARMORY_DIRE"}},
+		pages = {
+			PAGE_MAIN = {
+				"DEMOLISH_BUILDING"
+			},
+			HIDDEN = {
+				"BUILDING",
+				"TOWER"
+			}
+		}
+	},
+
 	WOODEN_WALL = {
 		name = "npc_dota_building_wooden_wall",
 		spell = "srts_construct_wooden_wall",
@@ -728,10 +745,10 @@ unitdefs = {
 			},
 			PAGE_MENU_CONSTRUCTION_ADVANCED = {
 				"MARKET",
+				"GUARD_TOWER",
 				"HEALING_CRYSTAL_RADIANT",
 				"ARMORY_RADIANT",
 				"BARRACKS_ADVANCED_RADIANT",
-				"EMPTY_FILLER",
 				"PAGE_MAIN"
 			},
 			PAGE_MENU_PROPS = {
@@ -856,10 +873,10 @@ unitdefs = {
 			},
 			PAGE_MENU_CONSTRUCTION_ADVANCED = {
 				"MARKET",
+				"GUARD_TOWER",
 				"HEALING_CRYSTAL_RADIANT",
 				"ARMORY_RADIANT",
 				"BARRACKS_ADVANCED_RADIANT",
-				"EMPTY_FILLER",
 				"PAGE_MAIN"
 			},
 			PAGE_MENU_PROPS = {
@@ -1006,10 +1023,10 @@ unitdefs = {
 			},
 			PAGE_MENU_CONSTRUCTION_ADVANCED = {
 				"MARKET",
+				"GUARD_TOWER",
 				"HEALING_CRYSTAL_RADIANT",
 				"ARMORY_RADIANT",
 				"BARRACKS_ADVANCED_RADIANT",
-				"EMPTY_FILLER",
 				"PAGE_MAIN"
 			},
 			PAGE_MENU_PROPS = {
@@ -1137,10 +1154,10 @@ unitdefs = {
 			},
 			PAGE_MENU_CONSTRUCTION_ADVANCED = {
 				"MARKET",
+				"GUARD_TOWER",
 				"HEALING_CRYSTAL_DIRE",
 				"ARMORY_DIRE",
 				"BARRACKS_ADVANCED_DIRE",
-				"EMPTY_FILLER",
 				"PAGE_MAIN"
 			},
 			PAGE_MENU_PROPS = {
@@ -1267,10 +1284,10 @@ unitdefs = {
 			},
 			PAGE_MENU_CONSTRUCTION_ADVANCED = {
 				"MARKET",
+				"GUARD_TOWER",
 				"HEALING_CRYSTAL_DIRE",
 				"ARMORY_DIRE",
 				"BARRACKS_ADVANCED_DIRE",
-				"EMPTY_FILLER",
 				"PAGE_MAIN"
 			},
 			PAGE_MENU_PROPS = {
@@ -1414,10 +1431,10 @@ unitdefs = {
 			},
 			PAGE_MENU_CONSTRUCTION_ADVANCED = {
 				"MARKET",
+				"GUARD_TOWER",
 				"HEALING_CRYSTAL_DIRE",
 				"ARMORY_DIRE",
 				"BARRACKS_ADVANCED_DIRE",
-				"EMPTY_FILLER",
 				"PAGE_MAIN"
 			},
 			PAGE_MENU_PROPS = {

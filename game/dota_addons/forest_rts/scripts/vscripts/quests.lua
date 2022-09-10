@@ -78,6 +78,7 @@ function Quests:CreateQuest(title, descriptions, predicates, textOnly)
         textOnly = textOnly,
         reqs = {}
     }
+
     for i=1,#descriptions do
         local curDesc = descriptions[i]
         local curPred = predicates[i]
@@ -105,6 +106,7 @@ function Quests:AddQuest(playerID, questName)
         PrintQuestFailure("Quests:AddQuest", "'"..(questName or "nil").."' not found!")
         return
     end
+
     local playerQuestStruct = Quests:GetPlayer(playerID)
     playerQuestStruct.quests[questName] = quest
     PrintQuest("Added quest '"..questName.."' to player with ID "..playerID)
@@ -115,13 +117,15 @@ end
 ---------------------------------------------------------------------------
 function Quests:CreateInitialQuests()
     Quests.quests = {
-        Quests:CreateQuest("How To Play",
+        Quests:CreateQuest("Get Started",
             {
                 "Find a proper base location",
                 "Construct a Main Tent",
-                "Train workers to harvest lumber",
+                "Train 10 workers to harvest lumber",
                 "Build a base",
                 "Train an army",
+                "Hire mercenaries from the spawn shops",
+                "Research upgrades",
                 "Kill enemy players or Barbarians"
             }, {}, true
         ),
@@ -136,7 +140,8 @@ function Quests:CreateInitialQuests()
             {
                 "Defend against waves of barbarians",
                 "They get stronger as time progresses",
-                "Capture the middle camp for extra lumber"
+                "Capture the middle camp for extra lumber",
+                "You lose when all your lives are lost"
             }, {}, true
         )
     }

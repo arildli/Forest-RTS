@@ -156,6 +156,7 @@ entities = {
         TENT_LARGE = buildefs.TENT_LARGE,
         GOLD_MINE = buildefs.GOLD_MINE,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         BARRACKS = buildefs.BARRACKS_RADIANT,
         BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_RADIANT,
@@ -175,6 +176,7 @@ entities = {
         TENT_LARGE = buildefs.TENT_LARGE,
         GOLD_MINE = buildefs.GOLD_MINE,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         BARRACKS = buildefs.BARRACKS_RADIANT,
         BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_RADIANT,
@@ -192,6 +194,7 @@ entities = {
         TENT_LARGE = buildefs.TENT_LARGE,
         GOLD_MINE = buildefs.GOLD_MINE,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         BARRACKS = buildefs.BARRACKS_RADIANT,
         BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_RADIANT,
@@ -210,6 +213,7 @@ entities = {
         TENT_LARGE = buildefs.TENT_LARGE,
         GOLD_MINE = buildefs.GOLD_MINE,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         BARRACKS = buildefs.BARRACKS_DIRE,
         BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_DIRE,
@@ -229,6 +233,7 @@ entities = {
         TENT_LARGE = buildefs.TENT_LARGE,
         GOLD_MINE = buildefs.GOLD_MINE,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         BARRACKS = buildefs.BARRACKS_DIRE,
         BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_DIRE,
@@ -247,6 +252,7 @@ entities = {
         TENT_LARGE = buildefs.TENT_LARGE,
         GOLD_MINE = buildefs.GOLD_MINE,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         BARRACKS = buildefs.BARRACKS_DIRE,
         BARRACKS_ADVANCED = buildefs.BARRACKS_ADVANCED_DIRE,
@@ -335,10 +341,10 @@ tech = {
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
                 buildefs.MARKET,
+                buildefs.GUARD_TOWER,
                 buildefs.HEALING_CRYSTAL_RADIANT,
                 buildefs.ARMORY_RADIANT,
                 buildefs.BARRACKS_ADVANCED_RADIANT,
-                defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
@@ -389,6 +395,7 @@ tech = {
         ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
         HEALING_CRYSTAL_RADIANT = buildefs.HEALING_CRYSTAL_RADIANT,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         MARKET = buildefs.MARKET,
         GOLD_MINE = buildefs.GOLD_MINE
@@ -416,10 +423,10 @@ tech = {
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
                 buildefs.MARKET,
+                buildefs.GUARD_TOWER,
                 buildefs.HEALING_CRYSTAL_RADIANT,
                 buildefs.ARMORY_RADIANT,
                 buildefs.BARRACKS_ADVANCED_RADIANT,
-                defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
@@ -472,6 +479,7 @@ tech = {
         ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
         HEALING_CRYSTAL_RADIANT = buildefs.HEALING_CRYSTAL_RADIANT,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         MARKET = buildefs.MARKET,
         GOLD_MINE = buildefs.GOLD_MINE
@@ -499,10 +507,10 @@ tech = {
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
                 buildefs.MARKET,
+                buildefs.GUARD_TOWER,
                 buildefs.HEALING_CRYSTAL_RADIANT,
                 buildefs.ARMORY_RADIANT,
                 buildefs.BARRACKS_ADVANCED_RADIANT,
-                defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
@@ -549,6 +557,7 @@ tech = {
         ARMORY_RADIANT = buildefs.ARMORY_RADIANT,
         HEALING_CRYSTAL_RADIANT = buildefs.HEALING_CRYSTAL_RADIANT,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         MARKET = buildefs.MARKET,
         GOLD_MINE = buildefs.GOLD_MINE
@@ -577,10 +586,10 @@ tech = {
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
                 buildefs.MARKET,
+                buildefs.GUARD_TOWER,
                 buildefs.HEALING_CRYSTAL_DIRE,
                 buildefs.ARMORY_DIRE,
                 buildefs.BARRACKS_ADVANCED_DIRE,
-                defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
@@ -631,6 +640,7 @@ tech = {
         ARMORY_DIRE = buildefs.ARMORY_DIRE,
         HEALING_CRYSTAL_DIRE = buildefs.HEALING_CRYSTAL_DIRE,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         MARKET = buildefs.MARKET,
         GOLD_MINE = buildefs.GOLD_MINE
@@ -658,10 +668,10 @@ tech = {
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
                 buildefs.MARKET,
+                buildefs.GUARD_TOWER,
                 buildefs.HEALING_CRYSTAL_DIRE,
                 buildefs.ARMORY_DIRE,
                 buildefs.BARRACKS_ADVANCED_DIRE,
-                defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
@@ -714,6 +724,7 @@ tech = {
         ARMORY_DIRE = buildefs.ARMORY_DIRE,
         HEALING_CRYSTAL_DIRE = buildefs.HEALING_CRYSTAL_DIRE,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         MARKET = buildefs.MARKET,
         GOLD_MINE = buildefs.GOLD_MINE
@@ -741,10 +752,10 @@ tech = {
             },
             PAGE_MENU_CONSTRUCTION_ADVANCED = {
                 buildefs.MARKET,
+                buildefs.GUARD_TOWER,
                 buildefs.HEALING_CRYSTAL_DIRE,
                 buildefs.ARMORY_DIRE,
                 buildefs.BARRACKS_ADVANCED_DIRE,
-                defs.EMPTY_FILLER,
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
@@ -794,6 +805,7 @@ tech = {
         ARMORY_DIRE = buildefs.ARMORY_DIRE,
         HEALING_CRYSTAL_DIRE = buildefs.HEALING_CRYSTAL_DIRE,
         WATCH_TOWER = buildefs.WATCH_TOWER,
+        GUARD_TOWER = buildefs.GUARD_TOWER,
         WOODEN_WALL = buildefs.WOODEN_WALL,
         MARKET = buildefs.MARKET,
         GOLD_MINE = buildefs.GOLD_MINE

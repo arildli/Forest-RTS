@@ -86,12 +86,15 @@ function Precache( context )
 	PrecacheResource("model", "models/items/dragon_knight/shield_timedragon.vmdl", context)
 
 	-- Buildings
-	   -- Tower
+	   -- Watch Tower
 	PrecacheResource("model", "models/props_structures/wooden_sentry_tower001.vmdl", context)
     PrecacheResource("model", "models/watch_tower/watch_tower.vmdl", context)
 	   -- Wooden Wall
 	PrecacheResource("model", "models/props_debris/spike_fence_fx_b.vmdl", context)
     PrecacheResource("model", "models/wooden_wall/wooden_wall.vmdl", context)
+       -- Guard Tower
+    PrecacheResource("model", "models/props_structures/tower_good.vmdl", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_tinker/tinker_base_attack.vpcf", context)
 	   -- Temporary Mining Crystal
 	PrecacheResource("model", "models/props_structures/good_base_wall006.vmdl", context)
     --PrecacheResource("model", "models/moonwell/moonwell.vmdl", context)

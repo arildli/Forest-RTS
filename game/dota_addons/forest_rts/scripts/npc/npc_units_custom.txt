@@ -921,7 +921,7 @@
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_pugna.vsndevts"
 		"ModelScale"			"0.9"
 
-		"BountyXP"				"25"
+		"BountyXP"				"35"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
@@ -1013,7 +1013,7 @@
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_lina.vsndevts"
 		"ModelScale"			"0.9"
 
-		"BountyXP"				"25"
+		"BountyXP"				"35"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
@@ -1097,7 +1097,7 @@
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts"
 		"ModelScale"			"0.8"
 
-		"BountyXP"				"25"
+		"BountyXP"				"35"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
@@ -1161,7 +1161,7 @@
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_leshrac.vsndevts"
 		"ModelScale"			"0.8"
 
-		"BountyXP"				"25"
+		"BountyXP"				"35"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
@@ -1245,7 +1245,7 @@
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
 		"ModelScale"			"0.8"
 
-		"BountyXP"				"25"
+		"BountyXP"				"35"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
@@ -1318,7 +1318,7 @@
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_centaur.vsndevts"
 		"ModelScale"			"1.0"
 
-		"BountyXP"				"40"
+		"BountyXP"				"50"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
@@ -1381,7 +1381,7 @@
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_bane.vsndevts"
 		"ModelScale"			"1.0"
 
-		"BountyXP"				"40"
+		"BountyXP"				"50"
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
@@ -2187,7 +2187,7 @@
         "BountyGoldMax"			"0"
 
         "Ability1"				"srts_soldier_vision"
-        "Ability2"				""
+        "Ability2"				"srts_kneeshot"
         "Ability3"				""
         "Ability10"				"srts_ability_units"
 
@@ -2422,7 +2422,7 @@
 	{
 		"Model"					"models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl"
 		"BaseClass"				"npc_dota_creature"
-		"SoundSet"				"n_creep_Melee"
+		"SoundSet"				"Creep_Good_Engine"
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"
 		"ModelScale"			"0.7"
 
@@ -2486,7 +2486,7 @@
 	{
 		"Model"					"models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl"
 		"BaseClass"				"npc_dota_creature"
-		"SoundSet"				"n_creep_Melee"
+		"SoundSet"				"Creep_Good_Engine"
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"
 		"ModelScale"			"0.8"
 
@@ -3053,7 +3053,7 @@
         "BountyGoldMin"			"0"
         "BountyGoldMax"			"0"
 
-        "Ability1"				""
+        "Ability1"				"srts_kneeshot"
         "Ability2"				""
         "Ability3"				""
         "Ability10"				"srts_ability_units"

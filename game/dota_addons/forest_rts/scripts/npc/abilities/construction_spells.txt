@@ -1072,4 +1072,77 @@
             }
         }
     }
+
+
+
+
+
+    // Spell5.1
+    //================================================================================
+    // Build Guard Tower
+    //================================================================================
+
+    "srts_construct_guard_tower"
+    {
+        // General
+        //------------------------------------------------------------------------
+        "AbilityName"               "Construct Guard Tower"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+        "AbilityTextureName"        "spellicon_guard_tower"
+        "BaseClass"                 "ability_datadriven"
+        "Maxlevel"                  "1"
+        "AbilityCastPoint"          "0"
+
+        // BuildingHelper info
+        "Building"                  "1" //bool
+        "BuildingSize"              "3"
+        "AbilityCastRange"          "200"
+        "UpdateHealth"              "1" //bool
+        "Scale"                     "1" //bool
+        "PlayerCanControl"          "1" //bool
+
+        "UnitName"                  "npc_dota_building_guard_tower"
+        "AbilityCooldown"           "0"
+        "AbilityGoldCost"           "140"
+        "AbilityLumberCost"         "50"
+        "BuildTime"                 "20"
+        // End of BuildingHelper info
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"          "FIELD_INTEGER"
+                "gold_cost"         "140"
+            }
+
+            "02"
+            {
+                "var_type"          "FIELD_INTEGER"
+                "lumber_cost"       "50"
+            }
+
+            "03"
+            {
+                "var_type"          "FIELD_INTEGER"
+                "build_time"        "20"
+            }
+
+            "04"
+            {
+                "var_type"          "FIELD_FLOAT"
+                "scale"             "0.9"
+            }
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"        "builder.lua"
+                "Function"          "Build"
+                "LumberCost"        "%lumber_cost"
+            }
+        }
+    }
 }

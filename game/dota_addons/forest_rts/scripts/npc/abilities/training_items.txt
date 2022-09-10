@@ -924,14 +924,14 @@
 		"UIDropSound"			        "Item.DropRecipeShop"
 		"WorldDropSound"		        "Item.DropGemWorld"
 
-        "ItemCost"     			        "120"
+        "ItemCost"     			        "140"
 
 		"AbilitySpecial"
 		{
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "120"
+                "gold_cost" "140"
             }
 
             "02"
@@ -1040,14 +1040,14 @@
 		"UIDropSound"			        "Item.DropRecipeShop"
 		"WorldDropSound"		        "Item.DropGemWorld"
 
-        "ItemCost"     			        "120"
+        "ItemCost"     			        "140"
 
 		"AbilitySpecial"
 		{
             "01"
             {
                 "var_type"  "FIELD_INTEGER"
-                "gold_cost" "120"
+                "gold_cost" "140"
             }
 
             "02"

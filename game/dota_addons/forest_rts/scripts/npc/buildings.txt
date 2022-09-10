@@ -13,16 +13,16 @@
         "ConstructionSize"              "3"
         "BlockPathingSize"              "3"
         "HealthBarOffset"               "400"
-        "SelectionGroup"                "Watchtower"
+        "SelectionGroup"                "Guardtower"
 
         // Armor
         "ArmorPhysical"                 "5"
         "MagicalResistance"             "25"
-        "StatusHealth"                  "550"
+        "StatusHealth"                  "750"
 
         // Vision
-        "VisionDaytimeRange"            "1200"
-        "VisionNighttimeRange"          "1200"
+        "VisionDaytimeRange"            "1000"
+        "VisionNighttimeRange"          "800"
 
 
 
@@ -1528,6 +1528,113 @@
         //----------------------------------------------------------------
         "VisionDaytimeRange"                "600"
         "VisionNighttimeRange"              "600"
+
+        // Bots
+        //----------------------------------------------------------------
+        //  "AttackDesire"                  "1.5"       // How much bots want to attack them vs other non-hero things
+    }
+
+
+
+    // Building1.9
+    //================================================================================
+    // Guard Tower
+    //================================================================================
+    "npc_dota_building_guard_tower"
+    {
+        // General
+        //------------------------------------------------------------------------
+        "BaseClass"                     "npc_dota_creature"
+        "Model"                         "models/props_structures/tower_good.vmdl"
+        "ModelScale"                    "0.9"
+        "AbilityLayout"                 "6"
+
+        "SoundSet"                      "Creep_Bad_Engine"
+        "MinimapIcon"                   "minimap_tower90"
+        "MinimapIconSize"               "200"
+        "Level"                         "1"
+        "HealthBarOffset"               "400"
+        "HasInventory"                  "1"
+
+        "SelectionGroup"                "Guardtower"
+
+        // BuildingHelper
+        "ConstructionSize"              "3"
+        "BlockPathingSize"              "3"
+
+        "DisableTurning"                "0"
+        "DestructionEffect"             "particles/world_destruction_fx/base_statue_destruction_generic_c.vpcf"
+        "FireEffect"                    "particles/dire_fx/fire_barracks.vpcf"
+        "AttachPoint"                   "attach_fx"
+        //"ModelRotation"                   "0"
+        //"ModelOffset"                     "0"
+        // BuildingHelper End
+
+        // Abilities
+        //------------------------------------------------------------------------
+        "Ability1"                      ""  // Ability 1.
+        "Ability2"                      ""          // Ability 2.
+        "Ability3"                      ""          // Ability 3.
+        "Ability4"                      ""          // Ability 4.
+        "Ability5"                      ""          // Ability 5.
+        "Ability6"                      ""          // Ability 6 - Extra.
+        "Ability7"                      ""          // Ability 7 - Extra.
+        "Ability8"                      ""          // Ability 8 - Extra.
+        "Ability10"                     "ability_building"
+        "Ability11"                     "ability_building_queue"
+
+        // Armor
+        //------------------------------------------------------------------------
+        "ArmorPhysical"                 "5"
+        "MagicalResistance"             "25"
+
+        // Attack
+        //------------------------------------------------------------------------
+        "AttackCapabilities"            "DOTA_UNIT_CAP_RANGED_ATTACK"
+        "AttackDamageMin"               "18"
+        "AttackDamageMax"               "22"
+        "AttackDamageType"              "DAMAGE_TYPE_ArmorPhysical"
+        "AttackRate"                    "1.0"
+        "AttackAnimationPoint"          "0.5"
+        "AttackAcquisitionRange"        "800"
+        "AttackRange"                   "800"
+        "ProjectileModel"               "particles/units/heroes/hero_tinker/tinker_base_attack.vpcf"
+        "ProjectileSpeed"               "900"
+
+        // Bounty
+        //------------------------------------------------------------------------
+        "BountyXP"                      "0"
+        "BountyGoldMin"                 "0"
+        "BountyGoldMax"                 "0"
+
+        // Bounds
+        //----------------------------------------------------------------
+        "BoundsHullName"                "DOTA_HULL_SIZE_SMALL"
+        "RingRadius"                    "100"
+        "CollisionSize"                 "100"
+
+        // Movement
+        //----------------------------------------------------------------
+        "MovementCapabilities"          "DOTA_UNIT_CAP_MOVE_GROUND"
+        "MovementSpeed"                 "0"
+
+        // Status
+        //----------------------------------------------------------------
+        "StatusHealth"                  "750"
+        "StatusHealthRegen"             "0"
+        "StatusMana"                    "0"
+        "StatusManaRegen"               "0"
+
+        // Team
+        //----------------------------------------------------------------
+        //  "TeamName"                  "DOTA_TEAM_NEUTRALS"            // Team name.
+        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
+        "UnitRelationshipClass"         "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
+
+        // Vision
+        //----------------------------------------------------------------
+        "VisionDaytimeRange"                "800"
+        "VisionNighttimeRange"              "800"
 
         // Bots
         //----------------------------------------------------------------
