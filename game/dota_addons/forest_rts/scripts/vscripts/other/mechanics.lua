@@ -326,3 +326,8 @@ function ReorderItems( caster )
       caster:SwapItems(itemSlot,k-1)
    end
 end
+
+-- Checks if the unit is mechanical.
+function IsMechanical(unit)
+   return unit:HasModifier("modifier_mechanical")
+end

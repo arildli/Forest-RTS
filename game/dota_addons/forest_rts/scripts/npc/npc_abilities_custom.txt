@@ -1679,6 +1679,33 @@
 
 
 
+        // Spell7.12
+    //================================================================================
+    // Ability Mechanical
+    //================================================================================
+    "srts_ability_mechanical"
+    {
+        // General
+        //------------------------------------------------------------------------
+        "AbilityName"           "Ability Mechanical"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityTextureName"    "spellicon_mechanical"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
+
+        "Modifiers"
+        {
+            "modifier_mechanical"
+            {
+                "Passive"       "1"
+                "IsHidden"      "0"
+                "TextureName"   "spellicon_mechanical"
+            }
+        }
+    }
+
+
+
 
 
     // Spell7.12
@@ -4056,34 +4083,34 @@
         //------------------------------------------------------------------------
         "AbilityName"           "Buy Healing Salve"
         "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-        "AbilityTextureName"        "spellicon_buy_healing_salve"
-        "BaseClass"         "ability_datadriven"
-        "Maxlevel"          "1"
+        "AbilityTextureName"    "spellicon_buy_healing_salve"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
 
         // Casting
         "AbilityCastPoint"      "0.1"
         "AbilityCooldown"       "0"
         "AbilityManacost"       "0"
-        "AbilityGoldCost"       "90"
+        "AbilityGoldCost"       "75"
 
         "AbilitySpecial"
         {
             "01"
             {
-                "var_type"  "FIELD_INTEGER"
+                "var_type"      "FIELD_INTEGER"
                 "lumber_cost"   "0"
             }
 
             "02"
             {
-                "var_type"  "FIELD_INTEGER"
-                "gold_cost" "90"
+                "var_type"      "FIELD_INTEGER"
+                "gold_cost"     "75"
             }
 
             "03"
             {
-                "var_type"  "FIELD_INTEGER"
-                "amount"    "4"
+                "var_type"      "FIELD_INTEGER"
+                "amount"        "4"
             }
         }
 
@@ -4091,12 +4118,69 @@
         {
             "RunScript"
             {
-                "Target"    "POINT"
+                "Target"        "POINT"
                 "ScriptFile"    "scripts/vscripts/spells.lua"
-                "Function"  "BuyItem"
-                "item"      "item_healing_salve"
-                "amount"    "4"
-                "goldCost"  "%gold_cost"
+                "Function"      "BuyItem"
+                "item"          "item_healing_salve"
+                "amount"        "4"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+    }
+
+
+
+    //================================================================================
+    // Buy Scroll of Healing
+    //================================================================================
+    "srts_buy_scroll_of_healing"
+    {
+        // General
+        //------------------------------------------------------------------------
+        "AbilityName"           "Buy Scroll of Healing"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+        "AbilityTextureName"    "spellicon_buy_healing_scroll"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
+
+        // Casting
+        "AbilityCastPoint"      "0.1"
+        "AbilityCooldown"       "0"
+        "AbilityManacost"       "0"
+        "AbilityGoldCost"       "250"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"      "FIELD_INTEGER"
+                "lumber_cost"   "0"
+            }
+
+            "02"
+            {
+                "var_type"      "FIELD_INTEGER"
+                "gold_cost"     "250"
+            }
+
+            "03"
+            {
+                "var_type"      "FIELD_INTEGER"
+                "amount"        "1"
+            }
+        }
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "Target"        "POINT"
+                "ScriptFile"    "scripts/vscripts/spells.lua"
+                "Function"      "BuyItem"
+                "item"          "item_scroll_of_healing"
+                "amount"        "1"
+                "goldCost"      "%gold_cost"
                 "lumberCost"    "%lumber_cost"
             }
         }

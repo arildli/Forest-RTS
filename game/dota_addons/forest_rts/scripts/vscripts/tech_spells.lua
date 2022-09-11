@@ -199,6 +199,11 @@ defs = {
 		 category = "spell"
 	},
 
+	BUY_SCROLL_OF_HEALING = {
+		spell = "srts_buy_scroll_of_healing",
+		category = "spell"
+	},
+
 	-- Upgrades
 	UPGRADE_LIGHT_ARMOR = {
 		 spell = "srts_upgrade_light_armor",
@@ -294,6 +299,11 @@ defs = {
 		 spell = "srts_siege_damage",
 		 category = "spell"
 	},
+
+	MECHANICAL = {
+		spell = "srts_ability_mechanical",
+		category = "spell"
+   },
 
 	CURSE = {
 		 spell = "srts_curse",
@@ -414,6 +424,7 @@ buildefs = {
 			PAGE_MAIN = {
 				"SELL_LUMBER_SMALL",
 				"BUY_HEALING_SALVE",
+				"BUY_SCROLL_OF_HEALING",
 				"DELIVERY_POINT",
 				"DEMOLISH_BUILDING"
 			},
@@ -815,7 +826,8 @@ unitdefs = {
 		req = {"ARMORY_RADIANT"},
 		pages = {
 			 PAGE_MAIN = {
-				"SIEGE_DAMAGE"
+				"SIEGE_DAMAGE",
+				"MECHANICAL"
 			},
 			HIDDEN = {
 	 			"UNIT"
@@ -944,7 +956,8 @@ unitdefs = {
 		req = {"ARMORY_RADIANT"},
 		pages = {
 			PAGE_MAIN = {
-				"SIEGE_DAMAGE"
+				"SIEGE_DAMAGE",
+				"MECHANICAL"
 			},
 			HIDDEN = {
 				"UNIT"
@@ -1094,7 +1107,8 @@ unitdefs = {
 		req = {"ARMORY_RADIANT"},
 		pages = {
 			PAGE_MAIN = {
-				"SIEGE_DAMAGE"
+				"SIEGE_DAMAGE",
+				"MECHANICAL"
 			},
 			HIDDEN = {
 				"UNIT"
@@ -1226,7 +1240,8 @@ unitdefs = {
 		req = {"ARMORY_DIRE"},
 		pages = {
 			PAGE_MAIN = {
-	 			"SIEGE_DAMAGE"
+	 			"SIEGE_DAMAGE",
+				"MECHANICAL"
 			},
 			HIDDEN = {
 				"UNIT"
@@ -1355,7 +1370,8 @@ unitdefs = {
 		req = {"ARMORY_DIRE"},
 		pages = {
 			PAGE_MAIN = {
-				"SIEGE_DAMAGE"
+				"SIEGE_DAMAGE",
+				"MECHANICAL"
 			},
 			HIDDEN = {
 				"UNIT"
@@ -1502,7 +1518,8 @@ unitdefs = {
 		req = {"ARMORY_DIRE"},
 		pages = {
 			PAGE_MAIN = {
-				"SIEGE_DAMAGE"
+				"SIEGE_DAMAGE",
+				"MECHANICAL"
 			},
 			HIDDEN = {
 				"UNIT"

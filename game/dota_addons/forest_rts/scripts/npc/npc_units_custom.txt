@@ -2431,7 +2431,7 @@
 		"BountyGoldMax"			"0"
 
 		"Ability1"				"srts_siege_damage"
-		"Ability2"				""
+		"Ability2"				"srts_ability_mechanical"
 		"Ability3"				""
 		"Ability10"				"srts_ability_units"
 
@@ -2495,7 +2495,7 @@
 		"BountyGoldMax"			"0"
 
 		"Ability1"				"srts_siege_damage"
-		"Ability2"				""
+		"Ability2"				"srts_ability_mechanical"
 		"Ability3"				""
 		"Ability10"				"srts_ability_units"
 

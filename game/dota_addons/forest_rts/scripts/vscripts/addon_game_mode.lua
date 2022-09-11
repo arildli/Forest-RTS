@@ -85,6 +85,10 @@ function Precache( context )
 	-- Hero items
 	PrecacheResource("model", "models/items/dragon_knight/shield_timedragon.vmdl", context)
 
+    PrecacheResource("model", "models/props_gameplay/tpscroll01.vmdl", context)
+    PrecacheResource("particle", "particles/generic_gameplay/dropped_item.vpcf", context)
+    PrecacheResource("particle", "particles/items2_fx/mekanism.vpcf", context)
+
 	-- Buildings
 	   -- Watch Tower
 	PrecacheResource("model", "models/props_structures/wooden_sentry_tower001.vmdl", context)
