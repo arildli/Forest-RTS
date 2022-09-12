@@ -312,6 +312,8 @@ function Precache( context )
     -- Spellweaver
     PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_satyr_b/n_creep_satyr_b.vmdl", context)
 
+    -- Wolf
+    PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_worg_large/n_creep_worg_large.vmdl", context)
 
 
 	-- King of the Dead

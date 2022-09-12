@@ -1298,6 +1298,75 @@
 
 
 
+	// Unit2.11
+	//================================================================================
+	// Unit: Kobold Wolf
+	//================================================================================
+
+	// Level 1
+	//========================================
+	"npc_dota_creature_kobold_wolf"
+	{
+		"Model"					"models/creeps/neutral_creeps/n_creep_worg_large/n_creep_worg_large.vmdl"
+		"BaseClass"				"npc_dota_creature"
+		"SoundSet"				"n_creep_Worg"
+		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
+		"ModelScale"			"0.9"
+
+		"BountyXP"				"50"
+		"BountyGoldMin"			"0"
+		"BountyGoldMax"			"0"
+
+		"Ability1"				""
+		"Ability2"				""
+		"Ability3"				""
+		"Ability10"				"srts_ability_units"
+
+		"SelectionGroup"		"Kobold_Wolf"
+
+		"ArmorPhysical"			"2"
+
+		"AttackCapabilities"	"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackDamageMin"		"22"
+		"AttackDamageMax"		"30"
+		"AttackRate"			"1.1"
+		"AttackAnimationPoint"		"0.33"
+		"AttackAcquisitionRange"	"600"
+		"AttackRange"			"100"
+		"ProjectileModel"		""
+		"ProjectileSpeed"		"0"
+
+		"RingRadius"			"40"
+		"HealthBarOffset"		"150"
+		"FormationRank" 		"0"
+
+		"MovementCapabilities"	"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"			"450"
+		"MovementTurnRate"		"0.7"
+
+		"StatusHealth"			"425"
+		"StatusHealthRegen"		"1.0"
+		"StatusMana"			"0"
+		"StatusManaRegen"		"0.0"
+
+		"VisionDaytimeRange"	"1000"
+		"VisionNighttimeRange"	"1000"
+
+		"Creature"
+		{
+			//"DisableClumpingBehavior"	"1"
+
+			"AttachWearables"
+			{
+			}
+		}
+	}
+
+
+
+
+
+
 //-- // Special/Elite Units // --// Unit2
 
 

@@ -208,6 +208,7 @@ entities = {
         RANGED = unitdefs.GEOMANCER_FLAME_THROWER,
         SIEGE = unitdefs.GEOMANCER_CATAPULT,
         CASTER = unitdefs.GEOMANCER_SPELLWEAVER,
+        CAVALRY = unitdefs.GEOMANCER_WOLF,
 
         TENT_SMALL = buildefs.TENT_SMALL,
         TENT_LARGE = buildefs.TENT_LARGE,
@@ -613,6 +614,7 @@ tech = {
         GEOMANCER_FLAME_THROWER = unitdefs.GEOMANCER_FLAME_THROWER,
         GEOMANCER_CATAPULT = unitdefs.GEOMANCER_CATAPULT,
         GEOMANCER_SPELLWEAVER = unitdefs.GEOMANCER_SPELLWEAVER,
+        GEOMANCER_WOLF = unitdefs.GEOMANCER_WOLF,
 
         -- Buildings
         TENT_SMALL = CopyWithNewMain(buildefs.TENT_SMALL, {
@@ -636,6 +638,7 @@ tech = {
         }),
         BARRACKS_ADVANCED_DIRE = CopyWithNewMain(buildefs.BARRACKS_ADVANCED_DIRE, {
             unitdefs.GEOMANCER_SPELLWEAVER,
+            unitdefs.GEOMANCER_WOLF,
             defs.DEMOLISH_BUILDING
         }),
         ARMORY_DIRE = buildefs.ARMORY_DIRE,

@@ -1269,6 +1269,24 @@ unitdefs = {
 		}
 	},
 
+	GEOMANCER_WOLF = {
+		name = "npc_dota_creature_kobold_wolf",
+		spell = "srts_train_kobold_wolf",
+		category = "unit",
+		trainedAt = "BARRACKS_ADVANCED_DIRE",
+		unitType = "cavalry",
+		upgrades = {
+			"UPGRADE_LIGHT_ARMOR",
+			"UPGRADE_LIGHT_DAMAGE"},
+		pages = {
+			PAGE_MAIN = {
+			},
+			HIDDEN = {
+				"UNIT"
+			}
+		}
+	},
+
 	-- King of the Dead
 	KING_OF_THE_DEAD_WORKER = {
 		name = "npc_dota_creature_skeleton_worker",
