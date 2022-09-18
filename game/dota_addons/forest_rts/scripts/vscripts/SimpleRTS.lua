@@ -59,107 +59,23 @@ end
 function SimpleRTSGameMode:InitGameMode()
     print("[SimpleRTS] Gamemode is initialising.")
 
-    -- Load the rest of the modules that requires that the game modes are set
-    loadModule('settings')
-    loadModule('utils')
-    loadModule('resources')
-    loadModule('tech_tree')
-    loadModule('buildings')
-    loadModule('ability_pages')
-    loadModule('simple_bot')
-    loadModule('spells')
-    loadModule('stats')
-    loadModule('libraries/timers')
-    loadModule('libraries/selection')
-    loadModule('libraries/buildinghelper')
-    loadModule('libraries/dotacraft_utils')
-    loadModule('builder')
-    loadModule('abilities/autocast')
-    loadModule('quests')
-    loadModule('neutral_bases')
-    loadModule('barbarians')
-    loadModule('player_messages')
-    loadModule('items/scrolls')
-
-    -- Added EDITED
-    --loadModule('ai/independent_utilities')
-    loadModule('ai/main')
-    -- DONE
+    SimpleRTSGameMode:LoadModules()
 
     LinkLuaModifier("modifier_train_unit", "libraries/modifiers/modifier_train_unit", LUA_MODIFIER_MOTION_NONE)
 
-    -- Setup rules
-    GameRules:SetGoldPerTick(0)
-    --GameRules:SetGoldPerTick(GOLD_PER_TICK)
-    GameRules:SetGoldTickTime(GOLD_TICK_TIME)
-    GameRules:SetFirstBloodActive(FIRST_BLOOD_ACTIVE)
-    GameRules:SetSameHeroSelectionEnabled(SAME_HERO_ENABLED)
-    GameRules:SetHeroSelectionTime(HERO_SELECTION_TIME)
-    GameRules:SetPreGameTime(PRE_GAME_TIME)
-    GameRules:SetPostGameTime(POST_GAME_TIME)
-    GameRules:SetTreeRegrowTime(TREE_REGROW_TIME_SECONDS)
-
-    -- Setup game mode rules
-    GameMode = GameRules:GetGameModeEntity()
-
-    GameMode:SetLoseGoldOnDeath(LOSE_GOLD_ON_DEATH)
-    GameMode:SetCameraDistanceOverride(1300)
-    
-    GameMode:SetAllowNeutralItemDrops(false)
-    GameMode:SetBuybackEnabled(false)
-    GameMode:SetRecommendedItemsDisabled(true)
-    GameMode:SetNeutralStashEnabled(false)
-    GameMode:SetNeutralStashTeamViewOnlyEnabled(true)
-    GameMode:SetStashPurchasingDisabled(false)
-    GameMode:SetStickyItemDisabled(true)
-
-    GameMode:SetBuybackEnabled(BUYBACK_ENABLED)
-    GameMode:SetLoseGoldOnDeath(false)
-    GameMode:SetTopBarTeamValuesOverride(true)
-    GameMode:SetTopBarTeamValuesVisible(true)
-    GameMode:SetLoseGoldOnDeath(false)
+    SimpleRTSGameMode:SetGameRules()
 
     -- Find pathable trees.
     Resources:InitTrees()
 
-    print("[SimpleRTS] Gamemode rules are set.")
-
     -- Init self
     SimpleRTS = self
-    self.scoreDire = 0
-    self.scoreRadiant = 0
-    self.playerCount = 0
-
-    self.teamColors = {}
-    self.teamColors[DOTA_TEAM_GOODGUYS] = {52, 85, 255};
-    self.teamColors[DOTA_TEAM_BADGUYS] = {176, 23, 27};
-
-    self.players = {}
-
-    for team=0,10 do
-        local color = self.teamColors[team]
-        if color then
-            SetTeamCustomHealthbarColor(team, color[1], color[2], color[3])
-        end
-    end
+    SimpleRTSGameMode:InitTeams()
 
     -- Filters
     GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( SimpleRTSGameMode, "FilterExecuteOrder" ), self )
 
-    -- Event Hooks
-    ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(SimpleRTSGameMode, 'onHeroPick'), self)
-    ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(SimpleRTSGameMode, 'onGameStateChange'), self)
-    ListenToGameEvent('npc_spawned', Dynamic_Wrap(SimpleRTSGameMode, 'onNPCSpawned'), self)
-    ListenToGameEvent('entity_killed', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityKilled'), self)
-    ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityLevel'), self)
-    ListenToGameEvent('tree_cut', Dynamic_Wrap(SimpleRTSGameMode, 'OnTreeCut'), self)
-    ListenToGameEvent("barbarian_wave_spawned", Dynamic_Wrap(SimpleRTSGameMode, "SendWaveInfo"), self)
-
-    -- Register Listener
-    CustomGameEventManager:RegisterListener("update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
-    CustomGameEventManager:RegisterListener("set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
-    CustomGameEventManager:RegisterListener("get_initial_score", Dynamic_Wrap(SimpleRTSGameMode, "GetInitialScore"))
-    CustomGameEventManager:RegisterListener("enter_tower", Dynamic_Wrap(SimpleRTSGameMode, "CastEnterTower"))
+    SimpleRTSGameMode:SetListenersAndHooks()
 
     -- Register Think
     GameMode:SetContextThink("SimpleRTSThink", Dynamic_Wrap(SimpleRTSGameMode, 'Think'), THINK_TIME)
@@ -576,6 +492,50 @@ end
 
 
 ---------------------------------------------------------------------------
+-- On Tree Cut
+---------------------------------------------------------------------------
+function SimpleRTSGameMode:OnTreeCut(keys)
+    --DeepPrintTable(keys)
+
+    local treeX = keys.tree_x
+    local treeY = keys.tree_y
+
+    -- Update the pathable trees nearby
+    local vecs = {
+        Vector(0,64,0),-- N
+        Vector(64,64,0), -- NE
+        Vector(64,0,0), -- E
+        Vector(64,-64,0), -- SE
+        Vector(0,-64,0), -- S
+        Vector(-64,-64,0), -- SW
+        Vector(-64,0,0), -- W
+        Vector(-64,64,0) -- NW
+    }
+
+    for k=1,#vecs do
+        local vec = vecs[k]
+        local xoff = vec.x
+        local yoff = vec.y
+        local pos = Vector(treeX + xoff, treeY + yoff, 0)
+
+        local nearbyTree = GridNav:IsNearbyTree(pos, 96, true)
+        --local nearbyTree = GridNav:IsNearbyTree(pos, 64, true)
+        if nearbyTree then
+            local trees = GridNav:GetAllTreesAroundPoint(pos, 48, true)
+            --local trees = GridNav:GetAllTreesAroundPoint(pos, 32, true)
+            for _,t in pairs(trees) do
+                -- Added {
+                --DebugDrawCircle(t:GetAbsOrigin(), Vector(0,255,0), 255, 32, true, 60)
+                -- }
+                t.pathable = true
+            end
+        end
+    end
+end
+
+
+
+---------------------------------------------------------------------------
 -- On Entity Killed
 ---------------------------------------------------------------------------
 function SimpleRTSGameMode:onEntityKilled(keys)
@@ -828,48 +788,113 @@ function SimpleRTSGameMode:spawnSimpleBot(botTeam, multiplier)
 end
 
 
+function SimpleRTSGameMode:LoadModules()
+    -- Load the rest of the modules that requires that the game modes are set
+    loadModule('settings')
+    loadModule('utils')
+    loadModule('resources')
+    loadModule('tech_tree')
+    loadModule('buildings')
+    loadModule('ability_pages')
+    loadModule('simple_bot')
+    loadModule('spells')
+    loadModule('stats')
+    loadModule('libraries/timers')
+    loadModule('libraries/selection')
+    loadModule('libraries/buildinghelper')
+    loadModule('libraries/dotacraft_utils')
+    loadModule('builder')
+    loadModule('abilities/autocast')
+    loadModule('quests')
+    loadModule('neutral_bases')
+    loadModule('barbarians')
+    loadModule('player_messages')
+    loadModule('items/scrolls')
+
+    -- Added EDITED
+    --loadModule('ai/independent_utilities')
+    loadModule('ai/main')
+    -- DONE
+
+    print("[SimpleRTS] Modules loaded.")
+end
 
 
+function SimpleRTSGameMode:SetGameRules()
+    -- Setup rules
+    GameRules:SetGoldPerTick(0)
+    --GameRules:SetGoldPerTick(GOLD_PER_TICK)
+    GameRules:SetGoldTickTime(GOLD_TICK_TIME)
+    GameRules:SetFirstBloodActive(FIRST_BLOOD_ACTIVE)
+    GameRules:SetSameHeroSelectionEnabled(SAME_HERO_ENABLED)
+    GameRules:SetHeroSelectionTime(HERO_SELECTION_TIME)
+    GameRules:SetPreGameTime(PRE_GAME_TIME)
+    GameRules:SetPostGameTime(POST_GAME_TIME)
+    GameRules:SetTreeRegrowTime(TREE_REGROW_TIME_SECONDS)
+
+    -- Setup game mode rules
+    GameMode = GameRules:GetGameModeEntity()
+
+    GameMode:SetLoseGoldOnDeath(LOSE_GOLD_ON_DEATH)
+    GameMode:SetCameraDistanceOverride(1300)
+    
+    GameMode:SetAllowNeutralItemDrops(false)
+    GameMode:SetBuybackEnabled(false)
+    GameMode:SetRecommendedItemsDisabled(true)
+    GameMode:SetNeutralStashEnabled(false)
+    GameMode:SetNeutralStashTeamViewOnlyEnabled(true)
+    GameMode:SetStashPurchasingDisabled(false)
+    GameMode:SetStickyItemDisabled(true)
+
+    GameMode:SetBuybackEnabled(BUYBACK_ENABLED)
+    GameMode:SetLoseGoldOnDeath(false)
+    GameMode:SetTopBarTeamValuesOverride(true)
+    GameMode:SetTopBarTeamValuesVisible(true)
+    GameMode:SetLoseGoldOnDeath(false)
+
+    print("[SimpleRTS] Gamemode rules are set.")
+end
 
 
--- A tree was cut down
-function SimpleRTSGameMode:OnTreeCut(keys)
-    --DeepPrintTable(keys)
+function SimpleRTSGameMode:SetListenersAndHooks()
+    -- Event Hooks
+    ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(SimpleRTSGameMode, 'onHeroPick'), self)
+    ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(SimpleRTSGameMode, 'onGameStateChange'), self)
+    ListenToGameEvent('npc_spawned', Dynamic_Wrap(SimpleRTSGameMode, 'onNPCSpawned'), self)
+    ListenToGameEvent('entity_killed', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityKilled'), self)
+    ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(SimpleRTSGameMode, 'onEntityLevel'), self)
+    ListenToGameEvent('tree_cut', Dynamic_Wrap(SimpleRTSGameMode, 'OnTreeCut'), self)
+    ListenToGameEvent("barbarian_wave_spawned", Dynamic_Wrap(SimpleRTSGameMode, "SendWaveInfo"), self)
 
-    local treeX = keys.tree_x
-    local treeY = keys.tree_y
+    -- Register Listener
+    CustomGameEventManager:RegisterListener("update_selected_entities", Dynamic_Wrap(SimpleRTSGameMode, 'OnPlayerSelectedEntities'))
+    CustomGameEventManager:RegisterListener("set_rally_point", Dynamic_Wrap(SimpleRTSGameMode, "onRallyPointSet"))
+    CustomGameEventManager:RegisterListener("get_initial_score", Dynamic_Wrap(SimpleRTSGameMode, "GetInitialScore"))
+    CustomGameEventManager:RegisterListener("enter_tower", Dynamic_Wrap(SimpleRTSGameMode, "CastEnterTower"))
 
-    -- Update the pathable trees nearby
-    local vecs = {
-        Vector(0,64,0),-- N
-        Vector(64,64,0), -- NE
-        Vector(64,0,0), -- E
-        Vector(64,-64,0), -- SE
-        Vector(0,-64,0), -- S
-        Vector(-64,-64,0), -- SW
-        Vector(-64,0,0), -- W
-        Vector(-64,64,0) -- NW
-    }
+    print("[SimpleRTS] Listeners and hooks are set.")
+end
 
-    for k=1,#vecs do
-        local vec = vecs[k]
-        local xoff = vec.x
-        local yoff = vec.y
-        local pos = Vector(treeX + xoff, treeY + yoff, 0)
 
-        local nearbyTree = GridNav:IsNearbyTree(pos, 96, true)
-        --local nearbyTree = GridNav:IsNearbyTree(pos, 64, true)
-        if nearbyTree then
-            local trees = GridNav:GetAllTreesAroundPoint(pos, 48, true)
-            --local trees = GridNav:GetAllTreesAroundPoint(pos, 32, true)
-            for _,t in pairs(trees) do
-                -- Added {
-                --DebugDrawCircle(t:GetAbsOrigin(), Vector(0,255,0), 255, 32, true, 60)
-                -- }
-                t.pathable = true
-            end
+function SimpleRTSGameMode:InitTeams()
+    self.scoreDire = 0
+    self.scoreRadiant = 0
+    self.playerCount = 0
+
+    self.teamColors = {}
+    self.teamColors[DOTA_TEAM_GOODGUYS] = {52, 85, 255};
+    self.teamColors[DOTA_TEAM_BADGUYS] = {176, 23, 27};
+
+    self.players = {}
+
+    for team=0,10 do
+        local color = self.teamColors[team]
+        if color then
+            SetTeamCustomHealthbarColor(team, color[1], color[2], color[3])
         end
     end
+
+    print("[SimpleRTS] Team values are set.")
 end
 
 
