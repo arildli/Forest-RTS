@@ -4201,6 +4201,68 @@
 
 
     //================================================================================
+    // Buy Tasty Cheese
+    //================================================================================
+    "srts_buy_tasty_cheese"
+    {
+        // General
+        //------------------------------------------------------------------------
+        "AbilityName"           "Buy Tasty Cheese"
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+        "AbilityTextureName"    "spellicon_buy_tasty_cheese"
+        "BaseClass"             "ability_datadriven"
+        "Maxlevel"              "1"
+
+        // Casting
+        "AbilityCastPoint"      "0.1"
+        "AbilityCooldown"       "0"
+        "AbilityManacost"       "0"
+        "AbilityGoldCost"       "125"
+
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"      "FIELD_INTEGER"
+                "lumber_cost"   "0"
+            }
+
+            "02"
+            {
+                "var_type"      "FIELD_INTEGER"
+                "gold_cost"     "125"
+            }
+
+            "03"
+            {
+                "var_type"      "FIELD_INTEGER"
+                "amount"        "1"
+            }
+        }
+
+        "OnSpellStart"
+        {
+            "FireSound"
+            {
+                "EffectName"    "General.Buy"
+                "Target"        "CASTER"
+            }
+            
+            "RunScript"
+            {
+                "Target"        "POINT"
+                "ScriptFile"    "scripts/vscripts/spells.lua"
+                "Function"      "BuyItem"
+                "item"          "item_tasty_cheese"
+                "amount"        "1"
+                "goldCost"      "%gold_cost"
+                "lumberCost"    "%lumber_cost"
+            }
+        }
+    }
+
+
+    //================================================================================
     // Ability Prop
     //================================================================================
     "srts_ability_prop"

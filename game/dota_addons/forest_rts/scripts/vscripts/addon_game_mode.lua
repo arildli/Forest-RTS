@@ -88,6 +88,8 @@ function Precache( context )
     PrecacheResource("model", "models/props_gameplay/tpscroll01.vmdl", context)
     PrecacheResource("particle", "particles/generic_gameplay/dropped_item.vpcf", context)
     PrecacheResource("particle", "particles/items2_fx/mekanism.vpcf", context)
+    
+    PrecacheResource("model", "models/props_gameplay/cheese.vmdl", context)
 
 	-- Buildings
 	   -- Watch Tower

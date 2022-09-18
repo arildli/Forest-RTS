@@ -204,6 +204,11 @@ defs = {
 		category = "spell"
 	},
 
+	BUY_TASTY_CHEESE = {
+		spell = "srts_buy_tasty_cheese",
+		category = "spell"
+	},
+
 	-- Upgrades
 	UPGRADE_LIGHT_ARMOR = {
 		 spell = "srts_upgrade_light_armor",
@@ -425,6 +430,7 @@ buildefs = {
 				"SELL_LUMBER_SMALL",
 				"BUY_HEALING_SALVE",
 				"BUY_SCROLL_OF_HEALING",
+				"BUY_TASTY_CHEESE",
 				"DELIVERY_POINT",
 				"DEMOLISH_BUILDING"
 			},

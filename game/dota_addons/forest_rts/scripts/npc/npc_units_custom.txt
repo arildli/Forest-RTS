@@ -252,7 +252,7 @@
 	{
 		"Model"					"models/creeps/neutral_creeps/n_creep_kobold/kobold_b/n_creep_kobold_b.vmdl"
 		"BaseClass"				"npc_dota_creature"
-		"SoundSet"				"Hero_Meepo"
+		"SoundSet"				"n_creep_Melee"
 		"GameSoundsFile"		"soundevents/game_sounds_heroes/game_sounds_meepo.vsndevts"
 		"ModelScale"			"1.0"
 
