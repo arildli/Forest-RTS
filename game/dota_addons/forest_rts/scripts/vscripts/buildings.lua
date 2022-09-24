@@ -79,6 +79,7 @@ function finishConstruction(building)
     elseif building._interrupted == false then
         interrupted = "false"
     end
+
     building._building = true
     building._playerOwned = true
     building._finished = true
@@ -188,8 +189,10 @@ function RemoveAndRefundItems(entity, itemName)
             itemName = entity.itemName
         end
     end
-    local hero = entity:GetOwnerHero()
-    if not hero then printf("HERO NOT FOUND! RETURNING..."); return end
+    
+    local hero = entity.GetOwnerHero and entity:GetOwnerHero()
+    if not hero then print("HERO NOT FOUND! RETURNING..."); return end
+
     for itemSlot = 5, 0, -1 do
         local item = entity:GetItemInSlot( itemSlot )
         if item ~= nil then
@@ -409,6 +412,8 @@ function OnUnitTrained(keys)
     TechTree:RegisterIncident(target, true)
     TechTree:AddAbilitiesToEntity(target)
 
+    SetDamageAndArmorTypes(target)
+
     -- Update worker panel of owner hero.
     if IsWorker(target) then
         UpdateWorkerPanel(playerHero)
@@ -454,6 +459,21 @@ function OnBuildingAttacked(event)
     local playerID = building:GetPlayerOwnerID()
     local unitEntIndex = building:GetEntityIndex()
     FireGameEvent("building_attacked", {playerID=playerID, building=unitEntIndex})
+end
+
+function SetDamageAndArmorTypes(spawnedUnit)
+    spawnedUnit._attackType = DamageArmorTypes:GetAttackTypeManually(spawnedUnit)
+    spawnedUnit._armorType = DamageArmorTypes:GetArmorTypeManually(spawnedUnit)
+    spawnedUnit._hasSpear = DamageArmorTypes:HasSpear(spawnedUnit)
+    spawnedUnit._isCavalry = DamageArmorTypes:IsCavalry(spawnedUnit)
+
+    --[[
+    print("Unit spawned: " .. spawnedUnit:GetUnitName())
+    print("AttackType: " .. spawnedUnit._attackType)
+    print("ArmorType:" .. spawnedUnit._armorType)
+    print("HasSpear:" .. tostring(spawnedUnit._hasSpear))
+    print("IsCavalry:" .. tostring(spawnedUnit._isCavalry))
+    ]]
 end
 
 

@@ -229,6 +229,7 @@ function Barbarians:CreateCamp(spawnPoint, allPlayers, buildingsInfo, spawnStart
             newUnit:AddAbility("invulnerable")
             newUnit:FindAbilityByName("invulnerable"):SetLevel(1)
         end
+        
         if leftRotations then
             Barbarians:RotateLeft(newUnit, leftRotations)
         end

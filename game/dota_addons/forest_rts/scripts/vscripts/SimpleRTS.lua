@@ -74,6 +74,7 @@ function SimpleRTSGameMode:InitGameMode()
 
     -- Filters
     GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( SimpleRTSGameMode, "FilterExecuteOrder" ), self )
+    GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( SimpleRTSGameMode, "DamageFilter" ), self)
 
     SimpleRTSGameMode:SetListenersAndHooks()
 
@@ -291,6 +292,7 @@ function SimpleRTSGameMode:onGameStateChange(keys)
 
         -- Initialize the Neutrals module.
         Neutrals:Init()
+        NeutralBasesDefinitions:Init()
 
         if self.gameMode == "Solo" then
             SimpleRTSGameMode:SinglePlayerMode(self.botTeam)
@@ -468,6 +470,8 @@ function SimpleRTSGameMode:onNPCSpawned(keys)
         TechTree:InitTechTree(spawnedUnit)
         spawnedUnit._playerOwned = true
 
+        SetDamageAndArmorTypes(spawnedUnit)
+
         -- FINNER INGEN ITEMS!
         --[[
         Timers:CreateTimer(1, function()
@@ -544,6 +548,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
     if keys.entindex_attacker then
         killerUnit = EntIndexToHScript(keys.entindex_attacker)
     end
+    
     local killedTeam = killedUnit:GetTeam()
     local killerTeam = killerUnit:GetTeam()
     local unitName = killedUnit:GetUnitName()
@@ -564,6 +569,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
             Stats:AddGold(killerID, goldBounty)
             Stats:OnDeathNeutral(killerID, killedUnit)
         end
+
         return
     end
 
@@ -575,12 +581,21 @@ function SimpleRTSGameMode:onEntityKilled(keys)
         playerHero = killedUnit
     elseif killedUnit._ownerPlayer then
         playerHero = killedUnit:GetOwnerHero()
+    elseif killedUnit._neutral then
+        print("Killed unit was neutral")
     else
         return
     end
 
-    local killedID = killedUnit:GetOwnerID()
+    local killedID
+    if killedUnit.GetOwnerID then
+        killedID = killedUnit:GetOwnerID()
+    else
+        killedID = -1
+    end
+
     local killerID
+
     if killerUnit:IsRealHero() or killerUnit._playerOwned then
         killerID = killerUnit:GetOwnerID()
     end
@@ -593,15 +608,18 @@ function SimpleRTSGameMode:onEntityKilled(keys)
         end
 
         -- Refund the cost of all queued units and researches.
-        print("A BUILDING WAS KILLED!")
         RemoveAndRefundItems(killedUnit)
 
         -- Building Helper grid cleanup
         BuildingHelper:RemoveBuilding(killedUnit, true)
         local building_name = killedUnit:GetUnitName()
-        -- Substract 1 to the player building tracking table for that name
-        if playerHero.buildings[building_name] then
-            playerHero.buildings[building_name] = playerHero.buildings[building_name] - 1
+
+        -- playerHero is not set if it's part of a NeutralBase.
+        if playerHero then
+            -- Substract 1 to the player building tracking table for that name
+            if playerHero.buildings[building_name] then
+                playerHero.buildings[building_name] = playerHero.buildings[building_name] - 1
+            end
         end
 
         Stats:OnDeath(killedID, killerID, killedUnit, "building")
@@ -618,6 +636,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
                 table.insert(table_structures, building)
             end
         end
+
         playerHero.structures = table_structures
 
         local table_units = {}
@@ -626,6 +645,7 @@ function SimpleRTSGameMode:onEntityKilled(keys)
                 table.insert(table_units, unit)
             end
         end
+
         playerHero.units = table_units
     end
 
@@ -642,81 +662,89 @@ function SimpleRTSGameMode:onEntityKilled(keys)
         killedUnit._inside:ForceKill(false)
     end
 
-   if (killedUnit:IsRealHero() == true or StringStartsWith(unitName, "npc_dota_building_main_tent")) then
-      print("Killed unit was hero or main building.")
-      --if not killedUnit._wasCancelled then
-      local killedTeamString
-      local scoreMessage
-      if killedTeam == DOTA_TEAM_GOODGUYS then
-         killedTeamString = "<font color='"..COLOR_RADIANT.."'>Radiant</font>"
-         self.scoreDire = self.scoreDire + 1
-         if StringStartsWith(unitName, "npc_dota_building_main_tent") then
-            Stats:OnTentDestroyed(killerID)
-            GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
-         end
-      elseif killedTeam == DOTA_TEAM_BADGUYS then
-         killedTeamString = "<font color='"..COLOR_DIRE.."'>Dire</font>"
-         self.scoreRadiant = self.scoreRadiant + 1
-         if StringStartsWith(unitName, "npc_dota_building_main_tent") then
-            Stats:OnTentDestroyed(killerID)
-            GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
-         end
-      end
-      print("Updating scores: "..self.scoreRadiant.." and "..self.scoreDire)
-      CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
+    if (killedUnit:IsRealHero() == true or StringStartsWith(unitName, "npc_dota_building_main_tent")) then
+        print("Killed unit was hero or main building.")
 
-      print("Radiant: "..self.scoreRadiant.."\tDire: "..self.scoreDire)
+        if killedUnit._neutral then
+            print("Destroyed hero or main_tent was owned by the Neutral team. Returning.")
+            return
+        end
 
-      local gameMode = self.gameMode
-      -- In this case, the losing condition is reaching 0 points.
-      if gameMode == "Solo" or gameMode == "Co-Op" then
-         -- Get lives left.
-         local livesLeft
-         if self.botTeam == DOTA_TEAM_GOODGUYS then
-            livesLeft = VICTORY_SCORE - self.scoreRadiant
-         elseif self.botTeam == DOTA_TEAM_BADGUYS then
-            livesLeft = VICTORY_SCORE - self.scoreDire
-         end
+        --if not killedUnit._wasCancelled then
+        local killedTeamString
+        local scoreMessage
 
-         print("LivesLeft: "..livesLeft.."\tVICTORY_SCORE: "..VICTORY_SCORE)
-
-         -- Check if loss.
-         if livesLeft <= 0 then
-            if self.botTeam == DOTA_TEAM_GOODGUYS then
-               GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
-               GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
-               GameRules:Defeated()
-            elseif self.botTeam == DOTA_TEAM_BADGUYS then
-               GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-               GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
-               GameRules:Defeated()
+        if killedTeam == DOTA_TEAM_GOODGUYS then
+            killedTeamString = "<font color='"..COLOR_RADIANT.."'>Radiant</font>"
+            self.scoreDire = self.scoreDire + 1
+            if StringStartsWith(unitName, "npc_dota_building_main_tent") then
+                Stats:OnTentDestroyed(killerID)
+                GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
             end
-         end
+        elseif killedTeam == DOTA_TEAM_BADGUYS then
+            killedTeamString = "<font color='"..COLOR_DIRE.."'>Dire</font>"
+            self.scoreRadiant = self.scoreRadiant + 1
+            if StringStartsWith(unitName, "npc_dota_building_main_tent") then
+                Stats:OnTentDestroyed(killerID)
+                GameRules:SendCustomMessage("A "..killedTeamString.." Main Tent was destroyed!", 0, 0)
+            end
+        end
 
-         -- Send lives left to players.
-         CustomGameEventManager:Send_ServerToAllClients("update_score", {score = livesLeft})
-      elseif gameMode == "PvP" then
-         -- Check if enough kills have been made
-         if self.scoreRadiant >= VICTORY_SCORE then
-            print("#simplerts_radiant_victory")
-            GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
-            --GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
-            GameRules:Defeated()
-         elseif self.scoreDire >= VICTORY_SCORE then
-            print("#simplerts_dire_victory")
-            GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
-            --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
-            GameRules:Defeated()
-         end
-      end
-   end
+        print("Updating scores: "..self.scoreRadiant.." and "..self.scoreDire)
+        CustomGameEventManager:Send_ServerToAllClients("new_team_score", {radiantScore=self.scoreRadiant, direScore=self.scoreDire})
+
+        print("Radiant: "..self.scoreRadiant.."\tDire: "..self.scoreDire)
+
+        local gameMode = self.gameMode
+        -- In this case, the losing condition is reaching 0 points.
+        if gameMode == "Solo" or gameMode == "Co-Op" then
+            -- Get lives left.
+            local livesLeft
+            if self.botTeam == DOTA_TEAM_GOODGUYS then
+                livesLeft = VICTORY_SCORE - self.scoreRadiant
+            elseif self.botTeam == DOTA_TEAM_BADGUYS then
+                livesLeft = VICTORY_SCORE - self.scoreDire
+            end
+
+            print("LivesLeft: "..livesLeft.."\tVICTORY_SCORE: "..VICTORY_SCORE)
+
+            -- Check if loss.
+            if livesLeft <= 0 then
+                if self.botTeam == DOTA_TEAM_GOODGUYS then
+                    GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+                    GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
+                    GameRules:Defeated()
+                elseif self.botTeam == DOTA_TEAM_BADGUYS then
+                    GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+                    GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+                    GameRules:Defeated()
+                end
+            end
+
+            -- Send lives left to players.
+            CustomGameEventManager:Send_ServerToAllClients("update_score", {score = livesLeft})
+        elseif gameMode == "PvP" then
+            -- Check if enough kills have been made
+            if self.scoreRadiant >= VICTORY_SCORE then
+                print("#simplerts_radiant_victory")
+                GameRules:SetGameWinner(DOTA_TEAM_GOODGUYS)
+                --GameRules:MakeTeamLose(DOTA_TEAM_BADGUYS)
+                GameRules:Defeated()
+            elseif self.scoreDire >= VICTORY_SCORE then
+                print("#simplerts_dire_victory")
+                GameRules:SetGameWinner(DOTA_TEAM_BADGUYS)
+                --GameRules:MakeTeamLose(DOTA_TEAM_GOODGUYS)
+                GameRules:Defeated()
+            end
+        end
+    end
 
     if not killedUnit:IsRealHero() then
         TechTree:RegisterIncident(killedUnit, false)
     end
 
     -- Update worker panel of killed player.
-    local killedHero = killedUnit:GetOwnerHero()
+    local killedHero = killedUnit.GetOwnerHero and killedUnit:GetOwnerHero()
     if killedHero then
         UpdateWorkerPanel(killedHero)
     end
@@ -807,9 +835,12 @@ function SimpleRTSGameMode:LoadModules()
     loadModule('abilities/autocast')
     loadModule('quests')
     loadModule('neutral_bases')
+    loadModule('neutral_bases_definitions')
     loadModule('barbarians')
     loadModule('player_messages')
     loadModule('items/scrolls')
+    loadModule('items/potions')
+    loadModule('damage_armor_types')
 
     -- Added EDITED
     --loadModule('ai/independent_utilities')
@@ -1043,6 +1074,38 @@ function SimpleRTSGameMode:RegisterCheats()
             CreateUnitByName(unitName, location, true, nil, nil, DOTA_TEAM_NEUTRALS)
         end
     end, 'Spawns a lot of patrol units at the hero location', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('tp_m', function()
+        local location = Vector(-2048, -64, 511)
+        local cmdPlayer = Convars:GetCommandClient():GetController()
+        local playerHero
+
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID ~= nil and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+                playerHero:SetAbsOrigin(location)
+            end
+        end
+    end, 'Teleports the hero to near the middle lumber camp', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('tp_em', function()
+        local location = Vector(2432, -1600, 128)
+        local cmdPlayer = Convars:GetCommandClient():GetController()
+        local playerHero
+
+        if cmdPlayer then
+            local playerID = cmdPlayer:GetPlayerID()
+            if playerID ~= nil and playerID ~= -1 then
+                playerHero = PlayerResource:GetSelectedHeroEntity(playerID)
+                playerHero:SetAbsOrigin(location)
+            end
+        end
+    end, 'Teleports the hero to east of the middle lumber camp', FCVAR_CHEAT)
+
+    Convars:RegisterCommand('base_spawn_middle_east', function()
+        NeutralBasesDefinitions:AddMiddleEastBase()
+    end, 'Spawns a small base a little south-east of the middle lumber camp', FCVAR_CHEAT)
 end
 
 
@@ -1095,6 +1158,18 @@ function SimpleRTSGameMode:Think()
     return THINK_TIME
 end
 
+
+
+function SimpleRTSGameMode:DamageFilter(filterTable)
+    local damage = filterTable.damage
+    local attacker = EntIndexToHScript(filterTable.entindex_attacker_const)
+    local victim = EntIndexToHScript(filterTable.entindex_victim_const)
+    local inflictor = filterTable.entindex_inflictor_const and EntIndexToHScript(filterTable.entindex_inflictor_const)
+
+    filterTable.damage = DamageArmorTypes:HandleAttack(damage, attacker, victim, inflictor)
+
+    return true;
+end
 
 
 

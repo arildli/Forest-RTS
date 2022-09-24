@@ -173,6 +173,8 @@ function BuildingHelper:LoadSettings()
     BuildingHelper.Settings["DISABLE_BUILDING_TURNING"] = tobool(BuildingHelper.Settings["DISABLE_BUILDING_TURNING"])
     BuildingHelper.Settings["RIGHT_CLICK_REPAIR"] = tobool(BuildingHelper.Settings["RIGHT_CLICK_REPAIR"])
 
+    print("Setting CustomnetTables... in BH")
+
     CustomNetTables:SetTableValue("building_settings", "grid_alpha", { value = BuildingHelper.Settings["GRID_ALPHA"] })
     CustomNetTables:SetTableValue("building_settings", "alt_grid_alpha", { value = BuildingHelper.Settings["ALT_GRID_ALPHA"] })
     CustomNetTables:SetTableValue("building_settings", "alt_grid_squares", { value = BuildingHelper.Settings["ALT_GRID_SQUARES"] })
@@ -1121,6 +1123,13 @@ function BuildingHelper:StartBuilding(builder)
     local construction_size = buildingTable:GetVal("ConstructionSize", "number")
     local pathing_size = buildingTable:GetVal("BlockPathingSize", "number")
 
+    -- TODO: REMOVE!
+    print("NOTE playerID: " .. playerID)
+    if playersHero == nil then
+        print("ERROR playersHero == nil in start of method!")
+    end
+    --
+
     -- Check gridnav and cancel if invalid
     if not BuildingHelper:ValidPosition(construction_size, location, builder, callbacks) then
 
@@ -1195,6 +1204,9 @@ function BuildingHelper:StartBuilding(builder)
     if bPlayerCanControl then
         building:SetControllableByPlayer(playerID, true)
         building:SetOwner(playersHero)
+
+        -- TODO: REMOVE!
+        building._ownerHero = playersHero
     end
 
     -- Start construction
@@ -2676,7 +2688,11 @@ function CDOTA_BaseNPC:GetFollowRange(target)
 end
 
 function IsCustomBuilding(unit)
-    return unit:HasModifier("modifier_building")
+    local modifier_building = unit:HasModifier("modifier_building")
+    local ability_building = unit:FindAbilityByName("ability_building")
+    local ability_tower = unit:FindAbilityByName("ability_tower")
+
+    return modifier_building or ability_building or ability_tower
 end
 
 function PrintGridCoords(pos)

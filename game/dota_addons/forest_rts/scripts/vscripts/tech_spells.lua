@@ -328,6 +328,78 @@ defs = {
 	LIVING_ARMOR = {
 		 spell = "srts_living_armor",
 		 category = "spell"
+	},
+
+	SIEGE_DAMAGE = {
+		spell = "srts_siege_damage",
+		category = "spell"
+	},
+
+	-- Damage Types
+	DAMAGE_TYPE_HERO = {
+		spell = "srts_damage_type_hero",
+		category = "spell"
+   	},
+
+	DAMAGE_TYPE_NORMAL = {
+		spell = "srts_damage_type_normal",
+		category = "spell"
+   	},
+
+	DAMAGE_TYPE_MISSILE = {
+		spell = "srts_damage_type_missile",
+		category = "spell"
+   	},
+
+	DAMAGE_TYPE_MAGIC = {
+		spell = "srts_damage_type_magic",
+		category = "spell"
+   	},
+
+	DAMAGE_TYPE_SIEGE = {
+		spell = "srts_damage_type_siege",
+		category = "spell"
+	},
+
+	DAMAGE_TYPE_SPEAR = {
+		spell = "srts_damage_type_spear",
+		category = "spell"
+	},
+
+	-- Armor Types
+	ARMOR_TYPE_FORTIFIED = {
+		spell = "srts_armor_type_fortified",
+		category = "spell"
+   	},
+
+	ARMOR_TYPE_HEAVY = {
+		spell = "srts_armor_type_heavy",
+		category = "spell"
+   	},
+
+	ARMOR_TYPE_MEDIUM = {
+		spell = "srts_armor_type_medium",
+		category = "spell"
+   	},
+
+	ARMOR_TYPE_LIGHT = {
+		spell = "srts_armor_type_light",
+		category = "spell"
+	},
+
+	ARMOR_TYPE_UNARMORED = {
+		spell = "srts_armor_type_unarmored",
+		category = "spell"
+	},
+
+	ARMOR_TYPE_HERO = {
+		spell = "srts_armor_type_hero",
+		category = "spell"		
+	},
+
+	ARMOR_TYPE_CAVALRY = {
+		spell = "srts_armor_type_cavalry",
+		category = "spell"
 	}
 }
 
@@ -345,7 +417,8 @@ buildefs = {
 				-- Defined later.
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -363,7 +436,8 @@ buildefs = {
 	-- Defined later.
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -381,6 +455,7 @@ buildefs = {
 			},
 			HIDDEN = {
 				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED",
 				"TOWER"
 			}
 		}
@@ -394,10 +469,13 @@ buildefs = {
 		req = {{"TENT_SMALL", "TENT_LARGE"}, {"ARMORY_RADIANT", "ARMORY_DIRE"}},
 		pages = {
 			PAGE_MAIN = {
+				"DAMAGE_TYPE_MISSILE",
 				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
 				"BUILDING",
+				"DAMAGE_TYPE_MISSILE",
+				"ARMOR_TYPE_FORTIFIED",
 				"TOWER"
 			}
 		}
@@ -414,7 +492,8 @@ buildefs = {
 				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -435,7 +514,8 @@ buildefs = {
 				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -453,7 +533,8 @@ buildefs = {
 				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -470,7 +551,8 @@ buildefs = {
 				-- Defined later.
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -486,7 +568,8 @@ buildefs = {
 				-- Defined later.
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -506,7 +589,8 @@ buildefs = {
 				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -523,7 +607,8 @@ buildefs = {
 				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -540,7 +625,8 @@ buildefs = {
 				-- Defined later.
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -556,7 +642,8 @@ buildefs = {
 				-- Defined later.
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -576,7 +663,8 @@ buildefs = {
 				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -593,7 +681,8 @@ buildefs = {
 				"DEMOLISH_BUILDING"
 			},
 			HIDDEN = {
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_FORTIFIED"
 			}
 		}
 	},
@@ -613,7 +702,8 @@ buildefs = {
 			},
 			HIDDEN = {
 		 		"PROP",
-		 		"BUILDING"
+		 		"BUILDING",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -630,7 +720,8 @@ buildefs = {
 			},
 			HIDDEN = {
 				"PROP",
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -647,7 +738,8 @@ buildefs = {
 			},
 			HIDDEN = {
 				"PROP",
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -664,7 +756,8 @@ buildefs = {
 			},
 			HIDDEN = {
 				"PROP",
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -681,7 +774,8 @@ buildefs = {
 			},
 			HIDDEN = {
 				"PROP",
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -698,7 +792,8 @@ buildefs = {
 			},
 			HIDDEN = {
 				"PROP",
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -714,7 +809,8 @@ buildefs = {
 			},
 			HIDDEN = {
 				"PROP",
-				"BUILDING"
+				"BUILDING",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	}
@@ -777,7 +873,9 @@ unitdefs = {
 				"PAGE_MAIN"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -794,7 +892,9 @@ unitdefs = {
 		pages = {
 			PAGE_MAIN = {},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_HEAVY"
 			}
 		}
 	},
@@ -815,7 +915,9 @@ unitdefs = {
 				"HEADSHOT"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MISSILE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -836,7 +938,9 @@ unitdefs = {
 				"MECHANICAL"
 			},
 			HIDDEN = {
-	 			"UNIT"
+	 			"UNIT",
+				"DAMAGE_TYPE_SIEGE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -856,7 +960,9 @@ unitdefs = {
 	 			"SLOW"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MAGIC",
+				"ARMOR_TYPE_LIGHT"
 			}
 		}
 	},
@@ -906,7 +1012,9 @@ unitdefs = {
 				"PAGE_MAIN"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -925,7 +1033,9 @@ unitdefs = {
 				"REGENERATIVE_BARK"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_HEAVY"
 			}
 		}
 	},
@@ -945,7 +1055,9 @@ unitdefs = {
 				"ENVENOMED_SPEARS"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MISSILE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -966,7 +1078,9 @@ unitdefs = {
 				"MECHANICAL"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_SIEGE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -987,7 +1101,9 @@ unitdefs = {
 				"LIVING_ARMOR"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MAGIC",
+				"ARMOR_TYPE_LIGHT"
 			}
 		}
 	},
@@ -1007,7 +1123,10 @@ unitdefs = {
             PAGE_MAIN = {
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_HEAVY",
+				"ARMOR_TYPE_CAVALRY"
 			}
         }
     },
@@ -1057,7 +1176,9 @@ unitdefs = {
 				"PAGE_MAIN"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -1075,7 +1196,9 @@ unitdefs = {
 			PAGE_MAIN = {
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_HEAVY"
 			}
 		}
 	},
@@ -1096,7 +1219,9 @@ unitdefs = {
 				"CHILLING_ATTACKS"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MISSILE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -1117,7 +1242,9 @@ unitdefs = {
 				"MECHANICAL"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_SIEGE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -1189,7 +1316,9 @@ unitdefs = {
 				"PAGE_MAIN"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -1208,7 +1337,10 @@ unitdefs = {
 				"LONG_WEAPON"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"DAMAGE_TYPE_SPEAR",
+				"ARMOR_TYPE_HEAVY"
 			}
 		}
 	},
@@ -1229,7 +1361,9 @@ unitdefs = {
 				"IGNITE"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MAGIC",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -1250,7 +1384,9 @@ unitdefs = {
 				"MECHANICAL"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_SIEGE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -1270,7 +1406,9 @@ unitdefs = {
 				"WEAKEN_ARMOR"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MAGIC",
+				"ARMOR_TYPE_LIGHT"
 			}
 		}
 	},
@@ -1288,7 +1426,10 @@ unitdefs = {
 			PAGE_MAIN = {
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_UNARMORED",
+				"ARMOR_TYPE_CAVALRY"
 			}
 		}
 	},
@@ -1338,7 +1479,9 @@ unitdefs = {
 				"PAGE_MAIN"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -1357,7 +1500,9 @@ unitdefs = {
 				"UNDEAD_STRENGTH"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -1377,7 +1522,9 @@ unitdefs = {
 				"BURNING_ARROWS"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MISSILE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -1398,7 +1545,9 @@ unitdefs = {
 				"MECHANICAL"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_SIEGE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -1418,7 +1567,9 @@ unitdefs = {
 				"CURSE"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MAGIC",
+				"ARMOR_TYPE_LIGHT"
 			}
 		}
 	},
@@ -1436,7 +1587,10 @@ unitdefs = {
 			PAGE_MAIN = {
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MAGIC",
+				"ARMOR_TYPE_LIGHT",
+				"ARMOR_TYPE_CAVALRY"
 			}
 		}
 	},
@@ -1486,7 +1640,9 @@ unitdefs = {
 				"PAGE_MAIN"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_UNARMORED"
 			}
 		}
 	},
@@ -1505,7 +1661,9 @@ unitdefs = {
 				"HATRED"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_NORMAL",
+				"ARMOR_TYPE_HEAVY"
 			}
 		}
 	},
@@ -1525,7 +1683,9 @@ unitdefs = {
 				"HATRED"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MISSILE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -1546,7 +1706,9 @@ unitdefs = {
 				"MECHANICAL"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_SIEGE",
+				"ARMOR_TYPE_MEDIUM"
 			}
 		}
 	},
@@ -1567,7 +1729,9 @@ unitdefs = {
 				"FRENZY"
 			},
 			HIDDEN = {
-				"UNIT"
+				"UNIT",
+				"DAMAGE_TYPE_MAGIC",
+				"ARMOR_TYPE_LIGHT"
 			}
 		}
 	}

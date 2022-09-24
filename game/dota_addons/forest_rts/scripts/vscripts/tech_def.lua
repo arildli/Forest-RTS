@@ -312,6 +312,21 @@ tech = {
         BUY_SCROLL_OF_HEALING = defs.BUY_SCROLL_OF_HEALING,
         BUY_TASTY_CHEESE = defs.BUY_TASTY_CHEESE,
 
+        DAMAGE_TYPE_HERO = defs.DAMAGE_TYPE_HERO,
+        DAMAGE_TYPE_NORMAL = defs.DAMAGE_TYPE_NORMAL,
+        DAMAGE_TYPE_MISSILE = defs.DAMAGE_TYPE_MISSILE,
+        DAMAGE_TYPE_MAGIC = defs.DAMAGE_TYPE_MAGIC,
+        DAMAGE_TYPE_SIEGE = defs.DAMAGE_TYPE_SIEGE,
+        DAMAGE_TYPE_SPEAR = defs.DAMAGE_TYPE_SPEAR,
+        
+        ARMOR_TYPE_FORTIFIED = defs.ARMOR_TYPE_FORTIFIED,
+        ARMOR_TYPE_HEAVY = defs.ARMOR_TYPE_HEAVY,
+        ARMOR_TYPE_MEDIUM = defs.ARMOR_TYPE_MEDIUM,
+        ARMOR_TYPE_LIGHT = defs.ARMOR_TYPE_LIGHT,
+        ARMOR_TYPE_HERO = defs.ARMOR_TYPE_HERO,
+        ARMOR_TYPE_UNARMORED = defs.ARMOR_TYPE_UNARMORED, 
+        ARMOR_TYPE_CAVALRY = defs.ARMOR_TYPE_CAVALRY, 
+
         PROP_BARREL = buildefs.PROP_BARREL,
         PROP_CHEST = buildefs.PROP_CHEST,
         PROP_STASH = buildefs.PROP_STASH,
@@ -357,6 +372,10 @@ tech = {
                  buildefs.PROP_WEAPON_RACK,
                  buildefs.PROP_BANNER_RADIANT,
                  defs.PAGE_MAIN
+            },
+            HIDDEN = {
+                defs.DAMAGE_TYPE_HERO,
+                defs.ARMOR_TYPE_HERO
             }
         },
 
@@ -439,6 +458,10 @@ tech = {
                  buildefs.PROP_WEAPON_RACK,
                  buildefs.PROP_BANNER_RADIANT,
                  defs.PAGE_MAIN
+            },
+            HIDDEN = {
+                defs.DAMAGE_TYPE_HERO,
+                defs.ARMOR_TYPE_HERO
             }
         },
 
@@ -517,12 +540,16 @@ tech = {
                 defs.PAGE_MAIN
             },
             PAGE_MENU_PROPS = {
-                 buildefs.PROP_BARREL,
-                 buildefs.PROP_CHEST,
-                 buildefs.PROP_STASH,
-                 buildefs.PROP_WEAPON_RACK,
-                 buildefs.PROP_BANNER_RADIANT,
-                 defs.PAGE_MAIN
+                buildefs.PROP_BARREL,
+                buildefs.PROP_CHEST,
+                buildefs.PROP_STASH,
+                buildefs.PROP_WEAPON_RACK,
+                buildefs.PROP_BANNER_RADIANT,
+                defs.PAGE_MAIN
+            },
+            HIDDEN = {
+                defs.DAMAGE_TYPE_HERO,
+                defs.ARMOR_TYPE_HERO
             }
         },
 
@@ -602,6 +629,10 @@ tech = {
                 buildefs.PROP_WEAPON_RACK,
                 buildefs.PROP_BANNER_DIRE,
                 defs.PAGE_MAIN
+            },
+            HIDDEN = {
+                defs.DAMAGE_TYPE_HERO,
+                defs.ARMOR_TYPE_HERO
             }
         },
 
@@ -686,6 +717,10 @@ tech = {
                 buildefs.PROP_WEAPON_RACK,
                 buildefs.PROP_BANNER_DIRE,
                 defs.PAGE_MAIN
+            },
+            HIDDEN = {
+                defs.DAMAGE_TYPE_HERO,
+                defs.ARMOR_TYPE_HERO
             }
         },
 
@@ -770,6 +805,10 @@ tech = {
                  buildefs.PROP_WEAPON_RACK,
                  buildefs.PROP_BANNER_DIRE,
                  defs.PAGE_MAIN
+            },
+            HIDDEN = {
+                defs.DAMAGE_TYPE_HERO,
+                defs.ARMOR_TYPE_HERO
             }
         },
 

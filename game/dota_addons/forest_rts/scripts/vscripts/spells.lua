@@ -52,9 +52,11 @@ function CastEnterTower(keys)
     local unit = EntIndexToHScript(keys.unitIndex)
     local abilityName = "srts_enter_tower"
     local ability = GetAbilityByName(tower, abilityName)
+
     if ability then
         tower:CastAbilityOnTarget(unit, ability, tower:GetPlayerOwnerID())
         local towerAbs = tower:GetAbsOrigin()
+
         -- For some reason the timer is needed for make the unit bother to execute the order!
         Timers:CreateTimer({
             endTime = 0.05,
@@ -84,14 +86,15 @@ end
 
 
 function RemoveUnitFromTower(tower)
-     local unit = tower._inside
-     if not unit:IsNull() and unit:IsAlive() then
-            unit:RemoveModifierByName("modifier_inside_tower_buff")
-            unit._tower = nil
-            FindClearSpaceForUnit(unit, tower:GetOrigin(), true)
-     end
-     tower._inside = nil
-     FlipTowerSpell(tower)
+    local unit = tower._inside
+    if not unit:IsNull() and unit:IsAlive() then
+        unit:RemoveModifierByName("modifier_inside_tower_buff")
+        unit._tower = nil
+        FindClearSpaceForUnit(unit, tower:GetOrigin(), true)
+    end
+    
+    tower._inside = nil
+    FlipTowerSpell(tower)
 end
 
 function StopChannelIfNotBuilding(keys)
@@ -109,11 +112,12 @@ function StopChannelIfNotBuilding(keys)
 end
 
 function RemoveIfBuilding(keys)
-     local caster = keys.caster
-     local modifier = keys.modifier
-     if IsBuilding(caster) then
-            caster:RemoveModifierByName(modifier)
-     end
+    local caster = keys.caster
+    local modifier = keys.modifier
+
+    if IsBuilding(caster) then
+        caster:RemoveModifierByName(modifier)
+    end
 end
 
 function AbilityTestPrint(keys)

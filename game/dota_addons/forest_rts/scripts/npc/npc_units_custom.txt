@@ -1666,8 +1666,8 @@
 		"BountyGoldMin"			"17"
 		"BountyGoldMax"			"17"
 
-		"Ability1"				""
-		"Ability2"				""
+		"Ability1"				"srts_damage_type_missile"
+		"Ability2"				"srts_armor_type_medium"
 		"Ability3"				""
 		"Ability10"				"srts_ability_units"
 
@@ -1758,8 +1758,8 @@
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"				""
-		"Ability2"				""
+		"Ability1"				"srts_damage_type_normal"
+		"Ability2"				"srts_armor_type_heavy"
 		"Ability3"				""
 		"Ability10"				"srts_ability_units"
 
@@ -1843,8 +1843,8 @@
 
         "Ability1"			"srts_harvest_lumber_no_cut"
         "Ability2"			"srts_transfer_lumber_neutral"
-        "Ability3"			""
-        "Ability4"			""
+        "Ability3"			"srts_damage_type_normal"
+        "Ability4"			"srts_armor_type_unarmored"
         "Ability5"			""
         "Ability6"			""
         "Ability10"			"srts_ability_units"
@@ -1898,7 +1898,7 @@
 
 		// Unit3.5
 	//================================================================================
-	// Unit: Neutral Overseer
+	// Unit: Neutral Brute
 	//================================================================================
 
 	// Level 1
@@ -1915,8 +1915,8 @@
 		"BountyGoldMin"			"0"
 		"BountyGoldMax"			"0"
 
-		"Ability1"				""
-		"Ability2"				""
+		"Ability1"				"srts_damage_type_normal"
+		"Ability2"				"srts_armor_type_heavy"
 		"Ability3"				""
 		"Ability10"				"srts_ability_units"
 
@@ -2001,8 +2001,8 @@
         "BountyGoldMax"			"0"
 
         "Ability1"				"srts_soldier_vision"
-        "Ability2"				""
-        "Ability3"				""
+        "Ability2"				"srts_damage_type_magic"
+        "Ability3"				"srts_armor_type_light"
         "Ability10"				"srts_ability_units"
 
         "SelectionGroup"		"Barbarian_Scout"
@@ -2082,8 +2082,8 @@
         "BountyGoldMax"			"0"
 
         "Ability1"				"srts_soldier_vision"
-        "Ability2"				""
-        "Ability3"				""
+        "Ability2"				"srts_damage_type_normal"
+        "Ability3"				"srts_armor_type_heavy"
         "Ability10"				"srts_ability_units"
 
         "SelectionGroup"		"Barbarian_Axe_Fighter"
@@ -2167,8 +2167,8 @@
         "BountyGoldMax"			"0"
 
         "Ability1"				"srts_soldier_vision"
-        "Ability2"				""
-        "Ability3"				""
+        "Ability2"				"srts_damage_type_normal"
+        "Ability3"				"srts_armor_type_heavy"
         "Ability10"				"srts_ability_units"
 
         "SelectionGroup"		"Barbarian_Raider"
@@ -2257,7 +2257,8 @@
 
         "Ability1"				"srts_soldier_vision"
         "Ability2"				"srts_kneeshot"
-        "Ability3"				""
+        "Ability3"				"srts_damage_type_missile"
+		"Ability4"				"srts_armor_type_medium"
         "Ability10"				"srts_ability_units"
 
         "SelectionGroup"		"Barbarian_Archer"
@@ -2341,8 +2342,8 @@
         "BountyGoldMax"			"0"
 
         "Ability1"				"srts_soldier_vision"
-        "Ability2"				""
-        "Ability3"				""
+        "Ability2"				"srts_damage_type_normal"
+        "Ability3"				"srts_armor_type_heavy"
         "Ability10"				"srts_ability_units"
 
         "SelectionGroup"		"Barbarian_Warchief"
@@ -3042,8 +3043,8 @@
         "BountyGoldMax"			"0"
 
         "Ability1"				"srts_scout_vision"
-        "Ability2"				""
-        "Ability3"				""
+        "Ability2"				"srts_damage_type_magic"
+        "Ability3"				"srts_armor_type_light"
         "Ability10"				"srts_ability_units"
 
         "SelectionGroup"		"Barbarian_Scout"
@@ -3123,8 +3124,8 @@
         "BountyGoldMax"			"0"
 
         "Ability1"				"srts_kneeshot"
-        "Ability2"				""
-        "Ability3"				""
+        "Ability2"				"srts_damage_type_missile"
+        "Ability3"				"srts_armor_type_medium"
         "Ability10"				"srts_ability_units"
 
         "SelectionGroup"		"Barbarian_Archer"

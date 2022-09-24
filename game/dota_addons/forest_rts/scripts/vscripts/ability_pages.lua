@@ -57,9 +57,9 @@ function InitAbilityPage(entity, pageNumber, abilities)
     for i=1, 6 do
         local textToPrint = "Empty"
         if abilities[i] then
-        --currentPage[nextAbilityIndex] = abilities[i]
-        currentPage[i-1] = abilities[i]
-        --nextAbilityIndex = nextAbilityIndex + 1
+            --currentPage[nextAbilityIndex] = abilities[i]
+            currentPage[i-1] = abilities[i]
+            --nextAbilityIndex = nextAbilityIndex + 1
         end
 
         if DEBUG_ABILITY_PAGES == true and abilities[i] then
@@ -93,7 +93,9 @@ function GoToPage(entity, pageNumber)
         -- Crash
         print(curAbilityPage)
     end
+
     local ownerHero
+
     if entity:IsRealHero() then
         ownerHero = entity
     else

@@ -180,14 +180,13 @@ function IsBuildingAbility( ability )
    return false
 end
 
+-- Not called due to BuildingHelper version taking precedence!
 function IsCustomBuilding( unit )
-    local ability_building = unit:FindAbilityByName("ability_building")
-    local ability_tower = unit:FindAbilityByName("ability_tower")
-    if ability_building or ability_tower then
-       return true
-    else
-       return false
-    end
+   print("\n[Mechanics version of IsCustomBuilding called!]\n")
+
+   local ability_building = unit:FindAbilityByName("ability_building")
+   local ability_tower = unit:FindAbilityByName("ability_tower")
+   return ability_building or ability_tower
 end
 
 -- Shortcut for a very common check

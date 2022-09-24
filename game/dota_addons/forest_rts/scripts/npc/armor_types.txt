@@ -1,0 +1,176 @@
+"DOTAAbilities"
+{
+    //================================================================================
+    // Armor Type: Fortified
+    //================================================================================
+    "srts_armor_type_fortified"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_armor_type_fortified"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_armor_type_fortified"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_armor_type_fortified"
+            }
+        }
+    }
+
+
+    //================================================================================
+    // Armor Type: Heavy
+    //================================================================================
+    "srts_armor_type_heavy"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_armor_type_heavy"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_armor_type_heavy"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_armor_type_heavy"
+            }
+        }
+    }
+
+
+    //================================================================================
+    // Armor Type: Medium
+    //================================================================================
+    "srts_armor_type_medium"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_armor_type_medium"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_armor_type_medium"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_armor_type_medium"
+            }
+        }
+    }
+
+
+    //================================================================================
+    // Armor Type: Light
+    //================================================================================
+    "srts_armor_type_light"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_armor_type_light"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_armor_type_light"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_armor_type_light"
+            }
+        }
+    }
+
+
+    //================================================================================
+    // Armor Type: Unarmored
+    //================================================================================
+    "srts_armor_type_unarmored"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_armor_type_unarmored"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_armor_type_unarmored"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_armor_type_unarmored"
+            }
+        }
+    }
+
+
+    //================================================================================
+    // Armor Type: Hero
+    //================================================================================
+    "srts_armor_type_hero"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_armor_type_hero"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_armor_type_hero"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_armor_type_hero"
+            }
+        }
+    }
+
+    
+    //================================================================================
+    // Armor Type: Cavalry
+    //================================================================================
+    "srts_armor_type_cavalry"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_armor_type_cavalry"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_armor_type_cavalry"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_armor_type_cavalry"
+            }
+        }
+    }
+}

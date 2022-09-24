@@ -101,7 +101,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_NEUTRALS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"         "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Bots
@@ -204,7 +203,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_NEUTRALS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -314,7 +312,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -424,7 +421,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -534,7 +530,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -643,7 +638,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -753,7 +747,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -863,7 +856,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -973,7 +965,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -1083,7 +1074,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -1192,7 +1182,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -1302,7 +1291,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -1411,7 +1399,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_GOODGUYS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -1521,7 +1508,6 @@
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_NEUTRALS"            // Team name.
         "CombatClassAttack"             "DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"             "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision
@@ -1628,7 +1614,6 @@
         // Team
         //----------------------------------------------------------------
         //  "TeamName"                  "DOTA_TEAM_NEUTRALS"            // Team name.
-        "CombatClassDefend"             "DOTA_COMBAT_CLASS_DEFEND_STRUCTURE"
         "UnitRelationshipClass"         "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_BUILDING"
 
         // Vision

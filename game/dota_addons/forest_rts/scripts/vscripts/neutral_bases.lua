@@ -44,55 +44,20 @@ if not Neutrals then
     }
 
     Neutrals.BRUTE = "npc_dota_creature_neutral_brute"
+    Neutrals.ARCHER = "npc_dota_creature_neutral_archer"
     Neutrals.WORKER_NAME = "npc_dota_creature_neutral_worker"
+
     Neutrals.WATCH_TOWER_NAME = "npc_dota_building_watch_tower"
     Neutrals.BANNER_NAME = "npc_dota_building_prop_banner_owner"
+    Neutrals.WOODEN_WALL = "npc_dota_building_wooden_wall"
+    Neutrals.SMALL_TENT = "npc_dota_building_main_tent_small"
+    Neutrals.BARRACKS = "npc_dota_building_barracks_radiant"
 end
 
 function Neutrals:Init()
     Neutrals.camps = {}
 
     ListenToGameEvent('entity_killed', Dynamic_Wrap(Neutrals, 'OnUnitKilled'), self)
-
-    -- Temp setup
-    local middleCamp = Neutrals:CreateCamp(Vector(-230, -1536, 384), "Middle Lumber Camp")
-    -- Right-Top tower
-    local curVector = Vector(736, -480, 384)
-    Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
-    Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(576, -64, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false)
-    Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(576, -384, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false)
-    local bannerRightTop = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(960, -448, 255), true, middleCamp)
-    Neutrals:MakeGloballyVisible(bannerRightTop)
-    -- Right-Bottom tower
-    curVector = Vector(864, -1504, 384)
-    Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
-    local curUnit = Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(384, -1728, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 5)
-    --Neutrals:RotateLeft(curUnit, 5)
-    curUnit = Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(704, -1728, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 5)
-    --Neutrals:RotateLeft(curUnit, 5)
-    local bannerBottom = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(832, -1664, 384), true, middleCamp)
-    Neutrals:RotateLeft(bannerBottom, 5)
-    Neutrals:MakeGloballyVisible(bannerBottom)
-    -- Left tower
-    curVector = Vector(-1120, -1312, 384)
-    Neutrals:CreateTower(curVector, true, middleCamp, "npc_dota_creature_neutral_archer")
-    local curUnit = Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(-896, -896, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 3)
-    --Neutrals:RotateLeft(curUnit, 3)
-    curUnit = Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(-896, -1216, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 3)
-    --Neutrals:RotateLeft(curUnit, 3)
-    local bannerLeft = Neutrals:CreateBuilding("npc_dota_building_prop_banner_owner", Vector(-1280, -1344, 384), true, middleCamp)
-    Neutrals:RotateLeft(bannerLeft, 3)
-    Neutrals:MakeGloballyVisible(bannerLeft)
-    -- Market
-    local market = Neutrals:CreateBuilding("npc_dota_building_market", Vector(-320, -1536, 384), true, middleCamp)
-    local curUnit = Neutrals:SpawnGuard(Neutrals.BRUTE, Vector(-256, -1280, 384), middleCamp, DOTA_TEAM_NEUTRALS, true, false, 5)
-    --Neutrals:RotateLeft(curUnit, 5)
-    Neutrals:RotateLeft(market, 3)
-    -- Workers
-    local workers = {
-        Neutrals:SpawnWorker(Vector(256, -1024, 384), market, middleCamp, true, true),
-        Neutrals:SpawnWorker(Vector(64, -1216, 384), market, middleCamp, true, true)
-    }
 
     Convars:RegisterCommand('neutrals_middle_radiant', function()
         Neutrals:SwitchOwnerOfCamp(Neutrals.camps["Middle Lumber Camp"], DOTA_TEAM_GOODGUYS)
@@ -119,6 +84,7 @@ function Neutrals:OnUnitKilled(event)
     if not entKilled._neutrals then
         return
     end
+
     local entKiller = EntIndexToHScript(event.entindex_attacker)
     local killerID = entKiller:GetPlayerOwnerID()
     local camp = entKilled._camp
@@ -126,16 +92,24 @@ function Neutrals:OnUnitKilled(event)
         Neutrals:Print("Neutral unit killed, but not part of camp. Returning...")
         return
     end
+
     camp.guardsLeft = camp.guardsLeft - 1
 
-    --print("killerTeam: ")
+    Neutrals:Print("Guards left: " .. camp.guardsLeft)
+
     local killerTeam = PlayerResource:GetTeam(killerID)
+
     -- Units belonging to the neutral team does not have a owning player,
     -- therefore -1.
     if killerID == -1 then
         killerTeam = DOTA_TEAM_NEUTRALS
     end
+
     Neutrals:RegisterAsDead(entKilled, camp, killerTeam)
+
+    if not camp.isTransferable then
+        return
+    end
 
     local guardsLeft = camp.guardsLeft
     --Neutrals:Print("Guards left: "..guardsLeft)
@@ -190,14 +164,16 @@ end
 --
 -- @location (Vector): The location where the unit will be spawned.
 -- @campName (String): The name of the new camp.
+-- @isTransferable (Boolean): Whether the camp will switch owner or not.
 -- @return (Camp): The newly created camp object.
 ---------------------------------------------------------------------------
-function Neutrals:CreateCamp(location, campName)
+function Neutrals:CreateCamp(location, campName, isTransferable)
     local camp = {
         name = campName,
         location = location,
         -- Must be killed to take control of base.
         guardsLeft = 0,
+        isTransferable = isTransferable,
         -- These will work for the current owner of the camp. Dead entities will
         -- be respawned on owner change.
         transferable = {},
@@ -296,8 +272,9 @@ end
 -- @towerUnit (Optional) (String): The name of the unit to put into the tower.
 -- @return (Building): The newly created tower.
 ---------------------------------------------------------------------------
-function Neutrals:CreateTower(location, invulnerable, camp, towerUnit)
-    local tower = Neutrals:CreateBuilding(self.WATCH_TOWER_NAME, location, invulnerable, camp)
+function Neutrals:CreateTower(location, invulnerable, camp, towerUnit, transferable)
+    local tower = Neutrals:CreateBuilding(Neutrals.WATCH_TOWER_NAME, location, invulnerable, camp, nil, transferable)
+    
     if not towerUnit then
         return tower
     end
@@ -317,6 +294,7 @@ function Neutrals:CreateTower(location, invulnerable, camp, towerUnit)
             CastEnterTower(keys)
         end}
     )
+
     return tower
 end
 
@@ -330,9 +308,11 @@ end
 -- @camp (Optional) (Camp): The building will be connected to this camp
 --   if specified.
 -- @angle (Optional) (Vector): The angle the building will face.
+-- @transferable (Optional) (Boolean): Whether the building will be transferred 
+--   on camp clearing or not.
 -- @return (Building): The newly created building.
 ---------------------------------------------------------------------------
-function Neutrals:CreateBuilding(buildingName, location, invulnerable, camp, angle)
+function Neutrals:CreateBuilding(buildingName, location, invulnerable, camp, angle, transferable)
     local construction_size = construction_size or BuildingHelper:GetConstructionSize(buildingName)
     local pathing_size = pathing_size or BuildingHelper:GetBlockPathingSize(buildingName)
     BuildingHelper:SnapToGrid(construction_size, location)
@@ -350,6 +330,8 @@ function Neutrals:CreateBuilding(buildingName, location, invulnerable, camp, ang
     building:SetAbsOrigin(model_location)
     building.construction_size = construction_size
     building.blockers = gridNavBlockers
+    building._building = true
+    building._neutral = true
 
     -- Disable turning. If DisableTurning unit KV setting is not defined, use the global setting
     local disableTurning = GetUnitKV(buildingName, "DisableTurning")
@@ -369,15 +351,25 @@ function Neutrals:CreateBuilding(buildingName, location, invulnerable, camp, ang
         building:AddAbility("ability_building")
     end
 
+    if not building:HasAbility("srts_armor_type_fortified") then
+        building:AddAbility("srts_armor_type_fortified")
+    end
+
+    SetDamageAndArmorTypes(building)
+
     if invulnerable then
         building:AddAbility("invulnerable")
         building:FindAbilityByName("invulnerable"):SetLevel(1)
         Neutrals:MakeGloballyVisible(building)
     end
+
     building._playerOwned = true
     building._neutrals = true
     building._camp = camp
-    Neutrals:MakeTransferable(building, camp, "building")
+    
+    if transferable then
+        Neutrals:MakeTransferable(building, camp, "building")
+    end
 
     -- Return the created building
     return building
@@ -515,5 +507,7 @@ function Neutrals:print(...)
 end
 
 function Neutrals:Print(...)
-    print("[Neutrals] ".. ...)
+    if DEBUG_NEUTRALS then
+        print("[Neutrals] ".. ...)
+    end
 end

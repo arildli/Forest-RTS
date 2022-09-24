@@ -511,6 +511,10 @@ function TechTree:RegisterIncident(unit, state, upgrade)
     -- Don't want this to trigger if state is fales
     if state == nil then print("TechTree:RegisterIncident: state was nil!"); return end
 
+    if unit._neutral then
+        return
+    end
+
     local isBuilding = IsBuilding(unit)
     local unitName = unit:GetUnitName()
     local ownerHero = unit:GetOwnerHero()

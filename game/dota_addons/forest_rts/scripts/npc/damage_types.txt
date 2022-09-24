@@ -1,0 +1,151 @@
+"DOTAAbilities"
+{    
+    //================================================================================
+    // Damage Type: Hero Attack
+    //================================================================================
+    "srts_damage_type_hero"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_damage_type_hero"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_damage_type_hero"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_damage_type_hero"
+            }
+        }
+    }
+
+
+    //================================================================================
+    // Damage Type: Normal Attack
+    //================================================================================
+    "srts_damage_type_normal"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_damage_type_normal"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_damage_type_normal"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_damage_type_normal"
+            }
+        }
+    }
+
+
+    //================================================================================
+    // Damage Type: Missile Attack
+    //================================================================================
+    "srts_damage_type_missile"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_damage_type_missile"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_damage_type_missile"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_damage_type_missile"
+            }
+        }
+    }
+
+
+    //================================================================================
+    // Damage Type: Magic Attack
+    //================================================================================
+    "srts_damage_type_magic"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_damage_type_magic"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_damage_type_magic"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_damage_type_magic"
+            }
+        }
+    }
+
+
+    //================================================================================
+    // Damage Type: Siege Attack
+    //================================================================================
+    "srts_damage_type_siege"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "lone_druid_spirit_bear_demolish"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_damage_type_siege"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "lone_druid_spirit_bear_demolish"
+            }
+        }
+    }
+
+
+    //================================================================================
+    // Damage Type: Spear Attack
+    //================================================================================
+    "srts_damage_type_spear"
+    {
+        // General
+        //--------------------
+        "BaseClass"                 "ability_datadriven"
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+        "AbilityTextureName"        "spellicon_damage_type_spear"
+        "MaxLevel"                  "1"
+
+        "Modifiers"
+        {
+            "modifier_damage_type_spear"
+            {
+                "Passive"           "1"
+                "IsBuff"            "1"
+                "IsHidden"          "0"
+                "TextureName"       "spellicon_damage_type_spear"
+            }
+        }
+    }
+}
